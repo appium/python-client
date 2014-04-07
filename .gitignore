@@ -1,0 +1,11 @@
+.DS_Store
+
+*~
+*#
+*._*
+*.log
+*.log.*
+
+*.pyc
+
+build

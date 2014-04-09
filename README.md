@@ -33,12 +33,10 @@ import unittest
 from appium import webdriver
 
 desired_caps = {}
-desired_caps['device'] = 'Android'
-desired_caps['browserName'] = ''
-desired_caps['version'] = '4.2'
+desired_caps['platformName'] = 'Android'
+desired_caps['platformVersion'] = '4.2'
+desired_caps['deviceName'] = 'Android Emulator'
 desired_caps['app'] = PATH('../../../apps/selendroid-test-app.apk')
-desired_caps['app-package'] = 'io.selendroid.testapp'
-desired_caps['app-activity'] = '.HomeScreenActivity'
 
 self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 ```

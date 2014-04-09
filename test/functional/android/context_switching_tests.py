@@ -12,29 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-from time import sleep
-
 from appium import webdriver
 from appium.common.exceptions import NoSuchContextException
 
-import unittest
+import desired_capabilities
 
-# Returns abs path relative to this file and not cwd
-PATH = lambda p: os.path.abspath(
-    os.path.join(os.path.dirname(__file__), p)
-)
+import unittest
 
 class ContextSwitchingTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = {}
-        desired_caps['device'] = 'Android'
-        desired_caps['browserName'] = ''
-        desired_caps['version'] = '4.2'
-        desired_caps['app'] = PATH('../../apps/selendroid-test-app.apk')
-        desired_caps['app-package'] = 'io.selendroid.testapp'
-        desired_caps['app-activity'] = '.HomeScreenActivity'
-
+        desired_caps = desired_capabilities.get_desired_capabilities('selendroid-test-app.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def test_contexts_list(self):

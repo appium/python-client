@@ -35,6 +35,7 @@ class WebDriver(webdriver.Remote):
 
         # add new method to the `find_by_*` pantheon
         By.IOS_UIAUTOMATION = MobileBy.IOS_UIAUTOMATION
+        By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
 
     @property
     def contexts(self):
@@ -77,6 +78,28 @@ class WebDriver(webdriver.Remote):
             driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
         """
         return self.find_elements(by=By.IOS_UIAUTOMATION, value=uia_string)
+
+    def find_element_by_android_uiautomator(self, uia_string):
+        """Finds element by uiautomator in Android.
+
+        :Args:
+         - uia_string - The element name in the Android UIAutomator library
+
+        :Usage:
+            driver.find_element_by_android_uiautomator('.elements()[1].cells()[2]')
+        """
+        return self.find_element(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
+
+    def find_elements_by_android_uiautomator(self, uia_string):
+        """Finds elements by uiautomator in Android.
+
+        :Args:
+         - uia_string - The element name in the Android UIAutomator library
+
+        :Usage:
+            driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
+        """
+        return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
 
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \

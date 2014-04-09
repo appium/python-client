@@ -16,3 +16,4 @@ from selenium.webdriver.common.by import By
 
 class MobileBy(By):
     IOS_UIAUTOMATION = '-ios uiautomation'
+    ANDROID_UIAUTOMATOR = '-android uiautomator'

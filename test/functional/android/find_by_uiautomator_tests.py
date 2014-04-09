@@ -12,20 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
+import os
+from time import sleep
 
 from appium import webdriver
+from appium.common.exceptions import NoSuchContextException
+
+import unittest
 
 # Returns abs path relative to this file and not cwd
-import os
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
 
-class FindByUIAutomationTests(unittest.TestCase):
+class FindByUIAutomatorTests(unittest.TestCase):
     def setUp(self):
         desired_caps = {}
-        desired_caps['app'] = PATH('../../apps/UICatalog.app.zip')
+        desired_caps['device'] = 'Android'
+        desired_caps['browserName'] = ''
+        desired_caps['version'] = '4.2'
+        desired_caps['app'] = PATH('../../apps/ApiDemos-debug.apk')
+        desired_caps['app-package'] = 'com.example.android.apis'
+        desired_caps['app-activity'] = '.ApiDemos'
 
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
@@ -33,12 +41,12 @@ class FindByUIAutomationTests(unittest.TestCase):
         self.driver.quit()
 
     def test_find_single_element(self):
-        el = self.driver.find_element_by_ios_uiautomation('.elements()[0]')
-        self.assertEqual('UICatalog', el.get_attribute('name'))
+        el = self.driver.find_element_by_android_uiautomator('new UiSelector().description("Animation")')
+        self.assertIsNotNone(el)
 
     def test_find_multiple_elements(self):
-        els = self.driver.find_elements_by_ios_uiautomation('elements()')
-        self.assertEqual(3, len(els))
+        els = self.driver.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
+        self.assertTrue(len(els) > 11)
 
 if __name__ == "__main__":
     unittest.main()

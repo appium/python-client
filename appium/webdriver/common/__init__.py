@@ -11,18 +11,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-from distutils.core import setup
-
-setup(name='Python-Client',
-      version='0.1',
-      description='Appium Python Client',
-      author='Isaac Murchie',
-      author_email='isaac@saucelabs.com',
-      url='http://appium.io/',
-      packages=['appium',
-                'appium.common',
-                'appium.webdriver',
-                'appium.webdriver.common'],
-      license='Apache 2.0'
-     )

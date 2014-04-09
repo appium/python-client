@@ -12,28 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-from time import sleep
-
 from appium import webdriver
+
+import desired_capabilities
 
 import unittest
 
-# Returns abs path relative to this file and not cwd
-PATH = lambda p: os.path.abspath(
-    os.path.join(os.path.dirname(__file__), p)
-)
-
 class FindByAccessibilityIDTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = {}
-        desired_caps['device'] = 'Android'
-        desired_caps['browserName'] = ''
-        desired_caps['version'] = '4.2'
-        desired_caps['app'] = PATH('../../apps/ApiDemos-debug.apk')
-        desired_caps['app-package'] = 'com.example.android.apis'
-        desired_caps['app-activity'] = '.ApiDemos'
-
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):

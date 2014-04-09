@@ -12,21 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from appium import webdriver
 
-# Returns abs path relative to this file and not cwd
-import os
-PATH = lambda p: os.path.abspath(
-    os.path.join(os.path.dirname(__file__), p)
-)
+import desired_capabilities
+
+import unittest
 
 class FindByUIAutomationTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = {}
-        desired_caps['app'] = PATH('../../apps/UICatalog.app.zip')
-
+        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):

@@ -36,6 +36,7 @@ class WebDriver(webdriver.Remote):
         # add new method to the `find_by_*` pantheon
         By.IOS_UIAUTOMATION = MobileBy.IOS_UIAUTOMATION
         By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
+        By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
 
     @property
     def contexts(self):
@@ -100,6 +101,28 @@ class WebDriver(webdriver.Remote):
             driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
         """
         return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
+
+    def find_element_by_accessibility_id(self, id):
+        """Finds an element by accessibility id.
+
+        :Args:
+         - id - a string corresponding to a recursive element search using the Id/Name that the native Accessibility options utilize
+
+        :Usage:
+            driver.find_element_by_accessibility_id()
+        """
+        return self.find_element(by=By.ACCESSIBILITY_ID, value=id)
+
+    def find_elements_by_accessibility_id(self, id):
+        """Finds elements by accessibility id.
+
+        :Args:
+         - id - a string corresponding to a recursive element search using the Id/Name that the native Accessibility options utilize
+
+        :Usage:
+            driver.find_elements_by_accessibility_id()
+        """
+        return self.find_elements(by=By.ACCESSIBILITY_ID, value=id)
 
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \

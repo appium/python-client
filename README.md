@@ -28,6 +28,8 @@ As a base for the following code examples, the following sets up the [UnitTest](
 environment:
 
 ```python
+# Android environment
+import unittest
 from appium import webdriver
 
 desired_caps = {}
@@ -40,6 +42,18 @@ desired_caps['app-activity'] = '.HomeScreenActivity'
 
 self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 ```
+
+```python
+# iOS environment
+import unittest
+from appium import webdriver
+
+desired_caps = {}
+desired_caps['app'] = PATH('../../apps/UICatalog.app.zip')
+
+self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+```
+
 
 ## Changed or added functionality
 
@@ -81,9 +95,46 @@ This allows elements in iOS applications to be found using recursive element
 search using the UIAutomation library. Adds the methods `driver.find_element_by_ios_uiautomation`
 and `driver.find_elements_by_ios_uiautomation`.
 
+```python
+el = self.driver.find_element_by_ios_uiautomation('.elements()[0]')
+self.assertEqual('UICatalog', el.get_attribute('name'))
+```
+
+```python
+els = self.driver.find_elements_by_ios_uiautomation('elements()')
+self.assertIsInstance(els, list)
+```
+
 
 ### Finding elements by Android UIAutomator search
 
 This allows elements in an Android application to be found using recursive element
 search using the UIAutomator library. Adds the methods `driver.find_element_by_android_uiautomator`
 and `driver.find_elements_by_android_uiautomator`.
+
+```python
+el = self.driver.find_element_by_android_uiautomator('new UiSelector().description("Animation")')
+self.assertIsNotNone(el)
+```
+
+```python
+els = self.driver.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
+self.assertIsInstance(els, list)
+```
+
+
+### Finding elements by Accessibility ID
+
+Allows for elements to be found using the "Accessibility ID". The methods take a
+string representing the accessibility id or label attached to a given element, e.g., for iOS the accessibility identifier and for Android the content-description. Adds the methods
+`driver.find_element_by_accessibility_id` and `find_elements_by_accessibility_id`.
+
+```python
+el = self.driver.find_element_by_accessibility_id('Animation')
+self.assertIsNotNone(el)
+```
+
+```python
+els = self.driver.find_elements_by_accessibility_id('Animation')
+self.assertIsInstance(els, list)
+```

@@ -18,6 +18,9 @@ from .mobilecommand import MobileCommand as Command
 from .errorhandler import MobileErrorHandler
 from .switch_to import MobileSwitchTo
 
+from appium.webdriver.common.mobileby import MobileBy
+from selenium.webdriver.common.by import By
+
 class WebDriver(webdriver.Remote):
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
         desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False):
@@ -29,6 +32,9 @@ class WebDriver(webdriver.Remote):
 
         self.error_handler = MobileErrorHandler()
         self._switch_to = MobileSwitchTo(self)
+
+        # add new method to the `find_by_*` pantheon
+        By.IOS_UIAUTOMATION = MobileBy.IOS_UIAUTOMATION
 
     @property
     def contexts(self):
@@ -49,6 +55,28 @@ class WebDriver(webdriver.Remote):
             driver.current_context
         """
         return self.execute(Command.GET_CURRENT_CONTEXT)['value']
+
+    def find_element_by_ios_uiautomation(self, uia_string):
+        """Finds an element by uiautomation in iOS.
+
+        :Args:
+         - uia_string - The element name in the iOS UIAutomation library
+
+        :Usage:
+            driver.find_element_by_ios_uiautomation('.elements()[1].cells()[2]')
+        """
+        return self.find_element(by=By.IOS_UIAUTOMATION, value=uia_string)
+
+    def find_elements_by_ios_uiautomation(self, uia_string):
+        """Finds elements by uiautomation in iOS.
+
+        :Args:
+         - uia_string - The element name in the iOS UIAutomation library
+
+        :Usage:
+            driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
+        """
+        return self.find_elements(by=By.IOS_UIAUTOMATION, value=uia_string)
 
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \

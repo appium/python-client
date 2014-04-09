@@ -73,3 +73,10 @@ use the comparable context method
 context_name = "WEBVIEW_1"
 driver.switch_to.context(context_name)
 ```
+
+
+### Finding elements by iOS UIAutomation search
+
+This allows elements in iOS applications to be found using recursive element
+search using the UIAutomation library. Adds the methods `driver.find_element_by_ios_uiautomation`
+and `driver.find_elements_by_ios_uiautomation`.

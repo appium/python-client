@@ -12,4 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from webdriver import WebDriver as Remote
+from selenium.common.exceptions import InvalidSwitchToTargetException
+
+class NoSuchContextException(InvalidSwitchToTargetException):
+    """
+    Thrown when window target to be switched doesn't exist.
+
+    To find the current set of active window handles, you can get a list
+    of the active window handles in the following way::
+
+        print driver.window_handles
+
+    """
+    pass

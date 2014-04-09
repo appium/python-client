@@ -24,7 +24,7 @@ PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
 
-class FindByUIAutomatorTests(unittest.TestCase):
+class FindByAccessibilityIDTests(unittest.TestCase):
     def setUp(self):
         desired_caps = {}
         desired_caps['device'] = 'Android'
@@ -40,12 +40,12 @@ class FindByUIAutomatorTests(unittest.TestCase):
         self.driver.quit()
 
     def test_find_single_element(self):
-        el = self.driver.find_element_by_android_uiautomator('new UiSelector().description("Animation")')
+        el = self.driver.find_element_by_accessibility_id('Animation')
         self.assertIsNotNone(el)
 
     def test_find_multiple_elements(self):
-        els = self.driver.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
-        self.assertTrue(len(els) > 11)
+        els = self.driver.find_elements_by_accessibility_id('Animation')
+        self.assertIsInstance(els, list)
 
 if __name__ == "__main__":
     unittest.main()

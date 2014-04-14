@@ -16,3 +16,5 @@ class MobileCommand(object):
     CONTEXTS = 'getContexts',
     GET_CURRENT_CONTEXT = 'getCurrentContext',
     SWITCH_TO_CONTEXT = 'switchToContext'
+    TOUCH_ACTION = 'touchAction'
+    MULTI_ACTION = 'multiAction'

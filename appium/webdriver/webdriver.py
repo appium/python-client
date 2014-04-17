@@ -276,6 +276,23 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute(Command.GET_APP_STRINGS)['value']
 
+    def reset(self):
+        """Resets the current application on the device.
+        """
+        self.execute(Command.RESET)
+        return self
+
+    def hide_keyboard(self, key_name=None):
+        """Hides the software keyboard on the device, using the specified key to
+        press. If no key name is given, the keyboard is closed by moving focus
+        from the text field. iOS only.
+        """
+        data = {}
+        if key_name != None:
+            data['keyName'] = key_name
+        self.execute(Command.HIDE_KEYBOARD, data)
+        return self
+
     def keyevent(self, keycode, metastate=None):
         """Sends a keycode to the device. Android only. Possible keycodes can be
         found in http://developer.android.com/reference/android/view/KeyEvent.html.
@@ -489,6 +506,10 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/lock')
         self.command_executor._commands[Command.SHAKE] = \
             ('POST', '/session/$sessionId/appium/device/shake')
+        self.command_executor._commands[Command.RESET] = \
+            ('POST', '/session/$sessionId/appium/app/reset')
+        self.command_executor._commands[Command.HIDE_KEYBOARD] = \
+            ('POST', '/session/$sessionId/appium/device/hide_keyboard')
 
 
 # monkeypatched method for WebElement

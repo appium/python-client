@@ -36,3 +36,5 @@ class MobileCommand(object):
     END_TEST_COVERAGE = 'endTestCoverage'
     LOCK = 'lock'
     SHAKE = 'shake'
+    RESET = 'reset'
+    HIDE_KEYBOARD = 'hideKeyboard'

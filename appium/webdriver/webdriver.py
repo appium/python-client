@@ -425,8 +425,7 @@ class WebDriver(webdriver.Remote):
             'intent': intent,
             'path': path
         }
-        self.execute(Command.END_TEST_COVERAGE, data)
-        return self
+        return self.execute(Command.END_TEST_COVERAGE, data)['value']
 
     def lock(self, seconds):
         """Lock the device for a certain period of time. iOS only.

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='Appium-Python-Client',

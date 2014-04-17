@@ -5,6 +5,26 @@ An extension library for adding [Selenium 3.0 draft](https://dvcs.w3.org/hg/webd
 functionality to the Python language bindings, for use with the mobile testing
 framework [Appium](https://appium.io).
 
+# Getting the Appium Python client
+
+There are two ways to install and use the Appium Python client.
+
+1. Install from [PyPi](https://pypi.python.org/pypi), as
+['Appium-Python-Client'](https://pypi.python.org/pypi/Appium-Python-Client).
+
+    ```shell
+    pip install Appium-Python-Client
+    ```
+
+2. Install from [GitHub](https://github.com/appium/python-client).
+
+    ```shell
+    git clone git@github.com:appium/python-client.git
+    cd python-client
+    python setup.py install
+    ```
+
+
 # Usage
 
 The Appium Python Client is fully compliant with the Selenium 3.0 specification
@@ -404,37 +424,25 @@ self.assertIsNotNone(el)
 ```
 
 
-    def end_test_coverage(self, intent, path):
-        """Ends the coverage collection and pull the coverage.ec file from the device.
-        Android only.
+#### End test coverage
 
-        See https://github.com/appium/appium/blob/master/docs/en/android_coverage.md
+There is functionality in the Android emulator to instrument certain activities.
+For information on this, see the [Appium docs](https://github.com/appium/appium/blob/master/docs/en/android_coverage.md). To end this coverage
+and retrieve the data, use `driver.end_test_coverage`, passing in the `intent`
+that is being instrumentalized, and the path to the `coverage.ec` file on the
+device.
 
-        :Args:
-         - intent - description of operation to be performed
-         - path - path to coverage.ec file to be pulled from the device
-        """
-        data = {
-            'intent': intent,
-            'path': path
-        }
-        self.execute(Command.END_TEST_COVERAGE, data)
-        return self
+```python
+coverage_ec_file = driver.end_test_coverage(intent='android.intent.action.MAIN', path='')
+```
 
-    def lock(self, seconds):
-        """Lock the device for a certain period of time. iOS only.
 
-        :Args:
-         - the duration to lock the device, in seconds
-        """
-        data = {
-            'seconds': seconds
-        }
-        self.execute(Command.LOCK, data)
-        return self
+#### Lock the device
 
-    def shake(self):
-        """Shake the device.
-        """
-        self.execute(Command.SHAKE)
-        return self
+To lock the device for a certain amount of time, on iOS, use `driver.lock`. The
+argument is the number of seconds to wait before unlocking.
+
+
+#### Shake the device
+
+To shake the device, use `driver.shake`.

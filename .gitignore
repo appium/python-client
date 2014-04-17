@@ -8,6 +8,7 @@
 
 *.pyc
 *.egg-info
+README.txt
 
 MANIFEST
 

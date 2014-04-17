@@ -16,7 +16,16 @@ There are two ways to install and use the Appium Python client.
     pip install Appium-Python-Client
     ```
 
-2. Install from [GitHub](https://github.com/appium/python-client).
+2. Install from source, via [PyPi](https://pypi.python.org/pypi). From ['Appium-Python-Client'](https://pypi.python.org/pypi/Appium-Python-Client),
+download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
+
+    ```shell
+    tar -xvf Appium-Python-Client-X.X.tar.gz
+    cd Appium-Python-Client-X.X
+    python setup.py install
+    ```
+
+3. Install from source via [GitHub](https://github.com/appium/python-client).
 
     ```shell
     git clone git@github.com:appium/python-client.git

@@ -329,6 +329,21 @@ el = driver.find_element_by_name('Animation')
 assertIsNotNone(el)
 ```
 
+#### Resetting an application
+
+To reset the running application, use `driver.reset`.
+
+```python
+el = driver.find_element_by_name('App')
+el.click()
+
+driver.reset()
+sleep(5)
+
+el = driver.find_element_by_name('App')
+assertIsNotNone(el)
+```
+
 
 ### Other methods
 
@@ -352,6 +367,40 @@ Android only.
 ```python
 # sending 'Home' key event
 driver.keyevent(3)
+```
+
+
+#### Hiding the keyboard in iOS
+
+To hide the keyboard from view in iOS, use `driver.hide_keyboard`. If a key name
+is sent, the keyboard key with that name will be pressed. If no arguments are
+passed in, the keyboard will be hidden by tapping on the screen outside the text
+field, thus removing focus from it.
+
+```python
+# get focus on text field, so keyboard comes up
+el = driver.find_element_by_tag_name('textfield')
+el.set_value('Testing')
+
+el = driver.find_element_by_tag_name('keyboard')
+assertTrue(el.is_displayed())
+
+driver.hide_keyboard('Done')
+
+assertFalse(el.is_displayed())
+```
+
+```python
+# get focus on text field, so keyboard comes up
+el = driver.find_element_by_tag_name('textfield')
+el.set_value('Testing')
+
+el = driver.find_element_by_tag_name('keyboard')
+assertTrue(el.is_displayed())
+
+driver.hide_keyboard()
+
+assertFalse(el.is_displayed())
 ```
 
 

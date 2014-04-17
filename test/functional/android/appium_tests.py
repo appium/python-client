@@ -139,6 +139,16 @@ class AppiumTests(unittest.TestCase):
     #     self.driver.end_test_coverage(intent='android.intent.action.MAIN', path='')
     #     sleep(5)
 
+    def test_reset(self):
+        el = self.driver.find_element_by_name('App')
+        el.click()
+
+        self.driver.reset()
+        sleep(5)
+
+        el = self.driver.find_element_by_name('App')
+        self.assertIsNotNone(el)
+
 
 if __name__ == "__main__":
     unittest.main()

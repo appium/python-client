@@ -12,4 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Appium Python Client: WebDriver module
+"""
+
 from webdriver import WebDriver as Remote

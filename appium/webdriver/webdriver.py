@@ -23,6 +23,7 @@ from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
 class WebDriver(webdriver.Remote):
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
@@ -40,6 +41,9 @@ class WebDriver(webdriver.Remote):
         By.IOS_UIAUTOMATION = MobileBy.IOS_UIAUTOMATION
         By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
+
+        # add methods to the WebElement class
+        WebElement.set_value = set_value
 
     @property
     def contexts(self):
@@ -109,7 +113,8 @@ class WebDriver(webdriver.Remote):
         """Finds an element by accessibility id.
 
         :Args:
-         - id - a string corresponding to a recursive element search using the Id/Name that the native Accessibility options utilize
+         - id - a string corresponding to a recursive element search using the
+         Id/Name that the native Accessibility options utilize
 
         :Usage:
             driver.find_element_by_accessibility_id()
@@ -120,13 +125,13 @@ class WebDriver(webdriver.Remote):
         """Finds elements by accessibility id.
 
         :Args:
-         - id - a string corresponding to a recursive element search using the Id/Name that the native Accessibility options utilize
+         - id - a string corresponding to a recursive element search using the
+         Id/Name that the native Accessibility options utilize
 
         :Usage:
             driver.find_elements_by_accessibility_id()
         """
         return self.find_elements(by=By.ACCESSIBILITY_ID, value=id)
-
 
     # convenience method added to Appium (NOT Selenium 3)
     def scroll(self, originEl, destinationEl):
@@ -141,7 +146,6 @@ class WebDriver(webdriver.Remote):
         """
         action = TouchAction(self)
         action.press(originEl).move_to(destinationEl).release().perform()
-
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
@@ -154,15 +158,16 @@ class WebDriver(webdriver.Remote):
         """
         action = TouchAction(self)
         action.long_press(originEl).move_to(destinationEl).release().perform()
-
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
     def tap(self, positions, duration=None):
-        """Taps on an particular place with up to five fingers, holding for a certain time
+        """Taps on an particular place with up to five fingers, holding for a
+        certain time
 
         :Args:
-         - positions - an array of tuples representing the x/y coordinates of the fingers to tap. Length can be up to five.
+         - positions - an array of tuples representing the x/y coordinates of
+         the fingers to tap. Length can be up to five.
          - duration - (optional) length of time to tap, in seconds
 
         :Usage:
@@ -181,7 +186,6 @@ class WebDriver(webdriver.Remote):
             ma.add(action)
 
         ma.perform()
-
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
@@ -207,7 +211,6 @@ class WebDriver(webdriver.Remote):
             .move_to(x=endx, y=endy) \
             .release()
         action.perform()
-
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
@@ -234,7 +237,6 @@ class WebDriver(webdriver.Remote):
             'duration': duration
         };
         self.execute_script('mobile: pinchClose', opts)
-
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
@@ -263,7 +265,185 @@ class WebDriver(webdriver.Remote):
             'duration': duration
         };
         self.execute_script('mobile: pinchOpen', opts)
+        return self
 
+    @property
+    def app_strings(self):
+        """Returns the application strings from the device.
+
+        :Usage:
+            strings = driver.app_strings
+        """
+        return self.execute(Command.GET_APP_STRINGS)['value']
+
+    def keyevent(self, keycode, metastate=None):
+        """Sends a keycode to the device. Android only. Possible keycodes can be
+        found in http://developer.android.com/reference/android/view/KeyEvent.html.
+
+        :Args:
+         - keycode - the keycode to be sent to the device
+         - metastate - meta information about the keycode being sent
+        """
+        data = {
+            'keycode': keycode
+        }
+        if metastate != None:
+            data['metastate'] = metastate
+        self.execute(Command.KEY_EVENT, data)
+        return self
+
+    @property
+    def current_activity(self):
+        """Retrieves the current activity on the device.
+        """
+        return self.execute(Command.GET_CURRENT_ACTIVITY)['value']
+
+    def set_value(self, element, value):
+        """Set the value on an element in the application.
+
+        :Args:
+         - element - the element whose value will be set
+         - Value - the value to set on the element
+        """
+        data = {
+            'elementId': element.id,
+            'value': [value]
+        }
+        self.execute(Command.SET_IMMEDIATE_VALUE, data)
+        return self
+
+    def pull_file(self, path):
+        """Retrieves the file at `path`. Returns the file's content encoded as
+        Base64.
+
+        :Args:
+         - path - the path to the file on the device
+        """
+        data = {
+            'path': path
+        }
+        return self.execute(Command.PULL_FILE, data)['value']
+
+    def push_file(self, path, base64data):
+        """Puts the data, encoded as Base64, in the file specified as `path`.
+
+        :Args:
+         - path - the path on the device
+         - base64data - data, encoded as Base64, to be written to the file
+        """
+        data = {
+            'path': path,
+            'data': base64data
+        }
+        self.execute(Command.PUSH_FILE, data)
+        return self
+
+    def complex_find(self, selector):
+        """Performs a find for elements in the current application.
+
+        :Args:
+         - selector - an array of selection criteria
+        """
+        data = {
+            'selector': selector
+        }
+        return self.execute(Command.COMPLEX_FIND, data)['value']
+
+    def background_app(self, seconds):
+        """Puts the application in the background on the device for a certain
+        duration. iOS only.
+
+        :Args:
+         - seconds - the duration for the application to remain in the background
+        """
+        data = {
+            'seconds': seconds
+        }
+        self.execute(Command.BACKGROUND, data)
+        return self
+
+    def is_app_installed(self, bundle_id):
+        """Checks whether the application specified by `bundle_id` is installed
+        on the device.
+
+        :Args:
+         - bundle_id - the id of the application to query
+        """
+        data = {
+            'bundleId': bundle_id
+        }
+        return self.execute(Command.IS_APP_INSTALLED, data)['value']
+
+    def install_app(self, app_path):
+        """Install the application found at `app_path` on the device.
+
+        :Args:
+         - app_path - the local or remote path to the application to install
+        """
+        data = {
+            'appPath': app_path
+        }
+        self.execute(Command.INSTALL_APP, data)
+        return self
+
+    def remove_app(self, app_id):
+        """Remove the specified application from the device.
+
+        :Args:
+         - app_id - the application id to be removed
+        """
+        data = {
+            'appId': app_id
+        }
+        self.execute(Command.REMOVE_APP, data)
+        return self
+
+    def launch_app(self):
+        """Start on the device the application specified in the desired capabilities.
+        """
+        self.execute(Command.LAUNCH_APP)
+        return self
+
+    def close_app(self):
+        """Stop the running application, specified in the desired capabilities, on
+        the device.
+        """
+        self.execute(Command.CLOSE_APP)
+        return self
+
+    def end_test_coverage(self, intent, path):
+        """Ends the coverage collection and pull the coverage.ec file from the device.
+        Android only.
+
+        See https://github.com/appium/appium/blob/master/docs/en/android_coverage.md
+
+        :Args:
+         - intent - description of operation to be performed
+         - path - path to coverage.ec file to be pulled from the device
+        """
+        data = {
+            'intent': intent,
+            'path': path
+        }
+        self.execute(Command.END_TEST_COVERAGE, data)
+        return self
+
+    def lock(self, seconds):
+        """Lock the device for a certain period of time. iOS only.
+
+        :Args:
+         - the duration to lock the device, in seconds
+        """
+        data = {
+            'seconds': seconds
+        }
+        self.execute(Command.LOCK, data)
+        return self
+
+    def shake(self):
+        """Shake the device.
+        """
+        self.execute(Command.SHAKE)
         return self
 
 
@@ -278,3 +458,47 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/touch/perform')
         self.command_executor._commands[Command.MULTI_ACTION] = \
             ('POST', '/session/$sessionId/touch/multi/perform')
+        self.command_executor._commands[Command.GET_APP_STRINGS] = \
+            ('GET', '/session/$sessionId/appium/app/strings')
+        self.command_executor._commands[Command.KEY_EVENT] = \
+            ('POST', '/session/$sessionId/appium/device/keyevent')
+        self.command_executor._commands[Command.GET_CURRENT_ACTIVITY] = \
+            ('GET', '/session/$sessionId/appium/device/current_activity')
+        self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
+            ('POST', '/session/$sessionId/appium/element/$elementId/value')
+        self.command_executor._commands[Command.PULL_FILE] = \
+            ('POST', '/session/$sessionId/appium/device/pull_file')
+        self.command_executor._commands[Command.PUSH_FILE] = \
+            ('POST', '/session/$sessionId/appium/device/push_file')
+        self.command_executor._commands[Command.COMPLEX_FIND] = \
+            ('POST', '/session/$sessionId/appium/app/complex_find')
+        self.command_executor._commands[Command.BACKGROUND] = \
+            ('POST', '/session/$sessionId/appium/app/background')
+        self.command_executor._commands[Command.IS_APP_INSTALLED] = \
+            ('POST', '/session/$sessionId/appium/device/app_installed')
+        self.command_executor._commands[Command.INSTALL_APP] = \
+            ('POST', '/session/$sessionId/appium/device/install_app')
+        self.command_executor._commands[Command.REMOVE_APP] = \
+            ('POST', '/session/$sessionId/appium/device/remove_app')
+        self.command_executor._commands[Command.LAUNCH_APP] = \
+            ('POST', '/session/$sessionId/appium/app/launch')
+        self.command_executor._commands[Command.CLOSE_APP] = \
+            ('POST', '/session/$sessionId/appium/app/close')
+        self.command_executor._commands[Command.END_TEST_COVERAGE] = \
+            ('POST', '/session/$sessionId/appium/app/end_test_coverage')
+        self.command_executor._commands[Command.LOCK] = \
+            ('POST', '/session/$sessionId/appium/device/lock')
+        self.command_executor._commands[Command.SHAKE] = \
+            ('POST', '/session/$sessionId/appium/device/shake')
+
+
+# monkeypatched method for WebElement
+def set_value(self, value):
+    """Set the value on this element in the application
+    """
+    data = {
+        'elementId': self.id,
+        'value': [value]
+    }
+    self._execute(Command.SET_IMMEDIATE_VALUE, data)
+    return self

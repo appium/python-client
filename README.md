@@ -230,3 +230,211 @@ Zoom in on an element, doing a pinch out operation.
 #### `driver.pinch`
 
 Zoom out on an element, doing a pinch in operation.
+
+
+
+### Application management methods
+
+There are times when you want, in your tests, to manage the running application,
+such as installing or removing an application, etc.
+
+
+#### Backgrounding an application
+
+The method `driver.background_app` sends the running application to the background
+for the specified amount of time, in seconds. After that time, the application is
+brought back to the foreground.
+
+```python
+driver.background_app(1)
+sleep(2)
+el = driver.find_element_by_name('Animation')
+assertIsNotNone(el)
+```
+
+
+#### Checking if an application is installed
+
+To check if an application is currently installed on the device, use the `device.is_app_installed`
+method. This method takes the bundle id of the application and return `True` or
+`False`.
+
+```python
+assertFalse(self.driver.is_app_installed('sdfsdf'))
+assertTrue(self.driver.is_app_installed('com.example.android.apis'))
+```
+
+
+#### Installing an application
+
+To install an uninstalled application on the device, use `device.install_app`,
+sending in the path to the application file or archive.
+
+```python
+assertFalse(driver.is_app_installed('io.selendroid.testapp'))
+driver.install_app('/Users/isaac/code/python-client/test/apps/selendroid-test-app.apk')
+assertTrue(driver.is_app_installed('io.selendroid.testapp'))
+```
+
+
+#### Removing an application
+
+If you need to remove an application from the device, use `device.remove_app`,
+passing in the application id.
+
+```python
+assertTrue(driver.is_app_installed('com.example.android.apis'))
+driver.remove_app('com.example.android.apis')
+assertFalse(driver.is_app_installed('com.example.android.apis'))
+```
+
+
+#### Closing and Launching an application
+
+To launch the application specified in the desired capabilities, call `driver.launch_app`.
+Closing that application is initiated by `driver.close_app`
+
+```python
+el = driver.find_element_by_name('Animation')
+assertIsNotNone(el)
+driver.close_app();
+
+try:
+    driver.find_element_by_name('Animation')
+except Exception as e:
+    pass # should not exist
+
+driver.launch_app()
+el = driver.find_element_by_name('Animation')
+assertIsNotNone(el)
+```
+
+
+### Other methods
+
+
+#### Retrieving application strings
+
+The property method `driver.app_strings` returns the application strings from
+the application on the device.
+
+```python
+strings = driver.app_strings
+```
+
+
+#### Sending a key event to an Android device
+
+The `driver.keyevent` method sends a keycode to the device. The keycodes can be
+found [here](http://developer.android.com/reference/android/view/KeyEvent.html).
+Android only.
+
+```python
+# sending 'Home' key event
+driver.keyevent(3)
+```
+
+
+#### Retrieving the current running activity
+
+The property method `driver.current_activity` returns the name of the current
+activity running on the device.
+
+```python
+activity = driver.current_activity
+assertEquals('.ApiDemos', activity)
+```
+
+
+#### Set a value directly on an element
+
+Sometimes one needs to directly set the value of an element on the device. To do
+this, the method `driver.set_value` or `element.set_value` is invoked.
+
+```python
+el = driver.find_element_by_class_name('android.widget.EditText')
+driver.set_value(el, 'Testing')
+
+text = el.get_attribute('text')
+assertEqual('Testing', text)
+
+el.set_value('More testing')
+text = el.get_attribute('text')
+assertEqual('More testing', text)
+```
+
+
+#### Retrieve a file from the device
+
+To retrieve the contents of a file from the device, use `driver.pull_file`, which
+returns the contents of the specified file encoded in [Base64](https://docs.python.org/2/library/base64.html).
+
+```python
+# pulling the strings file for our application
+data = driver.pull_file('data/local/tmp/strings.json')
+strings = json.loads(data.decode('base64', 'strict'))
+assertEqual('You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
+```
+
+
+#### Place a file on the device
+
+To put a file onto the device at a particular place, use the `driver.push_file`
+method, which takes the path and the data, encoded as [Base64](https://docs.python.org/2/library/base64.html), to be written to the file.
+
+```python
+path = 'data/local/tmp/test_push_file.txt'
+data = 'This is the contents of the file to push to the device.'
+driver.push_file(path, data.encode('base64'))
+data_ret = driver.pull_file('data/local/tmp/test_push_file.txt').decode('base64')
+self.assertEqual(data, data_ret)
+```
+
+
+#### Complex find in Android
+
+Appium supports a way to do complex searches for elements on an Android device.
+This is accessed through `driver.complex_find`. The arguments and use case,
+to borrow from Winston Churchill, remain a riddle, wrapped in a mystery, inside
+an enigma.
+
+```python
+el = self.driver.complex_find([[[2, 'Ani']]])
+self.assertIsNotNone(el)
+```
+
+
+    def end_test_coverage(self, intent, path):
+        """Ends the coverage collection and pull the coverage.ec file from the device.
+        Android only.
+
+        See https://github.com/appium/appium/blob/master/docs/en/android_coverage.md
+
+        :Args:
+         - intent - description of operation to be performed
+         - path - path to coverage.ec file to be pulled from the device
+        """
+        data = {
+            'intent': intent,
+            'path': path
+        }
+        self.execute(Command.END_TEST_COVERAGE, data)
+        return self
+
+    def lock(self, seconds):
+        """Lock the device for a certain period of time. iOS only.
+
+        :Args:
+         - the duration to lock the device, in seconds
+        """
+        data = {
+            'seconds': seconds
+        }
+        self.execute(Command.LOCK, data)
+        return self
+
+    def shake(self):
+        """Shake the device.
+        """
+        self.execute(Command.SHAKE)
+        return self

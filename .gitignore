@@ -8,4 +8,7 @@
 
 *.pyc
 
+MANIFEST
+
 build
+dist

@@ -34,5 +34,17 @@ class FindByUIAutomatorTests(unittest.TestCase):
         els = self.driver.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
         self.assertTrue(len(els) > 11)
 
+    def test_element_find_single_element(self):
+        el = self.driver.find_element_by_class_name('android.widget.ListView')
+
+        sub_el = el.find_element_by_android_uiautomator('new UiSelector().description("Animation")')
+        self.assertIsNotNone(sub_el)
+
+    def test_element_find_multiple_elements(self):
+        el = self.driver.find_element_by_class_name('android.widget.ListView')
+
+        sub_els = self.driver.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
+        self.assertTrue(len(sub_els) > 11)
+
 if __name__ == "__main__":
     unittest.main()

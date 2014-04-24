@@ -18,6 +18,7 @@ import desired_capabilities
 
 import unittest
 
+from time import sleep
 class FindByUIAutomationTests(unittest.TestCase):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
@@ -33,6 +34,22 @@ class FindByUIAutomationTests(unittest.TestCase):
     def test_find_multiple_elements(self):
         els = self.driver.find_elements_by_ios_uiautomation('elements()')
         self.assertEqual(3, len(els))
+
+    def test_element_find_single_element(self):
+        # get the list
+        el = self.driver.find_element_by_ios_uiautomation('.elements()[1]')
+
+        # get the search bar button
+        sub_el = el.find_element_by_ios_uiautomation('.elements()[3]')
+        self.assertEqual('SearchBar, Use of UISearchBar', sub_el.get_attribute('name'))
+
+    def test_element_find_multiple_elements(self):
+        # get the list
+        el = self.driver.find_element_by_ios_uiautomation('.elements()[1]')
+
+        # get the buttons
+        sub_el = el.find_elements_by_ios_uiautomation('.elements()')
+        self.assertEqual(12, len(sub_el))
 
 if __name__ == "__main__":
     unittest.main()

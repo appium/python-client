@@ -17,6 +17,7 @@ from selenium import webdriver
 from .mobilecommand import MobileCommand as Command
 from .errorhandler import MobileErrorHandler
 from .switch_to import MobileSwitchTo
+from .webelement import WebElement as MobileWebElement
 
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
@@ -132,6 +133,14 @@ class WebDriver(webdriver.Remote):
             driver.find_elements_by_accessibility_id()
         """
         return self.find_elements(by=By.ACCESSIBILITY_ID, value=id)
+
+    def create_web_element(self, element_id):
+        """
+        Creates a web element with the specified element_id.
+        Overrides method in Selenium WebDriver in order to always give them
+        Appium WebElement
+        """
+        return MobileWebElement(self, element_id)
 
     # convenience method added to Appium (NOT Selenium 3)
     def scroll(self, originEl, destinationEl):

@@ -34,5 +34,18 @@ class FindByAccessibilityIDTests(unittest.TestCase):
         els = self.driver.find_elements_by_accessibility_id('Animation')
         self.assertIsInstance(els, list)
 
+    def test_element_find_single_element(self):
+        el = self.driver.find_element_by_class_name('android.widget.ListView')
+
+        sub_el = el.find_element_by_accessibility_id('Animation')
+        self.assertIsNotNone(sub_el)
+
+    def test_element_find_multiple_elements(self):
+        el = self.driver.find_element_by_class_name('android.widget.ListView')
+
+        sub_els = el.find_elements_by_accessibility_id('Animation')
+        self.assertIsInstance(sub_els, list)
+
+
 if __name__ == "__main__":
     unittest.main()

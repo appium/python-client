@@ -182,19 +182,30 @@ class WebDriver(webdriver.Remote):
         :Usage:
             driver.tap([(100, 20), (100, 60), (100, 100)], 500)
         """
-        ma = MultiAction(self)
-        for position in positions:
-            x = position[0]
-            y = position[1]
+        if len(positions) == 1:
             action = TouchAction(self)
+            x = positions[0][0]
+            y = positions[0][1]
             if duration:
                 duration = duration * 1000 # we take seconds, but send milliseconds
                 action.long_press(x=x, y=y, duration=duration).release()
             else:
                 action.press(x=x, y=y).release()
-            ma.add(action)
+            action.perform()
+        else:
+            ma = MultiAction(self)
+            for position in positions:
+                x = position[0]
+                y = position[1]
+                action = TouchAction(self)
+                if duration:
+                    duration = duration * 1000 # we take seconds, but send milliseconds
+                    action.long_press(x=x, y=y, duration=duration).release()
+                else:
+                    action.press(x=x, y=y).release()
+                ma.add(action)
 
-        ma.perform()
+            ma.perform()
         return self
 
     # convenience method added to Appium (NOT Selenium 3)

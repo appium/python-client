@@ -33,7 +33,7 @@ class MultiActionTests(unittest.TestCase):
     # this test does not assert anything.
     # it has to be watched in order to see if it works
     def test_driver_pinch_zoom(self):
-        els = self.driver.find_elements_by_tag_name('button')
+        els = self.driver.find_elements_by_class_name('UIAButton')
         els[5].click()
 
         sleep(1)

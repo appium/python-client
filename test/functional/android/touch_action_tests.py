@@ -62,7 +62,7 @@ class TouchActionTests(unittest.TestCase):
         el = self.driver.find_element_by_name('Add')
         action.tap(el, count=2).perform()
 
-        els = self.driver.find_elements_by_tag_name('text')
+        els = self.driver.find_elements_by_class_name('android.widget.TextView')
         self.assertEqual('This is a test\nThis is a test\n', els[1].get_attribute("text"))
 
 

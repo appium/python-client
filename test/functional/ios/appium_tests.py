@@ -51,10 +51,10 @@ class AppiumTests(unittest.TestCase):
         el.click()
 
         # get focus on text field, so keyboard comes up
-        el = self.driver.find_element_by_tag_name('textfield')
+        el = self.driver.find_element_by_class_name('UIATextField')
         el.set_value('Testing')
 
-        el = self.driver.find_element_by_tag_name('keyboard')
+        el = self.driver.find_element_by_class_name('UIAKeyboard')
         self.assertTrue(el.is_displayed())
 
         self.driver.hide_keyboard('Done')
@@ -66,14 +66,16 @@ class AppiumTests(unittest.TestCase):
         el.click()
 
         # get focus on text field, so keyboard comes up
-        el = self.driver.find_element_by_tag_name('textfield')
+        el = self.driver.find_element_by_class_name('UIATextField')
         el.set_value('Testing')
 
-        el = self.driver.find_element_by_tag_name('keyboard')
+        el = self.driver.find_element_by_class_name('UIAKeyboard')
         self.assertTrue(el.is_displayed())
 
         self.driver.hide_keyboard()
         sleep(10)
+
+        # currently fails.
         self.assertFalse(el.is_displayed())
 
 

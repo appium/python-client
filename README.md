@@ -214,7 +214,7 @@ In addition to chains of actions performed with in a single gesture, it is also 
 Given two lists next to each other, we can scroll them independently but simultaneously:
 
 ```python
-els = self.driver.find_elements_by_tag_name('listView')
+els = self.driver.find_elements_by_class_name('listView')
 a1 = TouchAction()
 a1.press(els[0]) \
     .move_to(x=10, y=0).move_to(x=10, y=-75).move_to(x=10, y=-600).release()
@@ -388,10 +388,10 @@ field, thus removing focus from it.
 
 ```python
 # get focus on text field, so keyboard comes up
-el = driver.find_element_by_tag_name('textfield')
+el = driver.find_element_by_class_name('android.widget.TextView')
 el.set_value('Testing')
 
-el = driver.find_element_by_tag_name('keyboard')
+el = driver.find_element_by_class_name('keyboard')
 assertTrue(el.is_displayed())
 
 driver.hide_keyboard('Done')
@@ -401,10 +401,10 @@ assertFalse(el.is_displayed())
 
 ```python
 # get focus on text field, so keyboard comes up
-el = driver.find_element_by_tag_name('textfield')
+el = driver.find_element_by_class_name('android.widget.TextView')
 el.set_value('Testing')
 
-el = driver.find_element_by_tag_name('keyboard')
+el = driver.find_element_by__name('keyboard')
 assertTrue(el.is_displayed())
 
 driver.hide_keyboard()

@@ -209,7 +209,7 @@ class WebDriver(webdriver.Remote):
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
-    def swipe(self, startx, starty, endx, endy, duration=0):
+    def swipe(self, startx, starty, endx, endy, duration=None):
         """Swipe from one point to another point, for an optional duration.
 
         :Args:
@@ -234,7 +234,28 @@ class WebDriver(webdriver.Remote):
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
-    def pinch(self, element=None, startx=None, starty=None, endx=None, endy=None, duration=None):
+    def flick(self, startx, starty, endx, endy):
+        """Flick from one point to another point.
+
+        :Args:
+         - startx - x-coordinate at which to start
+         - starty - y-coordinate at which to end
+         - endx - x-coordinate at which to stop
+         - endy - y-coordinate at which to stop
+
+        :Usage:
+            driver.flick(100, 100, 100, 400)
+        """
+        action = TouchAction(self)
+        action \
+            .press(x=startx, y=starty) \
+            .move_to(x=endx, y=endy) \
+            .release()
+        action.perform()
+        return self
+
+    # convenience method added to Appium (NOT Selenium 3)
+    def pinch(self, element=None, percent=200, steps=50):
         """Pinch on an element a certain amount
 
         :Args:
@@ -250,19 +271,14 @@ class WebDriver(webdriver.Remote):
 
         opts = {
             'element': element,
-            'startX': startx,
-            'startY': starty,
-            'endX': endx,
-            'endY': endy,
-            'duration': duration
+            'percent': percent,
+            'steps': steps
         };
         self.execute_script('mobile: pinchClose', opts)
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
-    # {startX: 114.0, startY: 198.0, endX: 257.0,
-    #       endY: 256.0, duration: 5.0}
-    def zoom(self, element=None, startx=None, starty=None, endx=None, endy=None, duration=None):
+    def zoom(self, element=None, percent=200, steps=50):
         """Zooms in on an element a certain amount
 
         :Args:
@@ -278,11 +294,8 @@ class WebDriver(webdriver.Remote):
 
         opts = {
             'element': element,
-            'startX': startx,
-            'startY': starty,
-            'endX': endx,
-            'endY': endy,
-            'duration': duration
+            'percent': percent,
+            'steps': steps
         };
         self.execute_script('mobile: pinchOpen', opts)
         return self

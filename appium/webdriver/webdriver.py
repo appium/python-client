@@ -177,7 +177,7 @@ class WebDriver(webdriver.Remote):
         :Args:
          - positions - an array of tuples representing the x/y coordinates of
          the fingers to tap. Length can be up to five.
-         - duration - (optional) length of time to tap, in seconds
+         - duration - (optional) length of time to tap, in ms
 
         :Usage:
             driver.tap([(100, 20), (100, 60), (100, 100)], 500)
@@ -187,7 +187,7 @@ class WebDriver(webdriver.Remote):
             x = positions[0][0]
             y = positions[0][1]
             if duration:
-                duration = duration * 1000 # we take seconds, but send milliseconds
+                duration = duration
                 action.long_press(x=x, y=y, duration=duration).release()
             else:
                 action.press(x=x, y=y).release()
@@ -217,7 +217,7 @@ class WebDriver(webdriver.Remote):
          - starty - y-coordinate at which to end
          - endx - x-coordinate at which to stop
          - endy - y-coordinate at which to stop
-         - duration - (optional) time to take the swipe, in seconds.
+         - duration - (optional) time to take the swipe, in ms.
 
         :Usage:
             driver.swipe(100, 100, 100, 400)

@@ -98,7 +98,7 @@ To get the current context, rather than calling `driver.current_window_handle` y
 use
 
 ```python
-current = driver.context
+current = driver.current_context
 ```
 
 The available contexts are not retrieved using `driver.window_handles` but with

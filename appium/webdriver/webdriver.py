@@ -66,6 +66,16 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute(Command.GET_CURRENT_CONTEXT)['value']
 
+    @propety
+    def context(self):
+        """
+        Returns the current context of the current session.
+
+        :Usage:
+            driver.context
+        """
+        return current_context
+
     def find_element_by_ios_uiautomation(self, uia_string):
         """Finds an element by uiautomation in iOS.
 

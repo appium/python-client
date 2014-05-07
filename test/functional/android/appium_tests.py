@@ -13,16 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium import webdriver
+import unittest
+import json
+from time import sleep
 
+from appium import webdriver
 import desired_capabilities
 
-import unittest
-from time import sleep
-import json
 
 # the emulator is sometimes slow and needs time to think
 SLEEPY_TIME = 1
+
 
 class AppiumTests(unittest.TestCase):
     def setUp(self):
@@ -112,11 +113,11 @@ class AppiumTests(unittest.TestCase):
         self.assertFalse(self.driver.is_app_installed('sdfsdf'))
         self.assertTrue(self.driver.is_app_installed('com.example.android.apis'))
 
-    # # this causes the server to crash. no idea why
-    # def test_install_app(self):
-    #     self.assertFalse(self.driver.is_app_installed('io.selendroid.testapp'))
-    #     self.driver.install_app('/Users/isaac/code/python-client/test/apps/selendroid-test-app.apk')
-    #     self.assertTrue(self.driver.is_app_installed('io.selendroid.testapp'))
+    def test_install_app(self):
+        self.skipTest('This causes the server to crash. no idea why')
+        self.assertFalse(self.driver.is_app_installed('io.selendroid.testapp'))
+        self.driver.install_app('/Users/isaac/code/python-client/test/apps/selendroid-test-app.apk')
+        self.assertTrue(self.driver.is_app_installed('io.selendroid.testapp'))
 
     def test_remove_app(self):
         self.assertTrue(self.driver.is_app_installed('com.example.android.apis'))
@@ -127,17 +128,16 @@ class AppiumTests(unittest.TestCase):
         el = self.driver.find_element_by_name('Animation')
         self.assertIsNotNone(el)
 
-        self.driver.close_app();
-
+        self.driver.close_app()
         self.driver.launch_app()
 
         el = self.driver.find_element_by_name('Animation')
         self.assertIsNotNone(el)
 
-    # # not sure how to set this up to run
-    # def test_end_test_coverage(self):
-    #     self.driver.end_test_coverage(intent='android.intent.action.MAIN', path='')
-    #     sleep(5)
+    def test_end_test_coverage(self):
+        self.skipTest('Not sure how to set this up to run')
+        self.driver.end_test_coverage(intent='android.intent.action.MAIN', path='')
+        sleep(5)
 
     def test_reset(self):
         el = self.driver.find_element_by_name('App')

@@ -16,6 +16,7 @@ from selenium.webdriver.remote.switch_to import SwitchTo
 
 from .mobilecommand import MobileCommand
 
+
 class MobileSwitchTo(SwitchTo):
     def context(self, context_name):
         """

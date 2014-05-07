@@ -12,18 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium import webdriver
-
-from appium.webdriver.common.touch_action import TouchAction
-from appium.webdriver.common.multi_action import MultiAction
-
-import desired_capabilities
-
 import unittest
 from time import sleep
 
+from appium import webdriver
+from appium.webdriver.common.touch_action import TouchAction
+from appium.webdriver.common.multi_action import MultiAction
+import desired_capabilities
+
 # the emulator is sometimes slow and needs time to think
 SLEEPY_TIME = 1
+
 
 class MultiActionTests(unittest.TestCase):
     def setUp(self):
@@ -32,7 +31,6 @@ class MultiActionTests(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
-
 
     def test_parallel_actions(self):
         el1 = self.driver.find_element_by_name('Content')
@@ -61,7 +59,7 @@ class MultiActionTests(unittest.TestCase):
 
         ma = MultiAction(self.driver, els[0])
         ma.add(a1, a2)
-        ma.perform();
+        ma.perform()
 
     def test_actions_with_waits(self):
         el1 = self.driver.find_element_by_name('Content')
@@ -98,7 +96,7 @@ class MultiActionTests(unittest.TestCase):
 
         ma = MultiAction(self.driver, els[0])
         ma.add(a1, a2)
-        ma.perform();
+        ma.perform()
 
     def test_driver_multi_tap(self):
         el = self.driver.find_element_by_name('Graphics')
@@ -106,18 +104,16 @@ class MultiActionTests(unittest.TestCase):
         action.tap(el).perform()
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
-        self.driver.scroll(els[len(els)-1], els[0])
+        self.driver.scroll(els[len(els) - 1], els[0])
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
-        if els[len(els)-1].get_attribute('name') != 'Xfermodes':
-            self.driver.scroll(els[len(els)-1], els[0])
+        if els[len(els) - 1].get_attribute('name') != 'Xfermodes':
+            self.driver.scroll(els[len(els) - 1], els[0])
 
         el = self.driver.find_element_by_name('Touch Paint')
         action.tap(el).perform()
 
-        positions = []
-        positions.append((100, 200))
-        positions.append((100, 400))
+        positions = [(100, 200), (100, 400)]
 
         # makes two dots in the paint program
         # THE TEST MUST BE WATCHED TO CHECK IF IT WORKS
@@ -134,11 +130,11 @@ class MultiActionTests(unittest.TestCase):
         action.tap(el).perform()
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
-        self.driver.scroll(els[len(els)-1], els[0])
+        self.driver.scroll(els[len(els) - 1], els[0])
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
-        if els[len(els)-1].get_attribute('name') != 'WebView':
-            self.driver.scroll(els[len(els)-1], els[0])
+        if els[len(els) - 1].get_attribute('name') != 'WebView':
+            self.driver.scroll(els[len(els) - 1], els[0])
 
         el = self.driver.find_element_by_name('WebView')
         action.tap(el).perform()
@@ -157,11 +153,11 @@ class MultiActionTests(unittest.TestCase):
         action.tap(el).perform()
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
-        self.driver.scroll(els[len(els)-1], els[0])
+        self.driver.scroll(els[len(els) - 1], els[0])
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
-        if els[len(els)-1].get_attribute('name') != 'WebView':
-            self.driver.scroll(els[len(els)-1], els[0])
+        if els[len(els) - 1].get_attribute('name') != 'WebView':
+            self.driver.scroll(els[len(els) - 1], els[0])
 
         el = self.driver.find_element_by_name('WebView')
         action.tap(el).perform()

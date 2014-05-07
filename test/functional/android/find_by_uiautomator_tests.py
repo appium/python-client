@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium import webdriver
+import unittest
 
+from appium import webdriver
 import desired_capabilities
 
-import unittest
 
 class FindByUIAutomatorTests(unittest.TestCase):
     def setUp(self):
@@ -43,8 +43,9 @@ class FindByUIAutomatorTests(unittest.TestCase):
     def test_element_find_multiple_elements(self):
         el = self.driver.find_element_by_class_name('android.widget.ListView')
 
-        sub_els = self.driver.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
+        sub_els = el.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
         self.assertTrue(len(sub_els) > 11)
+
 
 if __name__ == "__main__":
     unittest.main()

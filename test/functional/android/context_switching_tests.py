@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import unittest
+
 from appium import webdriver
 from appium.common.exceptions import NoSuchContextException
-
 import desired_capabilities
 
-import unittest
 
 class ContextSwitchingTests(unittest.TestCase):
     def setUp(self):
@@ -27,7 +27,7 @@ class ContextSwitchingTests(unittest.TestCase):
     def test_contexts_list(self):
         self._enter_webview()
         contexts = self.driver.contexts
-        self.assertEqual(2, len(contexts));
+        self.assertEqual(2, len(contexts))
 
     def test_move_to_correct_context(self):
         self._enter_webview()
@@ -45,11 +45,7 @@ class ContextSwitchingTests(unittest.TestCase):
         self.assertEqual('NATIVE_APP', self.driver.current_context)
 
     def test_set_invalid_context(self):
-        try:
-            self.driver.switch_to.context("invalid name")
-            self.fail("NoSuchContextException expected")
-        except NoSuchContextException:
-            pass # Expected
+        self.assertRaises(NoSuchContextException, self.driver.switch_to.context, 'invalid name')
 
     def tearDown(self):
         self.driver.quit()
@@ -58,6 +54,7 @@ class ContextSwitchingTests(unittest.TestCase):
         btn = self.driver.find_element_by_name('buttonStartWebviewCD')
         btn.click()
         self.driver.switch_to.context('WEBVIEW')
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -12,19 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium import webdriver
-
-from appium.webdriver.common.touch_action import TouchAction
-
-from selenium.common.exceptions import NoSuchElementException
-
-import desired_capabilities
-
 import unittest
 from time import sleep
 
+from selenium.common.exceptions import NoSuchElementException
+
+from appium import webdriver
+from appium.webdriver.common.touch_action import TouchAction
+import desired_capabilities
+
 # the emulator is sometimes slow
 SLEEPY_TIME = 2
+
 
 class TouchActionTests(unittest.TestCase):
     def setUp(self):
@@ -64,7 +63,6 @@ class TouchActionTests(unittest.TestCase):
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
         self.assertEqual('This is a test\nThis is a test\n', els[1].get_attribute("text"))
-
 
     def test_press_and_immediately_release(self):
         el = self.driver.find_element_by_accessibility_id('Animation')
@@ -131,7 +129,7 @@ class TouchActionTests(unittest.TestCase):
         el2 = self.driver.find_element_by_accessibility_id('App')
 
         action = TouchAction(self.driver)
-        action.press(el1).move_to(el2,100, 100).release().perform()
+        action.press(el1).move_to(el2, 100, 100).release().perform()
 
         el = self.driver.find_element_by_accessibility_id('Views')
         self.assertIsNotNone(el)
@@ -231,10 +229,7 @@ class TouchActionTests(unittest.TestCase):
         self.assertEqual('Dropped!', el.get_attribute('text'))
 
     def test_driver_swipe(self):
-        try:
-            el = self.driver.find_element_by_name('Views')
-        except NoSuchElementException:
-            pass # element should not yet exist
+        self.assertRaises(NoSuchElementException, self.driver.find_element_by_name, 'Views')
 
         self.driver.swipe(100, 500, 100, 100, 1.2)
         el = self.driver.find_element_by_name('Views')

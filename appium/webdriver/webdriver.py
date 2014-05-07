@@ -26,9 +26,10 @@ from appium.webdriver.common.multi_action import MultiAction
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
+
 class WebDriver(webdriver.Remote):
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
-        desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False):
+                 desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False):
 
         super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
 
@@ -54,7 +55,7 @@ class WebDriver(webdriver.Remote):
         :Usage:
             driver.contexts
         """
-        return self.execute(Command.CONTEXTS)['value'];
+        return self.execute(Command.CONTEXTS)['value']
 
     @property
     def current_context(self):
@@ -66,7 +67,7 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute(Command.GET_CURRENT_CONTEXT)['value']
 
-    @propety
+    @property
     def context(self):
         """
         Returns the current context of the current session.
@@ -74,7 +75,7 @@ class WebDriver(webdriver.Remote):
         :Usage:
             driver.context
         """
-        return current_context
+        return self.current_context
 
     def find_element_by_ios_uiautomation(self, uia_string):
         """Finds an element by uiautomation in iOS.
@@ -153,7 +154,7 @@ class WebDriver(webdriver.Remote):
         return MobileWebElement(self, element_id)
 
     # convenience method added to Appium (NOT Selenium 3)
-    def scroll(self, originEl, destinationEl):
+    def scroll(self, origin_el, destination_el):
         """Scrolls from one element to another
 
         :Args:
@@ -164,11 +165,11 @@ class WebDriver(webdriver.Remote):
             driver.scroll(el1, el2)
         """
         action = TouchAction(self)
-        action.press(originEl).move_to(destinationEl).release().perform()
+        action.press(origin_el).move_to(destination_el).release().perform()
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
-    def drag_and_drop(self, originEl, destinationEl):
+    def drag_and_drop(self, origin_el, destination_el):
         """Drag the origin element to the destination element
 
         :Args:
@@ -176,7 +177,7 @@ class WebDriver(webdriver.Remote):
          - destinationEl - the element to drag to
         """
         action = TouchAction(self)
-        action.long_press(originEl).move_to(destinationEl).release().perform()
+        action.long_press(origin_el).move_to(destination_el).release().perform()
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
@@ -209,7 +210,7 @@ class WebDriver(webdriver.Remote):
                 y = position[1]
                 action = TouchAction(self)
                 if duration:
-                    duration = duration * 1000 # we take seconds, but send milliseconds
+                    duration *= 1000  # we take seconds, but send milliseconds
                     action.long_press(x=x, y=y, duration=duration).release()
                 else:
                     action.press(x=x, y=y).release()
@@ -219,14 +220,14 @@ class WebDriver(webdriver.Remote):
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
-    def swipe(self, startx, starty, endx, endy, duration=None):
+    def swipe(self, start_x, start_y, end_x, end_y, duration=None):
         """Swipe from one point to another point, for an optional duration.
 
         :Args:
-         - startx - x-coordinate at which to start
-         - starty - y-coordinate at which to end
-         - endx - x-coordinate at which to stop
-         - endy - y-coordinate at which to stop
+         - start_x - x-coordinate at which to start
+         - start_y - y-coordinate at which to end
+         - end_x - x-coordinate at which to stop
+         - end_y - y-coordinate at which to stop
          - duration - (optional) time to take the swipe, in ms.
 
         :Usage:
@@ -236,30 +237,30 @@ class WebDriver(webdriver.Remote):
         # will translate into the correct action
         action = TouchAction(self)
         action \
-            .press(x=startx, y=starty) \
+            .press(x=start_x, y=start_y) \
             .wait(ms=duration) \
-            .move_to(x=endx, y=endy) \
+            .move_to(x=end_x, y=end_y) \
             .release()
         action.perform()
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
-    def flick(self, startx, starty, endx, endy):
+    def flick(self, start_x, start_y, end_x, end_y):
         """Flick from one point to another point.
 
         :Args:
-         - startx - x-coordinate at which to start
-         - starty - y-coordinate at which to end
-         - endx - x-coordinate at which to stop
-         - endy - y-coordinate at which to stop
+         - start_x - x-coordinate at which to start
+         - start_y - y-coordinate at which to end
+         - end_x - x-coordinate at which to stop
+         - end_y - y-coordinate at which to stop
 
         :Usage:
             driver.flick(100, 100, 100, 400)
         """
         action = TouchAction(self)
         action \
-            .press(x=startx, y=starty) \
-            .move_to(x=endx, y=endy) \
+            .press(x=start_x, y=start_y) \
+            .move_to(x=end_x, y=end_y) \
             .release()
         action.perform()
         return self
@@ -282,8 +283,8 @@ class WebDriver(webdriver.Remote):
         opts = {
             'element': element,
             'percent': percent,
-            'steps': steps
-        };
+            'steps': steps,
+        }
         self.execute_script('mobile: pinchClose', opts)
         return self
 
@@ -305,8 +306,8 @@ class WebDriver(webdriver.Remote):
         opts = {
             'element': element,
             'percent': percent,
-            'steps': steps
-        };
+            'steps': steps,
+        }
         self.execute_script('mobile: pinchOpen', opts)
         return self
 
@@ -331,7 +332,7 @@ class WebDriver(webdriver.Remote):
         from the text field. iOS only.
         """
         data = {}
-        if key_name != None:
+        if key_name is not None:
             data['keyName'] = key_name
         self.execute(Command.HIDE_KEYBOARD, data)
         return self
@@ -345,9 +346,9 @@ class WebDriver(webdriver.Remote):
          - metastate - meta information about the keycode being sent
         """
         data = {
-            'keycode': keycode
+            'keycode': keycode,
         }
-        if metastate != None:
+        if metastate is not None:
             data['metastate'] = metastate
         self.execute(Command.KEY_EVENT, data)
         return self
@@ -367,7 +368,7 @@ class WebDriver(webdriver.Remote):
         """
         data = {
             'elementId': element.id,
-            'value': [value]
+            'value': [value],
         }
         self.execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
@@ -380,7 +381,7 @@ class WebDriver(webdriver.Remote):
          - path - the path to the file on the device
         """
         data = {
-            'path': path
+            'path': path,
         }
         return self.execute(Command.PULL_FILE, data)['value']
 
@@ -393,7 +394,7 @@ class WebDriver(webdriver.Remote):
         """
         data = {
             'path': path,
-            'data': base64data
+            'data': base64data,
         }
         self.execute(Command.PUSH_FILE, data)
         return self
@@ -405,7 +406,7 @@ class WebDriver(webdriver.Remote):
          - selector - an array of selection criteria
         """
         data = {
-            'selector': selector
+            'selector': selector,
         }
         return self.execute(Command.COMPLEX_FIND, data)['value']
 
@@ -417,7 +418,7 @@ class WebDriver(webdriver.Remote):
          - seconds - the duration for the application to remain in the background
         """
         data = {
-            'seconds': seconds
+            'seconds': seconds,
         }
         self.execute(Command.BACKGROUND, data)
         return self
@@ -430,7 +431,7 @@ class WebDriver(webdriver.Remote):
          - bundle_id - the id of the application to query
         """
         data = {
-            'bundleId': bundle_id
+            'bundleId': bundle_id,
         }
         return self.execute(Command.IS_APP_INSTALLED, data)['value']
 
@@ -441,7 +442,7 @@ class WebDriver(webdriver.Remote):
          - app_path - the local or remote path to the application to install
         """
         data = {
-            'appPath': app_path
+            'appPath': app_path,
         }
         self.execute(Command.INSTALL_APP, data)
         return self
@@ -453,7 +454,7 @@ class WebDriver(webdriver.Remote):
          - app_id - the application id to be removed
         """
         data = {
-            'appId': app_id
+            'appId': app_id,
         }
         self.execute(Command.REMOVE_APP, data)
         return self
@@ -483,7 +484,7 @@ class WebDriver(webdriver.Remote):
         """
         data = {
             'intent': intent,
-            'path': path
+            'path': path,
         }
         return self.execute(Command.END_TEST_COVERAGE, data)['value']
 
@@ -494,7 +495,7 @@ class WebDriver(webdriver.Remote):
          - the duration to lock the device, in seconds
         """
         data = {
-            'seconds': seconds
+            'seconds': seconds,
         }
         self.execute(Command.LOCK, data)
         return self
@@ -504,7 +505,6 @@ class WebDriver(webdriver.Remote):
         """
         self.execute(Command.SHAKE)
         return self
-
 
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
@@ -561,7 +561,7 @@ def set_value(self, value):
     """
     data = {
         'elementId': self.id,
-        'value': [value]
+        'value': [value],
     }
     self._execute(Command.SET_IMMEDIATE_VALUE, data)
     return self

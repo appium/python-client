@@ -12,15 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium import webdriver
-
-from appium.webdriver.common.touch_action import TouchAction
-from appium.webdriver.common.multi_action import MultiAction
-
-import desired_capabilities
-
 import unittest
 from time import sleep
+
+from appium import webdriver
+import desired_capabilities
+
 
 class MultiActionTests(unittest.TestCase):
     def setUp(self):
@@ -42,11 +39,12 @@ class MultiActionTests(unittest.TestCase):
 
         sleep(1)
         el = self.driver.find_element_by_xpath('//window[1]/UIAMapView[1]')
-        self.driver.zoom(startx=114.0, starty=198.0, endx=257.0, endy=256.0, duration=5.0)
+        self.driver.zoom(el)
 
         sleep(5)
-        self.driver.pinch(startx=114.0, starty=198.0, endx=257.0, endy=256.0, duration=5.0)
+        self.driver.pinch(el)
         sleep(5)
+
 
 if __name__ == "__main__":
     unittest.main()

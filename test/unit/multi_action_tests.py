@@ -12,10 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import unittest
+
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 
-import unittest
 
 class MultiActionTests(unittest.TestCase):
     def setUp(self):
@@ -24,8 +25,7 @@ class MultiActionTests(unittest.TestCase):
     def test_json(self):
         self.maxDiff = None
         json = {
-            'actions':
-            [
+            'actions': [
                 [
                     {'action': 'press', 'options': {'x': None, 'y': None, 'element': 1}},
                     {'action': 'moveTo', 'options': {'x': 10, 'y': 20}},
@@ -49,12 +49,15 @@ class DriverStub(object):
     def execute(self, action, params):
         print "driver.execute called"
 
+
 class ElementStub(object):
     def __init__(self, id):
         self._id = id
+
     @property
     def id(self):
         return self._id
+
 
 if __name__ == "__main__":
     unittest.main()

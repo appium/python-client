@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium import webdriver
-
-import desired_capabilities
-
 import unittest
 
-from time import sleep
+from appium import webdriver
+import desired_capabilities
+
+
 class FindByUIAutomationTests(unittest.TestCase):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
@@ -50,6 +49,7 @@ class FindByUIAutomationTests(unittest.TestCase):
         # get the buttons
         sub_el = el.find_elements_by_ios_uiautomation('.elements()')
         self.assertEqual(12, len(sub_el))
+
 
 if __name__ == "__main__":
     unittest.main()

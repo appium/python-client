@@ -17,6 +17,7 @@ from selenium.common.exceptions import WebDriverException
 
 from appium.common.exceptions import NoSuchContextException
 
+
 class MobileErrorHandler(errorhandler.ErrorHandler):
     def check_response(self, response):
         try:

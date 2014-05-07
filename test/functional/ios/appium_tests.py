@@ -12,13 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium import webdriver
+import unittest
+from time import sleep
 
+from selenium.common.exceptions import NoSuchElementException
+
+from appium import webdriver
 import desired_capabilities
 
-import unittest
-import time
-from time import sleep
 
 class AppiumTests(unittest.TestCase):
     def setUp(self):
@@ -32,10 +33,7 @@ class AppiumTests(unittest.TestCase):
         el = self.driver.find_element_by_id('ButtonsExplain')
         self.assertIsNotNone(el)
         self.driver.lock(0)
-        try:
-            self.driver.find_element_by_id('ButtonsExplain')
-        except Exception as e:
-            pass # we should not be able to find this anymore
+        self.assertRaises(NoSuchElementException, self.driver.find_element_by_id, 'ButtonsExplain')
         sleep(10)
 
         # # this does not seem to ever unlock, so the assertion fails

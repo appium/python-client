@@ -13,7 +13,6 @@
 # limitations under the License.
 
 
-
 # The Selenium team implemented a version of the Touch Action API in their code
 # (https://code.google.com/p/selenium/source/browse/py/selenium/webdriver/common/touch_actions.py)
 # but it is deficient in many ways, and does not work in such a way as to be
@@ -22,9 +21,10 @@
 #
 # Theirs is `TouchActions`. Appium's is `TouchAction`.
 
+import copy
+
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-import copy
 
 class TouchAction(object):
     def __init__(self, driver=None):
@@ -64,11 +64,10 @@ class TouchAction(object):
     def wait(self, ms=0):
         """Pause for `ms` milliseconds.
         """
-        if ms == None:
+        if ms is None:
             ms = 0
 
-        opts = {}
-        opts['ms'] = ms
+        opts = {'ms': ms}
 
         self._add_action('wait', opts)
 
@@ -91,15 +90,13 @@ class TouchAction(object):
     def perform(self):
         """Perform the action by sending the commands to the server to be operated upon
         """
-        params = {}
-        params['actions'] = self._actions
+        params = {'actions': self._actions}
         self._driver.execute(Command.TOUCH_ACTION, params)
 
         # get rid of actions so the object can be reused
         self._actions = []
 
         return self
-
 
     @property
     def json_wire_gestures(self):
@@ -109,20 +106,20 @@ class TouchAction(object):
         return gestures
 
     def _add_action(self, action, options):
-        gesture = {}
-        gesture['action'] = action
-        gesture['options'] = options
+        gesture = {
+            'action': action,
+            'options': options,
+        }
         self._actions.append(gesture)
 
     def _get_opts(self, element, x, y):
         opts = {}
-        if element != None:
+        if element is not None:
             opts['element'] = element.id
 
         # it makes no sense to have x but no y, or vice versa.
-        if (x == None) | (y == None):
-            x = None
-            y = None
+        if x is None or y is None:
+            x, y = None, None
         opts['x'] = x
         opts['y'] = y
 

@@ -15,6 +15,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
 
+
 class WebElement(SeleniumWebElement):
     def find_element_by_ios_uiautomation(self, uia_string):
         """Finds an element by uiautomation in iOS.

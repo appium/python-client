@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium import webdriver
+import unittest
 
+from appium import webdriver
 import desired_capabilities
 
-import unittest
 
 class FindByAccessibilityIDTests(unittest.TestCase):
     def setUp(self):

@@ -13,15 +13,15 @@
 # limitations under the License.
 
 
-
 # The Selenium team implemented something like the Multi Action API in the form of
 # "action chains" (https://code.google.com/p/selenium/source/browse/py/selenium/webdriver/common/action_chains.py).
 # These do not quite work for this situation, and do not allow for ad hoc action
 # chaining as the spec requires.
 
+import copy
+
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-import copy
 
 class MultiAction(object):
     def __init__(self, driver, element=None):
@@ -44,7 +44,7 @@ class MultiAction(object):
             MultiAction(driver).add(a1, a2)
         """
         for touch_action in touch_actions:
-            if self._touch_actions == None:
+            if self._touch_actions is None:
                 self._touch_actions = []
 
             # deep copy, so that once they are in here, the user can't muck about
@@ -68,13 +68,12 @@ class MultiAction(object):
 
         return self
 
-
     @property
     def json_wire_gestures(self):
         actions = []
         for action in self._touch_actions:
             actions.append(action.json_wire_gestures)
-        if self._element != None:
+        if self._element is not None:
             return {'actions': actions, 'elementId': self._element.id}
         else:
             return {'actions': actions}

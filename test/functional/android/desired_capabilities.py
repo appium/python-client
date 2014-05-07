@@ -19,11 +19,13 @@ PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
 
+
 def get_desired_capabilities(app):
-    desired_caps = {}
-    desired_caps['platformName'] = 'Android'
-    desired_caps['platformVersion'] = '4.2'
-    desired_caps['deviceName'] = 'Android Emulator'
-    desired_caps['app'] = PATH('../../apps/' + app)
+    desired_caps = {
+        'platformName': 'Android',
+        'platformVersion': '4.2',
+        'deviceName': 'Android Emulator',
+        'app': PATH('../../apps/' + app),
+    }
 
     return desired_caps

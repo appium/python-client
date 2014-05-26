@@ -37,9 +37,13 @@ class AppiumTests(unittest.TestCase):
         strings = self.driver.app_strings
         self.assertEqual(u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
 
-    def test_keyevent(self):
+    def test_press_keycode(self):
         # not sure how to test this.
-        self.driver.keyevent(176)
+        self.driver.press_keycode(176)
+
+    def test_long_press_keycode(self):
+        # not sure how to test this.
+        self.driver.long_press_keycode(176)
 
     def test_current_activity(self):
         activity = self.driver.current_activity

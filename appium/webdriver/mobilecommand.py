@@ -22,7 +22,8 @@ class MobileCommand(object):
 
     # Appium Commands
     GET_APP_STRINGS = 'getAppStrings'
-    KEY_EVENT = 'keyEvent'
+    PRESS_KEYCODE = 'pressKeyCode'
+    LONG_PRESS_KEYCODE = 'longPressKeyCode'
     GET_CURRENT_ACTIVITY = 'getCurrentActivity'
     SET_IMMEDIATE_VALUE = 'setImmediateValue'
     PULL_FILE = 'pullFile'

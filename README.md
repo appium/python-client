@@ -375,7 +375,7 @@ Android only.
 
 ```python
 # sending 'Home' key event
-driver.keyevent(3)
+driver.press_keycode(3)
 ```
 
 

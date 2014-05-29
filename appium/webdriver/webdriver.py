@@ -311,14 +311,17 @@ class WebDriver(webdriver.Remote):
         self.execute_script('mobile: pinchOpen', opts)
         return self
 
-    @property
-    def app_strings(self):
-        """Returns the application strings from the device.
+    def app_strings(self, language=None):
+        """Returns the application strings from the device for the specified
+        language.
 
-        :Usage:
-            strings = driver.app_strings
+        :Args:
+         - language - strings language code
         """
-        return self.execute(Command.GET_APP_STRINGS)['value']
+        data = {}
+        if language != None:
+            data['language'] = language
+        return self.execute(Command.GET_APP_STRINGS, data)['value']
 
     def reset(self):
         """Resets the current application on the device.
@@ -534,7 +537,7 @@ class WebDriver(webdriver.Remote):
         self.command_executor._commands[Command.MULTI_ACTION] = \
             ('POST', '/session/$sessionId/touch/multi/perform')
         self.command_executor._commands[Command.GET_APP_STRINGS] = \
-            ('GET', '/session/$sessionId/appium/app/strings')
+            ('POST', '/session/$sessionId/appium/app/strings')
         self.command_executor._commands[Command.PRESS_KEYCODE] = \
             ('POST', '/session/$sessionId/appium/device/press_keycode')
         self.command_executor._commands[Command.LONG_PRESS_KEYCODE] = \

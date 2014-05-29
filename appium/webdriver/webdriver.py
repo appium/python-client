@@ -337,7 +337,7 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.HIDE_KEYBOARD, data)
         return self
 
-    def keyevent(self, keycode, metastate=None):
+    def press_keycode(self, keycode, metastate=None):
         """Sends a keycode to the device. Android only. Possible keycodes can be
         found in http://developer.android.com/reference/android/view/KeyEvent.html.
 
@@ -351,6 +351,22 @@ class WebDriver(webdriver.Remote):
         if metastate is not None:
             data['metastate'] = metastate
         self.execute(Command.KEY_EVENT, data)
+        return self
+
+    def long_press_keycode(self, keycode, metastate=None):
+        """Sends a long press of keycode to the device. Android only. Possible keycodes can be
+        found in http://developer.android.com/reference/android/view/KeyEvent.html.
+
+        :Args:
+         - keycode - the keycode to be sent to the device
+         - metastate - meta information about the keycode being sent
+        """
+        data = {
+            'keycode': keycode
+        }
+        if metastate != None:
+            data['metastate'] = metastate
+        self.execute(Command.LONG_PRESS_KEYCODE, data)
         return self
 
     @property
@@ -519,8 +535,10 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/touch/multi/perform')
         self.command_executor._commands[Command.GET_APP_STRINGS] = \
             ('GET', '/session/$sessionId/appium/app/strings')
-        self.command_executor._commands[Command.KEY_EVENT] = \
-            ('POST', '/session/$sessionId/appium/device/keyevent')
+        self.command_executor._commands[Command.PRESS_KEYCODE] = \
+            ('POST', '/session/$sessionId/appium/device/press_keycode')
+        self.command_executor._commands[Command.LONG_PRESS_KEYCODE] = \
+            ('POST', '/session/$sessionId/appium/device/long_press_keycode')
         self.command_executor._commands[Command.GET_CURRENT_ACTIVITY] = \
             ('GET', '/session/$sessionId/appium/device/current_activity')
         self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \

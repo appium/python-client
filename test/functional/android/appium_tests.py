@@ -34,7 +34,11 @@ class AppiumTests(unittest.TestCase):
         self.driver.quit()
 
     def test_app_strings(self):
-        strings = self.driver.app_strings
+        strings = self.driver.app_strings()
+        self.assertEqual(u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
+
+    def test_app_strings_with_language(self):
+        strings = self.driver.app_strings("en")
         self.assertEqual(u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
 
     def test_press_keycode(self):

@@ -353,7 +353,7 @@ class WebDriver(webdriver.Remote):
         }
         if metastate is not None:
             data['metastate'] = metastate
-        self.execute(Command.KEY_EVENT, data)
+        self.execute(Command.PRESS_KEYCODE, data)
         return self
 
     def long_press_keycode(self, keycode, metastate=None):

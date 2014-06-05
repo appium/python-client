@@ -542,6 +542,12 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.SHAKE)
         return self
 
+    def open_notifications(self):
+        """Open notification shade in Android (API Level 18 and above)
+        """
+        self.execute(Command.OPEN_NOTIFICATIONS, {})
+        return self
+
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')
@@ -594,6 +600,8 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/app/reset')
         self.command_executor._commands[Command.HIDE_KEYBOARD] = \
             ('POST', '/session/$sessionId/appium/device/hide_keyboard')
+        self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
+            ('POST', '/session/$sessionId/appium/device/open_notifications')
 
 
 # monkeypatched method for WebElement

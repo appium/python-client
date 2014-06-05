@@ -19,6 +19,7 @@ class MobileCommand(object):
     SWITCH_TO_CONTEXT = 'switchToContext'
     TOUCH_ACTION = 'touchAction'
     MULTI_ACTION = 'multiAction'
+    OPEN_NOTIFICATIONS = 'openNotifications'
 
     # Appium Commands
     GET_APP_STRINGS = 'getAppStrings'

@@ -17,6 +17,8 @@ import unittest
 import json
 from time import sleep
 
+from selenium.common.exceptions import NoSuchElementException
+
 from appium import webdriver
 import desired_capabilities
 
@@ -52,47 +54,6 @@ class AppiumTests(unittest.TestCase):
     def test_current_activity(self):
         activity = self.driver.current_activity
         self.assertEqual('.ApiDemos', activity)
-
-    def test_set_value(self):
-        el = self.driver.find_element_by_class_name('android.widget.ListView')
-        js_params = {'element': el.id, 'text': "Views"}
-        self.driver.execute_script("mobile: scrollTo", js_params)
-
-        el = self.driver.find_element_by_name('Views')
-        el.click()
-
-        el = self.driver.find_element_by_name('Auto Complete')
-        el.click()
-
-        el = self.driver.find_element_by_name('4. Contacts')
-        el.click()
-
-        el = self.driver.find_element_by_class_name('android.widget.EditText')
-        self.driver.set_value(el, 'Isaac')
-
-        text = el.get_attribute('text')
-        self.assertEqual('Isaac', text)
-
-    def test_element_set_value(self):
-        el = self.driver.find_element_by_class_name('android.widget.ListView')
-        js_params = {'element': el.id, 'text': "Views"}
-        self.driver.execute_script("mobile: scrollTo", js_params)
-
-        el = self.driver.find_element_by_name('Views')
-        el.click()
-
-        el = self.driver.find_element_by_name('Auto Complete')
-        el.click()
-
-        el = self.driver.find_element_by_name('4. Contacts')
-        el.click()
-        sleep(SLEEPY_TIME)
-
-        el = self.driver.find_element_by_class_name('android.widget.EditText')
-        el.set_value('Isaac')
-
-        text = el.get_attribute('text')
-        self.assertEqual('Isaac', text)
 
     def test_pull_file(self):
         data = self.driver.pull_file('data/local/tmp/strings.json')
@@ -157,6 +118,36 @@ class AppiumTests(unittest.TestCase):
         el = self.driver.find_element_by_name('App')
         self.assertIsNotNone(el)
 
+    def test_open_notifications(self):
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("App")').click()
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("Notification")').click()
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("Status Bar")').click()
+
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text(":-|")').click()
+
+        self.driver.open_notifications()
+        sleep(1)
+        self.assertRaises(NoSuchElementException, \
+            self.driver.find_element_by_android_uiautomator, 'new UiSelector().text(":-|")')
+
+        els = self.driver.find_elements_by_class_name('android.widget.TextView')
+        # sometimes numbers shift
+        title = False
+        body = False
+        for el in els:
+            text = el.text
+            if text == 'Mood ring':
+                title = True
+            elif text == 'I am ok':
+                body = True
+        self.assertTrue(title)
+        self.assertTrue(body)
+
+        self.driver.keyevent(4)
+        sleep(1)
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text(":-|")')
+
 
 if __name__ == "__main__":
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)
+    unittest.TextTestRunner(verbosity=2).run(suite)

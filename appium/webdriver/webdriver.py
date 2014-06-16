@@ -421,6 +421,18 @@ class WebDriver(webdriver.Remote):
         }
         return self.execute(Command.PULL_FILE, data)['value']
 
+    def pull_folder(self, path):
+        """Retrieves a folder at `path`. Returns the folder's contents zipped
+        and encoded as Base64.
+
+        :Args:
+         - path - the path to the folder on the device
+        """
+        data = {
+            'path': path,
+        }
+        return self.execute(Command.PULL_FOLDER, data)['value']
+
     def push_file(self, path, base64data):
         """Puts the data, encoded as Base64, in the file specified as `path`.
 
@@ -574,6 +586,8 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/element/$elementId/value')
         self.command_executor._commands[Command.PULL_FILE] = \
             ('POST', '/session/$sessionId/appium/device/pull_file')
+        self.command_executor._commands[Command.PULL_FOLDER] = \
+            ('POST', '/session/$sessionId/appium/device/pull_folder')
         self.command_executor._commands[Command.PUSH_FILE] = \
             ('POST', '/session/$sessionId/appium/device/push_file')
         self.command_executor._commands[Command.COMPLEX_FIND] = \

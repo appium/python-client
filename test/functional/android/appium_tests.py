@@ -14,7 +14,10 @@
 # limitations under the License.
 
 import unittest
+from zipfile import ZipFile
 import json
+import os
+import random
 from time import sleep
 
 from selenium.common.exceptions import NoSuchElementException
@@ -34,6 +37,10 @@ class AppiumTests(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+
+        # remove zipped file from `test_pull_folder`
+        if os.path.isfile(self.zipfilename):
+            os.remove(self.zipfilename)
 
     def test_app_strings(self):
         strings = self.driver.app_strings()
@@ -66,6 +73,25 @@ class AppiumTests(unittest.TestCase):
         self.driver.push_file(path, data.encode('base64'))
         data_ret = self.driver.pull_file('data/local/tmp/test_push_file.txt').decode('base64')
         self.assertEqual(data, data_ret)
+
+    def test_pull_folder(self):
+        string_data = 'random string data %d' % random.randint(0, 1000)
+        path = '/data/local/tmp'
+        self.driver.push_file(path + '/1.txt', string_data.encode('base64'))
+        self.driver.push_file(path + '/2.txt', string_data.encode('base64'))
+        folder = self.driver.pull_folder(path)
+
+        # python doesn't have any functionality for unzipping streams
+        # save temporary file, which will be deleted in `tearDown`
+        self.zipfilename = 'folder_%d.zip' % random.randint(0, 1000000)
+        file = open(self.zipfilename, "w")
+        file.write(folder.decode('base64', 'strict'))
+        file.close()
+
+        with ZipFile(self.zipfilename, 'r') as myzip:
+            # should find these. otherwise it will raise a `KeyError`
+            myzip.read('1.txt')
+            myzip.read('2.txt')
 
     def test_complex_find(self):
         # this only works with a three dimensional array like here.

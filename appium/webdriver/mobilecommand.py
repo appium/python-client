@@ -30,6 +30,7 @@ class MobileCommand(object):
     GET_CURRENT_ACTIVITY = 'getCurrentActivity'
     SET_IMMEDIATE_VALUE = 'setImmediateValue'
     PULL_FILE = 'pullFile'
+    PULL_FOLDER = 'pullFolder'
     PUSH_FILE = 'pushFile'
     COMPLEX_FIND = 'complexFind'
     BACKGROUND = 'background'

@@ -65,7 +65,7 @@ desired_caps = {}
 desired_caps['platformName'] = 'Android'
 desired_caps['platformVersion'] = '4.2'
 desired_caps['deviceName'] = 'Android Emulator'
-desired_caps['app'] = PATH('../../../apps/selendroid-test-app.apk')
+desired_caps['app'] = '../../../apps/selendroid-test-app.apk'
 
 self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 ```
@@ -76,7 +76,7 @@ import unittest
 from appium import webdriver
 
 desired_caps = {}
-desired_caps['app'] = PATH('../../apps/UICatalog.app.zip')
+desired_caps['app'] = '../../apps/UICatalog.app.zip'
 
 self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 ```

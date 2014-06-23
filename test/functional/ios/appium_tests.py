@@ -55,7 +55,22 @@ class AppiumTests(unittest.TestCase):
         el = self.driver.find_element_by_class_name('UIAKeyboard')
         self.assertTrue(el.is_displayed())
 
-        self.driver.hide_keyboard('Done')
+        self.driver.hide_keyboard(key_name='Done')
+
+        self.assertFalse(el.is_displayed())
+
+    def test_hide_keyboard_presskey_strategy(self):
+        el = self.driver.find_element_by_name('TextFields, Uses of UITextField')
+        el.click()
+
+        # get focus on text field, so keyboard comes up
+        el = self.driver.find_element_by_class_name('UIATextField')
+        el.set_value('Testing')
+
+        el = self.driver.find_element_by_class_name('UIAKeyboard')
+        self.assertTrue(el.is_displayed())
+
+        self.driver.hide_keyboard(strategy='pressKey', key='Done')
 
         self.assertFalse(el.is_displayed())
 
@@ -78,4 +93,5 @@ class AppiumTests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)
+    unittest.TextTestRunner(verbosity=2).run(suite)

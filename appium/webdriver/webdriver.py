@@ -329,14 +329,23 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.RESET)
         return self
 
-    def hide_keyboard(self, key_name=None):
-        """Hides the software keyboard on the device, using the specified key to
-        press. If no key name is given, the keyboard is closed by moving focus
-        from the text field. iOS only.
+    def hide_keyboard(self, key_name=None, key=None, strategy=None):
+        """Hides the software keyboard on the device. In iOS, use `key_name` to press
+        a particular key, or `strategy`. In Android, no parameters are used.
+
+        :Args:
+         - key_name - key to press
+         - strategy - strategy for closing the keyboard (e.g., `tapOutside`)
         """
         data = {}
         if key_name is not None:
             data['keyName'] = key_name
+        elif key is not None:
+            data['key'] = key
+        else:
+            # defaults to `tapOutside` strategy
+            strategy = 'tapOutside'
+        data['strategy'] = strategy
         self.execute(Command.HIDE_KEYBOARD, data)
         return self
 

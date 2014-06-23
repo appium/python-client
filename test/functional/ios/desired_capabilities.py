@@ -22,6 +22,8 @@ PATH = lambda p: os.path.abspath(
 
 def get_desired_capabilities(app):
     desired_caps = {
+        'deviceName': 'iPhone Simulator',
+        'platformName': 'iOS',
         'app': PATH('../../apps/' + app),
     }
 

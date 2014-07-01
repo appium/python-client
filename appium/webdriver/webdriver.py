@@ -14,6 +14,7 @@
 
 from selenium import webdriver
 
+from .connectiontype import ConnectionType
 from .mobilecommand import MobileCommand as Command
 from .errorhandler import MobileErrorHandler
 from .switch_to import MobileSwitchTo
@@ -569,6 +570,36 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.OPEN_NOTIFICATIONS, {})
         return self
 
+    @property
+    def network_connection(self):
+        """Returns an integer bitmask specifying the network connection type.
+        Android only.
+        Possible values are available through the enumeration `appium.webdriver.ConnectionType`
+        """
+        return self.execute(Command.GET_NETWORK_CONNECTION, {})['value']
+
+    def set_network_connection(self, connectionType):
+        """Sets the network connection type. Android only.
+        Possible values:
+            Value (Alias)      | Data | Wifi | Airplane Mode
+            -------------------------------------------------
+            0 (None)           | 0    | 0    | 0
+            1 (Airplane Mode)  | 0    | 0    | 1
+            2 (Wifi only)      | 0    | 1    | 0
+            4 (Data only)      | 1    | 0    | 0
+            6 (All network on) | 1    | 1    | 0
+        These are available through the enumeration `appium.webdriver.ConnectionType`
+
+        :Args:
+         - connectionType - a member of the enum appium.webdriver.ConnectionType
+        """
+        data = {
+            'parameters': {
+                'type': connectionType.value
+            }
+        }
+        return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
+
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')
@@ -625,6 +656,10 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/hide_keyboard')
         self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
             ('POST', '/session/$sessionId/appium/device/open_notifications')
+        self.command_executor._commands[Command.GET_NETWORK_CONNECTION] = \
+            ('GET', '/session/$sessionId/network_connection')
+        self.command_executor._commands[Command.SET_NETWORK_CONNECTION] = \
+            ('POST', '/session/$sessionId/network_connection')
 
 
 # monkeypatched method for WebElement

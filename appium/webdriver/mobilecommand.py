@@ -44,3 +44,5 @@ class MobileCommand(object):
     SHAKE = 'shake'
     RESET = 'reset'
     HIDE_KEYBOARD = 'hideKeyboard'
+    GET_NETWORK_CONNECTION = 'getNetworkConnection'
+    SET_NETWORK_CONNECTION = 'setNetworkConnection'

@@ -20,6 +20,13 @@ class MobileCommand(object):
     TOUCH_ACTION = 'touchAction'
     MULTI_ACTION = 'multiAction'
     OPEN_NOTIFICATIONS = 'openNotifications'
+    GET_NETWORK_CONNECTION = 'getNetworkConnection'
+    SET_NETWORK_CONNECTION = 'setNetworkConnection'
+    GET_AVAILABLE_IME_ENGINES = 'getAvailableIMEEngines'
+    IS_IME_ACTIVE = 'isIMEActive'
+    ACTIVATE_IME_ENGINE = 'activateIMEEngine'
+    DEACTIVATE_IME_ENGINE = 'deactivateIMEEngine'
+    GET_ACTIVE_IME_ENGINE = 'getActiveEngine'
 
     # Appium Commands
     GET_APP_STRINGS = 'getAppStrings'
@@ -44,5 +51,3 @@ class MobileCommand(object):
     SHAKE = 'shake'
     RESET = 'reset'
     HIDE_KEYBOARD = 'hideKeyboard'
-    GET_NETWORK_CONNECTION = 'getNetworkConnection'
-    SET_NETWORK_CONNECTION = 'setNetworkConnection'

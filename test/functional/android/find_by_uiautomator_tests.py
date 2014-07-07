@@ -27,12 +27,12 @@ class FindByUIAutomatorTests(unittest.TestCase):
         self.driver.quit()
 
     def test_find_single_element(self):
-        el = self.driver.find_element_by_android_uiautomator('new UiSelector().description("Animation")')
+        el = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Animation")')
         self.assertIsNotNone(el)
 
     def test_find_multiple_elements(self):
         els = self.driver.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
-        self.assertTrue(len(els) > 11)
+        self.assertIsInstance(els, list)
 
     def test_element_find_single_element(self):
         el = self.driver.find_element_by_class_name('android.widget.ListView')
@@ -44,8 +44,13 @@ class FindByUIAutomatorTests(unittest.TestCase):
         el = self.driver.find_element_by_class_name('android.widget.ListView')
 
         sub_els = el.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
-        self.assertTrue(len(sub_els) > 11)
+        self.assertIsInstance(sub_els, list)
+
+    def test_scroll_into_view(self):
+        el = self.driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));')
+        el.click()
 
 
 if __name__ == "__main__":
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(FindByUIAutomatorTests)
+    unittest.TextTestRunner(verbosity=2).run(suite)

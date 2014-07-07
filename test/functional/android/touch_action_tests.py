@@ -231,10 +231,11 @@ class TouchActionTests(unittest.TestCase):
     def test_driver_swipe(self):
         self.assertRaises(NoSuchElementException, self.driver.find_element_by_name, 'Views')
 
-        self.driver.swipe(100, 500, 100, 100, 1.2)
+        self.driver.swipe(100, 500, 100, 100, 800)
         el = self.driver.find_element_by_name('Views')
         self.assertIsNotNone(el)
 
 
 if __name__ == "__main__":
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(TouchActionTests)
+    unittest.TextTestRunner(verbosity=2).run(suite)

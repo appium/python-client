@@ -13,39 +13,33 @@
 # limitations under the License.
 
 import unittest
+
 from time import sleep
 
 from appium import webdriver
 import desired_capabilities
 
 
-class MultiActionTests(unittest.TestCase):
+class ChromeTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('TestApp.app.zip')
+        desired_caps = {
+            'platformName': 'Android',
+            'platformVersion': '4.2',
+            'deviceName': 'Android Emulator',
+            'browserName': 'Chrome'
+        }
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
 
-    # this test does not assert anything.
-    # it has to be watched in order to see if it works
-    def test_driver_pinch_zoom(self):
-        els = self.driver.find_elements_by_class_name('UIAButton')
-        els[5].click()
+    def test_find_single_element(self):
+        self.driver.get('http://10.0.2.2:4723/test/guinea-pig')
+        self.driver.find_element_by_link_text('i am a link').click()
 
-        sleep(1)
-        el = self.driver.find_element_by_name('OK')
-        el.click()
-
-        sleep(1)
-        el = self.driver.find_element_by_xpath('//UIAApplication[1]/UIAWindow[1]/UIAMapView[1]')
-        self.driver.zoom(el)
-
-        sleep(5)
-        self.driver.pinch(el)
-        sleep(5)
+        self.assertTrue('I am some other page content' in self.driver.page_source)
 
 
 if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(MultiActionTests)
+    suite = unittest.TestLoader().loadTestsFromTestCase(ChromeTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

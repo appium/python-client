@@ -168,4 +168,5 @@ class MultiActionTests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(MultiActionTests)
+    unittest.TextTestRunner(verbosity=2).run(suite)

@@ -17,35 +17,24 @@ import unittest
 from appium import webdriver
 from appium.common.exceptions import NoSuchContextException
 import desired_capabilities
+from time import sleep
+
+from selenium.webdriver.common.touch_actions import TouchActions
 
 
-class ContextSwitchingTests(unittest.TestCase):
+class SelendroidTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('selendroid-test-app.apk')
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
+        desired_caps['automationName'] = 'Selendroid'
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def test_contexts_list(self):
-        self._enter_webview()
-        contexts = self.driver.contexts
-        self.assertEqual(2, len(contexts))
+        el = self.driver.find_element_by_class_name('android.widget.ListView')
+        els = el.find_elements_by_class_name('android.widget.TextView')
 
-    def test_move_to_correct_context(self):
-        self._enter_webview()
-        self.assertEqual('WEBVIEW_io.selendroid.testapp', self.driver.current_context)
-
-    def test_actually_in_webview(self):
-        self._enter_webview()
-        self.driver.find_element_by_css_selector('input[type=submit]').click()
-        el = self.driver.find_element_by_xpath("//h1[contains(., 'This is my way')]")
-        self.assertIsNot(None, el)
-
-    def test_move_back_to_native_context(self):
-        self._enter_webview()
-        self.driver.switch_to.context(None)
-        self.assertEqual('NATIVE_APP', self.driver.current_context)
-
-    def test_set_invalid_context(self):
-        self.assertRaises(NoSuchContextException, self.driver.switch_to.context, 'invalid name')
+        ta = TouchActions(self.driver).flick_element(el, 0, -300, 0)
+        ta.perform()
+        sleep(5)
 
     def tearDown(self):
         self.driver.quit()
@@ -57,5 +46,5 @@ class ContextSwitchingTests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(ContextSwitchingTests)
+    suite = unittest.TestLoader().loadTestsFromTestCase(SelendroidTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

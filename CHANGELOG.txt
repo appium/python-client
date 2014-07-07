@@ -1,0 +1,5 @@
+Changes in 0.9 (from 0.8)
+=========================
+
+- Add methods for accessing and manipulating the network connection details on Android devices
+- Add methods for accessing and manipulating the input methods on Android devices

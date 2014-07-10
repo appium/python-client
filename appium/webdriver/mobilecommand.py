@@ -31,8 +31,6 @@ class MobileCommand(object):
     # Appium Commands
     GET_APP_STRINGS = 'getAppStrings'
     PRESS_KEYCODE = 'pressKeyCode'
-    # TODO: remove when new Appium is out
-    KEY_EVENT = 'keyEvent'
     LONG_PRESS_KEYCODE = 'longPressKeyCode'
     GET_CURRENT_ACTIVITY = 'getCurrentActivity'
     SET_IMMEDIATE_VALUE = 'setImmediateValue'

@@ -237,7 +237,7 @@ There are a small number of operations that mobile testers need to do quite a bi
 
 #### `driver.tap`
 
-This method, on the WedDriver object, allows for tapping with multiple fingers, simply by passing in an array of x-y coordinates to tap.
+This method, on the WebDriver object, allows for tapping with multiple fingers, simply by passing in an array of x-y coordinates to tap.
 
 ```python
 el = self.driver.find_element_by_name('Touch Paint')

@@ -173,6 +173,28 @@ class AppiumTests(unittest.TestCase):
         sleep(1)
         self.driver.find_element_by_android_uiautomator('new UiSelector().text(":-|")')
 
+    def test_set_text(self):
+        self.driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
+        self.driver.find_element_by_name('Controls').click()
+        self.driver.find_element_by_name('1. Light Theme').click()
+
+        el = self.driver.find_element_by_class_name('android.widget.EditText')
+        el.send_keys('original text')
+        el.set_text('new text')
+
+        self.assertEqual('new text', el.text)
+
+    def test_send_keys(self):
+        self.driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
+        self.driver.find_element_by_name('Controls').click()
+        self.driver.find_element_by_name('1. Light Theme').click()
+
+        el = self.driver.find_element_by_class_name('android.widget.EditText')
+        el.send_keys('original text')
+        el.send_keys(' and new text')
+
+        self.assertEqual('original text and new text', el.text)
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)

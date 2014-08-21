@@ -694,6 +694,8 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/ime/deactivate')
         self.command_executor._commands[Command.GET_ACTIVE_IME_ENGINE] = \
             ('GET', '/session/$sessionId/ime/active_engine')
+        self.command_executor._commands[Command.REPLACE_KEYS] = \
+            ('POST', '/session/$sessionId/appium/element/$elementId/replace_value')
 
 
 # monkeypatched method for WebElement

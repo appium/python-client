@@ -49,3 +49,4 @@ class MobileCommand(object):
     SHAKE = 'shake'
     RESET = 'reset'
     HIDE_KEYBOARD = 'hideKeyboard'
+    REPLACE_KEYS = 'replaceKeys'

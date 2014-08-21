@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .mobilecommand import MobileCommand as Command
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
 
@@ -84,3 +86,20 @@ class WebElement(SeleniumWebElement):
             driver.find_elements_by_accessibility_id()
         """
         return self.find_elements(by=By.ACCESSIBILITY_ID, value=id)
+
+    def set_text(self, keys=''):
+        """Sends text to the element. Previous text is removed.
+        Android only.
+
+        :Args:
+         - keys - the text to be sent to the element.
+
+        :Usage:
+            element.set_text('some text')
+        """
+        data = {
+            'elementId': self._id,
+            'value': [keys]
+        }
+        self._execute(Command.REPLACE_KEYS, data)
+        return self

@@ -530,6 +530,27 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.CLOSE_APP)
         return self
 
+    def start_activity(self, app_package, app_activity, app_wait_package='', app_wait_activity=''):
+        """Opens an arbitrary activity during a test. If the activity belongs to
+        another application, that application is started and the activity is opened.
+
+        This is an Android-only method.
+
+        :Args:
+        - app_package - The package containing the activity to start.
+        - app_activity - The activity to start.
+        - app_wait_package - Begin automation after this package starts.
+        - app_wait_activity - Begin automation after this activity starts.
+        """
+        data = {
+            'appPackage': app_package,
+            'appActivity': app_activity,
+            'appWaitPackage': app_wait_package,
+            'appWaitActivity': app_wait_activity
+        }
+        self.execute(Command.START_ACTIVITY, data)
+        return self
+
     def end_test_coverage(self, intent, path):
         """Ends the coverage collection and pull the coverage.ec file from the device.
         Android only.
@@ -684,6 +705,8 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/install_app')
         self.command_executor._commands[Command.REMOVE_APP] = \
             ('POST', '/session/$sessionId/appium/device/remove_app')
+        self.command_executor._commands[Command.START_ACTIVITY] = \
+            ('POST', '/session/$sessionId/appium/device/start_activity')
         self.command_executor._commands[Command.LAUNCH_APP] = \
             ('POST', '/session/$sessionId/appium/app/launch')
         self.command_executor._commands[Command.CLOSE_APP] = \

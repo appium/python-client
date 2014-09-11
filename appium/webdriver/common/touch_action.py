@@ -57,7 +57,7 @@ class TouchAction(object):
     def long_press(self, el=None, x=None, y=None, duration=1000):
         """Begin a chain with a press down that lasts `duration` milliseconds
         """
-        self._add_action('longPress', self._get_opts(el, x, y))
+        self._add_action('longPress', self._get_opts(el, x, y, duration))
 
         return self
 
@@ -112,7 +112,7 @@ class TouchAction(object):
         }
         self._actions.append(gesture)
 
-    def _get_opts(self, element, x, y):
+    def _get_opts(self, element, x, y, duration = None):
         opts = {}
         if element is not None:
             opts['element'] = element.id
@@ -122,6 +122,9 @@ class TouchAction(object):
             x, y = None, None
         opts['x'] = x
         opts['y'] = y
+        
+        if duration is not None:
+            opts['duration'] = duration
 
         return opts
 

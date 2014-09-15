@@ -360,6 +360,17 @@ assertIsNotNone(el)
 ### Other methods
 
 
+#### Start an arbitrary activity
+
+The `driver.start_activity` method opens arbitrary activities on a device. 
+If the activity is not part of the application under test, it will also 
+launch the activity's application.
+
+```python
+driver.start_activity('com.foo.app', '.MyActivity')
+```
+
+
 #### Retrieving application strings
 
 The property method `driver.app_strings` returns the application strings from

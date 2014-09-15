@@ -51,3 +51,4 @@ class MobileCommand(object):
     RESET = 'reset'
     HIDE_KEYBOARD = 'hideKeyboard'
     REPLACE_KEYS = 'replaceKeys'
+    START_ACTIVITY = 'startActivity'

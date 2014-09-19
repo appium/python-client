@@ -38,7 +38,6 @@ class MobileCommand(object):
     PULL_FILE = 'pullFile'
     PULL_FOLDER = 'pullFolder'
     PUSH_FILE = 'pushFile'
-    COMPLEX_FIND = 'complexFind'
     BACKGROUND = 'background'
     IS_APP_INSTALLED = 'isAppInstalled'
     INSTALL_APP = 'installApp'
@@ -52,3 +51,5 @@ class MobileCommand(object):
     HIDE_KEYBOARD = 'hideKeyboard'
     REPLACE_KEYS = 'replaceKeys'
     START_ACTIVITY = 'startActivity'
+    GET_SETTINGS = 'getSettings'
+    UPDATE_SETTINGS = 'updateSettings'

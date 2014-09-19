@@ -362,8 +362,8 @@ assertIsNotNone(el)
 
 #### Start an arbitrary activity
 
-The `driver.start_activity` method opens arbitrary activities on a device. 
-If the activity is not part of the application under test, it will also 
+The `driver.start_activity` method opens arbitrary activities on a device.
+If the activity is not part of the application under test, it will also
 launch the activity's application.
 
 ```python
@@ -483,19 +483,6 @@ self.assertEqual(data, data_ret)
 ```
 
 
-#### Complex find in Android
-
-Appium supports a way to do complex searches for elements on an Android device.
-This is accessed through `driver.complex_find`. The arguments and use case,
-to borrow from Winston Churchill, remain a riddle, wrapped in a mystery, inside
-an enigma.
-
-```python
-el = self.driver.complex_find([[[2, 'Ani']]])
-self.assertIsNotNone(el)
-```
-
-
 #### End test coverage
 
 There is functionality in the Android emulator to instrument certain activities.
@@ -518,3 +505,28 @@ argument is the number of seconds to wait before unlocking.
 #### Shake the device
 
 To shake the device, use `driver.shake`.
+
+
+#### Appium Settings
+
+Settings are a new concept introduced by appium. They are currently not a part of the Mobile JSON Wire Protocol, or the Webdriver spec.
+
+Settings are a way to specify the behavior of the appium server.
+
+Settings are:
+
+Mutable, they can be changed during a session
+Only relevant during the session they are applied. They are reset for each new session.
+Control the way the appium server behaves during test automation. They do not apply to controlling the app or device under test.
+
+See [the docs](https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md) for more information.
+
+To get settings:
+```python
+settings = driver.get_settings()
+```
+
+To set settings:
+```python
+driver.update_settings({"some setting": "the value"})
+```

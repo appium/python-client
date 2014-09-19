@@ -93,11 +93,6 @@ class AppiumTests(unittest.TestCase):
             myzip.read('1.txt')
             myzip.read('2.txt')
 
-    def test_complex_find(self):
-        # this only works with a three dimensional array like here.
-        el = self.driver.complex_find([[[2, 'Ani']]])
-        self.assertIsNotNone(el)
-
     def test_background_app(self):
         self.driver.background_app(1)
         sleep(5)
@@ -212,6 +207,15 @@ class AppiumTests(unittest.TestCase):
     def _assert_activity_contains(self, activity):
         current = self.driver.current_activity()
         self.assertTrue(activity in current)
+
+    def test_get_settings(self):
+        settings = self.driver.get_settings()
+        self.assertIsNotNone(settings)
+
+    def test_update_settings(self):
+        self.driver.update_settings({"cyberdelia": "open"})
+        settings = self.driver.get_settings()
+        self.assertEqual(settings["cyberdelia"], "open")
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)

@@ -457,17 +457,6 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.PUSH_FILE, data)
         return self
 
-    def complex_find(self, selector):
-        """Performs a find for elements in the current application.
-
-        :Args:
-         - selector - an array of selection criteria
-        """
-        data = {
-            'selector': selector,
-        }
-        return self.execute(Command.COMPLEX_FIND, data)['value']
-
     def background_app(self, seconds):
         """Puts the application in the background on the device for a certain
         duration.
@@ -664,6 +653,24 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute(Command.GET_ACTIVE_IME_ENGINE, {})['value']
 
+    def get_settings(self):
+        """Returns the appium server Settings for the current session.
+        Do not get Settings confused with Desired Capabilities, they are
+        separate concepts. See https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
+        """
+        return self.execute(Command.GET_SETTINGS, {})['value']
+
+    def update_settings(self, settings):
+        """Set settings for the current session.
+        For more on settings, see: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
+
+        :Args:
+         - settings - dictionary of settings to apply to the current test session
+        """
+        data = {"settings": settings}
+
+        self.execute(Command.UPDATE_SETTINGS, data)
+        return self
 
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
@@ -695,8 +702,6 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/pull_folder')
         self.command_executor._commands[Command.PUSH_FILE] = \
             ('POST', '/session/$sessionId/appium/device/push_file')
-        self.command_executor._commands[Command.COMPLEX_FIND] = \
-            ('POST', '/session/$sessionId/appium/app/complex_find')
         self.command_executor._commands[Command.BACKGROUND] = \
             ('POST', '/session/$sessionId/appium/app/background')
         self.command_executor._commands[Command.IS_APP_INSTALLED] = \
@@ -739,6 +744,10 @@ class WebDriver(webdriver.Remote):
             ('GET', '/session/$sessionId/ime/active_engine')
         self.command_executor._commands[Command.REPLACE_KEYS] = \
             ('POST', '/session/$sessionId/appium/element/$elementId/replace_value')
+        self.command_executor._commands[Command.GET_SETTINGS] = \
+            ('GET', '/session/$sessionId/appium/settings')
+        self.command_executor._commands[Command.UPDATE_SETTINGS] = \
+            ('POST', '/session/$sessionId/appium/settings')
 
 
 # monkeypatched method for WebElement

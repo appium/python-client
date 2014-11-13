@@ -39,7 +39,7 @@ class AppiumTests(unittest.TestCase):
         self.driver.quit()
 
         # remove zipped file from `test_pull_folder`
-        if os.path.isfile(self.zipfilename):
+        if hasattr(self, 'zipfilename') and os.path.isfile(self.zipfilename):
             os.remove(self.zipfilename)
 
     def test_app_strings(self):
@@ -216,6 +216,10 @@ class AppiumTests(unittest.TestCase):
         self.driver.update_settings({"cyberdelia": "open"})
         settings = self.driver.get_settings()
         self.assertEqual(settings["cyberdelia"], "open")
+
+    def test_toggle_location_services(self):
+        self.driver.toggle_location_services()
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)

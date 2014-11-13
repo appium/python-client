@@ -27,6 +27,7 @@ class MobileCommand(object):
     ACTIVATE_IME_ENGINE = 'activateIMEEngine'
     DEACTIVATE_IME_ENGINE = 'deactivateIMEEngine'
     GET_ACTIVE_IME_ENGINE = 'getActiveEngine'
+    TOGGLE_LOCATION_SERVICES = 'toggleLocationServices'
 
     # Appium Commands
     GET_APP_STRINGS = 'getAppStrings'

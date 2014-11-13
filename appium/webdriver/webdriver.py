@@ -672,6 +672,13 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.UPDATE_SETTINGS, data)
         return self
 
+    def toggle_location_services(self):
+        """Toggle the location services on the device. Android only.
+        """
+        self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
+        return self
+
+
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')
@@ -748,6 +755,8 @@ class WebDriver(webdriver.Remote):
             ('GET', '/session/$sessionId/appium/settings')
         self.command_executor._commands[Command.UPDATE_SETTINGS] = \
             ('POST', '/session/$sessionId/appium/settings')
+        self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = \
+            ('POST', '/session/$sessionId/appium/device/toggle_location_services')
 
 
 # monkeypatched method for WebElement

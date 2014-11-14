@@ -26,6 +26,7 @@ def get_desired_capabilities(app):
         'platformVersion': '4.2',
         'deviceName': 'Android Emulator',
         'app': PATH('../../apps/' + app),
+        'newCommandTimeout': 240
     }
 
     return desired_caps

@@ -251,7 +251,7 @@ class WebDriver(webdriver.Remote):
 
         :Args:
          - start_x - x-coordinate at which to start
-         - start_y - y-coordinate at which to end
+         - start_y - y-coordinate at which to start
          - end_x - x-coordinate at which to stop
          - end_y - y-coordinate at which to stop
 

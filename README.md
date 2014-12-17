@@ -131,7 +131,7 @@ self.assertEqual('UICatalog', el.get_attribute('name'))
 ```
 
 ```python
-els = self.driver.find_elements_by_ios_uiautomation('elements()')
+els = self.driver.find_elements_by_ios_uiautomation('.elements()')
 self.assertIsInstance(els, list)
 ```
 

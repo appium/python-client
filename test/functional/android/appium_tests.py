@@ -191,21 +191,21 @@ class AppiumTests(unittest.TestCase):
         self.assertEqual('original text and new text', el.text)
 
     def test_start_activity_this_app(self):
-        self.driver.start_activity("io.appium.android.apis", ".ApiDemos")
+        self.driver.start_activity("com.example.android.apis", ".ApiDemos")
         self._assert_activity_contains('Demos')
 
-        self.driver.start_activity("io.appium.android.apis", ".accessibility.AccessibilityNodeProviderActivity")
+        self.driver.start_activity("com.example.android.apis", ".accessibility.AccessibilityNodeProviderActivity")
         self._assert_activity_contains('Node')
 
     def test_start_activity_other_app(self):
-        self.driver.start_activity("io.appium.android.apis", ".ApiDemos")
+        self.driver.start_activity("com.example.android.apis", ".ApiDemos")
         self._assert_activity_contains('Demos')
 
         self.driver.start_activity("com.android.contacts", ".ContactsListActivity")
         self._assert_activity_contains('Contact')
 
     def _assert_activity_contains(self, activity):
-        current = self.driver.current_activity()
+        current = self.driver.current_activity
         self.assertTrue(activity in current)
 
     def test_get_settings(self):

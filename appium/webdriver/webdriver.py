@@ -519,7 +519,7 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.CLOSE_APP)
         return self
 
-    def start_activity(self, app_package, app_activity, app_wait_package='', app_wait_activity=''):
+    def start_activity(self, app_package, app_activity, **opts):
         """Opens an arbitrary activity during a test. If the activity belongs to
         another application, that application is started and the activity is opened.
 
@@ -528,15 +528,30 @@ class WebDriver(webdriver.Remote):
         :Args:
         - app_package - The package containing the activity to start.
         - app_activity - The activity to start.
-        - app_wait_package - Begin automation after this package starts.
-        - app_wait_activity - Begin automation after this activity starts.
+        - app_wait_package - Begin automation after this package starts (optional).
+        - app_wait_activity - Begin automation after this activity starts (optional).
+        - intent_action - Intent to start (optional).
+        - intent_category - Intent category to start (optional).
+        - intent_flags - Flags to send to the intent (optional).
+        - optional_intent_arguments - Optional arguments to the intent (optional).
+        - stop_app_on_reset - Should the app be stopped on reset (optional)?
         """
         data = {
             'appPackage': app_package,
-            'appActivity': app_activity,
-            'appWaitPackage': app_wait_package,
-            'appWaitActivity': app_wait_activity
+            'appActivity': app_activity
         }
+        arguments = {
+            'app_wait_package': 'appWaitPackage',
+            'app_wait_activity': 'appWaitActivity',
+            'intent_action': 'intentAction',
+            'intent_category': 'intentCategory',
+            'intent_flags': 'intentFlags',
+            'optional_intent_arguments': 'optionalIntentArguments',
+            'stop_app_on_reset': 'stopAppOnReset'
+        }
+        for key in arguments.iterkeys():
+            if opts.has_key(key):
+                data[arguments[key]] = opts[key]
         self.execute(Command.START_ACTIVITY, data)
         return self
 

@@ -15,3 +15,5 @@
 """
 Appium Python Client
 """
+from .saucetestcase import SauceTestCase
+from .saucetestcase import on_platforms

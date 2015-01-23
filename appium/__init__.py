@@ -15,5 +15,9 @@
 """
 Appium Python Client
 """
-from .saucetestcase import SauceTestCase
-from .saucetestcase import on_platforms
+try:
+    from .saucetestcase import SauceTestCase
+    from .saucetestcase import on_platforms
+except ImportError:
+    # SauceClient not found
+    pass

@@ -1,3 +1,9 @@
+Changes in 0.13 (from 0.12)
+===========================
+
+- Fix error in imports when user does not have the SauceClient already
+installed
+
 Changes in 0.12 (from 0.11)
 ===========================
 

@@ -54,3 +54,4 @@ class MobileCommand(object):
     START_ACTIVITY = 'startActivity'
     GET_SETTINGS = 'getSettings'
     UPDATE_SETTINGS = 'updateSettings'
+    SET_LOCATION = 'setLocation'

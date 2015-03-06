@@ -202,7 +202,7 @@ class WebDriver(webdriver.Remote):
                 duration = duration
                 action.long_press(x=x, y=y, duration=duration).release()
             else:
-                action.tap(x=x, y=y).release()
+                action.tap(x=x, y=y)
             action.perform()
         else:
             ma = MultiAction(self)

@@ -549,9 +549,9 @@ class WebDriver(webdriver.Remote):
             'optional_intent_arguments': 'optionalIntentArguments',
             'stop_app_on_reset': 'stopAppOnReset'
         }
-        for key in arguments.iterkeys():
+        for key, value in arguments.items():
             if opts.has_key(key):
-                data[arguments[key]] = opts[key]
+                data[value] = opts[key]
         self.execute(Command.START_ACTIVITY, data)
         return self
 

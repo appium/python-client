@@ -550,7 +550,7 @@ class WebDriver(webdriver.Remote):
             'stop_app_on_reset': 'stopAppOnReset'
         }
         for key, value in arguments.items():
-            if opts.has_key(key):
+            if key in opts:
                 data[value] = opts[key]
         self.execute(Command.START_ACTIVITY, data)
         return self

@@ -693,6 +693,18 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
         return self
 
+    def set_location(self, latitude, longitude):
+        """Set location for iOS simulator
+
+        :Args:
+         - latitude - String or numeric. Values should be between -90.0 and 90.0
+         - longitude - String or numeric. Values should be between -180.0 and 180.0
+        """
+
+        data = {"latitude": str(latitude), "longitude": str(longitude)}
+
+        self.execute(Command.SET_LOCATION, data)
+        return self
 
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
@@ -772,6 +784,8 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/settings')
         self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = \
             ('POST', '/session/$sessionId/appium/device/toggle_location_services')
+        self.command_executor._commands[Command.SET_LOCATION] = \
+            ('POST', '/session/$sessionId/location')
 
 
 # monkeypatched method for WebElement

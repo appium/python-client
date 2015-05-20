@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
 
 from .connectiontype import ConnectionType
 from .mobilecommand import MobileCommand as Command
@@ -572,7 +573,7 @@ class WebDriver(webdriver.Remote):
         return self.execute(Command.END_TEST_COVERAGE, data)['value']
 
     def lock(self, seconds):
-        """Lock the device for a certain period of time. iOS only.
+        """Lock the device for a certain period of time.
 
         :Args:
          - the duration to lock the device, in seconds
@@ -581,7 +582,22 @@ class WebDriver(webdriver.Remote):
             'seconds': seconds,
         }
         self.execute(Command.LOCK, data)
+        if self.desired_capabilities.get('platformName', '').lower() == 'android':
+            WebDriverWait(self, 10).until(lambda d: d.is_locked())
         return self
+
+    def unlock(self):
+        """Unlock the device.  Android only.
+        """
+        self.execute(Command.UNLOCK)
+        WebDriverWait(self, 10).until(lambda d: not d.is_locked())
+        return self
+
+    def is_locked(self):
+        """Checks whether the device is locked. Returns True/False.
+        Android only.
+        """
+        return self.execute(Command.IS_LOCKED)['value']
 
     def shake(self):
         """Shake the device.
@@ -759,6 +775,10 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/app/end_test_coverage')
         self.command_executor._commands[Command.LOCK] = \
             ('POST', '/session/$sessionId/appium/device/lock')
+        self.command_executor._commands[Command.UNLOCK] = \
+            ('POST', '/session/$sessionId/appium/device/unlock')
+        self.command_executor._commands[Command.IS_LOCKED] = \
+            ('POST', '/session/$sessionId/appium/device/is_locked')
         self.command_executor._commands[Command.SHAKE] = \
             ('POST', '/session/$sessionId/appium/device/shake')
         self.command_executor._commands[Command.RESET] = \

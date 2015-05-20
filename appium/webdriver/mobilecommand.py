@@ -47,6 +47,8 @@ class MobileCommand(object):
     CLOSE_APP = 'closeApp'
     END_TEST_COVERAGE = 'endTestCoverage'
     LOCK = 'lock'
+    UNLOCK = 'unlock'
+    IS_LOCKED = 'isLocked'
     SHAKE = 'shake'
     RESET = 'reset'
     HIDE_KEYBOARD = 'hideKeyboard'

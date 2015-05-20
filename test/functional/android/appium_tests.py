@@ -220,6 +220,12 @@ class AppiumTests(unittest.TestCase):
     def test_toggle_location_services(self):
         self.driver.toggle_location_services()
 
+    def test_lock_device(self):
+        self.driver.lock(42)  # The duration doesn't do anything for Android
+        self.assertTrue(self.driver.is_locked())
+        self.driver.unlock()
+        self.assertIs(self.driver.is_locked(), False)
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)

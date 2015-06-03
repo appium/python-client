@@ -103,3 +103,12 @@ class WebElement(SeleniumWebElement):
         }
         self._execute(Command.REPLACE_KEYS, data)
         return self
+
+    @property
+    def location_in_view(self):
+        """Gets the location of an element relative to the view.
+
+        :Usage:
+            location = element.location_in_view
+        """
+        return self._execute(Command.LOCATION_IN_VIEW)['value']

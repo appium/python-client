@@ -45,9 +45,6 @@ class WebDriver(webdriver.Remote):
         By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
 
-        # add methods to the WebElement class
-        WebElement.set_value = set_value
-
     @property
     def contexts(self):
         """

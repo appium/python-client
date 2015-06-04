@@ -793,15 +793,3 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/location')
         self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
             ('GET', '/session/$sessionId/element/$id/location_in_view')
-
-
-# monkeypatched method for WebElement
-def set_value(self, value):
-    """Set the value on this element in the application
-    """
-    data = {
-        'elementId': self.id,
-        'value': [value],
-    }
-    self._execute(Command.SET_IMMEDIATE_VALUE, data)
-    return self

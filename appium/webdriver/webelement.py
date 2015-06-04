@@ -103,3 +103,22 @@ class WebElement(SeleniumWebElement):
         }
         self._execute(Command.REPLACE_KEYS, data)
         return self
+
+    @property
+    def location_in_view(self):
+        """Gets the location of an element relative to the view.
+
+        :Usage:
+            location = element.location_in_view
+        """
+        return self._execute(Command.LOCATION_IN_VIEW)['value']
+
+    def set_value(self, value):
+        """Set the value on this element in the application
+        """
+        data = {
+            'elementId': self.id,
+            'value': [value],
+        }
+        self._execute(Command.SET_IMMEDIATE_VALUE, data)
+        return self

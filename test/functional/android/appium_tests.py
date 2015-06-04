@@ -220,6 +220,12 @@ class AppiumTests(unittest.TestCase):
     def test_toggle_location_services(self):
         self.driver.toggle_location_services()
 
+    def test_element_location_in_view(self):
+        el = self.driver.find_element_by_name('Content')
+        loc = el.location_in_view
+        self.assertIsNotNone(loc['x'])
+        self.assertIsNotNone(loc['y'])
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)

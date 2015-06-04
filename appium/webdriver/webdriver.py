@@ -782,7 +782,7 @@ class WebDriver(webdriver.Remote):
         self.command_executor._commands[Command.GET_ACTIVE_IME_ENGINE] = \
             ('GET', '/session/$sessionId/ime/active_engine')
         self.command_executor._commands[Command.REPLACE_KEYS] = \
-            ('POST', '/session/$sessionId/appium/element/$elementId/replace_value')
+            ('POST', '/session/$sessionId/appium/element/$id/replace_value')
         self.command_executor._commands[Command.GET_SETTINGS] = \
             ('GET', '/session/$sessionId/appium/settings')
         self.command_executor._commands[Command.UPDATE_SETTINGS] = \
@@ -791,15 +791,5 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/toggle_location_services')
         self.command_executor._commands[Command.SET_LOCATION] = \
             ('POST', '/session/$sessionId/location')
-
-
-# monkeypatched method for WebElement
-def set_value(self, value):
-    """Set the value on this element in the application
-    """
-    data = {
-        'elementId': self.id,
-        'value': [value],
-    }
-    self._execute(Command.SET_IMMEDIATE_VALUE, data)
-    return self
+        self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
+            ('GET', '/session/$sessionId/element/$id/location_in_view')

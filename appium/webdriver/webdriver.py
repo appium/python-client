@@ -196,7 +196,6 @@ class WebDriver(webdriver.Remote):
             x = positions[0][0]
             y = positions[0][1]
             if duration:
-                duration = duration
                 action.long_press(x=x, y=y, duration=duration).release()
             else:
                 action.tap(x=x, y=y)
@@ -208,7 +207,6 @@ class WebDriver(webdriver.Remote):
                 y = position[1]
                 action = TouchAction(self)
                 if duration:
-                    duration *= 1000  # we take seconds, but send milliseconds
                     action.long_press(x=x, y=y, duration=duration).release()
                 else:
                     action.press(x=x, y=y).release()

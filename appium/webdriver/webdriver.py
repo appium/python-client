@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
+
 from selenium import webdriver
 
 from .connectiontype import ConnectionType
@@ -399,6 +401,25 @@ class WebDriver(webdriver.Remote):
         """Retrieves the current activity on the device.
         """
         return self.execute(Command.GET_CURRENT_ACTIVITY)['value']
+
+    def wait_activity(self, activity, retries=10, interval=1):
+        """Wait for an activity: block until target activity presents or retry
+        time exhausts.
+
+        This is an Android-only method.
+
+        :Agrs:
+         - activity - target activity
+         - retries - max retry times
+         - interval - sleep interval, in seconds
+        """
+        for i in xrange(retries):
+            if self.current_activity == activity:
+                return True
+            time.sleep(interval)
+        if self.current_activity == activity:
+            return True
+        return False
 
     def set_value(self, element, value):
         """Set the value on an element in the application.

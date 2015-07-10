@@ -309,16 +309,19 @@ class WebDriver(webdriver.Remote):
         self.execute_script('mobile: pinchOpen', opts)
         return self
 
-    def app_strings(self, language=None):
+    def app_strings(self, language=None, string_file=None):
         """Returns the application strings from the device for the specified
         language.
 
         :Args:
          - language - strings language code
+         - string_file - the name of the string file to query
         """
         data = {}
         if language != None:
             data['language'] = language
+        if string_file != None:
+            data['stringFile'] = string_file
         return self.execute(Command.GET_APP_STRINGS, data)['value']
 
     def reset(self):

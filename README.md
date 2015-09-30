@@ -172,7 +172,7 @@ self.assertIsInstance(els, list)
 
 ### Touch actions
 
-In order to accomodate mobile touch actions, and touch actions involving
+In order to accommodate mobile touch actions, and touch actions involving
 multiple pointers, the Selenium 3.0 draft specifies ["touch gestures"](https://dvcs.w3.org/hg/webdriver/raw-file/tip/webdriver-spec.html#touch-gestures) and ["multi actions"](https://dvcs.w3.org/hg/webdriver/raw-file/tip/webdriver-spec.html#multiactions-1), which build upon the touch actions.
 
 move_to: note that use keyword arguments if no element

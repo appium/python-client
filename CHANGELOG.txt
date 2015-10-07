@@ -1,3 +1,8 @@
+Changes in 0.18 (from 0.17)
+===========================
+
+- Remove dependency on `enum34`, which prevented installation in Python 3.5
+
 Changes in 0.13 (from 0.12)
 ===========================
 

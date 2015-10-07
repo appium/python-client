@@ -14,7 +14,6 @@
 
 from selenium import webdriver
 
-from .connectiontype import ConnectionType
 from .mobilecommand import MobileCommand as Command
 from .errorhandler import MobileErrorHandler
 from .switch_to import MobileSwitchTo
@@ -638,7 +637,7 @@ class WebDriver(webdriver.Remote):
         """
         data = {
             'parameters': {
-                'type': connectionType.value
+                'type': connectionType
             }
         }
         return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']

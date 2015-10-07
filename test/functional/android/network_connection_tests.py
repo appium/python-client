@@ -41,7 +41,7 @@ class NetworkConnectionTests(unittest.TestCase):
     def test_set_network_connection(self):
         nc = self.driver.set_network_connection(ConnectionType.DATA_ONLY)
         self.assertIsInstance(nc, int)
-        self.assertEqual(nc, ConnectionType.DATA_ONLY.value)
+        self.assertEqual(nc, ConnectionType.DATA_ONLY)
 
 
 if __name__ == "__main__":

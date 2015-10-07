@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from enum import Enum
-
 
 """
 Connection types are specified here:
@@ -26,7 +24,7 @@ Connection types are specified here:
     4 (Data only)      | 1    | 0    | 0
     6 (All network on) | 1    | 1    | 0
 """
-class ConnectionType(Enum):
+class ConnectionType(object):
     NO_CONNECTION = 0
     AIRPLANE_MODE = 1
     WIFI_ONLY = 2

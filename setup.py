@@ -50,5 +50,5 @@ setup(
         'Topic :: Software Development :: Quality Assurance',
         'Topic :: Software Development :: Testing'
     ],
-    install_requires=['selenium>=2.41.0', 'enum34']
+    install_requires=['selenium>=2.47.0']
 )

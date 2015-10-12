@@ -17,7 +17,7 @@ from setuptools import setup
 
 setup(
     name='Appium-Python-Client',
-    version='0.19',
+    version='0.20',
     description='Python client for Appium 1.4',
     keywords=[
         'appium',

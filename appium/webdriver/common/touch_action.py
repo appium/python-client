@@ -90,7 +90,7 @@ class TouchAction(object):
     def perform(self):
         """Perform the action by sending the commands to the server to be operated upon
         """
-        params = {'gestures': self._actions}
+        params = {'actions': self._actions}
         self._driver.execute(Command.TOUCH_ACTION, params)
 
         # get rid of actions so the object can be reused

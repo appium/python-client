@@ -7,7 +7,7 @@ framework [Appium](https://appium.io).
 
 # Getting the Appium Python client
 
-There are two ways to install and use the Appium Python client.
+There are three ways to install and use the Appium Python client.
 
 1. Install from [PyPi](https://pypi.python.org/pypi), as
 ['Appium-Python-Client'](https://pypi.python.org/pypi/Appium-Python-Client).

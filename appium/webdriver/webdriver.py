@@ -728,6 +728,12 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.SET_LOCATION, data)
         return self
 
+    @property
+    def device_time(self):
+        """Returns the date and time fomr the device
+        """
+        return self.execute(Command.GET_DEVICE_TIME, {})['value']
+
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')
@@ -810,3 +816,5 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/location')
         self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
             ('GET', '/session/$sessionId/element/$id/location_in_view')
+        self.command_executor._commands[Command.GET_DEVICE_TIME] = \
+            ('GET', '/session/$sessionId/appium/device/system_time')

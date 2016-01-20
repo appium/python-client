@@ -56,3 +56,4 @@ class MobileCommand(object):
     GET_SETTINGS = 'getSettings'
     UPDATE_SETTINGS = 'updateSettings'
     SET_LOCATION = 'setLocation'
+    GET_DEVICE_TIME = 'getDeviceTime'

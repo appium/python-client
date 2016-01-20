@@ -19,6 +19,7 @@ import json
 import os
 import random
 from time import sleep
+from dateutil.parser import parse
 
 from selenium.common.exceptions import NoSuchElementException
 
@@ -229,6 +230,11 @@ class AppiumTests(unittest.TestCase):
         loc = el.location_in_view
         self.assertIsNotNone(loc['x'])
         self.assertIsNotNone(loc['y'])
+
+    def test_device_time(self):
+        date_time = self.driver.device_time
+        # convert to date ought to work
+        parse(date_time)
 
 
 if __name__ == "__main__":

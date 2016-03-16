@@ -430,7 +430,7 @@ class WebDriver(webdriver.Remote):
          - Value - the value to set on the element
         """
         data = {
-            'elementId': element.id,
+            'id': element.id,
             'value': [value],
         }
         self.execute(Command.SET_IMMEDIATE_VALUE, data)
@@ -757,7 +757,7 @@ class WebDriver(webdriver.Remote):
         self.command_executor._commands[Command.GET_CURRENT_ACTIVITY] = \
             ('GET', '/session/$sessionId/appium/device/current_activity')
         self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
-            ('POST', '/session/$sessionId/appium/element/$elementId/value')
+            ('POST', '/session/$sessionId/appium/element/$id/value')
         self.command_executor._commands[Command.PULL_FILE] = \
             ('POST', '/session/$sessionId/appium/device/pull_file')
         self.command_executor._commands[Command.PULL_FOLDER] = \

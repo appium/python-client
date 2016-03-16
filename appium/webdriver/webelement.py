@@ -98,7 +98,7 @@ class WebElement(SeleniumWebElement):
             element.set_text('some text')
         """
         data = {
-            'elementId': self._id,
+            'id': self._id,
             'value': [keys]
         }
         self._execute(Command.REPLACE_KEYS, data)
@@ -117,7 +117,7 @@ class WebElement(SeleniumWebElement):
         """Set the value on this element in the application
         """
         data = {
-            'elementId': self.id,
+            'id': self.id,
             'value': [value],
         }
         self._execute(Command.SET_IMMEDIATE_VALUE, data)

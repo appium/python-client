@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 import os
 
 # Returns abs path relative to this file and not cwd
@@ -22,9 +21,11 @@ PATH = lambda p: os.path.abspath(
 
 def get_desired_capabilities(app):
     desired_caps = {
-        'deviceName': 'iPhone Simulator',
+        'deviceName': 'iPhone 5s',
         'platformName': 'iOS',
+        'platformVersion': '10.1',
         'app': PATH('../../apps/' + app),
+        'automationName': 'XCUITest'
     }
 
     return desired_caps

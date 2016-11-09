@@ -28,7 +28,6 @@ class AppiumTests(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
-
     def test_lock(self):
         el = self.driver.find_element_by_id('ButtonsExplain')
         self.assertIsNotNone(el)
@@ -43,6 +42,12 @@ class AppiumTests(unittest.TestCase):
     def test_shake(self):
         # what can we assert about this?
         self.driver.shake()
+
+
+    def test_touch_id(self):
+        # nothing to assert, just verify that it doesn't blow up
+        self.driver.touch_id(True)
+        self.driver.touch_id(False)
 
     def test_hide_keyboard(self):
         el = self.driver.find_element_by_name('TextFields, Uses of UITextField')

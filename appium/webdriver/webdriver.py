@@ -43,6 +43,7 @@ class WebDriver(webdriver.Remote):
 
         # add new method to the `find_by_*` pantheon
         By.IOS_UIAUTOMATION = MobileBy.IOS_UIAUTOMATION
+        By.IOS_PREDICATE = MobileBy.IOS_PREDICATE
         By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
 
@@ -97,6 +98,28 @@ class WebDriver(webdriver.Remote):
             driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
         """
         return self.find_elements(by=By.IOS_UIAUTOMATION, value=uia_string)
+
+    def find_element_by_ios_predicate(self, predicate_string):
+        """Find an element by ios predicate string.
+
+        :Args:
+         - predicate_string - The predicate string
+
+        :Usage:
+            driver.find_element_by_ios_predicate('label == "myLabel"')
+        """
+        return self.find_element(by=By.IOS_PREDICATE, value=predicate_string)
+
+    def find_elements_by_ios_predicate(self, predicate_string):
+        """Finds elements by ios predicate string.
+
+        :Args:
+         - predicate_string - The predicate string
+
+        :Usage:
+            driver.find_elements_by_ios_predicate('label == "myLabel"')
+        """
+        return self.find_elements(by=By.IOS_PREDICATE, value=predicate_string)
 
     def find_element_by_android_uiautomator(self, uia_string):
         """Finds element by uiautomator in Android.
@@ -829,3 +852,5 @@ class WebDriver(webdriver.Remote):
             ('GET', '/session/$sessionId/element/$id/location_in_view')
         self.command_executor._commands[Command.GET_DEVICE_TIME] = \
             ('GET', '/session/$sessionId/appium/device/system_time')
+        self.command_executor._commands[Command.CLEAR] = \
+            ('POST', '/session/$sessionId/element/$id/clear')

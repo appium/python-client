@@ -551,7 +551,7 @@ class WebDriver(webdriver.Remote):
         - intent_category - Intent category to start (optional).
         - intent_flags - Flags to send to the intent (optional).
         - optional_intent_arguments - Optional arguments to the intent (optional).
-        - stop_app_on_reset - Should the app be stopped on reset (optional)?
+        - dont_stop_app_on_reset - Should the app be stopped on reset (optional)?
         """
         data = {
             'appPackage': app_package,
@@ -564,7 +564,7 @@ class WebDriver(webdriver.Remote):
             'intent_category': 'intentCategory',
             'intent_flags': 'intentFlags',
             'optional_intent_arguments': 'optionalIntentArguments',
-            'stop_app_on_reset': 'stopAppOnReset'
+            'dont_stop_app_on_reset': 'dontStopAppOnReset'
         }
         for key, value in arguments.items():
             if key in opts:

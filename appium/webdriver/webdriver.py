@@ -45,6 +45,7 @@ class WebDriver(webdriver.Remote):
         By.IOS_UIAUTOMATION = MobileBy.IOS_UIAUTOMATION
         By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
+        By.IOS_PREDICATE_STRING = MobileBy.IOS_PREDICATE_STRING
 
     @property
     def contexts(self):
@@ -97,6 +98,28 @@ class WebDriver(webdriver.Remote):
             driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
         """
         return self.find_elements(by=By.IOS_UIAUTOMATION, value=uia_string)
+
+    def find_element_by_ios_predicate_string(self, predicate_string):
+        """Finds an element by predicate string in iOS.
+
+        :Args:
+         - predicate_string - ????
+
+        :Usage:
+            driver.find_element_by_predicate_string('?????')
+        """
+        return self.find_element(by=By.IOS_PREDICATE_STRING, value=predicate_string)
+
+    def find_elements_by_ios_predicate_string(self, predicate_string):
+        """Finds elements by predicate string in iOS.
+
+        :Args:
+         - predicate_string - ????
+
+        :Usage:
+            driver.find_element_by_predicate_string('?????')
+        """
+        return self.find_elements(by=By.IOS_PREDICATE_STRING, value=predicate_string)
 
     def find_element_by_android_uiautomator(self, uia_string):
         """Finds element by uiautomator in Android.

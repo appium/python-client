@@ -41,6 +41,28 @@ class WebElement(SeleniumWebElement):
         """
         return self.find_elements(by=By.IOS_UIAUTOMATION, value=uia_string)
 
+    def find_element_by_ios_predicate_string(self, predicate_string):
+        """Finds an element by predicate string in iOS.
+
+        :Args:
+         - predicate_string - ????
+
+        :Usage:
+            driver.find_element_by_predicate_string('?????')
+        """
+        return self.find_element(by=By.IOS_PREDICATE_STRING, value=predicate_string)
+
+    def find_elements_by_ios_predicate_string(self, predicate_string):
+        """Finds elements by predicate string in iOS.
+
+        :Args:
+         - predicate_string - ????
+
+        :Usage:
+            driver.find_element_by_predicate_string('?????')
+        """
+        return self.find_elements(by=By.IOS_PREDICATE_STRING, value=predicate_string)
+
     def find_element_by_android_uiautomator(self, uia_string):
         """Finds element by uiautomator in Android.
 

@@ -19,3 +19,4 @@ class MobileBy(By):
     IOS_UIAUTOMATION = '-ios uiautomation'
     ANDROID_UIAUTOMATOR = '-android uiautomator'
     ACCESSIBILITY_ID = 'accessibility id'
+    IOS_PREDICATE_STRING = '-ios predicate string'

@@ -41,6 +41,28 @@ class WebElement(SeleniumWebElement):
         """
         return self.find_elements(by=By.IOS_UIAUTOMATION, value=uia_string)
 
+    def find_element_by_ios_predicate(self, predicate_string):
+        """Find an element by ios predicate string.
+
+        :Args:
+         - predicate_string - The predicate string
+
+        :Usage:
+            driver.find_element_by_ios_predicate('label == "myLabel"')
+        """
+        return self.find_element(by=By.IOS_PREDICATE, value=predicate_string)
+
+    def find_elements_by_ios_predicate(self, predicate_string):
+        """Finds elements by ios predicate string.
+
+        :Args:
+         - predicate_string - The predicate string
+
+        :Usage:
+            driver.find_elements_by_ios_predicate('label == "myLabel"')
+        """
+        return self.find_elements(by=By.IOS_PREDICATE, value=predicate_string)
+
     def find_element_by_android_uiautomator(self, uia_string):
         """Finds element by uiautomator in Android.
 
@@ -121,4 +143,11 @@ class WebElement(SeleniumWebElement):
             'value': [value],
         }
         self._execute(Command.SET_IMMEDIATE_VALUE, data)
+        return self
+
+    def clear(self):
+        """Clears text.
+        """
+        data = {'id': self.id}
+        self._execute(Command.CLEAR, data)
         return self

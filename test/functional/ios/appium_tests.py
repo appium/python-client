@@ -96,6 +96,26 @@ class AppiumTests(unittest.TestCase):
         # currently fails.
         self.assertFalse(el.is_displayed())
 
+    def test_clear(self):
+        # Click text fields
+        self.driver.find_element_by_accessibility_id('TextFields').click()
+
+        # Verify default text
+        def_text = '<enter text>'
+        text = self.driver.find_element_by_accessibility_id('Normal').get_attribute('value')
+        self.assertEqual(text, def_text)
+
+        # Input some text, verify
+        input_text = 'blah'
+        self.driver.find_element_by_accessibility_id('Normal').send_keys(input_text)
+        text = self.driver.find_element_by_accessibility_id('Normal').get_attribute('value')
+        self.assertEqual(text, input_text)
+
+        # Clear text, verify
+        self.driver.find_element_by_accessibility_id('Normal').clear()
+        text = self.driver.find_element_by_accessibility_id('Normal').get_attribute('value')
+        self.assertEqual(text, def_text)
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)

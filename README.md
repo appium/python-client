@@ -122,7 +122,10 @@ driver.switch_to.context(context_name)
 ### Finding elements by iOS UIAutomation search
 
 This allows elements in iOS applications to be found using recursive element
-search using the UIAutomation library. Adds the methods `driver.find_element_by_ios_uiautomation`
+search using the UIAutomation library. This method is supported on iOS devices
+that still support UIAutomation, that is, versions which predate XCUITEST.
+
+Adds the methods `driver.find_element_by_ios_uiautomation`
 and `driver.find_elements_by_ios_uiautomation`.
 
 ```python

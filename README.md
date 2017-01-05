@@ -122,7 +122,10 @@ driver.switch_to.context(context_name)
 ### Finding elements by iOS UIAutomation search
 
 This allows elements in iOS applications to be found using recursive element
-search using the UIAutomation library. Adds the methods `driver.find_element_by_ios_uiautomation`
+search using the UIAutomation library. This method is supported on iOS devices
+that still support UIAutomation, that is, versions which predate XCUITEST.
+
+Adds the methods `driver.find_element_by_ios_uiautomation`
 and `driver.find_elements_by_ios_uiautomation`.
 
 ```python
@@ -152,6 +155,25 @@ els = self.driver.find_elements_by_android_uiautomator('new UiSelector().clickab
 self.assertIsInstance(els, list)
 ```
 
+
+### Finding elements by iOS predicates
+
+This method allows finding elements using iOS predicates. The methods take a
+string in the format of a predicate, including element type and the value of
+fields.
+
+Adds the methods
+`driver.find_element_by_ios_predicate` and `find_elements_by_ios_predicate`.
+
+```python
+el = self.driver.find_element_by_ios_predicate('wdName == "Buttons"')
+self.assertIsNotNone(el)
+```
+
+```python
+els = self.driver.find_elements_by_ios_predicate('wdValue == "SearchBar" AND isWDDivisible == 1')
+self.assertIsInstance(els, list)
+```
 
 ### Finding elements by Accessibility ID
 

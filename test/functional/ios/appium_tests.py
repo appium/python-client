@@ -28,6 +28,11 @@ class AppiumTests(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+
+    def test_get_page_source(self):
+        source = self.driver.get_page_source()
+        print source
+
     def test_lock(self):
         el = self.driver.find_element_by_id('ButtonsExplain')
         self.assertIsNotNone(el)

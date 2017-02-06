@@ -59,3 +59,4 @@ class MobileCommand(object):
     SET_LOCATION = 'setLocation'
     GET_DEVICE_TIME = 'getDeviceTime'
     CLEAR = 'clear'
+    SOURCE = 'source'

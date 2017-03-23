@@ -23,9 +23,10 @@ def get_desired_capabilities(app):
     desired_caps = {
         'deviceName': 'iPhone 5s',
         'platformName': 'iOS',
-        'platformVersion': '10.1',
+        'platformVersion': '10.2',
         'app': PATH('../../apps/' + app),
-        'automationName': 'XCUITest'
+        'automationName': 'XCUITest',
+        'allowTouchIdEnroll': True
     }
 
     return desired_caps

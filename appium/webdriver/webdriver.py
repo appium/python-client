@@ -630,12 +630,18 @@ class WebDriver(webdriver.Remote):
         return self
 
     def touch_id(self, match):
-        """Do a fingerprint scan
+        """Simulate touchId on iOS Simulator
         """
         data = {
             'match': match
         }
         self.execute(Command.TOUCH_ID, data)
+        return self
+
+    def toggle_touch_id_enrollment(self):
+        """Toggle enroll touchId on iOS Simulator
+        """
+        self.execute(Command.TOGGLE_TOUCH_ID_ENROLLMENT)
         return self
 
     def open_notifications(self):
@@ -818,6 +824,8 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/shake')
         self.command_executor._commands[Command.TOUCH_ID] = \
             ('POST', '/session/$sessionId/appium/simulator/touch_id')
+        self.command_executor._commands[Command.TOGGLE_TOUCH_ID_ENROLLMENT] = \
+            ('POST', '/session/$sessionId/appium/simulator/toggle_touch_id_enrollment')
         self.command_executor._commands[Command.RESET] = \
             ('POST', '/session/$sessionId/appium/app/reset')
         self.command_executor._commands[Command.HIDE_KEYBOARD] = \

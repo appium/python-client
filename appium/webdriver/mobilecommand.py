@@ -50,6 +50,7 @@ class MobileCommand(object):
     LOCK = 'lock'
     SHAKE = 'shake'
     TOUCH_ID = 'touchId'
+    TOGGLE_TOUCH_ID_ENROLLMENT = 'toggleTouchIdEnrollment'
     RESET = 'reset'
     HIDE_KEYBOARD = 'hideKeyboard'
     REPLACE_KEYS = 'replaceKeys'

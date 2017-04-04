@@ -1,0 +1,24 @@
+sudo: required
+language: python
+python:
+  - "2.7"
+env:
+  - TEST=unit
+  - TEST=functional/android
+  - TEST=functional/ios
+before_install:
+  # TavisCI's OSX environment gives us node 0.10.32
+  # Use NVM to update it to 0.12
+  - rm -rf ~/.nvm
+  - git clone https://github.com/creationix/nvm.git ~/.nvm
+  - source ~/.nvm/nvm.sh
+  - nvm install 0.12
+before_script:
+  - rm -rf node_modules
+  - npm install appium
+  - pip install pytest
+script:
+  - node node_modules/appium &
+  - py.test test/$TEST
+after_success:
+  - gulp coveralls

@@ -240,14 +240,14 @@ class WebDriver(webdriver.Remote):
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
-    def swipe(self, start_x, start_y, end_x, end_y, duration=None):
+    def swipe(self, start_x, start_y, offset_x, offset_y, duration=None):
         """Swipe from one point to another point, for an optional duration.
 
         :Args:
          - start_x - x-coordinate at which to start
          - start_y - y-coordinate at which to start
-         - end_x - x-coordinate at which to stop
-         - end_y - y-coordinate at which to stop
+         - offset_x - x-offset relative to start_x at which to stop
+         - offset_y - y-offset relative to start_y at which to stop
          - duration - (optional) time to take the swipe, in ms.
 
         :Usage:
@@ -259,7 +259,7 @@ class WebDriver(webdriver.Remote):
         action \
             .press(x=start_x, y=start_y) \
             .wait(ms=duration) \
-            .move_to(x=end_x, y=end_y) \
+            .move_to(x=offset_x, y=offset_y) \
             .release()
         action.perform()
         return self

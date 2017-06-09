@@ -44,6 +44,7 @@ class WebDriver(webdriver.Remote):
         # add new method to the `find_by_*` pantheon
         By.IOS_UIAUTOMATION = MobileBy.IOS_UIAUTOMATION
         By.IOS_PREDICATE = MobileBy.IOS_PREDICATE
+        By.IOS_CLASS_CHAIN = MobileBy.IOS_CLASS_CHAIN
         By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
 
@@ -120,6 +121,28 @@ class WebDriver(webdriver.Remote):
             driver.find_elements_by_ios_predicate('label == "myLabel"')
         """
         return self.find_elements(by=By.IOS_PREDICATE, value=predicate_string)
+
+    def find_element_by_ios_class_chain(self, class_chain_string):
+        """Find an element by ios class chain string.
+
+        :Args:
+         - class_chain_string - The class chain string
+
+        :Usage:
+            driver.find_element_by_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton[3]')
+        """
+        return self.find_element(by=By.IOS_CLASS_CHAIN, value=class_chain_string)
+
+    def find_elements_by_class_chain(self, class_chain_string):
+        """Finds elements by ios class chain string.
+
+        :Args:
+         - class_chain_string - The class chain string
+
+        :Usage:
+            driver.find_elements_by_class_chain('XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]')
+        """
+        return self.find_elements(by=By.IOS_CLASS_CHAIN, value=class_chain_string)
 
     def find_element_by_android_uiautomator(self, uia_string):
         """Finds element by uiautomator in Android.

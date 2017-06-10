@@ -184,7 +184,7 @@ This method allows finding elements using iOS class chain. The methods take
 a string in the format of a class chain, including element type.
 
 Adds the methods
-`driver.find_element_by_ios_class_chain` and `find_elements_by_class_chain`.
+`driver.find_element_by_ios_class_chain` and `find_elements_by_ios_class_chain`.
 
 ```python
 el = self.driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton[3]')
@@ -192,7 +192,7 @@ self.assertIsNotNone(el)
 ```
 
 ```python
-els = self.driver.find_elements_by_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton')
+els = self.driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton')
 self.assertIsInstance(els, list)
 ```
 

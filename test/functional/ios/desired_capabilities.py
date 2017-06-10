@@ -21,9 +21,9 @@ PATH = lambda p: os.path.abspath(
 
 def get_desired_capabilities(app):
     desired_caps = {
-        'deviceName': 'iPhone 5s',
+        'deviceName': 'iPhone 6s',
         'platformName': 'iOS',
-        'platformVersion': '10.2',
+        'platformVersion': '10.3',
         'app': PATH('../../apps/' + app),
         'automationName': 'XCUITest',
         'allowTouchIdEnroll': True

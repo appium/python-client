@@ -175,6 +175,27 @@ els = self.driver.find_elements_by_ios_predicate('wdValue == "SearchBar" AND isW
 self.assertIsInstance(els, list)
 ```
 
+
+### Finding elements by iOS class chain
+
+**This method is only for [XCUITest driver](https://github.com/appium/appium-xcuitest-driver)**
+
+This method allows finding elements using iOS class chain. The methods take
+a string in the format of a class chain, including element type.
+
+Adds the methods
+`driver.find_element_by_ios_class_chain` and `find_elements_by_ios_class_chain`.
+
+```python
+el = self.driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton[3]')
+self.assertIsNotNone(el)
+```
+
+```python
+els = self.driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton')
+self.assertIsInstance(els, list)
+```
+
 ### Finding elements by Accessibility ID
 
 Allows for elements to be found using the "Accessibility ID". The methods take a

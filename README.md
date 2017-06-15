@@ -470,7 +470,15 @@ assertFalse(el.is_displayed())
 ```
 
 
-#### Retrieving the current running activity
+#### Retrieving the current running package and activity
+
+The property method `driver.current_package` returns the name of the current
+package running on the device.
+
+```python
+package = driver.current_package
+assertEquals('com.example.android.apis', package)
+```
 
 The property method `driver.current_activity` returns the name of the current
 activity running on the device.

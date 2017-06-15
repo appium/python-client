@@ -446,9 +446,15 @@ class WebDriver(webdriver.Remote):
 
     @property
     def current_activity(self):
-        """Retrieves the current activity on the device.
+        """Retrieves the current activity running on the device.
         """
         return self.execute(Command.GET_CURRENT_ACTIVITY)['value']
+
+    @property
+    def current_package(self):
+        """Retrieves the current package running on the device.
+        """
+        return self.execute(Command.GET_CURRENT_PACKAGE)['value']
 
     def wait_activity(self, activity, timeout, interval=1):
         """Wait for an activity: block until target activity presents
@@ -817,6 +823,8 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/long_press_keycode')
         self.command_executor._commands[Command.GET_CURRENT_ACTIVITY] = \
             ('GET', '/session/$sessionId/appium/device/current_activity')
+        self.command_executor._commands[Command.GET_CURRENT_PACKAGE] = \
+            ('GET', '/session/$sessionId/appium/device/current_package')
         self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
             ('POST', '/session/$sessionId/appium/element/$id/value')
         self.command_executor._commands[Command.PULL_FILE] = \

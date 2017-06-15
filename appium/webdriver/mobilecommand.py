@@ -36,6 +36,7 @@ class MobileCommand(object):
     KEY_EVENT = 'keyEvent' # Needed for Selendroid
     LONG_PRESS_KEYCODE = 'longPressKeyCode'
     GET_CURRENT_ACTIVITY = 'getCurrentActivity'
+    GET_CURRENT_PACKAGE = 'getCurrentPackage'
     SET_IMMEDIATE_VALUE = 'setImmediateValue'
     PULL_FILE = 'pullFile'
     PULL_FOLDER = 'pullFolder'

@@ -67,6 +67,10 @@ class AppiumTests(unittest.TestCase):
         activity = self.driver.current_activity
         self.assertEqual('.ApiDemos', activity)
 
+    def test_current_package(self):
+        package = self.driver.current_package
+        self.assertEqual('com.example.android.apis', package)
+
     def test_pull_file(self):
         data = self.driver.pull_file('data/local/tmp/strings.json')
         strings = json.loads(data.decode('base64', 'strict'))

@@ -14,3 +14,6 @@ MANIFEST
 
 build
 dist
+
+.cache
+__pycache__

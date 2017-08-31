@@ -388,8 +388,7 @@ class WebDriver(webdriver.Remote):
             data['keyName'] = key_name
         elif key is not None:
             data['key'] = key
-        else:
-            # defaults to `tapOutside` strategy
+        elif strategy is None:
             strategy = 'tapOutside'
         data['strategy'] = strategy
         self.execute(Command.HIDE_KEYBOARD, data)

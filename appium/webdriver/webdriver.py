@@ -797,7 +797,7 @@ class WebDriver(webdriver.Remote):
 
     @property
     def device_time(self):
-        """Returns the date and time fomr the device
+        """Returns the date and time from the device
         """
         return self.execute(Command.GET_DEVICE_TIME, {})['value']
 

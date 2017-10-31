@@ -92,7 +92,7 @@ The methods that do change are...
 
 ### Switching between 'Native' and 'Webview'
 
-For mobile testing the Selnium methods for switching between windows was previously
+For mobile testing the Selenium methods for switching between windows was previously
 commandeered for switching between native applications and webview contexts. Methods
 explicitly for this have been added to the Selenium 3 specification, so moving
 forward these 'context' methods are to be used.
@@ -255,7 +255,7 @@ self.assertIsNotNone(el)
 
 ### Multi-touch actions
 
-In addition to chains of actions performed with in a single gesture, it is also possible to perform multiple chains at the same time, to simulate multi-finger actions. This is done through building a `MultiAction` object that comprises a number of individual `TouchAction` objects, one for each "finger".
+In addition to chains of actions performed within a single gesture, it is also possible to perform multiple chains at the same time, to simulate multi-finger actions. This is done through building a `MultiAction` object that comprises a number of individual `TouchAction` objects, one for each "finger".
 
 Given two lists next to each other, we can scroll them independently but simultaneously:
 

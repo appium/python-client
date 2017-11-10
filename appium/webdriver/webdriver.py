@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import datetime
 from selenium import webdriver
 
 from .mobilecommand import MobileCommand as Command
@@ -801,6 +801,15 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute(Command.GET_DEVICE_TIME, {})['value']
 
+    @device_time.setter
+    def device_time(self, time):
+        """ Sets date and time
+        """
+        adb_date_format = "%m%d%H%M%Y.%S"
+        if isinstance(time, datetime.datetime):
+            time = time.strftime(adb_date_format)
+        return self.execute(Command.SET_DEVICE_TIME, {'datetime': time})['value']
+
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')
@@ -891,5 +900,7 @@ class WebDriver(webdriver.Remote):
             ('GET', '/session/$sessionId/element/$id/location_in_view')
         self.command_executor._commands[Command.GET_DEVICE_TIME] = \
             ('GET', '/session/$sessionId/appium/device/system_time')
+        self.command_executor._commands[Command.SET_DEVICE_TIME] = \
+            ('POST', '/session/$sessionId/appium/device/system_time')
         self.command_executor._commands[Command.CLEAR] = \
             ('POST', '/session/$sessionId/element/$id/clear')

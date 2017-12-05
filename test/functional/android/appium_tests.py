@@ -19,6 +19,8 @@ import json
 import os
 import random
 from time import sleep
+
+import datetime
 from dateutil.parser import parse
 
 from selenium.common.exceptions import NoSuchElementException
@@ -239,6 +241,41 @@ class AppiumTests(unittest.TestCase):
         date_time = self.driver.device_time
         # convert to date ought to work
         parse(date_time)
+
+    def test_set_device_time(self):
+        """
+        Test setting device time in format %m%d%H%M%Y.%S / MMDDhhmmYYYY.ss / MonthDayHourMinuteYear.Second
+        :return:
+        """
+        date_time = self.driver.device_time
+        date_time_obj = parse(date_time) # type: datetime.datetime
+
+        # Change the datetime year
+        past_date_time_obj = date_time_obj.replace(year=2016)
+
+        self.driver.device_time = past_date_time_obj
+
+        # Retrieve the current device datetime
+        updated_date = self.driver.device_time
+        updated_date_obj = parse(updated_date) # type: datetime.datetime
+
+        # Verify the year and hour are correct
+        self.assertEqual(updated_date_obj.year, 2016, msg="Year was updated correctly")
+        self.assertEqual(updated_date_obj.hour, date_time_obj.hour, "Hour is correct")
+
+        # Add one to the original dates year
+        new_hour = date_time_obj.hour + 1
+        changed_hour = date_time_obj.replace(hour=new_hour)
+
+        # Set device to new datetime
+        self.driver.device_time = changed_hour
+
+        # Retrieve device time
+        updated_date = parse(self.driver.device_time)
+
+        # Verify hour is correct
+        self.assertEqual(updated_date.hour, new_hour, msg="Hour updated correctly")
+
 
 
 if __name__ == "__main__":

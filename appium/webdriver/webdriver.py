@@ -26,7 +26,63 @@ from appium.webdriver.common.multi_action import MultiAction
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, InvalidArgumentException
+
+from selenium.webdriver.remote.command import Command as RemoteCommand
+import copy
+
+_W3C_CAPABILITY_NAMES = frozenset([
+    'acceptInsecureCerts',
+    'browserName',
+    'browserVersion',
+    'platformName',
+    'pageLoadStrategy',
+    'proxy',
+    'setWindowRect',
+    'timeouts',
+    'unhandledPromptBehavior',
+])
+
+_OSS_W3C_CONVERSION = {
+    'acceptSslCerts': 'acceptInsecureCerts',
+    'version': 'browserVersion',
+    'platform': 'platformName'
+}
+
+
+def _make_w3c_caps(caps):
+    """Makes a W3C alwaysMatch capabilities object.
+
+    Filters out capability names that are not in the W3C spec. Spec-compliant
+    drivers will reject requests containing unknown capability names.
+
+    Moves the Firefox profile, if present, from the old location to the new Firefox
+    options object.
+
+    :Args:
+     - caps - A dictionary of capabilities requested by the caller.
+    """
+    caps = copy.deepcopy(caps)
+    profile = caps.get('firefox_profile')
+    always_match = {}
+    if caps.get('proxy') and caps['proxy'].get('proxyType'):
+        caps['proxy']['proxyType'] = caps['proxy']['proxyType'].lower()
+    for k, v in caps.items():
+        if v and k in _OSS_W3C_CONVERSION:
+            always_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
+        if k in _W3C_CAPABILITY_NAMES or ':' in k:
+            always_match[k] = v
+        else:
+            always_match["appium:" + k] = v
+    if profile:
+        moz_opts = always_match.get('moz:firefoxOptions', {})
+        # If it's already present, assume the caller did that intentionally.
+        if 'profile' not in moz_opts:
+            # Don't mutate the original capabilities.
+            new_opts = copy.deepcopy(moz_opts)
+            new_opts['profile'] = profile
+            always_match['moz:firefoxOptions'] = new_opts
+    return {"firstMatch": [{}], "alwaysMatch": always_match}
 
 
 class WebDriver(webdriver.Remote):
@@ -47,6 +103,43 @@ class WebDriver(webdriver.Remote):
         By.IOS_CLASS_CHAIN = MobileBy.IOS_CLASS_CHAIN
         By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
+
+
+    def start_session(self, capabilities, browser_profile=None):
+        """
+        Creates a new session with the desired capabilities.
+
+        :Args:
+         - browser_name - The name of the browser to request.
+         - version - Which browser version to request.
+         - platform - Which platform to request the browser on.
+         - javascript_enabled - Whether the new session should support JavaScript.
+         - browser_profile - A selenium.webdriver.firefox.firefox_profile.FirefoxProfile object. Only used if Firefox is requested.
+        """
+        if not isinstance(capabilities, dict):
+            raise InvalidArgumentException("Capabilities must be a dictionary")
+        if browser_profile:
+            if "moz:firefoxOptions" in capabilities:
+                capabilities["moz:firefoxOptions"]["profile"] = browser_profile.encoded
+            else:
+                capabilities.update({'firefox_profile': browser_profile.encoded})
+        w3c_caps = _make_w3c_caps(capabilities)
+        parameters = {"capabilities": w3c_caps,
+                      "desiredCapabilities": capabilities}
+        response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+        if 'sessionId' not in response:
+            response = response['value']
+        self.session_id = response['sessionId']
+        self.capabilities = response.get('value')
+
+        # if capabilities is none we are probably speaking to
+        # a W3C endpoint
+        if self.capabilities is None:
+            self.capabilities = response.get('capabilities')
+
+        # Double check to see if we have a W3C Compliant browser
+        self.w3c = response.get('status') is None
+
 
     @property
     def contexts(self):

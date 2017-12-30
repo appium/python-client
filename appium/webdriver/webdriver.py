@@ -31,6 +31,7 @@ from selenium.common.exceptions import TimeoutException, InvalidArgumentExceptio
 from selenium.webdriver.remote.command import Command as RemoteCommand
 import copy
 
+# From remote/webdriver.py
 _W3C_CAPABILITY_NAMES = frozenset([
     'acceptInsecureCerts',
     'browserName',
@@ -43,25 +44,17 @@ _W3C_CAPABILITY_NAMES = frozenset([
     'unhandledPromptBehavior',
 ])
 
+# From remote/webdriver.py
 _OSS_W3C_CONVERSION = {
     'acceptSslCerts': 'acceptInsecureCerts',
     'version': 'browserVersion',
     'platform': 'platformName'
 }
 
-
+# override
 def _make_w3c_caps(caps):
-    """Makes a W3C alwaysMatch capabilities object.
+    appium_prefix = 'appium:'
 
-    Filters out capability names that are not in the W3C spec. Spec-compliant
-    drivers will reject requests containing unknown capability names.
-
-    Moves the Firefox profile, if present, from the old location to the new Firefox
-    options object.
-
-    :Args:
-     - caps - A dictionary of capabilities requested by the caller.
-    """
     caps = copy.deepcopy(caps)
     profile = caps.get('firefox_profile')
     always_match = {}
@@ -73,7 +66,8 @@ def _make_w3c_caps(caps):
         if k in _W3C_CAPABILITY_NAMES or ':' in k:
             always_match[k] = v
         else:
-            always_match["appium:" + k] = v
+            if not k.startswith(appium_prefix):
+                always_match[appium_prefix + k] = v
     if profile:
         moz_opts = always_match.get('moz:firefoxOptions', {})
         # If it's already present, assume the caller did that intentionally.
@@ -170,6 +164,61 @@ class WebDriver(webdriver.Remote):
             driver.context
         """
         return self.current_context
+
+    def find_element(self, by=By.ID, value=None):
+        """
+        Override for Appium
+        'Private' method used by the find_element_by_* methods.
+
+        :Usage:
+            Use the corresponding find_element_by_* instead of this.
+
+        :rtype: WebElement
+        """
+        # if self.w3c:
+            # if by == By.ID:
+            #     by = By.CSS_SELECTOR
+            #     value = '[id="%s"]' % value
+            # elif by == By.TAG_NAME:
+            #     by = By.CSS_SELECTOR
+            # elif by == By.CLASS_NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = ".%s" % value
+            # elif by == By.NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = '[name="%s"]' % value
+        return self.execute(RemoteCommand.FIND_ELEMENT, {
+            'using': by,
+            'value': value})['value']
+
+    def find_elements(self, by=By.ID, value=None):
+        """
+        Override for Appium
+        'Private' method used by the find_elements_by_* methods.
+
+        :Usage:
+            Use the corresponding find_elements_by_* instead of this.
+
+        :rtype: list of WebElement
+        """
+        # if self.w3c:
+            # if by == By.ID:
+            #     by = By.CSS_SELECTOR
+            #     value = '[id="%s"]' % value
+            # elif by == By.TAG_NAME:
+            #     by = By.CSS_SELECTOR
+            # elif by == By.CLASS_NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = ".%s" % value
+            # elif by == By.NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = '[name="%s"]' % value
+
+        # Return empty list if driver returns null
+        # See https://github.com/SeleniumHQ/selenium/issues/4555
+        return self.execute(RemoteCommand.FIND_ELEMENTS, {
+            'using': by,
+            'value': value})['value'] or []
 
     def find_element_by_ios_uiautomation(self, uia_string):
         """Finds an element by uiautomation in iOS.

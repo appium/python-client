@@ -76,7 +76,7 @@ def _make_w3c_caps(caps):
             new_opts = copy.deepcopy(moz_opts)
             new_opts['profile'] = profile
             always_match['moz:firefoxOptions'] = new_opts
-    return {"firstMatch": [{}], "alwaysMatch": always_match}
+    return {'firstMatch': [{}], 'alwaysMatch': always_match}
 
 
 class WebDriver(webdriver.Remote):
@@ -98,7 +98,6 @@ class WebDriver(webdriver.Remote):
         By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
 
-
     def start_session(self, capabilities, browser_profile=None):
         """
         Creates a new session with the desired capabilities.
@@ -111,15 +110,15 @@ class WebDriver(webdriver.Remote):
          - browser_profile - A selenium.webdriver.firefox.firefox_profile.FirefoxProfile object. Only used if Firefox is requested.
         """
         if not isinstance(capabilities, dict):
-            raise InvalidArgumentException("Capabilities must be a dictionary")
+            raise InvalidArgumentException('Capabilities must be a dictionary')
         if browser_profile:
-            if "moz:firefoxOptions" in capabilities:
-                capabilities["moz:firefoxOptions"]["profile"] = browser_profile.encoded
+            if 'moz:firefoxOptions' in capabilities:
+                capabilities['moz:firefoxOptions']['profile'] = browser_profile.encoded
             else:
                 capabilities.update({'firefox_profile': browser_profile.encoded})
-        w3c_caps = _make_w3c_caps(capabilities)
-        parameters = {"capabilities": w3c_caps,
-                      "desiredCapabilities": capabilities}
+
+        parameters = self._merge_capabilities(capabilities)
+
         response = self.execute(RemoteCommand.NEW_SESSION, parameters)
         if 'sessionId' not in response:
             response = response['value']
@@ -134,6 +133,25 @@ class WebDriver(webdriver.Remote):
         # Double check to see if we have a W3C Compliant browser
         self.w3c = response.get('status') is None
 
+    def _merge_capabilities(self, capabilities):
+        """
+        Handle capabilities whether W3C format or MJSONWP format.
+
+        :param capabilities:
+        :return:
+        """
+        if 'forceMjsonwp' in capabilities:
+            force_mjsonwp = capabilities['forceMjsonwp']
+            del capabilities['forceMjsonwp']
+
+            if force_mjsonwp == False:
+                w3c_caps = _make_w3c_caps(capabilities)
+                return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
+            else:
+                return {'desiredCapabilities': capabilities}
+        else:
+            w3c_caps = _make_w3c_caps(capabilities)
+            return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 
     @property
     def contexts(self):

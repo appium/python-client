@@ -30,10 +30,10 @@ class AppiumTests(unittest.TestCase):
         self.driver.quit()
 
     def test_lock(self):
-        el = self.driver.find_element_by_id('ButtonsExplain')
+        el = self.driver.find_element_by_id('Buttons')
         self.assertIsNotNone(el)
         self.driver.lock(0)
-        self.assertRaises(NoSuchElementException, self.driver.find_element_by_id, 'ButtonsExplain')
+        self.assertRaises(NoSuchElementException, self.driver.find_element_by_id, 'Buttons')
         sleep(10)
 
         # # this does not seem to ever unlock, so the assertion fails
@@ -54,7 +54,7 @@ class AppiumTests(unittest.TestCase):
         self.driver.toggle_touch_id_enrollment()
 
     def test_hide_keyboard(self):
-        el = self.driver.find_element_by_name('TextFields, Uses of UITextField')
+        el = self.driver.find_element_by_name('Uses of UITextField')
         el.click()
 
         # get focus on text field, so keyboard comes up
@@ -69,7 +69,7 @@ class AppiumTests(unittest.TestCase):
         self.assertFalse(el.is_displayed())
 
     def test_hide_keyboard_presskey_strategy(self):
-        el = self.driver.find_element_by_name('TextFields, Uses of UITextField')
+        el = self.driver.find_element_by_name('Uses of UITextField')
         el.click()
 
         # get focus on text field, so keyboard comes up
@@ -84,7 +84,7 @@ class AppiumTests(unittest.TestCase):
         self.assertFalse(el.is_displayed())
 
     def test_hide_keyboard_no_key_name(self):
-        el = self.driver.find_element_by_name('TextFields, Uses of UITextField')
+        el = self.driver.find_element_by_name('Uses of UITextField')
         el.click()
 
         # get focus on text field, so keyboard comes up

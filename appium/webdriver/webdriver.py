@@ -51,7 +51,11 @@ _OSS_W3C_CONVERSION = {
     'platform': 'platformName'
 }
 
+_EXTENSION_CAPABILITY = ':'
+_FORCE_MJSONWP = 'forceMjsonwp'
+
 # override
+# Add appium prefix for the non-W3C capabilities
 def _make_w3c_caps(caps):
     appium_prefix = 'appium:'
 
@@ -63,7 +67,7 @@ def _make_w3c_caps(caps):
     for k, v in caps.items():
         if v and k in _OSS_W3C_CONVERSION:
             always_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
-        if k in _W3C_CAPABILITY_NAMES or ':' in k:
+        if k in _W3C_CAPABILITY_NAMES or _EXTENSION_CAPABILITY in k:
             always_match[k] = v
         else:
             if not k.startswith(appium_prefix):
@@ -77,7 +81,6 @@ def _make_w3c_caps(caps):
             new_opts['profile'] = profile
             always_match['moz:firefoxOptions'] = new_opts
     return {'firstMatch': [{}], 'alwaysMatch': always_match}
-
 
 class WebDriver(webdriver.Remote):
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
@@ -100,6 +103,7 @@ class WebDriver(webdriver.Remote):
 
     def start_session(self, capabilities, browser_profile=None):
         """
+        Override for Appium
         Creates a new session with the desired capabilities.
 
         :Args:
@@ -135,23 +139,17 @@ class WebDriver(webdriver.Remote):
 
     def _merge_capabilities(self, capabilities):
         """
-        Handle capabilities whether W3C format or MJSONWP format.
-
-        :param capabilities:
-        :return:
+        Manage capabilities whether W3C format or MJSONWP format
         """
-        if 'forceMjsonwp' in capabilities:
-            force_mjsonwp = capabilities['forceMjsonwp']
-            del capabilities['forceMjsonwp']
+        if _FORCE_MJSONWP in capabilities:
+            force_mjsonwp = capabilities[_FORCE_MJSONWP]
+            del capabilities[_FORCE_MJSONWP]
 
-            if force_mjsonwp == False:
-                w3c_caps = _make_w3c_caps(capabilities)
-                return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
-            else:
+            if force_mjsonwp != False:
                 return {'desiredCapabilities': capabilities}
-        else:
-            w3c_caps = _make_w3c_caps(capabilities)
-            return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
+
+        w3c_caps = _make_w3c_caps(capabilities)
+        return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 
     @property
     def contexts(self):

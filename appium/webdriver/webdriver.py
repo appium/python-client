@@ -107,11 +107,12 @@ class WebDriver(webdriver.Remote):
         Creates a new session with the desired capabilities.
 
         :Args:
-         - browser_name - The name of the browser to request.
-         - version - Which browser version to request.
-         - platform - Which platform to request the browser on.
-         - javascript_enabled - Whether the new session should support JavaScript.
-         - browser_profile - A selenium.webdriver.firefox.firefox_profile.FirefoxProfile object. Only used if Firefox is requested.
+         - automation_name - The name of automation engine to use.
+         - platform_name - The name of target platform.
+         - platform_version - The kind of mobile device or emulator to use
+         - app - The absolute local path or remote http URL to an .ipa or .apk file, or a .zip containing one of these.
+
+        Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
         """
         if not isinstance(capabilities, dict):
             raise InvalidArgumentException('Capabilities must be a dictionary')

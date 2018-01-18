@@ -30,15 +30,12 @@ class AppiumTests(unittest.TestCase):
         self.driver.quit()
 
     def test_lock(self):
-        el = self.driver.find_element_by_id('ButtonsExplain')
-        self.assertIsNotNone(el)
-        self.driver.lock(0)
-        self.assertRaises(NoSuchElementException, self.driver.find_element_by_id, 'ButtonsExplain')
-        sleep(10)
-
-        # # this does not seem to ever unlock, so the assertion fails
-        # el = self.driver.find_element_by_id('ButtonsExplain')
-        # self.assertIsNotNone(el)
+        self.driver.lock(-1)
+        try:
+            self.assertTrue(self.driver.is_locked())
+        finally:
+            self.driver.unlock()
+        self.assertFalse(self.driver.is_locked())
 
     def test_shake(self):
         # what can we assert about this?

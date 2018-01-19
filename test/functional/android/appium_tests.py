@@ -43,6 +43,14 @@ class AppiumTests(unittest.TestCase):
         if hasattr(self, 'zipfilename') and os.path.isfile(self.zipfilename):
             os.remove(self.zipfilename)
 
+    def test_lock(self):
+        self.driver.lock(-1)
+        try:
+            self.assertTrue(self.driver.is_locked())
+        finally:
+            self.driver.unlock()
+        self.assertFalse(self.driver.is_locked())
+
     def test_app_strings(self):
         strings = self.driver.app_strings()
         self.assertEqual(u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])

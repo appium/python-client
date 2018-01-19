@@ -49,6 +49,8 @@ class MobileCommand(object):
     CLOSE_APP = 'closeApp'
     END_TEST_COVERAGE = 'endTestCoverage'
     LOCK = 'lock'
+    UNLOCK = 'unlock'
+    IS_LOCKED = 'isLocked'
     SHAKE = 'shake'
     TOUCH_ID = 'touchId'
     TOGGLE_TOUCH_ID_ENROLLMENT = 'toggleTouchIdEnrollment'

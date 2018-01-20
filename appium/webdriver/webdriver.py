@@ -799,16 +799,31 @@ class WebDriver(webdriver.Remote):
         return self.execute(Command.END_TEST_COVERAGE, data)['value']
 
     def lock(self, seconds):
-        """Lock the device for a certain period of time. iOS only.
+        """Lock the device. No changes are made if the device is already unlocked.
 
         :Args:
-         - the duration to lock the device, in seconds
+         - seconds - the duration to lock the device, in seconds.
+         The device is going to be locked forever until `unlock` is called
+         if it equals or is less than zero, otherwise this call blocks until
+         the timeout expires and unlocks the screen automatically.
         """
-        data = {
-            'seconds': seconds,
-        }
-        self.execute(Command.LOCK, data)
+        self.execute(Command.LOCK, {'seconds': seconds})
         return self
+
+    def unlock(self):
+        """Unlock the device. No changes are made if the device
+        is already locked.
+        """
+        self.execute(Command.UNLOCK)
+        return self
+
+    def is_locked(self):
+        """Checks whether the device is locked.
+
+        :returns:
+         Either True or False
+        """
+        return self.execute(Command.IS_LOCKED)['value']
 
     def shake(self):
         """Shake the device.
@@ -1009,6 +1024,10 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/app/end_test_coverage')
         self.command_executor._commands[Command.LOCK] = \
             ('POST', '/session/$sessionId/appium/device/lock')
+        self.command_executor._commands[Command.UNLOCK] = \
+            ('POST', '/session/$sessionId/appium/device/unlock')
+        self.command_executor._commands[Command.IS_LOCKED] = \
+            ('POST', '/session/$sessionId/appium/device/is_locked')
         self.command_executor._commands[Command.SHAKE] = \
             ('POST', '/session/$sessionId/appium/device/shake')
         self.command_executor._commands[Command.TOUCH_ID] = \

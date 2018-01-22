@@ -837,10 +837,11 @@ class WebDriver(webdriver.Remote):
         the previous capture if it's still available.
 
         iOS Specific:
-        - videoQuality: The video encoding quality ('low', 'medium', 'high', 'photo' - defaults to 'medium').
-        Only works for iOS real devices.
-        - videoType: The video encoding quality ('low', 'medium', 'high', 'photo' - defaults to 'medium').
+        - videoQuality: The video encoding quality: 'low', 'medium', 'high', 'photo'. Defaults to 'medium'.
         Only works for real devices.
+        - videoType: The format of the screen capture to be recorded.
+        Available formats: 'h264', 'mp4' or 'fmp4'. Default is 'mp4'.
+        Only works for Simulator.
 
         Android Specific:
         - bitRate: The video bit rate for the video, in megabits per second.

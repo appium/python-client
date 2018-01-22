@@ -808,27 +808,81 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.SET_LOCATION, data)
         return self
 
-    def start_recording_screen(self, options=None):
+    def start_recording_screen(self, **options):
         """
         Start asynchronous screen recording process.
 
-        :param options: see the documentation on the StartScreenRecordingOptions
-                        descendant for the particular platform.
-        :return: Base-64 encoded content of the recorded media file or an empty string
-                 if the file has been successfully uploaded to a remote location (depends on the actual options).
-        """
-        return self.execute(Command.START_RECORDING_SCREEN, options.build() if options else {})['value']
+        :param options: The following options are supported:
+        - remotePath: The remotePath upload option is the path to the remote location,
+        where the resulting video from the previous screen recording should be uploaded.
+        The following protocols are supported: http/https (multipart), ftp.
+        Missing value (the default setting) means the content of the resulting
+        file should be encoded as Base64 and passed as the endpoint response value, but
+        an exception will be thrown if the generated media file is too big to
+        fit into the available process memory.
+        This option only has an effect if there is/was an active screen recording session
+        and forced restart is not enabled (the default setting).
+        - user: The name of the user for the remote authentication.
+        Only has an effect if both `remotePath` and `password` are set.
+        - password: The password for the remote authentication.
+        Only has an effect if both `remotePath` and `user` are set.
+        - method: The HTTP method name ('PUT'/'POST'). PUT method is used by default.
+        Only has an effect if `remotePath` is set.
+        - timeLimit: The actual time limit of the recorded video in seconds.
+        The default value for both iOS and Android is 180 seconds (3 minutes).
+        The maximum value for Android is 3 minutes.
+        The maximum value for iOS is 10 minutes.
+        - forcedRestart: Whether to ignore the result of previous capture and start a new recording
+        immediately (`True` value). By default  (`False`) the endpoint will try to catch and return the result of
+        the previous capture if it's still available.
 
-    def stop_recording_screen(self, options=None):
+        iOS Specific:
+        - videoQuality: The video encoding quality ('low', 'medium', 'high', 'photo' - defaults to 'medium').
+        Only works for iOS real devices.
+        - videoType: The video encoding quality ('low', 'medium', 'high', 'photo' - defaults to 'medium').
+        Only works for real devices.
+
+        Android Specific:
+        - bitRate: The video bit rate for the video, in megabits per second.
+        The default value is 4. You can increase the bit rate to improve video quality,
+        but doing so results in larger movie files.
+
+        :return: Base-64 encoded content of the recorded media file or an empty string
+                 if the file has been successfully uploaded to a remote location
+                 (depends on the actual `remotePath` value).
+        """
+        if 'password' in options:
+            options['pass'] = options['password']
+            del options['password']
+        return self.execute(Command.START_RECORDING_SCREEN, options)['value']
+
+    def stop_recording_screen(self, **options):
         """
         Gather the output from the previously started screen recording to a media file.
 
-        :param options: see the documentation on the StopScreenRecordingOptions
-                        descendant for the particular platform.
+        :param options: The following options are supported:
+        - remotePath: The remotePath upload option is the path to the remote location,
+        where the resulting video should be uploaded.
+        The following protocols are supported: http/https (multipart), ftp.
+        Missing value (the default setting) means the content of the resulting
+        file should be encoded as Base64 and passed as the endpoint response value, but
+        an exception will be thrown if the generated media file is too big to
+        fit into the available process memory.
+        - user: The name of the user for the remote authentication.
+        Only has an effect if both `remotePath` and `password` are set.
+        - password: The password for the remote authentication.
+        Only has an effect if both `remotePath` and `user` are set.
+        - method: The HTTP method name ('PUT'/'POST'). PUT method is used by default.
+        Only has an effect if `remotePath` is set.
+
         :return: Base-64 encoded content of the recorded media file or an empty string
-                 if the file has been successfully uploaded to a remote location (depends on the actual options).
+                 if the file has been successfully uploaded to a remote location
+                 (depends on the actual `remotePath` value).
         """
-        return self.execute(Command.STOP_RECORDING_SCREEN, options.build() if options else {})['value']
+        if 'password' in options:
+            options['pass'] = options['password']
+            del options['password']
+        return self.execute(Command.STOP_RECORDING_SCREEN, options)['value']
 
     @property
     def device_time(self):

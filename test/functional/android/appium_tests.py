@@ -43,6 +43,12 @@ class AppiumTests(unittest.TestCase):
         if hasattr(self, 'zipfilename') and os.path.isfile(self.zipfilename):
             os.remove(self.zipfilename)
 
+    def test_screen_record(self):
+        self.driver.start_recording_screen(time_limit=10, forcedRestart=True)
+        sleep(5)
+        result = self.driver.stop_recording_screen()
+        self.assertTrue(len(result) > 0)
+
     def test_lock(self):
         self.driver.lock(-1)
         try:

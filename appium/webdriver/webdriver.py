@@ -24,7 +24,6 @@ from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 
@@ -809,6 +808,28 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.SET_LOCATION, data)
         return self
 
+    def start_recording_screen(self, options=None):
+        """
+        Start asynchronous screen recording process.
+
+        :param options: see the documentation on the StartScreenRecordingOptions
+                        descendant for the particular platform.
+        :return: Base-64 encoded content of the recorded media file or an empty string
+                 if the file has been successfully uploaded to a remote location (depends on the actual options).
+        """
+        return self.execute(Command.START_RECORDING_SCREEN, options.build() if options else {})['value']
+
+    def stop_recording_screen(self, options=None):
+        """
+        Gather the output from the previously started screen recording to a media file.
+
+        :param options: see the documentation on the StopScreenRecordingOptions
+                        descendant for the particular platform.
+        :return: Base-64 encoded content of the recorded media file or an empty string
+                 if the file has been successfully uploaded to a remote location (depends on the actual options).
+        """
+        return self.execute(Command.STOP_RECORDING_SCREEN, options.build() if options else {})['value']
+
     @property
     def device_time(self):
         """Returns the date and time from the device
@@ -911,3 +932,7 @@ class WebDriver(webdriver.Remote):
             ('GET', '/session/$sessionId/appium/device/system_time')
         self.command_executor._commands[Command.CLEAR] = \
             ('POST', '/session/$sessionId/element/$id/clear')
+        self.command_executor._commands[Command.START_RECORDING_SCREEN] = \
+            ('POST', '/session/$sessionId/appium/start_recording_screen')
+        self.command_executor._commands[Command.STOP_RECORDING_SCREEN] = \
+            ('POST', '/session/$sessionId/appium/stop_recording_screen')

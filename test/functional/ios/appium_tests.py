@@ -15,8 +15,6 @@
 import unittest
 from time import sleep
 
-from selenium.common.exceptions import NoSuchElementException
-
 from appium import webdriver
 import desired_capabilities
 
@@ -36,6 +34,12 @@ class AppiumTests(unittest.TestCase):
         finally:
             self.driver.unlock()
         self.assertFalse(self.driver.is_locked())
+
+    def test_screnn_record(self):
+        self.driver.start_recording_screen()
+        sleep(5)
+        result = self.driver.stop_recording_screen()
+        self.assertTrue(len(result) > 0)
 
     def test_shake(self):
         # what can we assert about this?

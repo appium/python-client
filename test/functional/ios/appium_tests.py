@@ -35,7 +35,7 @@ class AppiumTests(unittest.TestCase):
             self.driver.unlock()
         self.assertFalse(self.driver.is_locked())
 
-    def test_screnn_record(self):
+    def test_screen_record(self):
         self.driver.start_recording_screen()
         sleep(5)
         result = self.driver.stop_recording_screen()

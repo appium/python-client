@@ -26,8 +26,61 @@ from appium.webdriver.common.multi_action import MultiAction
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, InvalidArgumentException
 
+from selenium.webdriver.remote.command import Command as RemoteCommand
+import copy
+
+# From remote/webdriver.py
+_W3C_CAPABILITY_NAMES = frozenset([
+    'acceptInsecureCerts',
+    'browserName',
+    'browserVersion',
+    'platformName',
+    'pageLoadStrategy',
+    'proxy',
+    'setWindowRect',
+    'timeouts',
+    'unhandledPromptBehavior',
+])
+
+# From remote/webdriver.py
+_OSS_W3C_CONVERSION = {
+    'acceptSslCerts': 'acceptInsecureCerts',
+    'version': 'browserVersion',
+    'platform': 'platformName'
+}
+
+_EXTENSION_CAPABILITY = ':'
+_FORCE_MJSONWP = 'forceMjsonwp'
+
+# override
+# Add appium prefix for the non-W3C capabilities
+def _make_w3c_caps(caps):
+    appium_prefix = 'appium:'
+
+    caps = copy.deepcopy(caps)
+    profile = caps.get('firefox_profile')
+    always_match = {}
+    if caps.get('proxy') and caps['proxy'].get('proxyType'):
+        caps['proxy']['proxyType'] = caps['proxy']['proxyType'].lower()
+    for k, v in caps.items():
+        if v and k in _OSS_W3C_CONVERSION:
+            always_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
+        if k in _W3C_CAPABILITY_NAMES or _EXTENSION_CAPABILITY in k:
+            always_match[k] = v
+        else:
+            if not k.startswith(appium_prefix):
+                always_match[appium_prefix + k] = v
+    if profile:
+        moz_opts = always_match.get('moz:firefoxOptions', {})
+        # If it's already present, assume the caller did that intentionally.
+        if 'profile' not in moz_opts:
+            # Don't mutate the original capabilities.
+            new_opts = copy.deepcopy(moz_opts)
+            new_opts['profile'] = profile
+            always_match['moz:firefoxOptions'] = new_opts
+    return {'firstMatch': [{}], 'alwaysMatch': always_match}
 
 class WebDriver(webdriver.Remote):
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
@@ -47,6 +100,57 @@ class WebDriver(webdriver.Remote):
         By.IOS_CLASS_CHAIN = MobileBy.IOS_CLASS_CHAIN
         By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
+
+    def start_session(self, capabilities, browser_profile=None):
+        """
+        Override for Appium
+        Creates a new session with the desired capabilities.
+
+        :Args:
+         - automation_name - The name of automation engine to use.
+         - platform_name - The name of target platform.
+         - platform_version - The kind of mobile device or emulator to use
+         - app - The absolute local path or remote http URL to an .ipa or .apk file, or a .zip containing one of these.
+
+        Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
+        """
+        if not isinstance(capabilities, dict):
+            raise InvalidArgumentException('Capabilities must be a dictionary')
+        if browser_profile:
+            if 'moz:firefoxOptions' in capabilities:
+                capabilities['moz:firefoxOptions']['profile'] = browser_profile.encoded
+            else:
+                capabilities.update({'firefox_profile': browser_profile.encoded})
+
+        parameters = self._merge_capabilities(capabilities)
+
+        response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+        if 'sessionId' not in response:
+            response = response['value']
+        self.session_id = response['sessionId']
+        self.capabilities = response.get('value')
+
+        # if capabilities is none we are probably speaking to
+        # a W3C endpoint
+        if self.capabilities is None:
+            self.capabilities = response.get('capabilities')
+
+        # Double check to see if we have a W3C Compliant browser
+        self.w3c = response.get('status') is None
+
+    def _merge_capabilities(self, capabilities):
+        """
+        Manage capabilities whether W3C format or MJSONWP format
+        """
+        if _FORCE_MJSONWP in capabilities:
+            force_mjsonwp = capabilities[_FORCE_MJSONWP]
+            del capabilities[_FORCE_MJSONWP]
+
+            if force_mjsonwp != False:
+                return {'desiredCapabilities': capabilities}
+
+        w3c_caps = _make_w3c_caps(capabilities)
+        return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 
     @property
     def contexts(self):
@@ -77,6 +181,61 @@ class WebDriver(webdriver.Remote):
             driver.context
         """
         return self.current_context
+
+    def find_element(self, by=By.ID, value=None):
+        """
+        Override for Appium
+        'Private' method used by the find_element_by_* methods.
+
+        :Usage:
+            Use the corresponding find_element_by_* instead of this.
+
+        :rtype: WebElement
+        """
+        # if self.w3c:
+            # if by == By.ID:
+            #     by = By.CSS_SELECTOR
+            #     value = '[id="%s"]' % value
+            # elif by == By.TAG_NAME:
+            #     by = By.CSS_SELECTOR
+            # elif by == By.CLASS_NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = ".%s" % value
+            # elif by == By.NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = '[name="%s"]' % value
+        return self.execute(RemoteCommand.FIND_ELEMENT, {
+            'using': by,
+            'value': value})['value']
+
+    def find_elements(self, by=By.ID, value=None):
+        """
+        Override for Appium
+        'Private' method used by the find_elements_by_* methods.
+
+        :Usage:
+            Use the corresponding find_elements_by_* instead of this.
+
+        :rtype: list of WebElement
+        """
+        # if self.w3c:
+            # if by == By.ID:
+            #     by = By.CSS_SELECTOR
+            #     value = '[id="%s"]' % value
+            # elif by == By.TAG_NAME:
+            #     by = By.CSS_SELECTOR
+            # elif by == By.CLASS_NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = ".%s" % value
+            # elif by == By.NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = '[name="%s"]' % value
+
+        # Return empty list if driver returns null
+        # See https://github.com/SeleniumHQ/selenium/issues/4555
+        return self.execute(RemoteCommand.FIND_ELEMENTS, {
+            'using': by,
+            'value': value})['value'] or []
 
     def find_element_by_ios_uiautomation(self, uia_string):
         """Finds an element by uiautomation in iOS.

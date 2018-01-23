@@ -28,12 +28,12 @@ class FindByIOClassChainTests(unittest.TestCase):
         self.driver.quit()
 
     def test_find_element_by_path(self):
-        el = self.driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/*/*/XCUIElementTypeStaticText')
+        el = self.driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/**/XCUIElementTypeStaticText')
         self.assertEqual('UICatalog', el.get_attribute('name'))
 
     def test_find_multiple_elements_by_path(self):
-        el = self.driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow/*/*')
-        self.assertEqual(len(el), 2)
+        el = self.driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow/*/*/*')
+        self.assertEqual(6, len(el))
         self.assertEqual('UICatalog', el[0].get_attribute('name'))
         self.assertEqual(None, el[1].get_attribute('name'))
 

@@ -844,6 +844,10 @@ class WebDriver(webdriver.Remote):
         Only works for Simulator.
 
         Android Specific:
+        - videoSize: The video size of the generated media file. The format is WIDTHxHEIGHT.
+        The default value is the device's native display resolution (if supported),
+        1280x720 if not. For best results, use a size supported by your device's
+        Advanced Video Coding (AVC) encoder.
         - bitRate: The video bit rate for the video, in megabits per second.
         The default value is 4. You can increase the bit rate to improve video quality,
         but doing so results in larger movie files.

@@ -63,3 +63,5 @@ class MobileCommand(object):
     SET_LOCATION = 'setLocation'
     GET_DEVICE_TIME = 'getDeviceTime'
     CLEAR = 'clear'
+    START_RECORDING_SCREEN = 'startRecordingScreen'
+    STOP_RECORDING_SCREEN = 'stopRecordingScreen'

@@ -708,27 +708,49 @@ class WebDriver(webdriver.Remote):
         }
         return self.execute(Command.IS_APP_INSTALLED, data)['value']
 
-    def install_app(self, app_path):
+    def install_app(self, app_path, **options):
         """Install the application found at `app_path` on the device.
 
         :Args:
          - app_path - the local or remote path to the application to install
+         - options - the possible installation options.
+         The following options are available for Android:
+         `replace`: whether to reinstall/upgrade the package if it is
+         already present on the device under test. True by default
+         `timeout`: how much time to wait for the installation to complete.
+         60000ms by default.
+         `allowTestPackages`: whether to allow installation of packages marked
+         as test in the manifest. False by default
+         `useSdcard`: whether to use the SD card to install the app. False
+         by default
+         `grantPermissions`: whether to automatically grant application permissions
+         on Android 6+ after the installation completes. False by default
         """
         data = {
             'appPath': app_path,
         }
+        if options:
+            data.update({'options': options})
         self.execute(Command.INSTALL_APP, data)
         return self
 
-    def remove_app(self, app_id):
+    def remove_app(self, app_id, **options):
         """Remove the specified application from the device.
 
         :Args:
          - app_id - the application id to be removed
+         - options - the possible removal options.
+         The following options are available for Android:
+         `keepData`: whether to keep application data and caches after it is uninstalled.
+         False by default
+         `timeout`: how much time to wait for the uninstall to complete.
+         20000ms by default.
         """
         data = {
             'appId': app_id,
         }
+        if options:
+            data.update({'options': options})
         self.execute(Command.REMOVE_APP, data)
         return self
 
@@ -744,6 +766,54 @@ class WebDriver(webdriver.Remote):
         """
         self.execute(Command.CLOSE_APP)
         return self
+
+    def terminate_app(self, app_id, **options):
+        """Terminates the application if it is running.
+
+        :Args:
+         - app_id - the application id to be terminates
+         - options - the possible termination options.
+         The following options are available for Android:
+         `timeout`: how much time to wait for the uninstall to complete.
+         500ms by default.
+
+        :return: True if the app has been successfully terminated
+        """
+        data = {
+            'appId': app_id,
+        }
+        if options:
+            data.update({'options': options})
+        return self.execute(Command.TERMINATE_APP, data)['value']
+
+    def activate_app(self, app_id):
+        """Activates the application if it is not running
+        or is running in the background.
+
+        :Args:
+         - app_id - the application id to be activated
+
+        :return: self instance for chaining
+        """
+        data = {
+            'appId': app_id,
+        }
+        self.execute(Command.ACTIVATE_APP, data)
+        return self
+
+    def query_app_state(self, app_id):
+        """Queries the state of the application.
+
+        :Args:
+         - app_id - the application id to be queried
+
+        :return: One of possible application state constants. See ApplicationState
+        class for more details.
+        """
+        data = {
+            'appId': app_id,
+        }
+        return self.execute(Command.QUERY_APP_STATE, data)['value']
 
     def start_activity(self, app_package, app_activity, **opts):
         """Opens an arbitrary activity during a test. If the activity belongs to
@@ -1094,6 +1164,12 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/install_app')
         self.command_executor._commands[Command.REMOVE_APP] = \
             ('POST', '/session/$sessionId/appium/device/remove_app')
+        self.command_executor._commands[Command.TERMINATE_APP] = \
+            ('POST', '/session/$sessionId/appium/device/terminate_app')
+        self.command_executor._commands[Command.ACTIVATE_APP] = \
+            ('POST', '/session/$sessionId/appium/device/activate_app')
+        self.command_executor._commands[Command.QUERY_APP_STATE] = \
+            ('GET', '/session/$sessionId/appium/device/app_state')
         self.command_executor._commands[Command.START_ACTIVITY] = \
             ('POST', '/session/$sessionId/appium/device/start_activity')
         self.command_executor._commands[Command.LAUNCH_APP] = \

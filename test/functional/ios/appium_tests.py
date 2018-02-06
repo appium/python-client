@@ -15,6 +15,7 @@
 import unittest
 from time import sleep
 
+from webdriver.applicationstate import ApplicationState
 from appium import webdriver
 import desired_capabilities
 
@@ -40,6 +41,20 @@ class AppiumTests(unittest.TestCase):
         sleep(5)
         result = self.driver.stop_recording_screen()
         self.assertTrue(len(result) > 0)
+
+    def test_app_management(self):
+        # this only works in Xcode9+
+        if float(desired_capabilities.get_desired_capabilities(
+                desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:
+            return
+        self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
+                         ApplicationState.RUNNING_IN_FOREGROUND)
+        self.driver.background_app(-1)
+        self.assertTrue(self.driver.query_app_state(desired_capabilities.BUNDLE_ID) <
+                         ApplicationState.RUNNING_IN_FOREGROUND)
+        self.driver.activate_app(desired_capabilities.BUNDLE_ID)
+        self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
+                         ApplicationState.RUNNING_IN_FOREGROUND)
 
     def test_shake(self):
         # what can we assert about this?

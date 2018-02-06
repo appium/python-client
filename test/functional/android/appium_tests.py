@@ -21,6 +21,7 @@ import random
 from time import sleep
 from dateutil.parser import parse
 
+from webdriver.applicationstate import ApplicationState
 from selenium.common.exceptions import NoSuchElementException
 
 from appium import webdriver
@@ -48,6 +49,17 @@ class AppiumTests(unittest.TestCase):
         sleep(5)
         result = self.driver.stop_recording_screen()
         self.assertTrue(len(result) > 0)
+
+    def test_app_management(self):
+        app_id = self.driver.current_package
+        self.assertEqual(self.driver.query_app_state(app_id),
+                         ApplicationState.RUNNING_IN_FOREGROUND)
+        self.driver.background_app(-1)
+        self.assertTrue(self.driver.query_app_state(app_id) <
+                         ApplicationState.RUNNING_IN_FOREGROUND)
+        self.driver.activate_app(app_id)
+        self.assertEqual(self.driver.query_app_state(app_id),
+                         ApplicationState.RUNNING_IN_FOREGROUND)
 
     def test_lock(self):
         self.driver.lock(-1)

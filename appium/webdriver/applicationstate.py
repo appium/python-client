@@ -11,23 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import os
 
-# Returns abs path relative to this file and not cwd
-PATH = lambda p: os.path.abspath(
-    os.path.join(os.path.dirname(__file__), p)
-)
 
-BUNDLE_ID = 'com.example.apple-samplecode.UICatalog'
-
-def get_desired_capabilities(app):
-    desired_caps = {
-        'deviceName': 'iPhone 6s',
-        'platformName': 'iOS',
-        'platformVersion': '10.3',
-        'app': PATH('../../apps/' + app),
-        'automationName': 'XCUITest',
-        'allowTouchIdEnroll': True
-    }
-
-    return desired_caps
+class ApplicationState(object):
+    NOT_INSTALLED = 0
+    NOT_RUNNING = 1
+    RUNNING_IN_BACKGROUND_SUSPENDED = 2
+    RUNNING_IN_BACKGROUND = 3
+    RUNNING_IN_FOREGROUND = 4

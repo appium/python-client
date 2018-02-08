@@ -1169,7 +1169,7 @@ class WebDriver(webdriver.Remote):
         self.command_executor._commands[Command.ACTIVATE_APP] = \
             ('POST', '/session/$sessionId/appium/device/activate_app')
         self.command_executor._commands[Command.QUERY_APP_STATE] = \
-            ('GET', '/session/$sessionId/appium/device/app_state')
+            ('POST', '/session/$sessionId/appium/device/app_state')
         self.command_executor._commands[Command.START_ACTIVITY] = \
             ('POST', '/session/$sessionId/appium/device/start_activity')
         self.command_executor._commands[Command.LAUNCH_APP] = \

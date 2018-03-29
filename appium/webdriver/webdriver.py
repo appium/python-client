@@ -1128,7 +1128,7 @@ class WebDriver(webdriver.Remote):
         """
         Set the content of the system clipboard
 
-        :param content_bytearr: The content to be set as bytearray string
+        :param content: The content to be set as bytearray string
         :param content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
         is supported on Android
         :param label: Optional label argument, which only works for Android
@@ -1137,7 +1137,7 @@ class WebDriver(webdriver.Remote):
             'content': base64.b64encode(content),
             'contentType': content_type,
         }
-        if (label):
+        if label:
             options['label'] = label
         self.execute(Command.SET_CLIPBOARD, {options})
 
@@ -1146,7 +1146,7 @@ class WebDriver(webdriver.Remote):
         Copies the given text to the system clipboard
 
         :param text: The text to be set
-        :param content_type: One of ClipboardContentType items
+        :param label: Optional label argument, which only works for Android
         """
         self.set_clipboard(bytes(text.encode('UTF-8')), ClipboardContentType.PLAINTEXT, label)
 

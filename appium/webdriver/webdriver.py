@@ -1139,7 +1139,7 @@ class WebDriver(webdriver.Remote):
         }
         if label:
             options['label'] = label
-        self.execute(Command.SET_CLIPBOARD, {options})
+        self.execute(Command.SET_CLIPBOARD, options)
 
     def set_clipboard_text(self, text, label=None):
         """

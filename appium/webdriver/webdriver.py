@@ -19,6 +19,7 @@ from .errorhandler import MobileErrorHandler
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
+from appium.webdriver.clipboard_content_type import ClipboardContentType
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
@@ -28,6 +29,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException, InvalidArgumentException
 
 from selenium.webdriver.remote.command import Command as RemoteCommand
+
+import base64
 import copy
 
 # From remote/webdriver.py
@@ -1064,6 +1067,9 @@ class WebDriver(webdriver.Remote):
         - forcedRestart: Whether to ignore the result of previous capture and start a new recording
         immediately (`True` value). By default  (`False`) the endpoint will try to catch and return the result of
         the previous capture if it's still available.
+        - bugReport: Makes the recorder to display an additional information on the video overlay,
+        such as a timestamp, that is helpful in videos captured to illustrate bugs.
+        This option is only supported since API level 27 (Android P).
 
         iOS Specific:
         - videoQuality: The video encoding quality: 'low', 'medium', 'high', 'photo'. Defaults to 'medium'.
@@ -1117,6 +1123,54 @@ class WebDriver(webdriver.Remote):
             options['pass'] = options['password']
             del options['password']
         return self.execute(Command.STOP_RECORDING_SCREEN, options)['value']
+
+    def set_clipboard(self, content, content_type=ClipboardContentType.PLAINTEXT, label=None):
+        """
+        Set the content of the system clipboard
+
+        :param content: The content to be set as bytearray string
+        :param content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
+        is supported on Android
+        :param label: Optional label argument, which only works for Android
+        """
+        options = {
+            'content': base64.b64encode(content),
+            'contentType': content_type,
+        }
+        if label:
+            options['label'] = label
+        self.execute(Command.SET_CLIPBOARD, options)
+
+    def set_clipboard_text(self, text, label=None):
+        """
+        Copies the given text to the system clipboard
+
+        :param text: The text to be set
+        :param label: Optional label argument, which only works for Android
+        """
+        self.set_clipboard(bytes(text.encode('UTF-8')), ClipboardContentType.PLAINTEXT, label)
+
+    def get_clipboard(self, content_type=ClipboardContentType.PLAINTEXT):
+        """
+        Receives the content of the system clipboard
+
+        :param content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
+        is supported on Android
+        :return: Clipboard content as base64-encoded string or an empty string
+        if the clipboard is empty
+        """
+        base64_str = self.execute(Command.GET_CLIPBOARD, {
+            'contentType': content_type
+        })['value']
+        return base64.b64decode(base64_str)
+
+    def get_clipboard_text(self):
+        """
+        Receives the text of the system clipboard
+
+        :return: The actual clipboard text or an empty string if the clipboard is empty
+        """
+        return self.get_clipboard(ClipboardContentType.PLAINTEXT).decode('UTF-8')
 
     @property
     def device_time(self):
@@ -1230,3 +1284,7 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/start_recording_screen')
         self.command_executor._commands[Command.STOP_RECORDING_SCREEN] = \
             ('POST', '/session/$sessionId/appium/stop_recording_screen')
+        self.command_executor._commands[Command.SET_CLIPBOARD] = \
+            ('POST', '/session/$sessionId/appium/device/set_clipboard')
+        self.command_executor._commands[Command.GET_CLIPBOARD] = \
+            ('POST', '/session/$sessionId/appium/device/get_clipboard')

@@ -68,3 +68,5 @@ class MobileCommand(object):
     CLEAR = 'clear'
     START_RECORDING_SCREEN = 'startRecordingScreen'
     STOP_RECORDING_SCREEN = 'stopRecordingScreen'
+    SET_CLIPBOARD = 'setClipboard'
+    GET_CLIPBOARD = 'getClipboard'

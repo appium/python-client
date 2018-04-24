@@ -118,13 +118,11 @@ class TouchAction(object):
             opts['element'] = element.id
 
         # it makes no sense to have x but no y, or vice versa.
-        if x is None or y is None:
-            x, y = None, None
-        opts['x'] = x
-        opts['y'] = y
+        if x is not None and y is not None:
+            opts['x'] = x
+            opts['y'] = y
 
         if duration is not None:
             opts['duration'] = duration
 
         return opts
-

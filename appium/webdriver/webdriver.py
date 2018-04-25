@@ -1177,7 +1177,7 @@ class WebDriver(webdriver.Remote):
         Performs images matching by features. Read
         https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_feature2d/py_matcher/py_matcher.html
         for more details on this topic.
-        All image formats, which are supported by OpenCV itself are supported.
+        The method supports all image formats, which are supported by OpenCV itself.
 
         :param base64Image1: base64-encoded content of the first image
         :param base64Image2: base64-encoded content of the second image
@@ -1223,9 +1223,10 @@ class WebDriver(webdriver.Remote):
     def find_image_occurrence(self, base64FullImage, base64PartialImage, **opts):
         """
         Performs images matching by template to find possible occurrence of the partial image
-        in the full image with default options. Read
+        in the full image. Read
         https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
         for more details on this topic.
+        The method supports all image formats, which are supported by OpenCV itself.
 
         :param base64FullImage: base64-encoded content of the full image
         :param base64PartialImage: base64-encoded content of the partial image
@@ -1251,6 +1252,7 @@ class WebDriver(webdriver.Remote):
         Performs images matching to calculate the similarity score between them.
         The flow there is similar to the one used in
         `find_image_occurrence`, but it is mandatory that both images are of equal resolution.
+        The method supports all image formats, which are supported by OpenCV itself.
 
         :param base64Image1: base64-encoded content of the first image
         :param base64Image2: base64-encoded content of the second image

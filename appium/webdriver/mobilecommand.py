@@ -70,3 +70,4 @@ class MobileCommand(object):
     STOP_RECORDING_SCREEN = 'stopRecordingScreen'
     SET_CLIPBOARD = 'setClipboard'
     GET_CLIPBOARD = 'getClipboard'
+    COMPARE_IMAGES = 'compareImages'

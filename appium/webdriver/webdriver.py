@@ -1279,6 +1279,29 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute(Command.GET_DEVICE_TIME, {})['value']
 
+    @property
+    def battery_info(self):
+        """
+        Retrieves battery information for the device under test.
+
+        :return: A dictionary containing the following entries
+        - level: Battery level in range [0.0, 1.0], where 1.0 means 100% charge.
+        Any value lower than 0 means the level cannot be retrieved
+        - state: Platform-dependent battery state value.
+        On iOS (XCUITest):
+        - 1: Unplugged
+        - 2: Charging
+        - 3: Full
+        Any other value means the state cannot be retrieved
+        On Android (UIAutomator2):
+        - 2: Charging
+        - 3: Discharging
+        - 4: Not charging
+        - 5: Full
+        Any other value means the state cannot be retrieved
+        """
+        return self.execute_script('mobile: batteryInfo')
+
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')

@@ -572,35 +572,41 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.KEY_EVENT, data)
         return self
 
-    def press_keycode(self, keycode, metastate=None):
+    def press_keycode(self, keycode, metastate=None, flags=None):
         """Sends a keycode to the device. Android only. Possible keycodes can be
         found in http://developer.android.com/reference/android/view/KeyEvent.html.
 
         :Args:
          - keycode - the keycode to be sent to the device
          - metastate - meta information about the keycode being sent
+         - flags - the set of key event flags
         """
         data = {
             'keycode': keycode,
         }
         if metastate is not None:
             data['metastate'] = metastate
+        if flags is not None:
+            data['flags'] = flags
         self.execute(Command.PRESS_KEYCODE, data)
         return self
 
-    def long_press_keycode(self, keycode, metastate=None):
+    def long_press_keycode(self, keycode, metastate=None, flags=None):
         """Sends a long press of keycode to the device. Android only. Possible keycodes can be
         found in http://developer.android.com/reference/android/view/KeyEvent.html.
 
         :Args:
          - keycode - the keycode to be sent to the device
          - metastate - meta information about the keycode being sent
+         - flags - the set of key event flags
         """
         data = {
             'keycode': keycode
         }
-        if metastate != None:
+        if metastate is not None:
             data['metastate'] = metastate
+        if flags is not None:
+            data['flags'] = flags
         self.execute(Command.LONG_PRESS_KEYCODE, data)
         return self
 

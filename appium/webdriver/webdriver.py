@@ -348,6 +348,10 @@ class WebDriver(webdriver.Remote):
 
         :Args:
         - png_img_path - a string corresponding to the path of a PNG image
+        - match_threshold - a double between 0 and 1 below which matches will
+          be rejected as element not found
+
+        :return: an ImageElement object
         """
         screenshot = self.get_screenshot_as_base64()
         with open(png_img_path, 'rb') as png_file:
@@ -371,6 +375,10 @@ class WebDriver(webdriver.Remote):
 
         :Args:
         - png_img_path - a string corresponding to the path of a PNG image
+        - match_threshold - a double between 0 and 1 below which matches will
+          be rejected as element not found
+
+        :return: possibly-empty list of ImageElements
         """
         els = []
         try:

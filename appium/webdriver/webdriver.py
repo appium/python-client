@@ -27,13 +27,15 @@ from appium.webdriver.common.multi_action import MultiAction
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import (TimeoutException, 
-    InvalidArgumentException, NoSuchElementException)
+from selenium.common.exceptions import (TimeoutException,
+        WebDriverException, InvalidArgumentException, NoSuchElementException)
 
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
 import base64
 import copy
+
+DEFAULT_MATCH_THRESHOLD = 0.5
 
 # From remote/webdriver.py
 _W3C_CAPABILITY_NAMES = frozenset([
@@ -339,7 +341,8 @@ class WebDriver(webdriver.Remote):
         """
         return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
 
-    def find_element_by_image(self, png_img_path):
+    def find_element_by_image(self, png_img_path,
+                              match_threshold=DEFAULT_MATCH_THRESHOLD):
         """Finds a portion of a screenshot by an image.
         Uses driver.find_image_occurrence under the hood.
 
@@ -349,19 +352,19 @@ class WebDriver(webdriver.Remote):
         screenshot = self.get_screenshot_as_base64()
         with open(png_img_path, 'rb') as png_file:
             b64_data = base64.encodestring(png_file.read())
-            b64_data = b64_data.replace("\n", "")
         try:
-            res = self.find_image_occurrence(screenshot, b64_data)
-        except Exception as e:
+            res = self.find_image_occurrence(screenshot, b64_data,
+                                             threshold=match_threshold)
+        except WebDriverException as e:
             if 'Cannot find any occurrences' in str(e):
                 raise NoSuchElementException(e)
-            else:
-                raise
+            raise
         rect = res['rect']
         return ImageElement(self, rect['x'], rect['y'], rect['width'],
                             rect['height'])
 
-    def find_elements_by_image(self, png_img_path):
+    def find_elements_by_image(self, png_img_path,
+                               match_threshold=DEFAULT_MATCH_THRESHOLD):
         """Finds a portion of a screenshot by an image.
         Uses driver.find_image_occurrence under the hood. Note that this will
         only ever return at most one element
@@ -371,8 +374,8 @@ class WebDriver(webdriver.Remote):
         """
         els = []
         try:
-            els.append(self.find_element_by_image(png_img_path))
-        except Exception:
+            els.append(self.find_element_by_image(png_img_path, match_threshold))
+        except NoSuchElementException:
             pass
         return els
 

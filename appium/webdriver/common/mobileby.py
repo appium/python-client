@@ -21,3 +21,4 @@ class MobileBy(By):
     IOS_CLASS_CHAIN = '-ios class chain'
     ANDROID_UIAUTOMATOR = '-android uiautomator'
     ACCESSIBILITY_ID = 'accessibility id'
+    IMAGE = '-image'

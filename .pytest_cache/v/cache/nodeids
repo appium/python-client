@@ -1,0 +1,5 @@
+[
+  "test/functional/android/find_by_image_tests.py::FindByImageTests::test_find_based_on_image_template", 
+  "test/functional/android/find_by_image_tests.py::FindByImageTests::test_find_multiple_elements_by_image_just_returns_one", 
+  "test/functional/android/find_by_image_tests.py::FindByImageTests::test_find_throws_no_such_element"
+]

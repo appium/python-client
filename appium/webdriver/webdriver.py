@@ -615,6 +615,10 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.HIDE_KEYBOARD, data)
         return self
 
+    def is_keyboard_shown(self):
+        """Attempts to detect whether a software keyboard is present"""
+        return self.execute(Command.IS_KEYBOARD_SHOWN)['value']
+
     # Needed for Selendroid
     def keyevent(self, keycode, metastate=None):
         """Sends a keycode to the device. Android only. Possible keycodes can be
@@ -1438,6 +1442,8 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/app/reset')
         self.command_executor._commands[Command.HIDE_KEYBOARD] = \
             ('POST', '/session/$sessionId/appium/device/hide_keyboard')
+        self.command_executor._commands[Command.IS_KEYBOARD_SHOWN] = \
+            ('GET', '/session/$sessionId/appium/device/is_keyboard_shown')
         self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
             ('POST', '/session/$sessionId/appium/device/open_notifications')
         self.command_executor._commands[Command.GET_NETWORK_CONNECTION] = \

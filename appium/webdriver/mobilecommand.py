@@ -59,6 +59,7 @@ class MobileCommand(object):
     TOGGLE_TOUCH_ID_ENROLLMENT = 'toggleTouchIdEnrollment'
     RESET = 'reset'
     HIDE_KEYBOARD = 'hideKeyboard'
+    IS_KEYBOARD_SHOWN = 'isKeyboardShown'
     REPLACE_KEYS = 'replaceKeys'
     START_ACTIVITY = 'startActivity'
     GET_SETTINGS = 'getSettings'

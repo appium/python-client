@@ -116,6 +116,16 @@ class AppiumTests(unittest.TestCase):
         # currently fails.
         self.assertFalse(el.is_displayed())
 
+    def test_is_keyboard_shown(self):
+        self.assertFalse(self.driver.is_keyboard_shown())
+        el = self.driver.find_element_by_name('Uses of UITextField')
+        el.click()
+
+        # get focus on text field, so keyboard comes up
+        el = self.driver.find_element_by_class_name('UIATextField')
+        el.set_value('Testing')
+        self.assertTrue(self.driver.is_keyboard_shown())
+
     def test_clear(self):
         # Click text fields
         self.driver.find_element_by_accessibility_id('TextFields').click()

@@ -940,16 +940,20 @@ class WebDriver(webdriver.Remote):
         }
         return self.execute(Command.END_TEST_COVERAGE, data)['value']
 
-    def lock(self, seconds):
+    def lock(self, seconds=None):
         """Lock the device. No changes are made if the device is already unlocked.
 
         :Args:
-         - seconds - the duration to lock the device, in seconds.
+         - seconds - (optional) the duration to lock the device, in seconds.
          The device is going to be locked forever until `unlock` is called
          if it equals or is less than zero, otherwise this call blocks until
          the timeout expires and unlocks the screen automatically.
         """
-        self.execute(Command.LOCK, {'seconds': seconds})
+        if seconds is None:
+            self.execute(Command.LOCK)
+        else:
+            self.execute(Command.LOCK, {'seconds': seconds})
+
         return self
 
     def unlock(self):

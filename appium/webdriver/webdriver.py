@@ -355,7 +355,7 @@ class WebDriver(webdriver.Remote):
         """
         screenshot = self.get_screenshot_as_base64()
         with open(png_img_path, 'rb') as png_file:
-            b64_data = base64.encodestring(png_file.read())
+            b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
         try:
             res = self.find_image_occurrence(screenshot, b64_data,
                                              threshold=match_threshold)

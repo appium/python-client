@@ -1,6 +1,8 @@
 Appium Python Client
 ====================
 
+[![PyPI version](https://badge.fury.io/py/Appium-Python-Client.svg)](https://badge.fury.io/py/Appium-Python-Client)
+
 An extension library for adding [Selenium 3.0 draft](https://dvcs.w3.org/hg/webdriver/raw-file/tip/webdriver-spec.html) and [Mobile JSON Wire Protocol Specification draft](https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile)
 functionality to the Python language bindings, for use with the mobile testing
 framework [Appium](https://appium.io).
@@ -9,14 +11,16 @@ framework [Appium](https://appium.io).
 
 There are three ways to install and use the Appium Python client.
 
-1. Install from [PyPi](https://pypi.python.org/pypi), as
-['Appium-Python-Client'](https://pypi.python.org/pypi/Appium-Python-Client).
+1. Install from [PyPi](https://pypi.org), as
+['Appium-Python-Client'](https://pypi.org/project/Appium-Python-Client/).
 
     ```shell
     pip install Appium-Python-Client
     ```
 
-2. Install from source, via [PyPi](https://pypi.python.org/pypi). From ['Appium-Python-Client'](https://pypi.python.org/pypi/Appium-Python-Client),
+    You can see the history from [here](https://pypi.org/project/Appium-Python-Client/#history)
+
+2. Install from source, via [PyPi](https://pypi.org). From ['Appium-Python-Client'](https://pypi.org/project/Appium-Python-Client/),
 download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 
     ```shell
@@ -39,7 +43,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 The Appium Python Client is fully compliant with the Selenium 3.0 specification
 draft, with some helpers to make mobile testing in Python easier. The majority of
 the usage remains as it has been for Selenium 2 (WebDriver), and as the [official
-Selenium Python bindings](https://pypi.python.org/pypi/selenium) begins to
+Selenium Python bindings](https://pypi.org/project/selenium/) begins to
 implement the new specification that implementation will be used underneath, so
 test code can be written that is utilizable with both bindings.
 

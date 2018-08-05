@@ -18,7 +18,6 @@ from .mobilecommand import MobileCommand as Command
 from .errorhandler import MobileErrorHandler
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
-from .imagelement import ImageElement
 
 from appium.webdriver.clipboard_content_type import ClipboardContentType
 from appium.webdriver.common.mobileby import MobileBy
@@ -27,15 +26,12 @@ from appium.webdriver.common.multi_action import MultiAction
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import (TimeoutException,
-        WebDriverException, InvalidArgumentException, NoSuchElementException)
+from selenium.common.exceptions import TimeoutException, InvalidArgumentException
 
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
 import base64
 import copy
-
-DEFAULT_MATCH_THRESHOLD = 0.5
 
 # From remote/webdriver.py
 _W3C_CAPABILITY_NAMES = frozenset([
@@ -213,8 +209,6 @@ class WebDriver(webdriver.Remote):
             # elif by == By.NAME:
             #     by = By.CSS_SELECTOR
             #     value = '[name="%s"]' % value
-        if by == By.IMAGE:
-            return self.find_element_by_image(value)
 
         return self.execute(RemoteCommand.FIND_ELEMENT, {
             'using': by,
@@ -245,9 +239,6 @@ class WebDriver(webdriver.Remote):
 
         # Return empty list if driver returns null
         # See https://github.com/SeleniumHQ/selenium/issues/4555
-
-        if by == By.IMAGE:
-            return self.find_elements_by_image(value)
 
         return self.execute(RemoteCommand.FIND_ELEMENTS, {
             'using': by,
@@ -341,51 +332,34 @@ class WebDriver(webdriver.Remote):
         """
         return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
 
-    def find_element_by_image(self, png_img_path,
-                              match_threshold=DEFAULT_MATCH_THRESHOLD):
+    def find_element_by_image(self, png_img_path):
         """Finds a portion of a screenshot by an image.
         Uses driver.find_image_occurrence under the hood.
 
         :Args:
         - png_img_path - a string corresponding to the path of a PNG image
-        - match_threshold - a double between 0 and 1 below which matches will
-          be rejected as element not found
 
-        :return: an ImageElement object
+        :return: an Element object
         """
-        screenshot = self.get_screenshot_as_base64()
         with open(png_img_path, 'rb') as png_file:
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
-        try:
-            res = self.find_image_occurrence(screenshot, b64_data,
-                                             threshold=match_threshold)
-        except WebDriverException as e:
-            if 'Cannot find any occurrences' in str(e):
-                raise NoSuchElementException(e)
-            raise
-        rect = res['rect']
-        return ImageElement(self, rect['x'], rect['y'], rect['width'],
-                            rect['height'])
 
-    def find_elements_by_image(self, png_img_path,
-                               match_threshold=DEFAULT_MATCH_THRESHOLD):
+        return self.find_element(by=By.IMAGE, value=b64_data)
+
+    def find_elements_by_image(self, png_img_path):
         """Finds a portion of a screenshot by an image.
         Uses driver.find_image_occurrence under the hood. Note that this will
         only ever return at most one element
 
         :Args:
         - png_img_path - a string corresponding to the path of a PNG image
-        - match_threshold - a double between 0 and 1 below which matches will
-          be rejected as element not found
 
-        :return: possibly-empty list of ImageElements
+        :return: possibly-empty list of Elements
         """
-        els = []
-        try:
-            els.append(self.find_element_by_image(png_img_path, match_threshold))
-        except NoSuchElementException:
-            pass
-        return els
+        with open(png_img_path, 'rb') as png_file:
+            b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
+
+        return self.find_elements(by=By.IMAGE, value=b64_data)
 
     def find_element_by_accessibility_id(self, id):
         """Finds an element by accessibility id.

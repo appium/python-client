@@ -332,32 +332,32 @@ class WebDriver(webdriver.Remote):
         """
         return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
 
-    def find_element_by_image(self, png_img_path):
+    def find_element_by_image(self, img_path):
         """Finds a portion of a screenshot by an image.
         Uses driver.find_image_occurrence under the hood.
 
         :Args:
-        - png_img_path - a string corresponding to the path of a PNG image
+        - img_path - a string corresponding to the path of a image
 
         :return: an Element object
         """
-        with open(png_img_path, 'rb') as png_file:
-            b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
+        with open(img_path, 'rb') as i_file:
+            b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
 
         return self.find_element(by=By.IMAGE, value=b64_data)
 
-    def find_elements_by_image(self, png_img_path):
+    def find_elements_by_image(self, img_path):
         """Finds a portion of a screenshot by an image.
         Uses driver.find_image_occurrence under the hood. Note that this will
         only ever return at most one element
 
         :Args:
-        - png_img_path - a string corresponding to the path of a PNG image
+        - img_path - a string corresponding to the path of a image
 
         :return: possibly-empty list of Elements
         """
-        with open(png_img_path, 'rb') as png_file:
-            b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
+        with open(img_path, 'rb') as i_file:
+            b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
 
         return self.find_elements(by=By.IMAGE, value=b64_data)
 

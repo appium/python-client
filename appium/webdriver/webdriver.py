@@ -342,8 +342,8 @@ class WebDriver(webdriver.Remote):
         return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
 
     def find_element_by_android_viewtag(self, tag):
-        """Finds element by tag in Android.
-        https://developer.android.com/reference/android/view/View
+        """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
+        It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         :Args:
          - tag - The tag name of the view to look for
@@ -354,8 +354,8 @@ class WebDriver(webdriver.Remote):
         return self.find_element(by=By.ANDROID_VIEWTAG, value=tag)
 
     def find_elements_by_android_viewtag(self, tag):
-        """Finds element by tag in Android.
-        https://developer.android.com/reference/android/view/View
+        """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
+        It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         :Args:
          - tag - The tag name of the view to look for

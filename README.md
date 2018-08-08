@@ -159,6 +159,22 @@ els = self.driver.find_elements_by_android_uiautomator('new UiSelector().clickab
 self.assertIsInstance(els, list)
 ```
 
+### Finding elements by Android viewtag search
+
+This method allows finiding elements using [View#tags](https://developer.android.com/reference/android/view/View#tags).
+This method works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
+
+Adds the methods `driver.find_element_by_android_viewtag` and `driver.find_elements_by_android_viewtag`.
+
+```python
+el = self.driver.find_element_by_android_viewtag('a tag name')
+self.assertIsNotNone(el)
+```
+
+```python
+els = self.driver.find_elements_by_android_viewtag('a tag name')
+self.assertIsInstance(els, list)
+```
 
 ### Finding elements by iOS predicates
 

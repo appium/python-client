@@ -346,7 +346,7 @@ class WebDriver(webdriver.Remote):
         https://developer.android.com/reference/android/view/View
 
         :Args:
-         - tag - The element name by tag view in Android
+         - tag - The tag name of the view to look for
 
         :Usage:
             driver.find_element_by_android_viewtag('a tag name')
@@ -358,7 +358,7 @@ class WebDriver(webdriver.Remote):
         https://developer.android.com/reference/android/view/View
 
         :Args:
-         - tag - The element name by tag view in Android
+         - tag - The tag name of the view to look for
 
         :Usage:
             driver.find_elements_by_android_viewtag('a tag name')

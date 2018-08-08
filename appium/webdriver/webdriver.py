@@ -341,6 +341,30 @@ class WebDriver(webdriver.Remote):
         """
         return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
 
+    def find_element_by_android_viewtag(self, tag_string):
+        """Finds element by tag in Android.
+        https://developer.android.com/reference/android/view/View
+
+        :Args:
+         - tag_string - The element name by tag view in Android
+
+        :Usage:
+            driver.find_element_by_android_viewtag('a tag name')
+        """
+        return self.find_element(by=By.ANDROID_TAGVIEW, value=tag_string)
+
+    def find_elements_by_android_viewtag(self, tag_string):
+        """Finds element by tag in Android.
+        https://developer.android.com/reference/android/view/View
+
+        :Args:
+         - tag_string - The element name by tag view in Android
+
+        :Usage:
+            driver.find_elements_by_android_viewtag('a tag name')
+        """
+        return self.find_elements(by=By.ANDROID_TAGVIEW, value=tag_string)
+
     def find_element_by_image(self, png_img_path,
                               match_threshold=DEFAULT_MATCH_THRESHOLD):
         """Finds a portion of a screenshot by an image.

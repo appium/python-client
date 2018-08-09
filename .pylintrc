@@ -133,7 +133,11 @@ disable=print-statement,
         xreadlines-attribute,
         deprecated-sys-function,
         exception-escape,
-        comprehension-escape
+        comprehension-escape,
+        empty-docstring,
+        missing-docstring,
+        too-few-public-methods,
+        invalid-name
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -323,7 +327,7 @@ indent-after-paren=4
 indent-string='    '
 
 # Maximum number of characters on a single line.
-max-line-length=100
+max-line-length=128
 
 # Maximum number of lines in a module
 max-module-lines=1000
@@ -454,7 +458,7 @@ variable-naming-style=snake_case
 [DESIGN]
 
 # Maximum number of arguments for function / method
-max-args=5
+max-args=6
 
 # Maximum number of attributes for a class (see R0902).
 max-attributes=7
@@ -514,7 +518,7 @@ allow-wildcard-with-all=no
 # Analyse import fallback blocks. This can be used to support both Python 2 and
 # 3 compatible code, which means that the block might have code that exists
 # only in one or another interpreter, leading to false positives when analysed.
-analyse-fallback-blocks=no
+analyse-fallback-blocks=yes
 
 # Deprecated modules which should not be used, separated by a comma
 deprecated-modules=regsub,

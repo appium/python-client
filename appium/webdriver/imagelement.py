@@ -13,7 +13,7 @@
 import math
 
 
-class ImageElement:
+class ImageElement(object):
 
     def __init__(self, driver, x, y, width, height):
         self.driver = driver

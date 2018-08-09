@@ -1376,6 +1376,8 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute_script('mobile: batteryInfo')
 
+
+    # pylint: disable=protected-access
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')

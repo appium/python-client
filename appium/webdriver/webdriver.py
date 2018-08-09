@@ -341,6 +341,30 @@ class WebDriver(webdriver.Remote):
         """
         return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
 
+    def find_element_by_android_viewtag(self, tag):
+        """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
+        It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
+
+        :Args:
+         - tag - The tag name of the view to look for
+
+        :Usage:
+            driver.find_element_by_android_viewtag('a tag name')
+        """
+        return self.find_element(by=By.ANDROID_VIEWTAG, value=tag)
+
+    def find_elements_by_android_viewtag(self, tag):
+        """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
+        It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
+
+        :Args:
+         - tag - The tag name of the view to look for
+
+        :Usage:
+            driver.find_elements_by_android_viewtag('a tag name')
+        """
+        return self.find_elements(by=By.ANDROID_VIEWTAG, value=tag)
+
     def find_element_by_image(self, png_img_path,
                               match_threshold=DEFAULT_MATCH_THRESHOLD):
         """Finds a portion of a screenshot by an image.

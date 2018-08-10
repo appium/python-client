@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .mobilecommand import MobileCommand as Command
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
 
+from .mobilecommand import MobileCommand as Command
 
 class WebElement(SeleniumWebElement):
     def find_element_by_ios_uiautomation(self, uia_string):
@@ -107,29 +106,29 @@ class WebElement(SeleniumWebElement):
         """
         return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
 
-    def find_element_by_accessibility_id(self, id):
+    def find_element_by_accessibility_id(self, accessibility_id):
         """Finds an element by accessibility id.
 
         :Args:
-         - id - a string corresponding to a recursive element search using the
+         - accessibility_id - a string corresponding to a recursive element search using the
          Id/Name that the native Accessibility options utilize
 
         :Usage:
             driver.find_element_by_accessibility_id()
         """
-        return self.find_element(by=By.ACCESSIBILITY_ID, value=id)
+        return self.find_element(by=By.ACCESSIBILITY_ID, value=accessibility_id)
 
-    def find_elements_by_accessibility_id(self, id):
+    def find_elements_by_accessibility_id(self, accessibility_id):
         """Finds elements by accessibility id.
 
         :Args:
-         - id - a string corresponding to a recursive element search using the
+         - accessibility_id - a string corresponding to a recursive element search using the
          Id/Name that the native Accessibility options utilize
 
         :Usage:
             driver.find_elements_by_accessibility_id()
         """
-        return self.find_elements(by=By.ACCESSIBILITY_ID, value=id)
+        return self.find_elements(by=By.ACCESSIBILITY_ID, value=accessibility_id)
 
     def set_text(self, keys=''):
         """Sends text to the element. Previous text is removed.

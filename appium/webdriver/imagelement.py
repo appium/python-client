@@ -10,8 +10,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import math
+# pylint: disable=no-self-use
 
+import math
 
 class ImageElement(object):
 

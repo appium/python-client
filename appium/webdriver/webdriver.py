@@ -108,6 +108,7 @@ class WebDriver(webdriver.Remote):
         By.IOS_PREDICATE = MobileBy.IOS_PREDICATE
         By.IOS_CLASS_CHAIN = MobileBy.IOS_CLASS_CHAIN
         By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
+        By.ANDROID_VIEWTAG = MobileBy.ANDROID_VIEWTAG
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
         By.IMAGE = MobileBy.IMAGE
 

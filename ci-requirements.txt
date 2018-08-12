@@ -1,3 +1,4 @@
+selenium
 astroid
 isort
 pylint

@@ -21,6 +21,8 @@
 #
 # Theirs is `TouchActions`. Appium's is `TouchAction`.
 
+# pylint: disable=no-self-use
+
 import copy
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
@@ -112,7 +114,7 @@ class TouchAction(object):
         }
         self._actions.append(gesture)
 
-    def _get_opts(self, element, x, y, duration = None):
+    def _get_opts(self, element, x, y, duration=None):
         opts = {}
         if element is not None:
             opts['element'] = element.id

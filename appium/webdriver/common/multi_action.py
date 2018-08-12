@@ -75,5 +75,4 @@ class MultiAction(object):
             actions.append(action.json_wire_gestures)
         if self._element is not None:
             return {'actions': actions, 'elementId': self._element.id}
-        else:
-            return {'actions': actions}
+        return {'actions': actions}

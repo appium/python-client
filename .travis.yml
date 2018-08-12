@@ -1,0 +1,11 @@
+language: python
+python:
+  - "2.7"
+  - "3.7"
+
+install:
+  - pip install -r ci-requirements.txt
+
+script:
+  - pylint --rcfile .pylintrc appium test
+  - pytest test/unit/*

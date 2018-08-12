@@ -12,28 +12,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
+
+import base64
+import copy
+
 from selenium import webdriver
 
-from .mobilecommand import MobileCommand as Command
-from .errorhandler import MobileErrorHandler
-from .switch_to import MobileSwitchTo
-from .webelement import WebElement as MobileWebElement
-from .imagelement import ImageElement
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import (TimeoutException, WebDriverException, InvalidArgumentException, NoSuchElementException)
+
+from selenium.webdriver.remote.command import Command as RemoteCommand
 
 from appium.webdriver.clipboard_content_type import ClipboardContentType
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import (TimeoutException,
-        WebDriverException, InvalidArgumentException, NoSuchElementException)
-
-from selenium.webdriver.remote.command import Command as RemoteCommand
-
-import base64
-import copy
+from .mobilecommand import MobileCommand as Command
+from .errorhandler import MobileErrorHandler
+from .switch_to import MobileSwitchTo
+from .webelement import WebElement as MobileWebElement
+from .imagelement import ImageElement
 
 DEFAULT_MATCH_THRESHOLD = 0.5
 
@@ -411,29 +412,29 @@ class WebDriver(webdriver.Remote):
             pass
         return els
 
-    def find_element_by_accessibility_id(self, id):
+    def find_element_by_accessibility_id(self, accessibility_id):
         """Finds an element by accessibility id.
 
         :Args:
-         - id - a string corresponding to a recursive element search using the
+         - accessibility_id - a string corresponding to a recursive element search using the
          Id/Name that the native Accessibility options utilize
 
         :Usage:
             driver.find_element_by_accessibility_id()
         """
-        return self.find_element(by=By.ACCESSIBILITY_ID, value=id)
+        return self.find_element(by=By.ACCESSIBILITY_ID, value=accessibility_id)
 
-    def find_elements_by_accessibility_id(self, id):
+    def find_elements_by_accessibility_id(self, accessibility_id):
         """Finds elements by accessibility id.
 
         :Args:
-         - id - a string corresponding to a recursive element search using the
+         - accessibility_id - a string corresponding to a recursive element search using the
          Id/Name that the native Accessibility options utilize
 
         :Usage:
             driver.find_elements_by_accessibility_id()
         """
-        return self.find_elements(by=By.ACCESSIBILITY_ID, value=id)
+        return self.find_elements(by=By.ACCESSIBILITY_ID, value=accessibility_id)
 
     def create_web_element(self, element_id):
         """
@@ -1400,6 +1401,8 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute_script('mobile: batteryInfo')
 
+
+    # pylint: disable=protected-access
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')

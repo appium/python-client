@@ -36,8 +36,7 @@ class MultiActionTests(unittest.TestCase):
                     {'action': 'moveTo', 'options': {'x': 12, 'y': -300}},
                     {'action': 'release', 'options': {}}
                 ]
-            ],
-            'elementId': 0
+            ]
         }
         t1 = TouchAction(DriverStub()).press(ElementStub(1)).move_to(x=10, y=20).release()
         t2 = TouchAction(DriverStub()).press(ElementStub(5), 11, 30).move_to(x=12, y=-300).release()

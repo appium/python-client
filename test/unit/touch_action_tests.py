@@ -23,7 +23,7 @@ class TouchActionTests(unittest.TestCase):
 
     def test_tap_json(self):
         json = [
-            {'action': 'tap', 'options': {'x': None, 'y': None, 'count': 1, 'element': 1}}
+            {'action': 'tap', 'options': {'count': 1, 'element': 1}}
         ]
         self._touch_action.tap(ElementStub(1))
         self.assertEqual(json, self._touch_action.json_wire_gestures)
@@ -38,7 +38,7 @@ class TouchActionTests(unittest.TestCase):
 
 class DriverStub(object):
     def execute(self, action, params):
-        print "driver.execute called"
+        print("driver.execute called")
 
 
 class ElementStub(object):

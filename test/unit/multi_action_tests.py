@@ -27,7 +27,7 @@ class MultiActionTests(unittest.TestCase):
         json = {
             'actions': [
                 [
-                    {'action': 'press', 'options': {'x': None, 'y': None, 'element': 1}},
+                    {'action': 'press', 'options': {'element': 1}},
                     {'action': 'moveTo', 'options': {'x': 10, 'y': 20}},
                     {'action': 'release', 'options': {}}
                 ],
@@ -46,7 +46,7 @@ class MultiActionTests(unittest.TestCase):
 
 class DriverStub(object):
     def execute(self, action, params):
-        print "driver.execute called"
+        print("driver.execute called")
 
 
 class ElementStub(object):

@@ -27,4 +27,3 @@ class MobileErrorHandler(errorhandler.ErrorHandler):
                 raise NoSuchContextException(wde.msg, wde.screen, wde.stacktrace)
             else:
                 raise wde
-

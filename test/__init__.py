@@ -11,15 +11,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-from selenium.webdriver.common.by import By
-
-
-class MobileBy(By):
-    IOS_PREDICATE = '-ios predicate string'
-    IOS_UIAUTOMATION = '-ios uiautomation'
-    IOS_CLASS_CHAIN = '-ios class chain'
-    ANDROID_UIAUTOMATOR = '-android uiautomator'
-    ANDROID_VIEWTAG = '-android viewtag'
-    ACCESSIBILITY_ID = 'accessibility id'
-    IMAGE = '-image'

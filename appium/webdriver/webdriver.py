@@ -12,17 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
+
+import base64
+import copy
+
 from selenium import webdriver
-
-from .mobilecommand import MobileCommand as Command
-from .errorhandler import MobileErrorHandler
-from .switch_to import MobileSwitchTo
-from .webelement import WebElement as MobileWebElement
-
-from appium.webdriver.clipboard_content_type import ClipboardContentType
-from appium.webdriver.common.mobileby import MobileBy
-from appium.webdriver.common.touch_action import TouchAction
-from appium.webdriver.common.multi_action import MultiAction
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -30,8 +25,15 @@ from selenium.common.exceptions import TimeoutException, InvalidArgumentExceptio
 
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
-import base64
-import copy
+from appium.webdriver.clipboard_content_type import ClipboardContentType
+from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.touch_action import TouchAction
+from appium.webdriver.common.multi_action import MultiAction
+
+from .mobilecommand import MobileCommand as Command
+from .errorhandler import MobileErrorHandler
+from .switch_to import MobileSwitchTo
+from .webelement import WebElement as MobileWebElement
 
 # From remote/webdriver.py
 _W3C_CAPABILITY_NAMES = frozenset([
@@ -103,6 +105,7 @@ class WebDriver(webdriver.Remote):
         By.IOS_PREDICATE = MobileBy.IOS_PREDICATE
         By.IOS_CLASS_CHAIN = MobileBy.IOS_CLASS_CHAIN
         By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
+        By.ANDROID_VIEWTAG = MobileBy.ANDROID_VIEWTAG
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
         By.IMAGE = MobileBy.IMAGE
 
@@ -332,6 +335,30 @@ class WebDriver(webdriver.Remote):
         """
         return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
 
+    def find_element_by_android_viewtag(self, tag):
+        """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
+        It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
+
+        :Args:
+         - tag - The tag name of the view to look for
+
+        :Usage:
+            driver.find_element_by_android_viewtag('a tag name')
+        """
+        return self.find_element(by=By.ANDROID_VIEWTAG, value=tag)
+
+    def find_elements_by_android_viewtag(self, tag):
+        """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
+        It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
+
+        :Args:
+         - tag - The tag name of the view to look for
+
+        :Usage:
+            driver.find_elements_by_android_viewtag('a tag name')
+        """
+        return self.find_elements(by=By.ANDROID_VIEWTAG, value=tag)
+
     def find_element_by_image(self, img_path):
         """Finds a portion of a screenshot by an image.
         Uses driver.find_image_occurrence under the hood.
@@ -361,29 +388,29 @@ class WebDriver(webdriver.Remote):
 
         return self.find_elements(by=By.IMAGE, value=b64_data)
 
-    def find_element_by_accessibility_id(self, id):
+    def find_element_by_accessibility_id(self, accessibility_id):
         """Finds an element by accessibility id.
 
         :Args:
-         - id - a string corresponding to a recursive element search using the
+         - accessibility_id - a string corresponding to a recursive element search using the
          Id/Name that the native Accessibility options utilize
 
         :Usage:
             driver.find_element_by_accessibility_id()
         """
-        return self.find_element(by=By.ACCESSIBILITY_ID, value=id)
+        return self.find_element(by=By.ACCESSIBILITY_ID, value=accessibility_id)
 
-    def find_elements_by_accessibility_id(self, id):
+    def find_elements_by_accessibility_id(self, accessibility_id):
         """Finds elements by accessibility id.
 
         :Args:
-         - id - a string corresponding to a recursive element search using the
+         - accessibility_id - a string corresponding to a recursive element search using the
          Id/Name that the native Accessibility options utilize
 
         :Usage:
             driver.find_elements_by_accessibility_id()
         """
-        return self.find_elements(by=By.ACCESSIBILITY_ID, value=id)
+        return self.find_elements(by=By.ACCESSIBILITY_ID, value=accessibility_id)
 
     def create_web_element(self, element_id):
         """
@@ -1350,6 +1377,8 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute_script('mobile: batteryInfo')
 
+
+    # pylint: disable=protected-access
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')

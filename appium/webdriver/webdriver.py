@@ -1116,6 +1116,12 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.UPDATE_SETTINGS, data)
         return self
 
+    def toggle_wifi(self):
+        """Toggle the wifi
+        """
+        self.execute(Command.TOGGLE_WIFI, {})
+        return self
+
     def toggle_location_services(self):
         """Toggle the location services on the device. Android only.
         """
@@ -1500,6 +1506,8 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/settings')
         self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = \
             ('POST', '/session/$sessionId/appium/device/toggle_location_services')
+        self.command_executor._commands[Command.TOGGLE_WIFI] = \
+            ('POST', '/session/$sessionId/appium/device/toggle_wifi')
         self.command_executor._commands[Command.SET_LOCATION] = \
             ('POST', '/session/$sessionId/location')
         self.command_executor._commands[Command.LOCATION_IN_VIEW] = \

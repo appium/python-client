@@ -1117,7 +1117,7 @@ class WebDriver(webdriver.Remote):
         return self
 
     def toggle_wifi(self):
-        """Toggle the wifi
+        """Toggle the wifi on the device, Android only.
         """
         self.execute(Command.TOGGLE_WIFI, {})
         return self

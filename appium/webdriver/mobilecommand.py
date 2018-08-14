@@ -28,6 +28,7 @@ class MobileCommand(object):
     DEACTIVATE_IME_ENGINE = 'deactivateIMEEngine'
     GET_ACTIVE_IME_ENGINE = 'getActiveEngine'
     TOGGLE_LOCATION_SERVICES = 'toggleLocationServices'
+    TOGGLE_WIFI = 'toggleWiFi'
     LOCATION_IN_VIEW = 'locationInView'
 
     # Appium Commands

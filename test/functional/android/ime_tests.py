@@ -30,12 +30,13 @@ LATIN_IME = u'com.android.inputmethod.latin/.LatinIME'
 
 class IMETests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        desired_caps = desired_capabilities.get_desired_capabilities(
+            'ApiDemos-debug.apk')
+        self.driver = webdriver.Remote(
+            'http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
-
 
     def test_available_ime_engines(self):
         engines = self.driver.available_ime_engines

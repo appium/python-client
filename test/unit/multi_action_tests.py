@@ -32,14 +32,17 @@ class MultiActionTests(unittest.TestCase):
                     {'action': 'release', 'options': {}}
                 ],
                 [
-                    {'action': 'press', 'options': {'x': 11, 'y': 30, 'element': 5}},
+                    {'action': 'press', 'options': {
+                        'x': 11, 'y': 30, 'element': 5}},
                     {'action': 'moveTo', 'options': {'x': 12, 'y': -300}},
                     {'action': 'release', 'options': {}}
                 ]
             ]
         }
-        t1 = TouchAction(DriverStub()).press(ElementStub(1)).move_to(x=10, y=20).release()
-        t2 = TouchAction(DriverStub()).press(ElementStub(5), 11, 30).move_to(x=12, y=-300).release()
+        t1 = TouchAction(DriverStub()).press(
+            ElementStub(1)).move_to(x=10, y=20).release()
+        t2 = TouchAction(DriverStub()).press(
+            ElementStub(5), 11, 30).move_to(x=12, y=-300).release()
         self._multi_action.add(t1, t2)
         self.assertEqual(json, self._multi_action.json_wire_gestures)
 

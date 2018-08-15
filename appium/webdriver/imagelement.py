@@ -14,6 +14,7 @@
 
 import math
 
+
 class ImageElement(object):
 
     def __init__(self, driver, x, y, width, height):

@@ -28,7 +28,8 @@ class ChromeTests(unittest.TestCase):
             'deviceName': 'Android Emulator',
             'browserName': 'Chrome'
         }
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        self.driver = webdriver.Remote(
+            'http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
@@ -37,7 +38,8 @@ class ChromeTests(unittest.TestCase):
         self.driver.get('http://10.0.2.2:4723/test/guinea-pig')
         self.driver.find_element_by_link_text('i am a link').click()
 
-        self.assertTrue('I am some other page content' in self.driver.page_source)
+        self.assertTrue(
+            'I am some other page content' in self.driver.page_source)
 
 
 if __name__ == "__main__":

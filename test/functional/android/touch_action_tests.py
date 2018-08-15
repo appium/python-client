@@ -27,8 +27,10 @@ SLEEPY_TIME = 2
 
 class TouchActionTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        desired_caps = desired_capabilities.get_desired_capabilities(
+            'ApiDemos-debug.apk')
+        self.driver = webdriver.Remote(
+            'http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
@@ -61,8 +63,10 @@ class TouchActionTests(unittest.TestCase):
         el = self.driver.find_element_by_name('Add')
         action.tap(el, count=2).perform()
 
-        els = self.driver.find_elements_by_class_name('android.widget.TextView')
-        self.assertEqual('This is a test\nThis is a test\n', els[1].get_attribute("text"))
+        els = self.driver.find_elements_by_class_name(
+            'android.widget.TextView')
+        self.assertEqual('This is a test\nThis is a test\n',
+                         els[1].get_attribute("text"))
 
     def test_press_and_immediately_release(self):
         el = self.driver.find_element_by_accessibility_id('Animation')
@@ -199,13 +203,16 @@ class TouchActionTests(unittest.TestCase):
         el = self.driver.find_element_by_name('Drag and Drop')
         action.tap(el).perform()
 
-        dd3 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_3')
-        dd2 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_2')
+        dd3 = self.driver.find_element_by_id(
+            'com.example.android.apis:id/drag_dot_3')
+        dd2 = self.driver.find_element_by_id(
+            'com.example.android.apis:id/drag_dot_2')
 
         # dnd is stimulated by longpress-move_to-release
         action.long_press(dd3).move_to(dd2).release().perform()
 
-        el = self.driver.find_element_by_id('com.example.android.apis:id/drag_result_text')
+        el = self.driver.find_element_by_id(
+            'com.example.android.apis:id/drag_result_text')
         self.assertEqual('Dropped!', el.get_attribute('text'))
 
     def test_driver_drag_and_drop(self):
@@ -220,16 +227,20 @@ class TouchActionTests(unittest.TestCase):
         el = self.driver.find_element_by_name('Drag and Drop')
         action.tap(el).perform()
 
-        dd3 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_3')
-        dd2 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_2')
+        dd3 = self.driver.find_element_by_id(
+            'com.example.android.apis:id/drag_dot_3')
+        dd2 = self.driver.find_element_by_id(
+            'com.example.android.apis:id/drag_dot_2')
 
         self.driver.drag_and_drop(dd3, dd2)
 
-        el = self.driver.find_element_by_id('com.example.android.apis:id/drag_result_text')
+        el = self.driver.find_element_by_id(
+            'com.example.android.apis:id/drag_result_text')
         self.assertEqual('Dropped!', el.get_attribute('text'))
 
     def test_driver_swipe(self):
-        self.assertRaises(NoSuchElementException, self.driver.find_element_by_name, 'Views')
+        self.assertRaises(NoSuchElementException,
+                          self.driver.find_element_by_name, 'Views')
 
         self.driver.swipe(100, 500, 100, 100, 800)
         el = self.driver.find_element_by_name('Views')

@@ -21,8 +21,10 @@ import desired_capabilities
 
 class MultiActionTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('TestApp.app.zip')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        desired_caps = desired_capabilities.get_desired_capabilities(
+            'TestApp.app.zip')
+        self.driver = webdriver.Remote(
+            'http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
@@ -38,7 +40,8 @@ class MultiActionTests(unittest.TestCase):
         el.click()
 
         sleep(1)
-        el = self.driver.find_element_by_xpath('//UIAApplication[1]/UIAWindow[1]/UIAMapView[1]')
+        el = self.driver.find_element_by_xpath(
+            '//UIAApplication[1]/UIAWindow[1]/UIAMapView[1]')
         self.driver.zoom(el)
 
         sleep(5)

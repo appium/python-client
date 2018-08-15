@@ -20,8 +20,10 @@ import desired_capabilities
 
 class FindByUIAutomationTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        desired_caps = desired_capabilities.get_desired_capabilities(
+            'UICatalog.app.zip')
+        self.driver = webdriver.Remote(
+            'http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
@@ -40,7 +42,8 @@ class FindByUIAutomationTests(unittest.TestCase):
 
         # get the search bar button
         sub_el = el.find_element_by_ios_uiautomation('.elements()[3]')
-        self.assertEqual('SearchBar, Use of UISearchBar', sub_el.get_attribute('name'))
+        self.assertEqual('SearchBar, Use of UISearchBar',
+                         sub_el.get_attribute('name'))
 
     def test_element_find_multiple_elements(self):
         # get the list

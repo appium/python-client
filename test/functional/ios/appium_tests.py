@@ -22,8 +22,10 @@ import desired_capabilities
 
 class AppiumTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        desired_caps = desired_capabilities.get_desired_capabilities(
+            'UICatalog.app.zip')
+        self.driver = webdriver.Remote(
+            'http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
@@ -51,7 +53,7 @@ class AppiumTests(unittest.TestCase):
                          ApplicationState.RUNNING_IN_FOREGROUND)
         self.driver.background_app(-1)
         self.assertTrue(self.driver.query_app_state(desired_capabilities.BUNDLE_ID) <
-                         ApplicationState.RUNNING_IN_FOREGROUND)
+                        ApplicationState.RUNNING_IN_FOREGROUND)
         self.driver.activate_app(desired_capabilities.BUNDLE_ID)
         self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
                          ApplicationState.RUNNING_IN_FOREGROUND)
@@ -132,18 +134,22 @@ class AppiumTests(unittest.TestCase):
 
         # Verify default text
         def_text = '<enter text>'
-        text = self.driver.find_element_by_accessibility_id('Normal').get_attribute('value')
+        text = self.driver.find_element_by_accessibility_id(
+            'Normal').get_attribute('value')
         self.assertEqual(text, def_text)
 
         # Input some text, verify
         input_text = 'blah'
-        self.driver.find_element_by_accessibility_id('Normal').send_keys(input_text)
-        text = self.driver.find_element_by_accessibility_id('Normal').get_attribute('value')
+        self.driver.find_element_by_accessibility_id(
+            'Normal').send_keys(input_text)
+        text = self.driver.find_element_by_accessibility_id(
+            'Normal').get_attribute('value')
         self.assertEqual(text, input_text)
 
         # Clear text, verify
         self.driver.find_element_by_accessibility_id('Normal').clear()
-        text = self.driver.find_element_by_accessibility_id('Normal').get_attribute('value')
+        text = self.driver.find_element_by_accessibility_id(
+            'Normal').get_attribute('value')
         self.assertEqual(text, def_text)
 
 

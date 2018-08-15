@@ -17,8 +17,7 @@ class SafariTests(unittest.TestCase):
             'nativeWebTap': True,
             'safariIgnoreFraudWarning': True
         }
-        self.driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub', desired_caps)
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
@@ -30,7 +29,6 @@ class SafariTests(unittest.TestCase):
     def test_get(self):
         self.driver.get("http://google.com")
         self.assertEqual('Google', self.driver.title)
-
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(SafariTests)

@@ -14,15 +14,11 @@
 import os
 
 # Returns abs path relative to this file and not cwd
-
-
-def PATH(p): return os.path.abspath(
+PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
 
-
 BUNDLE_ID = 'com.example.apple-samplecode.UICatalog'
-
 
 def get_desired_capabilities(app):
     desired_caps = {

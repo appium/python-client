@@ -27,13 +27,12 @@ SLEEPY_TIME = 1
 
 class NetworkConnectionTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities(
-            'ApiDemos-debug.apk')
-        self.driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub', desired_caps)
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
+
 
     def test_get_network_connection(self):
         nc = self.driver.network_connection

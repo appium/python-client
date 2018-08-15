@@ -1,6 +1,6 @@
 #!/bin/bash
 
-result=$(python -m autopep8 -r -d .)
+result=$(python -m autopep8 -r --max-line-length 128 -d .)
 if [[ $result ]] ; then
   echo $result
   echo "Please run command 'python -m autopep8 -r -i .' on your local and commit the result"

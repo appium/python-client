@@ -21,8 +21,7 @@ from selenium import webdriver
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import (
-    TimeoutException, WebDriverException, InvalidArgumentException, NoSuchElementException)
+from selenium.common.exceptions import (TimeoutException, WebDriverException, InvalidArgumentException, NoSuchElementException)
 
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
@@ -64,8 +63,6 @@ _FORCE_MJSONWP = 'forceMjsonwp'
 
 # override
 # Add appium prefix for the non-W3C capabilities
-
-
 def _make_w3c_caps(caps):
     appium_prefix = 'appium:'
 
@@ -76,8 +73,7 @@ def _make_w3c_caps(caps):
         caps['proxy']['proxyType'] = caps['proxy']['proxyType'].lower()
     for k, v in caps.items():
         if v and k in _OSS_W3C_CONVERSION:
-            always_match[_OSS_W3C_CONVERSION[k]
-                         ] = v.lower() if k == 'platform' else v
+            always_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
         if k in _W3C_CAPABILITY_NAMES or _EXTENSION_CAPABILITY in k:
             always_match[k] = v
         else:
@@ -99,8 +95,7 @@ class WebDriver(webdriver.Remote):
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
                  desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False):
 
-        super(WebDriver, self).__init__(command_executor,
-                                        desired_capabilities, browser_profile, proxy, keep_alive)
+        super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
 
         if self.command_executor is not None:
             self._addCommands()
@@ -136,8 +131,7 @@ class WebDriver(webdriver.Remote):
             if 'moz:firefoxOptions' in capabilities:
                 capabilities['moz:firefoxOptions']['profile'] = browser_profile.encoded
             else:
-                capabilities.update(
-                    {'firefox_profile': browser_profile.encoded})
+                capabilities.update({'firefox_profile': browser_profile.encoded})
 
         parameters = self._merge_capabilities(capabilities)
 
@@ -210,17 +204,17 @@ class WebDriver(webdriver.Remote):
         :rtype: WebElement
         """
         # if self.w3c:
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
+            # if by == By.ID:
+            #     by = By.CSS_SELECTOR
+            #     value = '[id="%s"]' % value
+            # elif by == By.TAG_NAME:
+            #     by = By.CSS_SELECTOR
+            # elif by == By.CLASS_NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = ".%s" % value
+            # elif by == By.NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = '[name="%s"]' % value
         if by == By.IMAGE:
             return self.find_element_by_image(value)
 
@@ -239,17 +233,17 @@ class WebDriver(webdriver.Remote):
         :rtype: list of WebElement
         """
         # if self.w3c:
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
+            # if by == By.ID:
+            #     by = By.CSS_SELECTOR
+            #     value = '[id="%s"]' % value
+            # elif by == By.TAG_NAME:
+            #     by = By.CSS_SELECTOR
+            # elif by == By.CLASS_NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = ".%s" % value
+            # elif by == By.NAME:
+            #     by = By.CSS_SELECTOR
+            #     value = '[name="%s"]' % value
 
         # Return empty list if driver returns null
         # See https://github.com/SeleniumHQ/selenium/issues/4555
@@ -414,8 +408,7 @@ class WebDriver(webdriver.Remote):
         """
         els = []
         try:
-            els.append(self.find_element_by_image(
-                png_img_path, match_threshold))
+            els.append(self.find_element_by_image(png_img_path, match_threshold))
         except NoSuchElementException:
             pass
         return els
@@ -476,8 +469,7 @@ class WebDriver(webdriver.Remote):
          - destinationEl - the element to drag to
         """
         action = TouchAction(self)
-        action.long_press(origin_el).move_to(
-            destination_el).release().perform()
+        action.long_press(origin_el).move_to(destination_el).release().perform()
         return self
 
     # convenience method added to Appium (NOT Selenium 3)
@@ -1256,8 +1248,7 @@ class WebDriver(webdriver.Remote):
         :param text: The text to be set
         :param label: Optional label argument, which only works for Android
         """
-        self.set_clipboard(bytes(text.encode('UTF-8')),
-                           ClipboardContentType.PLAINTEXT, label)
+        self.set_clipboard(bytes(text.encode('UTF-8')), ClipboardContentType.PLAINTEXT, label)
 
     def get_clipboard(self, content_type=ClipboardContentType.PLAINTEXT):
         """
@@ -1411,8 +1402,8 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute_script('mobile: batteryInfo')
 
-    # pylint: disable=protected-access
 
+    # pylint: disable=protected-access
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')

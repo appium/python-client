@@ -21,7 +21,8 @@ from selenium import webdriver
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import (TimeoutException, WebDriverException, InvalidArgumentException, NoSuchElementException)
+from selenium.common.exceptions import (TimeoutException, WebDriverException,
+                                        InvalidArgumentException, NoSuchElementException)
 
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
@@ -63,6 +64,8 @@ _FORCE_MJSONWP = 'forceMjsonwp'
 
 # override
 # Add appium prefix for the non-W3C capabilities
+
+
 def _make_w3c_caps(caps):
     appium_prefix = 'appium:'
 
@@ -204,17 +207,17 @@ class WebDriver(webdriver.Remote):
         :rtype: WebElement
         """
         # if self.w3c:
-            # if by == By.ID:
-            #     by = By.CSS_SELECTOR
-            #     value = '[id="%s"]' % value
-            # elif by == By.TAG_NAME:
-            #     by = By.CSS_SELECTOR
-            # elif by == By.CLASS_NAME:
-            #     by = By.CSS_SELECTOR
-            #     value = ".%s" % value
-            # elif by == By.NAME:
-            #     by = By.CSS_SELECTOR
-            #     value = '[name="%s"]' % value
+        # if by == By.ID:
+        #     by = By.CSS_SELECTOR
+        #     value = '[id="%s"]' % value
+        # elif by == By.TAG_NAME:
+        #     by = By.CSS_SELECTOR
+        # elif by == By.CLASS_NAME:
+        #     by = By.CSS_SELECTOR
+        #     value = ".%s" % value
+        # elif by == By.NAME:
+        #     by = By.CSS_SELECTOR
+        #     value = '[name="%s"]' % value
         if by == By.IMAGE:
             return self.find_element_by_image(value)
 
@@ -233,17 +236,17 @@ class WebDriver(webdriver.Remote):
         :rtype: list of WebElement
         """
         # if self.w3c:
-            # if by == By.ID:
-            #     by = By.CSS_SELECTOR
-            #     value = '[id="%s"]' % value
-            # elif by == By.TAG_NAME:
-            #     by = By.CSS_SELECTOR
-            # elif by == By.CLASS_NAME:
-            #     by = By.CSS_SELECTOR
-            #     value = ".%s" % value
-            # elif by == By.NAME:
-            #     by = By.CSS_SELECTOR
-            #     value = '[name="%s"]' % value
+        # if by == By.ID:
+        #     by = By.CSS_SELECTOR
+        #     value = '[id="%s"]' % value
+        # elif by == By.TAG_NAME:
+        #     by = By.CSS_SELECTOR
+        # elif by == By.CLASS_NAME:
+        #     by = By.CSS_SELECTOR
+        #     value = ".%s" % value
+        # elif by == By.NAME:
+        #     by = By.CSS_SELECTOR
+        #     value = '[name="%s"]' % value
 
         # Return empty list if driver returns null
         # See https://github.com/SeleniumHQ/selenium/issues/4555
@@ -1402,8 +1405,8 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute_script('mobile: batteryInfo')
 
-
     # pylint: disable=protected-access
+
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')

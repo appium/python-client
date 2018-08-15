@@ -1,9 +1,9 @@
 #!/bin/bash
 
-result=$(python -m autopep8 -r --max-line-length 128 -d .)
+result=$(python -m autopep8 -r --global-config .config-pep8 -d .)
 if [[ $result ]] ; then
   echo $result
-  echo "Please run command 'python -m autopep8 -r -i .' on your local and commit the result"
+  echo "Please run command 'python -m autopep8 -r --global-config .config-pep8 -i .' on your local and commit the result"
   exit 1
 fi
 

@@ -43,7 +43,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
     - `autopep8` helps to format code automatically
 
 ```
-$ python -m autopep8 -r -i .
+$ python -m autopep8 -r --global-config .config-pep8 -i .
 ```
 
 # Usage

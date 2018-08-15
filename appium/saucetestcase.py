@@ -48,8 +48,7 @@ class SauceTestCase(unittest.TestCase):
         self.driver.implicitly_wait(30)
 
     def tearDown(self):
-        print("Link to your job: https://saucelabs.com/jobs/%s" %
-              self.driver.session_id)
+        print("Link to your job: https://saucelabs.com/jobs/%s" % self.driver.session_id)
         try:
             if sys.exc_info() == (None, None, None):
                 sauce.jobs.update_job(self.driver.session_id, passed=True)

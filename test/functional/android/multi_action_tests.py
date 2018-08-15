@@ -26,10 +26,8 @@ SLEEPY_TIME = 1
 
 class MultiActionTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities(
-            'ApiDemos-debug.apk')
-        self.driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub', desired_caps)
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
@@ -50,8 +48,7 @@ class MultiActionTests(unittest.TestCase):
         el = self.driver.find_element_by_name('Splitting Touches across Views')
         action.tap(el).perform()
 
-        els = self.driver.find_elements_by_class_name(
-            'android.widget.ListView')
+        els = self.driver.find_elements_by_class_name('android.widget.ListView')
         a1 = TouchAction()
         a1.press(els[0]) \
             .move_to(x=10, y=0).move_to(x=10, y=-75).move_to(x=10, y=-600).release()
@@ -80,8 +77,7 @@ class MultiActionTests(unittest.TestCase):
         el = self.driver.find_element_by_name('Splitting Touches across Views')
         action.tap(el).perform()
 
-        els = self.driver.find_elements_by_class_name(
-            'android.widget.ListView')
+        els = self.driver.find_elements_by_class_name('android.widget.ListView')
         a1 = TouchAction()
         a1.press(els[0]) \
             .move_to(x=10, y=0) \
@@ -107,12 +103,10 @@ class MultiActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
-        els = self.driver.find_elements_by_class_name(
-            'android.widget.TextView')
+        els = self.driver.find_elements_by_class_name('android.widget.TextView')
         self.driver.scroll(els[len(els) - 1], els[0])
 
-        els = self.driver.find_elements_by_class_name(
-            'android.widget.TextView')
+        els = self.driver.find_elements_by_class_name('android.widget.TextView')
         if els[len(els) - 1].get_attribute('name') != 'Xfermodes':
             self.driver.scroll(els[len(els) - 1], els[0])
 
@@ -135,12 +129,10 @@ class MultiActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
-        els = self.driver.find_elements_by_class_name(
-            'android.widget.TextView')
+        els = self.driver.find_elements_by_class_name('android.widget.TextView')
         self.driver.scroll(els[len(els) - 1], els[0])
 
-        els = self.driver.find_elements_by_class_name(
-            'android.widget.TextView')
+        els = self.driver.find_elements_by_class_name('android.widget.TextView')
         if els[len(els) - 1].get_attribute('name') != 'WebView':
             self.driver.scroll(els[len(els) - 1], els[0])
 
@@ -160,12 +152,10 @@ class MultiActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
-        els = self.driver.find_elements_by_class_name(
-            'android.widget.TextView')
+        els = self.driver.find_elements_by_class_name('android.widget.TextView')
         self.driver.scroll(els[len(els) - 1], els[0])
 
-        els = self.driver.find_elements_by_class_name(
-            'android.widget.TextView')
+        els = self.driver.find_elements_by_class_name('android.widget.TextView')
         if els[len(els) - 1].get_attribute('name') != 'WebView':
             self.driver.scroll(els[len(els) - 1], els[0])
 

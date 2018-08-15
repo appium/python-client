@@ -20,36 +20,30 @@ import desired_capabilities
 
 class FindByUIAutomatorTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities(
-            'ApiDemos-debug.apk')
-        self.driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub', desired_caps)
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
 
     def test_find_single_element(self):
-        el = self.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("Animation")')
+        el = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Animation")')
         self.assertIsNotNone(el)
 
     def test_find_multiple_elements(self):
-        els = self.driver.find_elements_by_android_uiautomator(
-            'new UiSelector().clickable(true)')
+        els = self.driver.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
         self.assertIsInstance(els, list)
 
     def test_element_find_single_element(self):
         el = self.driver.find_element_by_class_name('android.widget.ListView')
 
-        sub_el = el.find_element_by_android_uiautomator(
-            'new UiSelector().description("Animation")')
+        sub_el = el.find_element_by_android_uiautomator('new UiSelector().description("Animation")')
         self.assertIsNotNone(sub_el)
 
     def test_element_find_multiple_elements(self):
         el = self.driver.find_element_by_class_name('android.widget.ListView')
 
-        sub_els = el.find_elements_by_android_uiautomator(
-            'new UiSelector().clickable(true)')
+        sub_els = el.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
         self.assertIsInstance(sub_els, list)
 
     def test_scroll_into_view(self):

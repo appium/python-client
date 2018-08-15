@@ -21,10 +21,8 @@ import desired_capabilities
 class FindByIOSPredicateTests(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        desired_caps = desired_capabilities.get_desired_capabilities(
-            'UICatalog.app.zip')
-        self.driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub', desired_caps)
+        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     @classmethod
     def tearDownClass(self):
@@ -35,8 +33,7 @@ class FindByIOSPredicateTests(unittest.TestCase):
         self.driver.find_element_by_ios_predicate('wdName == "Buttons"')
 
     def test_find_multiple_element_by_type(self):
-        e = self.driver.find_elements_by_ios_predicate(
-            'wdType == "XCUIElementTypeStaticText"')
+        e = self.driver.find_elements_by_ios_predicate('wdType == "XCUIElementTypeStaticText"')
         self.assertNotEqual(len(e), 0)
 
     def test_find_element_by_label(self):
@@ -49,22 +46,18 @@ class FindByIOSPredicateTests(unittest.TestCase):
 
     def test_find_element_by_isvisible(self):
         # Will throw exception if element is not found
-        self.driver.find_element_by_ios_predicate(
-            'wdValue == "SearchBar" AND isWDVisible == 1')
+        self.driver.find_element_by_ios_predicate('wdValue == "SearchBar" AND isWDVisible == 1')
 
         # Should not find any elements
-        e = self.driver.find_elements_by_ios_predicate(
-            'wdValue == "SearchBar" AND isWDVisible == 0')
+        e = self.driver.find_elements_by_ios_predicate('wdValue == "SearchBar" AND isWDVisible == 0')
         self.assertEqual(len(e), 0)
 
     def test_find_element_by_isenabled(self):
         # Will throw exception if element is not found
-        self.driver.find_element_by_ios_predicate(
-            'wdValue == "SearchBar" AND isWDEnabled == 1')
+        self.driver.find_element_by_ios_predicate('wdValue == "SearchBar" AND isWDEnabled == 1')
 
         # Should not find any elements
-        e = self.driver.find_elements_by_ios_predicate(
-            'wdValue == "SearchBar" AND isWDEnabled == 0')
+        e = self.driver.find_elements_by_ios_predicate('wdValue == "SearchBar" AND isWDEnabled == 0')
         self.assertEqual(len(e), 0)
 
 

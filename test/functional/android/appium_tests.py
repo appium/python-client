@@ -34,10 +34,8 @@ SLEEPY_TIME = 1
 
 class AppiumTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities(
-            'ApiDemos-debug.apk')
-        self.driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub', desired_caps)
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
@@ -73,18 +71,15 @@ class AppiumTests(unittest.TestCase):
 
     def test_app_strings(self):
         strings = self.driver.app_strings()
-        self.assertEqual(
-            u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
+        self.assertEqual(u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
 
     def test_app_strings_with_language(self):
         strings = self.driver.app_strings('en')
-        self.assertEqual(
-            u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
+        self.assertEqual(u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
 
     def test_app_strings_with_language_and_file(self):
         strings = self.driver.app_strings('en', 'some_file')
-        self.assertEqual(
-            u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
+        self.assertEqual(u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
 
     def test_press_keycode(self):
         # not sure how to test this.
@@ -105,15 +100,13 @@ class AppiumTests(unittest.TestCase):
     def test_pull_file(self):
         data = self.driver.pull_file('data/local/tmp/strings.json')
         strings = json.loads(data.decode('base64', 'strict'))
-        self.assertEqual(
-            'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
+        self.assertEqual('You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
 
     def test_push_file(self):
         path = 'data/local/tmp/test_push_file.txt'
         data = 'This is the contents of the file to push to the device.'
         self.driver.push_file(path, data.encode('base64'))
-        data_ret = self.driver.pull_file(
-            'data/local/tmp/test_push_file.txt').decode('base64')
+        data_ret = self.driver.pull_file('data/local/tmp/test_push_file.txt').decode('base64')
         self.assertEqual(data, data_ret)
 
     def test_pull_folder(self):
@@ -143,22 +136,18 @@ class AppiumTests(unittest.TestCase):
 
     def test_is_app_installed(self):
         self.assertFalse(self.driver.is_app_installed('sdfsdf'))
-        self.assertTrue(self.driver.is_app_installed(
-            'com.example.android.apis'))
+        self.assertTrue(self.driver.is_app_installed('com.example.android.apis'))
 
     def test_install_app(self):
         self.skipTest('This causes the server to crash. no idea why')
         self.assertFalse(self.driver.is_app_installed('io.selendroid.testapp'))
-        self.driver.install_app(
-            '/Users/isaac/code/python-client/test/apps/selendroid-test-app.apk')
+        self.driver.install_app('/Users/isaac/code/python-client/test/apps/selendroid-test-app.apk')
         self.assertTrue(self.driver.is_app_installed('io.selendroid.testapp'))
 
     def test_remove_app(self):
-        self.assertTrue(self.driver.is_app_installed(
-            'com.example.android.apis'))
+        self.assertTrue(self.driver.is_app_installed('com.example.android.apis'))
         self.driver.remove_app('com.example.android.apis')
-        self.assertFalse(self.driver.is_app_installed(
-            'com.example.android.apis'))
+        self.assertFalse(self.driver.is_app_installed('com.example.android.apis'))
 
     def test_close__and_launch_app(self):
         el = self.driver.find_element_by_name('Animation')
@@ -172,8 +161,7 @@ class AppiumTests(unittest.TestCase):
 
     def test_end_test_coverage(self):
         self.skipTest('Not sure how to set this up to run')
-        self.driver.end_test_coverage(
-            intent='android.intent.action.MAIN', path='')
+        self.driver.end_test_coverage(intent='android.intent.action.MAIN', path='')
         sleep(5)
 
     def test_reset(self):
@@ -187,23 +175,18 @@ class AppiumTests(unittest.TestCase):
         self.assertIsNotNone(el)
 
     def test_open_notifications(self):
-        self.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("App")').click()
-        self.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("Notification")').click()
-        self.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("Status Bar")').click()
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("App")').click()
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("Notification")').click()
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("Status Bar")').click()
 
-        self.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text(":-|")').click()
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text(":-|")').click()
 
         self.driver.open_notifications()
         sleep(1)
         self.assertRaises(NoSuchElementException,
                           self.driver.find_element_by_android_uiautomator, 'new UiSelector().text(":-|")')
 
-        els = self.driver.find_elements_by_class_name(
-            'android.widget.TextView')
+        els = self.driver.find_elements_by_class_name('android.widget.TextView')
         # sometimes numbers shift
         title = False
         body = False
@@ -218,8 +201,7 @@ class AppiumTests(unittest.TestCase):
 
         self.driver.keyevent(4)
         sleep(1)
-        self.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text(":-|")')
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text(":-|")')
 
     def test_set_text(self):
         self.driver.find_element_by_android_uiautomator(
@@ -249,16 +231,14 @@ class AppiumTests(unittest.TestCase):
         self.driver.start_activity("com.example.android.apis", ".ApiDemos")
         self._assert_activity_contains('Demos')
 
-        self.driver.start_activity(
-            "com.example.android.apis", ".accessibility.AccessibilityNodeProviderActivity")
+        self.driver.start_activity("com.example.android.apis", ".accessibility.AccessibilityNodeProviderActivity")
         self._assert_activity_contains('Node')
 
     def test_start_activity_other_app(self):
         self.driver.start_activity("com.example.android.apis", ".ApiDemos")
         self._assert_activity_contains('Demos')
 
-        self.driver.start_activity(
-            "com.android.contacts", ".ContactsListActivity")
+        self.driver.start_activity("com.android.contacts", ".ContactsListActivity")
         self._assert_activity_contains('Contact')
 
     def _assert_activity_contains(self, activity):

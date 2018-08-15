@@ -24,11 +24,9 @@ from selenium.webdriver.common.touch_actions import TouchActions
 
 class SelendroidTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities(
-            'ApiDemos-debug.apk')
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
         desired_caps['automationName'] = 'Selendroid'
-        self.driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub', desired_caps)
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def test_contexts_list(self):
         el = self.driver.find_element_by_class_name('android.widget.ListView')

@@ -17,6 +17,7 @@ from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElemen
 
 from .mobilecommand import MobileCommand as Command
 
+
 class WebElement(SeleniumWebElement):
     def find_element_by_ios_uiautomation(self, uia_string):
         """Finds an element by uiautomation in iOS.

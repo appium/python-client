@@ -17,6 +17,7 @@ import unittest
 from appium import webdriver
 import desired_capabilities
 
+
 class FindByIOClassChainTests(unittest.TestCase):
     @classmethod
     def setUpClass(self):
@@ -36,6 +37,7 @@ class FindByIOClassChainTests(unittest.TestCase):
         self.assertEqual(6, len(el))
         self.assertEqual('UICatalog', el[0].get_attribute('name'))
         self.assertEqual(None, el[1].get_attribute('name'))
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(FindByIOClassChainTests)

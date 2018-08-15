@@ -33,7 +33,6 @@ class NetworkConnectionTests(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-
     def test_get_network_connection(self):
         nc = self.driver.network_connection
         self.assertIsInstance(nc, int)

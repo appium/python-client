@@ -12,6 +12,6 @@ pandoc.core.PANDOC_PATH = os.environ['PANDOC_HOME']
 
 doc = pandoc.Document()
 doc.markdown = open('README.md').read()
-f = open('README.txt','w+')
+f = open('README.txt', 'w+')
 f.write(doc.rst)
 f.close()

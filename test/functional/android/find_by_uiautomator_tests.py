@@ -47,7 +47,8 @@ class FindByUIAutomatorTests(unittest.TestCase):
         self.assertIsInstance(sub_els, list)
 
     def test_scroll_into_view(self):
-        el = self.driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));')
+        el = self.driver.find_element_by_android_uiautomator(
+            'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));')
         el.click()
 
 

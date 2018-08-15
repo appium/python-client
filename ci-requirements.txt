@@ -2,3 +2,4 @@ selenium
 astroid
 isort
 pylint
+autopep8

@@ -34,7 +34,7 @@ class MobileCommand(object):
     # Appium Commands
     GET_APP_STRINGS = 'getAppStrings'
     PRESS_KEYCODE = 'pressKeyCode'
-    KEY_EVENT = 'keyEvent' # Needed for Selendroid
+    KEY_EVENT = 'keyEvent'  # Needed for Selendroid
     LONG_PRESS_KEYCODE = 'longPressKeyCode'
     GET_CURRENT_ACTIVITY = 'getCurrentActivity'
     GET_CURRENT_PACKAGE = 'getCurrentPackage'

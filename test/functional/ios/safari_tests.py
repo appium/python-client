@@ -30,6 +30,7 @@ class SafariTests(unittest.TestCase):
         self.driver.get("http://google.com")
         self.assertEqual('Google', self.driver.title)
 
+
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(SafariTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

@@ -24,6 +24,8 @@ Connection types are specified here:
     4 (Data only)      | 1    | 0    | 0
     6 (All network on) | 1    | 1    | 0
 """
+
+
 class ConnectionType(object):
     NO_CONNECTION = 0
     AIRPLANE_MODE = 1

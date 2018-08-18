@@ -28,12 +28,13 @@ class MobileCommand(object):
     DEACTIVATE_IME_ENGINE = 'deactivateIMEEngine'
     GET_ACTIVE_IME_ENGINE = 'getActiveEngine'
     TOGGLE_LOCATION_SERVICES = 'toggleLocationServices'
+    TOGGLE_WIFI = 'toggleWiFi'
     LOCATION_IN_VIEW = 'locationInView'
 
     # Appium Commands
     GET_APP_STRINGS = 'getAppStrings'
     PRESS_KEYCODE = 'pressKeyCode'
-    KEY_EVENT = 'keyEvent' # Needed for Selendroid
+    KEY_EVENT = 'keyEvent'  # Needed for Selendroid
     LONG_PRESS_KEYCODE = 'longPressKeyCode'
     GET_CURRENT_ACTIVITY = 'getCurrentActivity'
     GET_CURRENT_PACKAGE = 'getCurrentPackage'

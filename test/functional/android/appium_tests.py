@@ -56,7 +56,7 @@ class AppiumTests(unittest.TestCase):
                          ApplicationState.RUNNING_IN_FOREGROUND)
         self.driver.background_app(-1)
         self.assertTrue(self.driver.query_app_state(app_id) <
-                         ApplicationState.RUNNING_IN_FOREGROUND)
+                        ApplicationState.RUNNING_IN_FOREGROUND)
         self.driver.activate_app(app_id)
         self.assertEqual(self.driver.query_app_state(app_id),
                          ApplicationState.RUNNING_IN_FOREGROUND)
@@ -183,8 +183,8 @@ class AppiumTests(unittest.TestCase):
 
         self.driver.open_notifications()
         sleep(1)
-        self.assertRaises(NoSuchElementException, \
-            self.driver.find_element_by_android_uiautomator, 'new UiSelector().text(":-|")')
+        self.assertRaises(NoSuchElementException,
+                          self.driver.find_element_by_android_uiautomator, 'new UiSelector().text(":-|")')
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
         # sometimes numbers shift
@@ -204,7 +204,8 @@ class AppiumTests(unittest.TestCase):
         self.driver.find_element_by_android_uiautomator('new UiSelector().text(":-|")')
 
     def test_set_text(self):
-        self.driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
+        self.driver.find_element_by_android_uiautomator(
+            'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
         self.driver.find_element_by_name('Controls').click()
         self.driver.find_element_by_name('1. Light Theme').click()
 
@@ -215,7 +216,8 @@ class AppiumTests(unittest.TestCase):
         self.assertEqual('new text', el.text)
 
     def test_send_keys(self):
-        self.driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
+        self.driver.find_element_by_android_uiautomator(
+            'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
         self.driver.find_element_by_name('Controls').click()
         self.driver.find_element_by_name('1. Light Theme').click()
 

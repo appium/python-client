@@ -37,6 +37,14 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
     python setup.py install
     ```
 
+# Development
+
+- Style Guide: https://www.python.org/dev/peps/pep-0008/
+    - `autopep8` helps to format code automatically
+
+```
+$ python -m autopep8 -r --global-config .config-pep8 -i .
+```
 
 # Usage
 
@@ -161,7 +169,7 @@ self.assertIsInstance(els, list)
 
 ### Finding elements by Android viewtag search
 
-This method allows finiding elements using [View#tags](https://developer.android.com/reference/android/view/View#tags).
+This method allows finding elements using [View#tags](https://developer.android.com/reference/android/view/View#tags).
 This method works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
 Adds the methods `driver.find_element_by_android_viewtag` and `driver.find_elements_by_android_viewtag`.

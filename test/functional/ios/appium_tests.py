@@ -51,7 +51,7 @@ class AppiumTests(unittest.TestCase):
                          ApplicationState.RUNNING_IN_FOREGROUND)
         self.driver.background_app(-1)
         self.assertTrue(self.driver.query_app_state(desired_capabilities.BUNDLE_ID) <
-                         ApplicationState.RUNNING_IN_FOREGROUND)
+                        ApplicationState.RUNNING_IN_FOREGROUND)
         self.driver.activate_app(desired_capabilities.BUNDLE_ID)
         self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
                          ApplicationState.RUNNING_IN_FOREGROUND)

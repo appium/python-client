@@ -32,7 +32,7 @@ def on_platforms(platforms):
         module = sys.modules[base_class.__module__].__dict__
         for i, platform in enumerate(platforms):
             name = "%s_%s" % (base_class.__name__, i + 1)
-            d_caps = {'desired_capabilities' : platform}
+            d_caps = {'desired_capabilities': platform}
             module[name] = type(name, (base_class,), d_caps)
     return decorator
 

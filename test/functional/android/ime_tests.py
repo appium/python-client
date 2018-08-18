@@ -36,7 +36,6 @@ class IMETests(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-
     def test_available_ime_engines(self):
         engines = self.driver.available_ime_engines
         self.assertIsInstance(engines, list)

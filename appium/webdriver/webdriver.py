@@ -60,6 +60,8 @@ _FORCE_MJSONWP = 'forceMjsonwp'
 
 # override
 # Add appium prefix for the non-W3C capabilities
+
+
 def _make_w3c_caps(caps):
     appium_prefix = 'appium:'
 
@@ -201,6 +203,7 @@ class WebDriver(webdriver.Remote):
         :rtype: WebElement
         """
         # if self.w3c:
+
             # if by == By.ID:
             #     by = By.CSS_SELECTOR
             #     value = '[id="%s"]' % value
@@ -228,17 +231,17 @@ class WebDriver(webdriver.Remote):
         :rtype: list of WebElement
         """
         # if self.w3c:
-            # if by == By.ID:
-            #     by = By.CSS_SELECTOR
-            #     value = '[id="%s"]' % value
-            # elif by == By.TAG_NAME:
-            #     by = By.CSS_SELECTOR
-            # elif by == By.CLASS_NAME:
-            #     by = By.CSS_SELECTOR
-            #     value = ".%s" % value
-            # elif by == By.NAME:
-            #     by = By.CSS_SELECTOR
-            #     value = '[name="%s"]' % value
+        # if by == By.ID:
+        #     by = By.CSS_SELECTOR
+        #     value = '[id="%s"]' % value
+        # elif by == By.TAG_NAME:
+        #     by = By.CSS_SELECTOR
+        # elif by == By.CLASS_NAME:
+        #     by = By.CSS_SELECTOR
+        #     value = ".%s" % value
+        # elif by == By.NAME:
+        #     by = By.CSS_SELECTOR
+        #     value = '[name="%s"]' % value
 
         # Return empty list if driver returns null
         # See https://github.com/SeleniumHQ/selenium/issues/4555
@@ -1091,6 +1094,12 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.UPDATE_SETTINGS, data)
         return self
 
+    def toggle_wifi(self):
+        """Toggle the wifi on the device, Android only.
+        """
+        self.execute(Command.TOGGLE_WIFI, {})
+        return self
+
     def toggle_location_services(self):
         """Toggle the location services on the device. Android only.
         """
@@ -1377,8 +1386,8 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute_script('mobile: batteryInfo')
 
-
     # pylint: disable=protected-access
+
     def _addCommands(self):
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')
@@ -1475,6 +1484,8 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/settings')
         self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = \
             ('POST', '/session/$sessionId/appium/device/toggle_location_services')
+        self.command_executor._commands[Command.TOGGLE_WIFI] = \
+            ('POST', '/session/$sessionId/appium/device/toggle_wifi')
         self.command_executor._commands[Command.SET_LOCATION] = \
             ('POST', '/session/$sessionId/location')
         self.command_executor._commands[Command.LOCATION_IN_VIEW] = \

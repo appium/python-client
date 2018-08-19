@@ -21,6 +21,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import desired_capabilities
 
+import base64
+
 
 class FindByImageTests(unittest.TestCase):
 
@@ -28,13 +30,21 @@ class FindByImageTests(unittest.TestCase):
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
+        # relax template matching
+        self.driver.update_settings({"fixImageFindScreenshotDims": "false",
+                                     "fixImageTemplateSize": "true",
+                                     "autoUpdateImageElementPosition": "true"})
+
     def tearDown(self):
         self.driver.quit()
 
     def test_find_based_on_image_template(self):
         image_path = desired_capabilities.PATH('find_by_image_success.png')
+        with open(image_path, 'rb') as png_file:
+            b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
+
         el = WebDriverWait(self.driver, 3).until(
-            EC.presence_of_element_located((By.IMAGE, image_path))
+            EC.presence_of_element_located((By.IMAGE, b64_data))
         )
         size = el.size
         self.assertIsNotNone(size['width'])
@@ -62,9 +72,12 @@ class FindByImageTests(unittest.TestCase):
 
     def test_find_throws_no_such_element(self):
         image_path = desired_capabilities.PATH('find_by_image_failure.png')
+        with open(image_path, 'rb') as png_file:
+            b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
+
         with self.assertRaises(TimeoutException):
             WebDriverWait(self.driver, 3).until(
-                EC.presence_of_element_located((By.IMAGE, image_path))
+                EC.presence_of_element_located((By.IMAGE, b64_data))
             )
         with self.assertRaises(NoSuchElementException):
             self.driver.find_element_by_image(image_path)

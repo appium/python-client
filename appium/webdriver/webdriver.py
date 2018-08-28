@@ -67,26 +67,26 @@ def _make_w3c_caps(caps):
 
     caps = copy.deepcopy(caps)
     profile = caps.get('firefox_profile')
-    always_match = {}
+    first_match = {}
     if caps.get('proxy') and caps['proxy'].get('proxyType'):
         caps['proxy']['proxyType'] = caps['proxy']['proxyType'].lower()
     for k, v in caps.items():
         if v and k in _OSS_W3C_CONVERSION:
-            always_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
+            first_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
         if k in _W3C_CAPABILITY_NAMES or _EXTENSION_CAPABILITY in k:
-            always_match[k] = v
+            first_match[k] = v
         else:
             if not k.startswith(appium_prefix):
-                always_match[appium_prefix + k] = v
+                first_match[appium_prefix + k] = v
     if profile:
-        moz_opts = always_match.get('moz:firefoxOptions', {})
+        moz_opts = first_match.get('moz:firefoxOptions', {})
         # If it's already present, assume the caller did that intentionally.
         if 'profile' not in moz_opts:
             # Don't mutate the original capabilities.
             new_opts = copy.deepcopy(moz_opts)
             new_opts['profile'] = profile
-            always_match['moz:firefoxOptions'] = new_opts
-    return {'firstMatch': [{}], 'alwaysMatch': always_match}
+            first_match['moz:firefoxOptions'] = new_opts
+    return {'firstMatch': [first_match]}
 
 
 class WebDriver(webdriver.Remote):

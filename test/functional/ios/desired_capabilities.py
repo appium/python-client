@@ -26,12 +26,29 @@ BUNDLE_ID = 'com.example.apple-samplecode.UICatalog'
 
 def get_desired_capabilities(app):
     desired_caps = {
-        'deviceName': 'iPhone 6s',
+        'deviceName': iphone_device_name(),
         'platformName': 'iOS',
         'platformVersion': '10.3',
         'app': PATH('../../apps/' + app),
         'automationName': 'XCUITest',
-        'allowTouchIdEnroll': True
+        'allowTouchIdEnroll': True,
+        'wdaLocalPort': wda_port(),
     }
 
     return desired_caps
+
+# If you run tests with pytest-xdist, you can run tests in parallel.
+def wda_port():
+    if os.getenv('PYTEST_XDIST_WORKER') == 'gw1':
+        return 8101
+
+    return 8100
+
+#Before running tests, you must have iOS simulators named 'iPhone 6s - 8100' and 'iPhone 6s - 8101'
+def iphone_device_name():
+    if os.getenv('PYTEST_XDIST_WORKER') == 'gw0':
+        return 'iPhone 6s - 8100'
+    elif os.getenv('PYTEST_XDIST_WORKER') == 'gw1':
+        return 'iPhone 6s - 8101'
+
+    return 'iPhone 6s'

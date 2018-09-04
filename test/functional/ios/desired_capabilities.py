@@ -40,9 +40,13 @@ def get_desired_capabilities(app):
 
 class PytestXdistWorker(object):
     NUMBER = os.getenv('PYTEST_XDIST_WORKER')
+    COUNT = os.getenv('PYTEST_XDIST_WORKER_COUNT')  # Return 2 if `-n 2` is passed
 
     @staticmethod
     def gw(number):
+        if number >= PytestXdistWorker.COUNT:
+            return 'gw0'
+
         return 'gw{}'.format(number)
 
 # If you run tests with pytest-xdist, you can run tests in parallel.

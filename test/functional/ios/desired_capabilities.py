@@ -37,11 +37,19 @@ def get_desired_capabilities(app):
 
     return desired_caps
 
+
+class PytestXdistWorker(object):
+    NUMBER = os.getenv('PYTEST_XDIST_WORKER')
+
+    @staticmethod
+    def gw(number):
+        return 'gw{}'.format(number)
+
 # If you run tests with pytest-xdist, you can run tests in parallel.
 
 
 def wda_port():
-    if os.getenv('PYTEST_XDIST_WORKER') == 'gw1':
+    if PytestXdistWorker.NUMBER == PytestXdistWorker.gw(1):
         return 8101
 
     return 8100
@@ -50,9 +58,9 @@ def wda_port():
 
 
 def iphone_device_name():
-    if os.getenv('PYTEST_XDIST_WORKER') == 'gw0':
+    if PytestXdistWorker.NUMBER == PytestXdistWorker.gw(0):
         return 'iPhone 6s - 8100'
-    elif os.getenv('PYTEST_XDIST_WORKER') == 'gw1':
+    elif PytestXdistWorker.NUMBER == PytestXdistWorker.gw(1):
         return 'iPhone 6s - 8101'
 
     return 'iPhone 6s'

@@ -38,13 +38,17 @@ def get_desired_capabilities(app):
     return desired_caps
 
 # If you run tests with pytest-xdist, you can run tests in parallel.
+
+
 def wda_port():
     if os.getenv('PYTEST_XDIST_WORKER') == 'gw1':
         return 8101
 
     return 8100
 
-#Before running tests, you must have iOS simulators named 'iPhone 6s - 8100' and 'iPhone 6s - 8101'
+# Before running tests, you must have iOS simulators named 'iPhone 6s - 8100' and 'iPhone 6s - 8101'
+
+
 def iphone_device_name():
     if os.getenv('PYTEST_XDIST_WORKER') == 'gw0':
         return 'iPhone 6s - 8100'

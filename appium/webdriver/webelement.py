@@ -142,6 +142,7 @@ class WebElement(SeleniumWebElement):
             element = element.find_element(By.ID, 'foo')
         :rtype: WebElement
         """
+        # TODO: If we need, we should enable below converter for Web context
         # if self._w3c:
         #     if by == By.ID:
         #         by = By.CSS_SELECTOR
@@ -166,6 +167,7 @@ class WebElement(SeleniumWebElement):
             element = element.find_elements(By.CLASS_NAME, 'foo')
         :rtype: list of WebElement
         """
+        # TODO: If we need, we should enable below converter for Web context
         # if self._w3c:
         #     if by == By.ID:
         #         by = By.CSS_SELECTOR

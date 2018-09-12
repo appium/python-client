@@ -17,6 +17,7 @@ import unittest
 from appium import webdriver
 import desired_capabilities
 
+
 class FindByElementWebelementTests(unittest.TestCase):
 
     @classmethod
@@ -40,6 +41,7 @@ class FindByElementWebelementTests(unittest.TestCase):
 
         c_el = el.find_elements_by_accessibility_id('UICatalog')
         self.assertEqual('UICatalog', c_el[0].get_attribute('name'))
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(FindByElementWebelementTests)

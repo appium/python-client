@@ -21,7 +21,7 @@ import random
 from time import sleep
 from dateutil.parser import parse
 
-from webdriver.applicationstate import ApplicationState
+from appium.webdriver.applicationstate import ApplicationState
 from selenium.common.exceptions import NoSuchElementException
 
 from appium import webdriver

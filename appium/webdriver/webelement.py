@@ -14,6 +14,9 @@
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
+from selenium.webdriver.remote.command import Command as RemoteCommand
+
+from appium.webdriver.common.mobileby import MobileBy
 
 from .mobilecommand import MobileCommand as Command
 
@@ -28,7 +31,7 @@ class WebElement(SeleniumWebElement):
         :Usage:
             driver.find_element_by_ios_uiautomation('.elements()[1].cells()[2]')
         """
-        return self.find_element(by=By.IOS_UIAUTOMATION, value=uia_string)
+        return self.find_element(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
     def find_elements_by_ios_uiautomation(self, uia_string):
         """Finds elements by uiautomation in iOS.
@@ -39,7 +42,7 @@ class WebElement(SeleniumWebElement):
         :Usage:
             driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
         """
-        return self.find_elements(by=By.IOS_UIAUTOMATION, value=uia_string)
+        return self.find_elements(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
     def find_element_by_ios_predicate(self, predicate_string):
         """Find an element by ios predicate string.
@@ -50,7 +53,7 @@ class WebElement(SeleniumWebElement):
         :Usage:
             driver.find_element_by_ios_predicate('label == "myLabel"')
         """
-        return self.find_element(by=By.IOS_PREDICATE, value=predicate_string)
+        return self.find_element(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
     def find_elements_by_ios_predicate(self, predicate_string):
         """Finds elements by ios predicate string.
@@ -61,7 +64,7 @@ class WebElement(SeleniumWebElement):
         :Usage:
             driver.find_elements_by_ios_predicate('label == "myLabel"')
         """
-        return self.find_elements(by=By.IOS_PREDICATE, value=predicate_string)
+        return self.find_elements(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
     def find_element_by_ios_class_chain(self, class_chain_string):
         """Find an element by ios class chain string.
@@ -72,7 +75,7 @@ class WebElement(SeleniumWebElement):
         :Usage:
             driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton[3]')
         """
-        return self.find_element(by=By.IOS_CLASS_CHAIN, value=class_chain_string)
+        return self.find_element(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
     def find_elements_by_ios_class_chain(self, class_chain_string):
         """Finds elements by ios class chain string.
@@ -83,7 +86,7 @@ class WebElement(SeleniumWebElement):
         :Usage:
             driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]')
         """
-        return self.find_elements(by=By.IOS_CLASS_CHAIN, value=class_chain_string)
+        return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
     def find_element_by_android_uiautomator(self, uia_string):
         """Finds element by uiautomator in Android.
@@ -94,7 +97,7 @@ class WebElement(SeleniumWebElement):
         :Usage:
             driver.find_element_by_android_uiautomator('.elements()[1].cells()[2]')
         """
-        return self.find_element(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
+        return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
     def find_elements_by_android_uiautomator(self, uia_string):
         """Finds elements by uiautomator in Android.
@@ -105,7 +108,7 @@ class WebElement(SeleniumWebElement):
         :Usage:
             driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
         """
-        return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
+        return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
     def find_element_by_accessibility_id(self, accessibility_id):
         """Finds an element by accessibility id.
@@ -117,7 +120,7 @@ class WebElement(SeleniumWebElement):
         :Usage:
             driver.find_element_by_accessibility_id()
         """
-        return self.find_element(by=By.ACCESSIBILITY_ID, value=accessibility_id)
+        return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
     def find_elements_by_accessibility_id(self, accessibility_id):
         """Finds elements by accessibility id.
@@ -129,7 +132,57 @@ class WebElement(SeleniumWebElement):
         :Usage:
             driver.find_elements_by_accessibility_id()
         """
-        return self.find_elements(by=By.ACCESSIBILITY_ID, value=accessibility_id)
+        return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
+
+    def find_element(self, by=By.ID, value=None):
+        """
+        Find an element given a By strategy and locator. Prefer the find_element_by_* methods when
+        possible.
+        :Usage:
+            element = element.find_element(By.ID, 'foo')
+        :rtype: WebElement
+        """
+        # TODO: If we need, we should enable below converter for Web context
+        # if self._w3c:
+        #     if by == By.ID:
+        #         by = By.CSS_SELECTOR
+        #         value = '[id="%s"]' % value
+        #     elif by == By.TAG_NAME:
+        #         by = By.CSS_SELECTOR
+        #     elif by == By.CLASS_NAME:
+        #         by = By.CSS_SELECTOR
+        #         value = ".%s" % value
+        #     elif by == By.NAME:
+        #         by = By.CSS_SELECTOR
+        #         value = '[name="%s"]' % value
+
+        return self._execute(RemoteCommand.FIND_CHILD_ELEMENT,
+                             {"using": by, "value": value})['value']
+
+    def find_elements(self, by=By.ID, value=None):
+        """
+        Find elements given a By strategy and locator. Prefer the find_elements_by_* methods when
+        possible.
+        :Usage:
+            element = element.find_elements(By.CLASS_NAME, 'foo')
+        :rtype: list of WebElement
+        """
+        # TODO: If we need, we should enable below converter for Web context
+        # if self._w3c:
+        #     if by == By.ID:
+        #         by = By.CSS_SELECTOR
+        #         value = '[id="%s"]' % value
+        #     elif by == By.TAG_NAME:
+        #         by = By.CSS_SELECTOR
+        #     elif by == By.CLASS_NAME:
+        #         by = By.CSS_SELECTOR
+        #         value = ".%s" % value
+        #     elif by == By.NAME:
+        #         by = By.CSS_SELECTOR
+        #         value = '[name="%s"]' % value
+
+        return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS,
+                             {"using": by, "value": value})['value']
 
     def set_text(self, keys=''):
         """Sends text to the element. Previous text is removed.

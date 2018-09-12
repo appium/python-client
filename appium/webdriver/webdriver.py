@@ -202,19 +202,19 @@ class WebDriver(webdriver.Remote):
 
         :rtype: WebElement
         """
+        # TODO: If we need, we should enable below converter for Web context
         # if self.w3c:
-
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
+        #     if by == By.ID:
+        #         by = By.CSS_SELECTOR
+        #         value = '[id="%s"]' % value
+        #     elif by == By.TAG_NAME:
+        #         by = By.CSS_SELECTOR
+        #     elif by == By.CLASS_NAME:
+        #         by = By.CSS_SELECTOR
+        #         value = ".%s" % value
+        #     elif by == By.NAME:
+        #         by = By.CSS_SELECTOR
+        #         value = '[name="%s"]' % value
 
         return self.execute(RemoteCommand.FIND_ELEMENT, {
             'using': by,
@@ -230,18 +230,19 @@ class WebDriver(webdriver.Remote):
 
         :rtype: list of WebElement
         """
+        # TODO: If we need, we should enable below converter for Web context
         # if self.w3c:
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
+        #     if by == By.ID:
+        #         by = By.CSS_SELECTOR
+        #         value = '[id="%s"]' % value
+        #     elif by == By.TAG_NAME:
+        #         by = By.CSS_SELECTOR
+        #     elif by == By.CLASS_NAME:
+        #         by = By.CSS_SELECTOR
+        #         value = ".%s" % value
+        #     elif by == By.NAME:
+        #         by = By.CSS_SELECTOR
+        #         value = '[name="%s"]' % value
 
         # Return empty list if driver returns null
         # See https://github.com/SeleniumHQ/selenium/issues/4555

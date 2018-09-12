@@ -44,6 +44,9 @@ class PytestXdistWorker(object):
 
     @staticmethod
     def gw(number):
+        if PytestXdistWorker.COUNT is None:
+            return '0'
+
         if number >= PytestXdistWorker.COUNT:
             return 'gw0'
 

@@ -1393,7 +1393,7 @@ class WebDriver(webdriver.Remote):
 
         :param finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
         """
-        return self.execute(Command.FINGER_PRINT, { 'fingerprintId': finger_id })['value']
+        return self.execute(Command.FINGER_PRINT, {'fingerprintId': finger_id})['value']
 
     # pylint: disable=protected-access
 

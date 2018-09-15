@@ -18,6 +18,7 @@ import unittest
 from appium import webdriver
 import desired_capabilities
 
+
 class FingerPrintTests(unittest.TestCase):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
@@ -29,6 +30,7 @@ class FingerPrintTests(unittest.TestCase):
     def test_finger_print(self):
         result = self.driver.finger_print(1)
         self.assertEqual(None, result)
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(FingerPrintTests)

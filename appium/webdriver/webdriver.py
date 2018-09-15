@@ -1387,6 +1387,14 @@ class WebDriver(webdriver.Remote):
         """
         return self.execute_script('mobile: batteryInfo')
 
+    def finger_print(self, finger_id):
+        """
+        Authenticate users by using their finger print scans on supported emulators.
+
+        :param finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
+        """
+        return self.execute(Command.FINGER_PRINT, { 'fingerprintId': finger_id })['value']
+
     # pylint: disable=protected-access
 
     def _addCommands(self):
@@ -1505,3 +1513,5 @@ class WebDriver(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/get_clipboard')
         self.command_executor._commands[Command.COMPARE_IMAGES] = \
             ('POST', '/session/$sessionId/appium/compare_images')
+        self.command_executor._commands[Command.FINGER_PRINT] = \
+            ('POST', '/session/$sessionId/appium/device/finger_print')

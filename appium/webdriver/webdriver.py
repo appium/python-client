@@ -425,18 +425,19 @@ class WebDriver(webdriver.Remote):
         return MobileWebElement(self, element_id)
 
     # convenience method added to Appium (NOT Selenium 3)
-    def scroll(self, origin_el, destination_el):
+    def scroll(self, origin_el, destination_el, duration = 250):
         """Scrolls from one element to another
 
         :Args:
          - originalEl - the element from which to being scrolling
          - destinationEl - the element to scroll to
+         - duration - a duration after pressing originalEl and move the element to destinationEl. Default is 250 ms.
 
         :Usage:
             driver.scroll(el1, el2)
         """
         action = TouchAction(self)
-        action.press(origin_el).move_to(destination_el).release().perform()
+        action.press(origin_el).wait(duration).move_to(destination_el).release().perform()
         return self
 
     # convenience method added to Appium (NOT Selenium 3)

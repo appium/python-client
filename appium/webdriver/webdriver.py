@@ -425,7 +425,7 @@ class WebDriver(webdriver.Remote):
         return MobileWebElement(self, element_id)
 
     # convenience method added to Appium (NOT Selenium 3)
-    def scroll(self, origin_el, destination_el, duration = 600):
+    def scroll(self, origin_el, destination_el, duration=600):
         """Scrolls from one element to another
 
         :Args:

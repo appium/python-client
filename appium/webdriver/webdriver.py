@@ -442,7 +442,10 @@ class WebDriver(webdriver.Remote):
             duration = 600
 
         action = TouchAction(self)
-        action.press(origin_el).wait(duration).move_to(destination_el).release().perform()
+        if duration is None:
+            action.press(origin_el).move_to(destination_el).release().perform()
+        else:
+            action.press(origin_el).wait(duration).move_to(destination_el).release().perform()
         return self
 
     # convenience method added to Appium (NOT Selenium 3)

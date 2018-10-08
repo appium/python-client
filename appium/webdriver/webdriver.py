@@ -431,7 +431,7 @@ class WebDriver(webdriver.Remote):
         :Args:
          - originalEl - the element from which to being scrolling
          - destinationEl - the element to scroll to
-         - duration - a duration after pressing originalEl and move the element to destinationEl. Default is 600 ms.
+         - duration - a duration after pressing originalEl and move the element to destinationEl. Default is 600 ms for W3C spec. Zero for MJSONWP.
 
         :Usage:
             driver.scroll(el1, el2)

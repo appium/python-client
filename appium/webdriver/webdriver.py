@@ -425,18 +425,27 @@ class WebDriver(webdriver.Remote):
         return MobileWebElement(self, element_id)
 
     # convenience method added to Appium (NOT Selenium 3)
-    def scroll(self, origin_el, destination_el):
+    def scroll(self, origin_el, destination_el, duration=None):
         """Scrolls from one element to another
 
         :Args:
          - originalEl - the element from which to being scrolling
          - destinationEl - the element to scroll to
+         - duration - a duration after pressing originalEl and move the element to destinationEl. Default is 600 ms for W3C spec. Zero for MJSONWP.
 
         :Usage:
             driver.scroll(el1, el2)
         """
+
+        # XCUITest x W3C spec has no duration by default in server side
+        if self.w3c and duration is None:
+            duration = 600
+
         action = TouchAction(self)
-        action.press(origin_el).move_to(destination_el).release().perform()
+        if duration is None:
+            action.press(origin_el).move_to(destination_el).release().perform()
+        else:
+            action.press(origin_el).wait(duration).move_to(destination_el).release().perform()
         return self
 
     # convenience method added to Appium (NOT Selenium 3)

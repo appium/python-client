@@ -46,12 +46,18 @@ class WebElement(SeleniumWebElement):
 
         """
 
-        attributeValue = ''
         resp = self._execute(RemoteCommand.GET_ELEMENT_ATTRIBUTE, {'name': name})
         attributeValue = resp.get('value')
-        if attributeValue is not None:
-            if name != 'value' and attributeValue.lower() in ('true', 'false'):
-                attributeValue = attributeValue.lower()
+
+        if attributeValue is None:
+            return None
+
+        if not isinstance(attributeValue, str):
+            attributeValue = str(attributeValue)
+
+        if attributeValue.lower() in ('true', 'false'):
+            return attributeValue.lower()
+
         return attributeValue
 
     # Override

@@ -20,6 +20,11 @@ from appium.webdriver.common.mobileby import MobileBy
 
 from .mobilecommand import MobileCommand as Command
 
+# Python 3 imports
+try:
+    str = basestring
+except NameError:
+    pass
 
 class WebElement(SeleniumWebElement):
     # Override
@@ -53,7 +58,7 @@ class WebElement(SeleniumWebElement):
             return None
 
         if not isinstance(attributeValue, str):
-            attributeValue = str(attributeValue)
+            attributeValue = unicode(attributeValue)
 
         if attributeValue.lower() in ('true', 'false'):
             return attributeValue.lower()

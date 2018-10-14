@@ -26,6 +26,7 @@ try:
 except NameError:
     pass
 
+
 class WebElement(SeleniumWebElement):
     # Override
     def get_attribute(self, name):

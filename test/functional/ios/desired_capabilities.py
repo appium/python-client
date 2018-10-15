@@ -28,7 +28,7 @@ def get_desired_capabilities(app):
     desired_caps = {
         'deviceName': iphone_device_name(),
         'platformName': 'iOS',
-        'platformVersion': '10.3',
+        'platformVersion': '11.4',
         'app': PATH('../../apps/' + app),
         'automationName': 'XCUITest',
         'allowTouchIdEnroll': True,
@@ -66,8 +66,8 @@ def wda_port():
 
 def iphone_device_name():
     if PytestXdistWorker.NUMBER == PytestXdistWorker.gw(0):
-        return 'iPhone 6s - 8100'
+        return 'iPhone 8 - 8100'
     elif PytestXdistWorker.NUMBER == PytestXdistWorker.gw(1):
-        return 'iPhone 6s - 8101'
+        return 'iPhone 8 - 8101'
 
-    return 'iPhone 6s'
+    return 'iPhone 8'

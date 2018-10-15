@@ -20,8 +20,57 @@ from appium.webdriver.common.mobileby import MobileBy
 
 from .mobilecommand import MobileCommand as Command
 
+# Python 3 imports
+try:
+    str = basestring
+except NameError:
+    pass
+
 
 class WebElement(SeleniumWebElement):
+    # Override
+    def get_attribute(self, name):
+        """Gets the given attribute or property of the element.
+
+        This method will first try to return the value of a property with the
+        given name. If a property with that name doesn't exist, it returns the
+        value of the attribute with the same name. If there's no attribute with
+        that name, ``None`` is returned.
+
+        Values which are considered truthy, that is equals "true" or "false",
+        are returned as booleans.  All other non-``None`` values are returned
+        as strings.  For attributes or properties which do not exist, ``None``
+        is returned.
+
+        :Args:
+            - name - Name of the attribute/property to retrieve.
+
+        Example::
+
+            # Check if the "active" CSS class is applied to an element.
+            is_active = "active" in target_element.get_attribute("class")
+
+        """
+
+        resp = self._execute(RemoteCommand.GET_ELEMENT_ATTRIBUTE, {'name': name})
+        attributeValue = resp.get('value')
+
+        if attributeValue is None:
+            return None
+
+        if not isinstance(attributeValue, str):
+            attributeValue = unicode(attributeValue)
+
+        if name != 'value' and attributeValue.lower() in ('true', 'false'):
+            return attributeValue.lower()
+
+        return attributeValue
+
+    # Override
+    def is_displayed(self):
+        """Whether the element is visible to a user."""
+        return self._execute(RemoteCommand.IS_ELEMENT_DISPLAYED)['value']
+
     def find_element_by_ios_uiautomation(self, uia_string):
         """Finds an element by uiautomation in iOS.
 

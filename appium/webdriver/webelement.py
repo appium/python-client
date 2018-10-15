@@ -61,7 +61,7 @@ class WebElement(SeleniumWebElement):
         if not isinstance(attributeValue, str):
             attributeValue = unicode(attributeValue)
 
-        if attributeValue.lower() in ('true', 'false'):
+        if name != 'value' and attributeValue.lower() in ('true', 'false'):
             return attributeValue.lower()
 
         return attributeValue

@@ -110,6 +110,7 @@ class WebDriver(webdriver.Remote):
         By.ANDROID_VIEWTAG = MobileBy.ANDROID_VIEWTAG
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
         By.IMAGE = MobileBy.IMAGE
+        By.CUSTOM = MobileBy.CUSTOM
 
     def start_session(self, capabilities, browser_profile=None):
         """
@@ -415,6 +416,34 @@ class WebDriver(webdriver.Remote):
             driver.find_elements_by_accessibility_id()
         """
         return self.find_elements(by=By.ACCESSIBILITY_ID, value=accessibility_id)
+
+    def find_element_by_custom(self, selector):
+        """Finds an element in conjunction with a custom element finding plugin
+
+        :Args:
+         - selector - a string of the form "module:selector", where "module" is
+           the shortcut name given in the customFindModules capability, and
+           "selector" is the string that will be passed to the custom element
+           finding plugin itself
+
+        :Usage:
+            driver.find_element_by_custom("foo:bar")
+        """
+        return self.find_element(by=By.CUSTOM, value=selector)
+
+    def find_elements_by_custom(self, selector):
+        """Finds elements in conjunction with a custom element finding plugin
+
+        :Args:
+         - selector - a string of the form "module:selector", where "module" is
+           the shortcut name given in the customFindModules capability, and
+           "selector" is the string that will be passed to the custom element
+           finding plugin itself
+
+        :Usage:
+            driver.find_elements_by_custom("foo:bar")
+        """
+        return self.find_elements(by=By.CUSTOM, value=selector)
 
     def create_web_element(self, element_id):
         """

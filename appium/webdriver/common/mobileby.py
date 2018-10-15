@@ -23,3 +23,4 @@ class MobileBy(By):
     ANDROID_VIEWTAG = '-android viewtag'
     ACCESSIBILITY_ID = 'accessibility id'
     IMAGE = '-image'
+    CUSTOM = '-custom'

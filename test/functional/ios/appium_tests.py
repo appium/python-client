@@ -146,6 +146,14 @@ class AppiumTests(unittest.TestCase):
         text = self.driver.find_element_by_accessibility_id('Normal').get_attribute('value')
         self.assertEqual(text, def_text)
 
+    def test_press_button(self):
+        self.driver.press_button("Home")
+        if float(desired_capabilities.get_desired_capabilities(
+                desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:
+            return
+        self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
+                         ApplicationState.RUNNING_IN_FOREGROUND)
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)

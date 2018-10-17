@@ -717,6 +717,20 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.LONG_PRESS_KEYCODE, data)
         return self
 
+    def press_button(self, button_name):
+        """Sends a physical button name to the device to simulate the user pressing. iOS only.
+        Possible button names can be found in
+        https://github.com/appium/WebDriverAgent/blob/master/WebDriverAgentLib/Categories/XCUIDevice%2BFBHelpers.h
+
+        :Args:
+         - button_name - the button name to be sent to the device
+        """
+        data = {
+            'name': button_name
+        }
+        self.execute_script('mobile: pressButton', data)
+        return self
+
     @property
     def current_activity(self):
         """Retrieves the current activity running on the device.

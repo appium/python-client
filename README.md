@@ -63,6 +63,16 @@ $ py.test test/functional/ios/find_by_ios_class_chain_tests.py
     $ py.test -n 2 test/functional/ios/find_by_ios_class_chain_tests.py
     ```
 
+# Release
+
+Release package with Twine
+
+```
+$ pip install twine
+$ python setup.py sdist # build a release tar file in /dist
+$ twine upload  dist/Appium-Python-Client-<release number>.tar.gz
+```
+
 # Usage
 
 The Appium Python Client is fully compliant with the Selenium 3.0 specification

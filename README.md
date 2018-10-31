@@ -102,7 +102,8 @@ from appium import webdriver
 
 desired_caps = {}
 desired_caps['platformName'] = 'Android'
-desired_caps['platformVersion'] = '4.2'
+desired_caps['platformVersion'] = '8.1'
+desired_caps['automationName'] = 'uiautomator2'
 desired_caps['deviceName'] = 'Android Emulator'
 desired_caps['app'] = PATH('../../../apps/selendroid-test-app.apk')
 
@@ -116,7 +117,8 @@ from appium import webdriver
 
 desired_caps = {}
 desired_caps['platformName'] = 'iOS'
-desired_caps['platformVersion'] = '7.1'
+desired_caps['platformVersion'] = '11.4'
+desired_caps['automationName'] = 'xcuitest'
 desired_caps['deviceName'] = 'iPhone Simulator'
 desired_caps['app'] = PATH('../../apps/UICatalog.app.zip')
 

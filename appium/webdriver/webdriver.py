@@ -1271,7 +1271,7 @@ class WebDriver(webdriver.Remote):
         :param label: Optional label argument, which only works for Android
         """
         options = {
-            'content': base64.b64encode(content),
+            'content': base64.b64encode(content).decode('UTF-8'),
             'contentType': content_type,
         }
         if label:
@@ -1285,7 +1285,14 @@ class WebDriver(webdriver.Remote):
         :param text: The text to be set
         :param label: Optional label argument, which only works for Android
         """
-        self.set_clipboard(bytes(text.encode('UTF-8')), ClipboardContentType.PLAINTEXT, label)
+
+        def _bytes(value, encoding):
+            try:
+                return bytes(value, encoding)  # Python 3
+            except TypeError:
+                return value  # Python 2
+
+        self.set_clipboard(_bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
 
     def get_clipboard(self, content_type=ClipboardContentType.PLAINTEXT):
         """

@@ -1288,9 +1288,9 @@ class WebDriver(webdriver.Remote):
 
         def _bytes(value, encoding):
             try:
-                return bytes(value, encoding) # Python 3
+                return bytes(value, encoding)  # Python 3
             except TypeError:
-                return value # Python 2
+                return value  # Python 2
 
         self.set_clipboard(_bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
 

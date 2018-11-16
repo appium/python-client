@@ -16,23 +16,19 @@
 
 import base64
 import copy
-import six
 
 from selenium import webdriver
-
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException, InvalidArgumentException
-
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
+from selenium.webdriver.support.ui import WebDriverWait
 
 from appium.webdriver.clipboard_content_type import ClipboardContentType
 from appium.webdriver.common.mobileby import MobileBy
-from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
-
-from .mobilecommand import MobileCommand as Command
+from appium.webdriver.common.touch_action import TouchAction
 from .errorhandler import MobileErrorHandler
+from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
@@ -813,8 +809,6 @@ class WebDriver(webdriver.Remote):
 
         if source_path is not None:
             data = open(source_path, 'rb').read()
-            # if six.PY3:
-            #     data = data.encode('utf-8')
             base64data = base64.b64encode(data).decode('utf-8')
 
         data = {

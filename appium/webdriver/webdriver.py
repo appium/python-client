@@ -16,6 +16,7 @@
 
 import base64
 import copy
+import six
 
 from selenium import webdriver
 
@@ -776,8 +777,7 @@ class WebDriver(webdriver.Remote):
         return self
 
     def pull_file(self, path):
-        """Retrieves the file at `path`. Returns the file's content encoded as
-        Base64.
+        """Retrieves the file at `path`. Returns the file's contents.
 
         :Args:
          - path - the path to the file on the device
@@ -785,7 +785,7 @@ class WebDriver(webdriver.Remote):
         data = {
             'path': path,
         }
-        return self.execute(Command.PULL_FILE, data)['value']
+        return base64.b64decode(self.execute(Command.PULL_FILE, data)['value'])
 
     def pull_folder(self, path):
         """Retrieves a folder at `path`. Returns the folder's contents zipped
@@ -799,15 +799,26 @@ class WebDriver(webdriver.Remote):
         }
         return self.execute(Command.PULL_FOLDER, data)['value']
 
-    def push_file(self, path, base64data):
-        """Puts the data, encoded as Base64, in the file specified as `path`.
+    def push_file(self, destination_path, base64data=None, source_path=None):
+        """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
+        Specify either `base64data` or `source_path`, if both specified default to `source_path`
         :Args:
-         - path - the path on the device
+         - destination_path - the path on the device
          - base64data - data, encoded as Base64, to be written to the file
+         - source_path - path to file to be loaded on device
         """
+        if source_path is None and base64data is None:
+            raise InvalidArgumentException('Must either present base64 data or a source path on local system')
+
+        if source_path is not None:
+            data = open(source_path, 'rb').read()
+            # if six.PY3:
+            #     data = data.encode('utf-8')
+            base64data = base64.b64encode(data).decode('utf-8')
+
         data = {
-            'path': path,
+            'path': destination_path,
             'data': base64data,
         }
         self.execute(Command.PUSH_FILE, data)

@@ -799,16 +799,21 @@ class WebDriver(webdriver.Remote):
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
         Specify either `base64data` or `source_path`, if both specified default to `source_path`
-        :Args:
-         - destination_path - the path on the device
-         - base64data - data, encoded as Base64, to be written to the file
-         - source_path - path to file to be loaded on device
+        :param destination_path: the path on the device/simulator
+        :param base64data: file contents, encoded as Base64, to be written to the file on the device/simulator
+        :param source_path: local file path for the file to be loaded on device
+        :return: WebDriver instance
         """
         if source_path is None and base64data is None:
-            raise InvalidArgumentException('Must either present base64 data or a source path on local system')
+            raise InvalidArgumentException('Must either pass base64 data or a local file path')
 
         if source_path is not None:
-            data = open(source_path, 'rb').read()
+            try:
+                with open(source_path, 'rb') as file:
+                    data = file.read()
+            except FileNotFoundError:
+                message = 'source_path {} could not be found. Are you sure the file exists?'.format(source_path)
+                raise InvalidArgumentException(message)
             base64data = base64.b64encode(data).decode('utf-8')
 
         data = {

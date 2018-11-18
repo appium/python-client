@@ -31,8 +31,8 @@ class PushFileTests(unittest.TestCase):
         self.driver.quit()
 
     def test_push_file(self):
-        file_name = 'test_image.jpg'
-        source_path = os.path.dirname(os.path.abspath(__file__)) + '//' + file_name
+        file_name = 'test_images.jpg'
+        source_path = os.path.dirname(os.path.abspath(__file__)) + '/' + file_name
         destination_path = file_name
 
         self.driver.push_file(destination_path, source_path=source_path)

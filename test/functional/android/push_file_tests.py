@@ -25,11 +25,6 @@ class PushFileTests(unittest.TestCase):
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-        # relax template matching
-        self.driver.update_settings({"fixImageFindScreenshotDims": "false",
-                                     "fixImageTemplateSize": "true",
-                                     "autoUpdateImageElementPosition": "true"})
-
     def tearDown(self):
         self.driver.quit()
 

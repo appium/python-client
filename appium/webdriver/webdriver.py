@@ -773,7 +773,7 @@ class WebDriver(webdriver.Remote):
         return self
 
     def pull_file(self, path):
-        """Retrieves the file at `path`. Returns the file's contents.
+        """Retrieves the file at `path`. Returns the file's contents as base64.
 
         :Args:
          - path - the path to the file on the device
@@ -781,7 +781,7 @@ class WebDriver(webdriver.Remote):
         data = {
             'path': path,
         }
-        return base64.b64decode(self.execute(Command.PULL_FILE, data)['value'])
+        return self.execute(Command.PULL_FILE, data)['value']
 
     def pull_folder(self, path):
         """Retrieves a folder at `path`. Returns the folder's contents zipped
@@ -799,7 +799,7 @@ class WebDriver(webdriver.Remote):
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
         Specify either `base64data` or `source_path`, if both specified default to `source_path`
-        :param destination_path: the path on the device/simulator
+        :param destination_path: the location on the device/simulator where the local file contents should be saved
         :param base64data: file contents, encoded as Base64, to be written to the file on the device/simulator
         :param source_path: local file path for the file to be loaded on device
         :return: WebDriver instance

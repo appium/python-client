@@ -1,6 +1,7 @@
 Changes in 0.31 (from 0.30)
 ===========================
 
+- Add parameters of `push_file`. Read [issue](https://github.com/appium/python-client/issues/269) and [the PR](https://github.com/appium/python-client/pull/270) for more details.
 
 Changes in 0.30 (from 0.29)
 ===========================

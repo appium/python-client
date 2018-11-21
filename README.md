@@ -65,13 +65,13 @@ $ py.test test/functional/ios/find_by_ios_class_chain_tests.py
 
 # Release
 
-Release package with Twine
-
-```
-$ pip install twine
-$ python setup.py sdist # build a release tar file in /dist
-$ twine upload  dist/Appium-Python-Client-<release number>.tar.gz
-```
+1. Bump version in `setup.py` and update `CHANGELOG.txt`
+2. Release the package with Twine
+    ```
+    $ pip install twine
+    $ python setup.py sdist # build a release tar file in /dist
+    $ twine upload  dist/Appium-Python-Client-<release number>.tar.gz
+    ```
 
 # Usage
 

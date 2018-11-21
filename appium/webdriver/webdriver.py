@@ -18,20 +18,17 @@ import base64
 import copy
 
 from selenium import webdriver
-
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException, InvalidArgumentException
-
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
+from selenium.webdriver.support.ui import WebDriverWait
 
 from appium.webdriver.clipboard_content_type import ClipboardContentType
 from appium.webdriver.common.mobileby import MobileBy
-from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
-
-from .mobilecommand import MobileCommand as Command
+from appium.webdriver.common.touch_action import TouchAction
 from .errorhandler import MobileErrorHandler
+from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
@@ -776,8 +773,7 @@ class WebDriver(webdriver.Remote):
         return self
 
     def pull_file(self, path):
-        """Retrieves the file at `path`. Returns the file's content encoded as
-        Base64.
+        """Retrieves the file at `path`. Returns the file's contents as base64.
 
         :Args:
          - path - the path to the file on the device
@@ -799,15 +795,29 @@ class WebDriver(webdriver.Remote):
         }
         return self.execute(Command.PULL_FOLDER, data)['value']
 
-    def push_file(self, path, base64data):
-        """Puts the data, encoded as Base64, in the file specified as `path`.
+    def push_file(self, destination_path, base64data=None, source_path=None):
+        """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
-        :Args:
-         - path - the path on the device
-         - base64data - data, encoded as Base64, to be written to the file
+        Specify either `base64data` or `source_path`, if both specified default to `source_path`
+        :param destination_path: the location on the device/simulator where the local file contents should be saved
+        :param base64data: file contents, encoded as Base64, to be written to the file on the device/simulator
+        :param source_path: local file path for the file to be loaded on device
+        :return: WebDriver instance
         """
+        if source_path is None and base64data is None:
+            raise InvalidArgumentException('Must either pass base64 data or a local file path')
+
+        if source_path is not None:
+            try:
+                with open(source_path, 'rb') as file:
+                    data = file.read()
+            except FileNotFoundError:
+                message = 'source_path {} could not be found. Are you sure the file exists?'.format(source_path)
+                raise InvalidArgumentException(message)
+            base64data = base64.b64encode(data).decode('utf-8')
+
         data = {
-            'path': path,
+            'path': destination_path,
             'data': base64data,
         }
         self.execute(Command.PUSH_FILE, data)

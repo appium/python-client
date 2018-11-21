@@ -19,3 +19,6 @@ dist
 __pycache__
 .idea
 .pytest_cache
+
+# Virtual Environments
+venv*

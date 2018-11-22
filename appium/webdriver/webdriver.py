@@ -1220,7 +1220,6 @@ class WebDriver(webdriver.Remote):
 
         iOS Specific:
         - videoQuality: The video encoding quality: 'low', 'medium', 'high', 'photo'. Defaults to 'medium'.
-        Only works for real devices.
         - videoType: The format of the screen capture to be recorded.
         Available formats: Execute `ffmpeg -codecs` in the terminal to see the list of supported video codecs.
         'mjpeg' by default. (Since Appium 1.10.0)

@@ -1223,11 +1223,11 @@ class WebDriver(webdriver.Remote):
         Only works for real devices.
         - videoType: The format of the screen capture to be recorded.
         Available formats: Execute `ffmpeg -codecs` in the terminal to see the list of supported video codecs.
-        'mjpeg' by default.
+        'mjpeg' by default. (Since Appium 1.10.0)
         - videoFps: The Frames Per Second rate of the recorded video. Change this value if the resulting video
         is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
         - videoScale: The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
-        No scale is applied by default.
+        No scale is applied by default. (Since Appium 1.10.0)
 
         Android Specific:
         - videoSize: The video size of the generated media file. The format is WIDTHxHEIGHT.

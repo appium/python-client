@@ -1222,8 +1222,12 @@ class WebDriver(webdriver.Remote):
         - videoQuality: The video encoding quality: 'low', 'medium', 'high', 'photo'. Defaults to 'medium'.
         Only works for real devices.
         - videoType: The format of the screen capture to be recorded.
-        Available formats: 'h264', 'mp4' or 'fmp4'. Default is 'mp4'.
-        Only works for Simulator.
+        Available formats: Execute `ffmpeg -codecs` in the terminal to see the list of supported video codecs.
+        'mjpeg' by default.
+        - videoFps: The Frames Per Second rate of the recorded video. Change this value if the resulting video
+        is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
+        - videoScale: The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
+        No scale is applied by default.
 
         Android Specific:
         - videoSize: The video size of the generated media file. The format is WIDTHxHEIGHT.

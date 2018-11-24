@@ -69,8 +69,7 @@ $ py.test test/functional/ios/find_by_ios_class_chain_tests.py
 2. Release the package with Twine
     ```
     $ pip install twine
-    $ python setup.py sdist # build a release tar file in /dist
-    $ twine upload  dist/Appium-Python-Client-<release number>.tar.gz
+    $ ./release.sh # type new version and 'yes' if you can publish
     ```
 
 # Usage

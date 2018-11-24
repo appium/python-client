@@ -12,12 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+import io
+
 from distutils.core import setup
 from setuptools import setup
 
+def read_version():
+    ctx = {}
+    exec(local_file('appium', 'version.py'), ctx)
+    return ctx['version']
+
+local_file = lambda *f: \
+    io.open(
+        os.path.join(os.path.dirname('__file__'), *f), encoding='utf-8').read()
+
 setup(
     name='Appium-Python-Client',
-    version='0.31',
+    version=read_version(),
     description='Python client for Appium 1.5',
     keywords=[
         'appium',

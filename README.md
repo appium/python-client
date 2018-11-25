@@ -41,10 +41,11 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 
 - Style Guide: https://www.python.org/dev/peps/pep-0008/
     - `autopep8` helps to format code automatically
-
-```
-$ python -m autopep8 -r --global-config .config-pep8 -i .
-```
+        ```
+        $ python -m autopep8 -r --global-config .config-pep8 -i .
+        ```
+- You can customise `CHANGELOG.rst` with commit messages following [.gitchangelog.rc](.gitchangelog.rc)
+    - It generates readable changelog
 
 ## Run tests
 
@@ -70,7 +71,10 @@ Follow below steps.
 ```bash
 $ pip install twine
 $ pip install git+git://github.com/vaab/gitchangelog.git # Getting via GitHub repository is necessary for Python 3.7
-$ ./release.sh # Type the new version number and 'yes' if you can publish it
+# Type the new version number and 'yes' if you can publish it
+# You can test the command with DRY_RUN
+$ DRY_RUN=1 ./release.sh
+$ ./release.sh # release
 ```
 
 # Usage

@@ -65,6 +65,8 @@ $ py.test test/functional/ios/find_by_ios_class_chain_tests.py
 
 # Release
 
+`pip3 install git+git://github.com/vaab/gitchangelog.git`
+
 1. Bump version in `setup.py` and update `CHANGELOG.txt`
 2. Release the package with Twine
     ```

@@ -20,19 +20,17 @@ from setuptools import setup
 
 
 def read_version():
-    ctx = {}
-    exec(local_file('appium', 'version.py'), ctx)
-    return ctx['version']
-
-
-local_file = lambda *f: \
-    io.open(
-        os.path.join(os.path.dirname('__file__'), *f), encoding='utf-8').read()
+    global_param = {}
+    exec(
+        io.open(os.path.join(os.path.dirname('__file__'), 'appium', 'version.py'), encoding='utf-8').read(),
+        global_param
+    )
+    return global_param['version']
 
 setup(
     name='Appium-Python-Client',
     version=read_version(),
-    description='Python client for Appium 1.5',
+    description='Python client for Appium',
     keywords=[
         'appium',
         'appium 1.0',

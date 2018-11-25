@@ -27,6 +27,7 @@ def read_version():
     )
     return global_param['version']
 
+
 setup(
     name='Appium-Python-Client',
     version=read_version(),

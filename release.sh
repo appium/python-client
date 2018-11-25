@@ -22,10 +22,16 @@ if [ "${sure}" == "yes" ]; then
     echo -en "New release: \033[1;32m$newversion\033[0m\n"
     git commit ./appium/version.py -m "Bump $newversion"
     python setup.py sdist # build a release tar file in /dist
-    git tag "v${newversion}"
-    gitchangelog > CHANGELOG.txt
-    git push origin master
 
-    # Publish the built module
+    git tag "v${newversion}"
+
+    gitchangelog > CHANGELOG.txt
+    git commit CHANGELOG.txt -m "Update changelog for $newversion"
+
+    echo "Publish the built module"
     twine upload "dist/Appium-Python-Client-$newversion.tar.gz"
+
+    echo "Push changes and the tag to the master"
+    git push origin master
+    git push origin "v${newversion}"
 fi;

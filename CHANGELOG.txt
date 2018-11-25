@@ -4,6 +4,7 @@ Changelog
 
 (unreleased)
 ------------
+- Introduce gitchangelog to generate changelog. [Kazuaki MATSUO]
 - Update readme. [Kazuaki MATSUO]
 - Extract version number. [Kazuaki MATSUO]
 - Updated requirements.txt file with version (#275)
@@ -164,8 +165,16 @@ v0.29 (2018-10-30)
 
   * add find element by viewtag section in readme
 - Tweak PyPi URLs and add a badge (#232) [Kazuaki Matsuo]
+
+
+v0.28 (2018-07-13)
+------------------
 - V0.28. [Isaac Murchie]
 - Fix base64 encoded string (#231) [Kazuaki Matsuo]
+
+
+v0.27 (2018-07-10)
+------------------
 - V0.27. [Isaac Murchie]
 - Set None as default value to lock device (#227) [Miguel Hernández]
 
@@ -234,7 +243,15 @@ v0.29 (2018-10-30)
 
   * update the docset
 - Add endpoints for lock/unlock. [Mykola Mokhnach]
+
+
+v0.26 (2018-01-09)
+------------------
 - V0.26. [Isaac Murchie]
+
+
+v0.25 (2018-01-09)
+------------------
 - V0.25. [Isaac Murchie]
 - Only if key_name, key, and strategy are None do we need to set the
   strategy to 'tapOutside'. This change allows setting just the strategy
@@ -252,20 +269,36 @@ v0.29 (2018-10-30)
   Petersen]
 - Update docs for UIAutomation selector to include version requirement.
   [Emil Petersen]
+
+
+v0.24 (2016-12-20)
+------------------
 - V0.24. [Isaac Murchie]
 - DontStopAppOnReset instead of stopAppOnReset. [s.zubov]
 - Added test cases for clear and find elements by ios predicate string.
   [ben.zhou]
 - Added clear to driver. Added find elements by ios predicate string.
   [ben.zhou]
+
+
+v0.23 (2016-11-10)
+------------------
 - V0.23. [Isaac Murchie]
 - Added touchId to driver (#143) [Dan Graham]
 
   * Added touchId to driver
 
   Wrote a test for it (still need help running Python tests though). Updated capabilities to use iOS 10.1
+
+
+v0.22 (2016-03-16)
+------------------
 - V0.22. [Isaac Murchie]
 - Use id instead of elementId. [Isaac Murchie]
+
+
+v0.21 (2016-01-20)
+------------------
 - V0.21. [Isaac Murchie]
 - Add device_time property. [Isaac Murchie]
 - Fix saucetestcase to run under Python3. [Ling Lin]
@@ -274,10 +307,22 @@ v0.29 (2018-10-30)
 - Update README.md. [tophercf]
 
   smallest win in history
+
+
+v0.20 (2015-10-12)
+------------------
 - V0.20. [Isaac Murchie]
 - Revert actions change. [Isaac Murchie]
+
+
+v0.19 (2015-10-09)
+------------------
 - V0.19. [Isaac Murchie]
 - Change 'actions' to 'gestures' in single action. [Isaac Murchie]
+
+
+v0.18 (2015-10-07)
+------------------
 - V0.18. [Isaac Murchie]
 - Remove dependency on enum. [Isaac Murchie]
 - Fixed typographical error, changed accomodate to accommodate in

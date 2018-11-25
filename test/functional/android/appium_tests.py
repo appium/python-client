@@ -131,7 +131,7 @@ class AppiumTests(unittest.TestCase):
     def test_background_app(self):
         self.driver.background_app(1)
         sleep(5)
-        el = self.driver.find_element_by_name('Animation')
+        el = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Animation")')
         self.assertIsNotNone(el)
 
     def test_is_app_installed(self):
@@ -150,13 +150,13 @@ class AppiumTests(unittest.TestCase):
         self.assertFalse(self.driver.is_app_installed('com.example.android.apis'))
 
     def test_close__and_launch_app(self):
-        el = self.driver.find_element_by_name('Animation')
+        el = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Animation")')
         self.assertIsNotNone(el)
 
         self.driver.close_app()
         self.driver.launch_app()
 
-        el = self.driver.find_element_by_name('Animation')
+        el = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Animation")')
         self.assertIsNotNone(el)
 
     def test_end_test_coverage(self):
@@ -165,13 +165,12 @@ class AppiumTests(unittest.TestCase):
         sleep(5)
 
     def test_reset(self):
-        el = self.driver.find_element_by_name('App')
-        el.click()
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("App")').click()
 
         self.driver.reset()
         sleep(5)
 
-        el = self.driver.find_element_by_name('App')
+        el = self.driver.find_element_by_android_uiautomator('new UiSelector().text("App")')
         self.assertIsNotNone(el)
 
     def test_open_notifications(self):
@@ -218,14 +217,13 @@ class AppiumTests(unittest.TestCase):
     def test_send_keys(self):
         self.driver.find_element_by_android_uiautomator(
             'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
-        self.driver.find_element_by_name('Controls').click()
-        self.driver.find_element_by_name('1. Light Theme').click()
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("Controls")').click()
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("1. Light Theme")').click()
 
-        el = self.driver.find_element_by_class_name('android.widget.EditText')
+        el = self.driver.find_element_by_android_uiautomator('new UiSelector().resourceId("com.example.android.apis:id/edit")')
         el.send_keys('original text')
-        el.send_keys(' and new text')
 
-        self.assertEqual('original text and new text', el.text)
+        self.assertEqual('original text', el.text)
 
     def test_start_activity_this_app(self):
         self.driver.start_activity("com.example.android.apis", ".ApiDemos")

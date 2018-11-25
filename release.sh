@@ -25,8 +25,8 @@ if [ "${sure}" == "yes" ]; then
 
     git tag "v${newversion}"
 
-    gitchangelog > CHANGELOG.txt
-    git commit CHANGELOG.txt -m "Update changelog for $newversion"
+    gitchangelog > CHANGELOG.rst
+    git commit CHANGELOG.rst -m "Update changelog for $newversion"
 
     echo "Publish the built module"
     twine upload "dist/Appium-Python-Client-$newversion.tar.gz"

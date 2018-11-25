@@ -4,6 +4,8 @@ Changelog
 
 (unreleased)
 ------------
+- Update the release section in README. [Kazuaki MATSUO]
+- Tweak release.sh. [Kazuaki MATSUO]
 - Introduce gitchangelog to generate changelog. [Kazuaki MATSUO]
 - Update readme. [Kazuaki MATSUO]
 - Extract version number. [Kazuaki MATSUO]

@@ -18,10 +18,12 @@ import io
 from distutils.core import setup
 from setuptools import setup
 
+
 def read_version():
     ctx = {}
     exec(local_file('appium', 'version.py'), ctx)
     return ctx['version']
+
 
 local_file = lambda *f: \
     io.open(

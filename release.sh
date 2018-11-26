@@ -8,6 +8,6 @@ if [ -z "$PYTHON_BIN_PATH" ]; then
 fi
 
 CONFIGURE_DIR=$(dirname "$0")
-"$PYTHON_BIN_PATH" "${CONFIGURE_DIR}/release.py" "$@"
+"$PYTHON_BIN_PATH" "${CONFIGURE_DIR}/script/release.py" "$@"
 
 echo "Finish release process"

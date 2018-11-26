@@ -15,7 +15,7 @@
 
 import os
 import sys
-from script.helper import read_version
+from helper import read_version
 
 VERSION_FILE_PATH = os.path.join(os.path.dirname('__file__'), 'appium', 'version.py')
 CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.rst')

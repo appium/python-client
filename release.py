@@ -1,77 +1,113 @@
-# TODO: convert below commands into python
-# set -e
+#!/usr/bin/env python
 
-# declare newversion
-# declare current_version
-# declare sure
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+"""Release script to publish release module to pipy."""
 
-# current_version="$(grep -E version ./appium/version.py | sed 's,version *= *.\(\([0-9]*[.]*\)\{3\,4\}\).,\1,g')"
-# echo -en "The current version is \033[1;33m$current_version\033[0m, type a new one\n"
-# echo -en "\033[1;32mnew version:\033[0m \n"
-# read -r newversion
+import os
+import sys
+from script.helper import read_version
 
-# ######
-# function update_files () {
-#     sed -i.back -e "s,$current_version,$newversion,g" appium/version.py
-# }
+VERSION_FILE_PATH = os.path.join(os.path.dirname('__file__'), 'appium', 'version.py')
+CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.rst')
 
-# function commit_version_code () {
-#     if [ $DRY_RUN ]; then
-#         echo -en "\033[1;31m[DRY_RUN]\033[0m call 'git commit ./appium/version.py -m \"Bump $newversion\"'\n"
-#     else
-#         git commit ./appium/version.py -m "Bump $newversion"
-#     fi
-# }
 
-# function tag_and_generate_changelog () {
-#     if [ $DRY_RUN ]; then
-#         echo -en "\033[1;31m[DRY_RUN]\033[0m call 'git tag \"v${newversion}\"', generate CHANGELOG.rst and" \
-#                  "'git commit CHANGELOG.rst -m \"Update changelog for $newversion\"'\n"
-#     else
-#         git tag "v${newversion}"
-#         gitchangelog > CHANGELOG.rst
-#         git commit CHANGELOG.rst -m "Update changelog for $newversion"
-#     fi
-# }
+def get_current_version():
+    current = read_version()
+    print('The current version is \033[1;33m{}\033[0m, type a new one'.format(current))
+    return current
 
-# function upload_sdist () {
-#     if [ $DRY_RUN ]; then
-#         echo -en "\033[1;31m[DRY_RUN]\033[0m call 'twine upload \"dist/Appium-Python-Client-$newversion.tar.gz\"'\n"
-#     else
-#         twine upload "dist/Appium-Python-Client-$newversion.tar.gz"
-#     fi
-# }
 
-# function push_changes_to_master () {
-#     echo "Push changes and the tag to the master"
-#     if [ $DRY_RUN ]; then
-#         echo -en "\033[1;31m[DRY_RUN]\033[0m call 'git push origin master' and git 'push origin \"v$newversion\"'\n"
-#     else
-#         git push origin master
-#         git push origin "v$newversion"
-#     fi
-# }
-# ######
+def get_new_version():
+    print('\033[1;32mnew version:\033[0m')
+    for line in sys.stdin:
+        return line.rstrip()
 
-# echo -en "\033[A\033[A\rI will make a new commit named \033[1;33m'Bump $newversion'\033[0m\n"
-# echo -en "Are you sure? [\033[1;32myes\033[0m or \033[1;31mno\033[0m]\n"
-# read -r sure
 
-# if [ "${sure}" == "yes" ]; then
-#     update_files
-#     echo -en "New release: \033[1;32m$newversion\033[0m\n"
-#     commit_version_code
-#     python setup.py sdist # build a release tar file in /dist
+VERSION_FORMAT = "version = '{}'"
 
-#     tag_and_generate_changelog
 
-#     echo "Publish the built module"
-#     upload_sdist
-#     push_changes_to_master
-# fi
+def update_version_file(version):
+    new_version = VERSION_FORMAT.format(version)
+    with open(VERSION_FILE_PATH, 'w') as f:
+        f.write(new_version)
+
+
+def call_bash_script(cmd):
+    if os.environ.get('DRY_RUN') is not None:
+        print('\033[1;31m[DRY_RUN]\033[0m Calls: {}'.format(cmd))
+    else:
+        os.system(cmd)
+
+
+def commit_version_code(new_version_num):
+    call_bash_script('git commit {} -m "Bump {}"'.format(VERSION_FILE_PATH, new_version_num))
+
+
+def tag_and_generate_changelog(new_version_num):
+    call_bash_script('git tag "v{}"'.format(new_version_num))
+    call_bash_script('gitchangelog > {}'.format(CHANGELOG_PATH))
+    call_bash_script('git commit {} -m "Update changelog for {}"'.format(CHANGELOG_PATH, new_version_num))
+
+
+def upload_sdist(new_version_num):
+    call_bash_script('twine upload "dist/Appium-Python-Client-{}.tar.gz"'.format(new_version_num))
+
+
+def push_changes_to_master(new_version_num):
+    call_bash_script('git push origin master')
+    call_bash_script('git push origin "v{}"'.format(new_version_num))
+
+
+def ensure_publication(new_version_num):
+    if os.environ.get('DRY_RUN') is not None:
+        print('Run with \033[1;31m[DRY_RUN]\033[0m mode.')
+
+    print('Are you sure to release as \033[1;33mv{}\033[0m?[y/n]'.format(new_version_num))
+    for line in sys.stdin:
+        if line.rstrip().lower() == 'y':
+            return
+        exit('Canceled release pricess.')
+
+
+def build_sdist():
+    call_bash_script('{} setup.py sdist'.format(sys.executable))
+
+
+def validate_release_env():
+    if os.system('which twine') != 0:
+        exit("Please get twine via 'pip install twine'")
+    if os.system('which gitchangelog') != 0:
+        exit("Please get twine via 'pip install gitchangelog' or 'pip install git+git://github.com/vaab/gitchangelog.git' for Python 3.7")
+
 
 def main():
-    print("do main method")
+    validate_release_env()
+
+    get_current_version()
+    new_version = get_new_version()
+
+    update_version_file(new_version)
+
+    ensure_publication(new_version)
+
+    commit_version_code(new_version)
+    build_sdist()
+
+    tag_and_generate_changelog(new_version)
+
+    upload_sdist(new_version)
+    push_changes_to_master(new_version)
+
 
 if __name__ == '__main__':
     main()

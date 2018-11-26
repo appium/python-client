@@ -12,20 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-import io
-
 from distutils.core import setup
 from setuptools import setup
 
-
-def read_version():
-    global_param = {}
-    exec(
-        io.open(os.path.join(os.path.dirname('__file__'), 'appium', 'version.py'), encoding='utf-8').read(),
-        global_param
-    )
-    return global_param['version']
+from script.helper import read_version
 
 
 setup(

@@ -13,21 +13,38 @@
 # limitations under the License.
 
 import unittest
-import httpretty
 import requests
-
+import httpretty
 
 class WebDriverTests(unittest.TestCase):
     @httpretty.activate
     def test_httpbin(self):
         httpretty.register_uri(
-            httpretty.GET,
+            httpretty.POST,
             "https://httpbin.org/ip",
             body='{"origin": "127.0.0.1"}'
         )
 
-        response = requests.get('https://httpbin.org/ip')
+        response = requests.post(
+            'https://httpbin.org/ip',
+            data = '{"username": "gabrielfalcao"}',
+            headers = {
+                'content-type':'text/json'
+            }
+        )
         self.assertEqual({"origin": "127.0.0.1"}, response.json())
+        self.assertEqual(b'{"username": "gabrielfalcao"}', httpretty.last_request().body)
+        self.assertEqual(1, len(httpretty.HTTPretty.latest_requests))
+
+        response = requests.post(
+            'https://httpbin.org/ip',
+            data = '{"username": "gabrielfalcao"}',
+            headers = {
+                'content-type':'text/json'
+            }
+        )
+        self.assertEqual(2, len(httpretty.HTTPretty.latest_requests))
+
 
 
 if __name__ == "__main__":

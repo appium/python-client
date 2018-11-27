@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import io
+import os
 
 from distutils.core import setup
 from setuptools import setup
@@ -22,9 +24,9 @@ setup(
     name='Appium-Python-Client',
     version=read_version(),
     description='Python client for Appium',
+    long_description=io.open(os.path.join(os.path.dirname('__file__'), 'README.md'), encoding='utf-8').read(),
     keywords=[
         'appium',
-        'appium 1.0',
         'selenium',
         'selenium 3',
         'python client',
@@ -41,8 +43,12 @@ setup(
     ],
     license='Apache 2.0',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Environment :: Console',
         'Environment :: MacOS X',
         'Environment :: Win32 (MS Windows)',

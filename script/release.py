@@ -20,15 +20,19 @@ from helper import read_version
 VERSION_FILE_PATH = os.path.join(os.path.dirname('__file__'), 'appium', 'version.py')
 CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.rst')
 
+MESSAGE_RED = '\033[1;31m{}\033[0m'
+MESSAGE_GREEN = '\033[1;32m{}\033[0m'
+MESSAGE_YELLOW = '\033[1;33m{}\033[0m'
+
 
 def get_current_version():
     current = read_version()
-    print('The current version is \033[1;33m{}\033[0m, type a new one'.format(current))
+    print('The current version is {}, type a new one'.format(MESSAGE_YELLOW.format(current)))
     return current
 
 
 def get_new_version():
-    print('\033[1;32mnew version:\033[0m')
+    print(MESSAGE_GREEN.format('new version:'))
     for line in sys.stdin:
         return line.rstrip()
 
@@ -44,7 +48,7 @@ def update_version_file(version):
 
 def call_bash_script(cmd):
     if os.environ.get('DRY_RUN') is not None:
-        print('\033[1;31m[DRY_RUN]\033[0m Calls: {}'.format(cmd))
+        print('{} Calls: {}'.format(MESSAGE_RED.format('[DRY_RUN]'), cmd))
     else:
         os.system(cmd)
 
@@ -70,9 +74,9 @@ def push_changes_to_master(new_version_num):
 
 def ensure_publication(new_version_num):
     if os.environ.get('DRY_RUN') is not None:
-        print('Run with \033[1;31m[DRY_RUN]\033[0m mode.')
+        print('Run with {} mode.'.format(MESSAGE_RED.format('[DRY_RUN]')))
 
-    print('Are you sure to release as \033[1;33mv{}\033[0m?[y/n]'.format(new_version_num))
+    print('Are you sure to release as {}?[y/n]'.format(MESSAGE_YELLOW.format(new_version_num)))
     for line in sys.stdin:
         if line.rstrip().lower() == 'y':
             return

@@ -18,12 +18,13 @@ import json
 
 from appium import webdriver
 
+
 class TestHelper():
     def mock_android_driver():
         httpretty.register_uri(
             httpretty.POST,
             'http://localhost:4723/wd/hub/session',
-            body = '{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}'
+            body='{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}'
         )
 
         desired_caps = {

@@ -19,6 +19,7 @@ import json
 from test.unit.helper.test_helper import TestHelper
 from appium import webdriver
 
+
 class WebDriverWebDriverTests(unittest.TestCase):
 
     @httpretty.activate
@@ -26,7 +27,7 @@ class WebDriverWebDriverTests(unittest.TestCase):
         httpretty.register_uri(
             httpretty.POST,
             'http://localhost:4723/wd/hub/session',
-            body = '{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}'
+            body='{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}'
         )
 
         desired_caps = {
@@ -58,7 +59,7 @@ class WebDriverWebDriverTests(unittest.TestCase):
         httpretty.register_uri(
             httpretty.POST,
             'http://localhost:4723/wd/hub/session',
-            body = '{ "capabilities": {"deviceName": "Android Emulator"}, "status": 0, "sessionId": "session-id"}'
+            body='{ "capabilities": {"deviceName": "Android Emulator"}, "status": 0, "sessionId": "session-id"}'
         )
 
         desired_caps = {
@@ -79,7 +80,6 @@ class WebDriverWebDriverTests(unittest.TestCase):
         request = httpretty.HTTPretty.latest_requests[0]
         self.assertEqual('application/json;charset=UTF-8', request.headers['content-type'])
 
-
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body)
         self.assertTrue(request_json.get('capabilities') is None)
         self.assertTrue(request_json.get('desiredCapabilities') is not None)
@@ -93,13 +93,14 @@ class WebDriverWebDriverTests(unittest.TestCase):
         httpretty.register_uri(
             httpretty.POST,
             'http://localhost:4723/wd/hub/session/session-id/appium/device/set_clipboard',
-            body = '{"value": ""}'
+            body='{"value": ""}'
         )
         driver.set_clipboard_text('hello')
 
         d = json.loads(httpretty.last_request().body)
         self.assertEqual("aGVsbG8=", d["content"])
         self.assertEqual("plaintext", d["contentType"])
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(WebDriverWebDriverTests)

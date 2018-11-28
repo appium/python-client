@@ -27,17 +27,21 @@ class FindByAccessibilityIDTests(unittest.TestCase):
         self.driver.quit()
 
     def test_find_single_element(self):
-        el = self.driver.find_element_by_accessibility_id('Animation')
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("Accessibility")').click()
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("Accessibility Node Querying")').click()
+        el = self.driver.find_element_by_accessibility_id('Task Take out Trash')
         self.assertIsNotNone(el)
 
     def test_find_multiple_elements(self):
-        els = self.driver.find_elements_by_accessibility_id('Animation')
+        els = self.driver.find_elements_by_accessibility_id('Accessibility')
         self.assertIsInstance(els, list)
 
     def test_element_find_single_element(self):
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("Accessibility")').click()
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("Accessibility Node Querying")').click()
         el = self.driver.find_element_by_class_name('android.widget.ListView')
 
-        sub_el = el.find_element_by_accessibility_id('Animation')
+        sub_el = el.find_element_by_accessibility_id('Task Take out Trash')
         self.assertIsNotNone(sub_el)
 
     def test_element_find_multiple_elements(self):

@@ -15,10 +15,13 @@
 from distutils.core import setup
 from setuptools import setup
 
+from script.helper import read_version
+
+
 setup(
     name='Appium-Python-Client',
-    version='0.31',
-    description='Python client for Appium 1.5',
+    version=read_version(),
+    description='Python client for Appium',
     keywords=[
         'appium',
         'appium 1.0',

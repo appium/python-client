@@ -16,6 +16,7 @@ import unittest
 import httpretty
 import json
 
+from test.unit.helper.test_helper import TestHelper
 from appium import webdriver
 
 class WebDriverWebDriverTests(unittest.TestCase):
@@ -88,25 +89,7 @@ class WebDriverWebDriverTests(unittest.TestCase):
 
     @httpretty.activate
     def test_clipboard(self):
-        httpretty.register_uri(
-            httpretty.POST,
-            'http://localhost:4723/wd/hub/session',
-            body = '{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}'
-        )
-
-        # WebDriver
-        desired_caps = {
-            'platformName': 'Android',
-            'deviceName': 'Android Emulator',
-            'app': 'path/to/app',
-            'newCommandTimeout': 240,
-            'automationName': 'UIAutomator2'
-        }
-        driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub',
-            desired_caps
-        )
-
+        driver = TestHelper.mock_android_driver()
         httpretty.register_uri(
             httpretty.POST,
             'http://localhost:4723/wd/hub/session/session-id/appium/device/set_clipboard',

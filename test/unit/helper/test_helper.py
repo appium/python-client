@@ -20,18 +20,54 @@ from appium import webdriver
 
 
 class TestHelper():
+
+    @staticmethod
     def mock_android_driver():
+        """
+        Return a driver which is generated a mock response
+
+        :return: An instance of WebDriver
+        :rtype: WebDriver
+        """
+
+        response_body_json = json.dumps(
+            {
+                'value': {
+                    'sessionId': '1234567890',
+                    'capabilities': {
+                        'platform': 'LINUX',
+                        'desired': {
+                            'platformName': 'Android',
+                            'automationName': 'uiautomator2',
+                            'platformVersion': '7.1.1',
+                            'deviceName': 'Android Emulator',
+                            'app': '/test/apps/ApiDemos-debug.apk',
+                        },
+                        'platformName': 'Android',
+                        'automationName': 'uiautomator2',
+                        'platformVersion': '7.1.1',
+                        'deviceName': 'emulator-5554',
+                        'app': '/test/apps/ApiDemos-debug.apk',
+                        'deviceUDID': 'emulator-5554',
+                        'appPackage': 'com.example.android.apis',
+                        'appWaitPackage': 'com.example.android.apis',
+                        'appActivity': 'com.example.android.apis.ApiDemos',
+                        'appWaitActivity': 'com.example.android.apis.ApiDemos'
+                    }
+                }
+            }
+        )
+
         httpretty.register_uri(
             httpretty.POST,
             'http://localhost:4723/wd/hub/session',
-            body='{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}'
+            body = response_body_json
         )
 
         desired_caps = {
             'platformName': 'Android',
             'deviceName': 'Android Emulator',
             'app': 'path/to/app',
-            'newCommandTimeout': 240,
             'automationName': 'UIAutomator2'
         }
         driver = webdriver.Remote(

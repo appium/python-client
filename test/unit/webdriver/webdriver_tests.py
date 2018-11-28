@@ -34,7 +34,6 @@ class WebDriverWebDriverTests(unittest.TestCase):
             'platformName': 'Android',
             'deviceName': 'Android Emulator',
             'app': 'path/to/app',
-            'newCommandTimeout': 240,
             'automationName': 'UIAutomator2'
         }
         driver = webdriver.Remote(
@@ -66,7 +65,6 @@ class WebDriverWebDriverTests(unittest.TestCase):
             'platformName': 'Android',
             'deviceName': 'Android Emulator',
             'app': 'path/to/app',
-            'newCommandTimeout': 240,
             'automationName': 'UIAutomator2',
             'forceMjsonwp': True
         }
@@ -92,7 +90,7 @@ class WebDriverWebDriverTests(unittest.TestCase):
         driver = TestHelper.mock_android_driver()
         httpretty.register_uri(
             httpretty.POST,
-            'http://localhost:4723/wd/hub/session/session-id/appium/device/set_clipboard',
+            'http://localhost:4723/wd/hub/session/1234567890/appium/device/set_clipboard',
             body='{"value": ""}'
         )
         driver.set_clipboard_text('hello')

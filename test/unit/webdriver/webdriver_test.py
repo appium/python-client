@@ -12,15 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pytest
-import httpretty
 import json
+import httpretty
 
 from appium import webdriver
-from test.unit.helper.test_helper import TestHelper
 
 
-class TestWebDriverWebDriver():
+class TestWebDriverWebDriver(object):
 
     @httpretty.activate
     def test_create_session(self):
@@ -41,17 +39,17 @@ class TestWebDriverWebDriver():
             desired_caps
         )
 
-        assert 1 == len(httpretty.HTTPretty.latest_requests)
+        assert len(httpretty.HTTPretty.latest_requests) == 1
 
         request = httpretty.HTTPretty.latest_requests[0]
-        assert 'application/json;charset=UTF-8' == request.headers['content-type']
+        assert request.headers['content-type'] == 'application/json;charset=UTF-8'
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body)
         assert request_json.get('capabilities') is not None
         assert request_json.get('desiredCapabilities') is not None
 
-        assert 'session-id' == driver.session_id
-        assert True == driver.w3c
+        assert driver.session_id == 'session-id'
+        assert driver.w3c
 
     @httpretty.activate
     def test_create_session_forceMjsonwp(self):
@@ -73,14 +71,14 @@ class TestWebDriverWebDriver():
             desired_caps
         )
 
-        assert 1 == len(httpretty.HTTPretty.latest_requests)
+        assert len(httpretty.HTTPretty.latest_requests) == 1
 
         request = httpretty.HTTPretty.latest_requests[0]
-        assert 'application/json;charset=UTF-8' == request.headers['content-type']
+        assert request.headers['content-type'] == 'application/json;charset=UTF-8'
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body)
         assert request_json.get('capabilities') is None
         assert request_json.get('desiredCapabilities') is not None
 
-        assert 'session-id' == driver.session_id
-        assert False == driver.w3c
+        assert driver.session_id == 'session-id'
+        assert driver.w3c is False

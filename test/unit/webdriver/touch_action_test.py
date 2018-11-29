@@ -12,12 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
+
 from appium.webdriver.common.touch_action import TouchAction
 
-
-import pytest
-class TestTouchAction():
-
+class TestTouchAction(object):
 
     @pytest.fixture
     def touch_action(self):
@@ -39,13 +38,13 @@ class TestTouchAction():
 
 
 class DriverStub(object):
-    def execute(self, action, params):
+    def execute(self, _action, _params):
         print("driver.execute called")
 
 
 class ElementStub(object):
-    def __init__(self, id, x=None, y=None, count=None):
-        self._id = id
+    def __init__(self, e_id, _x=None, _y=None, _count=None):
+        self._id = e_id
 
     @property
     def id(self):

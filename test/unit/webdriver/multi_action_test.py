@@ -17,13 +17,12 @@ from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 
 
-class TestMultiAction():
+class TestMultiAction(object):
     @pytest.fixture
     def multi_action(self):
         return MultiAction(DriverStub())
 
     def test_json(self, multi_action):
-        self.maxDiff = None
         json = {
             'actions': [
                 [
@@ -45,13 +44,13 @@ class TestMultiAction():
 
 
 class DriverStub(object):
-    def execute(self, action, params):
+    def execute(self, _action, _params):
         print("driver.execute called")
 
 
 class ElementStub(object):
-    def __init__(self, id):
-        self._id = id
+    def __init__(self, e_id):
+        self._id = e_id
 
     @property
     def id(self):

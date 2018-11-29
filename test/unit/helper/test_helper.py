@@ -61,7 +61,7 @@ class TestHelper():
         httpretty.register_uri(
             httpretty.POST,
             'http://localhost:4723/wd/hub/session',
-            body = response_body_json
+            body=response_body_json
         )
 
         desired_caps = {

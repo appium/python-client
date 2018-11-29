@@ -15,9 +15,10 @@
 import unittest
 import httpretty
 import json
+import sys
 
-from test.unit.helper.test_helper import TestHelper
 from appium import webdriver
+from test.unit.helper.test_helper import TestHelper
 
 
 class WebDriverWebDriverTests(unittest.TestCase):

@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import unittest
-
 from appium.webdriver.common.touch_action import TouchAction
 
 
@@ -51,4 +50,5 @@ class ElementStub(object):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(TouchActionTests)
+    unittest.TextTestRunner(verbosity=2).run(suite)

@@ -20,7 +20,7 @@ from appium import webdriver
 from test.unit.helper.test_helper import TestHelper
 
 
-class WebDriverDeviceClipboardTests(unittest.TestCase):
+class WebDriverDeviceClipboardTest(unittest.TestCase):
 
     @httpretty.activate
     def test_clipboard(self):
@@ -35,8 +35,3 @@ class WebDriverDeviceClipboardTests(unittest.TestCase):
         d = json.loads(httpretty.last_request().body)
         self.assertEqual("aGVsbG8=", d["content"])
         self.assertEqual("plaintext", d["contentType"])
-
-
-if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(WebDriverDeviceClipboardTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

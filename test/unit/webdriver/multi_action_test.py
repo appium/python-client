@@ -17,7 +17,7 @@ from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 
 
-class MultiActionTests(unittest.TestCase):
+class MultiActionTest(unittest.TestCase):
     def setUp(self):
         self._multi_action = MultiAction(DriverStub())
 
@@ -55,8 +55,3 @@ class ElementStub(object):
     @property
     def id(self):
         return self._id
-
-
-if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(MultiActionTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

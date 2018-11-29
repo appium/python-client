@@ -20,7 +20,7 @@ from appium import webdriver
 from test.unit.helper.test_helper import TestHelper
 
 
-class WebDriverWebDriverTests(unittest.TestCase):
+class WebDriverWebDriverTest(unittest.TestCase):
 
     @httpretty.activate
     def test_create_session(self):
@@ -84,8 +84,3 @@ class WebDriverWebDriverTests(unittest.TestCase):
 
         self.assertEqual('session-id', driver.session_id)
         self.assertEqual(False, driver.w3c)
-
-
-if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(WebDriverWebDriverTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

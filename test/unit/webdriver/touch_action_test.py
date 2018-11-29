@@ -47,8 +47,3 @@ class ElementStub(object):
     @property
     def id(self):
         return self._id
-
-
-if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(TouchActionTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

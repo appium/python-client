@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
+import pytest
 import httpretty
 import json
 
@@ -20,7 +20,7 @@ from appium import webdriver
 from test.unit.helper.test_helper import TestHelper
 
 
-class WebDriverWebDriverTest(unittest.TestCase):
+class TestWebDriverWebDriver():
 
     @httpretty.activate
     def test_create_session(self):
@@ -41,17 +41,17 @@ class WebDriverWebDriverTest(unittest.TestCase):
             desired_caps
         )
 
-        self.assertEqual(1, len(httpretty.HTTPretty.latest_requests))
+        assert 1 == len(httpretty.HTTPretty.latest_requests)
 
         request = httpretty.HTTPretty.latest_requests[0]
-        self.assertEqual('application/json;charset=UTF-8', request.headers['content-type'])
+        assert 'application/json;charset=UTF-8' == request.headers['content-type']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body)
-        self.assertTrue(request_json.get('capabilities') is not None)
-        self.assertTrue(request_json.get('desiredCapabilities') is not None)
+        assert request_json.get('capabilities') is not None
+        assert request_json.get('desiredCapabilities') is not None
 
-        self.assertEqual('session-id', driver.session_id)
-        self.assertEqual(True, driver.w3c)
+        assert 'session-id' == driver.session_id
+        assert True == driver.w3c
 
     @httpretty.activate
     def test_create_session_forceMjsonwp(self):
@@ -73,14 +73,14 @@ class WebDriverWebDriverTest(unittest.TestCase):
             desired_caps
         )
 
-        self.assertEqual(1, len(httpretty.HTTPretty.latest_requests))
+        assert 1 == len(httpretty.HTTPretty.latest_requests)
 
         request = httpretty.HTTPretty.latest_requests[0]
-        self.assertEqual('application/json;charset=UTF-8', request.headers['content-type'])
+        assert 'application/json;charset=UTF-8' == request.headers['content-type']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body)
-        self.assertTrue(request_json.get('capabilities') is None)
-        self.assertTrue(request_json.get('desiredCapabilities') is not None)
+        assert request_json.get('capabilities') is None
+        assert request_json.get('desiredCapabilities') is not None
 
-        self.assertEqual('session-id', driver.session_id)
-        self.assertEqual(False, driver.w3c)
+        assert 'session-id' == driver.session_id
+        assert False == driver.w3c

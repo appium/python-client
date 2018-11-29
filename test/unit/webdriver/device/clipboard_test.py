@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
+import pytest
 import httpretty
 import json
 
@@ -20,7 +20,8 @@ from appium import webdriver
 from test.unit.helper.test_helper import TestHelper
 
 
-class WebDriverDeviceClipboardTest(unittest.TestCase):
+class TestWebDriverDeviceClipboard():
+
 
     @httpretty.activate
     def test_clipboard(self):
@@ -33,5 +34,5 @@ class WebDriverDeviceClipboardTest(unittest.TestCase):
         driver.set_clipboard_text('hello')
 
         d = json.loads(httpretty.last_request().body)
-        self.assertEqual("aGVsbG8=", d["content"])
-        self.assertEqual("plaintext", d["contentType"])
+        assert 'aGVsbG8=' == d['content']
+        assert 'plaintext' == d['contentType']

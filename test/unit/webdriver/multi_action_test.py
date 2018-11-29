@@ -12,16 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
+import pytest
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 
 
-class MultiActionTest(unittest.TestCase):
-    def setUp(self):
-        self._multi_action = MultiAction(DriverStub())
+class TestMultiAction():
+    @pytest.fixture
+    def multi_action(self):
+        return MultiAction(DriverStub())
 
-    def test_json(self):
+    def test_json(self, multi_action):
         self.maxDiff = None
         json = {
             'actions': [
@@ -39,8 +40,8 @@ class MultiActionTest(unittest.TestCase):
         }
         t1 = TouchAction(DriverStub()).press(ElementStub(1)).move_to(x=10, y=20).release()
         t2 = TouchAction(DriverStub()).press(ElementStub(5), 11, 30).move_to(x=12, y=-300).release()
-        self._multi_action.add(t1, t2)
-        self.assertEqual(json, self._multi_action.json_wire_gestures)
+        multi_action.add(t1, t2)
+        assert json == multi_action.json_wire_gestures
 
 
 class DriverStub(object):

@@ -30,6 +30,6 @@ class TestWebDriverDeviceClipboard(object):
         )
         driver.set_clipboard_text('hello')
 
-        d = json.loads(httpretty.last_request().body)
+        d = json.loads(httpretty.last_request().body.decode('utf-8'))
         assert d['content'] == 'aGVsbG8='
         assert d['contentType'] == 'plaintext'

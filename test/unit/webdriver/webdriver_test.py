@@ -44,7 +44,7 @@ class TestWebDriverWebDriver(object):
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
 
-        request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body)
+        request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is not None
         assert request_json.get('desiredCapabilities') is not None
 
@@ -76,7 +76,7 @@ class TestWebDriverWebDriver(object):
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
 
-        request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body)
+        request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is None
         assert request_json.get('desiredCapabilities') is not None
 

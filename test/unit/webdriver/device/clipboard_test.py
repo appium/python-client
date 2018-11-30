@@ -17,6 +17,7 @@ from test.unit.helper.test_helper import TestHelper
 import json
 import httpretty
 
+
 class TestWebDriverDeviceClipboard(object):
 
     @httpretty.activate

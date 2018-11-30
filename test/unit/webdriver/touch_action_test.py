@@ -16,6 +16,7 @@ import pytest
 
 from appium.webdriver.common.touch_action import TouchAction
 
+
 class TestTouchAction(object):
 
     @pytest.fixture

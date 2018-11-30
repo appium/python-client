@@ -46,8 +46,23 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
         ```
 - You can customise `CHANGELOG.rst` with commit messages following [.gitchangelog.rc](.gitchangelog.rc)
     - It generates readable changelog
+- `pip install -r development.txt`
 
 ## Run tests
+
+### Unit
+
+```
+$ py.test test/unit
+```
+
+Run with `pytest-xdist`
+
+```
+$ py.test -n 2 test/unit
+```
+
+### Functional
 
 ```
 $ py.test test/functional/ios/find_by_ios_class_chain_tests.py

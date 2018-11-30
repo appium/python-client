@@ -8,4 +8,4 @@ if [[ $result ]] ; then
 fi
 
 python -m pylint --rcfile .pylintrc appium test --py3k
-python -m pytest test/unit/*
+python -m pytest test/unit/

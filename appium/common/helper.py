@@ -13,23 +13,20 @@
 # limitations under the License.
 
 
-class Helper(object):
+def appium_bytes(value, encoding):
+    """
+    Return a bytes-like object. Has _appium_ prefix to avoid overriding built-in bytes.
 
-    @staticmethod
-    def bytes(value, encoding):
-        """
-        Return a bytes-like object
+    :param value: A value to convert
+    :type value: string
 
-        :param value: A value to convert
-        :type value: string
+    :param encoding: A encoding which will convert to
+    :type encoding: string
 
-        :param encoding: A encoding which will convert to
-        :type encoding: string
+    :return: string
+    """
 
-        :return: string
-        """
-
-        try:
-            return bytes(value, encoding)  # Python 3
-        except TypeError:
-            return value  # Python 2
+    try:
+        return bytes(value, encoding)  # Python 3
+    except TypeError:
+        return value  # Python 2

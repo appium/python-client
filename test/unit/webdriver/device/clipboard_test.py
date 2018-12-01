@@ -18,7 +18,7 @@ import json
 import httpretty
 
 from appium.webdriver.clipboard_content_type import ClipboardContentType
-from appium.common.helper import Helper
+from appium.common.helper import appium_bytes
 
 
 class TestWebDriverDeviceClipboard(object):
@@ -31,7 +31,7 @@ class TestWebDriverDeviceClipboard(object):
             'http://localhost:4723/wd/hub/session/1234567890/appium/device/set_clipboard',
             body='{"value": ""}'
         )
-        driver.set_clipboard(Helper.bytes(str('http://appium.io/'), 'UTF-8'),
+        driver.set_clipboard(appium_bytes(str('http://appium.io/'), 'UTF-8'),
                              ClipboardContentType.URL, 'label for android')
 
         d = json.loads(httpretty.last_request().body.decode('utf-8'))

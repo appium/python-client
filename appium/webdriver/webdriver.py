@@ -23,6 +23,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.support.ui import WebDriverWait
 
+from appium.common.helper import Helper
 from appium.webdriver.clipboard_content_type import ClipboardContentType
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
@@ -1299,13 +1300,7 @@ class WebDriver(webdriver.Remote):
         :param label: Optional label argument, which only works for Android
         """
 
-        def _bytes(value, encoding):
-            try:
-                return bytes(value, encoding)  # Python 3
-            except TypeError:
-                return value  # Python 2
-
-        self.set_clipboard(_bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
+        self.set_clipboard(Helper.bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
 
     def get_clipboard(self, content_type=ClipboardContentType.PLAINTEXT):
         """

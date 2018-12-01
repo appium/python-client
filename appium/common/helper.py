@@ -23,7 +23,8 @@ def appium_bytes(value, encoding):
     :param encoding: A encoding which will convert to
     :type encoding: string
 
-    :return: string
+    :return: A bytes-like object
+    :rtype: string
     """
 
     try:

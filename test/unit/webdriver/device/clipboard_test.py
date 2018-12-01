@@ -17,11 +17,30 @@ from test.unit.helper.test_helper import TestHelper
 import json
 import httpretty
 
+from appium.webdriver.clipboard_content_type import ClipboardContentType
+from appium.common.helper import appium_bytes
+
 
 class TestWebDriverDeviceClipboard(object):
 
     @httpretty.activate
-    def test_clipboard(self):
+    def test_set_clipboard_with_url(self):
+        driver = TestHelper.mock_android_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            'http://localhost:4723/wd/hub/session/1234567890/appium/device/set_clipboard',
+            body='{"value": ""}'
+        )
+        driver.set_clipboard(appium_bytes(str('http://appium.io/'), 'UTF-8'),
+                             ClipboardContentType.URL, 'label for android')
+
+        d = json.loads(httpretty.last_request().body.decode('utf-8'))
+        assert d['content'] == 'aHR0cDovL2FwcGl1bS5pby8='
+        assert d['contentType'] == 'url'
+        assert d['label'] == 'label for android'
+
+    @httpretty.activate
+    def test_set_clipboard_text(self):
         driver = TestHelper.mock_android_driver()
         httpretty.register_uri(
             httpretty.POST,

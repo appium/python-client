@@ -14,7 +14,7 @@
 
 import json
 import httpretty
-
+from test.unit.helper.test_helper import android_w3c_driver, ios_w3c_driver
 from appium import webdriver
 
 
@@ -82,3 +82,17 @@ class TestWebDriverWebDriver(object):
 
         assert driver.session_id == 'session-id'
         assert driver.w3c is False
+
+    @httpretty.activate
+    def test_a_number_of_commands_w3c_android(self):
+        """Track how many commands defined for Android W3C"""
+        driver = android_w3c_driver()
+        # pylint: disable=W0212
+        assert len(driver.command_executor._commands.keys()) == 174
+
+    @httpretty.activate
+    def test_a_number_of_commands_w3c_ios(self):
+        """Track how many commands defined for iOS W3C"""
+        driver = ios_w3c_driver()
+        # pylint: disable=W0212
+        assert len(driver.command_executor._commands.keys()) == 174

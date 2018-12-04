@@ -98,12 +98,12 @@ def ios_w3c_driver():
     response_body_json = json.dumps(
         {
             'value': {
-                'sessionId' : '1234567890',
-                'capabilities' : {
-                    'device' : 'iphone',
-                    'browserName' : 'UICatalog',
-                    'sdkVersion' : '11.4',
-                    'CFBundleIdentifier' : 'com.example.apple-samplecode.UICatalog'
+                'sessionId': '1234567890',
+                'capabilities': {
+                    'device': 'iphone',
+                    'browserName': 'UICatalog',
+                    'sdkVersion': '11.4',
+                    'CFBundleIdentifier': 'com.example.apple-samplecode.UICatalog'
                 }
             }
         }

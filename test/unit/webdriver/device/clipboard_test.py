@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from test.unit.helper.test_helper import TestHelper
+from test.unit.helper.test_helper import appium_command, android_w3c_driver, ios_w3c_driver
 
 import json
 import httpretty
@@ -25,10 +25,10 @@ class TestWebDriverDeviceClipboard(object):
 
     @httpretty.activate
     def test_set_clipboard_with_url(self):
-        driver = TestHelper.mock_android_driver()
+        driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            'http://localhost:4723/wd/hub/session/1234567890/appium/device/set_clipboard',
+            appium_command('/session/1234567890/appium/device/set_clipboard'),
             body='{"value": ""}'
         )
         driver.set_clipboard(appium_bytes(str('http://appium.io/'), 'UTF-8'),
@@ -41,10 +41,10 @@ class TestWebDriverDeviceClipboard(object):
 
     @httpretty.activate
     def test_set_clipboard_text(self):
-        driver = TestHelper.mock_android_driver()
+        driver = ios_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            'http://localhost:4723/wd/hub/session/1234567890/appium/device/set_clipboard',
+            appium_command('/session/1234567890/appium/device/set_clipboard'),
             body='{"value": ""}'
         )
         driver.set_clipboard_text('hello')

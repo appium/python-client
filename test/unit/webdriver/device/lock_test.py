@@ -33,6 +33,18 @@ class TestWebDriverDeviceLock(object):
         assert d['seconds'] == 1
 
     @httpretty.activate
+    def test_lock_no_args_android(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/lock'),
+            body='{"value": ""}'
+        )
+        driver.lock()
+        d = json.loads(httpretty.last_request().body.decode('utf-8'))
+        assert len(d.keys()) == 1
+
+    @httpretty.activate
     def test_lock_iOS(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(
@@ -43,3 +55,15 @@ class TestWebDriverDeviceLock(object):
         driver.lock(1)
         d = json.loads(httpretty.last_request().body.decode('utf-8'))
         assert d['seconds'] == 1
+
+    @httpretty.activate
+    def test_lock_no_args_iOS(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/lock'),
+            body='{"value": ""}'
+        )
+        driver.lock()
+        d = json.loads(httpretty.last_request().body.decode('utf-8'))
+        assert len(d.keys()) == 1

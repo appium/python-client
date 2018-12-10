@@ -21,7 +21,7 @@ import httpretty
 class TestWebDriverDeviceLock(object):
 
     @httpretty.activate
-    def test_lock_android(self):
+    def test_lock(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
@@ -33,7 +33,7 @@ class TestWebDriverDeviceLock(object):
         assert d['seconds'] == 1
 
     @httpretty.activate
-    def test_lock_no_args_android(self):
+    def test_lock_no_args(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
@@ -43,27 +43,5 @@ class TestWebDriverDeviceLock(object):
         driver.lock()
         d = json.loads(httpretty.last_request().body.decode('utf-8'))
         assert len(d.keys()) == 1
+        assert d['sessionId'] == '1234567890'
 
-    @httpretty.activate
-    def test_lock_iOS(self):
-        driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/device/lock'),
-            body='{"value": ""}'
-        )
-        driver.lock(1)
-        d = json.loads(httpretty.last_request().body.decode('utf-8'))
-        assert d['seconds'] == 1
-
-    @httpretty.activate
-    def test_lock_no_args_iOS(self):
-        driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/device/lock'),
-            body='{"value": ""}'
-        )
-        driver.lock()
-        d = json.loads(httpretty.last_request().body.decode('utf-8'))
-        assert len(d.keys()) == 1

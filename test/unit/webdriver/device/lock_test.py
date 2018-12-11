@@ -44,4 +44,3 @@ class TestWebDriverDeviceLock(object):
         d = json.loads(httpretty.last_request().body.decode('utf-8'))
         assert len(d.keys()) == 1
         assert d['sessionId'] == '1234567890'
-

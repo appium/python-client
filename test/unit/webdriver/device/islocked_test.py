@@ -17,7 +17,6 @@ from test.unit.helper.test_helper import appium_command, android_w3c_driver, ios
 import httpretty
 
 
-
 class TestWebDriverDeviceIsLocked(object):
 
     @httpretty.activate
@@ -40,4 +39,3 @@ class TestWebDriverDeviceIsLocked(object):
         )
 
         assert driver.is_locked() == True
-

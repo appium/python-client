@@ -45,7 +45,6 @@ class TestWebDriverDeviceLock(object):
         assert len(d.keys()) == 1
         assert d['sessionId'] == '1234567890'
 
-
     @httpretty.activate
     def test_islocked_false(self):
         driver = android_w3c_driver()
@@ -66,4 +65,3 @@ class TestWebDriverDeviceLock(object):
         )
 
         assert driver.is_locked() is True
-

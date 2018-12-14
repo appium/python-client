@@ -44,3 +44,26 @@ class TestWebDriverDeviceLock(object):
         d = json.loads(httpretty.last_request().body.decode('utf-8'))
         assert len(d.keys()) == 1
         assert d['sessionId'] == '1234567890'
+
+
+    @httpretty.activate
+    def test_islocked_false(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/is_locked'),
+            body='{"value": false}'
+        )
+        assert driver.is_locked() is False
+
+    @httpretty.activate
+    def test_islocked_true(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/is_locked'),
+            body='{"value": true}'
+        )
+
+        assert driver.is_locked() is True
+

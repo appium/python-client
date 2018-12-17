@@ -28,8 +28,8 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 from .errorhandler import MobileErrorHandler
-from .helpers.context import Context
-from .helpers.location import Location
+from .extensions.context import Context
+from .extensions.location import Location
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement

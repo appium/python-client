@@ -17,7 +17,6 @@
 import base64
 import copy
 
-from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, InvalidArgumentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
@@ -29,6 +28,8 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 from .errorhandler import MobileErrorHandler
+from .extensions.context import Context
+from .extensions.location import Location
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
@@ -87,7 +88,7 @@ def _make_w3c_caps(caps):
     return {'firstMatch': [first_match]}
 
 
-class WebDriver(webdriver.Remote):
+class WebDriver(Location, Context):
 
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
                  desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False):
@@ -160,36 +161,6 @@ class WebDriver(webdriver.Remote):
 
         w3c_caps = _make_w3c_caps(capabilities)
         return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
-
-    @property
-    def contexts(self):
-        """
-        Returns the contexts within the current session.
-
-        :Usage:
-            driver.contexts
-        """
-        return self.execute(Command.CONTEXTS)['value']
-
-    @property
-    def current_context(self):
-        """
-        Returns the current context of the current session.
-
-        :Usage:
-            driver.current_context
-        """
-        return self.execute(Command.GET_CURRENT_CONTEXT)['value']
-
-    @property
-    def context(self):
-        """
-        Returns the current context of the current session.
-
-        :Usage:
-            driver.context
-        """
-        return self.current_context
 
     def find_element(self, by=By.ID, value=None):
         """
@@ -812,7 +783,7 @@ class WebDriver(webdriver.Remote):
             try:
                 with open(source_path, 'rb') as file:
                     data = file.read()
-            except FileNotFoundError:
+            except IOError:
                 message = 'source_path {} could not be found. Are you sure the file exists?'.format(source_path)
                 raise InvalidArgumentException(message)
             base64data = base64.b64encode(data).decode('utf-8')
@@ -1164,30 +1135,6 @@ class WebDriver(webdriver.Remote):
         self.execute(Command.TOGGLE_WIFI, {})
         return self
 
-    def toggle_location_services(self):
-        """Toggle the location services on the device. Android only.
-        """
-        self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
-        return self
-
-    def set_location(self, latitude, longitude, altitude):
-        """Set the location of the device
-
-        :Args:
-         - latitude - String or numeric value between -90.0 and 90.00
-         - longitude - String or numeric value between -180.0 and 180.0
-         - altitude - String or numeric value
-        """
-        data = {
-            "location": {
-                "latitude": str(latitude),
-                "longitude": str(longitude),
-                "altitude": str(altitude)
-            }
-        }
-        self.execute(Command.SET_LOCATION, data)
-        return self
-
     def start_recording_screen(self, **options):
         """
         Start asynchronous screen recording process.
@@ -1465,12 +1412,7 @@ class WebDriver(webdriver.Remote):
     # pylint: disable=protected-access
 
     def _addCommands(self):
-        self.command_executor._commands[Command.CONTEXTS] = \
-            ('GET', '/session/$sessionId/contexts')
-        self.command_executor._commands[Command.GET_CURRENT_CONTEXT] = \
-            ('GET', '/session/$sessionId/context')
-        self.command_executor._commands[Command.SWITCH_TO_CONTEXT] = \
-            ('POST', '/session/$sessionId/context')
+        super(WebDriver, self)._addCommands()
         self.command_executor._commands[Command.TOUCH_ACTION] = \
             ('POST', '/session/$sessionId/touch/perform')
         self.command_executor._commands[Command.MULTI_ACTION] = \
@@ -1558,12 +1500,8 @@ class WebDriver(webdriver.Remote):
             ('GET', '/session/$sessionId/appium/settings')
         self.command_executor._commands[Command.UPDATE_SETTINGS] = \
             ('POST', '/session/$sessionId/appium/settings')
-        self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = \
-            ('POST', '/session/$sessionId/appium/device/toggle_location_services')
         self.command_executor._commands[Command.TOGGLE_WIFI] = \
             ('POST', '/session/$sessionId/appium/device/toggle_wifi')
-        self.command_executor._commands[Command.SET_LOCATION] = \
-            ('POST', '/session/$sessionId/location')
         self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
             ('GET', '/session/$sessionId/element/$id/location_in_view')
         self.command_executor._commands[Command.GET_DEVICE_TIME] = \

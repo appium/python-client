@@ -66,6 +66,7 @@ class MobileCommand(object):
     GET_SETTINGS = 'getSettings'
     UPDATE_SETTINGS = 'updateSettings'
     SET_LOCATION = 'setLocation'
+    GET_LOCATION = 'getLocation'
     GET_DEVICE_TIME = 'getDeviceTime'
     CLEAR = 'clear'
     START_RECORDING_SCREEN = 'startRecordingScreen'

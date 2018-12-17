@@ -12,4 +12,4 @@ install:
   - pip install tox-travis
 
 script:
-  - ./ci.sh
+  - tox

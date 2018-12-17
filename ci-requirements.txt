@@ -5,3 +5,5 @@ pylint==1.9.3
 autopep8==1.4.3
 httpretty==0.9.6
 pytest-cov==2.6.0
+tox==3.6.0
+tox-travis==0.11

@@ -9,7 +9,7 @@ python:
   - "3.7"
 
 install:
-  - pip install -r ci-requirements.txt
+  - pip install tox-travis
 
 script:
-  - ./ci.sh
+  - tox

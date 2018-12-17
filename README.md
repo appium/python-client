@@ -50,6 +50,14 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 
 ## Run tests
 
+You can run all of tests running on CI via `tox` in your local.
+
+```
+$ tox
+```
+
+You also can run particular tests like below.
+
 ### Unit
 
 ```

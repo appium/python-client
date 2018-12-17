@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from selenium import webdriver
-from webdriver.mobilecommand import MobileCommand as Command
+from ..mobilecommand import MobileCommand as Command
 
 
 class Location(webdriver.Remote):

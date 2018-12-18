@@ -2,6 +2,15 @@ Changelog
 =========
 
 
+v0.33 (2018-12-18)
+------------------
+- Bump 0.33. [Kazuaki MATSUO]
+- Move read version (#294) [Kazuaki Matsuo]
+- Add newline in release script because of autopep8 (#292) [Kazuaki
+  Matsuo]
+- Update changelog for 0.32. [Kazuaki MATSUO]
+
+
 v0.32 (2018-12-18)
 ------------------
 - Bump 0.32. [Kazuaki MATSUO]

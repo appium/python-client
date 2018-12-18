@@ -1413,8 +1413,8 @@ class WebDriver(Location, Context):
 
     def _addCommands(self):
         # call the overridden command binders from all mixin classes
-        for mixin_class in self.__class__.__mro__:
-            if hasattr(mixin_class, self._addCommands.__name__) and mixin_class is not self.__class__:
+        for mixin_class in filter(lambda x: x is not self.__class__, self.__class__.__mro__):
+            if hasattr(mixin_class, self._addCommands.__name__):
                 getattr(mixin_class, self._addCommands.__name__, None)(self)
 
         self.command_executor._commands[Command.TOUCH_ACTION] = \

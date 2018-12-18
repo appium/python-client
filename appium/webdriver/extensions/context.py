@@ -46,13 +46,3 @@ class Context(webdriver.Remote):
             driver.context
         """
         return self.current_context
-
-    # pylint: disable=protected-access
-
-    def _addCommands(self):
-        self.command_executor._commands[Command.CONTEXTS] = \
-            ('GET', '/session/$sessionId/contexts')
-        self.command_executor._commands[Command.GET_CURRENT_CONTEXT] = \
-            ('GET', '/session/$sessionId/context')
-        self.command_executor._commands[Command.SWITCH_TO_CONTEXT] = \
-            ('POST', '/session/$sessionId/context')

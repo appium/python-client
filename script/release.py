@@ -37,7 +37,7 @@ def get_new_version():
         return line.rstrip()
 
 
-VERSION_FORMAT = "version = '{}'"
+VERSION_FORMAT = "version = '{}'\n"
 
 
 def update_version_file(version):

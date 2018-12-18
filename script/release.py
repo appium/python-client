@@ -15,7 +15,7 @@
 
 import os
 import sys
-from helper import read_version
+from appium.common.helper import library_version
 
 VERSION_FILE_PATH = os.path.join(os.path.dirname('__file__'), 'appium', 'version.py')
 CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.rst')
@@ -26,7 +26,7 @@ MESSAGE_YELLOW = '\033[1;33m{}\033[0m'
 
 
 def get_current_version():
-    current = read_version()
+    current = library_version()
     print('The current version is {}, type a new one'.format(MESSAGE_YELLOW.format(current)))
     return current
 

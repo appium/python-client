@@ -52,3 +52,13 @@ class Location(webdriver.Remote):
          - altitude
         """
         return self.execute(Command.GET_LOCATION)['value']
+
+    # pylint: disable=protected-access
+
+    def _addCommands(self):
+        self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = \
+            ('POST', '/session/$sessionId/appium/device/toggle_location_services')
+        self.command_executor._commands[Command.GET_LOCATION] = \
+            ('GET', '/session/$sessionId/location')
+        self.command_executor._commands[Command.SET_LOCATION] = \
+            ('POST', '/session/$sessionId/location')

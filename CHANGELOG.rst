@@ -2,13 +2,50 @@ Changelog
 =========
 
 
-(unreleased)
-------------
-- Update the release section in README. [Kazuaki MATSUO]
-- Tweak release.sh. [Kazuaki MATSUO]
-- Introduce gitchangelog to generate changelog. [Kazuaki MATSUO]
-- Update readme. [Kazuaki MATSUO]
-- Extract version number. [Kazuaki MATSUO]
+v0.32 (2018-12-18)
+------------------
+- Bump 0.32. [Kazuaki MATSUO]
+- Split driver methods into mixin classes (#291) [Mykola Mokhnach]
+- Run with tox on travis (#290) [Kazuaki Matsuo]
+
+  * run with tox on travis
+
+  * update readme
+- Add unit tests for isLocked Library (#288) [Venkatesh Singh]
+
+  * Add unit tests for isLocked Lib
+
+  * moved isLocked library tests in lock.py
+- Add unit test for lock lib (#287) [Venkatesh Singh]
+
+  * Add unit test for lock lib
+- Improve pytest, adding pytest.ini and set default arguments (#284)
+  [Kazuaki Matsuo]
+- Extract bytes and add a test for set clipboard (#282) [Kazuaki Matsuo]
+
+  * extract bytes and add a test for set clipboard
+- Introduce httpretty for unittest to mock Appium server (#281) [Kazuaki
+  Matsuo]
+
+  * add httpretty
+
+  * add clipboard tests as an example
+
+  * add test for forceMjsonwp
+- Update setup elements (#280) [Kazuaki Matsuo]
+
+  * update setup elements
+
+  * remove docgen since we can use markdown format in pypi
+- Release automation (#276) [Kazuaki Matsuo]
+- Fixed few failing tests in appium_tests.py (#278)
+  [RajeshkumarAyyadurai]
+
+  * fixed few failing tests in appium_tests.py
+
+  * updated few tests in appium_tests.py by removing uiautomator strategy
+- Fixed failing tests in find_by_accessibility_id_tests.py.
+  [RajeshkumarAyyadurai]
 - Updated requirements.txt file with version (#275)
   [RajeshkumarAyyadurai]
 

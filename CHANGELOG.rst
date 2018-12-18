@@ -2,6 +2,20 @@ Changelog
 =========
 
 
+v0.34 (2018-12-18)
+------------------
+- Bump 0.34. [Kazuaki MATSUO]
+- Fix missing package, missing commands and a test (#296) [Kazuaki
+  Matsuo]
+
+  * add extensions into package
+
+  * add tests for context to make sure it loads
+
+  * move command definition from extensions to root
+- Update changelog for 0.33. [Kazuaki MATSUO]
+
+
 v0.33 (2018-12-18)
 ------------------
 - Bump 0.33. [Kazuaki MATSUO]

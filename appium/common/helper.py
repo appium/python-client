@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import io
+import os
+
 
 def appium_bytes(value, encoding):
     """
@@ -31,3 +34,16 @@ def appium_bytes(value, encoding):
         return bytes(value, encoding)  # Python 3
     except TypeError:
         return value  # Python 2
+
+
+def library_version():
+    """
+    Return a version of this python library
+    """
+
+    global_param = {}
+    exec(
+        io.open(os.path.join(os.path.dirname('__file__'), 'appium', 'version.py'), encoding='utf-8').read(),
+        global_param
+    )
+    return global_param['version']

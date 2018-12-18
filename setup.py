@@ -16,13 +16,11 @@ import os
 
 from distutils.core import setup
 from setuptools import setup
-
-from script.helper import read_version
-
+from appium.common.helper import library_version
 
 setup(
     name='Appium-Python-Client',
-    version=read_version(),
+    version=library_version(),
     description='Python client for Appium',
     long_description=io.open(os.path.join(os.path.dirname('__file__'), 'README.md'), encoding='utf-8').read(),
     keywords=[

@@ -37,7 +37,8 @@ setup(
         'appium',
         'appium.common',
         'appium.webdriver',
-        'appium.webdriver.common'
+        'appium.webdriver.common',
+        'appium.webdriver.extensions'
     ],
     license='Apache 2.0',
     classifiers=[

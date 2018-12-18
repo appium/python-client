@@ -1412,19 +1412,10 @@ class WebDriver(Location, Context):
     # pylint: disable=protected-access
 
     def _addCommands(self):
-        self.command_executor._commands[Command.CONTEXTS] = \
-            ('GET', '/session/$sessionId/contexts')
-        self.command_executor._commands[Command.GET_CURRENT_CONTEXT] = \
-            ('GET', '/session/$sessionId/context')
-        self.command_executor._commands[Command.SWITCH_TO_CONTEXT] = \
-            ('POST', '/session/$sessionId/context')
-
-        self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = \
-            ('POST', '/session/$sessionId/appium/device/toggle_location_services')
-        self.command_executor._commands[Command.GET_LOCATION] = \
-            ('GET', '/session/$sessionId/location')
-        self.command_executor._commands[Command.SET_LOCATION] = \
-            ('POST', '/session/$sessionId/location')
+        # call the overridden command binders from all mixin classes
+        for mixin_class in filter(lambda x: x is not self.__class__, self.__class__.__mro__):
+            if hasattr(mixin_class, self._addCommands.__name__):
+                getattr(mixin_class, self._addCommands.__name__, None)(self)
 
         self.command_executor._commands[Command.TOUCH_ACTION] = \
             ('POST', '/session/$sessionId/touch/perform')

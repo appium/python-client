@@ -17,10 +17,9 @@
 import base64
 import copy
 
-from selenium.common.exceptions import TimeoutException, InvalidArgumentException
+from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
-from selenium.webdriver.support.ui import WebDriverWait
 
 from appium.common.helper import appium_bytes
 from appium.webdriver.clipboard_content_type import ClipboardContentType
@@ -28,7 +27,10 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 from .errorhandler import MobileErrorHandler
+from .extensions.activities import Activities
+from .extensions.applications import Applications
 from .extensions.context import Context
+from .extensions.remote_fs import RemoteFS
 from .extensions.location import Location
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
@@ -88,7 +90,7 @@ def _make_w3c_caps(caps):
     return {'firstMatch': [first_match]}
 
 
-class WebDriver(Location, Context):
+class WebDriver(Location, Context, Applications, RemoteFS, Activities):
 
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
                  desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False):
@@ -701,34 +703,10 @@ class WebDriver(Location, Context):
         return self
 
     @property
-    def current_activity(self):
-        """Retrieves the current activity running on the device.
-        """
-        return self.execute(Command.GET_CURRENT_ACTIVITY)['value']
-
-    @property
     def current_package(self):
         """Retrieves the current package running on the device.
         """
         return self.execute(Command.GET_CURRENT_PACKAGE)['value']
-
-    def wait_activity(self, activity, timeout, interval=1):
-        """Wait for an activity: block until target activity presents
-        or time out.
-
-        This is an Android-only method.
-
-        :Agrs:
-         - activity - target activity
-         - timeout - max wait time, in seconds
-         - interval - sleep interval between retries, in seconds
-        """
-        try:
-            WebDriverWait(self, timeout, interval).until(
-                lambda d: d.current_activity == activity)
-            return True
-        except TimeoutException:
-            return False
 
     def set_value(self, element, value):
         """Set the value on an element in the application.
@@ -742,225 +720,6 @@ class WebDriver(Location, Context):
             'value': [value],
         }
         self.execute(Command.SET_IMMEDIATE_VALUE, data)
-        return self
-
-    def pull_file(self, path):
-        """Retrieves the file at `path`. Returns the file's contents as base64.
-
-        :Args:
-         - path - the path to the file on the device
-        """
-        data = {
-            'path': path,
-        }
-        return self.execute(Command.PULL_FILE, data)['value']
-
-    def pull_folder(self, path):
-        """Retrieves a folder at `path`. Returns the folder's contents zipped
-        and encoded as Base64.
-
-        :Args:
-         - path - the path to the folder on the device
-        """
-        data = {
-            'path': path,
-        }
-        return self.execute(Command.PULL_FOLDER, data)['value']
-
-    def push_file(self, destination_path, base64data=None, source_path=None):
-        """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
-
-        Specify either `base64data` or `source_path`, if both specified default to `source_path`
-        :param destination_path: the location on the device/simulator where the local file contents should be saved
-        :param base64data: file contents, encoded as Base64, to be written to the file on the device/simulator
-        :param source_path: local file path for the file to be loaded on device
-        :return: WebDriver instance
-        """
-        if source_path is None and base64data is None:
-            raise InvalidArgumentException('Must either pass base64 data or a local file path')
-
-        if source_path is not None:
-            try:
-                with open(source_path, 'rb') as file:
-                    data = file.read()
-            except IOError:
-                message = 'source_path {} could not be found. Are you sure the file exists?'.format(source_path)
-                raise InvalidArgumentException(message)
-            base64data = base64.b64encode(data).decode('utf-8')
-
-        data = {
-            'path': destination_path,
-            'data': base64data,
-        }
-        self.execute(Command.PUSH_FILE, data)
-        return self
-
-    def background_app(self, seconds):
-        """Puts the application in the background on the device for a certain
-        duration.
-
-        :Args:
-         - seconds - the duration for the application to remain in the background
-        """
-        data = {
-            'seconds': seconds,
-        }
-        self.execute(Command.BACKGROUND, data)
-        return self
-
-    def is_app_installed(self, bundle_id):
-        """Checks whether the application specified by `bundle_id` is installed
-        on the device.
-
-        :Args:
-         - bundle_id - the id of the application to query
-        """
-        data = {
-            'bundleId': bundle_id,
-        }
-        return self.execute(Command.IS_APP_INSTALLED, data)['value']
-
-    def install_app(self, app_path, **options):
-        """Install the application found at `app_path` on the device.
-
-        :Args:
-         - app_path - the local or remote path to the application to install
-         - options - the possible installation options.
-         The following options are available for Android:
-         `replace`: whether to reinstall/upgrade the package if it is
-         already present on the device under test. True by default
-         `timeout`: how much time to wait for the installation to complete.
-         60000ms by default.
-         `allowTestPackages`: whether to allow installation of packages marked
-         as test in the manifest. False by default
-         `useSdcard`: whether to use the SD card to install the app. False
-         by default
-         `grantPermissions`: whether to automatically grant application permissions
-         on Android 6+ after the installation completes. False by default
-        """
-        data = {
-            'appPath': app_path,
-        }
-        if options:
-            data.update({'options': options})
-        self.execute(Command.INSTALL_APP, data)
-        return self
-
-    def remove_app(self, app_id, **options):
-        """Remove the specified application from the device.
-
-        :Args:
-         - app_id - the application id to be removed
-         - options - the possible removal options.
-         The following options are available for Android:
-         `keepData`: whether to keep application data and caches after it is uninstalled.
-         False by default
-         `timeout`: how much time to wait for the uninstall to complete.
-         20000ms by default.
-        """
-        data = {
-            'appId': app_id,
-        }
-        if options:
-            data.update({'options': options})
-        self.execute(Command.REMOVE_APP, data)
-        return self
-
-    def launch_app(self):
-        """Start on the device the application specified in the desired capabilities.
-        """
-        self.execute(Command.LAUNCH_APP)
-        return self
-
-    def close_app(self):
-        """Stop the running application, specified in the desired capabilities, on
-        the device.
-        """
-        self.execute(Command.CLOSE_APP)
-        return self
-
-    def terminate_app(self, app_id, **options):
-        """Terminates the application if it is running.
-
-        :Args:
-         - app_id - the application id to be terminates
-         - options - the possible termination options.
-         The following options are available for Android:
-         `timeout`: how much time to wait for the uninstall to complete.
-         500ms by default.
-
-        :return: True if the app has been successfully terminated
-        """
-        data = {
-            'appId': app_id,
-        }
-        if options:
-            data.update({'options': options})
-        return self.execute(Command.TERMINATE_APP, data)['value']
-
-    def activate_app(self, app_id):
-        """Activates the application if it is not running
-        or is running in the background.
-
-        :Args:
-         - app_id - the application id to be activated
-
-        :return: self instance for chaining
-        """
-        data = {
-            'appId': app_id,
-        }
-        self.execute(Command.ACTIVATE_APP, data)
-        return self
-
-    def query_app_state(self, app_id):
-        """Queries the state of the application.
-
-        :Args:
-         - app_id - the application id to be queried
-
-        :return: One of possible application state constants. See ApplicationState
-        class for more details.
-        """
-        data = {
-            'appId': app_id,
-        }
-        return self.execute(Command.QUERY_APP_STATE, data)['value']
-
-    def start_activity(self, app_package, app_activity, **opts):
-        """Opens an arbitrary activity during a test. If the activity belongs to
-        another application, that application is started and the activity is opened.
-
-        This is an Android-only method.
-
-        :Args:
-        - app_package - The package containing the activity to start.
-        - app_activity - The activity to start.
-        - app_wait_package - Begin automation after this package starts (optional).
-        - app_wait_activity - Begin automation after this activity starts (optional).
-        - intent_action - Intent to start (optional).
-        - intent_category - Intent category to start (optional).
-        - intent_flags - Flags to send to the intent (optional).
-        - optional_intent_arguments - Optional arguments to the intent (optional).
-        - dont_stop_app_on_reset - Should the app be stopped on reset (optional)?
-        """
-        data = {
-            'appPackage': app_package,
-            'appActivity': app_activity
-        }
-        arguments = {
-            'app_wait_package': 'appWaitPackage',
-            'app_wait_activity': 'appWaitActivity',
-            'intent_action': 'intentAction',
-            'intent_category': 'intentCategory',
-            'intent_flags': 'intentFlags',
-            'optional_intent_arguments': 'optionalIntentArguments',
-            'dont_stop_app_on_reset': 'dontStopAppOnReset'
-        }
-        for key, value in arguments.items():
-            if key in opts:
-                data[value] = opts[key]
-        self.execute(Command.START_ACTIVITY, data)
         return self
 
     def end_test_coverage(self, intent, path):
@@ -1430,34 +1189,10 @@ class WebDriver(Location, Context):
             ('POST', '/session/$sessionId/appium/device/press_keycode')
         self.command_executor._commands[Command.LONG_PRESS_KEYCODE] = \
             ('POST', '/session/$sessionId/appium/device/long_press_keycode')
-        self.command_executor._commands[Command.GET_CURRENT_ACTIVITY] = \
-            ('GET', '/session/$sessionId/appium/device/current_activity')
         self.command_executor._commands[Command.GET_CURRENT_PACKAGE] = \
             ('GET', '/session/$sessionId/appium/device/current_package')
         self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
             ('POST', '/session/$sessionId/appium/element/$id/value')
-        self.command_executor._commands[Command.PULL_FILE] = \
-            ('POST', '/session/$sessionId/appium/device/pull_file')
-        self.command_executor._commands[Command.PULL_FOLDER] = \
-            ('POST', '/session/$sessionId/appium/device/pull_folder')
-        self.command_executor._commands[Command.PUSH_FILE] = \
-            ('POST', '/session/$sessionId/appium/device/push_file')
-        self.command_executor._commands[Command.BACKGROUND] = \
-            ('POST', '/session/$sessionId/appium/app/background')
-        self.command_executor._commands[Command.IS_APP_INSTALLED] = \
-            ('POST', '/session/$sessionId/appium/device/app_installed')
-        self.command_executor._commands[Command.INSTALL_APP] = \
-            ('POST', '/session/$sessionId/appium/device/install_app')
-        self.command_executor._commands[Command.REMOVE_APP] = \
-            ('POST', '/session/$sessionId/appium/device/remove_app')
-        self.command_executor._commands[Command.TERMINATE_APP] = \
-            ('POST', '/session/$sessionId/appium/device/terminate_app')
-        self.command_executor._commands[Command.ACTIVATE_APP] = \
-            ('POST', '/session/$sessionId/appium/device/activate_app')
-        self.command_executor._commands[Command.QUERY_APP_STATE] = \
-            ('POST', '/session/$sessionId/appium/device/app_state')
-        self.command_executor._commands[Command.START_ACTIVITY] = \
-            ('POST', '/session/$sessionId/appium/device/start_activity')
         self.command_executor._commands[Command.LAUNCH_APP] = \
             ('POST', '/session/$sessionId/appium/app/launch')
         self.command_executor._commands[Command.CLOSE_APP] = \

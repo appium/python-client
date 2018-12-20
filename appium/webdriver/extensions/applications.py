@@ -149,6 +149,21 @@ class Applications(webdriver.Remote):
         }
         return self.execute(Command.QUERY_APP_STATE, data)['value']
 
+    def app_strings(self, language=None, string_file=None):
+        """Returns the application strings from the device for the specified
+        language.
+
+        :Args:
+         - language - strings language code
+         - string_file - the name of the string file to query
+        """
+        data = {}
+        if language != None:
+            data['language'] = language
+        if string_file != None:
+            data['stringFile'] = string_file
+        return self.execute(Command.GET_APP_STRINGS, data)['value']
+
     # pylint: disable=protected-access
 
     def _addCommands(self):
@@ -166,3 +181,5 @@ class Applications(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/activate_app')
         self.command_executor._commands[Command.QUERY_APP_STATE] = \
             ('POST', '/session/$sessionId/appium/device/app_state')
+        self.command_executor._commands[Command.GET_APP_STRINGS] = \
+            ('POST', '/session/$sessionId/appium/app/strings')

@@ -21,17 +21,21 @@ from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
-from appium.common.helper import appium_bytes
-from appium.webdriver.clipboard_content_type import ClipboardContentType
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 from .errorhandler import MobileErrorHandler
 from .extensions.activities import Activities
 from .extensions.applications import Applications
+from .extensions.clipboard import Clipboard
 from .extensions.context import Context
-from .extensions.remote_fs import RemoteFS
+from .extensions.images_comparison import ImagesComparison
+from .extensions.ime import IME
+from .extensions.hw_actions import HardwareActions
 from .extensions.location import Location
+from .extensions.network import Network
+from .extensions.remote_fs import RemoteFS
+from .extensions.screen_record import ScreenRecord
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
@@ -90,7 +94,19 @@ def _make_w3c_caps(caps):
     return {'firstMatch': [first_match]}
 
 
-class WebDriver(Location, Context, Applications, RemoteFS, Activities):
+class WebDriver(
+    Activities,
+    Applications,
+    Clipboard,
+    Context,
+    HardwareActions,
+    ImagesComparison,
+    IME,
+    Location,
+    Network,
+    RemoteFS,
+    ScreenRecord
+):
 
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
                  desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False):
@@ -589,21 +605,6 @@ class WebDriver(Location, Context, Applications, RemoteFS, Activities):
         self.execute_script('mobile: pinchOpen', opts)
         return self
 
-    def app_strings(self, language=None, string_file=None):
-        """Returns the application strings from the device for the specified
-        language.
-
-        :Args:
-         - language - strings language code
-         - string_file - the name of the string file to query
-        """
-        data = {}
-        if language != None:
-            data['language'] = language
-        if string_file != None:
-            data['stringFile'] = string_file
-        return self.execute(Command.GET_APP_STRINGS, data)['value']
-
     def reset(self):
         """Resets the current application on the device.
         """
@@ -738,136 +739,11 @@ class WebDriver(Location, Context, Applications, RemoteFS, Activities):
         }
         return self.execute(Command.END_TEST_COVERAGE, data)['value']
 
-    def lock(self, seconds=None):
-        """Lock the device. No changes are made if the device is already unlocked.
-
-        :Args:
-         - seconds - (optional) the duration to lock the device, in seconds.
-         The device is going to be locked forever until `unlock` is called
-         if it equals or is less than zero, otherwise this call blocks until
-         the timeout expires and unlocks the screen automatically.
-        """
-        if seconds is None:
-            self.execute(Command.LOCK)
-        else:
-            self.execute(Command.LOCK, {'seconds': seconds})
-
-        return self
-
-    def unlock(self):
-        """Unlock the device. No changes are made if the device
-        is already locked.
-        """
-        self.execute(Command.UNLOCK)
-        return self
-
-    def is_locked(self):
-        """Checks whether the device is locked.
-
-        :returns:
-         Either True or False
-        """
-        return self.execute(Command.IS_LOCKED)['value']
-
-    def shake(self):
-        """Shake the device.
-        """
-        self.execute(Command.SHAKE)
-        return self
-
-    def touch_id(self, match):
-        """Simulate touchId on iOS Simulator
-        """
-        data = {
-            'match': match
-        }
-        self.execute(Command.TOUCH_ID, data)
-        return self
-
-    def toggle_touch_id_enrollment(self):
-        """Toggle enroll touchId on iOS Simulator
-        """
-        self.execute(Command.TOGGLE_TOUCH_ID_ENROLLMENT)
-        return self
-
     def open_notifications(self):
         """Open notification shade in Android (API Level 18 and above)
         """
         self.execute(Command.OPEN_NOTIFICATIONS, {})
         return self
-
-    @property
-    def network_connection(self):
-        """Returns an integer bitmask specifying the network connection type.
-        Android only.
-        Possible values are available through the enumeration `appium.webdriver.ConnectionType`
-        """
-        return self.execute(Command.GET_NETWORK_CONNECTION, {})['value']
-
-    def set_network_connection(self, connectionType):
-        """Sets the network connection type. Android only.
-        Possible values:
-            Value (Alias)      | Data | Wifi | Airplane Mode
-            -------------------------------------------------
-            0 (None)           | 0    | 0    | 0
-            1 (Airplane Mode)  | 0    | 0    | 1
-            2 (Wifi only)      | 0    | 1    | 0
-            4 (Data only)      | 1    | 0    | 0
-            6 (All network on) | 1    | 1    | 0
-        These are available through the enumeration `appium.webdriver.ConnectionType`
-
-        :Args:
-         - connectionType - a member of the enum appium.webdriver.ConnectionType
-        """
-        data = {
-            'parameters': {
-                'type': connectionType
-            }
-        }
-        return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
-
-    @property
-    def available_ime_engines(self):
-        """Get the available input methods for an Android device. Package and
-        activity are returned (e.g., ['com.android.inputmethod.latin/.LatinIME'])
-        Android only.
-        """
-        return self.execute(Command.GET_AVAILABLE_IME_ENGINES, {})['value']
-
-    def is_ime_active(self):
-        """Checks whether the device has IME service active. Returns True/False.
-        Android only.
-        """
-        return self.execute(Command.IS_IME_ACTIVE, {})['value']
-
-    def activate_ime_engine(self, engine):
-        """Activates the given IME engine on the device.
-        Android only.
-
-        :Args:
-         - engine - the package and activity of the IME engine to activate (e.g.,
-            'com.android.inputmethod.latin/.LatinIME')
-        """
-        data = {
-            'engine': engine
-        }
-        self.execute(Command.ACTIVATE_IME_ENGINE, data)
-        return self
-
-    def deactivate_ime_engine(self):
-        """Deactivates the currently active IME engine on the device.
-        Android only.
-        """
-        self.execute(Command.DEACTIVATE_IME_ENGINE, {})
-        return self
-
-    @property
-    def active_ime_engine(self):
-        """Returns the activity and package of the currently active IME engine (e.g.,
-        'com.android.inputmethod.latin/.LatinIME').
-        Android only.
-        """
-        return self.execute(Command.GET_ACTIVE_IME_ENGINE, {})['value']
 
     def get_settings(self):
         """Returns the appium server Settings for the current session.
@@ -887,249 +763,6 @@ class WebDriver(Location, Context, Applications, RemoteFS, Activities):
 
         self.execute(Command.UPDATE_SETTINGS, data)
         return self
-
-    def toggle_wifi(self):
-        """Toggle the wifi on the device, Android only.
-        """
-        self.execute(Command.TOGGLE_WIFI, {})
-        return self
-
-    def start_recording_screen(self, **options):
-        """
-        Start asynchronous screen recording process.
-
-        :param options: The following options are supported:
-        - remotePath: The remotePath upload option is the path to the remote location,
-        where the resulting video from the previous screen recording should be uploaded.
-        The following protocols are supported: http/https (multipart), ftp.
-        Missing value (the default setting) means the content of the resulting
-        file should be encoded as Base64 and passed as the endpoint response value, but
-        an exception will be thrown if the generated media file is too big to
-        fit into the available process memory.
-        This option only has an effect if there is/was an active screen recording session
-        and forced restart is not enabled (the default setting).
-        - user: The name of the user for the remote authentication.
-        Only has an effect if both `remotePath` and `password` are set.
-        - password: The password for the remote authentication.
-        Only has an effect if both `remotePath` and `user` are set.
-        - method: The HTTP method name ('PUT'/'POST'). PUT method is used by default.
-        Only has an effect if `remotePath` is set.
-        - timeLimit: The actual time limit of the recorded video in seconds.
-        The default value for both iOS and Android is 180 seconds (3 minutes).
-        The maximum value for Android is 3 minutes.
-        The maximum value for iOS is 10 minutes.
-        - forcedRestart: Whether to ignore the result of previous capture and start a new recording
-        immediately (`True` value). By default  (`False`) the endpoint will try to catch and return the result of
-        the previous capture if it's still available.
-        - bugReport: Makes the recorder to display an additional information on the video overlay,
-        such as a timestamp, that is helpful in videos captured to illustrate bugs.
-        This option is only supported since API level 27 (Android P).
-
-        iOS Specific:
-        - videoQuality: The video encoding quality: 'low', 'medium', 'high', 'photo'. Defaults to 'medium'.
-        - videoType: The format of the screen capture to be recorded.
-        Available formats: Execute `ffmpeg -codecs` in the terminal to see the list of supported video codecs.
-        'mjpeg' by default. (Since Appium 1.10.0)
-        - videoFps: The Frames Per Second rate of the recorded video. Change this value if the resulting video
-        is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
-        - videoScale: The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
-        No scale is applied by default. (Since Appium 1.10.0)
-
-        Android Specific:
-        - videoSize: The video size of the generated media file. The format is WIDTHxHEIGHT.
-        The default value is the device's native display resolution (if supported),
-        1280x720 if not. For best results, use a size supported by your device's
-        Advanced Video Coding (AVC) encoder.
-        - bitRate: The video bit rate for the video, in megabits per second.
-        The default value is 4. You can increase the bit rate to improve video quality,
-        but doing so results in larger movie files.
-
-        :return: Base-64 encoded content of the recorded media file or an empty string
-                 if the file has been successfully uploaded to a remote location
-                 (depends on the actual `remotePath` value).
-        """
-        if 'password' in options:
-            options['pass'] = options['password']
-            del options['password']
-        return self.execute(Command.START_RECORDING_SCREEN, options)['value']
-
-    def stop_recording_screen(self, **options):
-        """
-        Gather the output from the previously started screen recording to a media file.
-
-        :param options: The following options are supported:
-        - remotePath: The remotePath upload option is the path to the remote location,
-        where the resulting video should be uploaded.
-        The following protocols are supported: http/https (multipart), ftp.
-        Missing value (the default setting) means the content of the resulting
-        file should be encoded as Base64 and passed as the endpoint response value, but
-        an exception will be thrown if the generated media file is too big to
-        fit into the available process memory.
-        - user: The name of the user for the remote authentication.
-        Only has an effect if both `remotePath` and `password` are set.
-        - password: The password for the remote authentication.
-        Only has an effect if both `remotePath` and `user` are set.
-        - method: The HTTP method name ('PUT'/'POST'). PUT method is used by default.
-        Only has an effect if `remotePath` is set.
-
-        :return: Base-64 encoded content of the recorded media file or an empty string
-                 if the file has been successfully uploaded to a remote location
-                 (depends on the actual `remotePath` value).
-        """
-        if 'password' in options:
-            options['pass'] = options['password']
-            del options['password']
-        return self.execute(Command.STOP_RECORDING_SCREEN, options)['value']
-
-    def set_clipboard(self, content, content_type=ClipboardContentType.PLAINTEXT, label=None):
-        """
-        Set the content of the system clipboard
-
-        :param content: The content to be set as bytearray string
-        :param content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
-        is supported on Android
-        :param label: Optional label argument, which only works for Android
-        """
-        options = {
-            'content': base64.b64encode(content).decode('UTF-8'),
-            'contentType': content_type,
-        }
-        if label:
-            options['label'] = label
-        self.execute(Command.SET_CLIPBOARD, options)
-
-    def set_clipboard_text(self, text, label=None):
-        """
-        Copies the given text to the system clipboard
-
-        :param text: The text to be set
-        :param label: Optional label argument, which only works for Android
-        """
-
-        self.set_clipboard(appium_bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
-
-    def get_clipboard(self, content_type=ClipboardContentType.PLAINTEXT):
-        """
-        Receives the content of the system clipboard
-
-        :param content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
-        is supported on Android
-        :return: Clipboard content as base64-encoded string or an empty string
-        if the clipboard is empty
-        """
-        base64_str = self.execute(Command.GET_CLIPBOARD, {
-            'contentType': content_type
-        })['value']
-        return base64.b64decode(base64_str)
-
-    def get_clipboard_text(self):
-        """
-        Receives the text of the system clipboard
-
-        :return: The actual clipboard text or an empty string if the clipboard is empty
-        """
-        return self.get_clipboard(ClipboardContentType.PLAINTEXT).decode('UTF-8')
-
-    def match_images_features(self, base64Image1, base64Image2, **opts):
-        """
-        Performs images matching by features. Read
-        https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_feature2d/py_matcher/py_matcher.html
-        for more details on this topic.
-        The method supports all image formats, which are supported by OpenCV itself.
-
-        :param base64Image1: base64-encoded content of the first image
-        :param base64Image2: base64-encoded content of the second image
-        :param opts: Possible options are:
-        - visualize: Set it to True in order to return the visualization of the matching operation.
-        matching visualization. False by default
-        - detectorName: One of possible feature detector names:
-        'AKAZE', 'AGAST', 'BRISK', 'FAST', 'GFTT', 'KAZE', 'MSER', 'SIFT', 'ORB'
-        Some of these detectors are not enabled in the default OpenCV deployment.
-        'ORB' By default.
-        - matchFunc: One of supported matching functions names:
-        'FlannBased', 'BruteForce', 'BruteForceL1', 'BruteForceHamming',
-        'BruteForceHammingLut', 'BruteForceSL2'
-        'BruteForce' by default
-        - goodMatchesFactor: The maximum count of "good" matches (e. g. with minimal distances).
-        This count is unlimited by default.
-        :return: The dictionary containing the following entries:
-        - visualization: base64-encoded content of PNG visualization of the current comparison
-        operation. This entry is only present if `visualize` option is enabled
-        - count: The count of matched edges on both images.
-        The more matching edges there are no both images the more similar they are.
-        - totalCount: The total count of matched edges on both images.
-        It is equal to `count` if `goodMatchesFactor` does not limit the matches,
-        otherwise it contains the total count of matches before `goodMatchesFactor` is
-        applied.
-        - points1: The array of matching points on the first image. Each point is a dictionary
-        with 'x' and 'y' keys
-        - rect1: The bounding rect for the `points1` array or a zero rect if not enough matching points
-        were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
-        - points2: The array of matching points on the second image. Each point is a dictionary
-        with 'x' and 'y' keys
-        - rect2: The bounding rect for the `points2` array or a zero rect if not enough matching points
-        were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
-        """
-        options = {
-            'mode': 'matchFeatures',
-            'firstImage': base64Image1,
-            'secondImage': base64Image2,
-            'options': opts
-        }
-        return self.execute(Command.COMPARE_IMAGES, options)['value']
-
-    def find_image_occurrence(self, base64FullImage, base64PartialImage, **opts):
-        """
-        Performs images matching by template to find possible occurrence of the partial image
-        in the full image. Read
-        https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
-        for more details on this topic.
-        The method supports all image formats, which are supported by OpenCV itself.
-
-        :param base64FullImage: base64-encoded content of the full image
-        :param base64PartialImage: base64-encoded content of the partial image
-        :param opts: Possible options are:
-        - visualize: Set it to True in order to return the visualization of the matching operation.
-        False by default
-        :return:
-        - visualization: base64-encoded content of PNG visualization of the current comparison
-        operation. This entry is only present if `visualize` option is enabled
-        - rect: The region of the partial image occurrence on the full image.
-        The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
-        """
-        options = {
-            'mode': 'matchTemplate',
-            'firstImage': base64FullImage,
-            'secondImage': base64PartialImage,
-            'options': opts
-        }
-        return self.execute(Command.COMPARE_IMAGES, options)['value']
-
-    def get_images_similarity(self, base64Image1, base64Image2, **opts):
-        """
-        Performs images matching to calculate the similarity score between them.
-        The flow there is similar to the one used in
-        `find_image_occurrence`, but it is mandatory that both images are of equal resolution.
-        The method supports all image formats, which are supported by OpenCV itself.
-
-        :param base64Image1: base64-encoded content of the first image
-        :param base64Image2: base64-encoded content of the second image
-        :param opts: Possible options are:
-        - visualize: Set it to True in order to return the visualization of the matching operation.
-        False by default
-        :return:
-        - visualization: base64-encoded content of PNG visualization of the current comparison
-        operation. This entry is only present if `visualize` option is enabled
-        - score: The similarity score as a float number in range [0.0, 1.0].
-        1.0 is the highest score (means both images are totally equal).
-        """
-        options = {
-            'mode': 'getSimilarity',
-            'firstImage': base64Image1,
-            'secondImage': base64Image2,
-            'options': opts
-        }
-        return self.execute(Command.COMPARE_IMAGES, options)['value']
 
     @property
     def device_time(self):
@@ -1160,14 +793,6 @@ class WebDriver(Location, Context, Applications, RemoteFS, Activities):
         """
         return self.execute_script('mobile: batteryInfo')
 
-    def finger_print(self, finger_id):
-        """
-        Authenticate users by using their finger print scans on supported emulators.
-
-        :param finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
-        """
-        return self.execute(Command.FINGER_PRINT, {'fingerprintId': finger_id})['value']
-
     # pylint: disable=protected-access
 
     def _addCommands(self):
@@ -1180,8 +805,6 @@ class WebDriver(Location, Context, Applications, RemoteFS, Activities):
             ('POST', '/session/$sessionId/touch/perform')
         self.command_executor._commands[Command.MULTI_ACTION] = \
             ('POST', '/session/$sessionId/touch/multi/perform')
-        self.command_executor._commands[Command.GET_APP_STRINGS] = \
-            ('POST', '/session/$sessionId/appium/app/strings')
         # Needed for Selendroid
         self.command_executor._commands[Command.KEY_EVENT] = \
             ('POST', '/session/$sessionId/appium/device/keyevent')
@@ -1199,18 +822,6 @@ class WebDriver(Location, Context, Applications, RemoteFS, Activities):
             ('POST', '/session/$sessionId/appium/app/close')
         self.command_executor._commands[Command.END_TEST_COVERAGE] = \
             ('POST', '/session/$sessionId/appium/app/end_test_coverage')
-        self.command_executor._commands[Command.LOCK] = \
-            ('POST', '/session/$sessionId/appium/device/lock')
-        self.command_executor._commands[Command.UNLOCK] = \
-            ('POST', '/session/$sessionId/appium/device/unlock')
-        self.command_executor._commands[Command.IS_LOCKED] = \
-            ('POST', '/session/$sessionId/appium/device/is_locked')
-        self.command_executor._commands[Command.SHAKE] = \
-            ('POST', '/session/$sessionId/appium/device/shake')
-        self.command_executor._commands[Command.TOUCH_ID] = \
-            ('POST', '/session/$sessionId/appium/simulator/touch_id')
-        self.command_executor._commands[Command.TOGGLE_TOUCH_ID_ENROLLMENT] = \
-            ('POST', '/session/$sessionId/appium/simulator/toggle_touch_id_enrollment')
         self.command_executor._commands[Command.RESET] = \
             ('POST', '/session/$sessionId/appium/app/reset')
         self.command_executor._commands[Command.HIDE_KEYBOARD] = \
@@ -1219,43 +830,15 @@ class WebDriver(Location, Context, Applications, RemoteFS, Activities):
             ('GET', '/session/$sessionId/appium/device/is_keyboard_shown')
         self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
             ('POST', '/session/$sessionId/appium/device/open_notifications')
-        self.command_executor._commands[Command.GET_NETWORK_CONNECTION] = \
-            ('GET', '/session/$sessionId/network_connection')
-        self.command_executor._commands[Command.SET_NETWORK_CONNECTION] = \
-            ('POST', '/session/$sessionId/network_connection')
-        self.command_executor._commands[Command.GET_AVAILABLE_IME_ENGINES] = \
-            ('GET', '/session/$sessionId/ime/available_engines')
-        self.command_executor._commands[Command.IS_IME_ACTIVE] = \
-            ('GET', '/session/$sessionId/ime/activated')
-        self.command_executor._commands[Command.ACTIVATE_IME_ENGINE] = \
-            ('POST', '/session/$sessionId/ime/activate')
-        self.command_executor._commands[Command.DEACTIVATE_IME_ENGINE] = \
-            ('POST', '/session/$sessionId/ime/deactivate')
-        self.command_executor._commands[Command.GET_ACTIVE_IME_ENGINE] = \
-            ('GET', '/session/$sessionId/ime/active_engine')
         self.command_executor._commands[Command.REPLACE_KEYS] = \
             ('POST', '/session/$sessionId/appium/element/$id/replace_value')
         self.command_executor._commands[Command.GET_SETTINGS] = \
             ('GET', '/session/$sessionId/appium/settings')
         self.command_executor._commands[Command.UPDATE_SETTINGS] = \
             ('POST', '/session/$sessionId/appium/settings')
-        self.command_executor._commands[Command.TOGGLE_WIFI] = \
-            ('POST', '/session/$sessionId/appium/device/toggle_wifi')
         self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
             ('GET', '/session/$sessionId/element/$id/location_in_view')
         self.command_executor._commands[Command.GET_DEVICE_TIME] = \
             ('GET', '/session/$sessionId/appium/device/system_time')
         self.command_executor._commands[Command.CLEAR] = \
             ('POST', '/session/$sessionId/element/$id/clear')
-        self.command_executor._commands[Command.START_RECORDING_SCREEN] = \
-            ('POST', '/session/$sessionId/appium/start_recording_screen')
-        self.command_executor._commands[Command.STOP_RECORDING_SCREEN] = \
-            ('POST', '/session/$sessionId/appium/stop_recording_screen')
-        self.command_executor._commands[Command.SET_CLIPBOARD] = \
-            ('POST', '/session/$sessionId/appium/device/set_clipboard')
-        self.command_executor._commands[Command.GET_CLIPBOARD] = \
-            ('POST', '/session/$sessionId/appium/device/get_clipboard')
-        self.command_executor._commands[Command.COMPARE_IMAGES] = \
-            ('POST', '/session/$sessionId/appium/compare_images')
-        self.command_executor._commands[Command.FINGER_PRINT] = \
-            ('POST', '/session/$sessionId/appium/device/finger_print')

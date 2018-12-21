@@ -23,6 +23,7 @@ setup(
     version=library_version(),
     description='Python client for Appium',
     long_description=io.open(os.path.join(os.path.dirname('__file__'), 'README.md'), encoding='utf-8').read(),
+    long_description_content_type='text/markdown',
     keywords=[
         'appium',
         'selenium',

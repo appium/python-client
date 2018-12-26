@@ -2,4 +2,4 @@
     rev: v1.4
     hooks:
     -   id: autopep8
-        args: ["-r", "--global-config .config-pep8", "-i"]
+        args: ["--global-config", ".config-pep8", "-i"]

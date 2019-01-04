@@ -79,6 +79,25 @@ class TestTouchAction(object):
         touch_action.wait()
         assert json == touch_action.json_wire_gestures
 
+    def test_move_to_json(self, touch_action):
+        json = [
+            {'action': 'moveTo', 'options': {'element': 7, 'x': 3, 'y': 4}}
+        ]
+        touch_action.move_to(ElementStub(7), 3, 4)
+        assert json == touch_action.json_wire_gestures
+
+    def test_release_json(self, touch_action):
+        json = [
+            {'action': 'release', 'options': {}}
+        ]
+        touch_action.release()
+        assert json == touch_action.json_wire_gestures
+
+    def test_perform_json(self, touch_action):
+        json = []
+        touch_action.perform()
+        assert json == touch_action.json_wire_gestures
+
 
 class DriverStub(object):
     def execute(self, _action, _params):

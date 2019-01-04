@@ -88,14 +88,14 @@ class TestTouchAction(object):
 
     def test_release_json(self, touch_action):
         json = [
-            {'action': 'release', 'options': {}}
+            {'action': 'tap', 'options': {'count': 1, 'element': 8}}, {'action': 'release', 'options': {}}
         ]
-        touch_action.release()
+        touch_action.tap(ElementStub(8)).release()
         assert json == touch_action.json_wire_gestures
 
     def test_perform_json(self, touch_action):
         json = []
-        touch_action.perform()
+        touch_action.tap(ElementStub(10)).perform()
         assert json == touch_action.json_wire_gestures
 
 

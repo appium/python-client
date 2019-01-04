@@ -14,8 +14,8 @@
 
 from test.unit.helper.test_helper import appium_command, android_w3c_driver
 
-
 import httpretty
+
 
 class TestWebDriverNetwork(object):
 
@@ -28,3 +28,13 @@ class TestWebDriverNetwork(object):
             body='{"value": 2}'
         )
         assert driver.network_connection == 2
+
+    @httpretty.activate
+    def test_set_network_connection(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/network_connection'),
+            body='{"value": 2}'
+        )
+        assert driver.set_network_connection(2) == 2

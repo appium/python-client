@@ -65,6 +65,20 @@ class TestTouchAction(object):
         touch_action.long_press(ElementStub(6), 3, 4)
         assert json == touch_action.json_wire_gestures
 
+    def test_wait_json(self, touch_action):
+        json = [
+            {'action': 'wait', 'options': {'ms': 10}}
+        ]
+        touch_action.wait(10)
+        assert json == touch_action.json_wire_gestures
+
+    def test_wait_without_ms_json(self, touch_action):
+        json = [
+            {'action': 'wait', 'options': {'ms': 0}}
+        ]
+        touch_action.wait()
+        assert json == touch_action.json_wire_gestures
+
 
 class DriverStub(object):
     def execute(self, _action, _params):

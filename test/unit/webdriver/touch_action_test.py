@@ -95,7 +95,7 @@ class TestTouchAction(object):
 
     def test_perform_json(self, touch_action):
         json = []
-        touch_action.tap(ElementStub(10)).perform()
+        touch_action.tap(ElementStub(9)).perform()
         assert json == touch_action.json_wire_gestures
 
 

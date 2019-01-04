@@ -37,6 +37,20 @@ class TestTouchAction(object):
         touch_action.tap(ElementStub(2), 3, 4)
         assert json == touch_action.json_wire_gestures
 
+    def test_press_json(self, touch_action):
+        json = [
+            {'action': 'press', 'options': {'element': 3}}
+        ]
+        touch_action.press(ElementStub(3))
+        assert json == touch_action.json_wire_gestures
+
+    def test_press_x_y_json(self, touch_action):
+        json = [
+            {'action': 'press', 'options': {'element': 4, 'x': 3, 'y': 4}}
+        ]
+        touch_action.press(ElementStub(4), 3, 4)
+        assert json == touch_action.json_wire_gestures
+
 
 class DriverStub(object):
     def execute(self, _action, _params):

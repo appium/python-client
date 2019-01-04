@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import appium_command, android_w3c_driver
 
 import httpretty
@@ -38,3 +39,26 @@ class TestWebDriverNetwork(object):
             body='{"value": 2}'
         )
         assert driver.set_network_connection(2) == 2
+
+    @httpretty.activate
+    def test_toggle_wifi(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/network_connection'),
+            body='{"value": 0}'
+        )
+        assert driver.network_connection == 0
+
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/toggle_wifi'),
+        )
+        assert isinstance(driver.toggle_wifi(), WebDriver) is True
+
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/network_connection'),
+            body='{"value": 2}'
+        )
+        assert driver.network_connection == 2

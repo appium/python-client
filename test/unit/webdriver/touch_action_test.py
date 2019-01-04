@@ -51,6 +51,20 @@ class TestTouchAction(object):
         touch_action.press(ElementStub(4), 3, 4)
         assert json == touch_action.json_wire_gestures
 
+    def test_long_press_json(self, touch_action):
+        json = [
+            {'action': 'longPress', 'options': {'element': 5, 'duration': 2000}}
+        ]
+        touch_action.long_press(ElementStub(5), duration=2000)
+        assert json == touch_action.json_wire_gestures
+
+    def test_long_press_x_y_json(self, touch_action):
+        json = [
+            {'action': 'longPress', 'options': {'element': 6, 'x': 3, 'y': 4, 'duration': 1000}}
+        ]
+        touch_action.long_press(ElementStub(6), 3, 4)
+        assert json == touch_action.json_wire_gestures
+
 
 class DriverStub(object):
     def execute(self, _action, _params):

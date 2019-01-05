@@ -32,37 +32,37 @@ class TestTouchAction(object):
 
     def test_tap_x_y_json(self, touch_action):
         json = [
-            {'action': 'tap', 'options': {'x': 3, 'y': 4, 'count': 1, 'element': 2}}
+            {'action': 'tap', 'options': {'x': 3, 'y': 4, 'count': 1, 'element': 1}}
         ]
-        touch_action.tap(ElementStub(2), 3, 4)
+        touch_action.tap(ElementStub(1), 3, 4)
         assert json == touch_action.json_wire_gestures
 
     def test_press_json(self, touch_action):
         json = [
-            {'action': 'press', 'options': {'element': 3}}
+            {'action': 'press', 'options': {'element': 1}}
         ]
-        touch_action.press(ElementStub(3))
+        touch_action.press(ElementStub(1))
         assert json == touch_action.json_wire_gestures
 
     def test_press_x_y_json(self, touch_action):
         json = [
-            {'action': 'press', 'options': {'element': 4, 'x': 3, 'y': 4}}
+            {'action': 'press', 'options': {'element': 1, 'x': 3, 'y': 4}}
         ]
-        touch_action.press(ElementStub(4), 3, 4)
+        touch_action.press(ElementStub(1), 3, 4)
         assert json == touch_action.json_wire_gestures
 
     def test_long_press_json(self, touch_action):
         json = [
-            {'action': 'longPress', 'options': {'element': 5, 'duration': 2000}}
+            {'action': 'longPress', 'options': {'element': 1, 'duration': 2000}}
         ]
-        touch_action.long_press(ElementStub(5), duration=2000)
+        touch_action.long_press(ElementStub(1), duration=2000)
         assert json == touch_action.json_wire_gestures
 
     def test_long_press_x_y_json(self, touch_action):
         json = [
-            {'action': 'longPress', 'options': {'element': 6, 'x': 3, 'y': 4, 'duration': 1000}}
+            {'action': 'longPress', 'options': {'element': 1, 'x': 3, 'y': 4, 'duration': 1000}}
         ]
-        touch_action.long_press(ElementStub(6), 3, 4)
+        touch_action.long_press(ElementStub(1), 3, 4)
         assert json == touch_action.json_wire_gestures
 
     def test_wait_json(self, touch_action):
@@ -81,22 +81,26 @@ class TestTouchAction(object):
 
     def test_move_to_json(self, touch_action):
         json = [
-            {'action': 'moveTo', 'options': {'element': 7, 'x': 3, 'y': 4}}
+            {'action': 'moveTo', 'options': {'element': 1, 'x': 3, 'y': 4}}
         ]
-        touch_action.move_to(ElementStub(7), 3, 4)
+        touch_action.move_to(ElementStub(1), 3, 4)
         assert json == touch_action.json_wire_gestures
 
     def test_release_json(self, touch_action):
         json = [
-            {'action': 'tap', 'options': {'count': 1, 'element': 8}}, {'action': 'release', 'options': {}}
+            {'action': 'release', 'options': {}}
         ]
-        touch_action.tap(ElementStub(8)).release()
+        touch_action.release()
         assert json == touch_action.json_wire_gestures
 
     def test_perform_json(self, touch_action):
-        json = []
-        touch_action.tap(ElementStub(9)).perform()
-        assert json == touch_action.json_wire_gestures
+        json_tap = [
+            {'action': 'tap', 'options': {'element': 1, 'count': 1}}
+        ]
+        touch_action.tap(ElementStub(1))
+        assert json_tap == touch_action.json_wire_gestures
+        touch_action.perform()
+        assert [] == touch_action.json_wire_gestures
 
 
 class DriverStub(object):

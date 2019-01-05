@@ -22,9 +22,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
 from appium.webdriver.common.mobileby import MobileBy
-from appium.webdriver.common.multi_action import MultiAction
-from appium.webdriver.common.touch_action import TouchAction
 from .errorhandler import MobileErrorHandler
+from .extensions.action_helpers import ActionHelpers
 from .extensions.activities import Activities
 from .extensions.applications import Applications
 from .extensions.clipboard import Clipboard
@@ -95,6 +94,7 @@ def _make_w3c_caps(caps):
 
 
 class WebDriver(
+    ActionHelpers,
     Activities,
     Applications,
     Clipboard,
@@ -248,7 +248,7 @@ class WebDriver(
         :Usage:
             driver.find_element_by_ios_uiautomation('.elements()[1].cells()[2]')
         """
-        return self.find_element(by=By.IOS_UIAUTOMATION, value=uia_string)
+        return self.find_element(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
     def find_elements_by_ios_uiautomation(self, uia_string):
         """Finds elements by uiautomation in iOS.
@@ -259,7 +259,7 @@ class WebDriver(
         :Usage:
             driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
         """
-        return self.find_elements(by=By.IOS_UIAUTOMATION, value=uia_string)
+        return self.find_elements(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
     def find_element_by_ios_predicate(self, predicate_string):
         """Find an element by ios predicate string.
@@ -270,7 +270,7 @@ class WebDriver(
         :Usage:
             driver.find_element_by_ios_predicate('label == "myLabel"')
         """
-        return self.find_element(by=By.IOS_PREDICATE, value=predicate_string)
+        return self.find_element(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
     def find_elements_by_ios_predicate(self, predicate_string):
         """Finds elements by ios predicate string.
@@ -281,7 +281,7 @@ class WebDriver(
         :Usage:
             driver.find_elements_by_ios_predicate('label == "myLabel"')
         """
-        return self.find_elements(by=By.IOS_PREDICATE, value=predicate_string)
+        return self.find_elements(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
     def find_element_by_ios_class_chain(self, class_chain_string):
         """Find an element by ios class chain string.
@@ -292,7 +292,7 @@ class WebDriver(
         :Usage:
             driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton[3]')
         """
-        return self.find_element(by=By.IOS_CLASS_CHAIN, value=class_chain_string)
+        return self.find_element(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
     def find_elements_by_ios_class_chain(self, class_chain_string):
         """Finds elements by ios class chain string.
@@ -303,7 +303,7 @@ class WebDriver(
         :Usage:
             driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]')
         """
-        return self.find_elements(by=By.IOS_CLASS_CHAIN, value=class_chain_string)
+        return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
     def find_element_by_android_uiautomator(self, uia_string):
         """Finds element by uiautomator in Android.
@@ -314,7 +314,7 @@ class WebDriver(
         :Usage:
             driver.find_element_by_android_uiautomator('.elements()[1].cells()[2]')
         """
-        return self.find_element(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
+        return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
     def find_elements_by_android_uiautomator(self, uia_string):
         """Finds elements by uiautomator in Android.
@@ -325,7 +325,7 @@ class WebDriver(
         :Usage:
             driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
         """
-        return self.find_elements(by=By.ANDROID_UIAUTOMATOR, value=uia_string)
+        return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
     def find_element_by_android_viewtag(self, tag):
         """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
@@ -337,7 +337,7 @@ class WebDriver(
         :Usage:
             driver.find_element_by_android_viewtag('a tag name')
         """
-        return self.find_element(by=By.ANDROID_VIEWTAG, value=tag)
+        return self.find_element(by=MobileBy.ANDROID_VIEWTAG, value=tag)
 
     def find_elements_by_android_viewtag(self, tag):
         """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
@@ -349,7 +349,7 @@ class WebDriver(
         :Usage:
             driver.find_elements_by_android_viewtag('a tag name')
         """
-        return self.find_elements(by=By.ANDROID_VIEWTAG, value=tag)
+        return self.find_elements(by=MobileBy.ANDROID_VIEWTAG, value=tag)
 
     def find_element_by_image(self, img_path):
         """Finds a portion of a screenshot by an image.
@@ -363,7 +363,7 @@ class WebDriver(
         with open(img_path, 'rb') as i_file:
             b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
 
-        return self.find_element(by=By.IMAGE, value=b64_data)
+        return self.find_element(by=MobileBy.IMAGE, value=b64_data)
 
     def find_elements_by_image(self, img_path):
         """Finds a portion of a screenshot by an image.
@@ -378,7 +378,7 @@ class WebDriver(
         with open(img_path, 'rb') as i_file:
             b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
 
-        return self.find_elements(by=By.IMAGE, value=b64_data)
+        return self.find_elements(by=MobileBy.IMAGE, value=b64_data)
 
     def find_element_by_accessibility_id(self, accessibility_id):
         """Finds an element by accessibility id.
@@ -390,7 +390,7 @@ class WebDriver(
         :Usage:
             driver.find_element_by_accessibility_id()
         """
-        return self.find_element(by=By.ACCESSIBILITY_ID, value=accessibility_id)
+        return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
     def find_elements_by_accessibility_id(self, accessibility_id):
         """Finds elements by accessibility id.
@@ -402,7 +402,7 @@ class WebDriver(
         :Usage:
             driver.find_elements_by_accessibility_id()
         """
-        return self.find_elements(by=By.ACCESSIBILITY_ID, value=accessibility_id)
+        return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
     def find_element_by_custom(self, selector):
         """Finds an element in conjunction with a custom element finding plugin
@@ -416,7 +416,7 @@ class WebDriver(
         :Usage:
             driver.find_element_by_custom("foo:bar")
         """
-        return self.find_element(by=By.CUSTOM, value=selector)
+        return self.find_element(by=MobileBy.CUSTOM, value=selector)
 
     def find_elements_by_custom(self, selector):
         """Finds elements in conjunction with a custom element finding plugin
@@ -430,7 +430,7 @@ class WebDriver(
         :Usage:
             driver.find_elements_by_custom("foo:bar")
         """
-        return self.find_elements(by=By.CUSTOM, value=selector)
+        return self.find_elements(by=MobileBy.CUSTOM, value=selector)
 
     def create_web_element(self, element_id):
         """
@@ -440,253 +440,10 @@ class WebDriver(
         """
         return MobileWebElement(self, element_id)
 
-    # convenience method added to Appium (NOT Selenium 3)
-    def scroll(self, origin_el, destination_el, duration=None):
-        """Scrolls from one element to another
-
-        :Args:
-         - originalEl - the element from which to being scrolling
-         - destinationEl - the element to scroll to
-         - duration - a duration after pressing originalEl and move the element to destinationEl. Default is 600 ms for W3C spec. Zero for MJSONWP.
-
-        :Usage:
-            driver.scroll(el1, el2)
-        """
-
-        # XCUITest x W3C spec has no duration by default in server side
-        if self.w3c and duration is None:
-            duration = 600
-
-        action = TouchAction(self)
-        if duration is None:
-            action.press(origin_el).move_to(destination_el).release().perform()
-        else:
-            action.press(origin_el).wait(duration).move_to(destination_el).release().perform()
-        return self
-
-    # convenience method added to Appium (NOT Selenium 3)
-    def drag_and_drop(self, origin_el, destination_el):
-        """Drag the origin element to the destination element
-
-        :Args:
-         - originEl - the element to drag
-         - destinationEl - the element to drag to
-        """
-        action = TouchAction(self)
-        action.long_press(origin_el).move_to(destination_el).release().perform()
-        return self
-
-    # convenience method added to Appium (NOT Selenium 3)
-    def tap(self, positions, duration=None):
-        """Taps on an particular place with up to five fingers, holding for a
-        certain time
-
-        :Args:
-         - positions - an array of tuples representing the x/y coordinates of
-         the fingers to tap. Length can be up to five.
-         - duration - (optional) length of time to tap, in ms
-
-        :Usage:
-            driver.tap([(100, 20), (100, 60), (100, 100)], 500)
-        """
-        if len(positions) == 1:
-            action = TouchAction(self)
-            x = positions[0][0]
-            y = positions[0][1]
-            if duration:
-                action.long_press(x=x, y=y, duration=duration).release()
-            else:
-                action.tap(x=x, y=y)
-            action.perform()
-        else:
-            ma = MultiAction(self)
-            for position in positions:
-                x = position[0]
-                y = position[1]
-                action = TouchAction(self)
-                if duration:
-                    action.long_press(x=x, y=y, duration=duration).release()
-                else:
-                    action.press(x=x, y=y).release()
-                ma.add(action)
-
-            ma.perform()
-        return self
-
-    # convenience method added to Appium (NOT Selenium 3)
-    def swipe(self, start_x, start_y, end_x, end_y, duration=None):
-        """Swipe from one point to another point, for an optional duration.
-
-        :Args:
-         - start_x - x-coordinate at which to start
-         - start_y - y-coordinate at which to start
-         - end_x - x-coordinate at which to stop
-         - end_y - y-coordinate at which to stop
-         - duration - (optional) time to take the swipe, in ms.
-
-        :Usage:
-            driver.swipe(100, 100, 100, 400)
-        """
-        # `swipe` is something like press-wait-move_to-release, which the server
-        # will translate into the correct action
-        action = TouchAction(self)
-        action \
-            .press(x=start_x, y=start_y) \
-            .wait(ms=duration) \
-            .move_to(x=end_x, y=end_y) \
-            .release()
-        action.perform()
-        return self
-
-    # convenience method added to Appium (NOT Selenium 3)
-    def flick(self, start_x, start_y, end_x, end_y):
-        """Flick from one point to another point.
-
-        :Args:
-         - start_x - x-coordinate at which to start
-         - start_y - y-coordinate at which to start
-         - end_x - x-coordinate at which to stop
-         - end_y - y-coordinate at which to stop
-
-        :Usage:
-            driver.flick(100, 100, 100, 400)
-        """
-        action = TouchAction(self)
-        action \
-            .press(x=start_x, y=start_y) \
-            .move_to(x=end_x, y=end_y) \
-            .release()
-        action.perform()
-        return self
-
-    # convenience method added to Appium (NOT Selenium 3)
-    def pinch(self, element=None, percent=200, steps=50):
-        """Pinch on an element a certain amount
-
-        :Args:
-         - element - the element to pinch
-         - percent - (optional) amount to pinch. Defaults to 200%
-         - steps - (optional) number of steps in the pinch action
-
-        :Usage:
-            driver.pinch(element)
-        """
-        if element:
-            element = element.id
-
-        opts = {
-            'element': element,
-            'percent': percent,
-            'steps': steps,
-        }
-        self.execute_script('mobile: pinchClose', opts)
-        return self
-
-    # convenience method added to Appium (NOT Selenium 3)
-    def zoom(self, element=None, percent=200, steps=50):
-        """Zooms in on an element a certain amount
-
-        :Args:
-         - element - the element to zoom
-         - percent - (optional) amount to zoom. Defaults to 200%
-         - steps - (optional) number of steps in the zoom action
-
-        :Usage:
-            driver.zoom(element)
-        """
-        if element:
-            element = element.id
-
-        opts = {
-            'element': element,
-            'percent': percent,
-            'steps': steps,
-        }
-        self.execute_script('mobile: pinchOpen', opts)
-        return self
-
     def reset(self):
         """Resets the current application on the device.
         """
         self.execute(Command.RESET)
-        return self
-
-    def hide_keyboard(self, key_name=None, key=None, strategy=None):
-        """Hides the software keyboard on the device. In iOS, use `key_name` to press
-        a particular key, or `strategy`. In Android, no parameters are used.
-
-        :Args:
-         - key_name - key to press
-         - strategy - strategy for closing the keyboard (e.g., `tapOutside`)
-        """
-        data = {}
-        if key_name is not None:
-            data['keyName'] = key_name
-        elif key is not None:
-            data['key'] = key
-        elif strategy is None:
-            strategy = 'tapOutside'
-        data['strategy'] = strategy
-        self.execute(Command.HIDE_KEYBOARD, data)
-        return self
-
-    def is_keyboard_shown(self):
-        """Attempts to detect whether a software keyboard is present"""
-        return self.execute(Command.IS_KEYBOARD_SHOWN)['value']
-
-    # Needed for Selendroid
-    def keyevent(self, keycode, metastate=None):
-        """Sends a keycode to the device. Android only. Possible keycodes can be
-        found in http://developer.android.com/reference/android/view/KeyEvent.html.
-
-        :Args:
-         - keycode - the keycode to be sent to the device
-         - metastate - meta information about the keycode being sent
-        """
-        data = {
-            'keycode': keycode,
-        }
-        if metastate is not None:
-            data['metastate'] = metastate
-        self.execute(Command.KEY_EVENT, data)
-        return self
-
-    def press_keycode(self, keycode, metastate=None, flags=None):
-        """Sends a keycode to the device. Android only. Possible keycodes can be
-        found in http://developer.android.com/reference/android/view/KeyEvent.html.
-
-        :Args:
-         - keycode - the keycode to be sent to the device
-         - metastate - meta information about the keycode being sent
-         - flags - the set of key event flags
-        """
-        data = {
-            'keycode': keycode,
-        }
-        if metastate is not None:
-            data['metastate'] = metastate
-        if flags is not None:
-            data['flags'] = flags
-        self.execute(Command.PRESS_KEYCODE, data)
-        return self
-
-    def long_press_keycode(self, keycode, metastate=None, flags=None):
-        """Sends a long press of keycode to the device. Android only. Possible keycodes can be
-        found in http://developer.android.com/reference/android/view/KeyEvent.html.
-
-        :Args:
-         - keycode - the keycode to be sent to the device
-         - metastate - meta information about the keycode being sent
-         - flags - the set of key event flags
-        """
-        data = {
-            'keycode': keycode
-        }
-        if metastate is not None:
-            data['metastate'] = metastate
-        if flags is not None:
-            data['flags'] = flags
-        self.execute(Command.LONG_PRESS_KEYCODE, data)
         return self
 
     def press_button(self, button_name):
@@ -805,13 +562,6 @@ class WebDriver(
             ('POST', '/session/$sessionId/touch/perform')
         self.command_executor._commands[Command.MULTI_ACTION] = \
             ('POST', '/session/$sessionId/touch/multi/perform')
-        # Needed for Selendroid
-        self.command_executor._commands[Command.KEY_EVENT] = \
-            ('POST', '/session/$sessionId/appium/device/keyevent')
-        self.command_executor._commands[Command.PRESS_KEYCODE] = \
-            ('POST', '/session/$sessionId/appium/device/press_keycode')
-        self.command_executor._commands[Command.LONG_PRESS_KEYCODE] = \
-            ('POST', '/session/$sessionId/appium/device/long_press_keycode')
         self.command_executor._commands[Command.GET_CURRENT_PACKAGE] = \
             ('GET', '/session/$sessionId/appium/device/current_package')
         self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
@@ -824,10 +574,6 @@ class WebDriver(
             ('POST', '/session/$sessionId/appium/app/end_test_coverage')
         self.command_executor._commands[Command.RESET] = \
             ('POST', '/session/$sessionId/appium/app/reset')
-        self.command_executor._commands[Command.HIDE_KEYBOARD] = \
-            ('POST', '/session/$sessionId/appium/device/hide_keyboard')
-        self.command_executor._commands[Command.IS_KEYBOARD_SHOWN] = \
-            ('GET', '/session/$sessionId/appium/device/is_keyboard_shown')
         self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
             ('POST', '/session/$sessionId/appium/device/open_notifications')
         self.command_executor._commands[Command.REPLACE_KEYS] = \

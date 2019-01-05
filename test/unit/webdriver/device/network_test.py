@@ -44,21 +44,7 @@ class TestWebDriverNetwork(object):
     def test_toggle_wifi(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.GET,
-            appium_command('/session/1234567890/network_connection'),
-            body='{"value": 0}'
-        )
-        assert driver.network_connection == 0
-
-        httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/toggle_wifi'),
         )
         assert isinstance(driver.toggle_wifi(), WebDriver) is True
-
-        httpretty.register_uri(
-            httpretty.GET,
-            appium_command('/session/1234567890/network_connection'),
-            body='{"value": 2}'
-        )
-        assert driver.network_connection == 2

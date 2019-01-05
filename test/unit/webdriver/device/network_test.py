@@ -16,6 +16,7 @@ from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import appium_command, android_w3c_driver
 
 import httpretty
+import json
 
 
 class TestWebDriverNetwork(object):
@@ -36,9 +37,12 @@ class TestWebDriverNetwork(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/network_connection'),
-            body='{"value": 2}'
+            body='{"value": ""}'
         )
-        assert driver.set_network_connection(2) == 2
+        driver.set_network_connection(2)
+
+        d = json.loads(httpretty.last_request().body.decode('utf-8'))
+        assert d['parameters']['type'] == 2
 
     @httpretty.activate
     def test_toggle_wifi(self):

@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from test.unit.helper.test_helper import appium_command, android_w3c_driver, ios_w3c_driver
+from test.unit.helper.test_helper import appium_command, android_w3c_driver
 
-from datetime import datetime as dt
 import httpretty
 
 
@@ -26,6 +25,6 @@ class TestWebDriverDeviceLock(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890/appium/device/system_time'),
-            body='{"value": "2019-01-05T14:46:44+09:00"}'
+            body='{"value": ""}'
         )
-        dt.strptime(driver.device_time, '%Y-%m-%dT%H:%M:%S%z')  # Expected no exception
+        driver.device_time  # Expected no exception

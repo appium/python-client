@@ -28,9 +28,29 @@ class TestWebDriverDeviceActivities(object):
             appium_command('/session/1234567890/appium/device/start_activity'),
             body='{"value": ""}'
         )
-        driver.start_activity('com.example.myapp', 'ExampleActivity')
+        driver.start_activity('com.example.myapp', '.ExampleActivity')
 
         d = json.loads(httpretty.last_request().body.decode('utf-8'))
-        assert d['appPackage'] == 'com.example.myapp'
-        assert d['appActivity'] == 'ExampleActivity'
         assert d['sessionId'] == '1234567890'
+        assert d['appPackage'] == 'com.example.myapp'
+        assert d['appActivity'] == '.ExampleActivity'
+
+    @httpretty.activate
+    def test_current_activity(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/appium/device/current_activity'),
+            body='{"value": ".ExampleActivity"}'
+        )
+        assert driver.current_activity == '.ExampleActivity'
+
+    @httpretty.activate
+    def test_wait_activity(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/appium/device/current_activity'),
+            body='{"value": ".ExampleActivity"}'
+        )
+        assert driver.wait_activity('.ExampleActivity', 1) is True

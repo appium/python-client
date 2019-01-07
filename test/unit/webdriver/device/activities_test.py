@@ -36,6 +36,35 @@ class TestWebDriverDeviceActivities(object):
         assert d['appActivity'] == '.ExampleActivity'
 
     @httpretty.activate
+    def test_start_activity_with_opts(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/start_activity'),
+            body='{"value": ""}'
+        )
+        driver.start_activity(
+            app_package='com.example.myapp',
+            app_activity='.ExampleActivity',
+            app_wait_package='',
+            intent_action='',
+            intent_category='',
+            intent_flags='',
+            optional_intent_arguments='',
+            dont_stop_app_on_reset=''
+        )
+
+        d = json.loads(httpretty.last_request().body.decode('utf-8'))
+        assert d['sessionId'] == '1234567890'
+        assert d['appPackage'] == 'com.example.myapp'
+        assert d['appActivity'] == '.ExampleActivity'
+        assert d['appWaitPackage'] == ''
+        assert d['intentAction'] == ''
+        assert d['intentCategory'] == ''
+        assert d['optionalIntentArguments'] == ''
+        assert d['dontStopAppOnReset'] == ''
+
+    @httpretty.activate
     def test_current_activity(self):
         driver = android_w3c_driver()
         httpretty.register_uri(

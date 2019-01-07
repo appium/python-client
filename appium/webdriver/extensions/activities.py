@@ -67,7 +67,7 @@ class Activities(webdriver.Remote):
 
         This is an Android-only method.
 
-        :Agrs:
+        :Args:
          - activity - target activity
          - timeout - max wait time, in seconds
          - interval - sleep interval between retries, in seconds

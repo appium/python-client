@@ -25,6 +25,6 @@ class TestWebDriverDeviceLock(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890/appium/device/system_time'),
-            body='{"value": ""}'
+            body='{"value": "2019-01-05T14:46:44+09:00"}'
         )
-        driver.device_time  # Expected no exception
+        assert driver.device_time == "2019-01-05T14:46:44+09:00"

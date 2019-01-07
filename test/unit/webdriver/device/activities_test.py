@@ -46,23 +46,24 @@ class TestWebDriverDeviceActivities(object):
         driver.start_activity(
             app_package='com.example.myapp',
             app_activity='.ExampleActivity',
-            app_wait_package='',
-            intent_action='',
-            intent_category='',
-            intent_flags='',
-            optional_intent_arguments='',
-            dont_stop_app_on_reset=''
+            app_wait_package='com.example.waitapp',
+            intent_action='android.intent.action.MAIN',
+            intent_category='android.intent.category.LAUNCHER',
+            intent_flags='0x10200000',
+            optional_intent_arguments='--es "activity" ".ExampleActivity"',
+            dont_stop_app_on_reset=True
         )
 
         d = json.loads(httpretty.last_request().body.decode('utf-8'))
         assert d['sessionId'] == '1234567890'
         assert d['appPackage'] == 'com.example.myapp'
         assert d['appActivity'] == '.ExampleActivity'
-        assert d['appWaitPackage'] == ''
-        assert d['intentAction'] == ''
-        assert d['intentCategory'] == ''
-        assert d['optionalIntentArguments'] == ''
-        assert d['dontStopAppOnReset'] == ''
+        assert d['appWaitPackage'] == 'com.example.waitapp'
+        assert d['intentAction'] == 'android.intent.action.MAIN'
+        assert d['intentCategory'] == 'android.intent.category.LAUNCHER'
+        assert d['intentFlags'] == '0x10200000'
+        assert d['optionalIntentArguments'] == '--es "activity" ".ExampleActivity"'
+        assert d['dontStopAppOnReset'] is True
 
     @httpretty.activate
     def test_current_activity(self):

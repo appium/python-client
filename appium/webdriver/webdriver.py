@@ -521,11 +521,10 @@ class WebDriver(
         self.execute(Command.UPDATE_SETTINGS, data)
         return self
 
-    @property
-    def device_time(self):
+    def device_time(self, format=""):
         """Returns the date and time from the device
         """
-        return self.execute(Command.GET_DEVICE_TIME, {})['value']
+        return self.execute(Command.GET_DEVICE_TIME, {'format': format})['value']
 
     @property
     def battery_info(self):
@@ -585,6 +584,6 @@ class WebDriver(
         self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
             ('GET', '/session/$sessionId/element/$id/location_in_view')
         self.command_executor._commands[Command.GET_DEVICE_TIME] = \
-            ('GET', '/session/$sessionId/appium/device/system_time')
+            ('POST', '/session/$sessionId/appium/device/system_time')
         self.command_executor._commands[Command.CLEAR] = \
             ('POST', '/session/$sessionId/element/$id/clear')

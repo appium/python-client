@@ -521,10 +521,29 @@ class WebDriver(
         self.execute(Command.UPDATE_SETTINGS, data)
         return self
 
-    def device_time(self, format=""):
-        """Returns the date and time from the device
+    @property
+    def device_time(self):
+        """Returns the date and time from the device.
+        The default format is `YYYY-MM-DDTHH:mm:ssZ`, which complies to ISO-8601
+        Call :func:`.set_device_time_format` before calling :func:`.device_time`
+        in order to set date format.
+
+        :Usage:
+            self.driver.set_device_time_format("YYYY-MM-DD")
+            stime = self.driver.device_time
+
         """
-        return self.execute(Command.GET_DEVICE_TIME, {'format': format})['value']
+        data = {'format': self._device_time_format} if hasattr(self, '_device_time_format') else {}
+        return self.execute(Command.GET_DEVICE_TIME, data)['value']
+
+    def set_device_time_format(self, format):
+        """Set date format for :func:`.device_time`.
+
+        :Args:
+         - format - The set of format specifiers. Read https://momentjs.com/docs/ to get
+           the full list of supported datetime format specifiers.
+        """
+        self._device_time_format = format
 
     @property
     def battery_info(self):

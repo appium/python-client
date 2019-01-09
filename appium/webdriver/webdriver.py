@@ -524,26 +524,22 @@ class WebDriver(
     @property
     def device_time(self):
         """Returns the date and time from the device.
-        The default format is `YYYY-MM-DDTHH:mm:ssZ`, which complies to ISO-8601
-        Call :func:`.set_device_time_format` before calling :func:`.device_time`
-        in order to set date format.
-
-        :Usage:
-            self.driver.set_device_time_format("YYYY-MM-DD")
-            stime = self.driver.device_time
-
         """
-        data = {'format': self._device_time_format} if hasattr(self, '_device_time_format') else {}
-        return self.execute(Command.GET_DEVICE_TIME, data)['value']
+        return self.execute(Command.GET_DEVICE_TIME_GET, {})['value']
 
-    def set_device_time_format(self, format):
-        """Set date format for :func:`.device_time`.
+    def get_device_time(self, format=''):
+        """Returns the date and time from the device. (Only available since Appium 1.11.0)
 
         :Args:
-         - format - The set of format specifiers. Read https://momentjs.com/docs/ to get
+         - format - The default format is `YYYY-MM-DDTHH:mm:ssZ`, which complies to ISO-8601
+           The set of format specifiers. Read https://momentjs.com/docs/ to get
            the full list of supported datetime format specifiers.
+
+        :Usage:
+            self.driver.get_device_time(self, "YYYY-MM-DD")
         """
-        self._device_time_format = format
+        data = {'format': format} if format else {}
+        return self.execute(Command.GET_DEVICE_TIME_POST, data)['value']
 
     @property
     def battery_info(self):
@@ -602,7 +598,9 @@ class WebDriver(
             ('POST', '/session/$sessionId/appium/settings')
         self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
             ('GET', '/session/$sessionId/element/$id/location_in_view')
-        self.command_executor._commands[Command.GET_DEVICE_TIME] = \
+        self.command_executor._commands[Command.GET_DEVICE_TIME_GET] = \
+            ('GET', '/session/$sessionId/appium/device/system_time')
+        self.command_executor._commands[Command.GET_DEVICE_TIME_POST] = \
             ('POST', '/session/$sessionId/appium/device/system_time')
         self.command_executor._commands[Command.CLEAR] = \
             ('POST', '/session/$sessionId/element/$id/clear')

@@ -15,6 +15,7 @@
 from test.unit.helper.test_helper import appium_command, android_w3c_driver
 
 import httpretty
+import json
 
 
 class TestWebDriverDeviceLock(object):
@@ -28,3 +29,26 @@ class TestWebDriverDeviceLock(object):
             body='{"value": "2019-01-05T14:46:44+09:00"}'
         )
         assert driver.device_time == '2019-01-05T14:46:44+09:00'
+
+    @httpretty.activate
+    def test_get_device_time(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/appium/device/system_time'),
+            body='{"value": "2019-01-05T14:46:44+09:00"}'
+        )
+        assert driver.get_device_time() == '2019-01-05T14:46:44+09:00'
+
+    @httpretty.activate
+    def test_get_formatted_device_time(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/system_time'),
+            body='{"value": "2019-01-08"}'
+        )
+        assert driver.get_device_time('YYYY-MM-DD') == '2019-01-08'
+
+        d = json.loads(httpretty.last_request().body.decode('utf-8'))
+        assert d['format'] == 'YYYY-MM-DD'

@@ -523,9 +523,26 @@ class WebDriver(
 
     @property
     def device_time(self):
-        """Returns the date and time from the device
+        """Returns the date and time from the device.
         """
-        return self.execute(Command.GET_DEVICE_TIME, {})['value']
+        return self.execute(Command.GET_DEVICE_TIME_GET, {})['value']
+
+    def get_device_time(self, format=None):
+        """Returns the date and time from the device. (Only available since Appium 1.11.0)
+
+        :Args:
+         - format - (optional) The set of format specifiers. Read https://momentjs.com/docs/
+           to get the full list of supported datetime format specifiers.
+           If unset, return :func:`.device_time` as default format is `YYYY-MM-DDTHH:mm:ssZ`,
+           which complies to ISO-8601
+
+        :Usage:
+            self.driver.get_device_time()
+            self.driver.get_device_time("YYYY-MM-DD")
+        """
+        if format is None:
+            return self.device_time
+        return self.execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
 
     @property
     def battery_info(self):
@@ -584,7 +601,9 @@ class WebDriver(
             ('POST', '/session/$sessionId/appium/settings')
         self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
             ('GET', '/session/$sessionId/element/$id/location_in_view')
-        self.command_executor._commands[Command.GET_DEVICE_TIME] = \
+        self.command_executor._commands[Command.GET_DEVICE_TIME_GET] = \
             ('GET', '/session/$sessionId/appium/device/system_time')
+        self.command_executor._commands[Command.GET_DEVICE_TIME_POST] = \
+            ('POST', '/session/$sessionId/appium/device/system_time')
         self.command_executor._commands[Command.CLEAR] = \
             ('POST', '/session/$sessionId/element/$id/clear')

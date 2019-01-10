@@ -540,10 +540,10 @@ class WebDriver(
             self.driver.get_device_time()
             self.driver.get_device_time("YYYY-MM-DD")
         """
-        if format:
-            return self.execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
-        else:
+        if format is None:
             return self.device_time
+        return self.execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
+
 
 
     @property

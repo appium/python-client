@@ -544,8 +544,6 @@ class WebDriver(
             return self.device_time
         return self.execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
 
-
-
     @property
     def battery_info(self):
         """

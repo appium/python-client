@@ -531,17 +531,20 @@ class WebDriver(
         """Returns the date and time from the device. (Only available since Appium 1.11.0)
 
         :Args:
-         - format - The default format is `YYYY-MM-DDTHH:mm:ssZ`, which complies to ISO-8601
-           The set of format specifiers. Read https://momentjs.com/docs/ to get
-           the full list of supported datetime format specifiers.
+         - format - (optional) The set of format specifiers. Read https://momentjs.com/docs/
+           to get the full list of supported datetime format specifiers.
+           If unset, return :func:`.device_time` as default format is `YYYY-MM-DDTHH:mm:ssZ`,
+           which complies to ISO-8601
 
         :Usage:
+            self.driver.get_device_time()
             self.driver.get_device_time("YYYY-MM-DD")
         """
         if format:
             return self.execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
         else:
             return self.device_time
+
 
     @property
     def battery_info(self):

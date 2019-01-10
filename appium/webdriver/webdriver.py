@@ -527,7 +527,7 @@ class WebDriver(
         """
         return self.execute(Command.GET_DEVICE_TIME_GET, {})['value']
 
-    def get_device_time(self, format=''):
+    def get_device_time(self, format=None):
         """Returns the date and time from the device. (Only available since Appium 1.11.0)
 
         :Args:
@@ -536,10 +536,12 @@ class WebDriver(
            the full list of supported datetime format specifiers.
 
         :Usage:
-            self.driver.get_device_time(self, "YYYY-MM-DD")
+            self.driver.get_device_time("YYYY-MM-DD")
         """
-        data = {'format': format} if format else {}
-        return self.execute(Command.GET_DEVICE_TIME_POST, data)['value']
+        if format:
+            return self.execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
+        else:
+            return self.device_time
 
     @property
     def battery_info(self):

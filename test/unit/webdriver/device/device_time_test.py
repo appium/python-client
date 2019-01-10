@@ -34,7 +34,7 @@ class TestWebDriverDeviceLock(object):
     def test_get_device_time(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST,
+            httpretty.GET,
             appium_command('/session/1234567890/appium/device/system_time'),
             body='{"value": "2019-01-05T14:46:44+09:00"}'
         )

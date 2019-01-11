@@ -13,7 +13,6 @@
 # limitations under the License.
 
 
-from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import (
     appium_command,
     android_w3c_driver,
@@ -21,6 +20,8 @@ from test.unit.helper.test_helper import (
 )
 
 import httpretty
+
+from appium.webdriver.webdriver import WebDriver
 
 
 class TestWebDriverNetwork(object):

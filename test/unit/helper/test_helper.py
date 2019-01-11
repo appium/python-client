@@ -127,3 +127,8 @@ def ios_w3c_driver():
         desired_caps
     )
     return driver
+
+
+def httpretty_last_request_body(last_request):
+    """Returns utf-8 decided request body"""
+    return json.loads(last_request.body.decode('utf-8'))

@@ -22,7 +22,7 @@ import sys
 from appium import webdriver
 from sauceclient import SauceClient
 
-SAUCE_USERNAME = os.environ.get('SAUCE_USERNAME')
+SAUCE_USERNAME = os.environ.get("SAUCE_USERNAME")
 SAUCE_ACCESS_KEY = os.environ.get('SAUCE_ACCESS_KEY')
 sauce = SauceClient(SAUCE_USERNAME, SAUCE_ACCESS_KEY)
 

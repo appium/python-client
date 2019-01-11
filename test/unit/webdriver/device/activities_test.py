@@ -12,9 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from test.unit.helper.test_helper import appium_command, android_w3c_driver
+from test.unit.helper.test_helper import (
+    appium_command,
+    android_w3c_driver,
+    httpretty_last_request_body
+)
 
-import json
 import httpretty
 
 
@@ -30,7 +33,7 @@ class TestWebDriverDeviceActivities(object):
         )
         driver.start_activity('com.example.myapp', '.ExampleActivity')
 
-        d = json.loads(httpretty.last_request().body.decode('utf-8'))
+        d = httpretty_last_request_body(httpretty.last_request())
         assert d['sessionId'] == '1234567890'
         assert d['appPackage'] == 'com.example.myapp'
         assert d['appActivity'] == '.ExampleActivity'
@@ -54,7 +57,7 @@ class TestWebDriverDeviceActivities(object):
             dont_stop_app_on_reset=True
         )
 
-        d = json.loads(httpretty.last_request().body.decode('utf-8'))
+        d = httpretty_last_request_body(httpretty.last_request())
         assert d['sessionId'] == '1234567890'
         assert d['appPackage'] == 'com.example.myapp'
         assert d['appActivity'] == '.ExampleActivity'

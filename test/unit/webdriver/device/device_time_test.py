@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from test.unit.helper.test_helper import appium_command, android_w3c_driver
+from test.unit.helper.test_helper import (
+    appium_command,
+    android_w3c_driver,
+    httpretty_last_request_body
+)
 
 import httpretty
-import json
 
 
 class TestWebDriverDeviceLock(object):
@@ -50,5 +53,5 @@ class TestWebDriverDeviceLock(object):
         )
         assert driver.get_device_time('YYYY-MM-DD') == '2019-01-08'
 
-        d = json.loads(httpretty.last_request().body.decode('utf-8'))
+        d = httpretty_last_request_body(httpretty.last_request())
         assert d['format'] == 'YYYY-MM-DD'

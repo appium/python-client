@@ -16,7 +16,7 @@
 from test.unit.helper.test_helper import (
     appium_command,
     android_w3c_driver,
-    httpretty_last_request_body
+    get_httpretty_request_body
 )
 
 import httpretty
@@ -46,7 +46,7 @@ class TestWebDriverNetwork(object):
         )
         driver.set_network_connection(2)
 
-        d = httpretty_last_request_body(httpretty.last_request())
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['parameters']['type'] == 2
 
     @httpretty.activate

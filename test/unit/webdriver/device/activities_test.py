@@ -15,7 +15,7 @@
 from test.unit.helper.test_helper import (
     appium_command,
     android_w3c_driver,
-    httpretty_last_request_body
+    get_httpretty_request_body
 )
 
 import httpretty
@@ -33,7 +33,7 @@ class TestWebDriverDeviceActivities(object):
         )
         driver.start_activity('com.example.myapp', '.ExampleActivity')
 
-        d = httpretty_last_request_body(httpretty.last_request())
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['sessionId'] == '1234567890'
         assert d['appPackage'] == 'com.example.myapp'
         assert d['appActivity'] == '.ExampleActivity'
@@ -57,7 +57,7 @@ class TestWebDriverDeviceActivities(object):
             dont_stop_app_on_reset=True
         )
 
-        d = httpretty_last_request_body(httpretty.last_request())
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['sessionId'] == '1234567890'
         assert d['appPackage'] == 'com.example.myapp'
         assert d['appActivity'] == '.ExampleActivity'

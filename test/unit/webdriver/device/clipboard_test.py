@@ -16,7 +16,7 @@ from test.unit.helper.test_helper import (
     appium_command,
     android_w3c_driver,
     ios_w3c_driver,
-    httpretty_last_request_body
+    get_httpretty_request_body
 )
 
 import httpretty
@@ -38,7 +38,7 @@ class TestWebDriverDeviceClipboard(object):
         driver.set_clipboard(appium_bytes(str('http://appium.io/'), 'UTF-8'),
                              ClipboardContentType.URL, 'label for android')
 
-        d = httpretty_last_request_body(httpretty.last_request())
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['content'] == 'aHR0cDovL2FwcGl1bS5pby8='
         assert d['contentType'] == 'url'
         assert d['label'] == 'label for android'
@@ -53,6 +53,6 @@ class TestWebDriverDeviceClipboard(object):
         )
         driver.set_clipboard_text('hello')
 
-        d = httpretty_last_request_body(httpretty.last_request())
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['content'] == 'aGVsbG8='
         assert d['contentType'] == 'plaintext'

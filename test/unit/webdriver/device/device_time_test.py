@@ -15,7 +15,7 @@
 from test.unit.helper.test_helper import (
     appium_command,
     android_w3c_driver,
-    httpretty_last_request_body
+    get_httpretty_request_body
 )
 
 import httpretty
@@ -53,5 +53,5 @@ class TestWebDriverDeviceLock(object):
         )
         assert driver.get_device_time('YYYY-MM-DD') == '2019-01-08'
 
-        d = httpretty_last_request_body(httpretty.last_request())
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['format'] == 'YYYY-MM-DD'

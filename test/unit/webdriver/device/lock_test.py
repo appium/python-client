@@ -16,7 +16,7 @@ from test.unit.helper.test_helper import (
     appium_command,
     android_w3c_driver,
     ios_w3c_driver,
-    httpretty_last_request_body
+    get_httpretty_request_body
 )
 
 import json
@@ -35,7 +35,7 @@ class TestWebDriverDeviceLock(object):
         )
         driver.lock(1)
 
-        d = httpretty_last_request_body(httpretty.last_request())
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['seconds'] == 1
 
     @httpretty.activate
@@ -48,7 +48,7 @@ class TestWebDriverDeviceLock(object):
         )
         driver.lock()
 
-        d = httpretty_last_request_body(httpretty.last_request())
+        d = get_httpretty_request_body(httpretty.last_request())
         assert len(d.keys()) == 1
         assert d['sessionId'] == '1234567890'
 

@@ -12,11 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import appium_command, android_w3c_driver
+
+from test.unit.helper.test_helper import (
+    appium_command,
+    android_w3c_driver,
+    get_httpretty_request_body
+)
 
 import httpretty
-import json
+
+from appium.webdriver.webdriver import WebDriver
 
 
 class TestWebDriverNetwork(object):
@@ -41,7 +46,7 @@ class TestWebDriverNetwork(object):
         )
         driver.set_network_connection(2)
 
-        d = json.loads(httpretty.last_request().body.decode('utf-8'))
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['parameters']['type'] == 2
 
     @httpretty.activate

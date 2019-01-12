@@ -12,7 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from test.unit.helper.test_helper import appium_command, android_w3c_driver, ios_w3c_driver
+from test.unit.helper.test_helper import (
+    appium_command,
+    android_w3c_driver,
+    ios_w3c_driver,
+    get_httpretty_request_body
+)
 
 import json
 import httpretty
@@ -29,7 +34,8 @@ class TestWebDriverDeviceLock(object):
             body='{"value": ""}'
         )
         driver.lock(1)
-        d = json.loads(httpretty.last_request().body.decode('utf-8'))
+
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['seconds'] == 1
 
     @httpretty.activate
@@ -41,8 +47,8 @@ class TestWebDriverDeviceLock(object):
             body='{"value": ""}'
         )
         driver.lock()
-        d = json.loads(httpretty.last_request().body.decode('utf-8'))
 
+        d = get_httpretty_request_body(httpretty.last_request())
         assert len(d.keys()) == 1
         assert d['sessionId'] == '1234567890'
 

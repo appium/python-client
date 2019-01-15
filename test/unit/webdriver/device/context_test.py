@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from test.unit.helper.test_helper import appium_command, android_w3c_driver
-from appium.common.helper import appium_bytes
 
 import httpretty
 

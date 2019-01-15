@@ -14,7 +14,6 @@
 
 import json
 import httpretty
-from test.unit.helper.test_helper import android_w3c_driver, ios_w3c_driver
 from appium import webdriver
 
 

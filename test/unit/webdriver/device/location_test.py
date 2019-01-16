@@ -20,7 +20,24 @@ from test.unit.helper.test_helper import (
 
 import httpretty
 
+from appium.webdriver.webdriver import WebDriver
+
+
 class TestWebDriverLocation(object):
+
+    @httpretty.activate
+    def test_set_location(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/location')
+        )
+        assert isinstance(driver.set_location(11.1, 22.2, 33.3), WebDriver) == True
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['location']['latitude'] == '11.1'
+        assert d['location']['longitude'] == '22.2'
+        assert d['location']['altitude'] == '33.3'
 
     @httpretty.activate
     def test_location(self):
@@ -34,4 +51,3 @@ class TestWebDriverLocation(object):
         assert val['latitude'] == 11.1
         assert val['longitude'] == 22.2
         assert val['altitude'] == 33.3
-

@@ -26,6 +26,15 @@ from appium.webdriver.webdriver import WebDriver
 class TestWebDriverLocation(object):
 
     @httpretty.activate
+    def test_toggle_location_services(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/toggle_location_services')
+        )
+        assert isinstance(driver.toggle_location_services(), WebDriver) == True
+
+    @httpretty.activate
     def test_set_location(self):
         driver = android_w3c_driver()
         httpretty.register_uri(

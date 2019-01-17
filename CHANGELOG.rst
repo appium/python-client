@@ -2,6 +2,99 @@ Changelog
 =========
 
 
+v0.35 (2019-01-17)
+------------------
+- Bump 0.35. [Kazuaki MATSUO]
+- Add location unittest (#317) [Mori Atsushi]
+
+  * Add test_location
+
+  * Add test_set_location
+
+  * Add test_toggle_location_services
+- Add settings unittest (#315) [Mori Atsushi]
+
+  * Add settings unittest
+
+  * Remove unused import
+- Move device_time to a mixin class (#314) [Mori Atsushi]
+- Define getting httpretty request body decoded by utf-8 (#313) [Kazuaki
+  Matsuo]
+
+  * define httpretty_last_request_body
+
+  * replace the order
+
+  * update
+
+  * rename
+- Added format to device_time as argument (#312) [Mori Atsushi]
+- Add devicetime unittest (#309) [Mori Atsushi]
+
+  * Add device time test
+
+  * Removed unnecessary check from device time test
+
+  * Changed assertion for device time test
+
+  Along to review comments
+
+  * Changed quote for string from double to single
+- Add activities unittest (#310) [Tadashi Nemoto]
+
+  * Add test_start_activity
+
+  * Add current_activity and wait_activity
+
+  * Fix pytest 4.0.2
+
+  * Add test_start_activity_with_opts
+
+  * Added options
+- Add network unittest (#308) [Mori Atsushi]
+
+  * Add network connection test
+
+  * Added set network connection test
+
+  * Add toggle wifi test
+
+  * Removed unnecessary codes from toggle wifi test
+
+  * Changed assertion for set network connection test
+- Add touch action unittest (#306) [Tadashi Nemoto]
+
+  * Add press test
+
+  * Add test_long_press
+
+  * Add test_wait
+
+  * Add remaining tests
+
+  * Add tap
+
+  * 10 -> 9
+
+  * Modify  based on comment
+- Move action and keyboard helpers to mixin classes (#307) [Mykola
+  Mokhnach]
+- Add precommit (#304) [Kazuaki Matsuo]
+
+  * add pre-commit hook
+- Fixing broken pypi long description rendering (#303) [Prabhash]
+
+  reference: https://packaging.python.org/guides/making-a-pypi-friendly-readme
+
+  Tested at https://pypi.org/project/delayed-assert
+- Extract more webdriver methods into specialized mixin classes (#302)
+  [Mykola Mokhnach]
+- Move specialized method groups to mixin classes (#301) [Mykola
+  Mokhnach]
+- Fix overridden mixin method call (#297) [Mykola Mokhnach]
+- Update changelog for 0.34. [Kazuaki MATSUO]
+
+
 v0.34 (2018-12-18)
 ------------------
 - Bump 0.34. [Kazuaki MATSUO]

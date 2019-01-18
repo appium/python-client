@@ -31,6 +31,7 @@ from .extensions.context import Context
 from .extensions.device_time import DeviceTime
 from .extensions.images_comparison import ImagesComparison
 from .extensions.ime import IME
+from .extensions.keyboard import Keyboard
 from .extensions.hw_actions import HardwareActions
 from .extensions.location import Location
 from .extensions.network import Network
@@ -104,6 +105,7 @@ class WebDriver(
     HardwareActions,
     ImagesComparison,
     IME,
+    Keyboard,
     Location,
     Network,
     RemoteFS,

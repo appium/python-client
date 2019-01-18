@@ -1,6 +1,12 @@
 Changelog
 =========
 
+v0.36 (2019-01-18)
+------------------
+- Bump 0.36. [Kazuaki MATSUO]
+- Import keyboard, add tests (#319) [Kazuaki Matsuo]
+- Update changelog for 0.35. [Kazuaki MATSUO]
+
 
 v0.35 (2019-01-17)
 ------------------

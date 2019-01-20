@@ -81,3 +81,36 @@ class TestWebDriverWebDriver(object):
 
         assert driver.session_id == 'session-id'
         assert driver.w3c is False
+
+    @httpretty.activate
+    def test_create_session_change_session_id(self):
+        httpretty.register_uri(
+            httpretty.POST,
+            'http://localhost:4723/wd/hub/session',
+            body='{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}'
+        )
+
+        httpretty.register_uri(
+            httpretty.GET,
+            'http://localhost:4723/wd/hub/session/another-session-id/title',
+            body='{ "value": "title on another session id"}'
+        )
+
+        desired_caps = {
+            'platformName': 'Android',
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+            'automationName': 'UIAutomator2'
+        }
+        driver = webdriver.Remote(
+            'http://localhost:4723/wd/hub',
+            desired_caps
+        )
+
+        # current session
+        assert driver.session_id == 'session-id'
+
+        # call against another session id
+        driver.session_id = 'another-session-id'
+        assert driver.title == 'title on another session id'
+        assert driver.session_id == 'another-session-id'

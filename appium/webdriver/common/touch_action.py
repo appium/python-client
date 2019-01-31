@@ -49,10 +49,10 @@ class TouchAction(object):
 
         return self
 
-    def press(self, el=None, x=None, y=None):
+    def press(self, el=None, x=None, y=None, pressure=None):
         """Begin a chain with a press down action at a particular element or point
         """
-        self._add_action('press', self._get_opts(el, x, y))
+        self._add_action('press', self._get_opts_with_pressure(el, x, y, pressure=pressure))
 
         return self
 
@@ -126,5 +126,13 @@ class TouchAction(object):
 
         if duration is not None:
             opts['duration'] = duration
+
+        return opts
+
+    def _get_opts_with_pressure(self, element, x, y, pressure=None):
+        opts = self._get_opts(element, x, y)
+
+        if pressure is not None:
+            opts['pressure'] = pressure
 
         return opts

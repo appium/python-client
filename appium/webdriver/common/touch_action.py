@@ -51,8 +51,15 @@ class TouchAction(object):
 
     def press(self, el=None, x=None, y=None, pressure=None):
         """Begin a chain with a press down action at a particular element or point
+
+        :Args:
+        - el - (optional) the element to press
+        - x - (optional) x coordiate to press. If y is used, x must also be set
+        - y - (optional) y coordiate to press. If x is used, y must also be set
+        - pressure - (optional) [iOS Only] press as force touch. Read the description of `force` property on Apple's UITouch cla
+                                (https://developer.apple.com/documentation/uikit/uitouch?language=objc) for more details on possible value ranges.
         """
-        self._add_action('press', self._get_opts_with_pressure(el, x, y, pressure=pressure))
+        self._add_action('press', self._get_opts(el, x, y, pressure=pressure))
 
         return self
 
@@ -114,7 +121,7 @@ class TouchAction(object):
         }
         self._actions.append(gesture)
 
-    def _get_opts(self, element, x, y, duration=None):
+    def _get_opts(self, element, x, y, duration=None, pressure=None):
         opts = {}
         if element is not None:
             opts['element'] = element.id
@@ -126,11 +133,6 @@ class TouchAction(object):
 
         if duration is not None:
             opts['duration'] = duration
-
-        return opts
-
-    def _get_opts_with_pressure(self, element, x, y, pressure=None):
-        opts = self._get_opts(element, x, y)
 
         if pressure is not None:
             opts['pressure'] = pressure

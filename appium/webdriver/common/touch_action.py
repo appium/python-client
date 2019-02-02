@@ -56,7 +56,7 @@ class TouchAction(object):
         - el - (optional) the element to press
         - x - (optional) x coordiate to press. If y is used, x must also be set
         - y - (optional) y coordiate to press. If x is used, y must also be set
-        - pressure - (optional) [iOS Only] press as force touch. Read the description of `force` property on Apple's UITouch cla
+        - pressure - (optional) [iOS Only] press as force touch. Read the description of `force` property on Apple's UITouch class
                                 (https://developer.apple.com/documentation/uikit/uitouch?language=objc) for more details on possible value ranges.
         """
         self._add_action('press', self._get_opts(el, x, y, pressure=pressure))

@@ -44,6 +44,13 @@ class TestTouchAction(object):
         touch_action.press(ElementStub(1))
         assert json == touch_action.json_wire_gestures
 
+    def test_press_pressure_json(self, touch_action):
+        json = [
+            {'action': 'press', 'options': {'element': 1, 'pressure': 1.0}}
+        ]
+        touch_action.press(ElementStub(1), pressure=1.0)
+        assert json == touch_action.json_wire_gestures
+
     def test_press_x_y_json(self, touch_action):
         json = [
             {'action': 'press', 'options': {'element': 1, 'x': 3, 'y': 4}}

@@ -24,13 +24,13 @@ DEFAULT_HOST = '127.0.0.1'
 DEFAULT_PORT = 4723
 STARTUP_TIMEOUT_MS = 60000
 MAIN_SCRIPT_PATH = 'appium/build/lib/main.js'
+STATUS_URL = '/wd/hub/status'
 
 
 def find_executable(executable):
     path = os.environ['PATH']
     paths = path.split(os.pathsep)
     base, ext = os.path.splitext(executable)
-
     if sys.platform == 'win32' and ext.lower() != '.exe':
         executable = executable + '.exe'
 
@@ -66,6 +66,7 @@ class AppiumServiceError(RuntimeError):
 class AppiumService(object):
     def __init__(self):
         self._process = None
+        self._cmd = None
 
     def _get_node(self):
         if not hasattr(self, '_node_executable'):
@@ -104,16 +105,16 @@ class AppiumService(object):
         return self._main_script
 
     @staticmethod
-    def _parse_port_number(args):
+    def _parse_port(args):
         for idx, arg in enumerate(args or []):
-            if arg == '--port' and idx < len(args) - 1:
+            if arg in ('--port', '-p') and idx < len(args) - 1:
                 return int(args[idx + 1])
         return DEFAULT_PORT
 
     @staticmethod
     def _parse_host(args):
         for idx, arg in enumerate(args or []):
-            if arg == '--host' and idx < len(args) - 1:
+            if arg in ('--address', '-a') and idx < len(args) - 1:
                 return args[idx + 1]
         return DEFAULT_HOST
 
@@ -156,39 +157,50 @@ class AppiumService(object):
         args = [node, main_script]
         if 'args' in kwargs:
             args.extend(kwargs['args'])
+        self._cmd = args
         self._process = subprocess.Popen(args=args, stdout=stdout, stderr=stderr, env=env)
-        if timeout_ms > 0:
-            host = self._parse_host(args)
-            port = self._parse_port_number(args)
-            error_msg = None
-            if not poll_url(host, port, '/wd/hub/status', timeout_ms):
-                error_msg = 'Appium has failed to start on {}:{} within {}ms timeout'.format(host, port, timeout_ms)
-            if not self.is_running():
-                error_msg = 'Appium has failed to start on {}:{} within {}ms timeout. ' + \
-                            'Make sure the port #{} is not occupied by other applications'\
-                            .format(host, port, timeout_ms, port)
-            if error_msg is not None:
-                if stderr == subprocess.PIPE:
-                    err_output = self._process.communicate()[1]
-                    if err_output:
-                        error_msg += '. Original error: {}'.format(err_output)
-                raise AppiumServiceError(error_msg)
+        host = self._parse_host(args)
+        port = self._parse_port(args)
+        error_msg = None
+        if not self.is_running or (timeout_ms > 0 and not poll_url(host, port, STATUS_URL, timeout_ms)):
+            error_msg = 'Appium has failed to start on {}:{} within {}ms timeout'\
+                        .format(host, port, timeout_ms)
+        if error_msg is not None:
+            if stderr == subprocess.PIPE:
+                err_output = self._process.stderr.read()
+                if err_output:
+                    error_msg += '\nOriginal error: {}'.format(err_output)
+            self.stop()
+            raise AppiumServiceError(error_msg)
         return self._process
 
     def stop(self):
-        if self.is_running():
+        if self.is_running:
             self._process.terminate()
         self._process = None
+        self._cmd = None
 
+    @property
     def is_running(self):
         return self._process is not None and self._process.poll() is None
+
+    @property
+    def is_listening(self):
+        if not self.is_running or self._cmd is None:
+            return False
+        host = self._parse_host(self._cmd)
+        port = self._parse_port(self._cmd)
+        return self.is_running and poll_url(host, port, STATUS_URL, 1000)
 
 
 if __name__ == '__main__':
     assert(find_executable('node') is not None)
     assert(find_executable('npm') is not None)
     service = AppiumService()
-    service.start()
-    assert(service.is_running())
+    service.start(args=['--address', '127.0.0.1', '-p', str(DEFAULT_PORT)])
+    # service.start(args=['--address', '127.0.0.1', '-p', '80'], timeout_ms=2000)
+    assert(service.is_running)
+    assert(service.is_listening)
     service.stop()
-    assert(not service.is_running())
+    assert(not service.is_running)
+    assert(not service.is_listening)

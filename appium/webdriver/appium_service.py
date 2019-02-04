@@ -133,17 +133,19 @@ class AppiumService(object):
         `stderr` - Check on the documentation for subprocess.Popen for more details.
         The default value is subprocess.PIPE.
         `timeout_ms` - The maximum time to wait until Appium process starts listening
-        for HTTP connections. If set to 0 or negative number then no wait will be applied.
+        for HTTP connections. If set to zero or a negative number then no wait will be applied.
         60000 ms by default
         `main_script` - The full path to the main Appium executable
         (usually located this is build/lib/main.js). If this is not set
         then the service tries to detect the path automatically.
-        `args` - List of Appium arguments. Check on
+        `args` - List of Appium arguments (all must be strings). Check on
         https://appium.io/docs/en/writing-running-appium/server-args/ for more details
         about possible arguments and their values.
+
         :return:
         subprocess.Popen instance. You can use Popen.communicate interface
-        (stdout and stderr must be set to subprocess.PIPE in such case)
+        or stderr/stdout properties of the instance
+        (stdout/stderr must not be set to None in such case)
         in order to retrieve the actual process output.
         """
         self.stop()
@@ -175,17 +177,43 @@ class AppiumService(object):
         return self._process
 
     def stop(self):
+        """
+        Stops Appium service if it is running.
+        The call will be ignored if the service is not running
+        or has been already stopped.
+
+        :return:
+        `True` if the service was running before being stopped
+        """
+        is_terminated = False
         if self.is_running:
             self._process.terminate()
+            is_terminated = True
         self._process = None
         self._cmd = None
+        return is_terminated
 
     @property
     def is_running(self):
+        """
+        Check if the service is running.
+
+        :return:
+        `True` or `False`
+        """
         return self._process is not None and self._process.poll() is None
 
     @property
     def is_listening(self):
+        """
+        Check if the service is listening on the given/default host/port.
+        The fact, that the service is running, does not always mean it is listening.
+        the default host/port values can be customized by providing --address/--port
+        command line arguments while starting the service.
+
+        :return:
+        `True` if the service is running and listening on the given/default host/port
+        """
         if not self.is_running or self._cmd is None:
             return False
         host = self._parse_host(self._cmd)

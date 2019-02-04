@@ -31,7 +31,7 @@ def find_executable(executable):
     path = os.environ['PATH']
     paths = path.split(os.pathsep)
     base, ext = os.path.splitext(executable)
-    if sys.platform == 'win32' and ext.lower() != '.exe':
+    if sys.platform == 'win32' and not ext:
         executable = executable + '.exe'
 
     if os.path.isfile(executable):
@@ -78,7 +78,7 @@ class AppiumService(object):
 
     def _get_npm(self):
         if not hasattr(self, '_npm_executable'):
-            self._npm_executable = find_executable('npm')
+            self._npm_executable = find_executable('npm.cmd' if sys.platform == 'win32' else 'npm')
         if self._npm_executable is None:
             raise AppiumServiceError('Node Package Manager executable cannot be found. ' +
                                      'Make sure it is installed and present in PATH')

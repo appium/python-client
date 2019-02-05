@@ -20,6 +20,8 @@ import copy
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
+from selenium.webdriver.remote.remote_connection import RemoteConnection
+
 
 from appium.webdriver.common.mobileby import MobileBy
 from .appium_connection import AppiumConnection
@@ -117,7 +119,7 @@ class WebDriver(
 ):
 
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
-                 desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False):
+                 desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False, direct_connection=False):
 
         super(WebDriver, self).__init__(
             AppiumConnection(command_executor, keep_alive=keep_alive),
@@ -126,11 +128,27 @@ class WebDriver(
             proxy
         )
 
-        if self.command_executor is not None:
+        if self.command_executor is not None:  # pylint: disable=access-member-before-definition
             self._addCommands()
 
         self.error_handler = MobileErrorHandler()
         self._switch_to = MobileSwitchTo(self)
+
+        if direct_connection:
+            protocol = self.capabilities['directConnectProtocol']
+            hostname = self.capabilities['directConnectHost']
+            port = self.capabilities['directConnectPort']
+            path = self.capabilities['directConnectPath']
+            # TODO: create a new client to the above params
+            executor = '{scheme}://{hostname}:{port}{path}'.format(
+                scheme=protocol,
+                hostname=hostname,
+                port=port,
+                path=path
+            )
+            # Override command executor
+            self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
+            self._addCommands()
 
         # add new method to the `find_by_*` pantheon
         By.IOS_UIAUTOMATION = MobileBy.IOS_UIAUTOMATION

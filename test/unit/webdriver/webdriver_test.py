@@ -176,3 +176,41 @@ class TestWebDriverWebDriver(object):
         assert d['using'] == '-android datamatcher'
         assert d['value'] == '{}'
         assert len(els) == 0
+
+    @httpretty.activate
+    def test_create_session_register_uridirect(self):
+        httpretty.register_uri(
+            httpretty.POST,
+            'http://localhost:4723/wd/hub/session',
+            body=json.dumps({'value': {
+                'sessionId': 'session-id',
+                'capabilities': {
+                    'deviceName': 'Android Emulator',
+                    'directConnectProtocol': 'http',
+                    'directConnectHost': 'localhost2',
+                    'directConnectPort': 4800,
+                    'directConnectPath': '/special/path/wd/hub',
+                }
+            }})
+        )
+
+        httpretty.register_uri(
+            httpretty.GET,
+            'http://localhost2:4800/special/path/wd/hub/session/session-id/contexts',
+            body=json.dumps({'value': ['NATIVE_APP', 'CHROMIUM']})
+        )
+
+        desired_caps = {
+            'platformName': 'Android',
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+            'automationName': 'UIAutomator2'
+        }
+        driver = webdriver.Remote(
+            'http://localhost:4723/wd/hub',
+            desired_caps,
+            direct_connection=True
+        )
+
+        assert 'http://localhost2:4800/special/path/wd/hub' == driver.command_executor._url
+        assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts

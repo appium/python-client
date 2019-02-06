@@ -139,7 +139,6 @@ class WebDriver(
             hostname = self.capabilities['directConnectHost']
             port = self.capabilities['directConnectPort']
             path = self.capabilities['directConnectPath']
-            # TODO: create a new client to the above params
             executor = '{scheme}://{hostname}:{port}{path}'.format(
                 scheme=protocol,
                 hostname=hostname,

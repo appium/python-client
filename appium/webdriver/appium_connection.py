@@ -12,11 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import base64
-import platform
-
 from selenium.webdriver.remote.remote_connection import RemoteConnection
-from selenium import __version__
 
 from appium.common.helper import library_version
 

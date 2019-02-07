@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
-
 import base64
 import platform
 
@@ -21,6 +19,10 @@ from selenium.webdriver.remote.remote_connection import RemoteConnection
 from selenium import __version__
 
 from appium.common.helper import library_version
+
+
+HEADER_ACCEPT = 'application/json'
+HEADER_CONTENT_TYPE = 'application/json;charset=UTF-8'
 
 
 class AppiumConnection(RemoteConnection):
@@ -35,8 +37,8 @@ class AppiumConnection(RemoteConnection):
         selenium_ua = 'selenium/{} (python {})'.format(__version__, system)
 
         headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8',
+            'Accept': HEADER_ACCEPT,
+            'Content-Type': HEADER_CONTENT_TYPE,
             'User-Agent': 'appium/python {} ({})'.format(library_version(), selenium_ua)
         }
 

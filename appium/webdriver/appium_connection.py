@@ -21,36 +21,15 @@ from selenium import __version__
 from appium.common.helper import library_version
 
 
-HEADER_ACCEPT = 'application/json'
-HEADER_CONTENT_TYPE = 'application/json;charset=UTF-8'
-
-
 class AppiumConnection(RemoteConnection):
 
     @classmethod
     def get_remote_connection_headers(cls, parsed_url, keep_alive=False):
-        """Override"""
-        system = platform.system().lower()
-        if system == "darwin":
-            system = "mac"
+        headers = super(AppiumConnection, AppiumConnection).get_remote_connection_headers(
+            parsed_url, keep_alive=keep_alive)
 
-        selenium_ua = 'selenium/{} (python {})'.format(__version__, system)
-
-        headers = {
-            'Accept': HEADER_ACCEPT,
-            'Content-Type': HEADER_CONTENT_TYPE,
-            'User-Agent': 'appium/python {} ({})'.format(library_version(), selenium_ua)
-        }
-
-        if parsed_url.username:
-            base64string = base64.b64encode('{0.username}:{0.password}'.format(parsed_url).encode())
-            headers.update({
-                'Authorization': 'Basic {}'.format(base64string.decode())
-            })
-
-        if keep_alive:
-            headers.update({
-                'Connection': 'keep-alive'
-            })
+        headers.update({
+            'User-Agent': 'appium/python {} ({})'.format(library_version(), headers['User-Agent'])
+        })
 
         return headers

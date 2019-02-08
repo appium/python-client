@@ -22,6 +22,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
 from appium.webdriver.common.mobileby import MobileBy
+from .appium_connection import AppiumConnection
 from .errorhandler import MobileErrorHandler
 from .extensions.action_helpers import ActionHelpers
 from .extensions.activities import Activities
@@ -115,7 +116,12 @@ class WebDriver(
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
                  desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False):
 
-        super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+        super(WebDriver, self).__init__(
+            AppiumConnection(command_executor, keep_alive=keep_alive),
+            desired_capabilities,
+            browser_profile,
+            proxy
+        )
 
         if self.command_executor is not None:
             self._addCommands()

@@ -75,7 +75,7 @@ class ScreenRecord(webdriver.Remote):
         if 'password' in options:
             options['pass'] = options['password']
             del options['password']
-        return self.execute(Command.START_RECORDING_SCREEN, options)['value']
+        return self.execute(Command.START_RECORDING_SCREEN, {'options': options})['value']
 
     def stop_recording_screen(self, **options):
         """
@@ -103,7 +103,7 @@ class ScreenRecord(webdriver.Remote):
         if 'password' in options:
             options['pass'] = options['password']
             del options['password']
-        return self.execute(Command.STOP_RECORDING_SCREEN, options)['value']
+        return self.execute(Command.STOP_RECORDING_SCREEN, {'options': options})['value']
 
     # pylint: disable=protected-access
 

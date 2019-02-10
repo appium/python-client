@@ -22,6 +22,8 @@ import httpretty
 
 from appium.webdriver.webdriver import WebDriver
 
+FLT_EPSILON = 1e-9
+
 
 class TestWebDriverLocation(object):
 
@@ -44,9 +46,9 @@ class TestWebDriverLocation(object):
         assert isinstance(driver.set_location(11.1, 22.2, 33.3), WebDriver) == True
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['location']['latitude'] == '11.1'
-        assert d['location']['longitude'] == '22.2'
-        assert d['location']['altitude'] == '33.3'
+        assert abs(d['location']['latitude'] - 11.1) <= FLT_EPSILON
+        assert abs(d['location']['longitude'] - 22.2) <= FLT_EPSILON
+        assert abs(d['location']['altitude'] - 33.3) <= FLT_EPSILON
 
     @httpretty.activate
     def test_location(self):
@@ -57,6 +59,6 @@ class TestWebDriverLocation(object):
             body='{"value": {"latitude": 11.1, "longitude": 22.2, "altitude": 33.3}}'
         )
         val = driver.location
-        assert val['latitude'] == 11.1
-        assert val['longitude'] == 22.2
-        assert val['altitude'] == 33.3
+        assert abs(val['latitude'] - 11.1) <= FLT_EPSILON
+        assert abs(val['longitude'] - 22.2) <= FLT_EPSILON
+        assert abs(val['altitude'] - 33.3) <= FLT_EPSILON

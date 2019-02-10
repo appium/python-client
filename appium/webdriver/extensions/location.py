@@ -33,9 +33,9 @@ class Location(webdriver.Remote):
         """
         data = {
             "location": {
-                "latitude": str(latitude),
-                "longitude": str(longitude),
-                "altitude": str(altitude)
+                "latitude": float(latitude),
+                "longitude": float(longitude),
+                "altitude": float(altitude)
             }
         }
         self.execute(Command.SET_LOCATION, data)

@@ -24,6 +24,7 @@ from appium.webdriver.webdriver import WebDriver
 
 FLT_EPSILON = 1e-9
 
+
 class TestWebDriverLocation(object):
 
     @httpretty.activate

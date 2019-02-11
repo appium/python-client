@@ -1,6 +1,42 @@
 Changelog
 =========
 
+
+(unreleased)
+------------
+- Bump 0.38. [Kazuaki Matsuo]
+
+
+v0.38 (2019-02-11)
+------------------
+- Bump 0.38. [Kazuaki Matsuo]
+- Remove io.open from getting version code (#334) [Kazuaki Matsuo]
+
+  * remove io.open
+
+  * remove appium module from release script
+
+
+v0.37 (2019-02-10)
+------------------
+- Cast set_location arguments to float (#332) [Mykola Mokhnach]
+- Fix passing options to screen record commands (#330) [Mykola Mokhnach]
+- Add AppiumConnection to customise user agent (#327) [Kazuaki Matsuo]
+- Add a test for reset (#326) [Kazuaki Matsuo]
+- Add a simple class to control Appium execution from the client code
+  (#324) [Mykola Mokhnach]
+- Add pressure option (#322) [Kazuaki Matsuo]
+
+  * add pressure option
+
+  * add a test, tweak comment and the method
+
+  * fix typo
+- Add a test case using another session id (#320) [Kazuaki Matsuo]
+- Update changelog for 0.36. [Kazuaki MATSUO]
+- Bump 0.36. [Kazuaki MATSUO]
+
+
 v0.36 (2019-01-18)
 ------------------
 - Bump 0.36. [Kazuaki MATSUO]

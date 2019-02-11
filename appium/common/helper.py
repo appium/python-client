@@ -15,6 +15,8 @@
 import io
 import os
 
+from appium import version as appium_version
+
 
 def appium_bytes(value, encoding):
     """
@@ -41,9 +43,4 @@ def library_version():
     Return a version of this python library
     """
 
-    global_param = {}
-    exec(
-        io.open(os.path.join(os.path.dirname('__file__'), 'appium', 'version.py'), encoding='utf-8').read(),
-        global_param
-    )
-    return global_param['version']
+    return appium_version.version

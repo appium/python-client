@@ -16,7 +16,7 @@ import json
 import httpretty
 from appium import webdriver
 
-from appium.common.helper import library_version
+from appium import version as appium_version
 
 
 class TestWebDriverWebDriver(object):
@@ -44,7 +44,7 @@ class TestWebDriverWebDriver(object):
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
-        assert 'appium/python {} (selenium'.format(library_version()) in request.headers['user-agent']
+        assert 'appium/python {} (selenium'.format(appium_version.version) in request.headers['user-agent']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is not None
@@ -77,7 +77,7 @@ class TestWebDriverWebDriver(object):
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
-        assert 'appium/python {} (selenium'.format(library_version()) in request.headers['user-agent']
+        assert 'appium/python {} (selenium'.format(appium_version.version) in request.headers['user-agent']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is None

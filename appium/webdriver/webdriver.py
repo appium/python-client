@@ -16,6 +16,7 @@
 
 import base64
 import copy
+import json
 
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
@@ -360,6 +361,51 @@ class WebDriver(
             driver.find_elements_by_android_viewtag('a tag name')
         """
         return self.find_elements(by=MobileBy.ANDROID_VIEWTAG, value=tag)
+
+    def find_element_by_android_data_matcher(self, name=None, args=None, className=None):
+        """Finds element by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
+        It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
+
+        :Args:
+         - name - string
+         - args - string
+         - className - string
+
+        :Usage:
+            driver.find_element_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
+        """
+
+        value = {}
+        if name is not None:
+            value['name'] = name
+        if args is not None:
+            value['args'] = args
+        if className is not None:
+            value['class'] = className
+
+        return self.find_element(by=MobileBy.ANDROID_DATA_MATCHER, value=json.dumps(value))
+
+    def find_elements_by_android_data_matcher(self, name=None, args=None, className=None):
+        """
+
+        :Args:
+         - name - string
+         - args - string
+         - className - string
+
+        :Usage:
+            driver.find_elements_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
+        """
+
+        value = {}
+        if name is not None:
+            value['name'] = name
+        if args is not None:
+            value['args'] = args
+        if className is not None:
+            value['class'] = className
+
+        return self.find_elements(by=MobileBy.ANDROID_DATA_MATCHER, value=json.dumps(value))
 
     def find_element_by_image(self, img_path):
         """Finds a portion of a screenshot by an image.

@@ -156,3 +156,18 @@ class TestWebDriverWebDriver(object):
                      'value': '{"args": ["title", "Animation"], "name": "title"}'}
         assert els[0].id == 'element-id1'
         assert els[1].id == 'element-id2'
+
+    @httpretty.activate
+    def test_find_elements_by_android_data_matcher_no_value(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/elements'),
+            body='{"value": []}'
+        )
+        els = driver.find_elements_by_android_data_matcher()
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d == {'sessionId': '1234567890', 'using': '-android datamatcher',
+                     'value': '{}'}
+        assert els == []

@@ -386,7 +386,8 @@ class WebDriver(
         return self.find_element(by=MobileBy.ANDROID_DATA_MATCHER, value=json.dumps(value))
 
     def find_elements_by_android_data_matcher(self, name=None, args=None, className=None):
-        """
+        """Finds elements by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
+        It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         :Args:
          - name - string

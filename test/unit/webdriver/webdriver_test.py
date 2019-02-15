@@ -137,8 +137,11 @@ class TestWebDriverWebDriver(object):
             name='title', args=['title', 'Animation'], className='class name')
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d == {'sessionId': '1234567890', 'using': '-android datamatcher',
-                     'value': '{"args": ["title", "Animation"], "name": "title", "class": "class name"}'}
+        assert d['using'] == '-android datamatcher'
+        value_dict = json.loads(d['value'])
+        assert value_dict['args'] == ['title', 'Animation']
+        assert value_dict['name'] == 'title'
+        assert value_dict['class'] == 'class name'
         assert el.id == 'element-id'
 
     @httpretty.activate
@@ -152,8 +155,10 @@ class TestWebDriverWebDriver(object):
         els = driver.find_elements_by_android_data_matcher(name='title', args=['title', 'Animation'])
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d == {'sessionId': '1234567890', 'using': '-android datamatcher',
-                     'value': '{"args": ["title", "Animation"], "name": "title"}'}
+        assert d['using'] == '-android datamatcher'
+        value_dict = json.loads(d['value'])
+        assert value_dict['args'] == ['title', 'Animation']
+        assert value_dict['name'] == 'title'
         assert els[0].id == 'element-id1'
         assert els[1].id == 'element-id2'
 
@@ -168,6 +173,6 @@ class TestWebDriverWebDriver(object):
         els = driver.find_elements_by_android_data_matcher()
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d == {'sessionId': '1234567890', 'using': '-android datamatcher',
-                     'value': '{}'}
+        assert d['using'] == '-android datamatcher'
+        assert d['value'] == '{}'
         assert els == []

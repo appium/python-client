@@ -367,9 +367,11 @@ class WebDriver(
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         :Args:
-         - name - string
-         - args - string
-         - className - string
+         - name - The name of a method to invoke. The method must return a Hamcrest [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
+         - args - The args provided to the method
+         - className - The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
+                       Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
+                       (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
 
         :Usage:
             driver.find_element_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
@@ -390,9 +392,11 @@ class WebDriver(
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         :Args:
-         - name - string
-         - args - string
-         - className - string
+         - name - The name of a method to invoke. The method must return a Hamcrest [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
+         - args - The args provided to the method
+         - className - The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
+                       Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
+                       (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
 
         :Usage:
             driver.find_elements_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])

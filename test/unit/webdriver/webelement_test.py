@@ -82,4 +82,4 @@ class TestWebElement(object):
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['using'] == '-android datamatcher'
         assert d['value'] == '{}'
-        assert els == []
+        assert len(els) == 0

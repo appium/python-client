@@ -20,7 +20,7 @@ from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElemen
 from appium.webdriver.common.mobileby import MobileBy
 
 
-class SearchContext(object):
+class AndroidDataMatcherSearchContext(object):
     """Define search context"""
 
     def find_element_by_android_data_matcher(self, name=None, args=None, className=None):
@@ -64,15 +64,13 @@ class SearchContext(object):
         return self.find_elements(by=MobileBy.ANDROID_DATA_MATCHER, value=self._build_data_matcher(name=name, args=args, className=className))
 
     def _build_data_matcher(self, name=None, args=None, className=None):
-        value = {}
-        if name is not None:
-            value['name'] = name
-        if args is not None:
-            value['args'] = args
-        if className is not None:
-            value['class'] = className
+        result = {}
 
-        return json.dumps(value)
+        for key, value in {'name': name, 'args': args, 'class': className}.items():
+            if value is not None:
+                result[key] = value
+
+        return json.dumps(result)
 
     def find_element(self, by=None, value=None):
         raise NotImplementedError
@@ -81,9 +79,11 @@ class SearchContext(object):
         raise NotImplementedError
 
 
-class WebDriverSearchContext(webdriver.Remote, SearchContext):
+class WebDriverSearchContext(webdriver.Remote,
+                             AndroidDataMatcherSearchContext):
     """Returns web driver search conext"""
 
 
-class WebElementSearchContext(SeleniumWebElement, SearchContext):
+class WebElementSearchContext(SeleniumWebElement,
+                              AndroidDataMatcherSearchContext):
     """Returns web element search context"""

@@ -19,7 +19,7 @@ from selenium.webdriver.remote.command import Command as RemoteCommand
 
 from appium.webdriver.common.mobileby import MobileBy
 
-from .extensions.search_context import WebElementSearchContext
+from .extensions.search_context import AppiumWebElementSearchContext
 from .mobilecommand import MobileCommand as Command
 
 # Python 3 imports
@@ -29,7 +29,7 @@ except NameError:
     pass
 
 
-class WebElement(WebElementSearchContext):
+class WebElement(AppiumWebElementSearchContext):
     # Override
     def get_attribute(self, name):
         """Gets the given attribute or property of the element.

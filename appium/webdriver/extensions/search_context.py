@@ -99,19 +99,19 @@ class TizenSearchContext(RootSearchContext):
     """Define search context for Tizen"""
 
 
-class WebDriverSearchContext(webdriver.Remote,
-                             CommonSearchContext,
-                             AndroidSearchContext,
-                             IOSSearchContext,
-                             WindowsSearchContext,
-                             TizenSearchContext):
-    """Returns web driver search conext"""
+class AppiumSearchContext(webdriver.Remote,
+                          CommonSearchContext,
+                          AndroidSearchContext,
+                          IOSSearchContext,
+                          WindowsSearchContext,
+                          TizenSearchContext):
+    """Returns appium driver search conext"""
 
 
-class WebElementSearchContext(SeleniumWebElement,
-                              CommonSearchContext,
-                              AndroidSearchContext,
-                              IOSSearchContext,
-                              WindowsSearchContext,
-                              TizenSearchContext):
-    """Returns web element search context"""
+class AppiumWebElementSearchContext(SeleniumWebElement,
+                                    CommonSearchContext,
+                                    AndroidSearchContext,
+                                    IOSSearchContext,
+                                    WindowsSearchContext,
+                                    TizenSearchContext):
+    """Returns appium web element search context"""

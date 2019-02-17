@@ -38,7 +38,7 @@ from .extensions.location import Location
 from .extensions.network import Network
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
-from .extensions.search_context import WebDriverSearchContext
+from .extensions.search_context import AppiumSearchContext
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
@@ -99,7 +99,7 @@ def _make_w3c_caps(caps):
 
 
 class WebDriver(
-    WebDriverSearchContext,
+    AppiumSearchContext,
     ActionHelpers,
     Activities,
     Applications,

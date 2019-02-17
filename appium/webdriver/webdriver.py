@@ -373,10 +373,19 @@ class WebDriver(
                        Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
                        (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
 
+        :Returns:
+          An Element object
+
+        :Raises:
+        - TypeError - Raises a TypeError if the arguments are not validate for JSON format
+
         :Usage:
             driver.find_element_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
         """
 
+        return self.find_element(by=MobileBy.ANDROID_DATA_MATCHER, value=self._build_data_matcher(name=name, args=args, className=className))
+
+    def _build_data_matcher(self, name=None, args=None, className=None):
         value = {}
         if name is not None:
             value['name'] = name
@@ -385,7 +394,7 @@ class WebDriver(
         if className is not None:
             value['class'] = className
 
-        return self.find_element(by=MobileBy.ANDROID_DATA_MATCHER, value=json.dumps(value))
+        return json.dumps(value)
 
     def find_elements_by_android_data_matcher(self, name=None, args=None, className=None):
         """Finds elements by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
@@ -402,15 +411,7 @@ class WebDriver(
             driver.find_elements_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
         """
 
-        value = {}
-        if name is not None:
-            value['name'] = name
-        if args is not None:
-            value['args'] = args
-        if className is not None:
-            value['class'] = className
-
-        return self.find_elements(by=MobileBy.ANDROID_DATA_MATCHER, value=json.dumps(value))
+        return self.find_elements(by=MobileBy.ANDROID_DATA_MATCHER, value=self._build_data_matcher(name=name, args=args, className=className))
 
     def find_element_by_image(self, img_path):
         """Finds a portion of a screenshot by an image.

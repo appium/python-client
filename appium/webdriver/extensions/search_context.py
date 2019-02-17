@@ -15,11 +15,12 @@
 import json
 
 from selenium import webdriver
+from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
 
 from appium.webdriver.common.mobileby import MobileBy
 
 
-class SearchContext(webdriver.Remote):
+class SearchContext(object):
     """Define search context"""
 
     def find_element_by_android_data_matcher(self, name=None, args=None, className=None):
@@ -37,7 +38,7 @@ class SearchContext(webdriver.Remote):
           An Element object
 
         :Raises:
-        - TypeError - Raises a TypeError if the arguments are not validate for JSON format
+        - TypeError - Raises a TypeError if the arguments are not validated for JSON format
 
         :Usage:
             driver.find_element_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
@@ -72,3 +73,17 @@ class SearchContext(webdriver.Remote):
             value['class'] = className
 
         return json.dumps(value)
+
+    def find_element(self, by=None, value=None):
+        raise NotImplementedError
+
+    def find_elements(self, by=None, value=None):
+        raise NotImplementedError
+
+
+class WebDriverSearchContext(webdriver.Remote, SearchContext):
+    """Returns web driver search conext"""
+
+
+class WebElementSearchContext(SeleniumWebElement, SearchContext):
+    """Returns web element search context"""

@@ -20,8 +20,22 @@ from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElemen
 from appium.webdriver.common.mobileby import MobileBy
 
 
-class AndroidDataMatcherSearchContext(object):
-    """Define search context"""
+class RootSearchContext(object):
+    """Used by each search context. Dummy find_element/s are for preventing pylint error"""
+
+    def find_element(self, by=None, value=None):
+        raise NotImplementedError
+
+    def find_elements(self, by=None, value=None):
+        raise NotImplementedError
+
+
+class CommonSearchContext(RootSearchContext):
+    """Define search context for common methods"""
+
+
+class AndroidSearchContext(RootSearchContext):
+    """Define search context for Android"""
 
     def find_element_by_android_data_matcher(self, name=None, args=None, className=None):
         """Finds element by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
@@ -72,18 +86,32 @@ class AndroidDataMatcherSearchContext(object):
 
         return json.dumps(result)
 
-    def find_element(self, by=None, value=None):
-        raise NotImplementedError
 
-    def find_elements(self, by=None, value=None):
-        raise NotImplementedError
+class IOSSearchContext(RootSearchContext):
+    """Define search context for iOS"""
+
+
+class WindowsSearchContext(RootSearchContext):
+    """Define search context for Windows"""
+
+
+class TizenSearchContext(RootSearchContext):
+    """Define search context for Tizen"""
 
 
 class WebDriverSearchContext(webdriver.Remote,
-                             AndroidDataMatcherSearchContext):
+                             CommonSearchContext,
+                             AndroidSearchContext,
+                             IOSSearchContext,
+                             WindowsSearchContext,
+                             TizenSearchContext):
     """Returns web driver search conext"""
 
 
 class WebElementSearchContext(SeleniumWebElement,
-                              AndroidDataMatcherSearchContext):
+                              CommonSearchContext,
+                              AndroidSearchContext,
+                              IOSSearchContext,
+                              WindowsSearchContext,
+                              TizenSearchContext):
     """Returns web element search context"""

@@ -18,6 +18,12 @@ from appium import webdriver
 
 from appium import version as appium_version
 
+from test.unit.helper.test_helper import (
+    appium_command,
+    android_w3c_driver,
+    get_httpretty_request_body
+)
+
 
 class TestWebDriverWebDriver(object):
 
@@ -118,3 +124,55 @@ class TestWebDriverWebDriver(object):
         driver.session_id = 'another-session-id'
         assert driver.title == 'title on another session id'
         assert driver.session_id == 'another-session-id'
+
+    @httpretty.activate
+    def test_find_element_by_android_data_matcher(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/element'),
+            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "element-id"}}'
+        )
+        el = driver.find_element_by_android_data_matcher(
+            name='title', args=['title', 'Animation'], className='class name')
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['using'] == '-android datamatcher'
+        value_dict = json.loads(d['value'])
+        assert value_dict['args'] == ['title', 'Animation']
+        assert value_dict['name'] == 'title'
+        assert value_dict['class'] == 'class name'
+        assert el.id == 'element-id'
+
+    @httpretty.activate
+    def test_find_elements_by_android_data_matcher(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/elements'),
+            body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "element-id1"}, {"element-6066-11e4-a52e-4f735466cecf": "element-id2"}]}'
+        )
+        els = driver.find_elements_by_android_data_matcher(name='title', args=['title', 'Animation'])
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['using'] == '-android datamatcher'
+        value_dict = json.loads(d['value'])
+        assert value_dict['args'] == ['title', 'Animation']
+        assert value_dict['name'] == 'title'
+        assert els[0].id == 'element-id1'
+        assert els[1].id == 'element-id2'
+
+    @httpretty.activate
+    def test_find_elements_by_android_data_matcher_no_value(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/elements'),
+            body='{"value": []}'
+        )
+        els = driver.find_elements_by_android_data_matcher()
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['using'] == '-android datamatcher'
+        assert d['value'] == '{}'
+        assert len(els) == 0

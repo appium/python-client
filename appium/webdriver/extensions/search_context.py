@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# pylint: disable=abstract-method
+
 import json
 
 from selenium import webdriver
@@ -20,7 +22,7 @@ from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElemen
 from appium.webdriver.common.mobileby import MobileBy
 
 
-class RootSearchContext(object):
+class BaseSearchContext(object):
     """Used by each search context. Dummy find_element/s are for preventing pylint error"""
 
     def find_element(self, by=None, value=None):
@@ -30,11 +32,7 @@ class RootSearchContext(object):
         raise NotImplementedError
 
 
-class CommonSearchContext(RootSearchContext):
-    """Define search context for common methods"""
-
-
-class AndroidSearchContext(RootSearchContext):
+class AndroidSearchContext(BaseSearchContext):
     """Define search context for Android"""
 
     def find_element_by_android_data_matcher(self, name=None, args=None, className=None):
@@ -42,7 +40,9 @@ class AndroidSearchContext(RootSearchContext):
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         :Args:
-         - name - The name of a method to invoke. The method must return a Hamcrest [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
+         - name - The name of a method to invoke.
+                  The method must return a Hamcrest
+                  [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
          - args - The args provided to the method
          - className - The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
                        Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
@@ -58,14 +58,19 @@ class AndroidSearchContext(RootSearchContext):
             driver.find_element_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
         """
 
-        return self.find_element(by=MobileBy.ANDROID_DATA_MATCHER, value=self._build_data_matcher(name=name, args=args, className=className))
+        return self.find_element(
+            by=MobileBy.ANDROID_DATA_MATCHER,
+            value=self._build_data_matcher(name=name, args=args, className=className)
+        )
 
     def find_elements_by_android_data_matcher(self, name=None, args=None, className=None):
         """Finds elements by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         :Args:
-         - name - The name of a method to invoke. The method must return a Hamcrest [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
+         - name - The name of a method to invoke.
+                  The method must return a Hamcrest
+                  [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
          - args - The args provided to the method
          - className - The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
                        Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
@@ -75,7 +80,10 @@ class AndroidSearchContext(RootSearchContext):
             driver.find_elements_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
         """
 
-        return self.find_elements(by=MobileBy.ANDROID_DATA_MATCHER, value=self._build_data_matcher(name=name, args=args, className=className))
+        return self.find_elements(
+            by=MobileBy.ANDROID_DATA_MATCHER,
+            value=self._build_data_matcher(name=name, args=args, className=className)
+        )
 
     def _build_data_matcher(self, name=None, args=None, className=None):
         result = {}
@@ -87,31 +95,11 @@ class AndroidSearchContext(RootSearchContext):
         return json.dumps(result)
 
 
-class IOSSearchContext(RootSearchContext):
-    """Define search context for iOS"""
-
-
-class WindowsSearchContext(RootSearchContext):
-    """Define search context for Windows"""
-
-
-class TizenSearchContext(RootSearchContext):
-    """Define search context for Tizen"""
-
-
 class AppiumSearchContext(webdriver.Remote,
-                          CommonSearchContext,
-                          AndroidSearchContext,
-                          IOSSearchContext,
-                          WindowsSearchContext,
-                          TizenSearchContext):
+                          AndroidSearchContext):
     """Returns appium driver search conext"""
 
 
 class AppiumWebElementSearchContext(SeleniumWebElement,
-                                    CommonSearchContext,
-                                    AndroidSearchContext,
-                                    IOSSearchContext,
-                                    WindowsSearchContext,
-                                    TizenSearchContext):
+                                    AndroidSearchContext):
     """Returns appium web element search context"""

@@ -45,6 +45,7 @@ from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
+from appium.common.logger import logger
 
 # From remote/webdriver.py
 _W3C_CAPABILITY_NAMES = frozenset([
@@ -159,6 +160,8 @@ class WebDriver(
             port=port,
             path=path
         )
+
+        logger.error('Update request endpoint to %s', executor)
         # Override command executor
         self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
         self._addCommands()

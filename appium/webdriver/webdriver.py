@@ -161,7 +161,7 @@ class WebDriver(
             path=path
         )
 
-        logger.error('Update request endpoint to %s', executor)
+        logger.info('Update request endpoint to %s', executor)
         # Override command executor
         self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
         self._addCommands()

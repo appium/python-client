@@ -135,19 +135,7 @@ class WebDriver(
         self._switch_to = MobileSwitchTo(self)
 
         if direct_connection:
-            protocol = self.capabilities['directConnectProtocol']
-            hostname = self.capabilities['directConnectHost']
-            port = self.capabilities['directConnectPort']
-            path = self.capabilities['directConnectPath']
-            executor = '{scheme}://{hostname}:{port}{path}'.format(
-                scheme=protocol,
-                hostname=hostname,
-                port=port,
-                path=path
-            )
-            # Override command executor
-            self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
-            self._addCommands()
+            self._update_command_executor(keep_alive=keep_alive)
 
         # add new method to the `find_by_*` pantheon
         By.IOS_UIAUTOMATION = MobileBy.IOS_UIAUTOMATION
@@ -158,6 +146,22 @@ class WebDriver(
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
         By.IMAGE = MobileBy.IMAGE
         By.CUSTOM = MobileBy.CUSTOM
+
+    def _update_command_executor(self, keep_alive):
+        """Update command executor following directConnect feature"""
+        protocol = self.capabilities['directConnectProtocol']
+        hostname = self.capabilities['directConnectHost']
+        port = self.capabilities['directConnectPort']
+        path = self.capabilities['directConnectPath']
+        executor = '{scheme}://{hostname}:{port}{path}'.format(
+            scheme=protocol,
+            hostname=hostname,
+            port=port,
+            path=path
+        )
+        # Override command executor
+        self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
+        self._addCommands()
 
     def start_session(self, capabilities, browser_profile=None):
         """

@@ -154,10 +154,34 @@ desired_caps['app'] = PATH('../../apps/UICatalog.app.zip')
 self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 ```
 
-
 ## Changed or added functionality
 
 The methods that do change are...
+
+### Direct Connect URLs
+
+If your Selenium/Appium server decorates the new session capabilities response with the following keys:
+
+- `directConnectProtocol`
+- `directConnectHost`
+- `directConnectPort`
+- `directConnectPath`
+
+Then python client will switch its endpoint to the one specified by the values of those keys.
+
+```python
+import unittest
+from appium import webdriver
+
+desired_caps = {}
+desired_caps['platformName'] = 'iOS'
+desired_caps['platformVersion'] = '11.4'
+desired_caps['automationName'] = 'xcuitest'
+desired_caps['deviceName'] = 'iPhone Simulator'
+desired_caps['app'] = PATH('../../apps/UICatalog.app.zip')
+
+self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, direct_connection=True)
+```
 
 
 ### Switching between 'Native' and 'Webview'

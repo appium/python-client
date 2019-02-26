@@ -129,7 +129,7 @@ class WebDriver(
             proxy
         )
 
-        if self.command_executor is not None:  # pylint: disable=access-member-before-definition
+        if hasattr(self, 'command_executor'):
             self._addCommands()
 
         self.error_handler = MobileErrorHandler()
@@ -156,13 +156,9 @@ class WebDriver(
         direct_path = 'directConnectPath'
 
         if (not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.capabilities))):
-            message = 'Direct connect capabilities from server were:\n'\
-                '{protocol}: {protocol_get},  {host}: {host_get}, {port}: {port_get}, {path}: {path_get}'.format(
-                    protocol=direct_protocol, protocol_get=self.capabilities.get(direct_protocol, ''),
-                    host=direct_host, host_get=self.capabilities.get(direct_host, ''),
-                    port=direct_port, port_get=self.capabilities.get(direct_port, ''),
-                    path=direct_path, path_get=self.capabilities.get(direct_path, ''),
-                )
+            message = 'Direct connect capabilities from server were:\n'
+            for key in [direct_protocol, direct_host, direct_port, direct_path]:
+                message += '{}: \'{}\'\n'.format(key, self.capabilities.get(key, ''))
             logger.warning(message)
             return
 

@@ -156,7 +156,7 @@ class WebDriver(
         direct_path = 'directConnectPath'
 
         if (not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.capabilities))):
-            message = 'Could get direct capabilities:\n'\
+            message = 'Direct connect capabilities from server were:\n'\
                 '{protocol}: {protocol_get},  {host}: {host_get}, {port}: {port_get}, {path}: {path_get}'.format(
                     protocol=direct_protocol, protocol_get=self.capabilities.get(direct_protocol, ''),
                     host=direct_host, host_get=self.capabilities.get(direct_host, ''),

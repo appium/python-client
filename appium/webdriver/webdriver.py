@@ -150,10 +150,26 @@ class WebDriver(
 
     def _update_command_executor(self, keep_alive):
         """Update command executor following directConnect feature"""
-        protocol = self.capabilities['directConnectProtocol']
-        hostname = self.capabilities['directConnectHost']
-        port = self.capabilities['directConnectPort']
-        path = self.capabilities['directConnectPath']
+        direct_protocol = 'directConnectProtocol'
+        direct_host = 'directConnectHost'
+        direct_port = 'directConnectPort'
+        direct_path = 'directConnectPath'
+
+        if (not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.capabilities))):
+            message = 'Could get direct capabilities:\n'\
+                '{protocol}: {protocol_get},  {host}: {host_get}, {port}: {port_get}, {path}: {path_get}'.format(
+                    protocol=direct_protocol, protocol_get=self.capabilities.get(direct_protocol, ''),
+                    host=direct_host, host_get=self.capabilities.get(direct_host, ''),
+                    port=direct_port, port_get=self.capabilities.get(direct_port, ''),
+                    path=direct_path, path_get=self.capabilities.get(direct_path, ''),
+                )
+            logger.warning(message)
+            return
+
+        protocol = self.capabilities[direct_protocol]
+        hostname = self.capabilities[direct_host]
+        port = self.capabilities[direct_port]
+        path = self.capabilities[direct_path]
         executor = '{scheme}://{hostname}:{port}{path}'.format(
             scheme=protocol,
             hostname=hostname,
@@ -161,7 +177,7 @@ class WebDriver(
             path=path
         )
 
-        logger.info('Update request endpoint to %s', executor)
+        logger.info('Updated request endpoint to %s', executor)
         # Override command executor
         self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
         self._addCommands()

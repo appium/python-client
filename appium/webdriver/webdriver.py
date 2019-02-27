@@ -20,6 +20,8 @@ import copy
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
+from selenium.webdriver.remote.remote_connection import RemoteConnection
+
 
 from appium.webdriver.common.mobileby import MobileBy
 from .appium_connection import AppiumConnection
@@ -43,6 +45,7 @@ from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
+from appium.common.logger import logger
 
 # From remote/webdriver.py
 _W3C_CAPABILITY_NAMES = frozenset([
@@ -117,7 +120,7 @@ class WebDriver(
 ):
 
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
-                 desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False):
+                 desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False, direct_connection=False):
 
         super(WebDriver, self).__init__(
             AppiumConnection(command_executor, keep_alive=keep_alive),
@@ -126,11 +129,14 @@ class WebDriver(
             proxy
         )
 
-        if self.command_executor is not None:
+        if hasattr(self, 'command_executor'):
             self._addCommands()
 
         self.error_handler = MobileErrorHandler()
         self._switch_to = MobileSwitchTo(self)
+
+        if direct_connection:
+            self._update_command_executor(keep_alive=keep_alive)
 
         # add new method to the `find_by_*` pantheon
         By.IOS_UIAUTOMATION = MobileBy.IOS_UIAUTOMATION
@@ -141,6 +147,36 @@ class WebDriver(
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
         By.IMAGE = MobileBy.IMAGE
         By.CUSTOM = MobileBy.CUSTOM
+
+    def _update_command_executor(self, keep_alive):
+        """Update command executor following directConnect feature"""
+        direct_protocol = 'directConnectProtocol'
+        direct_host = 'directConnectHost'
+        direct_port = 'directConnectPort'
+        direct_path = 'directConnectPath'
+
+        if (not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.capabilities))):
+            message = 'Direct connect capabilities from server were:\n'
+            for key in [direct_protocol, direct_host, direct_port, direct_path]:
+                message += '{}: \'{}\'\n'.format(key, self.capabilities.get(key, ''))
+            logger.warning(message)
+            return
+
+        protocol = self.capabilities[direct_protocol]
+        hostname = self.capabilities[direct_host]
+        port = self.capabilities[direct_port]
+        path = self.capabilities[direct_path]
+        executor = '{scheme}://{hostname}:{port}{path}'.format(
+            scheme=protocol,
+            hostname=hostname,
+            port=port,
+            path=path
+        )
+
+        logger.info('Updated request endpoint to %s', executor)
+        # Override command executor
+        self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
+        self._addCommands()
 
     def start_session(self, capabilities, browser_profile=None):
         """

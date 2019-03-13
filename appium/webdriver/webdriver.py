@@ -595,10 +595,16 @@ class WebDriver(
 
     # pylint: disable=protected-access
 
-    def _get_mro_subtuple(self, mro):
+    def _get_webdriver_parents(self, mro):
         """
         Get Method Resolution Order after `appium.webdriver.webdriver.WebDriver`
         to avoid __addCommands loop in `appium.webdriver.webdriver.WebDriver`
+
+        :Args:
+            - Tuple of Method Resolution Order
+        :Raises:
+            - ValueError: If the MRO has no 'appium.webdriver.webdriver.WebDriver',
+            it raises 'tuple.index(x): x not in tuple' error
         """
         m = tuple(map(lambda x: '{}.{}'.format(x.__module__, x.__name__), mro))
         wd_index = m.index('{}.WebDriver'.format(__name__))
@@ -609,7 +615,7 @@ class WebDriver(
         # call the overridden command binders from all mixin classes except for
         # appium.webdriver.webdriver.WebDriver and its sub-classes
         # https://github.com/appium/python-client/issues/342
-        for mixin_class in self._get_subtuple(self.__class__.__mro__):
+        for mixin_class in self._get_webdriver_parents(self.__class__.__mro__):
             if hasattr(mixin_class, self._addCommands.__name__):
                 getattr(mixin_class, self._addCommands.__name__, None)(self)
 

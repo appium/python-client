@@ -23,6 +23,7 @@ from test.unit.helper.test_helper import (
     android_w3c_driver,
     get_httpretty_request_body
 )
+from appium.webdriver.webdriver import WebDriver
 
 
 class TestWebDriverWebDriver(object):
@@ -251,3 +252,91 @@ class TestWebDriverWebDriver(object):
 
         assert 'http://localhost:4723/wd/hub' == driver.command_executor._url
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
+
+
+class SubWebDriver(WebDriver):
+    def __init__(self, command_executor, desired_capabilities, direct_connection=False):
+        super(SubWebDriver, self).__init__(
+            command_executor=command_executor,
+            desired_capabilities=desired_capabilities,
+            direct_connection=direct_connection
+        )
+
+
+class SubSubWebDriver(SubWebDriver):
+    def __init__(self, command_executor, desired_capabilities, direct_connection=False):
+        super(SubSubWebDriver, self).__init__(
+            command_executor=command_executor,
+            desired_capabilities=desired_capabilities,
+            direct_connection=direct_connection
+        )
+
+
+class TestSubModuleWebDriver(object):
+    def android_w3c_driver(self, driver_class):
+        response_body_json = json.dumps(
+            {
+                'value': {
+                    'sessionId': '1234567890',
+                    'capabilities': {
+                        'platform': 'LINUX',
+                        'desired': {
+                            'platformName': 'Android',
+                            'automationName': 'uiautomator2',
+                            'platformVersion': '7.1.1',
+                            'deviceName': 'Android Emulator',
+                            'app': '/test/apps/ApiDemos-debug.apk',
+                        },
+                        'platformName': 'Android',
+                        'automationName': 'uiautomator2',
+                        'platformVersion': '7.1.1',
+                        'deviceName': 'emulator-5554',
+                        'app': '/test/apps/ApiDemos-debug.apk',
+                        'deviceUDID': 'emulator-5554',
+                        'appPackage': 'com.example.android.apis',
+                        'appWaitPackage': 'com.example.android.apis',
+                        'appActivity': 'com.example.android.apis.ApiDemos',
+                        'appWaitActivity': 'com.example.android.apis.ApiDemos'
+                    }
+                }
+            }
+        )
+
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session'),
+            body=response_body_json
+        )
+
+        desired_caps = {
+            'platformName': 'Android',
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+            'automationName': 'UIAutomator2'
+        }
+
+        driver = driver_class(
+            'http://localhost:4723/wd/hub',
+            desired_caps
+        )
+        return driver
+
+    @httpretty.activate
+    def test_clipboard_with_subclass(self):
+        driver = self.android_w3c_driver(SubWebDriver)
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/context'),
+            body='{"value": "NATIVE"}'
+        )
+        assert driver.current_context == 'NATIVE'
+
+    @httpretty.activate
+    def test_clipboard_with_subsubclass(self):
+        driver = self.android_w3c_driver(SubSubWebDriver)
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/context'),
+            body='{"value": "NATIVE"}'
+        )
+        assert driver.current_context == 'NATIVE'

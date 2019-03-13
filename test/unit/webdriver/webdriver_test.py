@@ -340,3 +340,12 @@ class TestSubModuleWebDriver(object):
             body='{"value": "NATIVE"}'
         )
         assert driver.current_context == 'NATIVE'
+
+    @httpretty.activate
+    def test_compare_commands(self):
+        driver_base = android_w3c_driver()
+        driver_sub = self.android_w3c_driver(SubWebDriver)
+        driver_subsub = self.android_w3c_driver(SubSubWebDriver)
+
+        assert len(driver_base.command_executor._commands) == len(driver_sub.command_executor._commands)
+        assert len(driver_base.command_executor._commands) == len(driver_subsub.command_executor._commands)

@@ -596,8 +596,10 @@ class WebDriver(
     # pylint: disable=protected-access
 
     def _addCommands(self):
-        # call the overridden command binders from all mixin classes
-        for mixin_class in filter(lambda x: x is not self.__class__, self.__class__.__mro__):
+        # call the overridden command binders from all mixin classes except for
+        # appium.webdriver.webdriver.WebDriver and its sub-classes
+        # https://github.com/appium/python-client/issues/342
+        for mixin_class in filter(lambda x: not issubclass(x, WebDriver), self.__class__.__mro__):
             if hasattr(mixin_class, self._addCommands.__name__):
                 getattr(mixin_class, self._addCommands.__name__, None)(self)
 

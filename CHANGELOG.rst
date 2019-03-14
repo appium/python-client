@@ -4,6 +4,46 @@ Changelog
 
 (unreleased)
 ------------
+- Fix RuntimeError: maximum recursion depth exceeded in cmp happened
+  (#343) [Kazuaki Matsuo]
+
+  * fix maximum recursion depth exceeded in sub classes
+
+  * add docstring
+
+  * add comparison of a number of commands
+
+  * use issubclass to ensure the class is sub
+
+
+v0.39 (2019-02-27)
+------------------
+- Add direct connect flag to be able to handle directConnectXxxxc (#338)
+  [Kazuaki Matsuo]
+
+  * add direct connect feature
+
+  * rmeove todo
+
+  * update readme, extract _update_command_executor
+
+  * add logger
+
+  * make log level info
+
+  * show warning if no directConnectXxxxx in dict
+
+  * tweak error message
+
+  * tweak message format
+- Add datamatcher (#335) [Kazuaki Matsuo]
+
+  * add datamatcher
+
+  * add zero case
+
+  * defines search context for driver and element
+- Update changelog for 0.38. [Kazuaki Matsuo]
 - Bump 0.38. [Kazuaki Matsuo]
 
 

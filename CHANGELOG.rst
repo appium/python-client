@@ -2,8 +2,10 @@ Changelog
 =========
 
 
-(unreleased)
-------------
+v0.40 (2019-03-14)
+------------------
+- Bump 0.40. [Kazuaki Matsuo]
+- Update missing changelog in 0.39. [Kazuaki Matsuo]
 - Fix RuntimeError: maximum recursion depth exceeded in cmp happened
   (#343) [Kazuaki Matsuo]
 

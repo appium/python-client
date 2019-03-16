@@ -41,6 +41,7 @@ from .extensions.network import Network
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.search_context import AppiumSearchContext
+from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
@@ -116,7 +117,8 @@ class WebDriver(
     Location,
     Network,
     RemoteFS,
-    ScreenRecord
+    ScreenRecord,
+    Settings
 ):
 
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
@@ -551,25 +553,6 @@ class WebDriver(
         self.execute(Command.OPEN_NOTIFICATIONS, {})
         return self
 
-    def get_settings(self):
-        """Returns the appium server Settings for the current session.
-        Do not get Settings confused with Desired Capabilities, they are
-        separate concepts. See https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
-        """
-        return self.execute(Command.GET_SETTINGS, {})['value']
-
-    def update_settings(self, settings):
-        """Set settings for the current session.
-        For more on settings, see: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
-
-        :Args:
-         - settings - dictionary of settings to apply to the current test session
-        """
-        data = {"settings": settings}
-
-        self.execute(Command.UPDATE_SETTINGS, data)
-        return self
-
     @property
     def battery_info(self):
         """
@@ -623,10 +606,6 @@ class WebDriver(
             ('POST', '/session/$sessionId/appium/device/open_notifications')
         self.command_executor._commands[Command.REPLACE_KEYS] = \
             ('POST', '/session/$sessionId/appium/element/$id/replace_value')
-        self.command_executor._commands[Command.GET_SETTINGS] = \
-            ('GET', '/session/$sessionId/appium/settings')
-        self.command_executor._commands[Command.UPDATE_SETTINGS] = \
-            ('POST', '/session/$sessionId/appium/settings')
         self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
             ('GET', '/session/$sessionId/element/$id/location_in_view')
         self.command_executor._commands[Command.CLEAR] = \

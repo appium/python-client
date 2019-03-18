@@ -58,6 +58,8 @@ class ScreenRecord(webdriver.Remote):
         is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
         - videoScale: The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
         No scale is applied by default. (Since Appium 1.10.0)
+        - pixelFormat: Output pixel format. Run `ffmpeg -pix_fmts` to list possible values.
+        For Quicktime compatibility, set to "yuv420p" along with videoType: "libx264". (Since Appium 1.12.0)
 
         Android Specific:
         - videoSize: The video size of the generated media file. The format is WIDTHxHEIGHT.

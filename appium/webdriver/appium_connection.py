@@ -20,7 +20,7 @@ from appium.common.helper import library_version
 class AppiumConnection(RemoteConnection):
 
     @classmethod
-    def get_remote_connection_headers(cls, parsed_url, keep_alive=False):
+    def get_remote_connection_headers(cls, parsed_url, keep_alive=True):
         """Override get_remote_connection_headers in RemoteConnection"""
         headers = RemoteConnection.get_remote_connection_headers(parsed_url, keep_alive=keep_alive)
         headers['User-Agent'] = 'appium/python {} ({})'.format(library_version(), headers['User-Agent'])

@@ -76,3 +76,4 @@ class MobileCommand(object):
     GET_CLIPBOARD = 'getClipboard'
     COMPARE_IMAGES = 'compareImages'
     FINGER_PRINT = 'fingerPrint'
+    SEND_SMS = 'sendSms'

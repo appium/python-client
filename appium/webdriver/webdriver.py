@@ -42,6 +42,7 @@ from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.search_context import AppiumSearchContext
 from .extensions.settings import Settings
+from .extensions.sms import Sms
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
@@ -118,11 +119,12 @@ class WebDriver(
     Network,
     RemoteFS,
     ScreenRecord,
-    Settings
+    Settings,
+    Sms
 ):
 
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
-                 desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=True, direct_connection=False):
+                 desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False, direct_connection=False):
 
         super(WebDriver, self).__init__(
             AppiumConnection(command_executor, keep_alive=keep_alive),

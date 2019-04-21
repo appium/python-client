@@ -26,7 +26,7 @@ class Sms(webdriver.Remote):
          - message: message: The message to send
 
         :Usage:
-            self.driver.send_sms("555-123-4567", "Hey lol")
+            self.driver.send_sms('555-123-4567', 'Hey lol')
         """
         self.execute(Command.SEND_SMS, {'phoneNumber': phone_number, 'message': message})
 

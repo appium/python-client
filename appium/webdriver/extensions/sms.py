@@ -19,7 +19,14 @@ from ..mobilecommand import MobileCommand as Command
 class Sms(webdriver.Remote):
 
     def send_sms(self, phone_number, message):
-        """tmp
+        """Emulate send SMS event on the connected emulator.
+
+        :Args:
+         - phone_number: The phone number of message sender
+         - message: message: The message to send
+
+        :Usage:
+            self.driver.send_sms("555-123-4567", "Hey lol")
         """
         self.execute(Command.SEND_SMS, {'phoneNumber': phone_number, 'message': message})
 

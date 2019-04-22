@@ -33,7 +33,7 @@ class TestWebDriverSettings(object):
             appium_command('/session/1234567890/appium/settings'),
             body='{"value": {"sample": true}}'
         )
-        assert driver.get_settings()['sample'] == True
+        assert driver.get_settings()['sample'] is True
 
     @httpretty.activate
     def test_update_settings_bool(self):
@@ -45,7 +45,7 @@ class TestWebDriverSettings(object):
         assert isinstance(driver.update_settings({"sample": True}), WebDriver) is True
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['settings']['sample'] == True
+        assert d['settings']['sample'] is True
 
     @httpretty.activate
     def test_get_settings_string(self):

@@ -31,9 +31,9 @@ class FindByImageTests(unittest.TestCase):
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
         # relax template matching
-        self.driver.update_settings({"fixImageFindScreenshotDims": "false",
-                                     "fixImageTemplateSize": "true",
-                                     "autoUpdateImageElementPosition": "true"})
+        self.driver.update_settings({"fixImageFindScreenshotDims": False,
+                                     "fixImageTemplateSize": True,
+                                     "autoUpdateImageElementPosition": True})
 
     def tearDown(self):
         self.driver.quit()

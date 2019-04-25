@@ -2,6 +2,33 @@ Changelog
 =========
 
 
+v0.41 (2019-04-23)
+------------------
+- Fix True/False in image settings, add boolean value in settings test
+  (#352) [Kazuaki Matsuo]
+
+  * Fix True/False in image settings, add boolean value in settings test
+
+  * use is for boolean
+- Add send sms support (#351) [Mori Atsushi]
+
+  * Support sendSms function
+
+  * Added api doc
+
+  * Add sms unittest
+
+  * Revert unexpected changes
+
+  * Update api doc
+- Make keep alive True by default (#348) [Kazuaki Matsuo]
+- Move settings to mixin classes (#347) [Mori Atsushi]
+- Add pixelFormat in docstring (#346) [Kazuaki Matsuo]
+- Add fingerprint unittest (#345) [Mori Atsushi]
+- Add shake unittest (#344) [Mori Atsushi]
+- Update changelog for 0.40. [Kazuaki Matsuo]
+
+
 v0.40 (2019-03-14)
 ------------------
 - Bump 0.40. [Kazuaki Matsuo]

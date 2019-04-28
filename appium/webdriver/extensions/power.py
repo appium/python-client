@@ -18,6 +18,8 @@ from ..mobilecommand import MobileCommand as Command
 
 class Power(webdriver.Remote):
 
+    AC_OFF, AC_ON = 'off', 'on'
+
     def set_power_capacity(self, percent):
         """Emulate power capacity change on the connected emulator.
 
@@ -37,8 +39,8 @@ class Power(webdriver.Remote):
          - ac_state: The power ac state to be set
 
         :Usage:
-            self.driver.set_power_ac('off')
-            self.driver.set_power_ac('on')
+            self.driver.set_power_ac(Power.AC_OFF)
+            self.driver.set_power_ac(Power.AC_ON)
         """
         self.execute(Command.SET_POWER_AC, {'state': ac_state})
         return self

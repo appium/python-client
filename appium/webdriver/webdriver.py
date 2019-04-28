@@ -38,6 +38,7 @@ from .extensions.keyboard import Keyboard
 from .extensions.hw_actions import HardwareActions
 from .extensions.location import Location
 from .extensions.network import Network
+from .extensions.power import Power
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.search_context import AppiumSearchContext
@@ -117,6 +118,7 @@ class WebDriver(
     Keyboard,
     Location,
     Network,
+    Power,
     RemoteFS,
     ScreenRecord,
     Settings,

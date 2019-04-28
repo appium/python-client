@@ -77,3 +77,4 @@ class MobileCommand(object):
     COMPARE_IMAGES = 'compareImages'
     FINGER_PRINT = 'fingerPrint'
     SEND_SMS = 'sendSms'
+    SET_POWER_CAPACITY = 'setPowerCapacity'

@@ -33,11 +33,11 @@ class Power(webdriver.Remote):
         """Emulate power state change on the connected emulator.
 
         :Args:
-         - state: The power ac state to be set
+         - ac_state: The power ac state to be set
 
         :Usage:
-            self.driver.set_power_state('on')
-            self.driver.set_power_state('off')
+            self.driver.set_power_ac('off')
+            self.driver.set_power_ac('on')
         """
         self.execute(Command.SET_POWER_AC, {'state': ac_state})
 

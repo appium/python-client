@@ -20,6 +20,8 @@ from test.unit.helper.test_helper import (
 
 import httpretty
 
+from appium.webdriver.webdriver import WebDriver
+
 
 class TestWebDriverSms(object):
 
@@ -30,7 +32,7 @@ class TestWebDriverSms(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/send_sms'),
         )
-        assert driver.send_sms('555-123-4567', 'Hey lol') is None
+        assert isinstance(driver.send_sms('555-123-4567', 'Hey lol'), WebDriver) is True
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['phoneNumber'] == '555-123-4567'

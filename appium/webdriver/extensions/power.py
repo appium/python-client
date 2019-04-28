@@ -28,6 +28,7 @@ class Power(webdriver.Remote):
             self.driver.set_power_capacity(50)
         """
         self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
+        return self
 
     def set_power_ac(self, ac_state):
         """Emulate power state change on the connected emulator.
@@ -40,6 +41,7 @@ class Power(webdriver.Remote):
             self.driver.set_power_ac('on')
         """
         self.execute(Command.SET_POWER_AC, {'state': ac_state})
+        return self
 
     def _addCommands(self):
         self.command_executor._commands[Command.SET_POWER_CAPACITY] = \

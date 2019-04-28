@@ -43,6 +43,8 @@ class Power(webdriver.Remote):
         self.execute(Command.SET_POWER_AC, {'state': ac_state})
         return self
 
+    # pylint: disable=protected-access
+
     def _addCommands(self):
         self.command_executor._commands[Command.SET_POWER_CAPACITY] = \
             ('POST', '/session/$sessionId/appium/device/power_capacity')

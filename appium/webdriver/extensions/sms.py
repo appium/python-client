@@ -31,6 +31,8 @@ class Sms(webdriver.Remote):
         self.execute(Command.SEND_SMS, {'phoneNumber': phone_number, 'message': message})
         return self
 
+    # pylint: disable=protected-access
+
     def _addCommands(self):
         self.command_executor._commands[Command.SEND_SMS] = \
             ('POST', '/session/$sessionId/appium/device/send_sms')

@@ -21,6 +21,7 @@ from test.unit.helper.test_helper import (
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
+from appium.webdriver.extensions.power import Power
 
 
 class TestWebDriverPower(object):
@@ -44,7 +45,7 @@ class TestWebDriverPower(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/power_ac'),
         )
-        assert isinstance(driver.set_power_ac('on'), WebDriver) is True
+        assert isinstance(driver.set_power_ac(Power.AC_ON), WebDriver) is True
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['state'] == 'on'
+        assert d['state'] == Power.AC_ON

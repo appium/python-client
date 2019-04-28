@@ -24,7 +24,7 @@ class Power(webdriver.Remote):
         """Emulate power capacity change on the connected emulator.
 
         :Args:
-         - percent: The power capacity to be set
+         - percent: The power capacity to be set. Can be set int from 0 to 100
 
         :Usage:
             self.driver.set_power_capacity(50)

@@ -34,3 +34,15 @@ class TestWebDriverPower(object):
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['percent'] == 50
+
+    @httpretty.activate
+    def test_set_power_ac(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/power_ac'),
+        )
+        assert driver.set_power_ac('on') is None
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['state'] == 'on'

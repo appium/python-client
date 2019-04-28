@@ -29,6 +29,20 @@ class Power(webdriver.Remote):
         """
         self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
 
+    def set_power_ac(self, ac_state):
+        """Emulate power state change on the connected emulator.
+
+        :Args:
+         - state: The power ac state to be set
+
+        :Usage:
+            self.driver.set_power_state('on')
+            self.driver.set_power_state('off')
+        """
+        self.execute(Command.SET_POWER_AC, {'state': ac_state})
+
     def _addCommands(self):
         self.command_executor._commands[Command.SET_POWER_CAPACITY] = \
             ('POST', '/session/$sessionId/appium/device/power_capacity')
+        self.command_executor._commands[Command.SET_POWER_AC] = \
+            ('POST', '/session/$sessionId/appium/device/power_ac')

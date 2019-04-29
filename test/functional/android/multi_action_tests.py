@@ -120,52 +120,6 @@ class MultiActionTests(unittest.TestCase):
         self.driver.tap(positions)
         sleep(10)
 
-    def test_driver_pinch(self):
-        el1 = self.driver.find_element_by_name('Content')
-        el2 = self.driver.find_element_by_name('Animation')
-        self.driver.scroll(el1, el2)
-
-        el = self.driver.find_element_by_name('Views')
-        action = TouchAction(self.driver)
-        action.tap(el).perform()
-
-        els = self.driver.find_elements_by_class_name('android.widget.TextView')
-        self.driver.scroll(els[len(els) - 1], els[0])
-
-        els = self.driver.find_elements_by_class_name('android.widget.TextView')
-        if els[len(els) - 1].get_attribute('name') != 'WebView':
-            self.driver.scroll(els[len(els) - 1], els[0])
-
-        el = self.driver.find_element_by_name('WebView')
-        action.tap(el).perform()
-
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_id('com.example.android.apis:id/wv1')
-        self.driver.pinch(element=el)
-
-    def test_driver_zoom(self):
-        el1 = self.driver.find_element_by_name('Content')
-        el2 = self.driver.find_element_by_name('Animation')
-        self.driver.scroll(el1, el2)
-
-        el = self.driver.find_element_by_name('Views')
-        action = TouchAction(self.driver)
-        action.tap(el).perform()
-
-        els = self.driver.find_elements_by_class_name('android.widget.TextView')
-        self.driver.scroll(els[len(els) - 1], els[0])
-
-        els = self.driver.find_elements_by_class_name('android.widget.TextView')
-        if els[len(els) - 1].get_attribute('name') != 'WebView':
-            self.driver.scroll(els[len(els) - 1], els[0])
-
-        el = self.driver.find_element_by_name('WebView')
-        action.tap(el).perform()
-
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_id('com.example.android.apis:id/wv1')
-        self.driver.zoom(element=el)
-
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(MultiActionTests)

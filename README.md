@@ -408,15 +408,6 @@ self.driver.tap(positions)
 
 Swipe from one point to another point.
 
-#### `driver.zoom`
-
-Zoom in on an element, doing a pinch out operation.
-
-#### `driver.pinch`
-
-Zoom out on an element, doing a pinch in operation.
-
-
 
 ### Application management methods
 

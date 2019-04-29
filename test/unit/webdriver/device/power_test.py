@@ -33,7 +33,7 @@ class TestWebDriverPower(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/power_capacity'),
         )
-        assert isinstance(driver.set_power_capacity(50), WebDriver) is True
+        assert isinstance(driver.set_power_capacity(50), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['percent'] == 50
@@ -45,7 +45,7 @@ class TestWebDriverPower(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/power_ac'),
         )
-        assert isinstance(driver.set_power_ac(Power.AC_ON), WebDriver) is True
+        assert isinstance(driver.set_power_ac(Power.AC_ON), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['state'] == Power.AC_ON

@@ -32,4 +32,4 @@ class TestWebDriverKeyboard(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/hide_keyboard')
         )
-        assert isinstance(driver.hide_keyboard(), WebDriver) == True
+        assert isinstance(driver.hide_keyboard(), WebDriver)

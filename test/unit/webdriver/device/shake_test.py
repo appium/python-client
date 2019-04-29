@@ -32,4 +32,4 @@ class TestWebDriverDeviceShake(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/shake'),
         )
-        assert isinstance(driver.shake(), WebDriver) is True
+        assert isinstance(driver.shake(), WebDriver)

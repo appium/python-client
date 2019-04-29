@@ -36,4 +36,4 @@ class TestApp(object):
         result = driver.reset()
 
         assert {'sessionId': '1234567890'}, get_httpretty_request_body(httpretty.last_request())
-        assert isinstance(result, WebDriver) is True
+        assert isinstance(result, WebDriver)

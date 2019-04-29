@@ -34,7 +34,7 @@ class TestWebDriverLocation(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/toggle_location_services')
         )
-        assert isinstance(driver.toggle_location_services(), WebDriver) == True
+        assert isinstance(driver.toggle_location_services(), WebDriver)
 
     @httpretty.activate
     def test_set_location(self):
@@ -43,7 +43,7 @@ class TestWebDriverLocation(object):
             httpretty.POST,
             appium_command('/session/1234567890/location')
         )
-        assert isinstance(driver.set_location(11.1, 22.2, 33.3), WebDriver) == True
+        assert isinstance(driver.set_location(11.1, 22.2, 33.3), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert abs(d['location']['latitude'] - 11.1) <= FLT_EPSILON

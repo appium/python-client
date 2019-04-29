@@ -24,7 +24,7 @@ class Gsm(webdriver.Remote):
         MODERATE,
         GOOD,
         GREAT
-    ) = range(5)
+    ) = list(map(str, range(5)))  # TODO: Need to check where int 0 will be dropped as arg
 
     def set_gsm_signal(self, strength):
         """Set GSM signal strength (Emulator only)

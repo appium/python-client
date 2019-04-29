@@ -41,6 +41,8 @@ class DeviceTime(webdriver.Remote):
             return self.device_time
         return self.execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
 
+    # pylint: disable=protected-access
+
     def _addCommands(self):
         self.command_executor._commands[Command.GET_DEVICE_TIME_GET] = \
             ('GET', '/session/$sessionId/appium/device/system_time')

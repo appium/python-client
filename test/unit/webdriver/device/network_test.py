@@ -56,4 +56,4 @@ class TestWebDriverNetwork(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/toggle_wifi'),
         )
-        assert isinstance(driver.toggle_wifi(), WebDriver) is True
+        assert isinstance(driver.toggle_wifi(), WebDriver)

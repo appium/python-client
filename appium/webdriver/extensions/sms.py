@@ -29,6 +29,9 @@ class Sms(webdriver.Remote):
             self.driver.send_sms('555-123-4567', 'Hey lol')
         """
         self.execute(Command.SEND_SMS, {'phoneNumber': phone_number, 'message': message})
+        return self
+
+    # pylint: disable=protected-access
 
     def _addCommands(self):
         self.command_executor._commands[Command.SEND_SMS] = \

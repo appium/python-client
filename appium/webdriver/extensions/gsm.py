@@ -32,14 +32,9 @@ class Gsm(webdriver.Remote):
         :Args:
          - strength: Signal strength. Can be set Gsm.NONE_OR_UNKNOWN/POOR/MODERATE/GOOD/GREAT
 
-        :Raises:
-        - TypeError - Raises a TypeError if the argument is out of range
-
         :Usage:
             self.driver.set_gsm_signal(Gsm.GOOD)
         """
-        if strength not in [self.NONE_OR_UNKNOWN, self.POOR, self.MODERATE, self.GOOD, self.GREAT]:
-            raise TypeError("{} is out of range. Use the value like Gsm.GOOD.".format(strength))
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
 

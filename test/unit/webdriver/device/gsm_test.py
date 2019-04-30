@@ -19,7 +19,6 @@ from test.unit.helper.test_helper import (
 )
 
 import httpretty
-import pytest
 
 from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.extensions.gsm import Gsm
@@ -35,20 +34,7 @@ class TestWebDriveGsm(object):
         assert Gsm.GREAT == 4
 
     @httpretty.activate
-    def test_set_gsm_signal_none_or_unknown(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/device/gsm_signal'),
-        )
-        assert isinstance(driver.set_gsm_signal(Gsm.NONE_OR_UNKNOWN), WebDriver)
-
-        d = get_httpretty_request_body(httpretty.last_request())
-        assert d['signalStrength'] == Gsm.NONE_OR_UNKNOWN
-        assert d['signalStrengh'] == Gsm.NONE_OR_UNKNOWN
-
-    @httpretty.activate
-    def test_set_gsm_signal_great(self):
+    def test_set_gsm_signal(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
@@ -59,13 +45,3 @@ class TestWebDriveGsm(object):
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['signalStrength'] == Gsm.GREAT
         assert d['signalStrengh'] == Gsm.GREAT
-
-    @httpretty.activate
-    def test_set_gsm_signal_out_of_range(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/device/gsm_signal'),
-        )
-        with pytest.raises(TypeError):
-            driver.set_gsm_signal(100)

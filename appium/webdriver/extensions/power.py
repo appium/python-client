@@ -29,6 +29,8 @@ class Power(webdriver.Remote):
         :Usage:
             self.driver.set_power_capacity(50)
         """
+        if percent not in range(101):  # 0-100(int)
+            raise TypeError('{} is out of range. Needs to be 0-100(int).'.format(percent))
         self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
         return self
 
@@ -42,6 +44,8 @@ class Power(webdriver.Remote):
             self.driver.set_power_ac(Power.AC_OFF)
             self.driver.set_power_ac(Power.AC_ON)
         """
+        if ac_state not in [self.AC_OFF, self.AC_ON]:
+            raise TypeError('{} is unexpected. Use Power.AC_OFF, Power.AC_ON'.format(ac_state))
         self.execute(Command.SET_POWER_AC, {'state': ac_state})
         return self
 

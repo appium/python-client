@@ -24,7 +24,7 @@ class Gsm(webdriver.Remote):
         MODERATE,
         GOOD,
         GREAT
-    ) = list(map(str, range(5)))  # TODO: Need to check where int 0 will be dropped as arg
+    ) = range(5)
 
     def set_gsm_signal(self, strength):
         """Set GSM signal strength (Emulator only)
@@ -35,7 +35,7 @@ class Gsm(webdriver.Remote):
         :Usage:
             self.driver.set_gsm_signal(Gsm.GOOD)
         """
-        self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength})
+        self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
 
     # pylint: disable=protected-access

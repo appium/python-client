@@ -27,13 +27,27 @@ from appium.webdriver.extensions.gsm import Gsm
 class TestWebDriveGsm(object):
 
     @httpretty.activate
-    def test_set_gsm_signal(self):
+    def test_set_gsm_signal_none_or_unknown(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/gsm_signal'),
         )
-        assert isinstance(driver.set_gsm_signal(Gsm.GOOD), WebDriver)
+        assert isinstance(driver.set_gsm_signal(Gsm.NONE_OR_UNKNOWN), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['signalStrength'] == Gsm.GOOD
+        assert d['signalStrength'] == 0  # Gsm.NONE_OR_UNKNOWN
+        assert d['signalStrengh'] == 0
+
+    @httpretty.activate
+    def test_set_gsm_signal_great(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/gsm_signal'),
+        )
+        assert isinstance(driver.set_gsm_signal(Gsm.GREAT), WebDriver)
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['signalStrength'] == 4  # Gsm.GREAT
+        assert d['signalStrengh'] == 4

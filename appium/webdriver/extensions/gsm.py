@@ -15,6 +15,8 @@
 from selenium import webdriver
 from ..mobilecommand import MobileCommand as Command
 
+from appium.common.logger import logger
+
 
 class Gsm(webdriver.Remote):
 
@@ -35,6 +37,8 @@ class Gsm(webdriver.Remote):
         :Usage:
             self.driver.set_gsm_signal(Gsm.GOOD)
         """
+        if strength not in [self.NONE_OR_UNKNOWN, self.POOR, self.MODERATE, self.GOOD, self.GREAT]:
+            logger.warning('{} is out of range. Use the value like Gsm.GOOD for signal strength.'.format(strength))
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
 

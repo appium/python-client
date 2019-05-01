@@ -17,9 +17,26 @@ from ..mobilecommand import MobileCommand as Command
 
 from appium.common.logger import logger
 from ..gsm_signal_strength import GsmSignalStrength
+from ..gsm_call_actions import GsmCallActions
 
 
 class Gsm(webdriver.Remote):
+
+    def make_gsm_call(self, phone_number, action):
+        """Make GSM call (Emulator only)
+
+        :Args:
+         - phone_number (str): The phone number to call to.
+         - action (str): The action - GsmCallActions.CALL/ACCEPT/CANCEL/HOLD
+
+        :Usage:
+            self.driver.make_gsm_call('5551234567', GsmCallActions.CALL)
+        """
+        if action not in self._dict_const(GsmCallActions).values():
+            logger.warning('{} is invalid. Use the value in {}. (e.g. GsmCallActions.CALL)'.format(
+                action, list(self._dict_const(GsmCallActions).keys())))
+        self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
+        return self
 
     def set_gsm_signal(self, strength):
         """Set GSM signal strength (Emulator only)
@@ -42,5 +59,7 @@ class Gsm(webdriver.Remote):
     # pylint: disable=protected-access
 
     def _addCommands(self):
+        self.command_executor._commands[Command.MAKE_GSM_CALL] = \
+            ('POST', '/session/$sessionId/appium/device/gsm_call')
         self.command_executor._commands[Command.SET_GSM_SIGNAL] = \
             ('POST', '/session/$sessionId/appium/device/gsm_signal')

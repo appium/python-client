@@ -16,36 +16,28 @@ from selenium import webdriver
 from ..mobilecommand import MobileCommand as Command
 
 from appium.common.logger import logger
+from ..gsm_signal_strength import GsmSignalStrength
 
 
 class Gsm(webdriver.Remote):
-
-    (
-        NONE_OR_UNKNOWN,
-        POOR,
-        MODERATE,
-        GOOD,
-        GREAT
-    ) = range(5)
 
     def set_gsm_signal(self, strength):
         """Set GSM signal strength (Emulator only)
 
         :Args:
-         - strength: Signal strength. Can be set Gsm.NONE_OR_UNKNOWN/POOR/MODERATE/GOOD/GREAT
+         - strength: Signal strength. Can be set GsmSignalStrength.NONE_OR_UNKNOWN/POOR/MODERATE/GOOD/GREAT
 
         :Usage:
-            self.driver.set_gsm_signal(Gsm.GOOD)
+            self.driver.set_gsm_signal(GsmSignalStrength.GOOD)
         """
-        if strength not in self._dict_signal_strength().values():
-            logger.warning('{} is out of range. Use the value in {}.'.format(
-                strength, list(self._dict_signal_strength().keys())))
+        if strength not in self._dict_const(GsmSignalStrength).values():
+            logger.warning('{} is out of range. Use the value in {}. (e.g. GsmSignalStrength.GOOD)'.format(
+                strength, list(self._dict_const(GsmSignalStrength).keys())))
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
 
-    def _dict_signal_strength(self):
-        return {'{}.{}'.format(Gsm.__name__, attr): value for attr, value in vars(Gsm).items()
-                if not callable(getattr(Gsm, attr)) and attr.isupper()}
+    def _dict_const(self, cls):
+        return {attr: value for attr, value in vars(cls).items() if not callable(getattr(cls, attr)) and attr.isupper()}
 
     # pylint: disable=protected-access
 

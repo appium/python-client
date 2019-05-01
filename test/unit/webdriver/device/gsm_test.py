@@ -21,10 +21,24 @@ from test.unit.helper.test_helper import (
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
+from appium.webdriver.gsm_call_actions import GsmCallActions
 from appium.webdriver.gsm_signal_strength import GsmSignalStrength
 
 
 class TestWebDriveGsm(object):
+
+    @httpretty.activate
+    def test_make_gsm_call(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/gsm_call'),
+        )
+        assert isinstance(driver.make_gsm_call('5551234567', GsmCallActions.CALL), WebDriver)
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['phoneNumber'] == '5551234567'
+        assert d['action'] == GsmCallActions.CALL
 
     @httpretty.activate
     def test_set_gsm_signal(self):

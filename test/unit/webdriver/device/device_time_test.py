@@ -21,7 +21,7 @@ from test.unit.helper.test_helper import (
 import httpretty
 
 
-class TestWebDriverDeviceLock(object):
+class TestWebDriverDeviceTime(object):
 
     @httpretty.activate
     def test_device_time(self):

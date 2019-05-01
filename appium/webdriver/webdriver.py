@@ -32,6 +32,7 @@ from .extensions.applications import Applications
 from .extensions.clipboard import Clipboard
 from .extensions.context import Context
 from .extensions.device_time import DeviceTime
+from .extensions.gsm import Gsm
 from .extensions.images_comparison import ImagesComparison
 from .extensions.ime import IME
 from .extensions.keyboard import Keyboard
@@ -112,6 +113,7 @@ class WebDriver(
     Clipboard,
     Context,
     DeviceTime,
+    Gsm,
     HardwareActions,
     ImagesComparison,
     IME,

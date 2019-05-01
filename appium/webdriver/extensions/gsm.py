@@ -37,10 +37,15 @@ class Gsm(webdriver.Remote):
         :Usage:
             self.driver.set_gsm_signal(Gsm.GOOD)
         """
-        if strength not in [self.NONE_OR_UNKNOWN, self.POOR, self.MODERATE, self.GOOD, self.GREAT]:
-            logger.warning('{} is out of range. Use the value like Gsm.GOOD for signal strength.'.format(strength))
+        if strength not in self._dict_signal_strength().values():
+            logger.warning('{} is out of range. Use the value in {}.'.format(
+                strength, list(self._dict_signal_strength().keys())))
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
+
+    def _dict_signal_strength(self):
+        return {'{}.{}'.format(Gsm.__name__, attr): value for attr, value in vars(Gsm).items()
+                if not callable(getattr(Gsm, attr)) and attr.isupper()}
 
     # pylint: disable=protected-access
 

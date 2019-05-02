@@ -16,7 +16,7 @@ from selenium import webdriver
 from ..mobilecommand import MobileCommand as Command
 
 from appium.common.logger import logger
-from appium.common.helper import get_dict_const_attr_and_val
+from appium.common.helper import extract_const_attributes
 
 
 class GsmCallActions(object):
@@ -46,7 +46,7 @@ class Gsm(webdriver.Remote):
         :Usage:
             self.driver.make_gsm_call('5551234567', GsmCallActions.CALL)
         """
-        constants = get_dict_const_attr_and_val(GsmCallActions)
+        constants = extract_const_attributes(GsmCallActions)
         if action not in constants.values():
             logger.warning('{} is unknown. Consider using one of {} constants. (e.g. {}.CALL)'.format(
                 action, list(constants.keys()), GsmCallActions.__name__))
@@ -62,7 +62,7 @@ class Gsm(webdriver.Remote):
         :Usage:
             self.driver.set_gsm_signal(GsmSignalStrength.GOOD)
         """
-        constants = get_dict_const_attr_and_val(GsmSignalStrength)
+        constants = extract_const_attributes(GsmSignalStrength)
         if strength not in constants.values():
             logger.warning('{} is out of range. Consider using one of {} constants. (e.g. {}.GOOD)'.format(
                 strength, list(constants.keys()), GsmSignalStrength.__name__))

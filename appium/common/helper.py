@@ -35,7 +35,7 @@ def appium_bytes(value, encoding):
         return value  # Python 2
 
 
-def get_dict_const_attr_and_val(cls):
+def extract_const_attributes(cls):
     """
     Return dict with constants attributes and values in the class (e.g. {'VAL1': 1, 'VAL2': 2})
 

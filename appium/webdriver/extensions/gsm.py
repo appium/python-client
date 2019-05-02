@@ -16,8 +16,21 @@ from selenium import webdriver
 from ..mobilecommand import MobileCommand as Command
 
 from appium.common.logger import logger
-from ..gsm_signal_strength import GsmSignalStrength
-from ..gsm_call_actions import GsmCallActions
+
+
+class GsmCallActions(object):
+    CALL = 'call'
+    ACCEPT = 'accept'
+    CANCEL = 'cancel'
+    HOLD = 'hold'
+
+
+class GsmSignalStrength(object):
+    NONE_OR_UNKNOWN = 0
+    POOR = 1
+    MODERATE = 2
+    GOOD = 3
+    GREAT = 4
 
 
 class Gsm(webdriver.Remote):
@@ -27,14 +40,14 @@ class Gsm(webdriver.Remote):
 
         :Args:
          - phone_number (str): The phone number to call to.
-         - action (str): The action - GsmCallActions.CALL/ACCEPT/CANCEL/HOLD
+         - action (str): The call action - GsmCallActions.CALL/ACCEPT/CANCEL/HOLD
 
         :Usage:
             self.driver.make_gsm_call('5551234567', GsmCallActions.CALL)
         """
         if action not in self._dict_const(GsmCallActions).values():
-            logger.warning('{} is invalid. Use the value in {}. (e.g. GsmCallActions.CALL)'.format(
-                action, list(self._dict_const(GsmCallActions).keys())))
+            logger.warning('{} is unknown. Consider using one of {}. (e.g. {}.CALL)'.format(
+                action, list(self._dict_const(GsmCallActions).keys()), GsmCallActions.__name__))
         self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
         return self
 
@@ -42,14 +55,14 @@ class Gsm(webdriver.Remote):
         """Set GSM signal strength (Emulator only)
 
         :Args:
-         - strength: Signal strength. Can be set GsmSignalStrength.NONE_OR_UNKNOWN/POOR/MODERATE/GOOD/GREAT
+         - strength: Signal strength - GsmSignalStrength.NONE_OR_UNKNOWN/POOR/MODERATE/GOOD/GREAT
 
         :Usage:
             self.driver.set_gsm_signal(GsmSignalStrength.GOOD)
         """
         if strength not in self._dict_const(GsmSignalStrength).values():
-            logger.warning('{} is out of range. Use the value in {}. (e.g. GsmSignalStrength.GOOD)'.format(
-                strength, list(self._dict_const(GsmSignalStrength).keys())))
+            logger.warning('{} is out of range. Consider using one of {}. (e.g. {}.GOOD)'.format(
+                strength, list(self._dict_const(GsmSignalStrength).keys()), GsmSignalStrength.__name__))
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
 

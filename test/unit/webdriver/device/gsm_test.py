@@ -21,8 +21,7 @@ from test.unit.helper.test_helper import (
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from appium.webdriver.gsm_call_actions import GsmCallActions
-from appium.webdriver.gsm_signal_strength import GsmSignalStrength
+from appium.webdriver.extensions.gsm import GsmCallActions, GsmSignalStrength
 
 
 class TestWebDriveGsm(object):

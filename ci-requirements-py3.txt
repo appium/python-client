@@ -1,0 +1,2 @@
+astroid==2.2.5
+pylint==2.3.1

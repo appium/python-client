@@ -16,6 +16,7 @@ from selenium import webdriver
 from ..mobilecommand import MobileCommand as Command
 
 from appium.common.logger import logger
+from appium.common.helper import get_dict_const_attr_and_val
 
 
 class GsmCallActions(object):
@@ -45,9 +46,10 @@ class Gsm(webdriver.Remote):
         :Usage:
             self.driver.make_gsm_call('5551234567', GsmCallActions.CALL)
         """
-        if action not in self._dict_const(GsmCallActions).values():
-            logger.warning('{} is unknown. Consider using one of {}. (e.g. {}.CALL)'.format(
-                action, list(self._dict_const(GsmCallActions).keys()), GsmCallActions.__name__))
+        constants = get_dict_const_attr_and_val(GsmCallActions)
+        if action not in constants.values():
+            logger.warning('{} is unknown. Consider using one of {} constants. (e.g. {}.CALL)'.format(
+                action, list(constants.keys()), GsmCallActions.__name__))
         self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
         return self
 
@@ -55,19 +57,17 @@ class Gsm(webdriver.Remote):
         """Set GSM signal strength (Emulator only)
 
         :Args:
-         - strength: Signal strength - GsmSignalStrength.NONE_OR_UNKNOWN/POOR/MODERATE/GOOD/GREAT
+         - strength (int): Signal strength - GsmSignalStrength.NONE_OR_UNKNOWN/POOR/MODERATE/GOOD/GREAT
 
         :Usage:
             self.driver.set_gsm_signal(GsmSignalStrength.GOOD)
         """
-        if strength not in self._dict_const(GsmSignalStrength).values():
-            logger.warning('{} is out of range. Consider using one of {}. (e.g. {}.GOOD)'.format(
-                strength, list(self._dict_const(GsmSignalStrength).keys()), GsmSignalStrength.__name__))
+        constants = get_dict_const_attr_and_val(GsmSignalStrength)
+        if strength not in constants.values():
+            logger.warning('{} is out of range. Consider using one of {} constants. (e.g. {}.GOOD)'.format(
+                strength, list(constants.keys()), GsmSignalStrength.__name__))
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
-
-    def _dict_const(self, cls):
-        return {attr: value for attr, value in vars(cls).items() if not callable(getattr(cls, attr)) and attr.isupper()}
 
     # pylint: disable=protected-access
 

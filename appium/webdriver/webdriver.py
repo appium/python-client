@@ -45,6 +45,7 @@ from .extensions.screen_record import ScreenRecord
 from .extensions.search_context import AppiumSearchContext
 from .extensions.settings import Settings
 from .extensions.sms import Sms
+from .extensions.system_bars import SystemBars
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
@@ -124,7 +125,8 @@ class WebDriver(
     RemoteFS,
     ScreenRecord,
     Settings,
-    Sms
+    Sms,
+    SystemBars
 ):
 
     def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',

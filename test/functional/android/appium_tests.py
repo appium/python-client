@@ -101,12 +101,7 @@ class AppiumTests(unittest.TestCase):
         package = self.driver.current_package
         self.assertEqual('com.example.android.apis', package)
 
-    def test_pull_file(self):
-        data = self.driver.pull_file('data/local/tmp/strings.json')
-        strings = json.loads(data.decode('base64', 'strict'))
-        self.assertEqual('You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
-
-    def test_push_file(self):
+    def test_push_pull_file(self):
         path = '/data/local/tmp/test_push_file.txt'
         data = b'This is the contents of the file to push to the device.'
 

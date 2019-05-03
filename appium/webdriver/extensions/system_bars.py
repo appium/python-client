@@ -19,7 +19,22 @@ from ..mobilecommand import MobileCommand as Command
 class SystemBars(webdriver.Remote):
 
     def get_system_bars(self):
-        """
+        """Retrieve visibility and bounds information of the status and navigation bars
+
+        :return:
+        A dictionary whose keys are
+         - statusBar
+           - visible
+           - x
+           - y
+           - width
+           - height
+         - navigationBar
+           - visible
+           - x
+           - y
+           - width
+           - height
         """
         return self.execute(Command.GET_SYSTEM_BARS)['value']
 

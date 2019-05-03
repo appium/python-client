@@ -34,6 +34,16 @@ class GsmSignalStrength(object):
     GREAT = 4
 
 
+class GsmVoiceState(object):
+    UNREGISTERED = 'unregistered'
+    HOME = 'home'
+    ROAMING = 'roaming'
+    SEARCHING = 'searching'
+    DENIED = 'denied'
+    OFF = 'off'
+    ON = 'on'
+
+
 class Gsm(webdriver.Remote):
 
     def make_gsm_call(self, phone_number, action):
@@ -69,6 +79,22 @@ class Gsm(webdriver.Remote):
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
 
+    def set_gsm_voice(self, state):
+        """Set GSM voice state (Emulator only)
+
+        :Args:
+         - state(str): State of GSM voice - GsmVoiceState.UNREGISTERED/HOME/ROAMING/SEARCHING/DENIFED/OFF/ON
+
+        :Usage:
+            self.driver.set_gsm_voice(GsmVoiceState.HOME)
+        """
+        constants = extract_const_attributes(GsmVoiceState)
+        if state not in constants.values():
+            logger.warning('{} is unknown. Consider using one of {} constants. (e.g. {}.HOME)'.format(
+                state, list(constants.keys()), GsmVoiceState.__name__))
+        self.execute(Command.SET_GSM_VOICE, {'state': state})
+        return self
+
     # pylint: disable=protected-access
 
     def _addCommands(self):
@@ -76,3 +102,5 @@ class Gsm(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/gsm_call')
         self.command_executor._commands[Command.SET_GSM_SIGNAL] = \
             ('POST', '/session/$sessionId/appium/device/gsm_signal')
+        self.command_executor._commands[Command.SET_GSM_VOICE] = \
+            ('POST', '/session/$sessionId/appium/device/gsm_voice')

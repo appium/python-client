@@ -82,3 +82,4 @@ class MobileCommand(object):
     SET_GSM_SIGNAL = 'setGsmSignal'
     MAKE_GSM_CALL = 'makeGsmCall'
     GET_SYSTEM_BARS = 'getSystemBars'
+    SET_GSM_VOICE = 'setGsmVoice'

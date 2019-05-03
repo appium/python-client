@@ -115,19 +115,25 @@ class AppiumTests(unittest.TestCase):
         self.assertEqual(data, data_ret)
 
     def test_pull_folder(self):
-        string_data = 'random string data %d' % random.randint(0, 1000)
+        string_data = b'random string data %d' % random.randint(0, 1000)
         path = '/data/local/tmp'
-        self.driver.push_file(path + '/1.txt', string_data.encode('base64'))
-        self.driver.push_file(path + '/2.txt', string_data.encode('base64'))
+        self.driver.push_file(path + '/1.txt', base64.b64encode(string_data).decode('utf-8'))
+        self.driver.push_file(path + '/2.txt', base64.b64encode(string_data).decode('utf-8'))
+
+        # python2
+        # self.driver.push_file(path + '/1.txt', string_data.encode('base64'))
+        # self.driver.push_file(path + '/2.txt', string_data.encode('base64'))
+
         folder = self.driver.pull_folder(path)
 
         # python doesn't have any functionality for unzipping streams
         # save temporary file, which will be deleted in `tearDown`
         self.zipfilename = 'folder_%d.zip' % random.randint(0, 1000000)
-        file = open(self.zipfilename, "w")
-        file.write(folder.decode('base64', 'strict'))
-        file.close()
+        with open(self.zipfilename, "wb") as fw:
+            fw.write(base64.b64decode(folder))
+            # fw.write(folder.decode('base64', 'strict'))  # python2
 
+        print(self.zipfilename)
         with ZipFile(self.zipfilename, 'r') as myzip:
             # should find these. otherwise it will raise a `KeyError`
             myzip.read('1.txt')

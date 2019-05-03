@@ -24,6 +24,8 @@ from dateutil.parser import parse
 from appium.webdriver.applicationstate import ApplicationState
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from appium import webdriver
 import desired_capabilities
@@ -196,9 +198,19 @@ class AppiumTests(unittest.TestCase):
     def test_set_text(self):
         self.driver.find_element_by_android_uiautomator(
             'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
-        self.driver.find_element_by_name('Controls').click()
-        self.driver.find_element_by_name('1. Light Theme').click()
+        WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.ACCESSIBILITY_ID, 'Controls'))
+        )
+        self.driver.find_element_by_accessibility_id('Controls').click()
 
+        WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.ACCESSIBILITY_ID, '1. Light Theme'))
+        )
+        self.driver.find_element_by_accessibility_id('1. Light Theme').click()
+
+        WebDriverWait(self.driver, 3).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'android.widget.EditText'))
+        )
         el = self.driver.find_element_by_class_name('android.widget.EditText')
         el.send_keys('original text')
         el.set_text('new text')
@@ -246,7 +258,7 @@ class AppiumTests(unittest.TestCase):
         self.driver.toggle_location_services()
 
     def test_element_location_in_view(self):
-        el = self.driver.find_element_by_name('Content')
+        el = self.driver.find_element_by_accessibility_id('Content')
         loc = el.location_in_view
         self.assertIsNotNone(loc['x'])
         self.assertIsNotNone(loc['y'])

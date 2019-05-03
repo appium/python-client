@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import base64
 import unittest
 from zipfile import ZipFile
 import json
@@ -106,10 +107,16 @@ class AppiumTests(unittest.TestCase):
         self.assertEqual('You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
 
     def test_push_file(self):
-        path = 'data/local/tmp/test_push_file.txt'
-        data = 'This is the contents of the file to push to the device.'
-        self.driver.push_file(path, data.encode('base64'))
-        data_ret = self.driver.pull_file('data/local/tmp/test_push_file.txt').decode('base64')
+        path = '/data/local/tmp/test_push_file.txt'
+        data = b'This is the contents of the file to push to the device.'
+
+        self.driver.push_file(path, base64.b64encode(data).decode('utf-8'))
+        data_ret = base64.b64decode(self.driver.pull_file(path))
+
+        # python2
+        # self.driver.push_file(path, data.encode('base64'))
+        # data_ret = self.driver.pull_file('data/local/tmp/test_push_file.txt').decode('base64')
+
         self.assertEqual(data, data_ret)
 
     def test_pull_folder(self):

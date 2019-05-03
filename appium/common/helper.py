@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import io
-import os
+from collections import OrderedDict
 
 from appium import version as appium_version
 
@@ -36,6 +35,20 @@ def appium_bytes(value, encoding):
         return bytes(value, encoding)  # Python 3
     except TypeError:
         return value  # Python 2
+
+
+def extract_const_attributes(cls):
+    """
+    Return dict with constants attributes and values in the class (e.g. {'VAL1': 1, 'VAL2': 2})
+
+    :param cls: Class to be extracted constants
+    :type cls: type
+
+    :return: dict with constants attributes and values in the class
+    :rtype: OrderedDict
+    """
+    return OrderedDict(
+        [(attr, value) for attr, value in vars(cls).items() if not callable(getattr(cls, attr)) and attr.isupper()])
 
 
 def library_version():

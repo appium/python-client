@@ -21,7 +21,11 @@ from test.unit.helper.test_helper import (
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from appium.webdriver.extensions.gsm import GsmCallActions, GsmSignalStrength
+from appium.webdriver.extensions.gsm import (
+    GsmCallActions,
+    GsmSignalStrength,
+    GsmVoiceState
+)
 
 
 class TestWebDriveGsm(object):
@@ -51,3 +55,15 @@ class TestWebDriveGsm(object):
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['signalStrength'] == GsmSignalStrength.GREAT
         assert d['signalStrengh'] == GsmSignalStrength.GREAT
+
+    @httpretty.activate
+    def test_set_gsm_voice(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/gsm_voice'),
+        )
+        assert isinstance(driver.set_gsm_voice(GsmVoiceState.ROAMING), WebDriver)
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['state'] == GsmVoiceState.ROAMING

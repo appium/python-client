@@ -29,7 +29,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from appium import webdriver
 import desired_capabilities
-from test_helper import is_py2, is_py3
 
 
 # the emulator is sometimes slow and needs time to think
@@ -105,13 +104,8 @@ class AppiumTests(unittest.TestCase):
         path = '/data/local/tmp/test_push_file.txt'
         data = b'This is the contents of the file to push to the device.'
 
-        data_ret = ''
-        if is_py2():
-            self.driver.push_file(path, data.encode('base64'))
-            data_ret = self.driver.pull_file('data/local/tmp/test_push_file.txt').decode('base64')
-        elif is_py3():
-            self.driver.push_file(path, base64.b64encode(data).decode('utf-8'))
-            data_ret = base64.b64decode(self.driver.pull_file(path))
+        self.driver.push_file(path, base64.b64encode(data).decode('utf-8'))
+        data_ret = base64.b64decode(self.driver.pull_file(path))
 
         self.assertEqual(data, data_ret)
 
@@ -119,12 +113,8 @@ class AppiumTests(unittest.TestCase):
         string_data = b'random string data %d' % random.randint(0, 1000)
         path = '/data/local/tmp'
 
-        if is_py2():
-            self.driver.push_file(path + '/1.txt', string_data.encode('base64'))
-            self.driver.push_file(path + '/2.txt', string_data.encode('base64'))
-        elif is_py3():
-            self.driver.push_file(path + '/1.txt', base64.b64encode(string_data).decode('utf-8'))
-            self.driver.push_file(path + '/2.txt', base64.b64encode(string_data).decode('utf-8'))
+        self.driver.push_file(path + '/1.txt', base64.b64encode(string_data).decode('utf-8'))
+        self.driver.push_file(path + '/2.txt', base64.b64encode(string_data).decode('utf-8'))
 
         folder = self.driver.pull_folder(path)
 
@@ -132,10 +122,7 @@ class AppiumTests(unittest.TestCase):
         # save temporary file, which will be deleted in `tearDown`
         self.zipfilename = 'folder_%d.zip' % random.randint(0, 1000000)
         with open(self.zipfilename, "wb") as fw:
-            if is_py2():
-                fw.write(folder.decode('base64', 'strict'))
-            elif is_py3():
-                fw.write(base64.b64decode(folder))
+            fw.write(base64.b64decode(folder))
 
         with ZipFile(self.zipfilename, 'r') as myzip:
             # should find these. otherwise it will raise a `KeyError`

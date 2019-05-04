@@ -32,7 +32,7 @@ import desired_capabilities
 
 
 # the emulator is sometimes slow and needs time to think
-SLEEPY_TIME = 1
+SLEEPY_TIME = 3
 
 
 class AppiumTests(unittest.TestCase):
@@ -196,17 +196,17 @@ class AppiumTests(unittest.TestCase):
     def test_set_text(self):
         self.driver.find_element_by_android_uiautomator(
             'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
-        WebDriverWait(self.driver, 3).until(
+        WebDriverWait(self.driver, SLEEPY_TIME).until(
             EC.presence_of_element_located((By.ACCESSIBILITY_ID, 'Controls'))
         )
         self.driver.find_element_by_accessibility_id('Controls').click()
 
-        WebDriverWait(self.driver, 3).until(
+        WebDriverWait(self.driver, SLEEPY_TIME).until(
             EC.presence_of_element_located((By.ACCESSIBILITY_ID, '1. Light Theme'))
         )
         self.driver.find_element_by_accessibility_id('1. Light Theme').click()
 
-        WebDriverWait(self.driver, 3).until(
+        WebDriverWait(self.driver, SLEEPY_TIME).until(
             EC.presence_of_element_located((By.CLASS_NAME, 'android.widget.EditText'))
         )
         el = self.driver.find_element_by_class_name('android.widget.EditText')

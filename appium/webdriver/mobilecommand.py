@@ -81,3 +81,4 @@ class MobileCommand(object):
     SET_POWER_AC = 'setPowerAc'
     SET_GSM_SIGNAL = 'setGsmSignal'
     MAKE_GSM_CALL = 'makeGsmCall'
+    GET_SYSTEM_BARS = 'getSystemBars'

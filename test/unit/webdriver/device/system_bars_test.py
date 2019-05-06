@@ -31,21 +31,20 @@ class TestWebDriverSystemBars(object):
             appium_command('/session/1234567890/appium/device/system_bars'),
             body=''' {"value":
                      {"statusBar":
-                     {"visible": "True", "x": 0, "y": 0, "width": 1080, "height": 1920},
+                     {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 1920},
                      "navigationBar":
-                     {"visible": "True", "x": 0, "y": 0, "width": 1080, "height": 126}}}'''
+                     {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 126}}}'''
         )
-        info = driver.get_system_bars()
+        d = driver.get_system_bars()
 
-        # FIXME Should remove eval, but it doesn't work when "True" is True in above body
-        assert eval(info['statusBar']['visible']) is True
-        assert info['statusBar']['x'] == 0
-        assert info['statusBar']['y'] == 0
-        assert info['statusBar']['width'] == 1080
-        assert info['statusBar']['height'] == 1920
+        assert d['statusBar']['visible'] is True
+        assert d['statusBar']['x'] == 0
+        assert d['statusBar']['y'] == 0
+        assert d['statusBar']['width'] == 1080
+        assert d['statusBar']['height'] == 1920
 
-        assert eval(info['navigationBar']['visible']) is True
-        assert info['navigationBar']['x'] == 0
-        assert info['navigationBar']['y'] == 0
-        assert info['navigationBar']['width'] == 1080
-        assert info['navigationBar']['height'] == 126
+        assert d['navigationBar']['visible'] is True
+        assert d['navigationBar']['x'] == 0
+        assert d['navigationBar']['y'] == 0
+        assert d['navigationBar']['width'] == 1080
+        assert d['navigationBar']['height'] == 126

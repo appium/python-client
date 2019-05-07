@@ -21,14 +21,16 @@ import random
 from time import sleep
 from dateutil.parser import parse
 
+from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
+from appium.webdriver.common.mobileby import MobileBy
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from appium import webdriver
 import desired_capabilities
+from helper import wait_element
 
 
 # the emulator is sometimes slow and needs time to think
@@ -49,7 +51,7 @@ class AppiumTests(unittest.TestCase):
 
     def test_screen_record(self):
         self.driver.start_recording_screen(timeLimit=10, forcedRestart=True)
-        sleep(5)
+        sleep(10)
         result = self.driver.stop_recording_screen()
         self.assertTrue(len(result) > 0)
 
@@ -216,9 +218,17 @@ class AppiumTests(unittest.TestCase):
         self.assertEqual('new text', el.text)
 
     def test_send_keys(self):
-        self.driver.find_element_by_xpath("//android.widget.TextView[@text='App']").click()
-        self.driver.find_element_by_xpath("//android.widget.TextView[@text='Activity']").click()
-        self.driver.find_element_by_xpath("//android.widget.TextView[@text='Custom Title']").click()
+        xpath = "//android.widget.TextView[@text='App']"
+        wait_element(self.driver, MobileBy.XPATH, xpath, SLEEPY_TIME)
+        self.driver.find_element_by_xpath(xpath).click()
+
+        xpath = "//android.widget.TextView[@text='Activity']"
+        wait_element(self.driver, MobileBy.XPATH, xpath, SLEEPY_TIME)
+        self.driver.find_element_by_xpath(xpath).click()
+
+        xpath = "//android.widget.TextView[@text='Custom Title']"
+        wait_element(self.driver, MobileBy.XPATH, xpath, SLEEPY_TIME)
+        self.driver.find_element_by_xpath(xpath).click()
 
         el = self.driver.find_element(By.ID, 'com.example.android.apis:id/left_text_edit')
         el.send_keys(' text')

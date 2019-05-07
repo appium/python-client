@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+selenium = "==3.141.0"
+astroid = "==1.6.5"
+isort = "==4.3.4"
+pylint = "==1.9.3"
+autopep8 = "==1.4.3"
+httpretty = "==0.9.6"
+pytest = "==4.0.2"
+pytest-cov = "==2.6.0"
+tox = "==3.6.0"
+tox-travis = "==0.11"
+pre-commit = "==1.13.0"
+
+[requires]
+python_version = "3.7"

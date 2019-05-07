@@ -238,8 +238,8 @@ class AppiumTests(unittest.TestCase):
         self.driver.start_activity("com.example.android.apis", ".ApiDemos")
         self._assert_activity_contains('Demos')
 
-        self.driver.start_activity("com.android.contacts", ".ContactsListActivity")
-        self._assert_activity_contains('Contact')
+        self.driver.start_activity("com.android.calculator2", ".Calculator")
+        self._assert_activity_contains('Calculator')
 
     def _assert_activity_contains(self, activity):
         current = self.driver.current_activity

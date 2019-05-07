@@ -83,7 +83,7 @@ class Gsm(webdriver.Remote):
         """Set GSM voice state (Emulator only)
 
         :Args:
-         - state(str): State of GSM voice - GsmVoiceState.UNREGISTERED/HOME/ROAMING/SEARCHING/DENIFED/OFF/ON
+         - state(str): State of GSM voice - GsmVoiceState.UNREGISTERED/HOME/ROAMING/SEARCHING/DENIED/OFF/ON
 
         :Usage:
             self.driver.set_gsm_voice(GsmVoiceState.HOME)

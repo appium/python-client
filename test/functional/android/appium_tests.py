@@ -25,9 +25,6 @@ from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
 import desired_capabilities
 from helper import wait_element
@@ -198,19 +195,14 @@ class AppiumTests(unittest.TestCase):
     def test_set_text(self):
         self.driver.find_element_by_android_uiautomator(
             'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
-        WebDriverWait(self.driver, SLEEPY_TIME).until(
-            EC.presence_of_element_located((By.ACCESSIBILITY_ID, 'Controls'))
-        )
+
+        wait_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Controls', SLEEPY_TIME)
         self.driver.find_element_by_accessibility_id('Controls').click()
 
-        WebDriverWait(self.driver, SLEEPY_TIME).until(
-            EC.presence_of_element_located((By.ACCESSIBILITY_ID, '1. Light Theme'))
-        )
+        wait_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Light Theme', SLEEPY_TIME)
         self.driver.find_element_by_accessibility_id('1. Light Theme').click()
 
-        WebDriverWait(self.driver, SLEEPY_TIME).until(
-            EC.presence_of_element_located((By.CLASS_NAME, 'android.widget.EditText'))
-        )
+        wait_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.EditText', SLEEPY_TIME)
         el = self.driver.find_element_by_class_name('android.widget.EditText')
         el.send_keys('original text')
         el.set_text('new text')
@@ -230,7 +222,7 @@ class AppiumTests(unittest.TestCase):
         wait_element(self.driver, MobileBy.XPATH, xpath, SLEEPY_TIME)
         self.driver.find_element_by_xpath(xpath).click()
 
-        el = self.driver.find_element(By.ID, 'com.example.android.apis:id/left_text_edit')
+        el = self.driver.find_element(MobileBy.ID, 'com.example.android.apis:id/left_text_edit')
         el.send_keys(' text')
 
         self.assertEqual('Left is best text', el.text)
@@ -258,9 +250,9 @@ class AppiumTests(unittest.TestCase):
         self.assertIsNotNone(settings)
 
     def test_update_settings(self):
-        self.driver.update_settings({"cyberdelia": "open"})
+        self.driver.update_settings({"waitForIdleTimeout": 10001})
         settings = self.driver.get_settings()
-        self.assertEqual(settings["cyberdelia"], "open")
+        self.assertEqual(settings["waitForIdleTimeout"], 10001)
 
     def test_toggle_location_services(self):
         self.driver.toggle_location_services()

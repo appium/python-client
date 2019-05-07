@@ -27,7 +27,7 @@ from appium.webdriver.common.mobileby import MobileBy
 from selenium.common.exceptions import NoSuchElementException
 
 import desired_capabilities
-from helper import wait_element
+from helper.test_helper import wait_element
 
 
 # the emulator is sometimes slow and needs time to think

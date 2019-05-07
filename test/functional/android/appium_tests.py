@@ -13,9 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import base64
 import unittest
 from zipfile import ZipFile
-import json
 import os
 import random
 from time import sleep
@@ -24,13 +24,15 @@ from dateutil.parser import parse
 from appium.webdriver.applicationstate import ApplicationState
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from appium import webdriver
 import desired_capabilities
 
 
 # the emulator is sometimes slow and needs time to think
-SLEEPY_TIME = 1
+SLEEPY_TIME = 3
 
 
 class AppiumTests(unittest.TestCase):
@@ -98,31 +100,29 @@ class AppiumTests(unittest.TestCase):
         package = self.driver.current_package
         self.assertEqual('com.example.android.apis', package)
 
-    def test_pull_file(self):
-        data = self.driver.pull_file('data/local/tmp/strings.json')
-        strings = json.loads(data.decode('base64', 'strict'))
-        self.assertEqual('You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
+    def test_push_pull_file(self):
+        path = '/data/local/tmp/test_push_file.txt'
+        data = b'This is the contents of the file to push to the device.'
 
-    def test_push_file(self):
-        path = 'data/local/tmp/test_push_file.txt'
-        data = 'This is the contents of the file to push to the device.'
-        self.driver.push_file(path, data.encode('base64'))
-        data_ret = self.driver.pull_file('data/local/tmp/test_push_file.txt').decode('base64')
+        self.driver.push_file(path, base64.b64encode(data).decode('utf-8'))
+        data_ret = base64.b64decode(self.driver.pull_file(path))
+
         self.assertEqual(data, data_ret)
 
     def test_pull_folder(self):
-        string_data = 'random string data %d' % random.randint(0, 1000)
+        string_data = b'random string data %d' % random.randint(0, 1000)
         path = '/data/local/tmp'
-        self.driver.push_file(path + '/1.txt', string_data.encode('base64'))
-        self.driver.push_file(path + '/2.txt', string_data.encode('base64'))
+
+        self.driver.push_file(path + '/1.txt', base64.b64encode(string_data).decode('utf-8'))
+        self.driver.push_file(path + '/2.txt', base64.b64encode(string_data).decode('utf-8'))
+
         folder = self.driver.pull_folder(path)
 
         # python doesn't have any functionality for unzipping streams
         # save temporary file, which will be deleted in `tearDown`
         self.zipfilename = 'folder_%d.zip' % random.randint(0, 1000000)
-        file = open(self.zipfilename, "w")
-        file.write(folder.decode('base64', 'strict'))
-        file.close()
+        with open(self.zipfilename, "wb") as fw:
+            fw.write(base64.b64decode(folder))
 
         with ZipFile(self.zipfilename, 'r') as myzip:
             # should find these. otherwise it will raise a `KeyError`
@@ -196,9 +196,19 @@ class AppiumTests(unittest.TestCase):
     def test_set_text(self):
         self.driver.find_element_by_android_uiautomator(
             'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
-        self.driver.find_element_by_name('Controls').click()
-        self.driver.find_element_by_name('1. Light Theme').click()
+        WebDriverWait(self.driver, SLEEPY_TIME).until(
+            EC.presence_of_element_located((By.ACCESSIBILITY_ID, 'Controls'))
+        )
+        self.driver.find_element_by_accessibility_id('Controls').click()
 
+        WebDriverWait(self.driver, SLEEPY_TIME).until(
+            EC.presence_of_element_located((By.ACCESSIBILITY_ID, '1. Light Theme'))
+        )
+        self.driver.find_element_by_accessibility_id('1. Light Theme').click()
+
+        WebDriverWait(self.driver, SLEEPY_TIME).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'android.widget.EditText'))
+        )
         el = self.driver.find_element_by_class_name('android.widget.EditText')
         el.send_keys('original text')
         el.set_text('new text')
@@ -246,7 +256,7 @@ class AppiumTests(unittest.TestCase):
         self.driver.toggle_location_services()
 
     def test_element_location_in_view(self):
-        el = self.driver.find_element_by_name('Content')
+        el = self.driver.find_element_by_accessibility_id('Content')
         loc = el.location_in_view
         self.assertIsNotNone(loc['x'])
         self.assertIsNotNone(loc['y'])

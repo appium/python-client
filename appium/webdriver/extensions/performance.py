@@ -26,6 +26,7 @@ class Performance(webdriver.Remote):
          - package_name: The package name of the application
          - data_type: The type of system state which wants to read.
                       It should be one of the supported performance data types.
+                      Check :func:`.get_performance_data_types` for supported types
          - data_read_timeout: (optional) The number of attempts to read
 
         :Usage:

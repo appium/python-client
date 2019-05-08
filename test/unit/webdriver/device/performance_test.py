@@ -24,16 +24,6 @@ import httpretty
 class TestWebDriverPerformance(object):
 
     @httpretty.activate
-    def test_get_performance_data_types(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/performanceData/types'),
-            body='{"value": ["cpuinfo", "memoryinfo", "batteryinfo", "networkinfo"]}'
-        )
-        assert driver.get_performance_data_types() == ['cpuinfo', 'memoryinfo', 'batteryinfo', 'networkinfo']
-
-    @httpretty.activate
     def test_get_performance_data(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
@@ -47,3 +37,13 @@ class TestWebDriverPerformance(object):
         assert d['packageName'] == 'my.app.package'
         assert d['dataType'] == 'cpuinfo'
         assert d['dataReadTimeout'] == 5
+
+    @httpretty.activate
+    def test_get_performance_data_types(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/performanceData/types'),
+            body='{"value": ["cpuinfo", "memoryinfo", "batteryinfo", "networkinfo"]}'
+        )
+        assert driver.get_performance_data_types() == ['cpuinfo', 'memoryinfo', 'batteryinfo', 'networkinfo']

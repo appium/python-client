@@ -23,7 +23,7 @@ class Sms(webdriver.Remote):
 
         :Args:
          - phone_number: The phone number of message sender
-         - message: message: The message to send
+         - message: The message to send
 
         :Usage:
             self.driver.send_sms('555-123-4567', 'Hey lol')

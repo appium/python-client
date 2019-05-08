@@ -27,7 +27,7 @@ from appium.webdriver.common.mobileby import MobileBy
 from selenium.common.exceptions import NoSuchElementException
 
 import desired_capabilities
-from helper.test_helper import wait_element
+from helper.test_helper import wait_for_element
 
 
 # the emulator is sometimes slow and needs time to think
@@ -196,13 +196,13 @@ class AppiumTests(unittest.TestCase):
         self.driver.find_element_by_android_uiautomator(
             'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
 
-        wait_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Controls', SLEEPY_TIME)
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Controls', SLEEPY_TIME)
         self.driver.find_element_by_accessibility_id('Controls').click()
 
-        wait_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Light Theme', SLEEPY_TIME)
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Light Theme', SLEEPY_TIME)
         self.driver.find_element_by_accessibility_id('1. Light Theme').click()
 
-        wait_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.EditText', SLEEPY_TIME)
+        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.EditText', SLEEPY_TIME)
         el = self.driver.find_element_by_class_name('android.widget.EditText')
         el.send_keys('original text')
         el.set_text('new text')
@@ -210,17 +210,10 @@ class AppiumTests(unittest.TestCase):
         self.assertEqual('new text', el.text)
 
     def test_send_keys(self):
-        xpath = "//android.widget.TextView[@text='App']"
-        wait_element(self.driver, MobileBy.XPATH, xpath, SLEEPY_TIME)
-        self.driver.find_element_by_xpath(xpath).click()
-
-        xpath = "//android.widget.TextView[@text='Activity']"
-        wait_element(self.driver, MobileBy.XPATH, xpath, SLEEPY_TIME)
-        self.driver.find_element_by_xpath(xpath).click()
-
-        xpath = "//android.widget.TextView[@text='Custom Title']"
-        wait_element(self.driver, MobileBy.XPATH, xpath, SLEEPY_TIME)
-        self.driver.find_element_by_xpath(xpath).click()
+        for text in ['App', 'Activity', 'Custom Title']:
+            xpath = "//android.widget.TextView[@text='{}']".format(text)
+            wait_for_element(self.driver, MobileBy.XPATH, xpath, SLEEPY_TIME)
+            self.driver.find_element_by_xpath(xpath).click()
 
         el = self.driver.find_element(MobileBy.ID, 'com.example.android.apis:id/left_text_edit')
         el.send_keys(' text')

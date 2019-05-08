@@ -18,9 +18,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 SLEEPY_TIME = 3
 
 
-def wait_element(driver, locator, value, timeout=SLEEPY_TIME):
+def wait_for_element(driver, locator, value, timeout=SLEEPY_TIME):
     '''
-    Wait until the element shows up
+    Wait until the element located
 
     :param driver: Webdriver
     :param locator: Locator like WebDriver, Mobile JSON Wire Protocol (e.g. MobileBy.ACCESSIBILITY_ID)

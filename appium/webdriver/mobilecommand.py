@@ -83,3 +83,5 @@ class MobileCommand(object):
     MAKE_GSM_CALL = 'makeGsmCall'
     GET_SYSTEM_BARS = 'getSystemBars'
     SET_GSM_VOICE = 'setGsmVoice'
+    GET_PERFORMANCE_DATA = 'getPerformanceData'
+    GET_PERFORMANCE_DATA_TYPES = 'getPerformanceDataTypes'

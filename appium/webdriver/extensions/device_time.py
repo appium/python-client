@@ -25,7 +25,7 @@ class DeviceTime(webdriver.Remote):
         return self.execute(Command.GET_DEVICE_TIME_GET, {})['value']
 
     def get_device_time(self, format=None):
-        """Returns the date and time from the device. (Only available since Appium 1.11.0)
+        """Returns the date and time from the device.
 
         :Args:
          - format - (optional) The set of format specifiers. Read https://momentjs.com/docs/

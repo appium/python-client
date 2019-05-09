@@ -48,6 +48,7 @@ class Gsm(webdriver.Remote):
 
     def make_gsm_call(self, phone_number, action):
         """Make GSM call (Emulator only)
+        Android only.
 
         :Args:
          - phone_number (str): The phone number to call to.
@@ -65,6 +66,7 @@ class Gsm(webdriver.Remote):
 
     def set_gsm_signal(self, strength):
         """Set GSM signal strength (Emulator only)
+        Android only.
 
         :Args:
          - strength (int): Signal strength - GsmSignalStrength.NONE_OR_UNKNOWN/POOR/MODERATE/GOOD/GREAT
@@ -81,6 +83,7 @@ class Gsm(webdriver.Remote):
 
     def set_gsm_voice(self, state):
         """Set GSM voice state (Emulator only)
+        Android only.
 
         :Args:
          - state(str): State of GSM voice - GsmVoiceState.UNREGISTERED/HOME/ROAMING/SEARCHING/DENIED/OFF/ON

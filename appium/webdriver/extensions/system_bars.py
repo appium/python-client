@@ -19,7 +19,8 @@ from ..mobilecommand import MobileCommand as Command
 class SystemBars(webdriver.Remote):
 
     def get_system_bars(self):
-        """Retrieve visibility and bounds information of the status and navigation bars
+        """Retrieve visibility and bounds information of the status and navigation bars.
+        Android only.
 
         :return:
         A dictionary whose keys are

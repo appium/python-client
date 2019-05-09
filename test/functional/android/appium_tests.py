@@ -21,14 +21,13 @@ import random
 from time import sleep
 from dateutil.parser import parse
 
-from appium.webdriver.applicationstate import ApplicationState
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-
 from appium import webdriver
+from appium.webdriver.applicationstate import ApplicationState
+from appium.webdriver.common.mobileby import MobileBy
+from selenium.common.exceptions import NoSuchElementException
+
 import desired_capabilities
+from helper.test_helper import wait_for_element
 
 
 # the emulator is sometimes slow and needs time to think
@@ -49,7 +48,7 @@ class AppiumTests(unittest.TestCase):
 
     def test_screen_record(self):
         self.driver.start_recording_screen(timeLimit=10, forcedRestart=True)
-        sleep(5)
+        sleep(10)
         result = self.driver.stop_recording_screen()
         self.assertTrue(len(result) > 0)
 
@@ -196,31 +195,22 @@ class AppiumTests(unittest.TestCase):
     def test_set_text(self):
         self.driver.find_element_by_android_uiautomator(
             'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
-        WebDriverWait(self.driver, SLEEPY_TIME).until(
-            EC.presence_of_element_located((By.ACCESSIBILITY_ID, 'Controls'))
-        )
-        self.driver.find_element_by_accessibility_id('Controls').click()
 
-        WebDriverWait(self.driver, SLEEPY_TIME).until(
-            EC.presence_of_element_located((By.ACCESSIBILITY_ID, '1. Light Theme'))
-        )
-        self.driver.find_element_by_accessibility_id('1. Light Theme').click()
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Controls', SLEEPY_TIME).click()
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Light Theme', SLEEPY_TIME).click()
 
-        WebDriverWait(self.driver, SLEEPY_TIME).until(
-            EC.presence_of_element_located((By.CLASS_NAME, 'android.widget.EditText'))
-        )
-        el = self.driver.find_element_by_class_name('android.widget.EditText')
+        el = wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.EditText', SLEEPY_TIME)
         el.send_keys('original text')
         el.set_text('new text')
 
         self.assertEqual('new text', el.text)
 
     def test_send_keys(self):
-        self.driver.find_element_by_xpath("//android.widget.TextView[@text='App']").click()
-        self.driver.find_element_by_xpath("//android.widget.TextView[@text='Activity']").click()
-        self.driver.find_element_by_xpath("//android.widget.TextView[@text='Custom Title']").click()
+        for text in ['App', 'Activity', 'Custom Title']:
+            wait_for_element(self.driver, MobileBy.XPATH,
+                             "//android.widget.TextView[@text='{}']".format(text), SLEEPY_TIME).click()
 
-        el = self.driver.find_element(By.ID, 'com.example.android.apis:id/left_text_edit')
+        el = self.driver.find_element(MobileBy.ID, 'com.example.android.apis:id/left_text_edit')
         el.send_keys(' text')
 
         self.assertEqual('Left is best text', el.text)
@@ -236,8 +226,8 @@ class AppiumTests(unittest.TestCase):
         self.driver.start_activity("com.example.android.apis", ".ApiDemos")
         self._assert_activity_contains('Demos')
 
-        self.driver.start_activity("com.android.contacts", ".ContactsListActivity")
-        self._assert_activity_contains('Contact')
+        self.driver.start_activity("com.android.calculator2", ".Calculator")
+        self._assert_activity_contains('Calculator')
 
     def _assert_activity_contains(self, activity):
         current = self.driver.current_activity
@@ -248,9 +238,9 @@ class AppiumTests(unittest.TestCase):
         self.assertIsNotNone(settings)
 
     def test_update_settings(self):
-        self.driver.update_settings({"cyberdelia": "open"})
+        self.driver.update_settings({"waitForIdleTimeout": 10001})
         settings = self.driver.get_settings()
-        self.assertEqual(settings["cyberdelia"], "open")
+        self.assertEqual(settings["waitForIdleTimeout"], 10001)
 
     def test_toggle_location_services(self):
         self.driver.toggle_location_services()

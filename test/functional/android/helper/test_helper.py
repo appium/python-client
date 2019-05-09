@@ -26,8 +26,8 @@ def wait_for_element(driver, locator, value, timeout=SLEEPY_TIME):
     :param locator: Locator like WebDriver, Mobile JSON Wire Protocol (e.g. MobileBy.ACCESSIBILITY_ID)
     :param value: Query value to locator
     :param timeout: Maximum time to wait the element. If time is over, TimeoutException is thrown
-    :return: None
+    :return: Webelement
     '''
-    WebDriverWait(driver, timeout).until(
+    return WebDriverWait(driver, timeout).until(
         EC.presence_of_element_located((locator, value))
     )

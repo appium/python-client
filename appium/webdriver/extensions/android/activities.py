@@ -15,7 +15,7 @@
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
-from ..mobilecommand import MobileCommand as Command
+from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
 class Activities(webdriver.Remote):

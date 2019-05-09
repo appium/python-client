@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from selenium import webdriver
-from ..mobilecommand import MobileCommand as Command
+from appium.webdriver.mobilecommand import MobileCommand as Command
 
 from appium.common.logger import logger
 from appium.common.helper import extract_const_attributes

@@ -27,26 +27,26 @@ from appium.webdriver.common.mobileby import MobileBy
 from .appium_connection import AppiumConnection
 from .errorhandler import MobileErrorHandler
 from .extensions.action_helpers import ActionHelpers
-from .extensions.activities import Activities
+from .extensions.android.activities import Activities
+from .extensions.android.gsm import Gsm
+from .extensions.android.network import Network
+from .extensions.android.performance import Performance
+from .extensions.android.power import Power
+from .extensions.android.sms import Sms
+from .extensions.android.system_bars import SystemBars
 from .extensions.applications import Applications
 from .extensions.clipboard import Clipboard
 from .extensions.context import Context
 from .extensions.device_time import DeviceTime
-from .extensions.gsm import Gsm
 from .extensions.images_comparison import ImagesComparison
 from .extensions.ime import IME
 from .extensions.keyboard import Keyboard
 from .extensions.hw_actions import HardwareActions
 from .extensions.location import Location
-from .extensions.network import Network
-from .extensions.performance import Performance
-from .extensions.power import Power
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.search_context import AppiumSearchContext
 from .extensions.settings import Settings
-from .extensions.sms import Sms
-from .extensions.system_bars import SystemBars
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement

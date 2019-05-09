@@ -16,16 +16,15 @@
 import unittest
 from time import sleep
 
-from selenium.common.exceptions import NoSuchElementException
-
 from appium import webdriver
 import desired_capabilities
+from helper.test_helper import is_py3
 
 
 # the emulator is sometimes slow and needs time to think
 SLEEPY_TIME = 1
 
-LATIN_IME = u'com.android.inputmethod.latin/.LatinIME'
+LATIN_IME = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'
 
 
 class IMETests(unittest.TestCase):
@@ -45,7 +44,8 @@ class IMETests(unittest.TestCase):
         self.assertTrue(self.driver.is_ime_active())
 
     def test_active_ime_engine(self):
-        self.assertIsInstance(self.driver.active_ime_engine, unicode)
+        expected = str if is_py3() else unicode
+        self.assertIsInstance(self.driver.active_ime_engine, expected)
 
     def test_activate_ime_engine(self):
         engines = self.driver.available_ime_engines

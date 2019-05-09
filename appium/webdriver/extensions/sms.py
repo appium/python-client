@@ -20,6 +20,7 @@ class Sms(webdriver.Remote):
 
     def send_sms(self, phone_number, message):
         """Emulate send SMS event on the connected emulator.
+        Android only.
 
         :Args:
          - phone_number: The phone number of message sender

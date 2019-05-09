@@ -13,12 +13,11 @@
 # limitations under the License.
 
 
-import httplib
 import os
 import subprocess
 import sys
 import time
-
+import urllib3
 
 DEFAULT_HOST = '127.0.0.1'
 DEFAULT_PORT = 4723
@@ -49,9 +48,10 @@ def poll_url(host, port, path, timeout_ms):
     time_started_sec = time.time()
     while time.time() < time_started_sec + timeout_ms / 1000.0:
         try:
-            conn = httplib.HTTPConnection(host=host, port=port, timeout=1.0)
-            conn.request('HEAD', path)
-            if conn.getresponse().status < 400:
+            conn = urllib3.PoolManager(timeout=1.0)
+            resp = conn.request('HEAD', 'http://{host}:{port}{path}'.format(
+                host=host, port=port, path=path))
+            if resp.status < 400:
                 return True
         except Exception:
             pass

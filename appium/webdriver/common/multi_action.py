@@ -18,6 +18,8 @@
 # These do not quite work for this situation, and do not allow for ad hoc action
 # chaining as the spec requires.
 
+import copy
+
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
@@ -45,7 +47,12 @@ class MultiAction(object):
             if self._touch_actions is None:
                 self._touch_actions = []
 
-            self._touch_actions.append(touch_action)
+            try:
+                # deep copy, so that once they are in here, the user can't muck about
+                self._touch_actions.append(copy.deepcopy(touch_action))
+            except TypeError:
+                # For python3
+                self._touch_actions.append(copy.copy(touch_action))
 
     def perform(self):
         """Perform the actions stored in the object.

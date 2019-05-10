@@ -2,6 +2,120 @@ Changelog
 =========
 
 
+v0.42 (2019-05-10)
+------------------
+- Bump 0.42. [Kazuaki Matsuo]
+- Fix functional tests failed (android, appium_tests) (#366) [Mori
+  Atsushi]
+
+  * Fix test failed: test_send_keys, test_screen_record
+
+  * Fix test failed: test_update_settings
+
+  * Fix test failed: test_start_activity_other_app
+
+  * Move and rename helper package
+
+  * Update along to review comments
+
+  * Add return value to wait_for_element
+- Support get_performance_data, get_performance_data_types (#368) [Mori
+  Atsushi]
+
+  * Support get_performance_data, get_performance_data_types
+
+  * Add api doc
+
+  * Add performance unittest
+
+  * Tweak
+
+  * Update api doc
+- Fix poll_url in Python 3 (#370) [Kazuaki Matsuo]
+- Support set_gsm_voice (#367) [Mori Atsushi]
+
+  * Support set_gsm_voice
+
+  * Add set_gsm_voice unittest
+
+  * Fix typo
+- Fix functional tests failed (#364) [Mori Atsushi]
+
+  * Fix test failed: element_location_in_view, set_text
+
+  * Fix test failed: test_push_file
+
+  * Merge test_pull_test into test_push_test
+
+  * Fix test failed: test_pull_folder
+
+  * Enable running by both py2 and py3
+
+  * Removed unnecessary codes
+
+  * Remove magic number
+- Support get_system_bars (#363) [Mori Atsushi]
+
+  * Support get_system_bars
+
+  * Add api doc
+
+  * Add get_system_bars unittest
+
+  * Remove FIXME
+- Support make_gsm_call (#360) [Mori Atsushi]
+
+  * Move const to gsm_signal_strength
+
+  * Support make_gsm_call
+
+  * Add make_gsm_call unittest
+
+  * Move const to gsm class
+
+  * Move get_dict_const to common.helper
+
+  * Rename func
+
+  * Use OrderedDict to keep defined order
+- Support set_gsm_signal (#357) [Mori Atsushi]
+
+  * Support set_gsm_signal
+
+  * Fix: NONE_OR_UNKNOWN doesn't work
+
+  * Add set_gsm_signal unittest
+
+  * Use int for signal strength const
+
+  * Raise exception when signal strength is out of range
+
+  * Fix: wrong class name
+
+  * Removed args validation
+
+  Since arg validation already done by server side
+
+  * Show warning log when arg is out of range
+
+  * Some changes for less maintenance
+- Mobile:pinchOpen and mobile:pinchClose no longer implemented in appium
+  drivers (#358) [Jonah]
+- Remove unnecessary codes. [Atsushi Mori]
+- Replace 'on' with AC_ON. [Atsushi Mori]
+- Update api doc. [Atsushi Mori]
+- Define AC_OFF, AC_ON as const. [Atsushi Mori]
+- Skip pylint warnings. [Atsushi Mori]
+- Add return value. [Atsushi Mori]
+- Update api doc. [Atsushi Mori]
+- Add set_power_ac unittest. [Atsushi Mori]
+- Support set_power_ac. [Atsushi Mori]
+- Added set_power_capacity unittest. [Atsushi Mori]
+- Support set_power_capacity. [Atsushi Mori]
+- Update changelog for 0.41. [Kazuaki Matsuo]
+- Bump 0.41. [Kazuaki Matsuo]
+
+
 v0.41 (2019-04-23)
 ------------------
 - Fix True/False in image settings, add boolean value in settings test

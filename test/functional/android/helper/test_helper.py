@@ -12,16 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import sys
-
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 SLEEPY_TIME = 3
-
-
-def is_py3():
-    return sys.version_info.major == 3
 
 
 def wait_for_element(driver, locator, value, timeout=SLEEPY_TIME):

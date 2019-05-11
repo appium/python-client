@@ -18,7 +18,6 @@ from time import sleep
 
 from appium import webdriver
 import desired_capabilities
-from helper.test_helper import is_py3
 
 
 # the emulator is sometimes slow and needs time to think
@@ -44,7 +43,10 @@ class IMETests(unittest.TestCase):
         self.assertTrue(self.driver.is_ime_active())
 
     def test_active_ime_engine(self):
-        expected = str if is_py3() else unicode
+        try:
+            expected = basestring
+        except NameError:
+            expected = str
         self.assertIsInstance(self.driver.active_ime_engine, expected)
 
     def test_activate_ime_engine(self):

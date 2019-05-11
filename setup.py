@@ -14,8 +14,7 @@
 import io
 import os
 
-from distutils.core import setup
-from setuptools import setup
+from setuptools import find_packages, setup
 from appium.common.helper import library_version
 
 setup(
@@ -34,13 +33,7 @@ setup(
     author='Isaac Murchie',
     author_email='isaac@saucelabs.com',
     url='http://appium.io/',
-    packages=[
-        'appium',
-        'appium.common',
-        'appium.webdriver',
-        'appium.webdriver.common',
-        'appium.webdriver.extensions'
-    ],
+    packages=find_packages(exclude=['test*', 'script*']),
     license='Apache 2.0',
     classifiers=[
         'Development Status :: 4 - Beta',

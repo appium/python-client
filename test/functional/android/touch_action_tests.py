@@ -184,11 +184,13 @@ class TouchActionTests(unittest.TestCase):
         # self.assertIsNotNone(el)
         action.tap(el).perform()
 
-        # the element "People Names" is located at 0:110 (top left corner)
-        action.long_press(x=10, y=120).perform()
+        # the element "People Names" is located at 430:310 (top left corner)
+        # location can be changed by phone resolusion, OS version
+        action.long_press(x=430, y=310).perform()
 
         # 'Sample menu' only comes up with a long press, not a tap
-        el = self.driver.find_element_by_accessibility_id('Sample menu')
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
+                              'new UiSelector().text("Sample menu")', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_drag_and_drop(self):
@@ -233,10 +235,14 @@ class TouchActionTests(unittest.TestCase):
         self.assertEqual('Dropped!', el.get_attribute('text'))
 
     def test_driver_swipe(self):
-        self.assertRaises(NoSuchElementException, self.driver.find_element_by_accessibility_id, 'Views')
-
-        self.driver.swipe(100, 500, 100, 100, 800)
         el = self.driver.find_element_by_accessibility_id('Views')
+        action = TouchAction(self.driver)
+        action.tap(el).perform()
+
+        self.assertRaises(NoSuchElementException, self.driver.find_element_by_accessibility_id, 'ImageView')
+
+        self.driver.swipe(100, 1000, 100, 100, 800)
+        el = self.driver.find_element_by_accessibility_id('ImageView')
         self.assertIsNotNone(el)
 
 

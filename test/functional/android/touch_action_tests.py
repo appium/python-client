@@ -91,13 +91,13 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.press(el1).move_to(el2).perform()
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views', SLEEPY_TIME)
         action.tap(el).perform()
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists', SLEEPY_TIME)
         action.tap(el).perform()
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter', SLEEPY_TIME)
         action.tap(el).perform()
 
         el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,

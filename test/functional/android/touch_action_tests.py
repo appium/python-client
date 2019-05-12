@@ -91,29 +91,22 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.press(el1).move_to(el2).perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('Views')
-        # self.assertIsNotNone(el)
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
         action.tap(el).perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('Expandable Lists')
-        # self.assertIsNotNone(el)
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
         action.tap(el).perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('1. Custom Adapter')
-        # self.assertIsNotNone(el)
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter')
         action.tap(el).perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('People Names')
-        # self.assertIsNotNone(el)
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
+                              'new UiSelector().text("People Names")', SLEEPY_TIME)
         action.press(el).wait(2000).perform()
 
-        sleep(SLEEPY_TIME)
         # 'Sample menu' only comes up with a long press, not a press
-        el = self.driver.find_element_by_accessibility_id('Sample menu')
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
+                              'new UiSelector().text("Sample menu")', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_press_and_moveto(self):
@@ -144,20 +137,16 @@ class TouchActionTests(unittest.TestCase):
         action.press(el1).move_to(el2).perform()
 
         el = self.driver.find_element_by_accessibility_id('Views')
-        # self.assertIsNotNone(el)
         action.tap(el).perform()
 
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists', SLEEPY_TIME)
-        # self.assertIsNotNone(el)
         action.tap(el).perform()
 
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter', SLEEPY_TIME)
-        # self.assertIsNotNone(el)
         action.tap(el).perform()
 
         el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
                               'new UiSelector().text("People Names")', SLEEPY_TIME)
-        # self.assertIsNotNone(el)
         action.long_press(el).perform()
 
         # 'Sample menu' only comes up with a long press, not a tap
@@ -173,15 +162,12 @@ class TouchActionTests(unittest.TestCase):
         action.press(el1).move_to(el2).perform()
 
         el = self.driver.find_element_by_accessibility_id('Views')
-        # self.assertIsNotNone(el)
         action.tap(el).perform()
 
         el = self.driver.find_element_by_accessibility_id('Expandable Lists')
-        # self.assertIsNotNone(el)
         action.tap(el).perform()
 
         el = self.driver.find_element_by_accessibility_id('1. Custom Adapter')
-        # self.assertIsNotNone(el)
         action.tap(el).perform()
 
         # the element "People Names" is located at 430:310 (top left corner)

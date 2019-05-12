@@ -23,7 +23,8 @@ import desired_capabilities
 # the emulator is sometimes slow and needs time to think
 SLEEPY_TIME = 1
 
-LATIN_IME = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'
+ANDROID_LATIN = 'com.android.inputmethod.latin/.LatinIME'  # Android L/M/N
+GOOGLE_LATIN = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'  # Android O/P
 
 
 class IMETests(unittest.TestCase):
@@ -37,17 +38,14 @@ class IMETests(unittest.TestCase):
     def test_available_ime_engines(self):
         engines = self.driver.available_ime_engines
         self.assertIsInstance(engines, list)
-        self.assertTrue(LATIN_IME in engines)
+        self.assertTrue(ANDROID_LATIN in engines or GOOGLE_LATIN in engines)
 
     def test_is_ime_active(self):
         self.assertTrue(self.driver.is_ime_active())
 
     def test_active_ime_engine(self):
-        try:
-            expected = basestring  # Python2
-        except NameError:
-            expected = str  # Python3: basestring is no longer available in python3
-        self.assertIsInstance(self.driver.active_ime_engine, expected)
+        engines = self.driver.available_ime_engines
+        self.assertTrue(self.driver.active_ime_engine in engines)
 
     def test_activate_ime_engine(self):
         engines = self.driver.available_ime_engines

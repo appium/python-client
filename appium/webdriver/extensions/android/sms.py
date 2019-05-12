@@ -13,34 +13,27 @@
 # limitations under the License.
 
 from selenium import webdriver
-from ..mobilecommand import MobileCommand as Command
+from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
-class SystemBars(webdriver.Remote):
+class Sms(webdriver.Remote):
 
-    def get_system_bars(self):
-        """Retrieve visibility and bounds information of the status and navigation bars.
+    def send_sms(self, phone_number, message):
+        """Emulate send SMS event on the connected emulator.
         Android only.
 
-        :return:
-        A dictionary whose keys are
-         - statusBar
-           - visible
-           - x
-           - y
-           - width
-           - height
-         - navigationBar
-           - visible
-           - x
-           - y
-           - width
-           - height
+        :Args:
+         - phone_number: The phone number of message sender
+         - message: The message to send
+
+        :Usage:
+            self.driver.send_sms('555-123-4567', 'Hey lol')
         """
-        return self.execute(Command.GET_SYSTEM_BARS)['value']
+        self.execute(Command.SEND_SMS, {'phoneNumber': phone_number, 'message': message})
+        return self
 
     # pylint: disable=protected-access
 
     def _addCommands(self):
-        self.command_executor._commands[Command.GET_SYSTEM_BARS] = \
-            ('GET', '/session/$sessionId/appium/device/system_bars')
+        self.command_executor._commands[Command.SEND_SMS] = \
+            ('POST', '/session/$sessionId/appium/device/send_sms')

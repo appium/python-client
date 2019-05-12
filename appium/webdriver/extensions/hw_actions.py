@@ -72,7 +72,7 @@ class HardwareActions(webdriver.Remote):
 
     def finger_print(self, finger_id):
         """
-        Authenticate users by using their finger print scans on supported emulators.
+        Authenticate users by using their finger print scans on supported Android emulators.
 
         :param finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
         """

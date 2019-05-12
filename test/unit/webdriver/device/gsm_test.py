@@ -21,7 +21,7 @@ from test.unit.helper.test_helper import (
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from appium.webdriver.extensions.gsm import (
+from appium.webdriver.extensions.android.gsm import (
     GsmCallActions,
     GsmSignalStrength,
     GsmVoiceState

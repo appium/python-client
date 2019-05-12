@@ -21,7 +21,7 @@ from test.unit.helper.test_helper import (
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from appium.webdriver.extensions.power import Power
+from appium.webdriver.extensions.android.power import Power
 
 
 class TestWebDriverPower(object):

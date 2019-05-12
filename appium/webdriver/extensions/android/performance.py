@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from selenium import webdriver
-from ..mobilecommand import MobileCommand as Command
+from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
 class Performance(webdriver.Remote):

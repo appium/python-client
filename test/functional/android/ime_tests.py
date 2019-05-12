@@ -44,9 +44,9 @@ class IMETests(unittest.TestCase):
 
     def test_active_ime_engine(self):
         try:
-            expected = basestring
+            expected = basestring  # Python2
         except NameError:
-            expected = str
+            expected = str  # Python3: basestring is no longer available in python3
         self.assertIsInstance(self.driver.active_ime_engine, expected)
 
     def test_activate_ime_engine(self):

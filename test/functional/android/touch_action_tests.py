@@ -18,11 +18,13 @@ from time import sleep
 from selenium.common.exceptions import NoSuchElementException
 
 from appium import webdriver
+from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 import desired_capabilities
+from helper.test_helper import wait_for_element
 
 # the emulator is sometimes slow
-SLEEPY_TIME = 2
+SLEEPY_TIME = 3
 
 
 class TouchActionTests(unittest.TestCase):
@@ -37,7 +39,7 @@ class TouchActionTests(unittest.TestCase):
         el = self.driver.find_element_by_accessibility_id('Animation')
         action = TouchAction(self.driver)
         action.tap(el).perform()
-        el = self.driver.find_element_by_accessibility_id('Bouncing Balls')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_tap_x_y(self):
@@ -45,20 +47,18 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.tap(el, 100, 10).perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('Bouncing Balls')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_tap_twice(self):
-        el = self.driver.find_element_by_name('Text')
+        el = self.driver.find_element_by_accessibility_id('Text')
         action = TouchAction(self.driver)
         action.tap(el).perform()
-        sleep(SLEEPY_TIME)
 
-        el = self.driver.find_element_by_name('LogTextBox')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'LogTextBox', SLEEPY_TIME)
         action.tap(el).perform()
 
-        el = self.driver.find_element_by_name('Add')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Add', SLEEPY_TIME)
         action.tap(el, count=2).perform()
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
@@ -69,8 +69,7 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.press(el).release().perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('Bouncing Balls')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_press_and_immediately_release_x_y(self):
@@ -78,40 +77,32 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.press(el, 100, 10).release().perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('Bouncing Balls')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_press_and_wait(self):
-        el1 = self.driver.find_element_by_name('Content')
+        el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
 
         action = TouchAction(self.driver)
         action.press(el1).move_to(el2).perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('Views')
-        # self.assertIsNotNone(el)
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views', SLEEPY_TIME)
         action.tap(el).perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('Expandable Lists')
-        # self.assertIsNotNone(el)
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists', SLEEPY_TIME)
         action.tap(el).perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('1. Custom Adapter')
-        # self.assertIsNotNone(el)
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter', SLEEPY_TIME)
         action.tap(el).perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_name('People Names')
-        # self.assertIsNotNone(el)
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
+                              'new UiSelector().text("People Names")', SLEEPY_TIME)
         action.press(el).wait(2000).perform()
 
-        sleep(SLEEPY_TIME)
         # 'Sample menu' only comes up with a long press, not a press
-        el = self.driver.find_element_by_name('Sample menu')
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
+                              'new UiSelector().text("Sample menu")', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_press_and_moveto(self):
@@ -135,89 +126,86 @@ class TouchActionTests(unittest.TestCase):
         self.assertIsNotNone(el)
 
     def test_long_press(self):
-        el1 = self.driver.find_element_by_name('Content')
+        el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
 
         action = TouchAction(self.driver)
         action.press(el1).move_to(el2).perform()
 
         el = self.driver.find_element_by_accessibility_id('Views')
-        # self.assertIsNotNone(el)
         action.tap(el).perform()
 
-        el = self.driver.find_element_by_accessibility_id('Expandable Lists')
-        # self.assertIsNotNone(el)
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists', SLEEPY_TIME)
         action.tap(el).perform()
 
-        el = self.driver.find_element_by_accessibility_id('1. Custom Adapter')
-        # self.assertIsNotNone(el)
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter', SLEEPY_TIME)
         action.tap(el).perform()
 
-        el = self.driver.find_element_by_name('People Names')
-        # self.assertIsNotNone(el)
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
+                              'new UiSelector().text("People Names")', SLEEPY_TIME)
         action.long_press(el).perform()
 
         # 'Sample menu' only comes up with a long press, not a tap
-        el = self.driver.find_element_by_name('Sample menu')
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
+                              'new UiSelector().text("Sample menu")', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_long_press_x_y(self):
-        el1 = self.driver.find_element_by_name('Content')
+        el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
 
         action = TouchAction(self.driver)
         action.press(el1).move_to(el2).perform()
 
         el = self.driver.find_element_by_accessibility_id('Views')
-        # self.assertIsNotNone(el)
         action.tap(el).perform()
 
         el = self.driver.find_element_by_accessibility_id('Expandable Lists')
-        # self.assertIsNotNone(el)
         action.tap(el).perform()
 
         el = self.driver.find_element_by_accessibility_id('1. Custom Adapter')
-        # self.assertIsNotNone(el)
         action.tap(el).perform()
 
-        # the element "People Names" is located at 0:110 (top left corner)
-        action.long_press(x=10, y=120).perform()
+        # the element "People Names" is located at 430:310 (top left corner)
+        # location can be changed by phone resolusion, OS version
+        action.long_press(x=430, y=310).perform()
 
         # 'Sample menu' only comes up with a long press, not a tap
-        el = self.driver.find_element_by_name('Sample menu')
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
+                              'new UiSelector().text("Sample menu")', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_drag_and_drop(self):
-        el1 = self.driver.find_element_by_name('Content')
-        el2 = self.driver.find_element_by_name('Animation')
+        el1 = self.driver.find_element_by_accessibility_id('Content')
+        el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
 
-        el = self.driver.find_element_by_name('Views')
+        el = self.driver.find_element_by_accessibility_id('Views')
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
-        el = self.driver.find_element_by_name('Drag and Drop')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Drag and Drop', SLEEPY_TIME)
         action.tap(el).perform()
 
-        dd3 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_3')
+        dd3 = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_dot_3', SLEEPY_TIME)
         dd2 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_2')
 
         # dnd is stimulated by longpress-move_to-release
         action.long_press(dd3).move_to(dd2).release().perform()
 
-        el = self.driver.find_element_by_id('com.example.android.apis:id/drag_result_text')
-        self.assertEqual('Dropped!', el.get_attribute('text'))
+        el = self.driver.find_element_by_id('com.example.android.apis:id/drag_text')
+        self.assertTrue('drag_dot_3' in el.text)
 
     def test_driver_drag_and_drop(self):
-        el1 = self.driver.find_element_by_name('Content')
-        el2 = self.driver.find_element_by_name('Animation')
+        el1 = self.driver.find_element_by_accessibility_id('Content')
+        el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
 
-        el = self.driver.find_element_by_name('Views')
+        el = self.driver.find_element_by_accessibility_id('Views')
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
-        el = self.driver.find_element_by_name('Drag and Drop')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Drag and Drop', SLEEPY_TIME)
         action.tap(el).perform()
 
         dd3 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_3')
@@ -225,14 +213,18 @@ class TouchActionTests(unittest.TestCase):
 
         self.driver.drag_and_drop(dd3, dd2)
 
-        el = self.driver.find_element_by_id('com.example.android.apis:id/drag_result_text')
-        self.assertEqual('Dropped!', el.get_attribute('text'))
+        el = self.driver.find_element_by_id('com.example.android.apis:id/drag_text')
+        self.assertTrue('drag_dot_3' in el.text)
 
     def test_driver_swipe(self):
-        self.assertRaises(NoSuchElementException, self.driver.find_element_by_name, 'Views')
+        el = self.driver.find_element_by_accessibility_id('Views')
+        action = TouchAction(self.driver)
+        action.tap(el).perform()
 
-        self.driver.swipe(100, 500, 100, 100, 800)
-        el = self.driver.find_element_by_name('Views')
+        self.assertRaises(NoSuchElementException, self.driver.find_element_by_accessibility_id, 'ImageView')
+
+        self.driver.swipe(100, 1000, 100, 100, 800)
+        el = self.driver.find_element_by_accessibility_id('ImageView')
         self.assertIsNotNone(el)
 
 

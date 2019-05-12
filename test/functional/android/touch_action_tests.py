@@ -39,7 +39,6 @@ class TouchActionTests(unittest.TestCase):
         el = self.driver.find_element_by_accessibility_id('Animation')
         action = TouchAction(self.driver)
         action.tap(el).perform()
-        el = self.driver.find_element_by_accessibility_id('Bouncing Balls')
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
@@ -48,8 +47,7 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.tap(el, 100, 10).perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('Bouncing Balls')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_tap_twice(self):
@@ -71,8 +69,7 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.press(el).release().perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('Bouncing Balls')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_press_and_immediately_release_x_y(self):
@@ -80,8 +77,7 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.press(el, 100, 10).release().perform()
 
-        sleep(SLEEPY_TIME)
-        el = self.driver.find_element_by_accessibility_id('Bouncing Balls')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls', SLEEPY_TIME)
         self.assertIsNotNone(el)
 
     def test_press_and_wait(self):

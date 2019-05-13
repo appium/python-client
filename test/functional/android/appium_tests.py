@@ -39,10 +39,6 @@ class AppiumTests(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-        # remove zipped file from `test_pull_folder`
-        if hasattr(self, 'zipfilename') and os.path.isfile(self.zipfilename):
-            os.remove(self.zipfilename)
-
     def test_screen_record(self):
         self.driver.start_recording_screen(timeLimit=10, forcedRestart=True)
         sleep(10)

@@ -30,6 +30,10 @@ class RemoteFsTests(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
+        # remove zipped file from `test_pull_folder`
+        if hasattr(self, 'zipfilename') and os.path.isfile(self.zipfilename):
+            os.remove(self.zipfilename)
+
     def test_push_pull_file(self):
         path = '/data/local/tmp/test_push_file.txt'
         data = b'This is the contents of the file to push to the device.'

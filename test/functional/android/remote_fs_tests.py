@@ -67,7 +67,7 @@ class RemoteFsTests(unittest.TestCase):
         test_files = ['test_image.jpg', 'test_file.txt']
         for file_name in test_files:
             source_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), file_name)
-            destination_path = '/data/local/tmp/'+file_name
+            destination_path = os.path.join('/data/local/tmp/', file_name)
 
             with open(source_path, 'rb') as fr:
                 original_data = fr.read()

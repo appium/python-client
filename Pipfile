@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pre-commit = "==1.13.0"
 
 [packages]
 selenium = "==3.141.0"
@@ -16,7 +17,3 @@ pytest = "==4.0.2"
 pytest-cov = "==2.6.0"
 tox = "==3.6.0"
 tox-travis = "==0.11"
-pre-commit = "==1.13.0"
-
-[requires]
-python_version = "3.7"

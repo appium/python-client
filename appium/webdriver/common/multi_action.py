@@ -47,8 +47,7 @@ class MultiAction(object):
             if self._touch_actions is None:
                 self._touch_actions = []
 
-            # deep copy, so that once they are in here, the user can't muck about
-            self._touch_actions.append(copy.deepcopy(touch_action))
+            self._touch_actions.append(copy.copy(touch_action))
 
     def perform(self):
         """Perform the actions stored in the object.

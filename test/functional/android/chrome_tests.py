@@ -14,10 +14,7 @@
 
 import unittest
 
-from time import sleep
-
 from appium import webdriver
-import desired_capabilities
 
 
 class ChromeTests(unittest.TestCase):

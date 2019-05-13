@@ -16,12 +16,15 @@ import unittest
 from time import sleep
 
 from appium import webdriver
+from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
+
 import desired_capabilities
+from helper.test_helper import wait_for_element
 
 # the emulator is sometimes slow and needs time to think
-SLEEPY_TIME = 1
+SLEEPY_TIME = 3
 
 
 class MultiActionTests(unittest.TestCase):
@@ -33,21 +36,24 @@ class MultiActionTests(unittest.TestCase):
         self.driver.quit()
 
     def test_parallel_actions(self):
-        el1 = self.driver.find_element_by_name('Content')
-        el2 = self.driver.find_element_by_name('Animation')
+        el1 = self.driver.find_element_by_accessibility_id('Content')
+        el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
 
-        el = self.driver.find_element_by_name('Views')
+        el = self.driver.find_element_by_accessibility_id('Views')
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
-        el = self.driver.find_element_by_name('Expandable Lists')
         # simulate a swipe/scroll
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists', SLEEPY_TIME)
+        action.press(el).move_to(x=100, y=-1000).release().perform()
+        el = self.driver.find_element_by_accessibility_id('Layouts')
         action.press(el).move_to(x=100, y=-1000).release().perform()
 
-        el = self.driver.find_element_by_name('Splitting Touches across Views')
+        el = self.driver.find_element_by_accessibility_id('Splitting Touches across Views')
         action.tap(el).perform()
 
+        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView', SLEEPY_TIME)
         els = self.driver.find_elements_by_class_name('android.widget.ListView')
         a1 = TouchAction()
         a1.press(els[0]) \
@@ -62,21 +68,24 @@ class MultiActionTests(unittest.TestCase):
         ma.perform()
 
     def test_actions_with_waits(self):
-        el1 = self.driver.find_element_by_name('Content')
-        el2 = self.driver.find_element_by_name('Animation')
+        el1 = self.driver.find_element_by_accessibility_id('Content')
+        el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
 
-        el = self.driver.find_element_by_name('Views')
+        el = self.driver.find_element_by_accessibility_id('Views')
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
-        el = self.driver.find_element_by_name('Expandable Lists')
         # simulate a swipe/scroll
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists', SLEEPY_TIME)
+        action.press(el).move_to(x=100, y=-1000).release().perform()
+        el = self.driver.find_element_by_accessibility_id('Layouts')
         action.press(el).move_to(x=100, y=-1000).release().perform()
 
-        el = self.driver.find_element_by_name('Splitting Touches across Views')
+        el = self.driver.find_element_by_accessibility_id('Splitting Touches across Views')
         action.tap(el).perform()
 
+        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView', SLEEPY_TIME)
         els = self.driver.find_elements_by_class_name('android.widget.ListView')
         a1 = TouchAction()
         a1.press(els[0]) \
@@ -99,10 +108,11 @@ class MultiActionTests(unittest.TestCase):
         ma.perform()
 
     def test_driver_multi_tap(self):
-        el = self.driver.find_element_by_name('Graphics')
+        el = self.driver.find_element_by_accessibility_id('Graphics')
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
+        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.TextView', SLEEPY_TIME)
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
         self.driver.scroll(els[len(els) - 1], els[0])
 
@@ -110,7 +120,7 @@ class MultiActionTests(unittest.TestCase):
         if els[len(els) - 1].get_attribute('name') != 'Xfermodes':
             self.driver.scroll(els[len(els) - 1], els[0])
 
-        el = self.driver.find_element_by_name('Touch Paint')
+        el = self.driver.find_element_by_accessibility_id('Touch Paint')
         action.tap(el).perform()
 
         positions = [(100, 200), (100, 400)]

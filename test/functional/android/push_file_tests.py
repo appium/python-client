@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import base64
 import os
 import unittest
 
-import desired_capabilities
-
 from appium import webdriver
+import desired_capabilities
 
 
 class PushFileTests(unittest.TestCase):
@@ -31,13 +31,14 @@ class PushFileTests(unittest.TestCase):
     def test_push_file(self):
         test_files = ['test_image.jpg', 'test_file.txt']
         for file_name in test_files:
-            source_path = os.path.dirname(os.path.abspath(__file__)) + '//' + file_name
+            source_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), file_name)
             destination_path = '/data/local/tmp/'+file_name
 
-            original_data = open(source_path, 'rb').read()
+            with open(source_path, 'rb') as fr:
+                original_data = fr.read()
 
             self.driver.push_file(destination_path, source_path=source_path)
-            new_data = self.driver.pull_file(destination_path)
+            new_data = base64.b64decode(self.driver.pull_file(destination_path))
             self.assertEqual(original_data, new_data)
 
 

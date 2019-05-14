@@ -56,6 +56,6 @@ class ContextSwitchingTests(unittest.TestCase):
         self.driver.switch_to.context('WEBVIEW')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ContextSwitchingTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

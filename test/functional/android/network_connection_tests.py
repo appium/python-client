@@ -43,6 +43,6 @@ class NetworkConnectionTests(unittest.TestCase):
         self.assertEqual(nc, ConnectionType.DATA_ONLY)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(NetworkConnectionTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

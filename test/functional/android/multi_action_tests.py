@@ -121,6 +121,6 @@ class MultiActionTests(unittest.TestCase):
         sleep(10)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(MultiActionTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

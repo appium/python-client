@@ -78,6 +78,6 @@ class RemoteFsTests(unittest.TestCase):
             self.assertEqual(original_data, new_data)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(RemoteFsTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

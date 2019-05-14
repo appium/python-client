@@ -221,6 +221,6 @@ class AppiumTests(unittest.TestCase):
         parse(date_time)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

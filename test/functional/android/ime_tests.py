@@ -65,6 +65,6 @@ class IMETests(unittest.TestCase):
         self.assertNotEqual(self.driver.active_ime_engine, engines[-1])
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(IMETests)
     unittest.TextTestRunner(verbosity=2).run(suite)

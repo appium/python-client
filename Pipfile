@@ -4,16 +4,18 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pre-commit = "==1.13.0"
+pre-commit = "~=1.13"
 
 [packages]
-selenium = "==3.141.0"
-astroid = "==1.6.5"
-isort = "==4.3.4"
-pylint = "==1.9.3"
-autopep8 = "==1.4.3"
-httpretty = "==0.9.6"
-pytest = "==4.0.2"
-pytest-cov = "==2.6.0"
-tox = "==3.6.0"
-tox-travis = "==0.11"
+selenium = "~=3.141"
+autopep8 = "~=1.4"
+httpretty = "~=0.9"
+pytest = "~=4.0"
+pytest-cov = "~=2.6"
+tox = "~=3.6"
+tox-travis = "~=0.11"
+
+# TODO Update to the latest ver when py2 support dropped
+pylint = "~=1.9"
+astroid = "~=1.6"
+isort = "~=4.3"

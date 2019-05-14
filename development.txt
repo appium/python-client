@@ -1,2 +1,0 @@
--r ci-requirements.txt
-pre-commit==1.13.0

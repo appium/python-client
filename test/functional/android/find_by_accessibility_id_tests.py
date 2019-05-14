@@ -51,6 +51,6 @@ class FindByAccessibilityIDTests(unittest.TestCase):
         self.assertIsInstance(sub_els, list)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(FindByAccessibilityIDTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

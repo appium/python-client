@@ -37,6 +37,6 @@ class ChromeTests(unittest.TestCase):
         self.assertTrue('I am some other page content' in self.driver.page_source)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ChromeTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

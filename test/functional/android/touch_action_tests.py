@@ -228,6 +228,6 @@ class TouchActionTests(unittest.TestCase):
         self.assertIsNotNone(el)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TouchActionTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

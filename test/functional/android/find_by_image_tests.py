@@ -83,6 +83,6 @@ class FindByImageTests(unittest.TestCase):
             self.driver.find_element_by_image(image_path)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(FindByImageTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

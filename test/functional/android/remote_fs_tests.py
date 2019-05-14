@@ -50,9 +50,9 @@ class RemoteFsTests(unittest.TestCase):
 
         folder = self.driver.pull_folder(dest_dir)
 
-        filelist = ZipFile(BytesIO(base64.b64decode(folder))).namelist()
-        for filename in ['1.txt', '2.txt']:
-            self.assertTrue(filename in filelist)
+        with ZipFile(BytesIO(base64.b64decode(folder))) as fzip:
+            for filename in ['1.txt', '2.txt']:
+                self.assertTrue(filename in fzip.namelist())
 
     def test_push_file_with_src_path(self):
         test_files = ['test_image.jpg', 'test_file.txt']

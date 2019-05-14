@@ -19,6 +19,7 @@ import unittest
 from zipfile import ZipFile
 
 from appium import webdriver
+from appium.common.helper import appium_bytes
 import desired_capabilities
 
 
@@ -31,26 +32,26 @@ class RemoteFsTests(unittest.TestCase):
         self.driver.quit()
 
         # remove zipped file from `test_pull_folder`
-        if hasattr(self, 'zipfilename') and os.path.isfile(self.zipfilename):
+        if os.path.isfile(getattr(self, 'zipfilename', '')):
             os.remove(self.zipfilename)
 
     def test_push_pull_file(self):
-        path = '/data/local/tmp/test_push_file.txt'
-        data = b'This is the contents of the file to push to the device.'
+        dest_path = '/data/local/tmp/test_push_file.txt'
+        data = appium_bytes('This is the contents of the file to push to the device.', 'utf-8')
 
-        self.driver.push_file(path, base64.b64encode(data).decode('utf-8'))
-        data_ret = base64.b64decode(self.driver.pull_file(path))
+        self.driver.push_file(dest_path, base64.b64encode(data).decode('utf-8'))
+        data_ret = base64.b64decode(self.driver.pull_file(dest_path))
 
         self.assertEqual(data, data_ret)
 
     def test_pull_folder(self):
-        string_data = b'random string data %d' % random.randint(0, 1000)
-        path = '/data/local/tmp'
+        data = appium_bytes('random string data {}'.format(random.randint(0, 1000)), 'utf-8')
+        dest_dir = '/data/local/tmp/'
 
-        self.driver.push_file(path + '/1.txt', base64.b64encode(string_data).decode('utf-8'))
-        self.driver.push_file(path + '/2.txt', base64.b64encode(string_data).decode('utf-8'))
+        for filename in ['1.txt', '2.txt']:
+            self.driver.push_file(os.path.join(dest_dir, filename), base64.b64encode(data).decode('utf-8'))
 
-        folder = self.driver.pull_folder(path)
+        folder = self.driver.pull_folder(dest_dir)
 
         # python doesn't have any functionality for unzipping streams
         # save temporary file, which will be deleted in `tearDown`
@@ -60,20 +61,20 @@ class RemoteFsTests(unittest.TestCase):
 
         with ZipFile(self.zipfilename, 'r') as myzip:
             # should find these. otherwise it will raise a `KeyError`
-            myzip.read('1.txt')
-            myzip.read('2.txt')
+            for filename in ['1.txt', '2.txt']:
+                myzip.read(filename)
 
     def test_push_file_with_src_path(self):
         test_files = ['test_image.jpg', 'test_file.txt']
         for file_name in test_files:
-            source_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), file_name)
-            destination_path = os.path.join('/data/local/tmp/', file_name)
+            src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), file_name)
+            dest_path = os.path.join('/data/local/tmp/', file_name)
 
-            with open(source_path, 'rb') as fr:
+            with open(src_path, 'rb') as fr:
                 original_data = fr.read()
 
-            self.driver.push_file(destination_path, source_path=source_path)
-            new_data = base64.b64decode(self.driver.pull_file(destination_path))
+            self.driver.push_file(dest_path, source_path=src_path)
+            new_data = base64.b64decode(self.driver.pull_file(dest_path))
             self.assertEqual(original_data, new_data)
 
 

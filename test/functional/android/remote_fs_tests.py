@@ -16,6 +16,7 @@ import base64
 import os
 import random
 import unittest
+from io import BytesIO
 from zipfile import ZipFile
 
 from appium import webdriver
@@ -30,10 +31,6 @@ class RemoteFsTests(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
-
-        # remove zipped file from `test_pull_folder`
-        if os.path.isfile(getattr(self, 'zipfilename', '')):
-            os.remove(self.zipfilename)
 
     def test_push_pull_file(self):
         dest_path = '/data/local/tmp/test_push_file.txt'
@@ -53,16 +50,9 @@ class RemoteFsTests(unittest.TestCase):
 
         folder = self.driver.pull_folder(dest_dir)
 
-        # python doesn't have any functionality for unzipping streams
-        # save temporary file, which will be deleted in `tearDown`
-        self.zipfilename = 'folder_%d.zip' % random.randint(0, 1000000)
-        with open(self.zipfilename, "wb") as fw:
-            fw.write(base64.b64decode(folder))
-
-        with ZipFile(self.zipfilename, 'r') as myzip:
-            # should find these. otherwise it will raise a `KeyError`
-            for filename in ['1.txt', '2.txt']:
-                myzip.read(filename)
+        filelist = ZipFile(BytesIO(base64.b64decode(folder))).namelist()
+        for filename in ['1.txt', '2.txt']:
+            self.assertTrue(filename in filelist)
 
     def test_push_file_with_src_path(self):
         test_files = ['test_image.jpg', 'test_file.txt']

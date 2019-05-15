@@ -23,7 +23,7 @@ from appium.webdriver.applicationstate import ApplicationState
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.common.exceptions import NoSuchElementException
 
-import desired_capabilities
+from helper import desired_capabilities
 from helper.test_helper import wait_for_element
 
 

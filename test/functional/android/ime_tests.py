@@ -17,7 +17,7 @@ import unittest
 from time import sleep
 
 from appium import webdriver
-import desired_capabilities
+from helper import desired_capabilities
 
 
 # the emulator is sometimes slow and needs time to think

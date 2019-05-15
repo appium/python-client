@@ -20,7 +20,7 @@ from selenium.common.exceptions import NoSuchElementException
 from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
-import desired_capabilities
+from helper import desired_capabilities
 from helper.test_helper import wait_for_element
 
 # the emulator is sometimes slow

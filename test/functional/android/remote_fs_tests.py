@@ -21,7 +21,7 @@ from zipfile import ZipFile
 
 from appium import webdriver
 from appium.common.helper import appium_bytes
-import desired_capabilities
+from helper import desired_capabilities
 
 
 class RemoteFsTests(unittest.TestCase):
@@ -57,7 +57,7 @@ class RemoteFsTests(unittest.TestCase):
     def test_push_file_with_src_path(self):
         test_files = ['test_image.jpg', 'test_file.txt']
         for file_name in test_files:
-            src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), file_name)
+            src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'file', file_name)
             dest_path = os.path.join('/data/local/tmp/', file_name)
 
             with open(src_path, 'rb') as fr:

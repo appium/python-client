@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import pytest
+
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 

@@ -16,12 +16,13 @@ import base64
 import unittest
 
 import pytest
-from appium import webdriver
-from helper import desired_capabilities
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+
+from appium import webdriver
+from helper import desired_capabilities
 
 
 @pytest.mark.skip(reason="Need to fix broken test")

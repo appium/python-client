@@ -13,14 +13,14 @@
 # limitations under the License.
 
 from test.unit.helper.test_helper import (
-    appium_command,
     android_w3c_driver,
+    appium_command,
     get_httpretty_request_body
 )
 
-from appium.webdriver.webdriver import WebDriver
-
 import httpretty
+
+from appium.webdriver.webdriver import WebDriver
 
 
 class TestApp(object):

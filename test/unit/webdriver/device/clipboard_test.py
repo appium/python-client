@@ -13,16 +13,16 @@
 # limitations under the License.
 
 from test.unit.helper.test_helper import (
-    appium_command,
     android_w3c_driver,
-    ios_w3c_driver,
-    get_httpretty_request_body
+    appium_command,
+    get_httpretty_request_body,
+    ios_w3c_driver
 )
 
 import httpretty
 
-from appium.webdriver.clipboard_content_type import ClipboardContentType
 from appium.common.helper import appium_bytes
+from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 
 class TestWebDriverDeviceClipboard(object):

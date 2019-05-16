@@ -15,8 +15,9 @@
 
 import unittest
 
-from appium import webdriver
 from dateutil.parser import parse
+
+from appium import webdriver
 from helper import desired_capabilities
 
 

@@ -16,11 +16,12 @@
 import unittest
 from time import sleep
 
+from selenium.common.exceptions import NoSuchElementException
+
 from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from helper import desired_capabilities
 from helper.test_helper import wait_for_element
-from selenium.common.exceptions import NoSuchElementException
 
 
 class WebdriverTests(unittest.TestCase):

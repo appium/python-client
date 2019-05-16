@@ -15,6 +15,7 @@
 import unittest
 
 import pytest
+
 from appium import webdriver
 from appium.common.exceptions import NoSuchContextException
 from helper import desired_capabilities

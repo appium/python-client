@@ -13,19 +13,19 @@
 # limitations under the License.
 
 from test.unit.helper.test_helper import (
-    appium_command,
     android_w3c_driver,
+    appium_command,
     get_httpretty_request_body
 )
 
 import httpretty
 
-from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.extensions.android.gsm import (
     GsmCallActions,
     GsmSignalStrength,
     GsmVoiceState
 )
+from appium.webdriver.webdriver import WebDriver
 
 
 class TestWebDriveGsm(object):

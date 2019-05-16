@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium.webdriver.mobilecommand import MobileCommand as Command
 from selenium import webdriver
+
+from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
 class Network(webdriver.Remote):

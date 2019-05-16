@@ -17,12 +17,13 @@
 import base64
 import copy
 
-from appium.common.logger import logger
-from appium.webdriver.common.mobileby import MobileBy
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
+
+from appium.common.logger import logger
+from appium.webdriver.common.mobileby import MobileBy
 
 from .appium_connection import AppiumConnection
 from .errorhandler import MobileErrorHandler

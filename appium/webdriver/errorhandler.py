@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium.common.exceptions import NoSuchContextException
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.remote import errorhandler
+
+from appium.common.exceptions import NoSuchContextException
 
 
 class MobileErrorHandler(errorhandler.ErrorHandler):

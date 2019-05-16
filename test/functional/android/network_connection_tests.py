@@ -18,11 +18,7 @@ import unittest
 
 from appium import webdriver
 from appium.webdriver.connectiontype import ConnectionType
-import desired_capabilities
-
-
-# the emulator is sometimes slow and needs time to think
-SLEEPY_TIME = 1
+from helper import desired_capabilities
 
 
 class NetworkConnectionTests(unittest.TestCase):

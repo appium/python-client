@@ -16,7 +16,7 @@
 import unittest
 
 from appium import webdriver
-import desired_capabilities
+from helper import desired_capabilities
 
 
 class FingerPrintTests(unittest.TestCase):

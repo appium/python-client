@@ -20,11 +20,8 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
 
-import desired_capabilities
+from helper import desired_capabilities
 from helper.test_helper import wait_for_element
-
-# the emulator is sometimes slow and needs time to think
-SLEEPY_TIME = 3
 
 
 class MultiActionTests(unittest.TestCase):
@@ -45,7 +42,7 @@ class MultiActionTests(unittest.TestCase):
         action.tap(el).perform()
 
         # simulate a swipe/scroll
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists', SLEEPY_TIME)
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
         action.press(el).move_to(x=100, y=-1000).release().perform()
         el = self.driver.find_element_by_accessibility_id('Layouts')
         action.press(el).move_to(x=100, y=-1000).release().perform()
@@ -53,7 +50,7 @@ class MultiActionTests(unittest.TestCase):
         el = self.driver.find_element_by_accessibility_id('Splitting Touches across Views')
         action.tap(el).perform()
 
-        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView', SLEEPY_TIME)
+        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView')
         els = self.driver.find_elements_by_class_name('android.widget.ListView')
         a1 = TouchAction()
         a1.press(els[0]) \
@@ -77,7 +74,7 @@ class MultiActionTests(unittest.TestCase):
         action.tap(el).perform()
 
         # simulate a swipe/scroll
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists', SLEEPY_TIME)
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
         action.press(el).move_to(x=100, y=-1000).release().perform()
         el = self.driver.find_element_by_accessibility_id('Layouts')
         action.press(el).move_to(x=100, y=-1000).release().perform()
@@ -85,7 +82,7 @@ class MultiActionTests(unittest.TestCase):
         el = self.driver.find_element_by_accessibility_id('Splitting Touches across Views')
         action.tap(el).perform()
 
-        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView', SLEEPY_TIME)
+        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView')
         els = self.driver.find_elements_by_class_name('android.widget.ListView')
         a1 = TouchAction()
         a1.press(els[0]) \
@@ -112,7 +109,7 @@ class MultiActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
-        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.TextView', SLEEPY_TIME)
+        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.TextView')
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
         self.driver.scroll(els[len(els) - 1], els[0])
 

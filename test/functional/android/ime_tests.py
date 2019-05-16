@@ -17,11 +17,8 @@ import unittest
 from time import sleep
 
 from appium import webdriver
-import desired_capabilities
+from helper import desired_capabilities
 
-
-# the emulator is sometimes slow and needs time to think
-SLEEPY_TIME = 1
 
 ANDROID_LATIN = 'com.android.inputmethod.latin/.LatinIME'  # Android L/M/N
 GOOGLE_LATIN = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'  # Android O/P

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,30 +14,27 @@
 # limitations under the License.
 
 import unittest
+from dateutil.parser import parse
 
 from appium import webdriver
 
+from helper import desired_capabilities
 
-class ChromeTests(unittest.TestCase):
+
+class DeviceTimeTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = {
-            'platformName': 'Android',
-            'platformVersion': '9',
-            'deviceName': 'Android Emulator',
-            'browserName': 'Chrome'
-        }
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
 
-    def test_find_single_element(self):
-        self.driver.get('http://10.0.2.2:4723/test/guinea-pig')
-        self.driver.find_element_by_link_text('i am a link').click()
-
-        self.assertTrue('I am some other page content' in self.driver.page_source)
+    def test_device_time(self):
+        date_time = self.driver.device_time
+        # convert to date ought to work
+        parse(date_time)
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(ChromeTests)
+    suite = unittest.TestLoader().loadTestsFromTestCase(DeviceTimeTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

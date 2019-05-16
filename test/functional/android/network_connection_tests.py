@@ -21,10 +21,6 @@ from appium.webdriver.connectiontype import ConnectionType
 from helper import desired_capabilities
 
 
-# the emulator is sometimes slow and needs time to think
-SLEEPY_TIME = 1
-
-
 class NetworkConnectionTests(unittest.TestCase):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')

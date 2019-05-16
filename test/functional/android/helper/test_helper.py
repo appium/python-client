@@ -15,6 +15,7 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+# the emulator is sometimes slow and needs time to think
 SLEEPY_TIME = 3
 
 

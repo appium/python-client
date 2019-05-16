@@ -24,10 +24,6 @@ from helper import desired_capabilities
 from helper.test_helper import wait_for_element
 
 
-# the emulator is sometimes slow and needs time to think
-SLEEPY_TIME = 3
-
-
 class WebdriverTests(unittest.TestCase):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
@@ -82,10 +78,10 @@ class WebdriverTests(unittest.TestCase):
         self.driver.find_element_by_android_uiautomator(
             'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
 
-        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Controls', SLEEPY_TIME).click()
-        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Light Theme', SLEEPY_TIME).click()
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Controls').click()
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Light Theme').click()
 
-        el = wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.EditText', SLEEPY_TIME)
+        el = wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.EditText')
         el.send_keys('original text')
         el.set_text('new text')
 
@@ -94,7 +90,7 @@ class WebdriverTests(unittest.TestCase):
     def test_send_keys(self):
         for text in ['App', 'Activity', 'Custom Title']:
             wait_for_element(self.driver, MobileBy.XPATH,
-                             "//android.widget.TextView[@text='{}']".format(text), SLEEPY_TIME).click()
+                             "//android.widget.TextView[@text='{}']".format(text)).click()
 
         el = self.driver.find_element(MobileBy.ID, 'com.example.android.apis:id/left_text_edit')
         el.send_keys(' text')

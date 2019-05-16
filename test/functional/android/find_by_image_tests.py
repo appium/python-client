@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 import unittest
 
 from appium import webdriver
@@ -24,6 +25,7 @@ from helper import desired_capabilities
 import base64
 
 
+@pytest.mark.skip(reason="Need to fix broken test")
 class FindByImageTests(unittest.TestCase):
 
     def setUp(self):

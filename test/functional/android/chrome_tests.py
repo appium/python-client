@@ -21,7 +21,7 @@ class ChromeTests(unittest.TestCase):
     def setUp(self):
         desired_caps = {
             'platformName': 'Android',
-            'platformVersion': '4.2',
+            'platformVersion': '9',
             'deviceName': 'Android Emulator',
             'browserName': 'Chrome'
         }

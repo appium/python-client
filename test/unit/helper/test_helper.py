@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+
 import httpretty
 
 from appium import webdriver

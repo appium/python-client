@@ -14,10 +14,9 @@
 # limitations under the License.
 
 import unittest
-from dateutil.parser import parse
 
 from appium import webdriver
-
+from dateutil.parser import parse
 from helper import desired_capabilities
 
 

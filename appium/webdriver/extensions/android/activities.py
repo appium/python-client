@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from appium.webdriver.mobilecommand import MobileCommand as Command
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
-from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
 class Activities(webdriver.Remote):

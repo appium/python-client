@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from selenium import webdriver
-from appium.webdriver.mobilecommand import MobileCommand as Command
-
-from appium.common.logger import logger
 from appium.common.helper import extract_const_attributes
+from appium.common.logger import logger
+from appium.webdriver.mobilecommand import MobileCommand as Command
+from selenium import webdriver
 
 
 class GsmCallActions(object):

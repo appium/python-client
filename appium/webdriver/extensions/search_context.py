@@ -16,10 +16,10 @@
 
 import json
 
-from selenium import webdriver
-from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
-
 from appium.webdriver.common.mobileby import MobileBy
+from selenium import webdriver
+from selenium.webdriver.remote.webelement import \
+    WebElement as SeleniumWebElement
 
 
 class BaseSearchContext(object):

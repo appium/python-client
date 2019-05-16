@@ -17,9 +17,8 @@ from time import sleep
 
 from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
-from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
-
+from appium.webdriver.common.touch_action import TouchAction
 from helper import desired_capabilities
 from helper.test_helper import wait_for_element
 

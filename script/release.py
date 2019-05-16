@@ -13,9 +13,9 @@
 # limitations under the License.
 """Release script to publish release module to pipy."""
 
+import io
 import os
 import sys
-import io
 
 VERSION_FILE_PATH = os.path.join(os.path.dirname('__file__'), 'appium', 'version.py')
 CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.rst')

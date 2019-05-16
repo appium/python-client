@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from selenium import webdriver
+
 from ..mobilecommand import MobileCommand as Command
 
 

@@ -12,10 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from selenium.webdriver.remote import errorhandler
-from selenium.common.exceptions import WebDriverException
-
 from appium.common.exceptions import NoSuchContextException
+from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.remote import errorhandler
 
 
 class MobileErrorHandler(errorhandler.ErrorHandler):

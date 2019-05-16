@@ -14,11 +14,11 @@
 
 import base64
 
-from selenium import webdriver
-from ..mobilecommand import MobileCommand as Command
-
 from appium.common.helper import appium_bytes
 from appium.webdriver.clipboard_content_type import ClipboardContentType
+from selenium import webdriver
+
+from ..mobilecommand import MobileCommand as Command
 
 
 class Clipboard(webdriver.Remote):

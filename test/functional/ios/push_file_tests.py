@@ -16,7 +16,6 @@ import os
 import unittest
 
 import desired_capabilities
-
 from appium import webdriver
 
 

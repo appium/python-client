@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from selenium import webdriver
+
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 

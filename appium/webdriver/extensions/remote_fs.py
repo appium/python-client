@@ -16,6 +16,7 @@ import base64
 
 from selenium import webdriver
 from selenium.common.exceptions import InvalidArgumentException
+
 from ..mobilecommand import MobileCommand as Command
 
 

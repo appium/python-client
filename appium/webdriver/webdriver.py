@@ -22,8 +22,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
-
+from appium.common.logger import logger
 from appium.webdriver.common.mobileby import MobileBy
+
 from .appium_connection import AppiumConnection
 from .errorhandler import MobileErrorHandler
 from .extensions.action_helpers import ActionHelpers
@@ -38,10 +39,10 @@ from .extensions.applications import Applications
 from .extensions.clipboard import Clipboard
 from .extensions.context import Context
 from .extensions.device_time import DeviceTime
+from .extensions.hw_actions import HardwareActions
 from .extensions.images_comparison import ImagesComparison
 from .extensions.ime import IME
 from .extensions.keyboard import Keyboard
-from .extensions.hw_actions import HardwareActions
 from .extensions.location import Location
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
@@ -50,8 +51,6 @@ from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
-
-from appium.common.logger import logger
 
 # From remote/webdriver.py
 _W3C_CAPABILITY_NAMES = frozenset([

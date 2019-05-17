@@ -16,9 +16,10 @@
 
 from __future__ import print_function
 
-import unittest
 import os
 import sys
+import unittest
+
 from appium import webdriver
 from sauceclient import SauceClient
 

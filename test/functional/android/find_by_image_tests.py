@@ -12,17 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pytest
+import base64
 import unittest
 
-from appium import webdriver
+import pytest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from helper import desired_capabilities
+from selenium.webdriver.support.ui import WebDriverWait
 
-import base64
+from appium import webdriver
+from helper import desired_capabilities
 
 
 @pytest.mark.skip(reason="Need to fix broken test")

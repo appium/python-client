@@ -17,7 +17,6 @@ import unittest
 from time import sleep
 
 from appium import webdriver
-
 from helper import desired_capabilities
 
 

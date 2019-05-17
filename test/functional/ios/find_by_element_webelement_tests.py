@@ -14,8 +14,8 @@
 
 import unittest
 
-from appium import webdriver
 import desired_capabilities
+from appium import webdriver
 
 
 class FindByElementWebelementTests(unittest.TestCase):

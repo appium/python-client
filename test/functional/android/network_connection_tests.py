@@ -15,7 +15,6 @@
 
 import unittest
 
-
 from appium import webdriver
 from appium.webdriver.connectiontype import ConnectionType
 from helper import desired_capabilities

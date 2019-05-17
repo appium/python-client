@@ -44,6 +44,10 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
         ```
         $ python -m autopep8 -r --global-config .config-pep8 -i .
         ```
+    - `isort` helps to order imports automatically
+        ```
+        $ python -m isort -rc .
+        ```
 - You can customise `CHANGELOG.rst` with commit messages following [.gitchangelog.rc](.gitchangelog.rc)
     - It generates readable changelog
 - Setup

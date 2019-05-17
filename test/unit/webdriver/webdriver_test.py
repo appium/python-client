@@ -59,6 +59,7 @@ class TestWebDriverWebDriver(object):
 
         assert driver.session_id == 'session-id'
         assert driver.w3c
+        assert driver.command_executor.w3c
 
     @httpretty.activate
     def test_create_session_forceMjsonwp(self):
@@ -92,6 +93,7 @@ class TestWebDriverWebDriver(object):
 
         assert driver.session_id == 'session-id'
         assert driver.w3c is False
+        assert driver.command_executor.w3c is False
 
     @httpretty.activate
     def test_create_session_change_session_id(self):

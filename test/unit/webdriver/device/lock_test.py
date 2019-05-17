@@ -47,7 +47,7 @@ class TestWebDriverDeviceLock(object):
         driver.lock()
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert len(d.keys()) == 1
+        assert d == {}
 
     @httpretty.activate
     def test_islocked_false(self):

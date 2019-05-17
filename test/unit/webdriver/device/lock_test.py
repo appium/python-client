@@ -48,7 +48,6 @@ class TestWebDriverDeviceLock(object):
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert len(d.keys()) == 1
-        assert d['sessionId'] == '1234567890'
 
     @httpretty.activate
     def test_islocked_false(self):

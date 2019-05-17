@@ -34,7 +34,6 @@ class TestWebDriverDeviceActivities(object):
         driver.start_activity('com.example.myapp', '.ExampleActivity')
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['sessionId'] == '1234567890'
         assert d['appPackage'] == 'com.example.myapp'
         assert d['appActivity'] == '.ExampleActivity'
 
@@ -58,7 +57,6 @@ class TestWebDriverDeviceActivities(object):
         )
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['sessionId'] == '1234567890'
         assert d['appPackage'] == 'com.example.myapp'
         assert d['appActivity'] == '.ExampleActivity'
         assert d['appWaitPackage'] == 'com.example.waitapp'

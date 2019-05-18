@@ -38,29 +38,29 @@ class FindByIOSPredicateTests(unittest.TestCase):
 
     def test_find_element_by_label(self):
         # Will throw exception if element is not found
-        self.driver.find_element_by_ios_predicate('label == "TextFields"')
+        self.driver.find_element_by_ios_predicate('label == "Buttons"')
 
     def test_find_element_by_value(self):
         # Will throw exception if element is not found
-        self.driver.find_element_by_ios_predicate('wdValue == "Controls"')
+        self.driver.find_element_by_ios_predicate('wdValue == "Buttons"')
 
     def test_find_element_by_isvisible(self):
         # Will throw exception if element is not found
-        self.driver.find_element_by_ios_predicate('wdValue == "SearchBar" AND visible == 1')
+        self.driver.find_element_by_ios_predicate('wdValue == "Buttons" AND visible == 1')
 
         # Should not find any elements
-        e = self.driver.find_elements_by_ios_predicate('wdValue == "SearchBar" AND visible == 0')
+        e = self.driver.find_elements_by_ios_predicate('wdValue == "Buttons" AND visible == 0')
         self.assertEqual(len(e), 0)
 
     def test_find_element_by_isenabled(self):
         # Will throw exception if element is not found
-        self.driver.find_element_by_ios_predicate('wdValue == "SearchBar" AND enabled == 1')
+        self.driver.find_element_by_ios_predicate('wdValue == "Buttons" AND enabled == 1')
 
         # Should not find any elements
-        e = self.driver.find_elements_by_ios_predicate('wdValue == "SearchBar" AND enabled == 0')
+        e = self.driver.find_elements_by_ios_predicate('wdValue == "Buttons" AND enabled == 0')
         self.assertEqual(len(e), 0)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(FindByIOSPredicateTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

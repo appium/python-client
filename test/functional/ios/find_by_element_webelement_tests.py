@@ -33,16 +33,16 @@ class FindByElementWebelementTests(unittest.TestCase):
         el = self.driver.find_element_by_ios_predicate('wdName == "UICatalog"')
         self.assertEqual('UICatalog', el.get_attribute('name'))
 
-        c_el = el.find_elements_by_ios_predicate('label == "TextFields"')
-        self.assertEqual('TextFields', c_el[0].get_attribute('name'))
+        c_el = el.find_elements_by_ios_predicate('label == "Action Sheets"')
+        self.assertEqual('Action Sheets', c_el[0].get_attribute('name'))
 
         c_el = el.find_elements_by_ios_class_chain('**/XCUIElementTypeStaticText')
-        self.assertEqual('UICatalog', c_el[0].get_attribute('name'))
+        self.assertEqual('Action Sheets', c_el[0].get_attribute('name'))
 
         c_el = el.find_elements_by_accessibility_id('UICatalog')
         self.assertEqual('UICatalog', c_el[0].get_attribute('name'))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(FindByElementWebelementTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

@@ -156,6 +156,6 @@ class AppiumTests(unittest.TestCase):
         self.driver.find_element_by_accessibility_id('Text Fields').click()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

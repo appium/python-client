@@ -2,6 +2,109 @@ Changelog
 =========
 
 
+v0.43 (2019-05-18)
+------------------
+- Bump 0.43. [Kazuaki Matsuo]
+- Add assertions for w3c (#384) [Kazuaki Matsuo]
+- Add isort to pre-commit (#379) [Mori Atsushi]
+
+  * Add isort to pre-commit
+
+  * Add isort.conf
+
+  * Applied isort for test/unit
+
+  * Add current dir to isrot arg
+
+  * Add check to ci.sh
+
+  * Use exit code for condition check in ci.sh
+- [RD-34891] Assign w3c property on the command executor. (#382)
+  [Erustus Agutu]
+- Get rid of sessionId (#383) [Kazuaki Matsuo]
+- Divide functional appium tests into each module(android) (#378) [Mori
+  Atsushi]
+
+  * Move non test files
+
+  * Divide appium_tests into each module tests(android)
+
+  * Skip contexts, find_by_image tests
+
+  * Removed unnecessary codes
+- Introduced pipfile (#376) [Mori Atsushi]
+
+  * Added Pipfile
+
+  Just created by pipenv install -r ci-requirements.txt
+
+  * Introduced pipenv
+
+  * Add Pipfile.lock to gitignore
+
+  * Cover any minor versions for packages
+- Fix functional tests failed (android, push_file)  (#375) [Mori
+  Atsushi]
+
+  * Fix: test_push_file
+
+  * Move remove_fs tests
+
+  * Move teardown process
+
+  * Delete selendroid test
+
+  * tweak
+
+  * Update along to review comments
+
+  * Replace double quote with single quote under android dir
+
+  * Remove creating tmp file
+
+  * tweak
+- Fix functional tests failed (android, ime/multi_action) (#372) [Mori
+  Atsushi]
+
+  * Fix test failed: ime_tests, multi_action_tests
+
+  * revert change and add impl for python3
+
+  * Remove py3 dependency
+
+  * Change deepcopy to copy
+
+  * Update ime_tests
+- Fix functional tests failed (android, touch_action) (#374) [Mori
+  Atsushi]
+
+  * Fix: test_drag_and_drop
+
+  * Fix: test_long_press
+
+  * Fix: long_press_x_y, swipe
+
+  * Fix: press_and_wait
+
+  * Fix: driver_drag_and_drop
+
+  * Tweak
+
+  * Add SLEEPY_TIME
+
+  * Remove set with sleep and find_element
+- Move android commands to android package (#371) [Mori Atsushi]
+
+  * Reorder mobilecommands
+
+  * Move android commands to android package
+
+  * Update setup.py to include added packages
+
+  * Changed find_packages to whitelist style
+- Update changelog for 0.42. [Kazuaki Matsuo]
+
+
 v0.42 (2019-05-10)
 ------------------
 - Bump 0.42. [Kazuaki Matsuo]

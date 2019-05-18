@@ -15,8 +15,8 @@
 import os
 import unittest
 
-import desired_capabilities
 from appium import webdriver
+from helper import desired_capabilities
 
 
 class PushFileTests(unittest.TestCase):
@@ -31,7 +31,7 @@ class PushFileTests(unittest.TestCase):
 
     def test_push_file(self):
         file_name = 'test_image.jpg'
-        source_path = os.path.dirname(os.path.abspath(__file__)) + '/' + file_name
+        source_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'file', file_name)
         destination_path = file_name
 
         self.driver.push_file(destination_path, source_path=source_path)

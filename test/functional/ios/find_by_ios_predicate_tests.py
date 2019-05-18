@@ -14,8 +14,8 @@
 
 import unittest
 
-import desired_capabilities
 from appium import webdriver
+from helper import desired_capabilities
 
 
 class FindByIOSPredicateTests(unittest.TestCase):

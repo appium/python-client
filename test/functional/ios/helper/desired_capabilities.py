@@ -29,7 +29,7 @@ def get_desired_capabilities(app):
         'deviceName': iphone_device_name(),
         'platformName': 'iOS',
         'platformVersion': '12.2',
-        'app': PATH('../../apps/' + app),
+        'app': PATH('../../../apps/' + app),
         'automationName': 'XCUITest',
         'allowTouchIdEnroll': True,
         'wdaLocalPort': wda_port(),

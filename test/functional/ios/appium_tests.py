@@ -15,9 +15,9 @@
 import unittest
 from time import sleep
 
-import desired_capabilities
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
+from helper import desired_capabilities
 
 
 class AppiumTests(unittest.TestCase):

@@ -17,6 +17,18 @@ from selenium import webdriver
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
+class NetSpeed(object):
+    GSM = 'gsm'  # GSM/CSD (up: 14.4, down: 14.4)
+    SCSD = 'scsd'  # HSCSD (up: 14.4, down: 57.6)
+    GPRS = 'gprs'  # GPRS (up: 28.8, down: 57.6)
+    EDGE = 'edge'  # EDGE/EGPRS (up: 473.6, down: 473.6)
+    UMTS = 'umts'  # UMTS/3G (up: 384.0, down: 384.0)
+    HSDPA = 'hsdpa'  # HSDPA (up: 5760.0, down: 13,980.0)
+    LTE = 'lte'  # LTE (up: 58,000, down: 173,000)
+    EVDO = 'evdo'  # EVDO (up: 75,000, down: 280,000)
+    FULL = 'full'  # No limit, the default (up: 0.0, down: 0.0)
+
+
 class Network(webdriver.Remote):
 
     @property
@@ -47,12 +59,21 @@ class Network(webdriver.Remote):
                 'type': connection_type
             }
         }
-        return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
+        self.execute(Command.SET_NETWORK_CONNECTION, data)
+        return self
 
     def toggle_wifi(self):
         """Toggle the wifi on the device, Android only.
         """
         self.execute(Command.TOGGLE_WIFI, {})
+        return self
+
+    def set_network_speed(self, speed):
+        """
+
+        :return:
+        """
+        self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed})
         return self
 
     # pylint: disable=protected-access
@@ -64,3 +85,5 @@ class Network(webdriver.Remote):
             ('GET', '/session/$sessionId/network_connection')
         self.command_executor._commands[Command.SET_NETWORK_CONNECTION] = \
             ('POST', '/session/$sessionId/network_connection')
+        self.command_executor._commands[Command.SET_NETWORK_SPEED] = \
+            ('POST', '/session/$sessionId/appium/device/network_speed')

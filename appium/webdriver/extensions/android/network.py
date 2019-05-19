@@ -61,8 +61,7 @@ class Network(webdriver.Remote):
                 'type': connection_type
             }
         }
-        self.execute(Command.SET_NETWORK_CONNECTION, data)
-        return self
+        return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
 
     def toggle_wifi(self):
         """Toggle the wifi on the device, Android only.

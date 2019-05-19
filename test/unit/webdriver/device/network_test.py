@@ -45,7 +45,7 @@ class TestWebDriverNetwork(object):
             appium_command('/session/1234567890/network_connection'),
             body='{"value": ""}'
         )
-        assert isinstance(driver.set_network_connection(2), WebDriver)
+        driver.set_network_connection(2)
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['parameters']['type'] == 2

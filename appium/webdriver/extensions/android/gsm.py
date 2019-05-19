@@ -52,7 +52,8 @@ class Gsm(webdriver.Remote):
 
         :Args:
          - phone_number (str): The phone number to call to.
-         - action (str): The call action - GsmCallActions.CALL/ACCEPT/CANCEL/HOLD
+         - action (str): The call action.
+           A member of the const appium.webdriver.extensions.android.gsm.GsmCallActions
 
         :Usage:
             self.driver.make_gsm_call('5551234567', GsmCallActions.CALL)
@@ -69,7 +70,8 @@ class Gsm(webdriver.Remote):
         Android only.
 
         :Args:
-         - strength (int): Signal strength - GsmSignalStrength.NONE_OR_UNKNOWN/POOR/MODERATE/GOOD/GREAT
+         - strength (int): Signal strength.
+           A member of the enum appium.webdriver.extensions.android.gsm.GsmSignalStrength
 
         :Usage:
             self.driver.set_gsm_signal(GsmSignalStrength.GOOD)
@@ -86,7 +88,8 @@ class Gsm(webdriver.Remote):
         Android only.
 
         :Args:
-         - state(str): State of GSM voice - GsmVoiceState.UNREGISTERED/HOME/ROAMING/SEARCHING/DENIED/OFF/ON
+         - state(str): State of GSM voice.
+           A member of the const appium.webdriver.extensions.android.gsm.GsmVoiceState
 
         :Usage:
             self.driver.set_gsm_voice(GsmVoiceState.HOME)

@@ -14,11 +14,13 @@
 
 from selenium import webdriver
 
+from appium.common.helper import extract_const_attributes
+from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
 class NetSpeed(object):
-    GSM = 'gsm'  # GSM/CSD (up: 14.4, down: 14.4)
+    GSM = 'gsm'  # GSM/CSD (up: 14.4(kbps), down: 14.4(kbps))
     SCSD = 'scsd'  # HSCSD (up: 14.4, down: 57.6)
     GPRS = 'gprs'  # GPRS (up: 28.8, down: 57.6)
     EDGE = 'edge'  # EDGE/EGPRS (up: 473.6, down: 473.6)
@@ -52,7 +54,7 @@ class Network(webdriver.Remote):
         These are available through the enumeration `appium.webdriver.ConnectionType`
 
         :Args:
-         - connectionType - a member of the enum appium.webdriver.ConnectionType
+         - connection_type - a member of the enum appium.webdriver.ConnectionType
         """
         data = {
             'parameters': {
@@ -68,12 +70,23 @@ class Network(webdriver.Remote):
         self.execute(Command.TOGGLE_WIFI, {})
         return self
 
-    def set_network_speed(self, speed):
-        """
+    def set_network_speed(self, speed_type):
+        """Set the network speed emulation.
+        Android Emulator only.
 
-        :return:
+        :Args:
+         - speed_type (str): The network speed type.
+           A member of the const appium.webdriver.extensions.android.network.NetSpeed.
+
+        :Usage:
+            self.driver.set_network_speed(NetSpeed.LTE)
         """
-        self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed})
+        constants = extract_const_attributes(NetSpeed)
+        if speed_type not in constants.values():
+            logger.warning('{} is unknown. Consider using one of {} constants. (e.g. {}.LTE)'.format(
+                speed_type, list(constants.keys()), NetSpeed.__name__))
+
+        self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
         return self
 
     # pylint: disable=protected-access

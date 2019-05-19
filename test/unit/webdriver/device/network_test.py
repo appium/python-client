@@ -21,6 +21,7 @@ from test.unit.helper.test_helper import (
 
 import httpretty
 
+from appium.webdriver.extensions.android.network import NetSpeed
 from appium.webdriver.webdriver import WebDriver
 
 
@@ -44,10 +45,22 @@ class TestWebDriverNetwork(object):
             appium_command('/session/1234567890/network_connection'),
             body='{"value": ""}'
         )
-        driver.set_network_connection(2)
+        assert isinstance(driver.set_network_connection(2), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['parameters']['type'] == 2
+
+    @httpretty.activate
+    def test_set_network_speed(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/network_speed'),
+        )
+        assert isinstance(driver.set_network_speed(NetSpeed.LTE), WebDriver)
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['netspeed'] == NetSpeed.LTE
 
     @httpretty.activate
     def test_toggle_wifi(self):

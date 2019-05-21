@@ -86,13 +86,13 @@ class MobileCommand(object):
     GET_PERFORMANCE_DATA = 'getPerformanceData'
     GET_NETWORK_CONNECTION = 'getNetworkConnection'
     SET_NETWORK_CONNECTION = 'setNetworkConnection'
-    SET_NETWORK_SPEED = 'setNetworkSpeed'
 
     # Android Emulator
     SEND_SMS = 'sendSms'
     MAKE_GSM_CALL = 'makeGsmCall'
     SET_GSM_SIGNAL = 'setGsmSignal'
     SET_GSM_VOICE = 'setGsmVoice'
+    SET_NETWORK_SPEED = 'setNetworkSpeed'
     SET_POWER_CAPACITY = 'setPowerCapacity'
     SET_POWER_AC = 'setPowerAc'
 

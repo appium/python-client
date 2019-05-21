@@ -22,6 +22,9 @@ class Display(webdriver.Remote):
     def get_display_density(self):
         """Get the display density, Android only
 
+        :Returns:
+            int: The display density of the Android device(dpi)
+
         :Usage:
             self.driver.get_display_density()
         """

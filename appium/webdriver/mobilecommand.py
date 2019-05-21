@@ -78,6 +78,7 @@ class MobileCommand(object):
     GET_CURRENT_ACTIVITY = 'getCurrentActivity'
     GET_CURRENT_PACKAGE = 'getCurrentPackage'
     GET_SYSTEM_BARS = 'getSystemBars'
+    GET_DISPLAY_DENSITY = 'getDisplayDensity'
     TOGGLE_WIFI = 'toggleWiFi'
     TOGGLE_LOCATION_SERVICES = 'toggleLocationServices'
     END_TEST_COVERAGE = 'endTestCoverage'

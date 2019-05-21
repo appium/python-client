@@ -20,7 +20,10 @@ from appium.webdriver.mobilecommand import MobileCommand as Command
 class Display(webdriver.Remote):
 
     def get_display_density(self):
-        """
+        """Get the display density, Android only
+
+        :Usage:
+            self.driver.get_display_density()
         """
         return self.execute(Command.GET_DISPLAY_DENSITY)['value']
 

@@ -14,8 +14,8 @@
 
 import unittest
 
-import desired_capabilities
 from appium import webdriver
+from helper import desired_capabilities
 
 
 class FindByIOClassChainTests(unittest.TestCase):
@@ -30,7 +30,7 @@ class FindByIOClassChainTests(unittest.TestCase):
 
     def test_find_element_by_path(self):
         el = self.driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/**/XCUIElementTypeStaticText')
-        self.assertEqual('UICatalog', el.get_attribute('name'))
+        self.assertEqual('Action Sheets', el.get_attribute('name'))
 
     def test_find_multiple_elements_by_path(self):
         el = self.driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow/*/*/*')
@@ -39,6 +39,6 @@ class FindByIOClassChainTests(unittest.TestCase):
         self.assertEqual(None, el[1].get_attribute('name'))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(FindByIOClassChainTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

@@ -15,9 +15,10 @@
 import unittest
 from time import sleep
 
-import desired_capabilities
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
+from appium.webdriver.common.mobileby import MobileBy
+from helper import desired_capabilities
 
 
 class AppiumTests(unittest.TestCase):
@@ -38,7 +39,7 @@ class AppiumTests(unittest.TestCase):
 
     def test_screen_record(self):
         self.driver.start_recording_screen()
-        sleep(5)
+        sleep(10)
         result = self.driver.stop_recording_screen()
         self.assertTrue(len(result) > 0)
 
@@ -70,11 +71,9 @@ class AppiumTests(unittest.TestCase):
         self.driver.toggle_touch_id_enrollment()
 
     def test_hide_keyboard(self):
-        el = self.driver.find_element_by_name('Uses of UITextField')
-        el.click()
+        self._move_to_textbox()
 
-        # get focus on text field, so keyboard comes up
-        el = self.driver.find_element_by_class_name('UIATextField')
+        el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
         el.set_value('Testing')
 
         el = self.driver.find_element_by_class_name('UIAKeyboard')
@@ -85,11 +84,9 @@ class AppiumTests(unittest.TestCase):
         self.assertFalse(el.is_displayed())
 
     def test_hide_keyboard_presskey_strategy(self):
-        el = self.driver.find_element_by_name('Uses of UITextField')
-        el.click()
+        self._move_to_textbox()
 
-        # get focus on text field, so keyboard comes up
-        el = self.driver.find_element_by_class_name('UIATextField')
+        el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
         el.set_value('Testing')
 
         el = self.driver.find_element_by_class_name('UIAKeyboard')
@@ -100,11 +97,9 @@ class AppiumTests(unittest.TestCase):
         self.assertFalse(el.is_displayed())
 
     def test_hide_keyboard_no_key_name(self):
-        el = self.driver.find_element_by_name('Uses of UITextField')
-        el.click()
+        self._move_to_textbox()
 
-        # get focus on text field, so keyboard comes up
-        el = self.driver.find_element_by_class_name('UIATextField')
+        el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
         el.set_value('Testing')
 
         el = self.driver.find_element_by_class_name('UIAKeyboard')
@@ -117,33 +112,31 @@ class AppiumTests(unittest.TestCase):
         self.assertFalse(el.is_displayed())
 
     def test_is_keyboard_shown(self):
-        self.assertFalse(self.driver.is_keyboard_shown())
-        el = self.driver.find_element_by_name('Uses of UITextField')
-        el.click()
+        self._move_to_textbox()
 
-        # get focus on text field, so keyboard comes up
-        el = self.driver.find_element_by_class_name('UIATextField')
+        el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
         el.set_value('Testing')
         self.assertTrue(self.driver.is_keyboard_shown())
 
     def test_clear(self):
-        # Click text fields
-        self.driver.find_element_by_accessibility_id('TextFields').click()
+        self._move_to_textbox()
+
+        el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
 
         # Verify default text
-        def_text = '<enter text>'
-        text = self.driver.find_element_by_accessibility_id('Normal').get_attribute('value')
+        def_text = 'Placeholder text'
+        text = el.get_attribute('value')
         self.assertEqual(text, def_text)
 
         # Input some text, verify
         input_text = 'blah'
-        self.driver.find_element_by_accessibility_id('Normal').send_keys(input_text)
-        text = self.driver.find_element_by_accessibility_id('Normal').get_attribute('value')
+        el.send_keys(input_text)
+        text = el.get_attribute('value')
         self.assertEqual(text, input_text)
 
         # Clear text, verify
-        self.driver.find_element_by_accessibility_id('Normal').clear()
-        text = self.driver.find_element_by_accessibility_id('Normal').get_attribute('value')
+        el.clear()
+        text = el.get_attribute('value')
         self.assertEqual(text, def_text)
 
     def test_press_button(self):
@@ -154,7 +147,15 @@ class AppiumTests(unittest.TestCase):
         self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
                          ApplicationState.RUNNING_IN_FOREGROUND)
 
+    def _move_to_textbox(self):
+        el1 = self.driver.find_element_by_accessibility_id('Sliders')
+        el2 = self.driver.find_element_by_accessibility_id('Buttons')
+        self.driver.scroll(el1, el2)
 
-if __name__ == "__main__":
+        # Click text fields
+        self.driver.find_element_by_accessibility_id('Text Fields').click()
+
+
+if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

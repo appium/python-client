@@ -29,6 +29,7 @@ from .appium_connection import AppiumConnection
 from .errorhandler import MobileErrorHandler
 from .extensions.action_helpers import ActionHelpers
 from .extensions.android.activities import Activities
+from .extensions.android.display import Display
 from .extensions.android.gsm import Gsm
 from .extensions.android.network import Network
 from .extensions.android.performance import Performance
@@ -114,6 +115,7 @@ class WebDriver(
     Clipboard,
     Context,
     DeviceTime,
+    Display,
     Gsm,
     HardwareActions,
     ImagesComparison,

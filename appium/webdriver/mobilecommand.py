@@ -78,6 +78,7 @@ class MobileCommand(object):
     GET_CURRENT_ACTIVITY = 'getCurrentActivity'
     GET_CURRENT_PACKAGE = 'getCurrentPackage'
     GET_SYSTEM_BARS = 'getSystemBars'
+    GET_DISPLAY_DENSITY = 'getDisplayDensity'
     TOGGLE_WIFI = 'toggleWiFi'
     TOGGLE_LOCATION_SERVICES = 'toggleLocationServices'
     END_TEST_COVERAGE = 'endTestCoverage'
@@ -85,13 +86,13 @@ class MobileCommand(object):
     GET_PERFORMANCE_DATA = 'getPerformanceData'
     GET_NETWORK_CONNECTION = 'getNetworkConnection'
     SET_NETWORK_CONNECTION = 'setNetworkConnection'
-    SET_NETWORK_SPEED = 'setNetworkSpeed'
 
     # Android Emulator
     SEND_SMS = 'sendSms'
     MAKE_GSM_CALL = 'makeGsmCall'
     SET_GSM_SIGNAL = 'setGsmSignal'
     SET_GSM_VOICE = 'setGsmVoice'
+    SET_NETWORK_SPEED = 'setNetworkSpeed'
     SET_POWER_CAPACITY = 'setPowerCapacity'
     SET_POWER_AC = 'setPowerAc'
 

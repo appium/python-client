@@ -2,6 +2,60 @@ Changelog
 =========
 
 
+v0.44 (2019-05-24)
+------------------
+
+Fix
+~~~
+- Installed selenium4 when 'setup.py install' (#389) [Mori Atsushi]
+
+  * Fix: installed selenium4 when setup.py install
+
+  * Keep existing comparison operator
+
+Other
+~~~~~
+- Bump 0.44. [Kazuaki Matsuo]
+- Support get_display_density (#388) [Mori Atsushi]
+
+  * Support get_display_density
+
+  * Add get_display_density unittest
+
+  * Add api doc
+
+  * Add return description to api doc
+- Fix ios functional tests failed (#385) [Mori Atsushi]
+
+  * Fix safari test(iOS)
+
+  * Fix: find_by_ios_predicate
+
+  * Delete find_by_uiautomation_tests
+
+  since uiautomation is deprecated
+
+  * Move non test files
+
+  * Replace test app with the latest
+
+  * Fix tests failed along to replaced test app
+
+  * review comments
+- Support set_network_speed (#386) [Mori Atsushi]
+
+  * Support set_nework_speed
+
+  * Add set_network_speed unittest
+
+  * Add api doc
+
+  * revert unexpected change
+
+  * revert change
+- Update changelog for 0.43. [Kazuaki Matsuo]
+
+
 v0.43 (2019-05-18)
 ------------------
 - Bump 0.43. [Kazuaki Matsuo]

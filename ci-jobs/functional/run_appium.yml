@@ -1,0 +1,25 @@
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: Install Node 10.x
+- script: npm install -g appium
+  displayName: Install appium
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+- script: appium --relaxed-security &
+  displayName: Run Appium in background
+- script: brew install ffmpeg
+  displayName: Resolve dependencies (Appium server)
+- script: python setup.py install
+  displayName: Install python language bindings for Appium
+- script: pip install pytest pytest-cov
+  displayName: Resolve dependencies (Run tests)
+- script: |
+    git --no-pager log -n1
+    python --version
+    ffmpeg -version
+    appium --version
+    node --version
+  displayName: Check versions

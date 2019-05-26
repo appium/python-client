@@ -52,7 +52,8 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
     - It generates readable changelog
 - Setup
     - `pip install --user pipenv`
-    - `pipenv install --dev`
+    - `pipenv lock --clear`
+    - `pipenv install --dev --system`
     - `pre-commit install`
 
 ## Run tests

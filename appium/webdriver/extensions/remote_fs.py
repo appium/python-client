@@ -24,8 +24,8 @@ class RemoteFS(webdriver.Remote):
     def pull_file(self, path):
         """Retrieves the file at `path`. Returns the file's contents as base64.
 
-        :Args:
-         - path - the path to the file on the device
+        Args:
+            path: the path to the file on the device
         """
         data = {
             'path': path,
@@ -33,11 +33,12 @@ class RemoteFS(webdriver.Remote):
         return self.execute(Command.PULL_FILE, data)['value']
 
     def pull_folder(self, path):
-        """Retrieves a folder at `path`. Returns the folder's contents zipped
-        and encoded as Base64.
+        """Retrieves a folder at `path`.
 
-        :Args:
-         - path - the path to the folder on the device
+        Returns the folder's contents zipped and encoded as Base64.
+
+        Args:
+            path: the path to the folder on the device
         """
         data = {
             'path': path,
@@ -48,10 +49,14 @@ class RemoteFS(webdriver.Remote):
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
         Specify either `base64data` or `source_path`, if both specified default to `source_path`
-        :param destination_path: the location on the device/simulator where the local file contents should be saved
-        :param base64data: file contents, encoded as Base64, to be written to the file on the device/simulator
-        :param source_path: local file path for the file to be loaded on device
-        :return: WebDriver instance
+
+        Args:
+            destination_path: the location on the device/simulator where the local file contents should be saved
+            base64data: file contents, encoded as Base64, to be written to the file on the device/simulator
+            source_path: local file path for the file to be loaded on device
+
+        Returns:
+            WebDriver instance
         """
         if source_path is None and base64data is None:
             raise InvalidArgumentException('Must either pass base64 data or a local file path')

@@ -38,24 +38,25 @@ class AndroidSearchContext(BaseSearchContext):
 
     def find_element_by_android_data_matcher(self, name=None, args=None, className=None):
         """Finds element by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
+
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
-        :Args:
-         - name - The name of a method to invoke.
-                  The method must return a Hamcrest
-                  [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
-         - args - The args provided to the method
-         - className - The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
-                       Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
-                       (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
+        Args:
+            name: The name of a method to invoke.
+                The method must return a Hamcrest
+                [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
+            args: The args provided to the method
+            className: The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
+                Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
+                (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
 
-        :Returns:
-          An Element object
+        Returns:
+            An Element object
 
-        :Raises:
-        - TypeError - Raises a TypeError if the arguments are not validated for JSON format
+        Raises:
+            TypeError - Raises a TypeError if the arguments are not validated for JSON format
 
-        :Usage:
+        Usage:
             driver.find_element_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
         """
 

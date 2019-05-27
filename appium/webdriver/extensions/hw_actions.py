@@ -22,7 +22,7 @@ class HardwareActions(webdriver.Remote):
     def lock(self, seconds=None):
         """Lock the device. No changes are made if the device is already unlocked.
 
-        :Args:
+        Args:
             seconds(optional): The duration to lock the device, in seconds.
                 The device is going to be locked forever until `unlock` is called
                 if it equals or is less than zero, otherwise this call blocks until
@@ -44,7 +44,7 @@ class HardwareActions(webdriver.Remote):
     def is_locked(self):
         """Checks whether the device is locked.
 
-        :Returns:
+        Returns:
             Either True or False
         """
         return self.execute(Command.IS_LOCKED)['value']
@@ -73,7 +73,7 @@ class HardwareActions(webdriver.Remote):
     def finger_print(self, finger_id):
         """Authenticate users by using their finger print scans on supported Android emulators.
 
-        :Args:
+        Args:
             finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
         """
         return self.execute(Command.FINGER_PRINT, {'fingerprintId': finger_id})['value']

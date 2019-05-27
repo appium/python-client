@@ -31,11 +31,10 @@ class Applications(webdriver.Remote):
         return self
 
     def is_app_installed(self, bundle_id):
-        """Checks whether the application specified by `bundle_id` is installed
-        on the device.
+        """Checks whether the application specified by `bundle_id` is installed on the device.
 
-        :Args:
-         - bundle_id - the id of the application to query
+        Args:
+            bundle_id: the id of the application to query
         """
         data = {
             'bundleId': bundle_id,
@@ -45,20 +44,19 @@ class Applications(webdriver.Remote):
     def install_app(self, app_path, **options):
         """Install the application found at `app_path` on the device.
 
-        :Args:
-         - app_path - the local or remote path to the application to install
-         - options - the possible installation options.
-         The following options are available for Android:
-         `replace`: whether to reinstall/upgrade the package if it is
-         already present on the device under test. True by default
-         `timeout`: how much time to wait for the installation to complete.
-         60000ms by default.
-         `allowTestPackages`: whether to allow installation of packages marked
-         as test in the manifest. False by default
-         `useSdcard`: whether to use the SD card to install the app. False
-         by default
-         `grantPermissions`: whether to automatically grant application permissions
-         on Android 6+ after the installation completes. False by default
+        Args:
+            app_path: the local or remote path to the application to install
+            options: the possible installation options.
+                The following options are available for Android:
+                `replace`: whether to reinstall/upgrade the package if it is
+                    already present on the device under test. True by default
+                `timeout`: how much time to wait for the installation to complete.
+                    60000ms by default.
+                `allowTestPackages`: whether to allow installation of packages marked
+                    as test in the manifest. False by default
+                `useSdcard`: whether to use the SD card to install the app. False by default
+                `grantPermissions`: whether to automatically grant application permissions
+                    on Android 6+ after the installation completes. False by default
         """
         data = {
             'appPath': app_path,
@@ -71,14 +69,14 @@ class Applications(webdriver.Remote):
     def remove_app(self, app_id, **options):
         """Remove the specified application from the device.
 
-        :Args:
-         - app_id - the application id to be removed
-         - options - the possible removal options.
-         The following options are available for Android:
-         `keepData`: whether to keep application data and caches after it is uninstalled.
-         False by default
-         `timeout`: how much time to wait for the uninstall to complete.
-         20000ms by default.
+        Args:
+            app_id: the application id to be removed
+            options: the possible removal options.
+                The following options are available for Android:
+                `keepData`: whether to keep application data and caches after it is uninstalled.
+                    False by default
+                `timeout`: how much time to wait for the uninstall to complete.
+                    20000ms by default.
         """
         data = {
             'appId': app_id,
@@ -104,14 +102,15 @@ class Applications(webdriver.Remote):
     def terminate_app(self, app_id, **options):
         """Terminates the application if it is running.
 
-        :Args:
-         - app_id - the application id to be terminates
-         - options - the possible termination options.
-         The following options are available for Android:
-         `timeout`: how much time to wait for the uninstall to complete.
-         500ms by default.
+        Args:
+            app_id: the application id to be terminates
+            options: the possible termination options.
+                The following options are available for Android:
+                `timeout`: how much time to wait for the uninstall to complete.
+                    500ms by default.
 
-        :return: True if the app has been successfully terminated
+        Returns:
+            bool: True if the app has been successfully terminated
         """
         data = {
             'appId': app_id,
@@ -124,10 +123,11 @@ class Applications(webdriver.Remote):
         """Activates the application if it is not running
         or is running in the background.
 
-        :Args:
-         - app_id - the application id to be activated
+        Args:
+            app_id: the application id to be activated
 
-        :return: self instance for chaining
+        Returns:
+            self instance for chaining
         """
         data = {
             'appId': app_id,
@@ -138,11 +138,12 @@ class Applications(webdriver.Remote):
     def query_app_state(self, app_id):
         """Queries the state of the application.
 
-        :Args:
-         - app_id - the application id to be queried
+        Args:
+            app_id: the application id to be queried
 
-        :return: One of possible application state constants. See ApplicationState
-        class for more details.
+        Returns:
+            One of possible application state constants. See ApplicationState
+            class for more details.
         """
         data = {
             'appId': app_id,
@@ -153,9 +154,9 @@ class Applications(webdriver.Remote):
         """Returns the application strings from the device for the specified
         language.
 
-        :Args:
-         - language - strings language code
-         - string_file - the name of the string file to query
+        Args:
+            language: strings language code
+            string_file: the name of the string file to query
         """
         data = {}
         if language != None:

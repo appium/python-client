@@ -20,30 +20,27 @@ from ..mobilecommand import MobileCommand as Command
 class Context(webdriver.Remote):
     @property
     def contexts(self):
-        """
-        Returns the contexts within the current session.
+        """Returns the contexts within the current session.
 
-        :Usage:
+        Usage:
             driver.contexts
         """
         return self.execute(Command.CONTEXTS)['value']
 
     @property
     def current_context(self):
-        """
-        Returns the current context of the current session.
+        """Returns the current context of the current session.
 
-        :Usage:
+        Usage:
             driver.current_context
         """
         return self.execute(Command.GET_CURRENT_CONTEXT)['value']
 
     @property
     def context(self):
-        """
-        Returns the current context of the current session.
+        """Returns the current context of the current session.
 
-        :Usage:
+        Usage:
             driver.context
         """
         return self.current_context

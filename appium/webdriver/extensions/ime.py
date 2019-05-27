@@ -21,25 +21,30 @@ class IME(webdriver.Remote):
 
     @property
     def available_ime_engines(self):
-        """Get the available input methods for an Android device. Package and
-        activity are returned (e.g., ['com.android.inputmethod.latin/.LatinIME'])
+        """Get the available input methods for an Android device.
+
+        Package and activity are returned (e.g., ['com.android.inputmethod.latin/.LatinIME'])
         Android only.
         """
         return self.execute(Command.GET_AVAILABLE_IME_ENGINES, {})['value']
 
     def is_ime_active(self):
-        """Checks whether the device has IME service active. Returns True/False.
+        """Checks whether the device has IME service active.
         Android only.
+
+        Returns:
+            bool: `True` if IME service is active
         """
         return self.execute(Command.IS_IME_ACTIVE, {})['value']
 
     def activate_ime_engine(self, engine):
         """Activates the given IME engine on the device.
+
         Android only.
 
-        :Args:
-         - engine - the package and activity of the IME engine to activate (e.g.,
-            'com.android.inputmethod.latin/.LatinIME')
+        Args:
+           engine: the package and activity of the IME engine to activate
+               (e.g., 'com.android.inputmethod.latin/.LatinIME')
         """
         data = {
             'engine': engine
@@ -49,6 +54,7 @@ class IME(webdriver.Remote):
 
     def deactivate_ime_engine(self):
         """Deactivates the currently active IME engine on the device.
+
         Android only.
         """
         self.execute(Command.DEACTIVATE_IME_ENGINE, {})
@@ -56,8 +62,9 @@ class IME(webdriver.Remote):
 
     @property
     def active_ime_engine(self):
-        """Returns the activity and package of the currently active IME engine (e.g.,
-        'com.android.inputmethod.latin/.LatinIME').
+        """Returns the activity and package of the currently active IME engine
+
+        (e.g., 'com.android.inputmethod.latin/.LatinIME').
         Android only.
         """
         return self.execute(Command.GET_ACTIVE_IME_ENGINE, {})['value']

@@ -3,6 +3,9 @@ Appium Python Client
 
 [![PyPI version](https://badge.fury.io/py/Appium-Python-Client.svg)](https://badge.fury.io/py/Appium-Python-Client)
 
+[![Build Status](https://travis-ci.org/appium/python-client.svg?branch=master)](https://travis-ci.org/appium/python-client)
+[![Build Status](https://dev.azure.com/ki4070ma/python-client/_apis/build/status/appium.python-client?branchName=master)](https://dev.azure.com/ki4070ma/python-client/_build/latest?definitionId=2&branchName=master)
+
 An extension library for adding [Selenium 3.0 draft](https://dvcs.w3.org/hg/webdriver/raw-file/tip/webdriver-spec.html) and [Mobile JSON Wire Protocol Specification draft](https://github.com/SeleniumHQ/mobile-spec/blob/master/spec-draft.md)
 functionality to the Python language bindings, for use with the mobile testing
 framework [Appium](https://appium.io).

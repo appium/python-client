@@ -17,31 +17,16 @@ from time import sleep
 
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
-from appium.webdriver.common.mobileby import MobileBy
 from helper import desired_capabilities
 
 
-class AppiumTests(unittest.TestCase):
+class WebDriverTests(unittest.TestCase):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
-
-    def test_lock(self):
-        self.driver.lock(-1)
-        try:
-            self.assertTrue(self.driver.is_locked())
-        finally:
-            self.driver.unlock()
-        self.assertFalse(self.driver.is_locked())
-
-    def test_screen_record(self):
-        self.driver.start_recording_screen()
-        sleep(10)
-        result = self.driver.stop_recording_screen()
-        self.assertTrue(len(result) > 0)
 
     def test_app_management(self):
         # this only works in Xcode9+
@@ -56,67 +41,6 @@ class AppiumTests(unittest.TestCase):
         self.driver.activate_app(desired_capabilities.BUNDLE_ID)
         self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
                          ApplicationState.RUNNING_IN_FOREGROUND)
-
-    def test_shake(self):
-        # what can we assert about this?
-        self.driver.shake()
-
-    def test_touch_id(self):
-        # nothing to assert, just verify that it doesn't blow up
-        self.driver.touch_id(True)
-        self.driver.touch_id(False)
-
-    def test_toggle_touch_id_enrollment(self):
-        # nothing to assert, just verify that it doesn't blow up
-        self.driver.toggle_touch_id_enrollment()
-
-    def test_hide_keyboard(self):
-        self._move_to_textbox()
-
-        el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
-        el.set_value('Testing')
-
-        el = self.driver.find_element_by_class_name('UIAKeyboard')
-        self.assertTrue(el.is_displayed())
-
-        self.driver.hide_keyboard(key_name='Done')
-
-        self.assertFalse(el.is_displayed())
-
-    def test_hide_keyboard_presskey_strategy(self):
-        self._move_to_textbox()
-
-        el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
-        el.set_value('Testing')
-
-        el = self.driver.find_element_by_class_name('UIAKeyboard')
-        self.assertTrue(el.is_displayed())
-
-        self.driver.hide_keyboard(strategy='pressKey', key='Done')
-
-        self.assertFalse(el.is_displayed())
-
-    def test_hide_keyboard_no_key_name(self):
-        self._move_to_textbox()
-
-        el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
-        el.set_value('Testing')
-
-        el = self.driver.find_element_by_class_name('UIAKeyboard')
-        self.assertTrue(el.is_displayed())
-
-        self.driver.hide_keyboard()
-        sleep(10)
-
-        # currently fails.
-        self.assertFalse(el.is_displayed())
-
-    def test_is_keyboard_shown(self):
-        self._move_to_textbox()
-
-        el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
-        el.set_value('Testing')
-        self.assertTrue(self.driver.is_keyboard_shown())
 
     def test_clear(self):
         self._move_to_textbox()
@@ -157,5 +81,5 @@ class AppiumTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(AppiumTests)
+    suite = unittest.TestLoader().loadTestsFromTestCase(WebDriverTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

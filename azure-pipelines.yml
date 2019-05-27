@@ -10,7 +10,7 @@ jobs:
       - template: ./ci-jobs/functional/run_appium.yml
       - script: |
           cd test/functional/ios
-          py.test find_*.py push_file_tests.py safari_tests.py
+          py.test find_*.py remote_fs_tests.py safari_tests.py
         displayName: Run functional tests
   - job: func_test_ios2
     pool:

@@ -19,14 +19,12 @@ from appium import webdriver
 from helper import desired_capabilities
 
 
-class PushFileTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
+class RemoteFsTests(unittest.TestCase):
+    def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    @classmethod
-    def tearDownClass(self):
+    def tearDown(self):
         self.driver.quit()
 
     def test_push_file(self):
@@ -38,5 +36,5 @@ class PushFileTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(PushFileTests)
+    suite = unittest.TestLoader().loadTestsFromTestCase(RemoteFsTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

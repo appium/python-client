@@ -9,12 +9,15 @@ jobs:
     steps:
       - template: ./ci-jobs/functional/run_appium.yml
       - script: |
-          py.test test/functional/ios/find_*.py test/functional/ios/push_file_tests.py test/functional/ios/safari_tests.py
+          cd test/functional/ios
+          py.test find_*.py push_file_tests.py safari_tests.py
         displayName: Run functional tests
   - job: func_test_ios2
     pool:
       vmImage: 'macOS-10.14'
     steps:
       - template: ./ci-jobs/functional/run_appium.yml
-      - script: py.test test/functional/ios/appium_tests.py
+      - script: |
+          cd test/functional/ios
+          py.test applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py
         displayName: Run functional tests

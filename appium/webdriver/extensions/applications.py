@@ -19,8 +19,7 @@ from ..mobilecommand import MobileCommand as Command
 
 class Applications(webdriver.Remote):
     def background_app(self, seconds):
-        """Puts the application in the background on the device for a certain
-        duration.
+        """Puts the application in the background on the device for a certain duration.
 
         :Args:
          - seconds - the duration for the application to remain in the background

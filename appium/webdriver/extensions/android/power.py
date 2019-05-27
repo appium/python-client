@@ -23,12 +23,13 @@ class Power(webdriver.Remote):
 
     def set_power_capacity(self, percent):
         """Emulate power capacity change on the connected emulator.
+
         Android only.
 
-        :Args:
-         - percent: The power capacity to be set. Can be set int from 0 to 100
+        Args:
+            percent: The power capacity to be set. Can be set int from 0 to 100
 
-        :Usage:
+        Usage:
             self.driver.set_power_capacity(50)
         """
         self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
@@ -36,12 +37,13 @@ class Power(webdriver.Remote):
 
     def set_power_ac(self, ac_state):
         """Emulate power state change on the connected emulator.
+
         Android only.
 
-        :Args:
-         - ac_state: The power ac state to be set
+        Args:
+            ac_state: The power ac state to be set
 
-        :Usage:
+        Usage:
             self.driver.set_power_ac(Power.AC_OFF)
             self.driver.set_power_ac(Power.AC_ON)
         """

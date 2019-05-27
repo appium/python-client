@@ -23,10 +23,10 @@ class HardwareActions(webdriver.Remote):
         """Lock the device. No changes are made if the device is already unlocked.
 
         :Args:
-         - seconds - (optional) the duration to lock the device, in seconds.
-         The device is going to be locked forever until `unlock` is called
-         if it equals or is less than zero, otherwise this call blocks until
-         the timeout expires and unlocks the screen automatically.
+            seconds(optional): The duration to lock the device, in seconds.
+                The device is going to be locked forever until `unlock` is called
+                if it equals or is less than zero, otherwise this call blocks until
+                the timeout expires and unlocks the screen automatically.
         """
         if seconds is None:
             self.execute(Command.LOCK)
@@ -36,8 +36,7 @@ class HardwareActions(webdriver.Remote):
         return self
 
     def unlock(self):
-        """Unlock the device. No changes are made if the device
-        is already locked.
+        """Unlock the device. No changes are made if the device is already locked.
         """
         self.execute(Command.UNLOCK)
         return self
@@ -45,8 +44,8 @@ class HardwareActions(webdriver.Remote):
     def is_locked(self):
         """Checks whether the device is locked.
 
-        :returns:
-         Either True or False
+        :Returns:
+            Either True or False
         """
         return self.execute(Command.IS_LOCKED)['value']
 
@@ -72,10 +71,10 @@ class HardwareActions(webdriver.Remote):
         return self
 
     def finger_print(self, finger_id):
-        """
-        Authenticate users by using their finger print scans on supported Android emulators.
+        """Authenticate users by using their finger print scans on supported Android emulators.
 
-        :param finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
+        :Args:
+            finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
         """
         return self.execute(Command.FINGER_PRINT, {'fingerprintId': finger_id})['value']
 

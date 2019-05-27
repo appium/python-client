@@ -1,0 +1,20 @@
+# Xcode
+# Build, test, and archive an Xcode workspace on macOS.
+# Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
+jobs:
+  - job: func_test_ios1
+    pool:
+      vmImage: 'macOS-10.14'
+    steps:
+      - template: ./ci-jobs/functional/run_appium.yml
+      - script: |
+          py.test test/functional/ios/find_*.py test/functional/ios/push_file_tests.py test/functional/ios/safari_tests.py
+        displayName: Run functional tests
+  - job: func_test_ios2
+    pool:
+      vmImage: 'macOS-10.14'
+    steps:
+      - template: ./ci-jobs/functional/run_appium.yml
+      - script: py.test test/functional/ios/appium_tests.py
+        displayName: Run functional tests

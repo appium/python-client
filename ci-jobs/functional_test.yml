@@ -1,0 +1,22 @@
+parameters:
+    vmImage: 'macOS-10.14'
+
+jobs:
+  - job: func_test_ios1
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    steps:
+      - template: ./functional/run_appium.yml
+      - script: |
+          cd test/functional/ios
+          py.test find_*.py remote_fs_tests.py safari_tests.py
+        displayName: Run functional tests
+  - job: func_test_ios2
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    steps:
+      - template: ./functional/run_appium.yml
+      - script: |
+          cd test/functional/ios
+          py.test applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py
+        displayName: Run functional tests

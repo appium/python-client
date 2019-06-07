@@ -1,5 +1,6 @@
 parameters:
     vmImage: 'macOS-10.14'
+    pytestOpt: '--doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html'
 
 jobs:
   - job: func_test_ios1
@@ -9,8 +10,9 @@ jobs:
       - template: ./functional/run_appium.yml
       - script: |
           cd test/functional/ios
-          py.test find_*.py remote_fs_tests.py safari_tests.py
+          py.test find_*.py remote_fs_tests.py safari_tests.py ${{ parameters.pytestOpt }}
         displayName: Run functional tests
+      - template: ./functional/publish_test_result.yml
   - job: func_test_ios2
     pool:
       vmImage: ${{ parameters.vmImage }}
@@ -18,5 +20,6 @@ jobs:
       - template: ./functional/run_appium.yml
       - script: |
           cd test/functional/ios
-          py.test applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py
+          py.test applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py ${{ parameters.pytestOpt }}
         displayName: Run functional tests
+      - template: ./functional/publish_test_result.yml

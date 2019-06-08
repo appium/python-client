@@ -1,0 +1,10 @@
+job: ${{ parameters.name }}
+pool:
+  vmImage: ${{ parameters.vmImage }}
+steps:
+  - template: ./functional/run_appium.yml
+  - script: |
+      cd test/functional/${{ parameters.os }}
+      py.test ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
+    displayName: Run iOS functional tests
+  - template: ./functional/publish_test_result.yml

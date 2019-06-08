@@ -20,7 +20,6 @@ tox-travis = "~=0.11"
 httpretty = "~=0.9"
 python-dateutil = "~=2.8"
 
-
 # TODO Update to the latest ver when py2 support dropped
 pylint = "~=1.9"
 astroid = "~=1.6"

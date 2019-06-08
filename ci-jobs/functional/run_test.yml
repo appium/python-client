@@ -3,9 +3,9 @@ jobs:
     pool:
       vmImage: ${{ parameters.vmImage }}
     steps:
-      - template: ./functional/run_appium.yml
+      - template: ./run_appium.yml
       - script: |
           cd test/functional/${{ parameters.os }}
           py.test ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
         displayName: Run iOS functional tests
-      - template: ./functional/publish_test_result.yml
+      - template: ./publish_test_result.yml

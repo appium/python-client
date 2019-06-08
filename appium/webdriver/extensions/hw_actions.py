@@ -23,7 +23,7 @@ class HardwareActions(webdriver.Remote):
         """Lock the device. No changes are made if the device is already unlocked.
 
         Args:
-            seconds(optional): The duration to lock the device, in seconds.
+            seconds (optional): The duration to lock the device, in seconds.
                 The device is going to be locked forever until `unlock` is called
                 if it equals or is less than zero, otherwise this call blocks until
                 the timeout expires and unlocks the screen automatically.

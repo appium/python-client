@@ -29,13 +29,13 @@ class Activities(webdriver.Remote):
         Args:
             app_package: The package containing the activity to start.
             app_activity: The activity to start.
-            app_wait_package: Begin automation after this package starts (optional).
-            app_wait_activity: Begin automation after this activity starts (optional).
-            intent_action: Intent to start (optional).
-            intent_category: Intent category to start (optional).
-            intent_flags: Flags to send to the intent (optional).
-            optional_intent_arguments: Optional arguments to the intent (optional).
-            dont_stop_app_on_reset: Should the app be stopped on reset (optional)?
+            app_wait_package (optional): Begin automation after this package starts.
+            app_wait_activity (optional): Begin automation after this activity starts.
+            intent_action (optional): Intent to start.
+            intent_category (optional): Intent category to start.
+            intent_flags (optional): Flags to send to the intent.
+            optional_intent_arguments (optional): Optional arguments to the intent.
+            dont_stop_app_on_reset (optional): Should the app be stopped on reset?
         """
         data = {
             'appPackage': app_package,

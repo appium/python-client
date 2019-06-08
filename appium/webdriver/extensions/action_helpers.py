@@ -62,7 +62,7 @@ class ActionHelpers(webdriver.Remote):
         Args:
             positions: an array of tuples representing the x/y coordinates of
                 the fingers to tap. Length can be up to five.
-            duration: (optional) length of time to tap, in ms
+            duration (optional): length of time to tap, in ms
 
         Usage:
             driver.tap([(100, 20), (100, 60), (100, 100)], 500)
@@ -99,7 +99,7 @@ class ActionHelpers(webdriver.Remote):
             start_y: y-coordinate at which to start
             end_x: x-coordinate at which to stop
             end_y: y-coordinate at which to stop
-            duration: (optional) time to take the swipe, in ms.
+            duration (optional): time to take the swipe, in ms.
 
         Usage:
             driver.swipe(100, 100, 100, 400)

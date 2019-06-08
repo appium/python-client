@@ -38,8 +38,8 @@ class TouchAction(object):
 
         Args:
             element: the element to tap
-            x(optional): x coordinate to tap, relative to the top left corner of the element.
-            y(optional): y coordinate. If y is used, x must also be set, and vice versa
+            x (optional): x coordinate to tap, relative to the top left corner of the element.
+            y (optional): y coordinate. If y is used, x must also be set, and vice versa
 
         """
         opts = self._get_opts(element, x, y)
@@ -52,10 +52,10 @@ class TouchAction(object):
         """Begin a chain with a press down action at a particular element or point
 
         Args:
-            el(optional): the element to press
-            x(optional): x coordiate to press. If y is used, x must also be set
-            y(optional): y coordiate to press. If x is used, y must also be set
-            pressure(optional): [iOS Only] press as force touch. Read the description of `force` property on Apple's UITouch class
+            el (optional): the element to press
+            x (optional): x coordiate to press. If y is used, x must also be set
+            y (optional): y coordiate to press. If x is used, y must also be set
+            pressure (optional): [iOS Only] press as force touch. Read the description of `force` property on Apple's UITouch class
                                 (https://developer.apple.com/documentation/uikit/uitouch?language=objc) for more details on possible value ranges.
         """
         self._add_action('press', self._get_opts(el, x, y, pressure=pressure))

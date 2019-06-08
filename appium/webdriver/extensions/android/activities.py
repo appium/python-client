@@ -27,15 +27,15 @@ class Activities(webdriver.Remote):
         This is an Android-only method.
 
         Args:
-            app_package: The package containing the activity to start.
-            app_activity: The activity to start.
-            app_wait_package (optional): Begin automation after this package starts.
-            app_wait_activity (optional): Begin automation after this activity starts.
-            intent_action (optional): Intent to start.
-            intent_category (optional): Intent category to start.
-            intent_flags (optional): Flags to send to the intent.
-            optional_intent_arguments (optional): Optional arguments to the intent.
-            dont_stop_app_on_reset (optional): Should the app be stopped on reset?
+            app_package (str): The package containing the activity to start.
+            app_activity (str): The activity to start.
+            app_wait_package (:obj: `str`, optional): Begin automation after this package starts.
+            app_wait_activity (:obj: `str`, optional): Begin automation after this activity starts.
+            intent_action (:obj: `str`, optional): Intent to start.
+            intent_category (:obj: `str`, optional): Intent category to start.
+            intent_flags (:obj: `str`, optional): Flags to send to the intent.
+            optional_intent_arguments (:obj: `str`, optional): Optional arguments to the intent.
+            dont_stop_app_on_reset (:obj: `str`, optional): Should the app be stopped on reset?
         """
         data = {
             'appPackage': app_package,
@@ -59,6 +59,9 @@ class Activities(webdriver.Remote):
     @property
     def current_activity(self):
         """Retrieves the current activity running on the device.
+
+        Returns:
+            str: The current activity name running on the device
         """
         return self.execute(Command.GET_CURRENT_ACTIVITY)['value']
 
@@ -68,9 +71,9 @@ class Activities(webdriver.Remote):
         This is an Android-only method.
 
         Args:
-            activity: target activity
-            timeout: max wait time, in seconds
-            interval: sleep interval between retries, in seconds
+            activity (str): target activity
+            timeout (int): max wait time, in seconds
+            interval (int): sleep interval between retries, in seconds
         """
         try:
             WebDriverWait(self, timeout, interval).until(

@@ -22,7 +22,10 @@ class Applications(webdriver.Remote):
         """Puts the application in the background on the device for a certain duration.
 
         Args:
-         - seconds - the duration for the application to remain in the background
+            seconds (int): the duration for the application to remain in the background
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'seconds': seconds,
@@ -34,7 +37,10 @@ class Applications(webdriver.Remote):
         """Checks whether the application specified by `bundle_id` is installed on the device.
 
         Args:
-            bundle_id: the id of the application to query
+            bundle_id (int): the id of the application to query
+
+        Returns:
+            bool: `True` if app is installed
         """
         data = {
             'bundleId': bundle_id,
@@ -57,6 +63,9 @@ class Applications(webdriver.Remote):
                 `useSdcard`: whether to use the SD card to install the app. False by default
                 `grantPermissions`: whether to automatically grant application permissions
                     on Android 6+ after the installation completes. False by default
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'appPath': app_path,
@@ -70,13 +79,16 @@ class Applications(webdriver.Remote):
         """Remove the specified application from the device.
 
         Args:
-            app_id: the application id to be removed
+            app_id (str): the application id to be removed
             options: the possible removal options.
                 The following options are available for Android:
-                `keepData`: whether to keep application data and caches after it is uninstalled.
+                `keepData` (bool): whether to keep application data and caches after it is uninstalled.
                     False by default
-                `timeout`: how much time to wait for the uninstall to complete.
+                `timeout` (int): how much time to wait for the uninstall to complete.
                     20000ms by default.
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'appId': app_id,
@@ -88,6 +100,9 @@ class Applications(webdriver.Remote):
 
     def launch_app(self):
         """Start on the device the application specified in the desired capabilities.
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.LAUNCH_APP)
         return self
@@ -95,6 +110,9 @@ class Applications(webdriver.Remote):
     def close_app(self):
         """Stop the running application, specified in the desired capabilities, on
         the device.
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.CLOSE_APP)
         return self
@@ -103,10 +121,10 @@ class Applications(webdriver.Remote):
         """Terminates the application if it is running.
 
         Args:
-            app_id: the application id to be terminates
+            app_id (str): the application id to be terminates
             options: the possible termination options.
                 The following options are available for Android:
-                `timeout`: how much time to wait for the uninstall to complete.
+                `timeout` (int): how much time to wait for the uninstall to complete.
                     500ms by default.
 
         Returns:
@@ -124,10 +142,10 @@ class Applications(webdriver.Remote):
         or is running in the background.
 
         Args:
-            app_id: the application id to be activated
+            app_id (str): the application id to be activated
 
         Returns:
-            self instance for chaining
+            `WebDriver`
         """
         data = {
             'appId': app_id,
@@ -139,7 +157,7 @@ class Applications(webdriver.Remote):
         """Queries the state of the application.
 
         Args:
-            app_id: the application id to be queried
+            app_id (str): the application id to be queried
 
         Returns:
             One of possible application state constants. See ApplicationState

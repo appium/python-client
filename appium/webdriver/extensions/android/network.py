@@ -56,7 +56,10 @@ class Network(webdriver.Remote):
         These are available through the enumeration `appium.webdriver.ConnectionType`
 
         Args:
-            connection_type: a member of the enum appium.webdriver.ConnectionType
+            connection_type (int): a member of the enum appium.webdriver.ConnectionType
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'parameters': {
@@ -67,6 +70,9 @@ class Network(webdriver.Remote):
 
     def toggle_wifi(self):
         """Toggle the wifi on the device, Android only.
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.TOGGLE_WIFI, {})
         return self
@@ -82,6 +88,9 @@ class Network(webdriver.Remote):
 
         Usage:
             self.driver.set_network_speed(NetSpeed.LTE)
+
+        Returns:
+            `WebDriver`
         """
         constants = extract_const_attributes(NetSpeed)
         if speed_type not in constants.values():

@@ -33,7 +33,7 @@ class MultiAction(object):
         """Add TouchAction objects to the MultiAction, to be performed later.
 
         Args:
-            touch_actions: one or more TouchAction objects describing a chain of actions to be performed by one finger
+            touch_actions (`TouchAction`): one or more TouchAction objects describing a chain of actions to be performed by one finger
 
         Usage:
             a1 = TouchAction(driver)

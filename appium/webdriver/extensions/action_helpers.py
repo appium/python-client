@@ -24,13 +24,16 @@ class ActionHelpers(webdriver.Remote):
         """Scrolls from one element to another
 
         Args:
-            originalEl: the element from which to being scrolling
-            destinationEl: the element to scroll to
-            duration: a duration after pressing originalEl and move the element to destinationEl.
+            originalEl (`WebElement`): the element from which to being scrolling
+            destinationEl (`WebElement`): the element to scroll to
+            duration (int): a duration after pressing originalEl and move the element to destinationEl.
                 Default is 600 ms for W3C spec. Zero for MJSONWP.
 
         Usage:
             driver.scroll(el1, el2)
+
+        Returns:
+            `WebElement`
         """
 
         # XCUITest x W3C spec has no duration by default in server side
@@ -48,8 +51,11 @@ class ActionHelpers(webdriver.Remote):
         """Drag the origin element to the destination element
 
         Args:
-            originEl: the element to drag
-            destinationEl: the element to drag to
+            originEl (`WebElement`): the element to drag
+            destinationEl (`WebElement`): the element to drag to
+
+        Returns:
+            `WebElement`
         """
         action = TouchAction(self)
         action.long_press(origin_el).move_to(destination_el).release().perform()
@@ -60,12 +66,15 @@ class ActionHelpers(webdriver.Remote):
         certain time
 
         Args:
-            positions: an array of tuples representing the x/y coordinates of
+            positions (list of tuple): an array of tuples representing the x/y coordinates of
                 the fingers to tap. Length can be up to five.
-            duration (optional): length of time to tap, in ms
+            duration (:obj: `int`, optional): length of time to tap, in ms
 
         Usage:
             driver.tap([(100, 20), (100, 60), (100, 100)], 500)
+
+        Returns:
+            `WebElement`
         """
         if len(positions) == 1:
             action = TouchAction(self)
@@ -95,14 +104,17 @@ class ActionHelpers(webdriver.Remote):
         """Swipe from one point to another point, for an optional duration.
 
         Args:
-            start_x: x-coordinate at which to start
-            start_y: y-coordinate at which to start
-            end_x: x-coordinate at which to stop
-            end_y: y-coordinate at which to stop
-            duration (optional): time to take the swipe, in ms.
+            start_x (int): x-coordinate at which to start
+            start_y (int): y-coordinate at which to start
+            end_x (int): x-coordinate at which to stop
+            end_y (int): y-coordinate at which to stop
+            duration (:obj: `int`, optional): time to take the swipe, in ms.
 
         Usage:
             driver.swipe(100, 100, 100, 400)
+
+        Returns:
+            `WebElement`
         """
         # `swipe` is something like press-wait-move_to-release, which the server
         # will translate into the correct action
@@ -119,13 +131,16 @@ class ActionHelpers(webdriver.Remote):
         """Flick from one point to another point.
 
         Args:
-            start_x: x-coordinate at which to start
-            start_y: y-coordinate at which to start
-            end_x: x-coordinate at which to stop
-            end_y: y-coordinate at which to stop
+            start_x (int): x-coordinate at which to start
+            start_y (int): y-coordinate at which to start
+            end_x (int): x-coordinate at which to stop
+            end_y (int): y-coordinate at which to stop
 
         Usage:
             driver.flick(100, 100, 100, 400)
+
+        Returns:
+            `WebElement`
         """
         action = TouchAction(self)
         action \

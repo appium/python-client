@@ -213,7 +213,7 @@ class AppiumService(object):
         command line arguments while starting the service.
 
         Returns:
-            boole: `True` if the service is running and listening on the given/default host/port
+            bool: `True` if the service is running and listening on the given/default host/port
         """
         if not self.is_running or self._cmd is None:
             return False

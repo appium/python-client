@@ -91,7 +91,7 @@ class Gsm(webdriver.Remote):
         Android only.
 
         Args:
-            state(str): State of GSM voice.
+            state (str): State of GSM voice.
                 A member of the const appium.webdriver.extensions.android.gsm.GsmVoiceState
 
         Usage:

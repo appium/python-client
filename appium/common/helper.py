@@ -23,8 +23,8 @@ def appium_bytes(value, encoding):
     Has _appium_ prefix to avoid overriding built-in bytes.
 
     Args:
-        value(str): A value to convert
-        encoding(str): A encoding which will convert to
+        value (str): A value to convert
+        encoding (str): A encoding which will convert to
 
     Returns:
         str: A bytes-like object
@@ -40,7 +40,7 @@ def extract_const_attributes(cls):
     """Return dict with constants attributes and values in the class(e.g. {'VAL1': 1, 'VAL2': 2})
 
     Args:
-        cls(type): Class to be extracted constants
+        cls (type): Class to be extracted constants
 
     Returns:
         OrderedDict: dict with constants attributes and values in the class

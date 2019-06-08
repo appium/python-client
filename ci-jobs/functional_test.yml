@@ -26,6 +26,8 @@ jobs:
   - job: func_test_android
     pool:
       vmImage: ${{ parameters.vmImage }}
+    variables:
+      ANDROID_SDK_VERSION: 28
     steps:
       - template: ./functional/run_appium.yml
       - script: bash ci-jobs/functional/start-emulator.sh

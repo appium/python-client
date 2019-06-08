@@ -3,21 +3,4 @@
 # Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 jobs:
-  - job: func_test_ios1
-    pool:
-      vmImage: 'macOS-10.14'
-    steps:
-      - template: ./ci-jobs/functional/run_appium.yml
-      - script: |
-          cd test/functional/ios
-          py.test find_*.py remote_fs_tests.py safari_tests.py
-        displayName: Run functional tests
-  - job: func_test_ios2
-    pool:
-      vmImage: 'macOS-10.14'
-    steps:
-      - template: ./ci-jobs/functional/run_appium.yml
-      - script: |
-          cd test/functional/ios
-          py.test applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py
-        displayName: Run functional tests
+  - template: ./ci-jobs/functional_test.yml

@@ -1,0 +1,15 @@
+jobs:
+  - job: ${{ parameters.name }}
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    variables:
+      ANDROID_SDK_VERSION: ${{ parameters.sdkVer }}
+    steps:
+      - template: ./run_appium.yml
+      - script: bash ci-jobs/functional/start-emulator.sh
+        displayName: Create and run Emulator
+      - script: |
+          cd test/functional/android
+          py.test ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
+        displayName: Run Android functional tests
+      - template: ./publish_test_result.yml

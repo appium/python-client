@@ -5,7 +5,7 @@ jobs:
     steps:
       - template: ./run_appium.yml
       - script: |
-          cd test/functional/${{ parameters.os }}
+          cd test/functional/ios
           py.test ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
         displayName: Run iOS functional tests
       - template: ./publish_test_result.yml

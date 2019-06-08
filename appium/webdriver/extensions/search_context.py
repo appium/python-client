@@ -69,7 +69,7 @@ class AndroidSearchContext(BaseSearchContext):
         """Finds elements by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
-        :Args:
+        Args:
          - name - The name of a method to invoke.
                   The method must return a Hamcrest
                   [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)

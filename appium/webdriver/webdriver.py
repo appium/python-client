@@ -196,7 +196,7 @@ class WebDriver(
         Override for Appium
         Creates a new session with the desired capabilities.
 
-        :Args:
+        Args:
          - automation_name - The name of automation engine to use.
          - platform_name - The name of target platform.
          - platform_version - The kind of mobile device or emulator to use
@@ -338,7 +338,7 @@ class WebDriver(
     def find_elements_by_ios_predicate(self, predicate_string):
         """Finds elements by ios predicate string.
 
-        :Args:
+        Args:
          - predicate_string - The predicate string
 
         :Usage:

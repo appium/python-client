@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# This file comes from https://github.com/appium/ruby_lib_core
+
 # This script was copy-pasted from https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/android?view=azure-devops#test-on-the-android-emulator
 # with some changes
 

@@ -62,9 +62,8 @@ class IME(webdriver.Remote):
 
     @property
     def active_ime_engine(self):
-        """Returns the activity and package of the currently active IME engine
+        """Returns the activity and package of the currently active IME engine(e.g., 'com.android.inputmethod.latin/.LatinIME').
 
-        (e.g., 'com.android.inputmethod.latin/.LatinIME').
         Android only.
         """
         return self.execute(Command.GET_ACTIVE_IME_ENGINE, {})['value']

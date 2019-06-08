@@ -37,9 +37,7 @@ def appium_bytes(value, encoding):
 
 
 def extract_const_attributes(cls):
-    """Return dict with constants attributes and values in the class
-
-    (e.g. {'VAL1': 1, 'VAL2': 2})
+    """Return dict with constants attributes and values in the class(e.g. {'VAL1': 1, 'VAL2': 2})
 
     Args:
         cls(type): Class to be extracted constants

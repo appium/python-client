@@ -3,32 +3,32 @@ parameters:
   pytestOpt: '--doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html'
 
 jobs:
-  - template: ./functional/run_test.yml
-    parameters:
-      os: 'ios'
-      name: 'func_test_ios1'
-      testFiles: 'find_*.py remote_fs_tests.py safari_tests.py'
-  - job: func_test_ios2
-    pool:
-      vmImage: ${{ parameters.vmImage }}
-    steps:
-      - template: ./functional/run_appium.yml
-      - script: |
-          cd test/functional/ios
-          py.test applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py ${{ parameters.pytestOpt }}
-        displayName: Run iOS functional tests
-      - template: ./functional/publish_test_result.yml
-  - job: func_test_android
-    pool:
-      vmImage: ${{ parameters.vmImage }}
-    variables:
-      ANDROID_SDK_VERSION: 28
-    steps:
-      - template: ./functional/run_appium.yml
-      - script: bash ci-jobs/functional/start-emulator.sh
-        displayName: Create and run Emulator
-      - script: |
-          cd test/functional/android
-          py.test keyboard_tests.py ${{ parameters.pytestOpt }}
-        displayName: Run Android functional tests
-      - template: ./functional/publish_test_result.yml
+- template: ./functional/run_test.yml
+  parameters:
+    os: 'ios'
+    name: 'func_test_ios1'
+    testFiles: 'find_*.py remote_fs_tests.py safari_tests.py'
+- job: func_test_ios2
+  pool:
+    vmImage: ${{ parameters.vmImage }}
+  steps:
+    - template: ./functional/run_appium.yml
+    - script: |
+        cd test/functional/ios
+        py.test applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py ${{ parameters.pytestOpt }}
+      displayName: Run iOS functional tests
+    - template: ./functional/publish_test_result.yml
+- job: func_test_android
+  pool:
+    vmImage: ${{ parameters.vmImage }}
+  variables:
+    ANDROID_SDK_VERSION: 28
+  steps:
+    - template: ./functional/run_appium.yml
+    - script: bash ci-jobs/functional/start-emulator.sh
+      displayName: Create and run Emulator
+    - script: |
+        cd test/functional/android
+        py.test keyboard_tests.py ${{ parameters.pytestOpt }}
+      displayName: Run Android functional tests
+    - template: ./functional/publish_test_result.yml

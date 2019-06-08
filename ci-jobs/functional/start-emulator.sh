@@ -11,7 +11,7 @@ echo "y" | ${ANDROID_HOME}/tools/bin/sdkmanager --install "$emulator"
 ${ANDROID_HOME}/tools/bin/avdmanager list
 
 # Create emulator
-echo "no" | ${ANDROID_HOME}/tools/bin/avdmanager create avd -d "Nexus 5X" -n testemulator -k "${emulator}" --force
+echo "no" | ${ANDROID_HOME}/tools/bin/avdmanager create avd -d "Nexus 6" -n testemulator -k "${emulator}" --force
 
 echo ${ANDROID_HOME}/emulator/emulator -list-avds
 

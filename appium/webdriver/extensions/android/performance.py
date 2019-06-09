@@ -30,7 +30,7 @@ class Performance(webdriver.Remote):
             data_type (str): The type of system state which wants to read.
                 It should be one of the supported performance data types.
                 Check :func:`.get_performance_data_types` for supported types
-            data_read_timeout (:obj: `int`, optional): The number of attempts to read
+            data_read_timeout (:obj:`int`, optional): The number of attempts to read
 
         Usage:
             self.driver.get_performance_data('my.app.package', 'cpuinfo', 5)

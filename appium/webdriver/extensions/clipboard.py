@@ -31,7 +31,7 @@ class Clipboard(webdriver.Remote):
             content (str): The content to be set as bytearray string
             content_type (str): One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
                 is supported on Android
-            label (:obj: `str`, optional): label argument, which only works for Android
+            label (:obj:`str`, optional): label argument, which only works for Android
         """
         options = {
             'content': base64.b64encode(content).decode('UTF-8'),
@@ -46,7 +46,7 @@ class Clipboard(webdriver.Remote):
 
         Args:
             text (str): The text to be set
-            label (:obj: `int`, optional):label argument, which only works for Android
+            label (:obj:`int`, optional):label argument, which only works for Android
         """
 
         self.set_clipboard(appium_bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)

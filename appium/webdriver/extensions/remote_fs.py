@@ -56,8 +56,8 @@ class RemoteFS(webdriver.Remote):
 
         Args:
             destination_path (str): the location on the device/simulator where the local file contents should be saved
-            base64data (:obj: `bytes`, optional): file contents, encoded as Base64, to be written to the file on the device/simulator
-            source_path (:obj: `str`, optional): local file path for the file to be loaded on device
+            base64data (:obj:`bytes`, optional): file contents, encoded as Base64, to be written to the file on the device/simulator
+            source_path (:obj:`str`, optional): local file path for the file to be loaded on device
 
         Returns:
             `WebDriver`

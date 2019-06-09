@@ -42,11 +42,11 @@ class AndroidSearchContext(BaseSearchContext):
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         Args:
-            name (:obj: `str`, optional): The name of a method to invoke.
+            name (:obj:`str`, optional): The name of a method to invoke.
                 The method must return a Hamcrest
                 [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
-            args (:obj: `str`, optional): The args provided to the method
-            className (:obj: `str`, optional): The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
+            args (:obj:`str`, optional): The args provided to the method
+            className (:obj:`str`, optional): The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
                 Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
 
@@ -70,11 +70,11 @@ class AndroidSearchContext(BaseSearchContext):
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         Args:
-            name (:obj: `str`, optional): The name of a method to invoke.
+            name (:obj:`str`, optional): The name of a method to invoke.
                 The method must return a Hamcrest
                 [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
-            args (:obj: `str`, optional): The args provided to the method
-            className (:obj: `str`, optional): The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
+            args (:obj:`str`, optional): The args provided to the method
+            className (:obj:`str`, optional): The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
                 Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
 

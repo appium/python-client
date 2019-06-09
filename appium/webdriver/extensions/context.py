@@ -26,7 +26,7 @@ class Context(webdriver.Remote):
             driver.contexts
 
         Return:
-            list of str: The contexts within the current session
+            :obj:`list` of :obj:`str`: The contexts within the current session
 
         """
         return self.execute(Command.CONTEXTS)['value']

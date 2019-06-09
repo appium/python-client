@@ -98,7 +98,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
 
         Returns:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
@@ -126,7 +126,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_elements_by_ios_predicate('label == "myLabel"')
 
         Returns:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
@@ -154,7 +154,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]')
 
         Returns:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
@@ -182,7 +182,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
 
         Returns:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -212,7 +212,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_elements_by_accessibility_id()
 
         Returns:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
@@ -222,8 +222,8 @@ class WebElement(AppiumWebElementSearchContext):
         Prefer the find_element_by_* methods when possible.
 
         Args:
-            by (:obj: `str`, optional): The strategy
-            value (:obj: `str`, optional): The locator
+            by (:obj:`str`, optional): The strategy
+            value (:obj:`str`, optional): The locator
 
         Usage:
             element = element.find_element(By.ID, 'foo')
@@ -254,14 +254,14 @@ class WebElement(AppiumWebElementSearchContext):
         Prefer the find_elements_by_* methods when possible.
 
         Args:
-            by (:obj: `str`, optional): The strategy
-            value (:obj: `str`, optional): The locator
+            by (:obj:`str`, optional): The strategy
+            value (:obj:`str`, optional): The locator
 
         Usage:
             element = element.find_elements(By.CLASS_NAME, 'foo')
 
         Returns:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self._w3c:

@@ -26,9 +26,9 @@ class Keyboard(webdriver.Remote):
         a particular key, or `strategy`. In Android, no parameters are used.
 
         Args:
-            key_name (:obj: `str`, optional): key to press
-            key (:obj: `str`, optional):
-            strategy (:obj: `str`, optional): strategy for closing the keyboard (e.g., `tapOutside`)
+            key_name (:obj:`str`, optional): key to press
+            key (:obj:`str`, optional):
+            strategy (:obj:`str`, optional): strategy for closing the keyboard (e.g., `tapOutside`)
         """
         data = {}
         if key_name is not None:
@@ -57,7 +57,7 @@ class Keyboard(webdriver.Remote):
 
         Args:
             keycode (int): the keycode to be sent to the device
-            metastate (:obj: `int`, optional): meta information about the keycode being sent
+            metastate (:obj:`int`, optional): meta information about the keycode being sent
 
         Returns:
             `WebDriver`
@@ -77,7 +77,7 @@ class Keyboard(webdriver.Remote):
 
         Args:
             keycode (int): the keycode to be sent to the device
-            metastate (:obj: `int`, optional): meta information about the keycode being sent
+            metastate (:obj:`int`, optional): meta information about the keycode being sent
             flags (:ojb: `int`, optional): the set of key event flags
 
         Returns:
@@ -100,7 +100,7 @@ class Keyboard(webdriver.Remote):
 
         Args:
             keycode (int): the keycode to be sent to the device
-            metastate (:obj: `int`, optional): meta information about the keycode being sent
+            metastate (:obj:`int`, optional): meta information about the keycode being sent
             flags (:ojb: `int`, optional): the set of key event flags
 
         Returns:

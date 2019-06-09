@@ -280,7 +280,7 @@ class WebDriver(
             Use the corresponding find_elements_by_* instead of this.
 
         Returns:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self.w3c:
@@ -380,7 +380,7 @@ class WebDriver(
             driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]')
 
         Returns:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
@@ -408,7 +408,7 @@ class WebDriver(
             driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
 
         Returns:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -440,7 +440,7 @@ class WebDriver(
             driver.find_elements_by_android_viewtag('a tag name')
 
         Returns:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.ANDROID_VIEWTAG, value=tag)
 
@@ -470,7 +470,7 @@ class WebDriver(
             img_path (str): a string corresponding to the path of a image
 
         Return:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         with open(img_path, 'rb') as i_file:
             b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
@@ -537,7 +537,7 @@ class WebDriver(
             driver.find_elements_by_custom("foo:bar")
 
         Returns:
-            `list of WebElement`
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.CUSTOM, value=selector)
 

@@ -66,9 +66,9 @@ class ActionHelpers(webdriver.Remote):
         certain time
 
         Args:
-            positions (list of tuple): an array of tuples representing the x/y coordinates of
+            positions (:ojb:`list` of :obj:`tuple`): an array of tuples representing the x/y coordinates of
                 the fingers to tap. Length can be up to five.
-            duration (:obj: `int`, optional): length of time to tap, in ms
+            duration (:obj:`int`, optional): length of time to tap, in ms
 
         Usage:
             driver.tap([(100, 20), (100, 60), (100, 100)], 500)
@@ -108,7 +108,7 @@ class ActionHelpers(webdriver.Remote):
             start_y (int): y-coordinate at which to start
             end_x (int): x-coordinate at which to stop
             end_y (int): y-coordinate at which to stop
-            duration (:obj: `int`, optional): time to take the swipe, in ms.
+            duration (:obj:`int`, optional): time to take the swipe, in ms.
 
         Usage:
             driver.swipe(100, 100, 100, 400)

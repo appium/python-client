@@ -30,38 +30,40 @@ class ImagesComparison(webdriver.Remote):
         Args:
             base64_image1 (bytes): base64-encoded content of the first image
             base64_image2 (bytes): base64-encoded content of the second image
-            opts: Possible options are:
-                `visualize` (bool): Set it to True in order to return the visualization of the matching operation.
-                    matching visualization. False by default
-                `detectorName` (str): One of possible feature detector names:
-                    'AKAZE', 'AGAST', 'BRISK', 'FAST', 'GFTT', 'KAZE', 'MSER', 'SIFT', 'ORB'
-                    Some of these detectors are not enabled in the default OpenCV deployment.
-                    'ORB' By default.
-                `matchFunc` (str): One of supported matching functions names:
-                    'FlannBased', 'BruteForce', 'BruteForceL1', 'BruteForceHamming',
-                    'BruteForceHammingLut', 'BruteForceSL2'
-                    'BruteForce' by default
-                `goodMatchesFactor` (int): The maximum count of "good" matches (e. g. with minimal distances).
-                    This count is unlimited by default.
+
+        Keyword Args:
+            visualize (bool): Set it to True in order to return the visualization of the matching operation.
+                matching visualization. False by default
+            detectorName (str): One of possible feature detector names:
+                'AKAZE', 'AGAST', 'BRISK', 'FAST', 'GFTT', 'KAZE', 'MSER', 'SIFT', 'ORB'
+                Some of these detectors are not enabled in the default OpenCV deployment.
+                'ORB' By default.
+            matchFunc (str): One of supported matching functions names:
+                'FlannBased', 'BruteForce', 'BruteForceL1', 'BruteForceHamming',
+                'BruteForceHammingLut', 'BruteForceSL2'
+                'BruteForce' by default
+            goodMatchesFactor (int): The maximum count of "good" matches (e. g. with minimal distances).
+                This count is unlimited by default.
 
         Returns:
             The dictionary containing the following entries:
-                `visualization` (bytes): base64-encoded content of PNG visualization of the current comparison
-                    operation. This entry is only present if `visualize` option is enabled
-                `count` (int): The count of matched edges on both images.
-                    The more matching edges there are no both images the more similar they are.
-                `totalCount` (int): The total count of matched edges on both images.
-                    It is equal to `count` if `goodMatchesFactor` does not limit the matches,
-                    otherwise it contains the total count of matches before `goodMatchesFactor` is
-                    applied.
-                `points1` (dict)): The array of matching points on the first image. Each point is a dictionary
-                    with 'x' and 'y' keys
-                `rect1` (dict): The bounding rect for the `points1` array or a zero rect if not enough matching points
-                    were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
-                `points2` (dict): The array of matching points on the second image. Each point is a dictionary
-                    with 'x' and 'y' keys
-                `rect2` (dict): The bounding rect for the `points2` array or a zero rect if not enough matching points
-                    were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
+
+            `visualization` (bytes): base64-encoded content of PNG visualization of the current comparison
+                operation. This entry is only present if `visualize` option is enabled
+            `count` (int): The count of matched edges on both images.
+                The more matching edges there are no both images the more similar they are.
+            `totalCount` (int): The total count of matched edges on both images.
+                It is equal to `count` if `goodMatchesFactor` does not limit the matches,
+                otherwise it contains the total count of matches before `goodMatchesFactor` is
+                applied.
+            `points1` (dict)): The array of matching points on the first image. Each point is a dictionary
+                with 'x' and 'y' keys
+            `rect1` (dict): The bounding rect for the `points1` array or a zero rect if not enough matching points
+                were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
+            `points2` (dict): The array of matching points on the second image. Each point is a dictionary
+                with 'x' and 'y' keys
+            `rect2` (dict): The bounding rect for the `points2` array or a zero rect if not enough matching points
+                were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
         """
         options = {
             'mode': 'matchFeatures',
@@ -83,9 +85,10 @@ class ImagesComparison(webdriver.Remote):
         Args:
             base64_full_image (bytes): base64-encoded content of the full image
             base64_partial_image (bytes): base64-encoded content of the partial image
-            opts: Possible options are:
-                visualize (bool): Set it to True in order to return the visualization of the matching operation.
-                    False by default
+
+        Keyword Args:
+            visualize (bool): Set it to True in order to return the visualization of the matching operation.
+                False by default
 
         Returns:
             visualization (bytes): base64-encoded content of PNG visualization of the current comparison
@@ -111,8 +114,9 @@ class ImagesComparison(webdriver.Remote):
         Args:
             base64_image1 (bytes): base64-encoded content of the first image
             base64_image2 (bytes): base64-encoded content of the second image
-            opts: Possible options are:
-                visualize (bool): Set it to True in order to return the visualization of the matching operation.
+
+        Keyword Args:
+            visualize (bool): Set it to True in order to return the visualization of the matching operation.
                 False by default
 
         Returns:

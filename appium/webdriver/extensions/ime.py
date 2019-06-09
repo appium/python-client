@@ -27,7 +27,7 @@ class IME(webdriver.Remote):
         Android only.
 
         Returns:
-            list of str: The available input methods for an Android device
+            :obj:`list` of :obj:`str`: The available input methods for an Android device
         """
         return self.execute(Command.GET_AVAILABLE_IME_ENGINES, {})['value']
 

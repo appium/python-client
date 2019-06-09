@@ -192,15 +192,15 @@ class WebDriver(
         self._addCommands()
 
     def start_session(self, capabilities, browser_profile=None):
-        """
+        """Creates a new session with the desired capabilities.
+
         Override for Appium
-        Creates a new session with the desired capabilities.
 
         Args:
-         - automation_name - The name of automation engine to use.
-         - platform_name - The name of target platform.
-         - platform_version - The kind of mobile device or emulator to use
-         - app - The absolute local path or remote http URL to an .ipa or .apk file, or a .zip containing one of these.
+            automation_name: The name of automation engine to use.
+            platform_name: The name of target platform.
+            platform_version: The kind of mobile device or emulator to use
+            app: The absolute local path or remote http URL to an .ipa or .apk file, or a .zip containing one of these.
 
         Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
         """
@@ -230,8 +230,7 @@ class WebDriver(
         self.command_executor.w3c = self.w3c
 
     def _merge_capabilities(self, capabilities):
-        """
-        Manage capabilities whether W3C format or MJSONWP format
+        """Manage capabilities whether W3C format or MJSONWP format
         """
         if _FORCE_MJSONWP in capabilities:
             force_mjsonwp = capabilities[_FORCE_MJSONWP]
@@ -244,14 +243,15 @@ class WebDriver(
         return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 
     def find_element(self, by=By.ID, value=None):
-        """
-        Override for Appium
-        'Private' method used by the find_element_by_* methods.
+        """'Private' method used by the find_element_by_* methods.
 
-        :Usage:
+        Override for Appium
+
+        Usage:
             Use the corresponding find_element_by_* instead of this.
 
-        :rtype: WebElement
+        Returns:
+            `WebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self.w3c:
@@ -272,14 +272,15 @@ class WebDriver(
             'value': value})['value']
 
     def find_elements(self, by=By.ID, value=None):
-        """
-        Override for Appium
-        'Private' method used by the find_elements_by_* methods.
+        """'Private' method used by the find_elements_by_* methods.
 
-        :Usage:
+        Override for Appium
+
+        Usage:
             Use the corresponding find_elements_by_* instead of this.
 
-        :rtype: list of WebElement
+        Returns:
+            `list of WebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self.w3c:
@@ -306,7 +307,7 @@ class WebDriver(
         """Finds an element by uiautomation in iOS.
 
         Args:
-            uia_string: The element name in the iOS UIAutomation library
+            uia_string (str): The element name in the iOS UIAutomation library
 
         Usage:
             driver.find_element_by_ios_uiautomation('.elements()[1].cells()[2]')
@@ -321,6 +322,9 @@ class WebDriver(
 
         Usage:
             driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
+
+        Returns:
+            `WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
@@ -328,10 +332,13 @@ class WebDriver(
         """Find an element by ios predicate string.
 
         Args:
-            predicate_string: The predicate string
+            predicate_string (str): The predicate string
 
         Usage:
             driver.find_element_by_ios_predicate('label == "myLabel"')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
@@ -339,10 +346,13 @@ class WebDriver(
         """Finds elements by ios predicate string.
 
         Args:
-         - predicate_string - The predicate string
+            predicate_string (str): The predicate string
 
-        :Usage:
+        Usage:
             driver.find_elements_by_ios_predicate('label == "myLabel"')
+
+        Returns:
+            `WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
@@ -350,10 +360,13 @@ class WebDriver(
         """Find an element by ios class chain string.
 
         Args:
-            class_chain_string: The class chain string
+            class_chain_string (str): The class chain string
 
         Usage:
             driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton[3]')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
@@ -361,10 +374,13 @@ class WebDriver(
         """Finds elements by ios class chain string.
 
         Args:
-            class_chain_string: The class chain string
+            class_chain_string (str): The class chain string
 
         Usage:
             driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]')
+
+        Returns:
+            `list of WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
@@ -376,6 +392,9 @@ class WebDriver(
 
         Usage:
             driver.find_element_by_android_uiautomator('.elements()[1].cells()[2]')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -383,10 +402,13 @@ class WebDriver(
         """Finds elements by uiautomator in Android.
 
         Args:
-            uia_string: The element name in the Android UIAutomator library
+            uia_string (str): The element name in the Android UIAutomator library
 
         Usage:
             driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
+
+        Returns:
+            `list of WebElement`
         """
         return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -396,10 +418,13 @@ class WebDriver(
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         Args:
-            tag: The tag name of the view to look for
+            tag (str): The tag name of the view to look for
 
         Usage:
             driver.find_element_by_android_viewtag('a tag name')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.ANDROID_VIEWTAG, value=tag)
 
@@ -409,10 +434,13 @@ class WebDriver(
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         Args:
-            tag: The tag name of the view to look for
+            tag (str): The tag name of the view to look for
 
         Usage:
             driver.find_elements_by_android_viewtag('a tag name')
+
+        Returns:
+            `list of WebElement`
         """
         return self.find_elements(by=MobileBy.ANDROID_VIEWTAG, value=tag)
 
@@ -422,10 +450,10 @@ class WebDriver(
         Uses driver.find_image_occurrence under the hood.
 
         Args:
-            img_path: a string corresponding to the path of a image
+            img_path (str): a string corresponding to the path of a image
 
         Returns:
-            an Element object
+            `WebElement`
         """
         with open(img_path, 'rb') as i_file:
             b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
@@ -439,10 +467,10 @@ class WebDriver(
         only ever return at most one element
 
         Args:
-            img_path: a string corresponding to the path of a image
+            img_path (str): a string corresponding to the path of a image
 
         Return:
-            possibly-empty list of Elements
+            `list of WebElement`
         """
         with open(img_path, 'rb') as i_file:
             b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
@@ -453,11 +481,14 @@ class WebDriver(
         """Finds an element by accessibility id.
 
         Args:
-            accessibility_id: A string corresponding to a recursive element search using the
+            accessibility_id (str): A string corresponding to a recursive element search using the
                 Id/Name that the native Accessibility options utilize
 
         Usage:
             driver.find_element_by_accessibility_id()
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
@@ -465,11 +496,14 @@ class WebDriver(
         """Finds elements by accessibility id.
 
         Args:
-            accessibility_id: a string corresponding to a recursive element search using the
+            accessibility_id (str): a string corresponding to a recursive element search using the
                 Id/Name that the native Accessibility options utilize
 
         Usage:
             driver.find_elements_by_accessibility_id()
+
+        Returns:
+            `WebElement`
         """
         return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
@@ -477,13 +511,16 @@ class WebDriver(
         """Finds an element in conjunction with a custom element finding plugin
 
         Args:
-            selector: a string of the form "module:selector", where "module" is
+            selector (str): a string of the form "module:selector", where "module" is
                 the shortcut name given in the customFindModules capability, and
                 "selector" is the string that will be passed to the custom element
                 finding plugin itself
 
         Usage:
             driver.find_element_by_custom("foo:bar")
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.CUSTOM, value=selector)
 
@@ -498,6 +535,9 @@ class WebDriver(
 
         Usage:
             driver.find_elements_by_custom("foo:bar")
+
+        Returns:
+            `list of WebElement`
         """
         return self.find_elements(by=MobileBy.CUSTOM, value=selector)
 
@@ -506,6 +546,12 @@ class WebDriver(
 
         Overrides method in Selenium WebDriver in order to always give them
         Appium WebElement
+
+        Args:
+            element_id (int): The element id to create a web element
+
+        Returns:
+            `MobileWebElement`
         """
         return MobileWebElement(self, element_id)
 
@@ -523,7 +569,10 @@ class WebDriver(
         https://github.com/appium/WebDriverAgent/blob/master/WebDriverAgentLib/Categories/XCUIDevice%2BFBHelpers.h
 
         Args:
-            button_name: the button name to be sent to the device
+            button_name (str): the button name to be sent to the device
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'name': button_name
@@ -541,8 +590,11 @@ class WebDriver(
         """Set the value on an element in the application.
 
         Args:
-            element: the element whose value will be set
-            Value: the value to set on the element
+            element (`WebElement`: the element whose value will be set
+            value (str): the value to set on the element
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'id': element.id,
@@ -555,11 +607,14 @@ class WebDriver(
         """Ends the coverage collection and pull the coverage.ec file from the device.
 
         Android only.
-        See https://github.com/appium/appium/blob/master/docs/en/android_coverage.md
+        See https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android/android-coverage.md
 
         Args:
-            intent: description of operation to be performed
-            path: path to coverage.ec file to be pulled from the device
+            intent (str): description of operation to be performed
+            path (str): path to coverage.ec file to be pulled from the device
+
+        Returns:
+            TODO
         """
         data = {
             'intent': intent,
@@ -569,6 +624,9 @@ class WebDriver(
 
     def open_notifications(self):
         """Open notification shade in Android (API Level 18 and above)
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.OPEN_NOTIFICATIONS, {})
         return self
@@ -577,23 +635,22 @@ class WebDriver(
     def battery_info(self):
         """Retrieves battery information for the device under test.
 
-
         Returns:
             A dictionary containing the following entries
-            level: Battery level in range [0.0, 1.0], where 1.0 means 100% charge.
-                Any value lower than 0 means the level cannot be retrieved
-            state: Platform-dependent battery state value.
-                On iOS (XCUITest):
-                    - 1: Unplugged
-                    - 2: Charging
-                    - 3: Full
-                    Any other value means the state cannot be retrieved
-                On Android (UIAutomator2):
-                    - 2: Charging
-                    - 3: Discharging
-                    - 4: Not charging
-                    - 5: Full
-                    Any other value means the state cannot be retrieved
+                level: Battery level in range [0.0, 1.0], where 1.0 means 100% charge.
+                    Any value lower than 0 means the level cannot be retrieved
+                state: Platform-dependent battery state value.
+                    On iOS (XCUITest):
+                        1: Unplugged
+                        2: Charging
+                        3: Full
+                        Any other value means the state cannot be retrieved
+                    On Android (UIAutomator2):
+                        2: Charging
+                        3: Discharging
+                        4: Not charging
+                        5: Full
+                        Any other value means the state cannot be retrieved
         """
         return self.execute_script('mobile: batteryInfo')
 

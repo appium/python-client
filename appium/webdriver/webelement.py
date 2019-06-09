@@ -45,12 +45,14 @@ class WebElement(AppiumWebElementSearchContext):
         is returned.
 
         Args:
-            - name - Name of the attribute/property to retrieve.
+            name (str): Name of the attribute/property to retrieve.
 
         Usage:
             # Check if the "active" CSS class is applied to an element.
             is_active = "active" in target_element.get_attribute("class")
 
+        Returns:
+            str: The given attribute or property of the element
         """
 
         resp = self._execute(RemoteCommand.GET_ELEMENT_ATTRIBUTE, {'name': name})
@@ -76,10 +78,13 @@ class WebElement(AppiumWebElementSearchContext):
         """Finds an element by uiautomation in iOS.
 
         Args:
-            uia_string: The element name in the iOS UIAutomation library
+            uia_string (str): The element name in the iOS UIAutomation library
 
         Usage:
             driver.find_element_by_ios_uiautomation('.elements()[1].cells()[2]')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
@@ -87,10 +92,13 @@ class WebElement(AppiumWebElementSearchContext):
         """Finds elements by uiautomation in iOS.
 
         Args:
-            uia_string: The element name in the iOS UIAutomation library
+            uia_string (str): The element name in the iOS UIAutomation library
 
         Usage:
             driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
+
+        Returns:
+            `list of WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
@@ -98,10 +106,13 @@ class WebElement(AppiumWebElementSearchContext):
         """Find an element by ios predicate string.
 
         Args:
-            predicate_string: The predicate string
+            predicate_string (str): The predicate string
 
         Usage:
             driver.find_element_by_ios_predicate('label == "myLabel"')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
@@ -109,10 +120,13 @@ class WebElement(AppiumWebElementSearchContext):
         """Finds elements by ios predicate string.
 
         Args:
-            predicate_string The predicate string
+            predicate_string (str): The predicate string
 
         Usage:
             driver.find_elements_by_ios_predicate('label == "myLabel"')
+
+        Returns:
+            `list of WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
@@ -120,10 +134,13 @@ class WebElement(AppiumWebElementSearchContext):
         """Find an element by ios class chain string.
 
         Args:
-            class_chain_string: The class chain string
+            class_chain_string (str): The class chain string
 
         Usage:
             driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton[3]')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
@@ -131,10 +148,13 @@ class WebElement(AppiumWebElementSearchContext):
         """Finds elements by ios class chain string.
 
         Args:
-            class_chain_string: The class chain string
+            class_chain_string (str): The class chain string
 
         Usage:
             driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]')
+
+        Returns:
+            `list of WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
@@ -142,10 +162,13 @@ class WebElement(AppiumWebElementSearchContext):
         """Finds element by uiautomator in Android.
 
         Args:
-            uia_string: The element name in the Android UIAutomator library
+            uia_string (str): The element name in the Android UIAutomator library
 
         Usage:
             driver.find_element_by_android_uiautomator('.elements()[1].cells()[2]')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -153,10 +176,13 @@ class WebElement(AppiumWebElementSearchContext):
         """Finds elements by uiautomator in Android.
 
         Args:
-            uia_string: The element name in the Android UIAutomator library
+            uia_string (str): The element name in the Android UIAutomator library
 
         Usage:
             driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
+
+        Returns:
+            `list of WebElement`
         """
         return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -164,11 +190,14 @@ class WebElement(AppiumWebElementSearchContext):
         """Finds an element by accessibility id.
 
         Args:
-            accessibility_id: a string corresponding to a recursive element search using the
+            accessibility_id (str): a string corresponding to a recursive element search using the
                 Id/Name that the native Accessibility options utilize
 
         Usage:
             driver.find_element_by_accessibility_id()
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
@@ -176,11 +205,14 @@ class WebElement(AppiumWebElementSearchContext):
         """Finds elements by accessibility id.
 
         Args:
-            accessibility_id: a string corresponding to a recursive element search using the
+            accessibility_id (str): a string corresponding to a recursive element search using the
                 Id/Name that the native Accessibility options utilize
 
         Usage:
             driver.find_elements_by_accessibility_id()
+
+        Returns:
+            `list of WebElement`
         """
         return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
@@ -189,11 +221,15 @@ class WebElement(AppiumWebElementSearchContext):
 
         Prefer the find_element_by_* methods when possible.
 
+        Args:
+            by (:obj: `str`, optional): The strategy
+            value (:obj: `str`, optional): The locator
+
         Usage:
             element = element.find_element(By.ID, 'foo')
 
         Returns:
-            WebElement
+            `WebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self._w3c:
@@ -217,11 +253,15 @@ class WebElement(AppiumWebElementSearchContext):
 
         Prefer the find_elements_by_* methods when possible.
 
+        Args:
+            by (:obj: `str`, optional): The strategy
+            value (:obj: `str`, optional): The locator
+
         Usage:
             element = element.find_elements(By.CLASS_NAME, 'foo')
 
         Returns:
-            list of WebElement
+            `list of WebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self._w3c:
@@ -247,10 +287,13 @@ class WebElement(AppiumWebElementSearchContext):
         Android only.
 
         Args:
-            keys: the text to be sent to the element.
+            keys (str): the text to be sent to the element.
 
         Usage:
             element.set_text('some text')
+
+        Returns:
+            `WebElement`
         """
         data = {
             'id': self._id,
@@ -265,11 +308,22 @@ class WebElement(AppiumWebElementSearchContext):
 
         Usage:
             location = element.location_in_view
+            x = location['x']
+            y = location['y']
+
+        Returns:
+            dict: The location of an element relative to the view
         """
         return self._execute(Command.LOCATION_IN_VIEW)['value']
 
     def set_value(self, value):
         """Set the value on this element in the application
+
+        Args:
+            value (str): The value to be set
+
+        Returns:
+            `WebElement`
         """
         data = {
             'id': self.id,
@@ -280,6 +334,9 @@ class WebElement(AppiumWebElementSearchContext):
 
     def clear(self):
         """Clears text.
+
+        Returns:
+            `WebElement`
         """
         data = {'id': self.id}
         self._execute(Command.CLEAR, data)

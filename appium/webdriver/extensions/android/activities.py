@@ -31,13 +31,13 @@ class Activities(webdriver.Remote):
             app_activity (str): The activity to start.
 
         Keyword Args:
-            app_wait_package (:obj:`str`, optional): Begin automation after this package starts.
-            app_wait_activity (:obj:`str`, optional): Begin automation after this activity starts.
-            intent_action (:obj:`str`, optional): Intent to start.
-            intent_category (:obj:`str`, optional): Intent category to start.
-            intent_flags (:obj:`str`, optional): Flags to send to the intent.
-            optional_intent_arguments (:obj:`str`, optional): Optional arguments to the intent.
-            dont_stop_app_on_reset (:obj:`str`, optional): Should the app be stopped on reset?
+            app_wait_package (str): Begin automation after this package starts.
+            app_wait_activity (str): Begin automation after this activity starts.
+            intent_action (str): Intent to start.
+            intent_category (str): Intent category to start.
+            intent_flags (str): Flags to send to the intent.
+            optional_intent_arguments (str): Optional arguments to the intent.
+            dont_stop_app_on_reset (str): Should the app be stopped on reset?
         """
         data = {
             'appPackage': app_package,

@@ -1,8 +1,8 @@
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
-  displayName: Install Node 10.x
+    versionSpec: '11.x'
+  displayName: Install Node 11.x
 - script: npm install -g appium --chromedriver_version='2.44'
   displayName: Install appium
 - task: UsePythonVersion@0

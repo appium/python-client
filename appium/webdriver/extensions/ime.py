@@ -25,6 +25,9 @@ class IME(webdriver.Remote):
 
         Package and activity are returned (e.g., ['com.android.inputmethod.latin/.LatinIME'])
         Android only.
+
+        Returns:
+            list of str: The available input methods for an Android device
         """
         return self.execute(Command.GET_AVAILABLE_IME_ENGINES, {})['value']
 
@@ -43,8 +46,11 @@ class IME(webdriver.Remote):
         Android only.
 
         Args:
-           engine: the package and activity of the IME engine to activate
+           engine (str): the package and activity of the IME engine to activate
                (e.g., 'com.android.inputmethod.latin/.LatinIME')
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'engine': engine
@@ -56,6 +62,9 @@ class IME(webdriver.Remote):
         """Deactivates the currently active IME engine on the device.
 
         Android only.
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.DEACTIVATE_IME_ENGINE, {})
         return self
@@ -65,6 +74,9 @@ class IME(webdriver.Remote):
         """Returns the activity and package of the currently active IME engine(e.g., 'com.android.inputmethod.latin/.LatinIME').
 
         Android only.
+
+        Returns:
+            str: The activity and package of the currently active IME engine
         """
         return self.execute(Command.GET_ACTIVE_IME_ENGINE, {})['value']
 

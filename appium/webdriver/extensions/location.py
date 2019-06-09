@@ -22,6 +22,9 @@ class Location(webdriver.Remote):
         """Toggle the location services on the device.
 
         Android only.
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
         return self
@@ -30,9 +33,12 @@ class Location(webdriver.Remote):
         """Set the location of the device
 
         Args:
-            latitude: String or numeric value between -90.0 and 90.00
-            longitude: String or numeric value between -180.0 and 180.0
-            altitude: String or numeric value
+            latitude (float): String or numeric value between -90.0 and 90.00
+            longitude (float): String or numeric value between -180.0 and 180.0
+            altitude (float): String or numeric value
+
+        Returns:
+            `WebDriver`
         """
         data = {
             "location": {
@@ -50,9 +56,9 @@ class Location(webdriver.Remote):
 
         Returns:
             A dictionary whose keys are
-             - latitude
-             - longitude
-             - altitude
+             - latitude (float)
+             - longitude (float)
+             - altitude (float)
         """
         return self.execute(Command.GET_LOCATION)['value']
 

@@ -24,6 +24,10 @@ class Context(webdriver.Remote):
 
         Usage:
             driver.contexts
+
+        Return:
+            list of str: The contexts within the current session
+
         """
         return self.execute(Command.CONTEXTS)['value']
 
@@ -33,6 +37,9 @@ class Context(webdriver.Remote):
 
         Usage:
             driver.current_context
+
+        Return:
+            str: The context of the current session
         """
         return self.execute(Command.GET_CURRENT_CONTEXT)['value']
 
@@ -42,6 +49,9 @@ class Context(webdriver.Remote):
 
         Usage:
             driver.context
+
+        Return:
+            str: The context of the current session
         """
         return self.current_context
 

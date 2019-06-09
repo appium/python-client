@@ -23,6 +23,9 @@ class Settings(webdriver.Remote):
 
         Do not get Settings confused with Desired Capabilities, they are
         separate concepts. See https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
+
+        Returns:
+            dict: Current settings
         """
         return self.execute(Command.GET_SETTINGS, {})['value']
 
@@ -32,7 +35,7 @@ class Settings(webdriver.Remote):
         For more on settings, see: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
 
         Args:
-            settings: dictionary of settings to apply to the current test session
+            settings (dict): dictionary of settings to apply to the current test session
         """
         data = {"settings": settings}
 

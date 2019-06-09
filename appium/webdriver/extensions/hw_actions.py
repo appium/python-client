@@ -27,6 +27,9 @@ class HardwareActions(webdriver.Remote):
                 The device is going to be locked forever until `unlock` is called
                 if it equals or is less than zero, otherwise this call blocks until
                 the timeout expires and unlocks the screen automatically.
+
+        Returns:
+            `WebDriver`
         """
         if seconds is None:
             self.execute(Command.LOCK)
@@ -37,6 +40,9 @@ class HardwareActions(webdriver.Remote):
 
     def unlock(self):
         """Unlock the device. No changes are made if the device is already locked.
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.UNLOCK)
         return self
@@ -45,18 +51,27 @@ class HardwareActions(webdriver.Remote):
         """Checks whether the device is locked.
 
         Returns:
-            Either True or False
+            bool: `True` if the device is locked
         """
         return self.execute(Command.IS_LOCKED)['value']
 
     def shake(self):
         """Shake the device.
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.SHAKE)
         return self
 
     def touch_id(self, match):
         """Simulate touchId on iOS Simulator
+
+        Args:
+            match (bool): Simulates a successful touch (`True`) or a failed touch (`False`)
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'match': match
@@ -66,6 +81,9 @@ class HardwareActions(webdriver.Remote):
 
     def toggle_touch_id_enrollment(self):
         """Toggle enroll touchId on iOS Simulator
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.TOGGLE_TOUCH_ID_ENROLLMENT)
         return self
@@ -74,7 +92,10 @@ class HardwareActions(webdriver.Remote):
         """Authenticate users by using their finger print scans on supported Android emulators.
 
         Args:
-            finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
+            finger_id (int): Finger prints stored in Android Keystore system (from 1 to 10)
+
+        Returns:
+            TODO
         """
         return self.execute(Command.FINGER_PRINT, {'fingerprintId': finger_id})['value']
 

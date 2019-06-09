@@ -28,39 +28,39 @@ class ImagesComparison(webdriver.Remote):
         The method supports all image formats, which are supported by OpenCV itself.
 
         Args:
-            base64_image1: base64-encoded content of the first image
-            base64_image2: base64-encoded content of the second image
+            base64_image1 (bytes): base64-encoded content of the first image
+            base64_image2 (bytes): base64-encoded content of the second image
             opts: Possible options are:
-                `visualize`: Set it to True in order to return the visualization of the matching operation.
+                `visualize` (bool): Set it to True in order to return the visualization of the matching operation.
                     matching visualization. False by default
-                `detectorName`: One of possible feature detector names:
+                `detectorName` (str): One of possible feature detector names:
                     'AKAZE', 'AGAST', 'BRISK', 'FAST', 'GFTT', 'KAZE', 'MSER', 'SIFT', 'ORB'
                     Some of these detectors are not enabled in the default OpenCV deployment.
                     'ORB' By default.
-                `matchFunc`: One of supported matching functions names:
+                `matchFunc` (str): One of supported matching functions names:
                     'FlannBased', 'BruteForce', 'BruteForceL1', 'BruteForceHamming',
                     'BruteForceHammingLut', 'BruteForceSL2'
                     'BruteForce' by default
-                `goodMatchesFactor`: The maximum count of "good" matches (e. g. with minimal distances).
+                `goodMatchesFactor` (int): The maximum count of "good" matches (e. g. with minimal distances).
                     This count is unlimited by default.
 
         Returns:
             The dictionary containing the following entries:
-                `visualization`: base64-encoded content of PNG visualization of the current comparison
+                `visualization` (bytes): base64-encoded content of PNG visualization of the current comparison
                     operation. This entry is only present if `visualize` option is enabled
-                `count`: The count of matched edges on both images.
+                `count` (int): The count of matched edges on both images.
                     The more matching edges there are no both images the more similar they are.
-                `totalCount`: The total count of matched edges on both images.
+                `totalCount` (int): The total count of matched edges on both images.
                     It is equal to `count` if `goodMatchesFactor` does not limit the matches,
                     otherwise it contains the total count of matches before `goodMatchesFactor` is
                     applied.
-                `points1`: The array of matching points on the first image. Each point is a dictionary
+                `points1` (dict)): The array of matching points on the first image. Each point is a dictionary
                     with 'x' and 'y' keys
-                `rect1`: The bounding rect for the `points1` array or a zero rect if not enough matching points
+                `rect1` (dict): The bounding rect for the `points1` array or a zero rect if not enough matching points
                     were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
-                `points2`: The array of matching points on the second image. Each point is a dictionary
+                `points2` (dict): The array of matching points on the second image. Each point is a dictionary
                     with 'x' and 'y' keys
-                `rect2`: The bounding rect for the `points2` array or a zero rect if not enough matching points
+                `rect2` (dict): The bounding rect for the `points2` array or a zero rect if not enough matching points
                     were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
         """
         options = {
@@ -81,16 +81,16 @@ class ImagesComparison(webdriver.Remote):
         The method supports all image formats, which are supported by OpenCV itself.
 
         Args:
-            base64_full_image: base64-encoded content of the full image
-            base64_partial_image: base64-encoded content of the partial image
+            base64_full_image (bytes): base64-encoded content of the full image
+            base64_partial_image (bytes): base64-encoded content of the partial image
             opts: Possible options are:
-                visualize: Set it to True in order to return the visualization of the matching operation.
+                visualize (bool): Set it to True in order to return the visualization of the matching operation.
                     False by default
 
         Returns:
-            visualization: base64-encoded content of PNG visualization of the current comparison
+            visualization (bytes): base64-encoded content of PNG visualization of the current comparison
                 operation. This entry is only present if `visualize` option is enabled
-            rect: The region of the partial image occurrence on the full image.
+            rect (dict): The region of the partial image occurrence on the full image.
                 The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
         """
         options = {
@@ -109,16 +109,16 @@ class ImagesComparison(webdriver.Remote):
         The method supports all image formats, which are supported by OpenCV itself.
 
         Args:
-            base64_image1: base64-encoded content of the first image
-            base64_image2: base64-encoded content of the second image
+            base64_image1 (bytes): base64-encoded content of the first image
+            base64_image2 (bytes): base64-encoded content of the second image
             opts: Possible options are:
-                visualize: Set it to True in order to return the visualization of the matching operation.
+                visualize (bool): Set it to True in order to return the visualization of the matching operation.
                 False by default
 
         Returns:
-            visualization: base64-encoded content of PNG visualization of the current comparison
+            visualization (bytes): base64-encoded content of PNG visualization of the current comparison
                 operation. This entry is only present if `visualize` option is enabled
-            score: The similarity score as a float number in range [0.0, 1.0].
+            score (float): The similarity score as a float number in range [0.0, 1.0].
                 1.0 is the highest score (means both images are totally equal).
         """
         options = {

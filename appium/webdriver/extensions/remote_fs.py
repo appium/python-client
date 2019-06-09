@@ -22,10 +22,13 @@ from ..mobilecommand import MobileCommand as Command
 
 class RemoteFS(webdriver.Remote):
     def pull_file(self, path):
-        """Retrieves the file at `path`. Returns the file's contents as base64.
+        """Retrieves the file at `path`.
 
         Args:
-            path: the path to the file on the device
+            path (str): the path to the file on the device
+
+        Returns:
+            bytes: The file's contents as base64.
         """
         data = {
             'path': path,
@@ -35,10 +38,11 @@ class RemoteFS(webdriver.Remote):
     def pull_folder(self, path):
         """Retrieves a folder at `path`.
 
-        Returns the folder's contents zipped and encoded as Base64.
-
         Args:
-            path: the path to the folder on the device
+            path (str): the path to the folder on the device
+
+        Returns:
+            bytes: The folder's contents zipped and encoded as Base64.
         """
         data = {
             'path': path,
@@ -51,12 +55,12 @@ class RemoteFS(webdriver.Remote):
         Specify either `base64data` or `source_path`, if both specified default to `source_path`
 
         Args:
-            destination_path: the location on the device/simulator where the local file contents should be saved
-            base64data: file contents, encoded as Base64, to be written to the file on the device/simulator
-            source_path: local file path for the file to be loaded on device
+            destination_path (str): the location on the device/simulator where the local file contents should be saved
+            base64data (:obj: `bytes`, optional): file contents, encoded as Base64, to be written to the file on the device/simulator
+            source_path (:obj: `str`, optional): local file path for the file to be loaded on device
 
         Returns:
-            WebDriver instance
+            `WebDriver`
         """
         if source_path is None and base64data is None:
             raise InvalidArgumentException('Must either pass base64 data or a local file path')

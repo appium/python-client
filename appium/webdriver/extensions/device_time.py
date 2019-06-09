@@ -22,6 +22,9 @@ class DeviceTime(webdriver.Remote):
     @property
     def device_time(self):
         """Returns the date and time from the device.
+
+        Return:
+            str: The date and time
         """
         return self.execute(Command.GET_DEVICE_TIME_GET, {})['value']
 
@@ -37,6 +40,9 @@ class DeviceTime(webdriver.Remote):
         Usage:
             self.driver.get_device_time()
             self.driver.get_device_time("YYYY-MM-DD")
+
+        Return:
+            str: The date and time
         """
         if format is None:
             return self.device_time

@@ -20,26 +20,33 @@ jobs:
       name: 'func_test_android1'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'applications_tests.py chrome_tests.py context_switching_tests.py device_time_tests.py find_by_accessibility_id_tests.py find_by_image_tests.py find_by_uiautomator_tests.py'
+      testFiles: 'device_time_tests.py find_by_accessibility_id_tests.py find_by_image_tests.py find_by_uiautomator_tests.py'
       sdkVer: 28
   - template: ./functional/run_android_test.yml
     parameters:
       name: 'func_test_android2'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'hw_actions_tests.py ime_tests.py keyboard_tests.py location_tests.py multi_action_tests.py network_connection_tests.py remote_fs_tests.py'
+      testFiles: 'hw_actions_tests.py ime_tests.py keyboard_tests.py location_tests.py multi_action_tests.py network_connection_tests.py'
       sdkVer: 28
   - template: ./functional/run_android_test.yml
     parameters:
       name: 'func_test_android3'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'activities_tests.py screen_record_tests.py settings_tests.py touch_action_tests.py'
+      testFiles: 'activities_tests.py touch_action_tests.py'
       sdkVer: 28
   - template: ./functional/run_android_test.yml
     parameters:
       name: 'func_test_android4'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'finger_print_tests.py webdriver_tests.py'
+      testFiles: 'finger_print_tests.py webdriver_tests.py screen_record_tests.py settings_tests.py'
+      sdkVer: 28
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android5'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'applications_tests.py chrome_tests.py context_switching_tests.py remote_fs_tests.py'
       sdkVer: 28

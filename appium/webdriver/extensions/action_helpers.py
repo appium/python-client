@@ -66,7 +66,7 @@ class ActionHelpers(webdriver.Remote):
         certain time
 
         Args:
-            positions (:ojb:`list` of :obj:`tuple`): an array of tuples representing the x/y coordinates of
+            positions (:obj:`list` of :obj:`tuple`): an array of tuples representing the x/y coordinates of
                 the fingers to tap. Length can be up to five.
             duration (:obj:`int`, optional): length of time to tap, in ms
 

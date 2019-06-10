@@ -48,21 +48,21 @@ class ImagesComparison(webdriver.Remote):
         Returns:
             The dictionary containing the following entries:
 
-            `visualization` (bytes): base64-encoded content of PNG visualization of the current comparison
+            visualization (bytes): base64-encoded content of PNG visualization of the current comparison
                 operation. This entry is only present if `visualize` option is enabled
-            `count` (int): The count of matched edges on both images.
+            count (int): The count of matched edges on both images.
                 The more matching edges there are no both images the more similar they are.
-            `totalCount` (int): The total count of matched edges on both images.
+            totalCount (int): The total count of matched edges on both images.
                 It is equal to `count` if `goodMatchesFactor` does not limit the matches,
                 otherwise it contains the total count of matches before `goodMatchesFactor` is
                 applied.
-            `points1` (dict)): The array of matching points on the first image. Each point is a dictionary
+            points1 (dict)): The array of matching points on the first image. Each point is a dictionary
                 with 'x' and 'y' keys
-            `rect1` (dict): The bounding rect for the `points1` array or a zero rect if not enough matching points
+            rect1 (dict): The bounding rect for the `points1` array or a zero rect if not enough matching points
                 were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
-            `points2` (dict): The array of matching points on the second image. Each point is a dictionary
+            points2 (dict): The array of matching points on the second image. Each point is a dictionary
                 with 'x' and 'y' keys
-            `rect2` (dict): The bounding rect for the `points2` array or a zero rect if not enough matching points
+            rect2 (dict): The bounding rect for the `points2` array or a zero rect if not enough matching points
                 were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
         """
         options = {

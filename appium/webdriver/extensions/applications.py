@@ -51,7 +51,7 @@ class Applications(webdriver.Remote):
         """Install the application found at `app_path` on the device.
 
         Args:
-            app_path: the local or remote path to the application to install
+            app_path (str): the local or remote path to the application to install
 
         Keyword Args:
             replace (bool): [Android only] whether to reinstall/upgrade the package if it is
@@ -173,8 +173,8 @@ class Applications(webdriver.Remote):
         language.
 
         Args:
-            language: strings language code
-            string_file: the name of the string file to query
+            language (str): strings language code
+            string_file (str): the name of the string file to query
         """
         data = {}
         if language != None:

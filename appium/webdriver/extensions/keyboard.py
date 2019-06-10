@@ -78,7 +78,7 @@ class Keyboard(webdriver.Remote):
         Args:
             keycode (int): the keycode to be sent to the device
             metastate (:obj:`int`, optional): meta information about the keycode being sent
-            flags (:ojb: `int`, optional): the set of key event flags
+            flags (:obj:`int`, optional): the set of key event flags
 
         Returns:
             `WebDriver`
@@ -101,7 +101,7 @@ class Keyboard(webdriver.Remote):
         Args:
             keycode (int): the keycode to be sent to the device
             metastate (:obj:`int`, optional): meta information about the keycode being sent
-            flags (:ojb: `int`, optional): the set of key event flags
+            flags (:obj:`int`, optional): the set of key event flags
 
         Returns:
             `WebDriver`

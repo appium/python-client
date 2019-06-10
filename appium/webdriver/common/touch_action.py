@@ -74,7 +74,7 @@ class TouchAction(object):
             el (:obj:`WebElement`, optional): the element to press
             x (:obj:`int`, optional): x coordiate to press. If y is used, x must also be set
             y (:obj:`int`, optional): y coordiate to press. If x is used, y must also be set
-            duration (:ojb: `int`, optional): Duration to press
+            duration (:obj:`int`, optional): Duration to press
 
         Returns:
             `TouchAction`: self instance

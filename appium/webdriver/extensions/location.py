@@ -19,7 +19,12 @@ from ..mobilecommand import MobileCommand as Command
 
 class Location(webdriver.Remote):
     def toggle_location_services(self):
-        """Toggle the location services on the device. Android only.
+        """Toggle the location services on the device.
+
+        Android only.
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
         return self
@@ -27,10 +32,13 @@ class Location(webdriver.Remote):
     def set_location(self, latitude, longitude, altitude):
         """Set the location of the device
 
-        :Args:
-         - latitude - String or numeric value between -90.0 and 90.00
-         - longitude - String or numeric value between -180.0 and 180.0
-         - altitude - String or numeric value
+        Args:
+            latitude (float): String or numeric value between -90.0 and 90.00
+            longitude (float): String or numeric value between -180.0 and 180.0
+            altitude (float): String or numeric value
+
+        Returns:
+            `WebDriver`
         """
         data = {
             "location": {
@@ -46,11 +54,11 @@ class Location(webdriver.Remote):
     def location(self):
         """Retrieves the current location
 
-        :return:
-        A dictionary whose keys are
-         - latitude
-         - longitude
-         - altitude
+        Returns:
+            A dictionary whose keys are
+             - latitude (float)
+             - longitude (float)
+             - altitude (float)
         """
         return self.execute(Command.GET_LOCATION)['value']
 

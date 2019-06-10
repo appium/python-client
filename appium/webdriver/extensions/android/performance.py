@@ -22,17 +22,21 @@ class Performance(webdriver.Remote):
     def get_performance_data(self, package_name, data_type, data_read_timeout=None):
         """Returns the information of the system state
         which is supported to read as like cpu, memory, network traffic, and battery.
+
         Android only.
 
-        :Args:
-         - package_name: The package name of the application
-         - data_type: The type of system state which wants to read.
-                      It should be one of the supported performance data types.
-                      Check :func:`.get_performance_data_types` for supported types
-         - data_read_timeout: (optional) The number of attempts to read
+        Args:
+            package_name (str): The package name of the application
+            data_type (str): The type of system state which wants to read.
+                It should be one of the supported performance data types.
+                Check :func:`.get_performance_data_types` for supported types
+            data_read_timeout (:obj:`int`, optional): The number of attempts to read
 
-        :Usage:
+        Usage:
             self.driver.get_performance_data('my.app.package', 'cpuinfo', 5)
+
+        Returns:
+            dict: The data along to `data_type`
         """
         data = {'packageName': package_name, 'dataType': data_type}
         if data_read_timeout is not None:
@@ -44,8 +48,11 @@ class Performance(webdriver.Remote):
         which is supported to read as like cpu, memory, network traffic, and battery.
         Android only.
 
-        :Usage:
+        Usage:
             self.driver.get_performance_data_types()
+
+        Returns:
+            list: Available data types
         """
         return self.execute(Command.GET_PERFORMANCE_DATA_TYPES)['value']
 

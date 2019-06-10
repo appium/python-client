@@ -44,14 +44,15 @@ class WebElement(AppiumWebElementSearchContext):
         as strings.  For attributes or properties which do not exist, ``None``
         is returned.
 
-        :Args:
-            - name - Name of the attribute/property to retrieve.
+        Args:
+            name (str): Name of the attribute/property to retrieve.
 
-        Example::
-
+        Usage:
             # Check if the "active" CSS class is applied to an element.
             is_active = "active" in target_element.get_attribute("class")
 
+        Returns:
+            str: The given attribute or property of the element
         """
 
         resp = self._execute(RemoteCommand.GET_ELEMENT_ATTRIBUTE, {'name': name})
@@ -76,122 +77,159 @@ class WebElement(AppiumWebElementSearchContext):
     def find_element_by_ios_uiautomation(self, uia_string):
         """Finds an element by uiautomation in iOS.
 
-        :Args:
-         - uia_string - The element name in the iOS UIAutomation library
+        Args:
+            uia_string (str): The element name in the iOS UIAutomation library
 
-        :Usage:
+        Usage:
             driver.find_element_by_ios_uiautomation('.elements()[1].cells()[2]')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
     def find_elements_by_ios_uiautomation(self, uia_string):
         """Finds elements by uiautomation in iOS.
 
-        :Args:
-         - uia_string - The element name in the iOS UIAutomation library
+        Args:
+            uia_string (str): The element name in the iOS UIAutomation library
 
-        :Usage:
+        Usage:
             driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
+
+        Returns:
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
     def find_element_by_ios_predicate(self, predicate_string):
         """Find an element by ios predicate string.
 
-        :Args:
-         - predicate_string - The predicate string
+        Args:
+            predicate_string (str): The predicate string
 
-        :Usage:
+        Usage:
             driver.find_element_by_ios_predicate('label == "myLabel"')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
     def find_elements_by_ios_predicate(self, predicate_string):
         """Finds elements by ios predicate string.
 
-        :Args:
-         - predicate_string - The predicate string
+        Args:
+            predicate_string (str): The predicate string
 
-        :Usage:
+        Usage:
             driver.find_elements_by_ios_predicate('label == "myLabel"')
+
+        Returns:
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
     def find_element_by_ios_class_chain(self, class_chain_string):
         """Find an element by ios class chain string.
 
-        :Args:
-         - class_chain_string - The class chain string
+        Args:
+            class_chain_string (str): The class chain string
 
-        :Usage:
+        Usage:
             driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton[3]')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
     def find_elements_by_ios_class_chain(self, class_chain_string):
         """Finds elements by ios class chain string.
 
-        :Args:
-         - class_chain_string - The class chain string
+        Args:
+            class_chain_string (str): The class chain string
 
-        :Usage:
+        Usage:
             driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]')
+
+        Returns:
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
     def find_element_by_android_uiautomator(self, uia_string):
         """Finds element by uiautomator in Android.
 
-        :Args:
-         - uia_string - The element name in the Android UIAutomator library
+        Args:
+            uia_string (str): The element name in the Android UIAutomator library
 
-        :Usage:
+        Usage:
             driver.find_element_by_android_uiautomator('.elements()[1].cells()[2]')
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
     def find_elements_by_android_uiautomator(self, uia_string):
         """Finds elements by uiautomator in Android.
 
-        :Args:
-         - uia_string - The element name in the Android UIAutomator library
+        Args:
+            uia_string (str): The element name in the Android UIAutomator library
 
-        :Usage:
+        Usage:
             driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
+
+        Returns:
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
     def find_element_by_accessibility_id(self, accessibility_id):
         """Finds an element by accessibility id.
 
-        :Args:
-         - accessibility_id - a string corresponding to a recursive element search using the
-         Id/Name that the native Accessibility options utilize
+        Args:
+            accessibility_id (str): a string corresponding to a recursive element search using the
+                Id/Name that the native Accessibility options utilize
 
-        :Usage:
+        Usage:
             driver.find_element_by_accessibility_id()
+
+        Returns:
+            `WebElement`
         """
         return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
     def find_elements_by_accessibility_id(self, accessibility_id):
         """Finds elements by accessibility id.
 
-        :Args:
-         - accessibility_id - a string corresponding to a recursive element search using the
-         Id/Name that the native Accessibility options utilize
+        Args:
+            accessibility_id (str): a string corresponding to a recursive element search using the
+                Id/Name that the native Accessibility options utilize
 
-        :Usage:
+        Usage:
             driver.find_elements_by_accessibility_id()
+
+        Returns:
+            :obj:`list` of :obj:`WebElement`
         """
         return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
     def find_element(self, by=By.ID, value=None):
-        """
-        Find an element given a By strategy and locator. Prefer the find_element_by_* methods when
-        possible.
-        :Usage:
+        """Find an element given a By strategy and locator
+
+        Prefer the find_element_by_* methods when possible.
+
+        Args:
+            by (:obj:`str`, optional): The strategy
+            value (:obj:`str`, optional): The locator
+
+        Usage:
             element = element.find_element(By.ID, 'foo')
-        :rtype: WebElement
+
+        Returns:
+            `WebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self._w3c:
@@ -211,12 +249,19 @@ class WebElement(AppiumWebElementSearchContext):
                              {"using": by, "value": value})['value']
 
     def find_elements(self, by=By.ID, value=None):
-        """
-        Find elements given a By strategy and locator. Prefer the find_elements_by_* methods when
-        possible.
-        :Usage:
+        """Find elements given a By strategy and locator
+
+        Prefer the find_elements_by_* methods when possible.
+
+        Args:
+            by (:obj:`str`, optional): The strategy
+            value (:obj:`str`, optional): The locator
+
+        Usage:
             element = element.find_elements(By.CLASS_NAME, 'foo')
-        :rtype: list of WebElement
+
+        Returns:
+            :obj:`list` of :obj:`WebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self._w3c:
@@ -236,14 +281,19 @@ class WebElement(AppiumWebElementSearchContext):
                              {"using": by, "value": value})['value']
 
     def set_text(self, keys=''):
-        """Sends text to the element. Previous text is removed.
+        """Sends text to the element.
+
+        Previous text is removed.
         Android only.
 
-        :Args:
-         - keys - the text to be sent to the element.
+        Args:
+            keys (str): the text to be sent to the element.
 
-        :Usage:
+        Usage:
             element.set_text('some text')
+
+        Returns:
+            `WebElement`
         """
         data = {
             'id': self._id,
@@ -256,13 +306,24 @@ class WebElement(AppiumWebElementSearchContext):
     def location_in_view(self):
         """Gets the location of an element relative to the view.
 
-        :Usage:
+        Usage:
             location = element.location_in_view
+            x = location['x']
+            y = location['y']
+
+        Returns:
+            dict: The location of an element relative to the view
         """
         return self._execute(Command.LOCATION_IN_VIEW)['value']
 
     def set_value(self, value):
         """Set the value on this element in the application
+
+        Args:
+            value (str): The value to be set
+
+        Returns:
+            `WebElement`
         """
         data = {
             'id': self.id,
@@ -273,6 +334,9 @@ class WebElement(AppiumWebElementSearchContext):
 
     def clear(self):
         """Clears text.
+
+        Returns:
+            `WebElement`
         """
         data = {'id': self.id}
         self._execute(Command.CLEAR, data)

@@ -19,13 +19,12 @@ from .mobilecommand import MobileCommand
 
 class MobileSwitchTo(SwitchTo):
     def context(self, context_name):
-        """
-        Sets the context for the current session.
+        """Sets the context for the current session.
 
-        :Args:
-         - context_name: The name of the context to switch to.
+        Args:
+            context_name (str): The name of the context to switch to.
 
-        :Usage:
+        Usage:
             driver.switch_to.context('WEBVIEW_1')
         """
         self._driver.execute(MobileCommand.SWITCH_TO_CONTEXT, {'name': context_name})

@@ -32,10 +32,10 @@ class MultiAction(object):
     def add(self, *touch_actions):
         """Add TouchAction objects to the MultiAction, to be performed later.
 
-        :Args:
-         - touch_actions - one or more TouchAction objects describing a chain of actions to be performed by one finger
+        Args:
+            touch_actions (`TouchAction`): one or more TouchAction objects describing a chain of actions to be performed by one finger
 
-        :Usage:
+        Usage:
             a1 = TouchAction(driver)
             a1.press(el1).move_to(el2).release()
             a2 = TouchAction(driver)
@@ -52,7 +52,7 @@ class MultiAction(object):
     def perform(self):
         """Perform the actions stored in the object.
 
-        :Usage:
+        Usage:
             a1 = TouchAction(driver)
             a1.press(el1).move_to(el2).release()
             a2 = TouchAction(driver)

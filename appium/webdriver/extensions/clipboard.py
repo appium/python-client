@@ -25,13 +25,13 @@ from ..mobilecommand import MobileCommand as Command
 class Clipboard(webdriver.Remote):
 
     def set_clipboard(self, content, content_type=ClipboardContentType.PLAINTEXT, label=None):
-        """
-        Set the content of the system clipboard
+        """Set the content of the system clipboard
 
-        :param content: The content to be set as bytearray string
-        :param content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
-        is supported on Android
-        :param label: Optional label argument, which only works for Android
+        Args:
+            content (str): The content to be set as bytearray string
+            content_type (str): One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
+                is supported on Android
+            label (:obj:`str`, optional): label argument, which only works for Android
         """
         options = {
             'content': base64.b64encode(content).decode('UTF-8'),
@@ -42,23 +42,24 @@ class Clipboard(webdriver.Remote):
         self.execute(Command.SET_CLIPBOARD, options)
 
     def set_clipboard_text(self, text, label=None):
-        """
-        Copies the given text to the system clipboard
+        """Copies the given text to the system clipboard
 
-        :param text: The text to be set
-        :param label: Optional label argument, which only works for Android
+        Args:
+            text (str): The text to be set
+            label (:obj:`int`, optional):label argument, which only works for Android
         """
 
         self.set_clipboard(appium_bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
 
     def get_clipboard(self, content_type=ClipboardContentType.PLAINTEXT):
-        """
-        Receives the content of the system clipboard
+        """Receives the content of the system clipboard
 
-        :param content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
-        is supported on Android
-        :return: Clipboard content as base64-encoded string or an empty string
-        if the clipboard is empty
+        Args:
+            content_type (str): One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
+                is supported on Android
+
+        Returns:
+            base64-encoded string: Clipboard content. Or return an empty string if the clipboard is empty
         """
         base64_str = self.execute(Command.GET_CLIPBOARD, {
             'contentType': content_type
@@ -66,10 +67,10 @@ class Clipboard(webdriver.Remote):
         return base64.b64decode(base64_str)
 
     def get_clipboard_text(self):
-        """
-        Receives the text of the system clipboard
+        """Receives the text of the system clipboard
 
-        :return: The actual clipboard text or an empty string if the clipboard is empty
+        Return:
+            str: The actual clipboard text or an empty string if the clipboard is empty
         """
         return self.get_clipboard(ClipboardContentType.PLAINTEXT).decode('UTF-8')
 

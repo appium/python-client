@@ -20,17 +20,22 @@ from ..mobilecommand import MobileCommand as Command
 class Settings(webdriver.Remote):
     def get_settings(self):
         """Returns the appium server Settings for the current session.
+
         Do not get Settings confused with Desired Capabilities, they are
         separate concepts. See https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
+
+        Returns:
+            dict: Current settings
         """
         return self.execute(Command.GET_SETTINGS, {})['value']
 
     def update_settings(self, settings):
         """Set settings for the current session.
+
         For more on settings, see: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
 
-        :Args:
-         - settings - dictionary of settings to apply to the current test session
+        Args:
+            settings (dict): dictionary of settings to apply to the current test session
         """
         data = {"settings": settings}
 

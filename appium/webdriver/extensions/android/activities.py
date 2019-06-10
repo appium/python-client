@@ -26,16 +26,18 @@ class Activities(webdriver.Remote):
 
         This is an Android-only method.
 
-        :Args:
-        - app_package - The package containing the activity to start.
-        - app_activity - The activity to start.
-        - app_wait_package - Begin automation after this package starts (optional).
-        - app_wait_activity - Begin automation after this activity starts (optional).
-        - intent_action - Intent to start (optional).
-        - intent_category - Intent category to start (optional).
-        - intent_flags - Flags to send to the intent (optional).
-        - optional_intent_arguments - Optional arguments to the intent (optional).
-        - dont_stop_app_on_reset - Should the app be stopped on reset (optional)?
+        Args:
+            app_package (str): The package containing the activity to start.
+            app_activity (str): The activity to start.
+
+        Keyword Args:
+            app_wait_package (str): Begin automation after this package starts.
+            app_wait_activity (str): Begin automation after this activity starts.
+            intent_action (str): Intent to start.
+            intent_category (str): Intent category to start.
+            intent_flags (str): Flags to send to the intent.
+            optional_intent_arguments (str): Optional arguments to the intent.
+            dont_stop_app_on_reset (str): Should the app be stopped on reset?
         """
         data = {
             'appPackage': app_package,
@@ -59,19 +61,21 @@ class Activities(webdriver.Remote):
     @property
     def current_activity(self):
         """Retrieves the current activity running on the device.
+
+        Returns:
+            str: The current activity name running on the device
         """
         return self.execute(Command.GET_CURRENT_ACTIVITY)['value']
 
     def wait_activity(self, activity, timeout, interval=1):
-        """Wait for an activity: block until target activity presents
-        or time out.
+        """Wait for an activity: block until target activity presents or time out.
 
         This is an Android-only method.
 
-        :Args:
-         - activity - target activity
-         - timeout - max wait time, in seconds
-         - interval - sleep interval between retries, in seconds
+        Args:
+            activity (str): target activity
+            timeout (int): max wait time, in seconds
+            interval (int): sleep interval between retries, in seconds
         """
         try:
             WebDriverWait(self, timeout, interval).until(

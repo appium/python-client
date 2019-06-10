@@ -48,12 +48,13 @@ class Gsm(webdriver.Remote):
 
     def make_gsm_call(self, phone_number, action):
         """Make GSM call (Emulator only)
+
         Android only.
 
-        :Args:
-         - phone_number (str): The phone number to call to.
-         - action (str): The call action.
-           A member of the const appium.webdriver.extensions.android.gsm.GsmCallActions
+        Args:
+            phone_number (str): The phone number to call to.
+            action (str): The call action.
+                A member of the const appium.webdriver.extensions.android.gsm.GsmCallActions
 
         :Usage:
             self.driver.make_gsm_call('5551234567', GsmCallActions.CALL)
@@ -67,13 +68,14 @@ class Gsm(webdriver.Remote):
 
     def set_gsm_signal(self, strength):
         """Set GSM signal strength (Emulator only)
+
         Android only.
 
-        :Args:
-         - strength (int): Signal strength.
-           A member of the enum appium.webdriver.extensions.android.gsm.GsmSignalStrength
+        Args:
+            strength (int): Signal strength.
+                A member of the enum appium.webdriver.extensions.android.gsm.GsmSignalStrength
 
-        :Usage:
+        Usage:
             self.driver.set_gsm_signal(GsmSignalStrength.GOOD)
         """
         constants = extract_const_attributes(GsmSignalStrength)
@@ -85,13 +87,14 @@ class Gsm(webdriver.Remote):
 
     def set_gsm_voice(self, state):
         """Set GSM voice state (Emulator only)
+
         Android only.
 
-        :Args:
-         - state(str): State of GSM voice.
-           A member of the const appium.webdriver.extensions.android.gsm.GsmVoiceState
+        Args:
+            state (str): State of GSM voice.
+                A member of the const appium.webdriver.extensions.android.gsm.GsmVoiceState
 
-        :Usage:
+        Usage:
             self.driver.set_gsm_voice(GsmVoiceState.HOME)
         """
         constants = extract_const_attributes(GsmVoiceState)

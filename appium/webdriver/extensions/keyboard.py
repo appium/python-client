@@ -20,12 +20,15 @@ from ..mobilecommand import MobileCommand as Command
 class Keyboard(webdriver.Remote):
 
     def hide_keyboard(self, key_name=None, key=None, strategy=None):
-        """Hides the software keyboard on the device. In iOS, use `key_name` to press
+        """Hides the software keyboard on the device.
+
+        In iOS, use `key_name` to press
         a particular key, or `strategy`. In Android, no parameters are used.
 
-        :Args:
-         - key_name - key to press
-         - strategy - strategy for closing the keyboard (e.g., `tapOutside`)
+        Args:
+            key_name (:obj:`str`, optional): key to press
+            key (:obj:`str`, optional):
+            strategy (:obj:`str`, optional): strategy for closing the keyboard (e.g., `tapOutside`)
         """
         data = {}
         if key_name is not None:
@@ -39,16 +42,25 @@ class Keyboard(webdriver.Remote):
         return self
 
     def is_keyboard_shown(self):
-        """Attempts to detect whether a software keyboard is present"""
+        """Attempts to detect whether a software keyboard is present
+
+        Returns:
+            bool: `True` if keyboard is shown
+        """
         return self.execute(Command.IS_KEYBOARD_SHOWN)['value']
 
     def keyevent(self, keycode, metastate=None):
-        """Sends a keycode to the device. Android only. Possible keycodes can be
-        found in http://developer.android.com/reference/android/view/KeyEvent.html.
+        """Sends a keycode to the device.
 
-        :Args:
-         - keycode - the keycode to be sent to the device
-         - metastate - meta information about the keycode being sent
+        Android only.
+        Possible keycodes can be found in http://developer.android.com/reference/android/view/KeyEvent.html.
+
+        Args:
+            keycode (int): the keycode to be sent to the device
+            metastate (:obj:`int`, optional): meta information about the keycode being sent
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'keycode': keycode,
@@ -59,13 +71,17 @@ class Keyboard(webdriver.Remote):
         return self
 
     def press_keycode(self, keycode, metastate=None, flags=None):
-        """Sends a keycode to the device. Android only. Possible keycodes can be
-        found in http://developer.android.com/reference/android/view/KeyEvent.html.
+        """Sends a keycode to the device.
 
-        :Args:
-         - keycode - the keycode to be sent to the device
-         - metastate - meta information about the keycode being sent
-         - flags - the set of key event flags
+        Android only. Possible keycodes can be found in http://developer.android.com/reference/android/view/KeyEvent.html.
+
+        Args:
+            keycode (int): the keycode to be sent to the device
+            metastate (:obj:`int`, optional): meta information about the keycode being sent
+            flags (:obj:`int`, optional): the set of key event flags
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'keycode': keycode,
@@ -78,13 +94,17 @@ class Keyboard(webdriver.Remote):
         return self
 
     def long_press_keycode(self, keycode, metastate=None, flags=None):
-        """Sends a long press of keycode to the device. Android only. Possible keycodes can be
-        found in http://developer.android.com/reference/android/view/KeyEvent.html.
+        """Sends a long press of keycode to the device.
 
-        :Args:
-         - keycode - the keycode to be sent to the device
-         - metastate - meta information about the keycode being sent
-         - flags - the set of key event flags
+        Android only. Possible keycodes can be found in http://developer.android.com/reference/android/view/KeyEvent.html.
+
+        Args:
+            keycode (int): the keycode to be sent to the device
+            metastate (:obj:`int`, optional): meta information about the keycode being sent
+            flags (:obj:`int`, optional): the set of key event flags
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'keycode': keycode

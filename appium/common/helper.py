@@ -18,17 +18,16 @@ from appium import version as appium_version
 
 
 def appium_bytes(value, encoding):
-    """
-    Return a bytes-like object. Has _appium_ prefix to avoid overriding built-in bytes.
+    """Return a bytes-like object
 
-    :param value: A value to convert
-    :type value: string
+    Has _appium_ prefix to avoid overriding built-in bytes.
 
-    :param encoding: A encoding which will convert to
-    :type encoding: string
+    Args:
+        value (str): A value to convert
+        encoding (str): A encoding which will convert to
 
-    :return: A bytes-like object
-    :rtype: string
+    Returns:
+        str: A bytes-like object
     """
 
     try:
@@ -38,22 +37,20 @@ def appium_bytes(value, encoding):
 
 
 def extract_const_attributes(cls):
-    """
-    Return dict with constants attributes and values in the class (e.g. {'VAL1': 1, 'VAL2': 2})
+    """Return dict with constants attributes and values in the class(e.g. {'VAL1': 1, 'VAL2': 2})
 
-    :param cls: Class to be extracted constants
-    :type cls: type
+    Args:
+        cls (type): Class to be extracted constants
 
-    :return: dict with constants attributes and values in the class
-    :rtype: OrderedDict
+    Returns:
+        OrderedDict: dict with constants attributes and values in the class
     """
     return OrderedDict(
         [(attr, value) for attr, value in vars(cls).items() if not callable(getattr(cls, attr)) and attr.isupper()])
 
 
 def library_version():
-    """
-    Return a version of this python library
+    """Return a version of this python library
     """
 
     return appium_version.version

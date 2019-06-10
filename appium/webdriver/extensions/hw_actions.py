@@ -22,11 +22,14 @@ class HardwareActions(webdriver.Remote):
     def lock(self, seconds=None):
         """Lock the device. No changes are made if the device is already unlocked.
 
-        :Args:
-         - seconds - (optional) the duration to lock the device, in seconds.
-         The device is going to be locked forever until `unlock` is called
-         if it equals or is less than zero, otherwise this call blocks until
-         the timeout expires and unlocks the screen automatically.
+        Args:
+            seconds (optional): The duration to lock the device, in seconds.
+                The device is going to be locked forever until `unlock` is called
+                if it equals or is less than zero, otherwise this call blocks until
+                the timeout expires and unlocks the screen automatically.
+
+        Returns:
+            `WebDriver`
         """
         if seconds is None:
             self.execute(Command.LOCK)
@@ -36,8 +39,10 @@ class HardwareActions(webdriver.Remote):
         return self
 
     def unlock(self):
-        """Unlock the device. No changes are made if the device
-        is already locked.
+        """Unlock the device. No changes are made if the device is already locked.
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.UNLOCK)
         return self
@@ -45,19 +50,28 @@ class HardwareActions(webdriver.Remote):
     def is_locked(self):
         """Checks whether the device is locked.
 
-        :returns:
-         Either True or False
+        Returns:
+            bool: `True` if the device is locked
         """
         return self.execute(Command.IS_LOCKED)['value']
 
     def shake(self):
         """Shake the device.
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.SHAKE)
         return self
 
     def touch_id(self, match):
         """Simulate touchId on iOS Simulator
+
+        Args:
+            match (bool): Simulates a successful touch (`True`) or a failed touch (`False`)
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'match': match
@@ -67,15 +81,21 @@ class HardwareActions(webdriver.Remote):
 
     def toggle_touch_id_enrollment(self):
         """Toggle enroll touchId on iOS Simulator
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.TOGGLE_TOUCH_ID_ENROLLMENT)
         return self
 
     def finger_print(self, finger_id):
-        """
-        Authenticate users by using their finger print scans on supported Android emulators.
+        """Authenticate users by using their finger print scans on supported Android emulators.
 
-        :param finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
+        Args:
+            finger_id (int): Finger prints stored in Android Keystore system (from 1 to 10)
+
+        Returns:
+            TODO
         """
         return self.execute(Command.FINGER_PRINT, {'fingerprintId': finger_id})['value']
 

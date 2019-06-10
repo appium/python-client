@@ -22,21 +22,27 @@ class DeviceTime(webdriver.Remote):
     @property
     def device_time(self):
         """Returns the date and time from the device.
+
+        Return:
+            str: The date and time
         """
         return self.execute(Command.GET_DEVICE_TIME_GET, {})['value']
 
     def get_device_time(self, format=None):
         """Returns the date and time from the device.
 
-        :Args:
-         - format - (optional) The set of format specifiers. Read https://momentjs.com/docs/
-           to get the full list of supported datetime format specifiers.
-           If unset, return :func:`.device_time` as default format is `YYYY-MM-DDTHH:mm:ssZ`,
-           which complies to ISO-8601
+        Args:
+            format (optional):  The set of format specifiers. Read https://momentjs.com/docs/
+                to get the full list of supported datetime format specifiers.
+                If unset, return :func:`.device_time` as default format is `YYYY-MM-DDTHH:mm:ssZ`,
+                which complies to ISO-8601
 
-        :Usage:
+        Usage:
             self.driver.get_device_time()
             self.driver.get_device_time("YYYY-MM-DD")
+
+        Return:
+            str: The date and time
         """
         if format is None:
             return self.device_time

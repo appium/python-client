@@ -36,6 +36,7 @@ class Network(webdriver.Remote):
     @property
     def network_connection(self):
         """Returns an integer bitmask specifying the network connection type.
+
         Android only.
         Possible values are available through the enumeration `appium.webdriver.ConnectionType`
         """
@@ -43,6 +44,7 @@ class Network(webdriver.Remote):
 
     def set_network_connection(self, connection_type):
         """Sets the network connection type. Android only.
+
         Possible values:
             Value (Alias)      | Data | Wifi | Airplane Mode
             -------------------------------------------------
@@ -53,8 +55,11 @@ class Network(webdriver.Remote):
             6 (All network on) | 1    | 1    | 0
         These are available through the enumeration `appium.webdriver.ConnectionType`
 
-        :Args:
-         - connection_type - a member of the enum appium.webdriver.ConnectionType
+        Args:
+            connection_type (int): a member of the enum appium.webdriver.ConnectionType
+
+        Returns:
+            `WebDriver`
         """
         data = {
             'parameters': {
@@ -65,20 +70,27 @@ class Network(webdriver.Remote):
 
     def toggle_wifi(self):
         """Toggle the wifi on the device, Android only.
+
+        Returns:
+            `WebDriver`
         """
         self.execute(Command.TOGGLE_WIFI, {})
         return self
 
     def set_network_speed(self, speed_type):
         """Set the network speed emulation.
+
         Android Emulator only.
 
-        :Args:
-         - speed_type (str): The network speed type.
-           A member of the const appium.webdriver.extensions.android.network.NetSpeed.
+        Args:
+            speed_type (str): The network speed type.
+                A member of the const appium.webdriver.extensions.android.network.NetSpeed.
 
-        :Usage:
+        Usage:
             self.driver.set_network_speed(NetSpeed.LTE)
+
+        Returns:
+            `WebDriver`
         """
         constants = extract_const_attributes(NetSpeed)
         if speed_type not in constants.values():

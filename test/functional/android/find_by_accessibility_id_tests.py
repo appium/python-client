@@ -27,7 +27,6 @@ class FindByAccessibilityIDTests(unittest.TestCase):
         self.driver.quit()
 
     def test_find_single_element(self):
-        self.skipTest('Failed during running on ci')
         self.driver.find_element_by_android_uiautomator('new UiSelector().text("Accessibility")').click()
         self.driver.find_element_by_android_uiautomator('new UiSelector().text("Accessibility Node Querying")').click()
         el = self.driver.find_element_by_accessibility_id('Task Take out Trash')
@@ -38,7 +37,6 @@ class FindByAccessibilityIDTests(unittest.TestCase):
         self.assertIsInstance(els, list)
 
     def test_element_find_single_element(self):
-        self.skipTest('Failed during running on ci')
         self.driver.find_element_by_android_uiautomator('new UiSelector().text("Accessibility")').click()
         self.driver.find_element_by_android_uiautomator('new UiSelector().text("Accessibility Node Querying")').click()
         el = self.driver.find_element_by_class_name('android.widget.ListView')

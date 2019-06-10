@@ -148,7 +148,6 @@ class TouchActionTests(unittest.TestCase):
         self.assertIsNotNone(el)
 
     def test_long_press_x_y(self):
-        self.skipTest('Failed during running on ci')
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
 
@@ -195,7 +194,6 @@ class TouchActionTests(unittest.TestCase):
         self.assertTrue('drag_dot_3' in el.text)
 
     def test_driver_drag_and_drop(self):
-        self.skipTest('Failed during running on ci')
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)

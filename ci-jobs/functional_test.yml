@@ -1,25 +1,31 @@
 parameters:
-    vmImage: 'macOS-10.14'
-    pytestOpt: '--doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html'
+  vmImage: 'macOS-10.14'
+  pytestOpt: '--doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html'
 
 jobs:
-  - job: func_test_ios1
-    pool:
+  - template: ./functional/run_ios_test.yml
+    parameters:
+      name: 'func_test_ios1'
       vmImage: ${{ parameters.vmImage }}
-    steps:
-      - template: ./functional/run_appium.yml
-      - script: |
-          cd test/functional/ios
-          py.test find_*.py remote_fs_tests.py safari_tests.py ${{ parameters.pytestOpt }}
-        displayName: Run functional tests
-      - template: ./functional/publish_test_result.yml
-  - job: func_test_ios2
-    pool:
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'find_*.py remote_fs_tests.py safari_tests.py'
+  - template: ./functional/run_ios_test.yml
+    parameters:
+      name: 'func_test_ios2'
       vmImage: ${{ parameters.vmImage }}
-    steps:
-      - template: ./functional/run_appium.yml
-      - script: |
-          cd test/functional/ios
-          py.test applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py ${{ parameters.pytestOpt }}
-        displayName: Run functional tests
-      - template: ./functional/publish_test_result.yml
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py'
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android1'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'location_tests.py'
+      sdkVer: 28
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android2'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'remote_fs_tests.py'
+      sdkVer: 28

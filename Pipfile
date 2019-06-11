@@ -8,12 +8,17 @@ pre-commit = "~=1.13"
 
 [packages]
 selenium = "~=3.141"
+
 autopep8 = "~=1.4"
-httpretty = "~=0.9"
+
 pytest = "~=4.0"
 pytest-cov = "~=2.6"
+
 tox = "~=3.6"
 tox-travis = "~=0.11"
+
+httpretty = "~=0.9"
+python-dateutil = "~=2.8"
 
 # TODO Update to the latest ver when py2 support dropped
 pylint = "~=1.9"

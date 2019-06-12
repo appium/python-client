@@ -27,7 +27,7 @@ jobs:
       name: 'func_test_android2'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'hw_actions_tests.py ime_tests.py keyboard_tests.py location_tests.py network_connection_tests.py'
+      testFiles: 'hw_actions_tests.py ime_tests.py keyboard_tests.py location_tests.py'
       sdkVer: 28
   - template: ./functional/run_android_test.yml
     parameters:
@@ -70,4 +70,11 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
       testFiles: 'applications_tests.py'
+      sdkVer: 28
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android9'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'network_connection_tests.py'
       sdkVer: 28

@@ -34,7 +34,7 @@ jobs:
       name: 'func_test_android3'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'activities_tests.py touch_action_tests.py'
+      testFiles: 'activities_tests.py'
       sdkVer: 28
   - template: ./functional/run_android_test.yml
     parameters:
@@ -48,7 +48,7 @@ jobs:
       name: 'func_test_android5'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'applications_tests.py chrome_tests.py context_switching_tests.py remote_fs_tests.py'
+      testFiles: 'chrome_tests.py context_switching_tests.py remote_fs_tests.py'
       sdkVer: 28
   - template: ./functional/run_android_test.yml
     parameters:
@@ -62,5 +62,12 @@ jobs:
       name: 'func_test_android7'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'multi_action_tests.py'
+      testFiles: 'multi_action_tests.py touch_action_tests.py'
+      sdkVer: 28
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android8'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'applications_tests.py'
       sdkVer: 28

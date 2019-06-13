@@ -555,12 +555,6 @@ class WebDriver(
         """
         return MobileWebElement(self, element_id)
 
-    def reset(self):
-        """Resets the current application on the device.
-        """
-        self.execute(Command.RESET)
-        return self
-
     def press_button(self, button_name):
         """Sends a physical button name to the device to simulate the user pressing.
 
@@ -678,8 +672,6 @@ class WebDriver(
             ('POST', '/session/$sessionId/appium/app/close')
         self.command_executor._commands[Command.END_TEST_COVERAGE] = \
             ('POST', '/session/$sessionId/appium/app/end_test_coverage')
-        self.command_executor._commands[Command.RESET] = \
-            ('POST', '/session/$sessionId/appium/app/reset')
         self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
             ('POST', '/session/$sessionId/appium/device/open_notifications')
         self.command_executor._commands[Command.REPLACE_KEYS] = \

@@ -183,6 +183,12 @@ class Applications(webdriver.Remote):
             data['stringFile'] = string_file
         return self.execute(Command.GET_APP_STRINGS, data)['value']
 
+    def reset(self):
+        """Resets the current application on the device.
+        """
+        self.execute(Command.RESET)
+        return self
+
     # pylint: disable=protected-access
 
     def _addCommands(self):
@@ -202,3 +208,5 @@ class Applications(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/app_state')
         self.command_executor._commands[Command.GET_APP_STRINGS] = \
             ('POST', '/session/$sessionId/appium/app/strings')
+        self.command_executor._commands[Command.RESET] = \
+            ('POST', '/session/$sessionId/appium/app/reset')

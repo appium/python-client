@@ -55,8 +55,9 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
     - It generates readable changelog
 - Setup
     - `pip install --user pipenv`
-    - `pipenv lock --clear`
-    - `pipenv install --dev --system`
+    - `python -m pipenv lock --clear`
+       - If you have [this error](https://github.com/pypa/pipenv/issues/187https://github.com/pypa/pipenv/issues/187), refer the link to solve.
+    - `pytonh -m pipenv install --dev --system`
     - `pre-commit install`
 
 ## Run tests

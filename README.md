@@ -56,7 +56,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 - Setup
     - `pip install --user pipenv`
     - `python -m pipenv lock --clear`
-       - If you have below error, refer [this link]((https://github.com/pypa/pipenv/issues/187)) to solve it.
+       - If you have below error, refer [this link](https://github.com/pypa/pipenv/issues/187) to solve it.
           ```
           Locking [dev-packages] dependencies…
           ✘ Locking Failed!

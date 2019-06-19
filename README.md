@@ -56,25 +56,9 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 - Setup
     - `pip install --user pipenv`
     - `python -m pipenv lock --clear`
-       - If you have below error, refer [this link](https://github.com/pypa/pipenv/issues/187) to solve it.
+       - If you experience the below error, then refer [pypa/pipenv#187](https://github.com/pypa/pipenv/issues/187) to solve it.
           ```
-          Locking [dev-packages] dependencies…
-          ✘ Locking Failed!
-          Traceback (most recent call last):
-            File "/Users/user/Library/Python/3.7/lib/python/site-packages/pipenv/resolver.py", line 124, in <module>
-              from pipenv.vendor import colorama
-            File "/Users/user/Library/Python/3.7/lib/python/site-packages/pipenv/__init__.py", line 22, in <module>
-              from pipenv.vendor.vistir.compat import ResourceWarning, fs_str
-            File "/Users/user/Library/Python/3.7/lib/python/site-packages/pipenv/vendor/vistir/__init__.py", line 18, in <module>
-              from .misc import (
-            File "/Users/user/Library/Python/3.7/lib/python/site-packages/pipenv/vendor/vistir/misc.py", line 515, in <module>
-              PREFERRED_ENCODING = getpreferredencoding()
-            File "/Users/user/Library/Python/3.7/lib/python/site-packages/pipenv/vendor/vistir/misc.py", line 509, in getpreferredencoding
-              _default_encoding = locale.getdefaultlocale()[1]
-            File "/Users/user/.local/share/virtualenvs/python-client-kx7E6_fq/lib/python2.7/locale.py", line 545, in getdefaultlocale
-              return _parse_localename(localename)
-            File "/Users/user/.local/share/virtualenvs/python-client-kx7E6_fq/lib/python2.7/locale.py", line 477, in _parse_localename
-              raise ValueError, 'unknown locale: %s' % localename
+          Locking Failed! unknown locale: UTF-8
           ```
     - `python -m pipenv install --dev --system`
     - `pre-commit install`

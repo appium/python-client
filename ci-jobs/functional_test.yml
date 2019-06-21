@@ -22,10 +22,3 @@ jobs:
       pytestOpt: ${{ parameters.pytestOpt }}
       testFiles: 'location_tests.py'
       sdkVer: 28
-  - template: ./functional/run_android_test.yml
-    parameters:
-      name: 'func_test_android2'
-      vmImage: ${{ parameters.vmImage }}
-      pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'remote_fs_tests.py'
-      sdkVer: 28

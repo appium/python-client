@@ -44,8 +44,8 @@ return [element, rect];
         """
         result = driver.execute_driver(script=script)
         # Python client convert an element item as WebElement in the result
-        assert result['result'][0].id == '39000000-0000-0000-D39A-000000000000'
-        assert result['result'][1]['y'] == 237
+        assert result.result[0].id == '39000000-0000-0000-D39A-000000000000'
+        assert result.result[1]['y'] == 237
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['script'] == script
@@ -72,8 +72,8 @@ const rect = await driver.getElementRect(element.ELEMENT);
 return [element, rect];
         """
         result = driver.execute_driver(script=script, timeout=10000)
-        assert result['result'][0].id == '39000000-0000-0000-D39A-000000000000'
-        assert result['result'][1]['y'] == 237
+        assert result.result[0].id == '39000000-0000-0000-D39A-000000000000'
+        assert result.result[1]['y'] == 237
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['script'] == script

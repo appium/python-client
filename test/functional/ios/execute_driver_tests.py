@@ -34,8 +34,8 @@ return status;
         """
 
         result = self.driver.execute_driver(script=script)
-        assert(result['result']['build'])
-        assert(result['logs']['warn'] == ['warning message'])
+        assert(result.result['build'])
+        assert(result.logs['warn'] == ['warning message'])
 
     def test_batch_combination_python_script(self):
         script = """
@@ -46,9 +46,9 @@ return [element, rect];
         """
 
         result = self.driver.execute_driver(script=script)
-        r = result['result'][0].rect
+        r = result.result[0].rect
 
-        assert(r == result['result'][1])
+        assert(r == result.result[1])
 
 
 if __name__ == '__main__':

@@ -35,14 +35,21 @@ class ExecuteDriver(webdriver.Remote):
             self.driver.execute_driver(script='return [];', script_type='webdriverio', timeout=10000)
 
         Return:
-            Dir[str, any]: The result of the script. It has 'result' and 'logs' keys.
+            ExecuteDriver.Result: The result of the script. It has 'result' and 'logs' keys.
         """
+
+        class Result(object):
+
+            def __init__(self, response):
+                self.result = response['result']
+                self.logs = response['logs']
 
         option = {'script': script, 'type': script_type}
         if timeout is not None:
             option['timeout'] = timeout
 
-        return self.execute(Command.EXECUTE_DRIVER, option)['value']
+        response = self.execute(Command.EXECUTE_DRIVER, option)['value']
+        return Result(response)
 
     # pylint: disable=protected-access
 

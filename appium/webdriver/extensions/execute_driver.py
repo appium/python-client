@@ -19,26 +19,26 @@ from ..mobilecommand import MobileCommand as Command
 
 class ExecuteDriver(webdriver.Remote):
 
-    def execute_driver(self, script='', type='webdriverio', timeout=None):
+    def execute_driver(self, script, script_type='webdriverio', timeout=None):
         """Run a set of script against the current session, allowing execution of many commands in one Appium request.
         Please read http://appium.io/docs/en/commands/session/execute-driver for more details about the acceptable
         scripts and the output format.
 
         Args:
             script (string): The string consisting of the script itself
-            type (string): The name of the script type. Defaults to 'webdriverio'.
+            script_type (string): The name of the script type. Defaults to 'webdriverio'.
             timeout (optional): The number of `ms` Appium should wait for the script to finish before killing it due to timeout.
 
         Usage:
             self.driver.execute_driver(script='return [];')
-            self.driver.execute_driver(script='return [];', type='webdriverio')
-            self.driver.execute_driver(script='return [];', type='webdriverio', timeout=10000)
+            self.driver.execute_driver(script='return [];', script_type='webdriverio')
+            self.driver.execute_driver(script='return [];', script_type='webdriverio', timeout=10000)
 
         Return:
             Dir[str, any]: The result of the script. It has 'result' and 'logs' keys.
         """
 
-        option = {'script': script, 'type': type}
+        option = {'script': script, 'type': script_type}
         if timeout is not None:
             option['timeout'] = timeout
 

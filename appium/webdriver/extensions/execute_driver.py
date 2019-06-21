@@ -20,16 +20,22 @@ from ..mobilecommand import MobileCommand as Command
 class ExecuteDriver(webdriver.Remote):
 
     def execute_driver(self, script='', type='webdriverio', timeout=None):
-        """Returns the date and time from the device.
+        """Run a set of script against the current session, allowing execution of many commands in one Appium request.
+        Please read http://appium.io/docs/en/commands/session/execute-driver for more details about the acceptable
+        scripts and the output format.
 
         Args:
+            script (string): The string consisting of the script itself
+            type (string): The name of the script type. Defaults to 'webdriverio'.
+            timeout (optional): The number of `ms` Appium should wait for the script to finish before killing it due to timeout.
 
         Usage:
-            self.driver.get_device_time()
-            self.driver.get_device_time("YYYY-MM-DD")
+            self.driver.execute_driver(script='return [];')
+            self.driver.execute_driver(script='return [];', type='webdriverio')
+            self.driver.execute_driver(script='return [];', type='webdriverio', timeout=10000)
 
         Return:
-            [Dir[str, any]]: The result of the script
+            Dir[str, any]: The result of the script. It has 'result' and 'logs' keys.
         """
 
         option = {'script': script, 'type': type}

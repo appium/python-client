@@ -72,7 +72,6 @@ const rect = await driver.getElementRect(element.ELEMENT);
 return [element, rect];
         """
         result = driver.execute_driver(script=script, timeout=10000)
-        # Python client convert an element item as WebElement in the result
         assert result['result'][0].id == '39000000-0000-0000-D39A-000000000000'
         assert result['result'][1]['y'] == 237
 

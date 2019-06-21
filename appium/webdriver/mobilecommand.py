@@ -72,6 +72,8 @@ class MobileCommand(object):
     COMPARE_IMAGES = 'compareImages'
     IS_KEYBOARD_SHOWN = 'isKeyboardShown'
 
+    EXECUTE_DRIVER = 'executeDriver'
+
     # Android
     OPEN_NOTIFICATIONS = 'openNotifications'
     START_ACTIVITY = 'startActivity'

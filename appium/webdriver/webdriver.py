@@ -40,6 +40,7 @@ from .extensions.applications import Applications
 from .extensions.clipboard import Clipboard
 from .extensions.context import Context
 from .extensions.device_time import DeviceTime
+from .extensions.execute_driver import ExecuteDriver
 from .extensions.hw_actions import HardwareActions
 from .extensions.images_comparison import ImagesComparison
 from .extensions.ime import IME
@@ -116,6 +117,7 @@ class WebDriver(
     Context,
     DeviceTime,
     Display,
+    ExecuteDriver,
     Gsm,
     HardwareActions,
     ImagesComparison,
@@ -580,7 +582,7 @@ class WebDriver(
         """
         return self.find_elements(by=MobileBy.CUSTOM, value=selector)
 
-    def create_web_element(self, element_id):
+    def create_web_element(self, element_id, w3c=False):
         """Creates a web element with the specified element_id.
 
         Overrides method in Selenium WebDriver in order to always give them
@@ -588,11 +590,12 @@ class WebDriver(
 
         Args:
             element_id (int): The element id to create a web element
+            w3c (bool): Whether the element is W3C or MJSONWP
 
         Returns:
             `MobileWebElement`
         """
-        return MobileWebElement(self, element_id)
+        return MobileWebElement(self, element_id, w3c)
 
     def press_button(self, button_name):
         """Sends a physical button name to the device to simulate the user pressing.

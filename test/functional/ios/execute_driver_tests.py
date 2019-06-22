@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import textwrap
 import unittest
 
 from appium import webdriver
@@ -28,24 +29,24 @@ class ExecuteDriverTests(unittest.TestCase):
 
     def test_batch(self):
         script = """
-const status = await driver.status();
-console.warn('warning message');
-return status;
+            const status = await driver.status();
+            console.warn('warning message');
+            return status;
         """
 
-        result = self.driver.execute_driver(script=script)
+        result = self.driver.execute_driver(script=textwrap.dedent(script))
         assert(result.result['build'])
         assert(result.logs['warn'] == ['warning message'])
 
     def test_batch_combination_python_script(self):
         script = """
-console.warn('warning message');
-const element = await driver.findElement('accessibility id', 'Buttons');
-const rect = await driver.getElementRect(element.ELEMENT);
-return [element, rect];
+            console.warn('warning message');
+            const element = await driver.findElement('accessibility id', 'Buttons');
+            const rect = await driver.getElementRect(element.ELEMENT);
+            return [element, rect];
         """
 
-        result = self.driver.execute_driver(script=script)
+        result = self.driver.execute_driver(script=textwrap.dedent(script))
         r = result.result[0].rect
 
         assert(r == result.result[1])

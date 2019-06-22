@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import textwrap
 from test.unit.helper.test_helper import (
     android_w3c_driver,
     appium_command,
@@ -37,18 +38,18 @@ class TestWebDriverDeviceActivities(object):
         )
 
         script = """
-console.warn('warning message');
-const element = await driver.findElement('accessibility id', 'Buttons');
-const rect = await driver.getElementRect(element.ELEMENT);
-return [element, rect];
+            console.warn('warning message');
+            const element = await driver.findElement('accessibility id', 'Buttons');
+            const rect = await driver.getElementRect(element.ELEMENT);
+            return [element, rect];
         """
-        result = driver.execute_driver(script=script)
+        result = driver.execute_driver(script=textwrap.dedent(script))
         # Python client convert an element item as WebElement in the result
         assert result.result[0].id == '39000000-0000-0000-D39A-000000000000'
         assert result.result[1]['y'] == 237
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['script'] == script
+        assert d['script'] == textwrap.dedent(script)
         assert d['type'] == 'webdriverio'
         assert 'timeout' not in d
 
@@ -66,16 +67,16 @@ return [element, rect];
         )
 
         script = """
-console.warn('warning message');
-const element = await driver.findElement('accessibility id', 'Buttons');
-const rect = await driver.getElementRect(element.ELEMENT);
-return [element, rect];
+            console.warn('warning message');
+            const element = await driver.findElement('accessibility id', 'Buttons');
+            const rect = await driver.getElementRect(element.ELEMENT);
+            return [element, rect];
         """
-        result = driver.execute_driver(script=script, timeout=10000)
+        result = driver.execute_driver(script=textwrap.dedent(script), timeout_ms=10000)
         assert result.result[0].id == '39000000-0000-0000-D39A-000000000000'
         assert result.result[1]['y'] == 237
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['script'] == script
+        assert d['script'] == textwrap.dedent(script)
         assert d['type'] == 'webdriverio'
         assert d['timeout'] == 10000

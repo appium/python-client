@@ -34,8 +34,11 @@ class ExecuteDriver(webdriver.Remote):
             self.driver.execute_driver(script='return [];', script_type='webdriverio')
             self.driver.execute_driver(script='return [];', script_type='webdriverio', timeout_ms=10000)
 
-        Return:
+        Returns:
             ExecuteDriver.Result: The result of the script. It has 'result' and 'logs' keys.
+
+        Raises:
+            WebDriverException: If something error happenes in the script. The message has the original error message.
         """
 
         class Result(object):

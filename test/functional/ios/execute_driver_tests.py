@@ -34,9 +34,9 @@ class ExecuteDriverTests(unittest.TestCase):
             return status;
         """
 
-        result = self.driver.execute_driver(script=textwrap.dedent(script))
-        assert(result.result['build'])
-        assert(result.logs['warn'] == ['warning message'])
+        response = self.driver.execute_driver(script=textwrap.dedent(script))
+        assert(response.result['build'])
+        assert(response.logs['warn'] == ['warning message'])
 
     def test_batch_combination_python_script(self):
         script = """
@@ -46,10 +46,10 @@ class ExecuteDriverTests(unittest.TestCase):
             return [element, rect];
         """
 
-        result = self.driver.execute_driver(script=textwrap.dedent(script))
-        r = result.result[0].rect
+        response = self.driver.execute_driver(script=textwrap.dedent(script))
+        r = response.result[0].rect
 
-        assert(r == result.result[1])
+        assert(r == response.result[1])
 
 
 if __name__ == '__main__':

@@ -33,7 +33,7 @@ class Power(webdriver.Remote):
             self.driver.set_power_capacity(50)
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
         return self
@@ -51,7 +51,7 @@ class Power(webdriver.Remote):
             self.driver.set_power_ac(Power.AC_ON)
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         self.execute(Command.SET_POWER_AC, {'state': ac_state})
         return self

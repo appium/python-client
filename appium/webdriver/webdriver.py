@@ -608,7 +608,7 @@ class WebDriver(
             button_name (str): the button name to be sent to the device
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
 
         """
         data = {
@@ -631,7 +631,7 @@ class WebDriver(
             value (str): the value to set on the element
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         data = {
             'id': element.id,
@@ -663,7 +663,7 @@ class WebDriver(
         """Open notification shade in Android (API Level 18 and above)
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         self.execute(Command.OPEN_NOTIFICATIONS, {})
         return self

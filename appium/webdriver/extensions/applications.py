@@ -25,7 +25,7 @@ class Applications(webdriver.Remote):
             seconds (int): the duration for the application to remain in the background
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         data = {
             'seconds': seconds,
@@ -65,7 +65,7 @@ class Applications(webdriver.Remote):
                 on Android 6+ after the installation completes. False by default
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         data = {
             'appPath': app_path,
@@ -88,7 +88,7 @@ class Applications(webdriver.Remote):
                 20000ms by default.
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         data = {
             'appId': app_id,
@@ -102,7 +102,7 @@ class Applications(webdriver.Remote):
         """Start on the device the application specified in the desired capabilities.
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         self.execute(Command.LAUNCH_APP)
         return self
@@ -112,7 +112,7 @@ class Applications(webdriver.Remote):
         the device.
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         self.execute(Command.CLOSE_APP)
         return self
@@ -145,7 +145,7 @@ class Applications(webdriver.Remote):
             app_id (str): the application id to be activated
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         data = {
             'appId': app_id,

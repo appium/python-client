@@ -23,7 +23,7 @@ def wait_for_element(driver, locator, value, timeout=SLEEPY_TIME):
     """Wait until the element located
 
     Args:
-        driver (`appium.webdriver.webelement.WebElement`): WebDriver instance
+        driver (`appium.webdriver.webdriver.WebDriver`): WebDriver instance
         locator (str): Locator like WebDriver, Mobile JSON Wire Protocol
             (e.g. `appium.webdriver.common.mobileby.MobileBy.ACCESSIBILITY_ID`)
         value (str): Query value to locator

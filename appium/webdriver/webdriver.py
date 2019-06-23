@@ -255,7 +255,7 @@ class WebDriver(
         Returns:
             `appium.webdriver.webelement.WebElement`
 
-        # :rtype: `MobileWebElement`
+        :rtype: `MobileWebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self.w3c:

@@ -24,8 +24,8 @@ class ActionHelpers(webdriver.Remote):
         """Scrolls from one element to another
 
         Args:
-            originalEl (`WebElement`): the element from which to being scrolling
-            destinationEl (`WebElement`): the element to scroll to
+            originalEl (`appium.webdriver.webelement.WebElement`): the element from which to being scrolling
+            destinationEl (`appium.webdriver.webelement.WebElement`): the element to scroll to
             duration (int): a duration after pressing originalEl and move the element to destinationEl.
                 Default is 600 ms for W3C spec. Zero for MJSONWP.
 
@@ -33,7 +33,7 @@ class ActionHelpers(webdriver.Remote):
             driver.scroll(el1, el2)
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
 
         # XCUITest x W3C spec has no duration by default in server side
@@ -51,11 +51,11 @@ class ActionHelpers(webdriver.Remote):
         """Drag the origin element to the destination element
 
         Args:
-            originEl (`WebElement`): the element to drag
-            destinationEl (`WebElement`): the element to drag to
+            originEl (`appium.webdriver.webelement.WebElement`): the element to drag
+            destinationEl (`appium.webdriver.webelement.WebElement`): the element to drag to
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         action = TouchAction(self)
         action.long_press(origin_el).move_to(destination_el).release().perform()
@@ -74,7 +74,7 @@ class ActionHelpers(webdriver.Remote):
             driver.tap([(100, 20), (100, 60), (100, 100)], 500)
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         if len(positions) == 1:
             action = TouchAction(self)
@@ -114,7 +114,7 @@ class ActionHelpers(webdriver.Remote):
             driver.swipe(100, 100, 100, 400)
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         # `swipe` is something like press-wait-move_to-release, which the server
         # will translate into the correct action
@@ -140,7 +140,7 @@ class ActionHelpers(webdriver.Remote):
             driver.flick(100, 100, 100, 400)
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         action = TouchAction(self)
         action \

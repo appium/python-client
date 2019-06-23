@@ -84,7 +84,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_element_by_ios_uiautomation('.elements()[1].cells()[2]')
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
@@ -98,7 +98,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
 
         Returns:
-            :obj:`list` of :obj:`WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
@@ -112,7 +112,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_element_by_ios_predicate('label == "myLabel"')
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
@@ -126,7 +126,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_elements_by_ios_predicate('label == "myLabel"')
 
         Returns:
-            :obj:`list` of :obj:`WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
@@ -140,7 +140,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton[3]')
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
@@ -154,7 +154,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]')
 
         Returns:
-            :obj:`list` of :obj:`WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
@@ -168,7 +168,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_element_by_android_uiautomator('.elements()[1].cells()[2]')
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -182,7 +182,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
 
         Returns:
-            :obj:`list` of :obj:`WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -197,7 +197,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_element_by_accessibility_id()
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
@@ -212,7 +212,7 @@ class WebElement(AppiumWebElementSearchContext):
             driver.find_elements_by_accessibility_id()
 
         Returns:
-            :obj:`list` of :obj:`WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
@@ -229,7 +229,7 @@ class WebElement(AppiumWebElementSearchContext):
             element = element.find_element(By.ID, 'foo')
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self._w3c:
@@ -261,7 +261,7 @@ class WebElement(AppiumWebElementSearchContext):
             element = element.find_elements(By.CLASS_NAME, 'foo')
 
         Returns:
-            :obj:`list` of :obj:`WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self._w3c:
@@ -293,7 +293,7 @@ class WebElement(AppiumWebElementSearchContext):
             element.set_text('some text')
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         data = {
             'id': self._id,
@@ -323,7 +323,7 @@ class WebElement(AppiumWebElementSearchContext):
             value (str): The value to be set
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         data = {
             'id': self.id,
@@ -336,7 +336,7 @@ class WebElement(AppiumWebElementSearchContext):
         """Clears text.
 
         Returns:
-            `WebElement`
+            `appium.webdriver.webelement.WebElement`
         """
         data = {'id': self.id}
         self._execute(Command.CLEAR, data)

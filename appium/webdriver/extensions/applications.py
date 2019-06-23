@@ -37,7 +37,7 @@ class Applications(webdriver.Remote):
         """Checks whether the application specified by `bundle_id` is installed on the device.
 
         Args:
-            bundle_id (int): the id of the application to query
+            bundle_id (str): the id of the application to query
 
         Returns:
             bool: `True` if app is installed

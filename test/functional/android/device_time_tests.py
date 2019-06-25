@@ -18,8 +18,7 @@ import unittest
 from dateutil.parser import parse
 
 from appium import webdriver
-
-from .helper import desired_capabilities
+from test.functional.android.helper import desired_capabilities
 
 
 class DeviceTimeTests(unittest.TestCase):

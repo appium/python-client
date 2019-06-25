@@ -17,8 +17,7 @@ import unittest
 from time import sleep
 
 from appium import webdriver
-
-from .helper import desired_capabilities
+from test.functional.android.helper import desired_capabilities
 
 
 class ScreenRecordTests(unittest.TestCase):

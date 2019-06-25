@@ -13,15 +13,15 @@
 # limitations under the License.
 
 import json
+
+import httpretty
+
+from appium.webdriver.webelement import WebElement as MobileWebElement
 from test.unit.helper.test_helper import (
     android_w3c_driver,
     appium_command,
     get_httpretty_request_body
 )
-
-import httpretty
-
-from appium.webdriver.webelement import WebElement as MobileWebElement
 
 
 class TestWebElement(object):

@@ -13,17 +13,17 @@
 # limitations under the License.
 
 import json
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
 
 import httpretty
 
 from appium import version as appium_version
 from appium import webdriver
 from appium.webdriver.webdriver import WebDriver
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body
+)
 
 
 class TestWebDriverWebDriver(object):

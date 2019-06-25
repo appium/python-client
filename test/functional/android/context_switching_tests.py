@@ -18,8 +18,7 @@ import pytest
 
 from appium import webdriver
 from appium.common.exceptions import NoSuchContextException
-
-from .helper import desired_capabilities
+from test.functional.android.helper import desired_capabilities
 
 
 @pytest.mark.skip(reason="Need to fix broken test")

@@ -17,8 +17,7 @@ import unittest
 
 from appium import webdriver
 from appium.webdriver.connectiontype import ConnectionType
-
-from .helper import desired_capabilities
+from test.functional.android.helper import desired_capabilities
 
 
 class NetworkConnectionTests(unittest.TestCase):

@@ -16,8 +16,7 @@ import unittest
 
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
-
-from .helper import desired_capabilities
+from test.functional.ios.helper import desired_capabilities
 
 
 class WebDriverTests(unittest.TestCase):

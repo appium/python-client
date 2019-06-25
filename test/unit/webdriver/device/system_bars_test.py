@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from test.unit.helper.test_helper import android_w3c_driver, appium_command
-
 import httpretty
+
+from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
 class TestWebDriverSystemBars(object):

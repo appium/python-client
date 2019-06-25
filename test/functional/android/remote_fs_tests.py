@@ -21,8 +21,7 @@ from zipfile import ZipFile
 
 from appium import webdriver
 from appium.common.helper import appium_bytes
-
-from .helper import desired_capabilities
+from test.functional.android.helper import desired_capabilities
 
 
 class RemoteFsTests(unittest.TestCase):

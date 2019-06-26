@@ -2,6 +2,131 @@ Changelog
 =========
 
 
+v0.45 (2019-06-26)
+------------------
+- Bump 0.45. [Kazuaki Matsuo]
+- Add execute driver (#406) [Kazuaki Matsuo]
+
+  * add execute driver
+
+  * append docstring
+- Add how to solve pipenv error to readme (#403) [Mori Atsushi]
+
+  * Add how to solve pipenv error to readme
+
+  * review comments
+
+  * tweak
+
+  * review comments
+- Add autocompletion for pycharm (#404) [Mori Atsushi]
+
+  * Add autocompletion for pycharm
+
+  * Removed flaky tests from running
+- Moving reset method from WebDriver to Applications (#399) [Mayura]
+- Add unit test for open_notifications (#398) [tabatask]
+- Run android functional tests on ci (#396) [Mori Atsushi]
+
+  * Add android functional test to ci
+
+  * Add missing param
+
+  * Add run_test template
+
+  * Fixed: test running failed
+
+  * Fixed
+
+  * Fixed
+
+  * fixed
+
+  * Add run_android_test
+
+  * Changed emulator to Nexus6
+
+  * Run all android tests
+
+  * fixed
+
+  * Resolve python-dateutil dependency
+
+  * Run on 3 workers
+
+  * Add chromedriver installation
+
+  * Skip failed test cases on ci
+
+  * fixed
+
+  * Extend adbExecTimeout
+
+  * Add script source to comment
+
+  * Run 5 workers for android
+
+  * Use Node11
+
+  * Extend wait time
+
+  * Reduced running android functional tests
+
+  * Revert some changes
+- Use the same format for docstring (#395) [Mori Atsushi]
+
+  * Update docstring
+
+  * Update docstring
+
+  * Update docstring
+
+  * tweak
+
+  * tweak
+
+  * tweak
+
+  * tweak
+
+  * tweak
+
+  * Update docstring
+
+  * Update docstring
+
+  * Update docstring
+
+  * Update docstring
+
+  * tweak
+
+  * Update
+- Publish functional test report (#394) [Mori Atsushi]
+
+  * Move functional tests to template
+
+  * Add publish_test_result
+
+  * Fix typo
+- Divide functional appium tests into each module(iOS) (#391) [Mori
+  Atsushi]
+
+  * Divide ios appium_tests to each module
+
+  * Fix test file name
+
+  * Add CI status badge
+- Run iOS functional tests on azure pipelines (#390) [Mori Atsushi]
+
+  * Set up CI with Azure Pipelines
+
+  * review comments
+
+  * update README
+- Update changelog for 0.44. [Kazuaki Matsuo]
+
+
 v0.44 (2019-05-24)
 ------------------
 

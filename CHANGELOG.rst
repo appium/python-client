@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+v0.46 (2019-06-27)
+------------------
+- Bump 0.46. [Kazuaki Matsuo]
+- Bug fix joining path in _get_main_script (#408) [Nicholas Frederick]
+- Update changelog for 0.45. [Kazuaki Matsuo]
+
+
 v0.45 (2019-06-26)
 ------------------
 - Bump 0.45. [Kazuaki Matsuo]

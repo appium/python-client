@@ -89,7 +89,7 @@ class AppiumService(object):
         if not hasattr(self, '_main_script'):
             for args in [['root', '-g'], ['root']]:
                 try:
-                    modules_root = subprocess.check_output([self._get_npm()] + args).strip()
+                    modules_root = subprocess.check_output([self._get_npm()] + args).strip().decode('utf-8')
                     if os.path.exists(os.path.join(modules_root, MAIN_SCRIPT_PATH)):
                         self._main_script = os.path.join(modules_root, MAIN_SCRIPT_PATH)
                         break

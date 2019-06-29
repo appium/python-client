@@ -16,7 +16,8 @@ import unittest
 from time import sleep
 
 from appium import webdriver
-from test.functional.ios.helper import desired_capabilities
+
+from .helper import desired_capabilities
 
 
 class KeyboardTests(unittest.TestCase):

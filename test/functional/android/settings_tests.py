@@ -16,7 +16,8 @@
 import unittest
 
 from appium import webdriver
-from test.functional.android.helper import desired_capabilities
+
+from .helper import desired_capabilities
 
 
 class SettingsTests(unittest.TestCase):

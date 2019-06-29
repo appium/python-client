@@ -19,8 +19,9 @@ from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
-from test.functional.android.helper import desired_capabilities
 from test.functional.android.helper.test_helper import wait_for_element
+
+from .helper import desired_capabilities
 
 
 class MultiActionTests(unittest.TestCase):

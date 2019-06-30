@@ -16,7 +16,8 @@ import os
 import unittest
 
 from appium import webdriver
-from helper import desired_capabilities
+
+from .helper import desired_capabilities
 
 
 class RemoteFsTests(unittest.TestCase):

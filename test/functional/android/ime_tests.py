@@ -17,7 +17,8 @@ import unittest
 from time import sleep
 
 from appium import webdriver
-from helper import desired_capabilities
+
+from .helper import desired_capabilities
 
 ANDROID_LATIN = 'com.android.inputmethod.latin/.LatinIME'  # Android L/M/N
 GOOGLE_LATIN = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'  # Android O/P

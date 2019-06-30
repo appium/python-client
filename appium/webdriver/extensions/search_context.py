@@ -51,7 +51,7 @@ class AndroidSearchContext(BaseSearchContext):
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
 
         Returns:
-            `WebElement`: The found element
+            `appium.webdriver.webelement.WebElement`: The found element
 
         Raises:
             TypeError - Raises a TypeError if the arguments are not validated for JSON format
@@ -79,7 +79,7 @@ class AndroidSearchContext(BaseSearchContext):
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
 
         Returns:
-            `WebElement`: The found elements
+            `appium.webdriver.webelement.WebElement`: The found elements
 
         Usage:
             driver.find_elements_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])

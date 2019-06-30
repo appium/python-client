@@ -22,7 +22,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from appium import webdriver
-from helper import desired_capabilities
+
+from .helper import desired_capabilities
 
 
 @pytest.mark.skip(reason="Need to fix broken test")

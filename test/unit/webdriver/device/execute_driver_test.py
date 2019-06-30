@@ -13,13 +13,14 @@
 # limitations under the License.
 
 import textwrap
+
+import httpretty
+
 from test.unit.helper.test_helper import (
     android_w3c_driver,
     appium_command,
     get_httpretty_request_body
 )
-
-import httpretty
 
 
 class TestWebDriverDeviceActivities(object):

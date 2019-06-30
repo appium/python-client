@@ -24,7 +24,7 @@ class Location(webdriver.Remote):
         Android only.
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
         return self
@@ -38,7 +38,7 @@ class Location(webdriver.Remote):
             altitude (float): String or numeric value
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         data = {
             "location": {

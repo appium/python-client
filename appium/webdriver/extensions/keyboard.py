@@ -60,7 +60,7 @@ class Keyboard(webdriver.Remote):
             metastate (:obj:`int`, optional): meta information about the keycode being sent
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         data = {
             'keycode': keycode,
@@ -81,7 +81,7 @@ class Keyboard(webdriver.Remote):
             flags (:obj:`int`, optional): the set of key event flags
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         data = {
             'keycode': keycode,
@@ -104,7 +104,7 @@ class Keyboard(webdriver.Remote):
             flags (:obj:`int`, optional): the set of key event flags
 
         Returns:
-            `WebDriver`
+            `appium.webdriver.webdriver.WebDriver`
         """
         data = {
             'keycode': keycode

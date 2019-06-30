@@ -12,12 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
-
 import httpretty
 
 from appium.webdriver.extensions.android.gsm import (
@@ -26,6 +20,11 @@ from appium.webdriver.extensions.android.gsm import (
     GsmVoiceState
 )
 from appium.webdriver.webdriver import WebDriver
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body
+)
 
 
 class TestWebDriveGsm(object):

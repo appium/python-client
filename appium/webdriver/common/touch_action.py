@@ -37,7 +37,7 @@ class TouchAction(object):
         """Perform a tap action on the element
 
         Args:
-            element (`WebElement`): the element to tap
+            element (`appium.webdriver.webelement.WebElement`): the element to tap
             x (:obj:`int`, optional): x coordinate to tap, relative to the top left corner of the element.
             y (:obj:`int`, optional): y coordinate. If y is used, x must also be set, and vice versa
 
@@ -54,7 +54,7 @@ class TouchAction(object):
         """Begin a chain with a press down action at a particular element or point
 
         Args:
-            el (:obj:`WebElement`, optional): the element to press
+            el (:obj:`appium.webdriver.webelement.WebElement`, optional): the element to press
             x (:obj:`int`, optional): x coordiate to press. If y is used, x must also be set
             y (:obj:`int`, optional): y coordiate to press. If x is used, y must also be set
             pressure (:obj:`float`, optional): [iOS Only] press as force touch. Read the description of `force` property on Apple's UITouch class
@@ -71,7 +71,7 @@ class TouchAction(object):
         """Begin a chain with a press down that lasts `duration` milliseconds
 
         Args:
-            el (:obj:`WebElement`, optional): the element to press
+            el (:obj:`appium.webdriver.webelement.WebElement`, optional): the element to press
             x (:obj:`int`, optional): x coordiate to press. If y is used, x must also be set
             y (:obj:`int`, optional): y coordiate to press. If x is used, y must also be set
             duration (:obj:`int`, optional): Duration to press
@@ -105,7 +105,7 @@ class TouchAction(object):
         """Move the pointer from the previous point to the element or point specified
 
         Args:
-            el (:obj:`WebElement`, optional): the element to be moved to
+            el (:obj:`appium.webdriver.webelement.WebElement`, optional): the element to be moved to
             x (:obj:`int`, optional): x coordiate to be moved to. If y is used, x must also be set
             y (:obj:`int`, optional): y coordiate to be moved to. If x is used, y must also be set
 

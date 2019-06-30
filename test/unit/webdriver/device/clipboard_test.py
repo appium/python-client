@@ -12,17 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import httpretty
+
+from appium.common.helper import appium_bytes
+from appium.webdriver.clipboard_content_type import ClipboardContentType
 from test.unit.helper.test_helper import (
     android_w3c_driver,
     appium_command,
     get_httpretty_request_body,
     ios_w3c_driver
 )
-
-import httpretty
-
-from appium.common.helper import appium_bytes
-from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 
 class TestWebDriverDeviceClipboard(object):

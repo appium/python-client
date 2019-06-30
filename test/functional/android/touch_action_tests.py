@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import unittest
-from time import sleep
 
 from selenium.common.exceptions import NoSuchElementException
 

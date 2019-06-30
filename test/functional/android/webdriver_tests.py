@@ -91,7 +91,7 @@ class WebdriverTests(unittest.TestCase):
     def test_send_keys(self):
         for text in ['App', 'Activity', 'Custom Title']:
             wait_for_element(self.driver, MobileBy.XPATH,
-                             "//android.widget.TextView[@text='{}']".format(text)).click()
+                             "//android.widget.TextView[@text='{}']".format(text), timeout=5).click()
 
         el = self.driver.find_element(MobileBy.ID, 'com.example.android.apis:id/left_text_edit')
         el.send_keys(' text')

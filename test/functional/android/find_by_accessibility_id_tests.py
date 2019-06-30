@@ -33,7 +33,7 @@ class FindByAccessibilityIDTests(unittest.TestCase):
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
                          'new UiSelector().text("Accessibility Node Querying")').click()
-        el = self.driver.find_element_by_accessibility_id('Task Take out Trash')
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'Task Take out Trash')
         self.assertIsNotNone(el)
 
     def test_find_multiple_elements(self):

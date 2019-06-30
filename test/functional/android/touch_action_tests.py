@@ -191,7 +191,7 @@ class TouchActionTests(unittest.TestCase):
         # dnd is stimulated by longpress-move_to-release
         action.long_press(dd3).move_to(dd2).release().perform()
 
-        el = wait_for_element(self.driver, MobileBy, 'com.example.android.apis:id/drag_text')
+        el = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_text')
         self.assertTrue('drag_dot_3' in el.text)
 
     def test_driver_drag_and_drop(self):

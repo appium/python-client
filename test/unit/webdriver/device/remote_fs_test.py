@@ -33,7 +33,6 @@ class TestWebDriverRemoteFs(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/push_file'),
-            body='{"path":"/path/to/file.txt","data":"SGVsbG9Xb3JsZA=="}'
         )
         dest_path = '/path/to/file.txt'
         data = base64.b64encode(appium_bytes('HelloWorld', 'utf-8')).decode('utf-8')
@@ -43,3 +42,18 @@ class TestWebDriverRemoteFs(object):
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['path'] == dest_path
         assert d['data'] == str(data)
+
+    @httpretty.activate
+    def test_pull_file(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/pull_file'),
+            body='{"value": "SGVsbG9Xb3JsZA=="}'
+        )
+        dest_path = '/path/to/file.txt'
+
+        assert driver.pull_file(dest_path) == str(base64.b64encode(appium_bytes('HelloWorld', 'utf-8')).decode('utf-8'))
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['path'] == dest_path

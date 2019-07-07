@@ -47,11 +47,9 @@ class WebdriverTests(unittest.TestCase):
         self.assertTrue(self.driver.is_app_installed('com.example.android.apis'))
 
     def test_open_notifications(self):
-        self.driver.find_element_by_android_uiautomator('new UiSelector().text("App")').click()
-        self.driver.find_element_by_android_uiautomator('new UiSelector().text("Notification")').click()
-        self.driver.find_element_by_android_uiautomator('new UiSelector().text("Status Bar")').click()
-
-        self.driver.find_element_by_android_uiautomator('new UiSelector().text(":-|")').click()
+        for word in ['App', 'Notification', 'Status Bar', ':-|']:
+            wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
+                             'new UiSelector().text("{}")'.format(word)).click()
 
         self.driver.open_notifications()
         sleep(1)
@@ -93,7 +91,7 @@ class WebdriverTests(unittest.TestCase):
             wait_for_element(self.driver, MobileBy.XPATH,
                              "//android.widget.TextView[@text='{}']".format(text)).click()
 
-        el = self.driver.find_element(MobileBy.ID, 'com.example.android.apis:id/left_text_edit')
+        el = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/left_text_edit')
         el.send_keys(' text')
 
         self.assertEqual('Left is best text', el.text)

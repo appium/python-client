@@ -28,7 +28,9 @@ def get_desired_capabilities(app):
         'deviceName': 'Android Emulator',
         'app': PATH('../../apps/{}'.format(app)),
         'newCommandTimeout': 240,
-        'automationName': 'UIAutomator2'
+        'automationName': 'UIAutomator2',
+        'uiautomator2ServerInstallTimeout': 120000,
+        'adbExecTimeout': 120000
     }
 
     return desired_caps

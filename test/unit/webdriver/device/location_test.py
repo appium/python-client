@@ -50,6 +50,20 @@ class TestWebDriverLocation(object):
         assert abs(d['location']['altitude'] - 33.3) <= FLT_EPSILON
 
     @httpretty.activate
+    def test_set_location_without_altitude(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/location')
+        )
+        assert isinstance(driver.set_location(11.1, 22.2), WebDriver)
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert abs(d['location']['latitude'] - 11.1) <= FLT_EPSILON
+        assert abs(d['location']['longitude'] - 22.2) <= FLT_EPSILON
+        assert d['location'].get('altitude') == None
+
+    @httpretty.activate
     def test_location(self):
         driver = android_w3c_driver()
         httpretty.register_uri(

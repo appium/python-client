@@ -29,24 +29,25 @@ class Location(webdriver.Remote):
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
         return self
 
-    def set_location(self, latitude, longitude, altitude):
+    def set_location(self, latitude, longitude, altitude=None):
         """Set the location of the device
 
         Args:
-            latitude (float): String or numeric value between -90.0 and 90.00
-            longitude (float): String or numeric value between -180.0 and 180.0
-            altitude (float): String or numeric value
+            latitude (Union[float, str]): String or numeric value between -90.0 and 90.00
+            longitude (Union[float, str]): String or numeric value between -180.0 and 180.0
+            altitude (Union[float, str], optional): String or numeric value (Android real device only)
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`
         """
         data = {
             "location": {
-                "latitude": float(latitude),
-                "longitude": float(longitude),
-                "altitude": float(altitude)
+                "latitude": latitude,
+                "longitude": longitude,
             }
         }
+        if altitude is not None:
+            data['location']['altitude'] = altitude
         self.execute(Command.SET_LOCATION, data)
         return self
 

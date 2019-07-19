@@ -55,8 +55,12 @@ class ScreenRecord(webdriver.Remote):
                 'mjpeg' by default. (Since Appium 1.10.0)
             videoFps (int): [iOS only] The Frames Per Second rate of the recorded video. Change this value if the resulting video
                 is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
+            videoFilters (str): [iOS only] The FFMPEG video filters to apply. These filters allow to scale,
+                flip, rotate and do many other useful transformations on the source video stream. The format of the property
+                must comply with https://ffmpeg.org/ffmpeg-filters.html. (Since Appium 1.15)
             videoScale (str): [iOS only] The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
-                No scale is applied by default. (Since Appium 1.10.0)
+                No scale is applied by default. If videoFilters are set then the scale setting is effectively ignored.
+                (Since Appium 1.10.0)
             pixelFormat (str): [iOS only] Output pixel format. Run `ffmpeg -pix_fmts` to list possible values.
                 For Quicktime compatibility, set to "yuv420p" along with videoType: "libx264". (Since Appium 1.12.0)
 

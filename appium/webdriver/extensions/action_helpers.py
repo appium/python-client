@@ -149,3 +149,87 @@ class ActionHelpers(webdriver.Remote):
             .release()
         action.perform()
         return self
+
+    def zoom_element(self, element):
+        """Zooms in on an element a certain amount
+
+        :Args:
+         - element - the element to zoom
+
+        :Usage:
+            driver.zoom(element)
+        """
+        multi_touch = MultiAction()
+        size=element.size
+        position = element.location
+        coordinate_x=position.get('x')
+        coordinate_y=position.get('y')
+        width=size.get('width')
+        height=size.get('height')
+        center = {'x': coordinate_x+width/2, 'y': coordinate_y+height/2}
+        action1 = TouchAction(self)
+        action1.press(element).move_to(element, center.get('x'), center.get('y')-100).release()
+        action2 = TouchAction(self)
+        action2.press(element).move_to(element, center.get('x'), center.get('y')+100).release()
+        multi_touch.add(action1, action2).perform()
+        return self
+
+    def zoom_coordinate(self, x, y):
+        """Zooms in on an specified coordinate
+
+        :Args:
+             - x  x-coordinate to performance zoom in
+             - y  y-coordinate to performance zoom in
+
+        :Usage:
+            driver.zoom(x,y)
+        """
+        multi_touch = MultiAction()
+        action1 = TouchAction(self)
+        action1.press(x, y).move_to(x, y-100).release()
+        action2 = TouchAction(self)
+        action2.press(x, y).move_to(x, y+100).release()
+        multi_touch.add(action1, action2).perform()
+        return self
+
+    def pinch_element(self, element):
+        """pinch on an element a certain amount
+
+        :Args:
+         - element - the element to pinch on
+
+        :Usage:
+            driver.zoom(element)
+        """
+        multi_touch = MultiAction()
+        size = element.size
+        position = element.location
+        coordinate_x = position.get('x')
+        coordinate_y = position.get('y')
+        width = size.get('width')
+        height = size.get('height')
+        center = {'x': coordinate_x + width / 2, 'y': coordinate_y + height / 2}
+        action1 = TouchAction(self)
+        action1.press(element, center.get('x'), center.get('y')-100).move_to(element).release()
+        action2 = TouchAction(self)
+        action2.press(element, center.get('x'), center.get('y')+100).move_to(element).release()
+        multi_touch.add(action1, action2).perform()
+        return self
+
+    def pinch_coordinate(self, x, y):
+        """pinch on an specified coordinate
+
+        :Args:
+             - x  x-coordinate to performance pinch on
+             - y  y-coordinate to performance pinch on
+
+        :Usage:
+            driver.zoom(x,y)
+        """
+        multi_touch = MultiAction()
+        action1 = TouchAction(self)
+        action1.press(x, y-100).move_to(x, y).release()
+        action2 = TouchAction(self)
+        action2.press(x, y+100).move_to(x, y).release()
+        multi_touch.add(action1, action2).perform()
+        return self

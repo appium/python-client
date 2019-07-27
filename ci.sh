@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-if ! python -m autopep8 -r --global-config .config-pep8 -i . ; then
-  echo "Please run command 'python -m autopep8 -r --global-config .config-pep8 -i .' on your local and commit the result"
+if ! python -m autopep8 --exit-code -a -r --global-config .config-pep8 -i . ; then
+  echo "Please run command 'python -m autopep8 -a -r --global-config .config-pep8 -i .' on your local and commit the result"
   exit 1
 fi
 

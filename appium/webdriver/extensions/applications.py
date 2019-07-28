@@ -177,9 +177,9 @@ class Applications(webdriver.Remote):
             string_file (str): the name of the string file to query
         """
         data = {}
-        if language != None:
+        if language is not None:
             data['language'] = language
-        if string_file != None:
+        if string_file is not None:
             data['stringFile'] = string_file
         return self.execute(Command.GET_APP_STRINGS, data)['value']
 

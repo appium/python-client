@@ -75,7 +75,7 @@ class TestWebDriverLocation(object):
         d = get_httpretty_request_body(httpretty.last_request())
         assert abs(d['location']['latitude'] - 11.1) <= FLT_EPSILON
         assert abs(d['location']['longitude'] - 22.2) <= FLT_EPSILON
-        assert d['location'].get('altitude') == None
+        assert d['location'].get('altitude') is None
 
     @httpretty.activate
     def test_location(self):

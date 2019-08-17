@@ -15,19 +15,10 @@
 
 import unittest
 
-from appium import webdriver
-
-from .helper import desired_capabilities
+from .helper.test_helper import BaseTest
 
 
-class LocationTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class LocationTests(BaseTest):
     def test_toggle_location_services(self):
         self.driver.toggle_location_services()
 

@@ -15,12 +15,16 @@
 
 import unittest
 
+import pytest
+
 from appium import webdriver
 
 from .helper import desired_capabilities
+from .helper.test_helper import BaseTest
 
 
-class ActivitiesTests(unittest.TestCase):
+@pytest.mark.skip(reason='Need to fix flaky test during running on CI')
+class ActivitiesTests(BaseTest):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)

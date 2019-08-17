@@ -21,17 +21,10 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 
 from .helper import desired_capabilities
-from .helper.test_helper import wait_for_element
+from .helper.test_helper import BaseTest, wait_for_element
 
 
-class TouchActionTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class TouchActionTests(BaseTest):
     def test_tap(self):
         el = self.driver.find_element_by_accessibility_id('Animation')
         action = TouchAction(self.driver)

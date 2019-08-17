@@ -23,7 +23,9 @@ class ChromeTests(unittest.TestCase):
             'platformName': 'Android',
             'platformVersion': '9',
             'deviceName': 'Android Emulator',
-            'browserName': 'Chrome'
+            'browserName': 'Chrome',
+            'uiautomator2ServerInstallTimeout': 120000,
+            'adbExecTimeout': 120000
         }
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 

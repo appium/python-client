@@ -4,6 +4,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       ANDROID_SDK_VERSION: ${{ parameters.sdkVer }}
+      CI: ${{ parameters.ci }}
     steps:
       - template: ./run_appium.yml
       - script: bash ci-jobs/functional/start-emulator.sh
@@ -13,3 +14,6 @@ jobs:
           py.test ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
         displayName: Run Android functional tests
       - template: ./publish_test_result.yml
+      - template: ./save_appium_log.yml
+        parameters:
+          name: ${{ parameters.name }}

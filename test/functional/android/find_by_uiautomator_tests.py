@@ -14,12 +14,9 @@
 
 import unittest
 
-import pytest
-
 from .helper.test_helper import BaseTest
 
 
-@pytest.mark.skip(reason='Need to fix flaky test during running on CI')  # Due to "System UI isn't responding" dialog
 class FindByUIAutomatorTests(BaseTest):
     def test_find_single_element(self):
         el = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Animation")')

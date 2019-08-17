@@ -4,6 +4,8 @@ parameters:
   androidSdkVer: 28
   CI: true
 
+# [Android] Need to fix and add flaky tests for activities_tests, find_by_uiautomator_tests
+
 jobs:
   - template: ./functional/run_ios_test.yml
     parameters:
@@ -24,7 +26,7 @@ jobs:
       name: 'func_test_android1'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'device_time_tests.py find_by_accessibility_id_tests.py find_by_image_tests.py find_by_uiautomator_tests.py'
+      testFiles: 'device_time_tests.py find_by_accessibility_id_tests.py find_by_image_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}
   - template: ./functional/run_android_test.yml
@@ -40,7 +42,7 @@ jobs:
       name: 'func_test_android3'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'activities_tests.py chrome_tests.py'
+      testFiles: 'chrome_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}
   - template: ./functional/run_android_test.yml

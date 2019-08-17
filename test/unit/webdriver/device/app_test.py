@@ -22,7 +22,7 @@ from test.unit.helper.test_helper import (
 )
 
 
-class TestApp(object):
+class TestWebDriverApp(object):
 
     @httpretty.activate
     def test_reset(self):

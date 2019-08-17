@@ -24,7 +24,7 @@ from test.unit.helper.test_helper import (
 )
 
 
-class TestWebDriverDeviceClipboard(object):
+class TestWebDriverClipboard(object):
 
     @httpretty.activate
     def test_set_clipboard_with_url(self):

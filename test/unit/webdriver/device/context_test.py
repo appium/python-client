@@ -17,7 +17,7 @@ import httpretty
 from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
-class TestWebDriverDeviceContext(object):
+class TestWebDriverContext(object):
 
     @httpretty.activate
     def test_get_contexts(self):

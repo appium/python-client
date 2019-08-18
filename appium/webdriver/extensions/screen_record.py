@@ -73,7 +73,9 @@ class ScreenRecord(webdriver.Remote):
                 but doing so results in larger movie files.
 
         Returns:
-            None
+            bytes: Base-64 encoded content of the recorded media
+                if `stop_recording_screen` isn't called after previous `start_recording_screen`.
+                Otherwise returns an empty string.
         """
         if 'password' in options:
             options['pass'] = options['password']
@@ -99,7 +101,7 @@ class ScreenRecord(webdriver.Remote):
                 Only has an effect if `remotePath` is set.
 
         Returns:
-            bytes:Base-64 encoded content of the recorded media file or an empty string
+            bytes: Base-64 encoded content of the recorded media file or an empty string
                 if the file has been successfully uploaded to a remote location
                 (depends on the actual `remotePath` value).
         """

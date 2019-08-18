@@ -16,10 +16,10 @@
 import unittest
 from time import sleep
 
-from .helper.test_helper import BaseTest
+from .helper.test_helper import BaseTestCase
 
 
-class HwActionsTests(BaseTest):
+class HwActionsTests(BaseTestCase):
     def test_lock(self):
         self.driver.lock(-1)
         sleep(10)

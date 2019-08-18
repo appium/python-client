@@ -15,10 +15,10 @@
 
 import unittest
 
-from .helper.test_helper import BaseTest
+from .helper.test_helper import BaseTestCase
 
 
-class SettingsTests(BaseTest):
+class SettingsTests(BaseTestCase):
     def test_get_settings(self):
         settings = self.driver.get_settings()
         self.assertIsNotNone(settings)

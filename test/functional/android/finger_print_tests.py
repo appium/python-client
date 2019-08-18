@@ -15,10 +15,10 @@
 
 import unittest
 
-from .helper.test_helper import BaseTest
+from .helper.test_helper import BaseTestCase
 
 
-class FingerPrintTests(BaseTest):
+class FingerPrintTests(BaseTestCase):
     def test_finger_print(self):
         result = self.driver.finger_print(1)
         self.assertEqual(None, result)

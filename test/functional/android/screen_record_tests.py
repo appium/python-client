@@ -16,10 +16,10 @@
 import unittest
 from time import sleep
 
-from .helper.test_helper import BaseTest
+from .helper.test_helper import BaseTestCase
 
 
-class ScreenRecordTests(BaseTest):
+class ScreenRecordTests(BaseTestCase):
     def test_screen_record(self):
         self.driver.start_recording_screen(timeLimit=10, forcedRestart=True)
         sleep(10)

@@ -15,10 +15,10 @@
 
 import unittest
 
-from .helper.test_helper import BaseTest
+from .helper.test_helper import BaseTestCase
 
 
-class KeyboardTests(BaseTest):
+class KeyboardTests(BaseTestCase):
     def test_press_keycode(self):
         # not sure how to test this.
         self.driver.press_keycode(176)

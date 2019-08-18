@@ -14,10 +14,10 @@
 
 import unittest
 
-from .helper.test_helper import BaseTest
+from .helper.test_helper import BaseTestCase
 
 
-class FindByUIAutomatorTests(BaseTest):
+class FindByUIAutomatorTests(BaseTestCase):
     def test_find_single_element(self):
         el = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Animation")')
         self.assertIsNotNone(el)

@@ -19,10 +19,10 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 
-from .helper.test_helper import BaseTest, wait_for_element
+from .helper.test_helper import BaseTestCase, wait_for_element
 
 
-class MultiActionTests(BaseTest):
+class MultiActionTests(BaseTestCase):
     def test_parallel_actions(self):
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')

@@ -49,10 +49,15 @@ def wait_for_element(driver, locator, value, timeout=SLEEPY_TIME):
 
 
 def is_ci():
+    """Returns if current execution is running on CI
+
+    Returns:
+        bool: `True` if current executions is on CI
+    """
     return os.getenv('CI', 'false') == 'true'
 
 
-class BaseTest(unittest.TestCase):
+class BaseTestCase(unittest.TestCase):
 
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')

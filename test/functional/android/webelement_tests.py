@@ -19,10 +19,10 @@ from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 
 from .helper import desired_capabilities
-from .helper.test_helper import BaseTest, wait_for_element
+from .helper.test_helper import BaseTestCase, wait_for_element
 
 
-class WebelementTests(BaseTest):
+class WebelementTests(BaseTestCase):
     def test_element_location_in_view(self):
         el = self.driver.find_element_by_accessibility_id('Content')
         loc = el.location_in_view

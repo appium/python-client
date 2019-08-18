@@ -15,10 +15,10 @@
 
 import unittest
 
-from .helper.test_helper import BaseTest
+from .helper.test_helper import BaseTestCase
 
 
-class LocationTests(BaseTest):
+class LocationTests(BaseTestCase):
     def test_toggle_location_services(self):
         self.driver.toggle_location_services()
 

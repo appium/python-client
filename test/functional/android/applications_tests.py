@@ -18,10 +18,10 @@ from time import sleep
 
 from appium.webdriver.applicationstate import ApplicationState
 
-from .helper.test_helper import BaseTest
+from .helper.test_helper import BaseTestCase
 
 
-class ApplicationsTests(BaseTest):
+class ApplicationsTests(BaseTestCase):
 
     def test_background_app(self):
         self.driver.background_app(1)

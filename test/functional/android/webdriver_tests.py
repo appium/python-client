@@ -20,10 +20,10 @@ from selenium.common.exceptions import NoSuchElementException
 
 from appium.webdriver.common.mobileby import MobileBy
 
-from .helper.test_helper import BaseTest, is_ci, wait_for_element
+from .helper.test_helper import BaseTestCase, is_ci, wait_for_element
 
 
-class WebdriverTests(BaseTest):
+class WebdriverTests(BaseTestCase):
 
     def test_current_package(self):
         package = self.driver.current_package

@@ -21,10 +21,10 @@ from zipfile import ZipFile
 
 from appium.common.helper import appium_bytes
 
-from .helper.test_helper import BaseTest
+from .helper.test_helper import BaseTestCase
 
 
-class RemoteFsTests(BaseTest):
+class RemoteFsTests(BaseTestCase):
     def test_push_pull_file(self):
         dest_path = '/data/local/tmp/test_push_file.txt'
         data = appium_bytes('This is the contents of the file to push to the device.', 'utf-8')

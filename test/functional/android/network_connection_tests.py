@@ -17,10 +17,10 @@ import unittest
 
 from appium.webdriver.connectiontype import ConnectionType
 
-from .helper.test_helper import BaseTest, is_ci
+from .helper.test_helper import BaseTestCase, is_ci
 
 
-class NetworkConnectionTests(BaseTest):
+class NetworkConnectionTests(BaseTestCase):
     def test_get_network_connection(self):
         nc = self.driver.network_connection
         self.assertIsInstance(nc, int)

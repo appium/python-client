@@ -16,10 +16,10 @@ import unittest
 
 from appium.webdriver.common.mobileby import MobileBy
 
-from .helper.test_helper import BaseTest, is_ci, wait_for_element
+from .helper.test_helper import BaseTestCase, is_ci, wait_for_element
 
 
-class FindByAccessibilityIDTests(BaseTest):
+class FindByAccessibilityIDTests(BaseTestCase):
     def test_find_single_element(self):
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,

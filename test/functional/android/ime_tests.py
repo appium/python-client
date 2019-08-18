@@ -16,13 +16,13 @@
 import unittest
 from time import sleep
 
-from .helper.test_helper import BaseTest
+from .helper.test_helper import BaseTestCase
 
 ANDROID_LATIN = 'com.android.inputmethod.latin/.LatinIME'  # Android L/M/N
 GOOGLE_LATIN = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'  # Android O/P
 
 
-class IMETests(BaseTest):
+class IMETests(BaseTestCase):
     def test_available_ime_engines(self):
         engines = self.driver.available_ime_engines
         self.assertIsInstance(engines, list)

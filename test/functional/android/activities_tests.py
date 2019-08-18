@@ -18,10 +18,10 @@ import unittest
 from appium import webdriver
 
 from .helper import desired_capabilities
-from .helper.test_helper import BaseTest
+from .helper.test_helper import BaseTestCase
 
 
-class ActivitiesTests(BaseTest):
+class ActivitiesTests(BaseTestCase):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)

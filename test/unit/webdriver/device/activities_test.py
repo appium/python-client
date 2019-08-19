@@ -21,7 +21,7 @@ from test.unit.helper.test_helper import (
 )
 
 
-class TestWebDriverDeviceActivities(object):
+class TestWebDriverActivities(object):
 
     @httpretty.activate
     def test_start_activity(self):

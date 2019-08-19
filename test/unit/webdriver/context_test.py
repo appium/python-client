@@ -14,25 +14,17 @@
 
 import httpretty
 
-from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
+from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
-class TestApp(object):
+class TestWebDriverContext(object):
 
     @httpretty.activate
-    def test_reset(self):
+    def test_get_contexts(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/app/reset'),
-            body='{"value": ""}'
+            httpretty.GET,
+            appium_command('/session/1234567890/context'),
+            body='{"value": "NATIVE"}'
         )
-        result = driver.reset()
-
-        assert {'sessionId': '1234567890'}, get_httpretty_request_body(httpretty.last_request())
-        assert isinstance(result, WebDriver)
+        assert driver.current_context == 'NATIVE'

@@ -21,7 +21,7 @@ from test.unit.helper.test_helper import (
 )
 
 
-class TestWebDriverDeviceFingerprint(object):
+class TestWebDriverFingerprint(object):
 
     @httpretty.activate
     def test_finger_print(self):

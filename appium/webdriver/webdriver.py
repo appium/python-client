@@ -706,8 +706,8 @@ class WebDriver(
         try:
             return session["value"]["events"]
         except Exception as e:
-            logger.warning('Could not find events information in the session. Session: {}').format(str(session))
-            return ()
+            logger.warning('Could not find events information in the session. Session: {}'.format(session))
+            return {}
 
     # pylint: disable=protected-access
 

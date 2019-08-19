@@ -692,21 +692,29 @@ class WebDriver(
         return self.execute_script('mobile: batteryInfo')
 
     @property
+    def session_capabilities(self):
+        """ Retrieves session information from the current session
+        Usage:
+            session_capabilities = driver.session_capabilities
+        Returns:
+            `dict containing information from the current session`
+        """
+        return self.execute(Command.GET_SESSION)["value"]
+
+    @property
     def events(self):
-        """ Retrieves event timing information from the current session
+        """ Retrieves events information from the current session
         Usage:
             events = driver.events
 
         Returns:
-            `dict containing event timimgs information from the current session`
+            `dict containing events information from the current session`
         """
-        self.command_executor._commands[Command.GET_SESSION] = \
-            ('GET', '/session/$sessionId')
-        session = self.execute(Command.GET_SESSION)
         try:
-            return session["value"]["events"]
+            session_capabilities = self.session_capabilities
+            return session_capabilities["events"]
         except Exception as e:
-            logger.warning('Could not find events information in the session. Session: {}'.format(session))
+            logger.warning('Could not find events information in the session. Session: {}'.format(session_capabilities))
             return {}
 
     # pylint: disable=protected-access
@@ -719,6 +727,8 @@ class WebDriver(
             if hasattr(mixin_class, self._addCommands.__name__):
                 getattr(mixin_class, self._addCommands.__name__, None)(self)
 
+        self.command_executor._commands[Command.GET_SESSION] = \
+            ('GET', '/session/$sessionId')
         self.command_executor._commands[Command.TOUCH_ACTION] = \
             ('POST', '/session/$sessionId/touch/perform')
         self.command_executor._commands[Command.MULTI_ACTION] = \

@@ -21,6 +21,7 @@ from appium import webdriver
 from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import (
     android_w3c_driver,
+    ios_w3c_driver,
     appium_command,
     get_httpretty_request_body
 )
@@ -254,6 +255,35 @@ class TestWebDriverWebDriver(object):
 
         assert 'http://localhost:4723/wd/hub' == driver.command_executor._url
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
+
+    @httpretty.activate
+    def test_get_events(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890'),
+            body=json.dumps({'value':{'events':{"simStarted":[1234567890]}}})
+        )
+        events = driver.events
+        assert events["simStarted"] == [1234567890]
+
+    @httpretty.activate
+    def test_get_events_catches_missing_events(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890'),
+            body=json.dumps({'value':{}})
+        )
+        events = driver.events
+        assert events == {}
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890'),
+            body=json.dumps({})
+        )
+        events = driver.events
+        assert events == {}
 
 
 class SubWebDriver(WebDriver):

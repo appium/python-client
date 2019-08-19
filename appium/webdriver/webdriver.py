@@ -708,12 +708,12 @@ class WebDriver(
             events = driver.events
 
         Returns:
-            `dict containing events information from the current session`
+            `dict containing events timing information from the current session`
         """
         try:
             session_capabilities = self.session_capabilities
             return session_capabilities["events"]
-        except Exception as e:
+        except Exception:
             logger.warning('Could not find events information in the session. Session: {}'.format(session_capabilities))
             return {}
 

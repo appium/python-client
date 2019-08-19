@@ -691,6 +691,24 @@ class WebDriver(
         """
         return self.execute_script('mobile: batteryInfo')
 
+    @property
+    def events(self):
+        """ Retrieves event timing information from the current session
+        Usage:
+            events = driver.events
+
+        Returns:
+            `dict containing event timimgs information from the current session`
+        """
+        self.command_executor._commands[Command.GET_SESSION] = \
+            ('GET', '/session/$sessionId')
+        session = self.execute(Command.GET_SESSION)
+        try:
+            return session["value"]["events"]
+        except Exception as e:
+            logger.warning('Could not find events information in the session. Session: {}').format(str(session))
+            return ()
+
     # pylint: disable=protected-access
 
     def _addCommands(self):

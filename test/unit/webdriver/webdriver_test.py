@@ -257,6 +257,18 @@ class TestWebDriverWebDriver(object):
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
 
     @httpretty.activate
+    def test_get_session_capabilities(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890'),
+            body=json.dumps({'value':{'deviceName':'iPhone Simulator', 'events':{"simStarted":[1234567890]}}})
+        )
+        session = driver.session_capabilities
+        assert session["deviceName"] == 'iPhone Simulator'
+        assert session["events"]["simStarted"] == [1234567890]
+
+    @httpretty.activate
     def test_get_events(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(

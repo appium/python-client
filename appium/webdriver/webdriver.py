@@ -699,7 +699,7 @@ class WebDriver(
         Returns:
             `dict containing information from the current session`
         """
-        return self.execute(Command.GET_SESSION)["value"]
+        return self.execute(Command.GET_SESSION)['value']
 
     @property
     def events(self):
@@ -712,7 +712,7 @@ class WebDriver(
         """
         try:
             session_capabilities = self.session_capabilities
-            return session_capabilities["events"]
+            return session_capabilities['events']
         except Exception:
             logger.warning('Could not find events information in the session. Session: {}'.format(session_capabilities))
             return {}

@@ -262,11 +262,11 @@ class TestWebDriverWebDriver(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890'),
-            body=json.dumps({'value':{'deviceName':'iPhone Simulator', 'events':{"simStarted":[1234567890]}}})
+            body=json.dumps({'value': {'deviceName': 'iPhone Simulator', 'events': {'simStarted': [1234567890]}}})
         )
         session = driver.session_capabilities
-        assert session["deviceName"] == 'iPhone Simulator'
-        assert session["events"]["simStarted"] == [1234567890]
+        assert session['deviceName'] == 'iPhone Simulator'
+        assert session['events']['simStarted'] == [1234567890]
 
     @httpretty.activate
     def test_get_events(self):
@@ -274,10 +274,10 @@ class TestWebDriverWebDriver(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890'),
-            body=json.dumps({'value':{'events':{"simStarted":[1234567890]}}})
+            body=json.dumps({'value': {'events': {'simStarted': [1234567890]}}})
         )
         events = driver.events
-        assert events["simStarted"] == [1234567890]
+        assert events['simStarted'] == [1234567890]
 
     @httpretty.activate
     def test_get_events_catches_missing_events(self):
@@ -285,7 +285,7 @@ class TestWebDriverWebDriver(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890'),
-            body=json.dumps({'value':{}})
+            body=json.dumps({'value': {}})
         )
         events = driver.events
         assert events == {}

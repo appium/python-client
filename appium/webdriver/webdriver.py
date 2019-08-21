@@ -692,7 +692,7 @@ class WebDriver(
         return self.execute_script('mobile: batteryInfo')
 
     @property
-    def session_capabilities(self):
+    def session(self):
         """ Retrieves session information from the current session
         Usage:
             session_capabilities = driver.session_capabilities
@@ -711,10 +711,10 @@ class WebDriver(
             `dict containing events timing information from the current session`
         """
         try:
-            session_capabilities = self.session_capabilities
-            return session_capabilities['events']
-        except Exception:
-            logger.warning('Could not find events information in the session. Session: {}'.format(session_capabilities))
+            session = self.session
+            return session['events']
+        except Exception as e:
+            logger.warning('Could not find events information in the session. Error {}'.format(e))
             return {}
 
     # pylint: disable=protected-access

@@ -695,7 +695,7 @@ class WebDriver(
     def session(self):
         """ Retrieves session information from the current session
         Usage:
-            session_capabilities = driver.session_capabilities
+            session = driver.session
         Returns:
             `dict containing information from the current session`
         """

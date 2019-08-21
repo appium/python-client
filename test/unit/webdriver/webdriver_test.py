@@ -25,7 +25,7 @@ from test.unit.helper.test_helper import (
     appium_command,
     get_httpretty_request_body
 )
-
+from mock import patch
 
 class TestWebDriverWebDriver(object):
 
@@ -219,6 +219,7 @@ class TestWebDriverWebDriver(object):
         assert 'http://localhost2:4800/special/path/wd/hub' == driver.command_executor._url
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
 
+
     @httpretty.activate
     def test_create_session_register_uridirect_no_direct_connect_path(self):
         httpretty.register_uri(
@@ -257,7 +258,7 @@ class TestWebDriverWebDriver(object):
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
 
     @httpretty.activate
-    def test_get_session_capabilities(self):
+    def test_get_session(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(
             httpretty.GET,
@@ -296,6 +297,23 @@ class TestWebDriverWebDriver(object):
         )
         events = driver.events
         assert events == {}
+
+    @httpretty.activate
+    @patch("appium.webdriver.webdriver.logger.warning")
+    def test_session_catches_error(self, mock_warning):
+        def exceptionCallback(request, uri, headers):
+            raise Exception()
+
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890'),
+            body=exceptionCallback
+        )
+        events = driver.events
+        mock_warning.assert_called_once()
+        assert events == {}
+
 
 
 class SubWebDriver(WebDriver):

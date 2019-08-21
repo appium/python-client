@@ -264,7 +264,7 @@ class TestWebDriverWebDriver(object):
             appium_command('/session/1234567890'),
             body=json.dumps({'value': {'deviceName': 'iPhone Simulator', 'events': {'simStarted': [1234567890]}}})
         )
-        session = driver.session_capabilities
+        session = driver.session
         assert session['deviceName'] == 'iPhone Simulator'
         assert session['events']['simStarted'] == [1234567890]
 

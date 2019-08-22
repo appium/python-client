@@ -15,11 +15,11 @@
 import json
 
 import httpretty
+from mock import patch
 
 from appium import version as appium_version
 from appium import webdriver
 from appium.webdriver.webdriver import WebDriver
-from mock import patch
 from test.unit.helper.test_helper import (
     android_w3c_driver,
     appium_command,

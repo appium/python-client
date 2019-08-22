@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pre-commit = "~=1.13"
+mock = "~=3.0"
 
 [packages]
 selenium = "~=3.141"

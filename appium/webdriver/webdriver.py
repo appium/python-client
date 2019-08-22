@@ -691,6 +691,32 @@ class WebDriver(
         """
         return self.execute_script('mobile: batteryInfo')
 
+    @property
+    def session(self):
+        """ Retrieves session information from the current session
+        Usage:
+            session = driver.session
+        Returns:
+            `dict containing information from the current session`
+        """
+        return self.execute(Command.GET_SESSION)['value']
+
+    @property
+    def events(self):
+        """ Retrieves events information from the current session
+        Usage:
+            events = driver.events
+
+        Returns:
+            `dict containing events timing information from the current session`
+        """
+        try:
+            session = self.session
+            return session['events']
+        except Exception as e:
+            logger.warning('Could not find events information in the session. Error:', e)
+            return {}
+
     # pylint: disable=protected-access
 
     def _addCommands(self):
@@ -701,6 +727,8 @@ class WebDriver(
             if hasattr(mixin_class, self._addCommands.__name__):
                 getattr(mixin_class, self._addCommands.__name__, None)(self)
 
+        self.command_executor._commands[Command.GET_SESSION] = \
+            ('GET', '/session/$sessionId')
         self.command_executor._commands[Command.TOUCH_ACTION] = \
             ('POST', '/session/$sessionId/touch/perform')
         self.command_executor._commands[Command.MULTI_ACTION] = \

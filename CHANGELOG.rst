@@ -2,6 +2,76 @@ Changelog
 =========
 
 
+v0.47 (2019-08-22)
+------------------
+
+Fix
+~~~
+- CI doesn't fail even if autopep8 makes changes (#422) [Mori Atsushi]
+
+  * Fix: CI doesn't fail even if autopep8 makes changes
+
+  * Fix: CI failure
+
+Other
+~~~~~
+- Add events property (#429) [Dan Graham]
+
+  * add GET_SESSION
+
+  * add events property, this property will get the current information of the session and get the events timings
+
+  * add method for getting session_capabilities
+
+  * update docstring
+
+  * apply isort
+- Add screenrecord unittest (#426) [Mori Atsushi]
+
+  * Fix wrong docstring
+
+  * Add screen_record unittest
+
+  * Rename class names
+
+  * Move test files
+
+  * Fix docstring
+- Add videoFilters option documentation (#419) [Mykola Mokhnach]
+- Change altitude optional as arg for set_location (#415) [Mori Atsushi]
+
+  * Change altitude optional as arg for set_location
+
+  * Add comments
+
+  * review comments
+- Add remote_fs unittest (#410) [Mori Atsushi]
+
+  * Add test_push_file unittest
+
+  * Add test_pull_file unittest
+
+  * Add remote_fs error cases unittest
+- Update docstring (#407) [Mori Atsushi]
+
+  * Remove import error on pycharm
+
+  And update docstring
+
+  * Update docstring
+
+  * Update docstring
+
+  * Fix import error
+
+  * fix
+
+  * fix import order
+
+  * tweak
+- Update changelog for 0.46. [Kazuaki Matsuo]
+
+
 v0.46 (2019-06-27)
 ------------------
 - Bump 0.46. [Kazuaki Matsuo]

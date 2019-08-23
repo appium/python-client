@@ -14,14 +14,18 @@ fi
 (
   python -m pylint --rcfile .pylintrc appium test --errors-only
 )
-if [ $? -eq 1 ] ; then
-  EXIT_STATUS=1
+if [[ $? -eq 1 ]] ; then
+  if [[ "$(python -V)" =~ "Python 3.7" ]] ; then
+    echo "Ignore lint since 'StopIteration' runtime error raised in Python 3.7"
+  else
+    EXIT_STATUS=1
+  fi
 fi
 
 (
   python -m pytest test/unit/
 )
-if [ $? -eq 1 ] ; then
+if [[ $? -eq 1 ]] ; then
   EXIT_STATUS=1
 fi
 

@@ -24,7 +24,7 @@ fi
   # install newer pylint for Python 3.7 environment on CI
   if [[ $LINT_RESULT =~ "RuntimeError: generator raised StopIteration" ]] ; then
     EXIT_STATUS=0
-  else
+  fi
 )
 
 (

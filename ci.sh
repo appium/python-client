@@ -15,7 +15,7 @@ fi
 
 (
   LINT_RESULT=$(python -m pylint --rcfile .pylintrc appium test --errors-only 2>&1 | tee /dev/tty)
-  if [[ $? -eq 1 ]] ; then
+  if [[ $? -ne 0 ]] ; then
     EXIT_STATUS=1
   fi
 
@@ -30,7 +30,7 @@ fi
 (
   python -m pytest test/unit/
 )
-if [[ $? -eq 1 ]] ; then
+if [[ $? -ne 0 ]] ; then
   EXIT_STATUS=1
 fi
 

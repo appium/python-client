@@ -15,19 +15,10 @@
 
 import unittest
 
-from appium import webdriver
-
-from .helper import desired_capabilities
+from .helper.test_helper import BaseTestCase
 
 
-class FingerPrintTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class FingerPrintTests(BaseTestCase):
     def test_finger_print(self):
         result = self.driver.finger_print(1)
         self.assertEqual(None, result)

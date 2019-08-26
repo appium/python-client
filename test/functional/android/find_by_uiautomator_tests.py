@@ -14,19 +14,10 @@
 
 import unittest
 
-from appium import webdriver
-
-from .helper import desired_capabilities
+from .helper.test_helper import BaseTestCase
 
 
-class FindByUIAutomatorTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class FindByUIAutomatorTests(BaseTestCase):
     def test_find_single_element(self):
         el = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Animation")')
         self.assertIsNotNone(el)

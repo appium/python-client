@@ -15,23 +15,14 @@
 import unittest
 from time import sleep
 
-from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 
-from .helper import desired_capabilities
-from .helper.test_helper import wait_for_element
+from .helper.test_helper import BaseTestCase, wait_for_element
 
 
-class MultiActionTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class MultiActionTests(BaseTestCase):
     def test_parallel_actions(self):
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')

@@ -2,6 +2,8 @@ jobs:
   - job: ${{ parameters.name }}
     pool:
       vmImage: ${{ parameters.vmImage }}
+    variables:
+      CI: ${{ parameters.ci }}
     steps:
       - template: ./run_appium.yml
       - script: |

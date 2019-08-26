@@ -12,11 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+import os
+import unittest
+
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from appium import webdriver
+
+from . import desired_capabilities
+
 # the emulator is sometimes slow and needs time to think
-SLEEPY_TIME = 3
+SLEEPY_TIME = 10
 
 
 def wait_for_element(driver, locator, value, timeout=SLEEPY_TIME):
@@ -38,3 +46,24 @@ def wait_for_element(driver, locator, value, timeout=SLEEPY_TIME):
     return WebDriverWait(driver, timeout).until(
         EC.presence_of_element_located((locator, value))
     )
+
+
+def is_ci():
+    """Returns if current execution is running on CI
+
+    Returns:
+        bool: `True` if current executions is on CI
+    """
+    return os.getenv('CI', 'false') == 'true'
+
+
+class BaseTestCase(unittest.TestCase):
+
+    def setUp(self):
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+
+    def tearDown(self):
+        img_path = os.path.join(os.getcwd(), self._testMethodName + '.png')
+        self.driver.get_screenshot_as_file(img_path)
+        self.driver.quit()

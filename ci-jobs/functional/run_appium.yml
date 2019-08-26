@@ -3,7 +3,7 @@ steps:
   inputs:
     versionSpec: '11.x'
   displayName: Install Node 11.x
-- script: npm install -g appium --chromedriver_version='2.44'
+- script: npm install -g appium@beta --chromedriver_version='2.44'
   displayName: Install appium
 - task: UsePythonVersion@0
   inputs:
@@ -24,5 +24,5 @@ steps:
     appium --version
     node --version
   displayName: Check versions
-- script: nohup appium --relaxed-security &
+- script: nohup appium --relaxed-security > appium_log.txt &
   displayName: Run Appium in background

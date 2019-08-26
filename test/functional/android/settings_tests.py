@@ -15,19 +15,10 @@
 
 import unittest
 
-from appium import webdriver
-
-from .helper import desired_capabilities
+from .helper.test_helper import BaseTestCase
 
 
-class SettingsTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class SettingsTests(BaseTestCase):
     def test_get_settings(self):
         settings = self.driver.get_settings()
         self.assertIsNotNone(settings)

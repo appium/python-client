@@ -15,25 +15,19 @@
 
 import unittest
 
-from appium import webdriver
 from appium.webdriver.connectiontype import ConnectionType
 
-from .helper import desired_capabilities
+from .helper.test_helper import BaseTestCase, is_ci
 
 
-class NetworkConnectionTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class NetworkConnectionTests(BaseTestCase):
     def test_get_network_connection(self):
         nc = self.driver.network_connection
         self.assertIsInstance(nc, int)
 
     def test_set_network_connection(self):
+        if is_ci():
+            self.skipTest('Need to fix flaky test during running on CI')
         nc = self.driver.set_network_connection(ConnectionType.DATA_ONLY)
         self.assertIsInstance(nc, int)
         self.assertEqual(nc, ConnectionType.DATA_ONLY)

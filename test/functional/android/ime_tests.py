@@ -16,22 +16,13 @@
 import unittest
 from time import sleep
 
-from appium import webdriver
-
-from .helper import desired_capabilities
+from .helper.test_helper import BaseTestCase
 
 ANDROID_LATIN = 'com.android.inputmethod.latin/.LatinIME'  # Android L/M/N
 GOOGLE_LATIN = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'  # Android O/P
 
 
-class IMETests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class IMETests(BaseTestCase):
     def test_available_ime_engines(self):
         engines = self.driver.available_ime_engines
         self.assertIsInstance(engines, list)

@@ -14,22 +14,15 @@
 # limitations under the License.
 
 import unittest
+from time import sleep
 
-from appium import webdriver
-
-from .helper import desired_capabilities
+from .helper.test_helper import BaseTestCase
 
 
-class HwActionsTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class HwActionsTests(BaseTestCase):
     def test_lock(self):
         self.driver.lock(-1)
+        sleep(10)
         try:
             self.assertTrue(self.driver.is_locked())
         finally:

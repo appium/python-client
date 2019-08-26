@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import unittest
-from time import sleep
 
 from selenium.common.exceptions import NoSuchElementException
 
@@ -22,17 +21,10 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 
 from .helper import desired_capabilities
-from .helper.test_helper import wait_for_element
+from .helper.test_helper import BaseTestCase, wait_for_element
 
 
-class TouchActionTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class TouchActionTests(BaseTestCase):
     def test_tap(self):
         el = self.driver.find_element_by_accessibility_id('Animation')
         action = TouchAction(self.driver)
@@ -110,7 +102,7 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.press(el1).move_to(el2).release().perform()
 
-        el = self.driver.find_element_by_accessibility_id('Views')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
         self.assertIsNotNone(el)
 
     def test_press_and_moveto_x_y(self):
@@ -120,7 +112,7 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.press(el1).move_to(el2, 100, 100).release().perform()
 
-        el = self.driver.find_element_by_accessibility_id('Views')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
         self.assertIsNotNone(el)
 
     def test_long_press(self):
@@ -130,7 +122,7 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.press(el1).move_to(el2).perform()
 
-        el = self.driver.find_element_by_accessibility_id('Views')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
         action.tap(el).perform()
 
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
@@ -155,13 +147,13 @@ class TouchActionTests(unittest.TestCase):
         action = TouchAction(self.driver)
         action.press(el1).move_to(el2).perform()
 
-        el = self.driver.find_element_by_accessibility_id('Views')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
         action.tap(el).perform()
 
-        el = self.driver.find_element_by_accessibility_id('Expandable Lists')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
         action.tap(el).perform()
 
-        el = self.driver.find_element_by_accessibility_id('1. Custom Adapter')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter')
         action.tap(el).perform()
 
         # the element "People Names" is located at 430:310 (top left corner)
@@ -191,7 +183,7 @@ class TouchActionTests(unittest.TestCase):
         # dnd is stimulated by longpress-move_to-release
         action.long_press(dd3).move_to(dd2).release().perform()
 
-        el = self.driver.find_element_by_id('com.example.android.apis:id/drag_text')
+        el = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_text')
         self.assertTrue('drag_dot_3' in el.text)
 
     def test_driver_drag_and_drop(self):
@@ -199,19 +191,19 @@ class TouchActionTests(unittest.TestCase):
         el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
 
-        el = self.driver.find_element_by_accessibility_id('Views')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Drag and Drop')
         action.tap(el).perform()
 
-        dd3 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_3')
+        dd3 = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_dot_3')
         dd2 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_2')
 
         self.driver.drag_and_drop(dd3, dd2)
 
-        el = self.driver.find_element_by_id('com.example.android.apis:id/drag_text')
+        el = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_text')
         self.assertTrue('drag_dot_3' in el.text)
 
     def test_driver_swipe(self):

@@ -16,19 +16,12 @@
 import unittest
 from time import sleep
 
-from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
 
-from .helper import desired_capabilities
+from .helper.test_helper import BaseTestCase
 
 
-class ApplicationsTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
+class ApplicationsTests(BaseTestCase):
 
     def test_background_app(self):
         self.driver.background_app(1)

@@ -1,0 +1,18 @@
+steps:
+- task: CopyFiles@2
+  condition: succeededOrFailed()
+  inputs:
+    contents:
+      '**/appium_log.txt'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+- task: CopyFiles@2
+  condition: succeededOrFailed()
+  inputs:
+    contents:
+      '**/test_*.png'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+- task: PublishBuildArtifacts@1
+  condition: succeededOrFailed()
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: ${{ parameters.name }}

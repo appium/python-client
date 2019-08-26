@@ -19,20 +19,12 @@ import unittest
 from io import BytesIO
 from zipfile import ZipFile
 
-from appium import webdriver
 from appium.common.helper import appium_bytes
 
-from .helper import desired_capabilities
+from .helper.test_helper import BaseTestCase
 
 
-class RemoteFsTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class RemoteFsTests(BaseTestCase):
     def test_push_pull_file(self):
         dest_path = '/data/local/tmp/test_push_file.txt'
         data = appium_bytes('This is the contents of the file to push to the device.', 'utf-8')

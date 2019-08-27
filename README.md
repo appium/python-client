@@ -51,6 +51,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
         ```
         $ python -m isort -rc .
         ```
+        - When you use newly 3rd party modules, add it to [.isort.cfg](.isort.cfg)
 - You can customise `CHANGELOG.rst` with commit messages following [.gitchangelog.rc](.gitchangelog.rc)
     - It generates readable changelog
 - Setup

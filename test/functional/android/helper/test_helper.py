@@ -64,6 +64,8 @@ class BaseTestCase(unittest.TestCase):
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
-        img_path = os.path.join(os.getcwd(), self._testMethodName + '.png')
-        self.driver.get_screenshot_as_file(img_path)
+        if is_ci():
+            # Take the screenshot to investigate when tests failed only on CI
+            img_path = os.path.join(os.getcwd(), self._testMethodName + '.png')
+            self.driver.get_screenshot_as_file(img_path)
         self.driver.quit()

@@ -24,16 +24,18 @@ def PATH(p): return os.path.abspath(
 BUNDLE_ID = 'com.example.apple-samplecode.UICatalog'
 
 
-def get_desired_capabilities(app):
+def get_desired_capabilities(app=None):
     desired_caps = {
         'deviceName': iphone_device_name(),
         'platformName': 'iOS',
         'platformVersion': '12.4',
-        'app': PATH('../../../apps/{}'.format(app)),
         'automationName': 'XCUITest',
         'allowTouchIdEnroll': True,
         'wdaLocalPort': wda_port(),
     }
+
+    if app is not None:
+        desired_caps['app'] = PATH('../../../apps/{}'.format(app))
 
     return desired_caps
 

@@ -15,7 +15,9 @@
 import unittest
 
 from appium import webdriver
+
 from .helper.desired_capabilities import get_desired_capabilities
+
 
 class SafariTests(unittest.TestCase):
     def setUp(self):

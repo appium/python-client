@@ -20,8 +20,9 @@ import os
 import sys
 import unittest
 
-from appium import webdriver
 from sauceclient import SauceClient
+
+from appium import webdriver
 
 SAUCE_USERNAME = os.environ.get('SAUCE_USERNAME')
 SAUCE_ACCESS_KEY = os.environ.get('SAUCE_ACCESS_KEY')

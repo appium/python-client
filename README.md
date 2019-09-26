@@ -2,6 +2,7 @@ Appium Python Client
 ====================
 
 [![PyPI version](https://badge.fury.io/py/Appium-Python-Client.svg)](https://badge.fury.io/py/Appium-Python-Client)
+[![Downloads](https://pepy.tech/badge/appium-python-client)](https://pepy.tech/project/appium-python-client)
 
 [![Build Status](https://travis-ci.org/appium/python-client.svg?branch=master)](https://travis-ci.org/appium/python-client)
 [![Build Status](https://dev.azure.com/ki4070ma/python-client/_apis/build/status/appium.python-client?branchName=master)](https://dev.azure.com/ki4070ma/python-client/_build/latest?definitionId=2&branchName=master)

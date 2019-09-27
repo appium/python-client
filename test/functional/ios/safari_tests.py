@@ -16,18 +16,18 @@ import unittest
 
 from appium import webdriver
 
+from .helper.desired_capabilities import get_desired_capabilities
+
 
 class SafariTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = {
+        desired_caps = get_desired_capabilities()
+        desired_caps.update({
             'browserName': 'safari',
-            'platformName': 'iOS',
-            'platformVersion': '12.2',
-            'deviceName': 'iPhone Simulator',
             'nativeWebTap': True,
-            'safariIgnoreFraudWarning': True,
-            'automationName': 'XCUITest'
-        }
+            'safariIgnoreFraudWarning': True
+        })
+
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):

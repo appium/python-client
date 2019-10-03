@@ -10,7 +10,7 @@ class TestAndroidKey:
         assert AndroidKey.SPACE == 62
 
     def test_is_gamepad_key(self):
-        assert AndroidKey.is_gamepad_button(195)
+        assert AndroidKey.is_gamepad_button(AndroidKey.BUTTON_8)
         assert not AndroidKey.is_gamepad_button(250)
 
     def test_is_confirm_key(self):
@@ -18,13 +18,13 @@ class TestAndroidKey:
         assert not AndroidKey.is_confirm_key(21)
 
     def test_is_media_key(self):
-        assert AndroidKey.is_media_key(127)
+        assert AndroidKey.is_media_key(AndroidKey.MEDIA_PAUSE)
         assert not AndroidKey.is_media_key(11)
 
     def test_is_system_key(self):
-        assert AndroidKey.is_system_key(79)
+        assert AndroidKey.is_system_key(AndroidKey.HEADSETHOOK)
         assert not AndroidKey.is_system_key(21)
 
     def test_is_wake_key(self):
-        assert AndroidKey.is_wake_key(82)
+        assert AndroidKey.is_wake_key(AndroidKey.MENU)
         assert not AndroidKey.is_wake_key(32)

@@ -57,7 +57,7 @@ class AndroidKey:
     # Key code constant: '9' key.
     DIGIT_9 = 16
 
-    # Key code constant: '#' key.
+    # Key code constant: '*' key.
     STAR = 17
 
     # Key code constant: '#' key.

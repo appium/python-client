@@ -793,7 +793,7 @@ class AndroidKey:
 
     # Key code constant: Media Top Menu key.
     # Goes to the top of media menu.
-    _MEDIA_TOP_MENU = 226
+    MEDIA_TOP_MENU = 226
 
     # Key code constant: '11' key.
     KEY_11 = 227
@@ -919,7 +919,7 @@ class AndroidKey:
     # Key code constant: Media context menu key.
     # Goes to the context menu of media contents. Corresponds to Media Context-sensitive
     # Menu (0x11) of CEC User Control Code.
-    _TV_MEDIA_CONTEXT_MENU = 257
+    TV_MEDIA_CONTEXT_MENU = 257
 
     # Key code constant: Timer programming key.
     # Goes to the timer recording menu. Corresponds to Timer Programming (0x54) of

@@ -1012,7 +1012,7 @@ class AndroidKey:
     confirm_buttons = [DPAD_CENTER, ENTER, SPACE, NUMPAD_ENTER]
 
     @staticmethod
-    def is_confirm_button(code):
+    def is_confirm_key(code):
         """Returns true if the key will, by default, trigger a click on the focused view."""
         return code in AndroidKey.confirm_buttons
 
@@ -1021,7 +1021,7 @@ class AndroidKey:
                      MEDIA_REWIND, MEDIA_RECORD, MEDIA_FAST_FORWARD]
 
     @staticmethod
-    def is_media_button(code):
+    def is_media_key(code):
         """Returns true if this key is a media key, which can be send to apps that are
         interested in media key events."""
         return code in AndroidKey.media_buttons
@@ -1035,13 +1035,13 @@ class AndroidKey:
                       BRIGHTNESS_DOWN, BRIGHTNESS_UP, MEDIA_AUDIO_TRACK]
 
     @staticmethod
-    def is_system_button(code):
+    def is_system_key(code):
         """Returns true if the key is a system key, System keys can not be used for menu shortcuts."""
         return code in AndroidKey.system_buttons
 
     wake_buttons = [BACK, MENU, WAKEUP, PAIRING, STEM_1, STEM_2, STEM_3]
 
     @staticmethod
-    def is_wake_button(code):
+    def is_wake_key(code):
         """Returns true if the key is a wake key."""
         return code in AndroidKey.wake_buttons

@@ -1007,18 +1007,14 @@ class AndroidKey:
     @staticmethod
     def is_gamepad_button(code):
         """Returns true if the specified nativekey is a gamepad button."""
-        if code in AndroidKey.gamepad_buttons:
-            return True
-        return False
+        return code in AndroidKey.gamepad_buttons
 
     confirm_buttons = [DPAD_CENTER, ENTER, SPACE, NUMPAD_ENTER]
 
     @staticmethod
     def is_confirm_key(code):
         """Whether key will, by default, trigger a click on the focused view."""
-        if code in AndroidKey.confirm_buttons:
-            return True
-        return False
+        return code in AndroidKey.confirm_buttons
 
     media_buttons = [MEDIA_PLAY, MEDIA_PAUSE, MEDIA_PLAY_PAUSE,
                      MUTE, HEADSETHOOK, MEDIA_STOP, MEDIA_NEXT, MEDIA_PREVIOUS,
@@ -1028,9 +1024,7 @@ class AndroidKey:
     def is_media_key(code):
         """Whether this key is a media key, which can be send to apps that are
         interested in media key events."""
-        if code in AndroidKey.media_buttons:
-            return True
-        return False
+        return code in AndroidKey.media_buttons
 
     system_buttons = [MENU, SOFT_RIGHT, HOME, BACK, CALL,
                       ENDCALL, VOLUME_UP, VOLUME_DOWN, VOLUME_MUTE, MUTE,
@@ -1043,15 +1037,11 @@ class AndroidKey:
     @staticmethod
     def is_system_key(code):
         """Is this a system key? System keys can not be used for menu shortcuts."""
-        if code in AndroidKey.system_buttons:
-            return True
-        return False
+        return code in AndroidKey.system_buttons
 
     wake_buttons = [BACK, MENU, WAKEUP, PAIRING, STEM_1, STEM_2, STEM_3]
 
     @staticmethod
     def is_wake_key(code):
         """Is it wake key or not."""
-        if code in AndroidKey.wake_buttons:
-            return True
-        return False
+        return code in AndroidKey.wake_buttons

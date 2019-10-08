@@ -702,6 +702,16 @@ class WebDriver(
         return self.execute(Command.GET_SESSION)['value']
 
     @property
+    def allSessions(self):
+        """ Retrieves all sessions that are open
+        Usage:
+            sessions = driver.allSessions
+        Returns:
+            `dict containing all open sessions`
+        """
+        return self.execute(Command.GET_ALL_SESSIONS)['value']
+
+    @property
     def events(self):
         """ Retrieves events information from the current session
         Usage:

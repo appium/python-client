@@ -24,9 +24,18 @@ class WebDriverTests(unittest.TestCase):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
+        desired_caps['deviceName'] = 'iPhone Xs Max'
+        desired_caps['wdaLocalPort'] = '8102'
+        self.driver1 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
+        if self.driver1:
+            self.driver1.quit()
+
+    def testAllSessions(self):
+        self.assertEqual(2, len(self.driver.allSessions))
 
     def test_app_management(self):
         # this only works in Xcode9+

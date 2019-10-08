@@ -266,7 +266,7 @@ class TestWebDriverWebDriver(object):
             body=json.dumps({'value': {'deviceName': 'iPhone Simulator', 'events': {'simStarted': [1234567891]}}})
         )
         session = driver.allSessions
-        assert len(session)!=0
+        assert len(session) != 0
 
     @httpretty.activate
     def test_get_session(self):

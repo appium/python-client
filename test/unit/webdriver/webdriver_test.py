@@ -265,8 +265,8 @@ class TestWebDriverWebDriver(object):
             appium_command('/sessions'),
             body=json.dumps({'value': {'deviceName': 'iPhone Simulator', 'events': {'simStarted': [1234567891]}}})
         )
-        session = driver.allSessions
-        assert len(session) != 0
+        session = driver.all_sessions
+        assert len(session) != 1
 
     @httpretty.activate
     def test_get_session(self):

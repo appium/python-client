@@ -702,7 +702,7 @@ class WebDriver(
         return self.execute(Command.GET_SESSION)['value']
 
     @property
-    def allSessions(self):
+    def all_sessions(self):
         """ Retrieves all sessions that are open
         Usage:
             sessions = driver.allSessions

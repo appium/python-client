@@ -16,6 +16,7 @@
 class MobileCommand(object):
     # Common
     GET_SESSION = 'getSession'
+    GET_ALL_SESSIONS = 'getAllSessions'
 
     GET_LOCATION = 'getLocation'
     SET_LOCATION = 'setLocation'

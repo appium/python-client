@@ -85,7 +85,4 @@ def iphone_device_name(port=None):
     elif PytestXdistWorker.NUMBER == PytestXdistWorker.gw(1):
         return 'iPhone 8 - 8101'
 
-    if port is None:
-        return 'iPhone 8'
-
-    return 'iPhone 8 - {}'.format(port)
+    return 'iPhone 8'

@@ -31,14 +31,16 @@ class WebDriverTests(unittest.TestCase):
     def test_all_sessions(self):
         port = desired_capabilities.get_available_port()
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        desired_caps['deviceName'] = desired_capabilities.iphone_device_name(port)
+        desired_caps['deviceName'] = 'iPhone Xs Max'
         desired_caps['wdaLocalPort'] = port
+
+        driver2 = None
         try:
-            self.driver2 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+            driver2 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
             self.assertEqual(2, len(self.driver.all_sessions))
         finally:
-            if self.driver2:
-                self.driver2.quit()
+            if driver2:
+                driver2.quit()
 
     def test_app_management(self):
         # this only works in Xcode9+

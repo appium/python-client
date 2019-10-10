@@ -545,12 +545,13 @@ strings = driver.app_strings
 #### Sending a key event to an Android device
 
 The `driver.keyevent` method sends a keycode to the device. The keycodes can be
-found [here](http://developer.android.com/reference/android/view/KeyEvent.html).
+found in `AndroidKey` class.
 Android only.
 
 ```python
+from appium.webdriver.extensions.android.nativekey import AndroidKey
 # sending 'Home' key event
-driver.press_keycode(3)
+driver.press_keycode(AndroidKey.HOME)
 ```
 
 

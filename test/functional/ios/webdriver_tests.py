@@ -34,11 +34,11 @@ class WebDriverTests(unittest.TestCase):
         desired_caps['deviceName'] = desired_capabilities.iphone_device_name(port)
         desired_caps['wdaLocalPort'] = port
         try:
-            driver2 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+            self.driver2 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
             self.assertEqual(2, len(self.driver.all_sessions))
         finally:
-            if driver2:
-                driver2.quit()
+            if self.driver2:
+                self.driver2.quit()
 
     def test_app_management(self):
         # this only works in Xcode9+

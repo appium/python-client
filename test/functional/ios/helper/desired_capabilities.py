@@ -65,12 +65,13 @@ def wda_port():
 
 
 def get_available_port():
-    """Returns available local port number"""
+    """Returns available local port number.
+    """
     import socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     for port in range(8102, 8200):
-        if sock.connect_ex(('localhost', 4723)) != 0:
+        if sock.connect_ex(('localhost', port)) != 0:
             sock.close()
             return port
         sock.close()

@@ -705,7 +705,7 @@ class WebDriver(
     def all_sessions(self):
         """ Retrieves all sessions that are open
         Usage:
-            sessions = driver.allSessions
+            sessions = driver.all_sessions
         Returns:
             `dict containing all open sessions`
         """

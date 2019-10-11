@@ -14,6 +14,8 @@
 
 import unittest
 
+from selenium.webdriver.support.ui import WebDriverWait
+
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
 
@@ -37,9 +39,10 @@ class WebDriverTests(unittest.TestCase):
         driver2 = None
         try:
             driver2 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+            WebDriverWait(driver2, 10).until(len(self.driver.all_sessions) == 2)
             self.assertEqual(2, len(self.driver.all_sessions))
         finally:
-            if driver2:
+            if driver2 is not None:
                 driver2.quit()
 
     def test_app_management(self):

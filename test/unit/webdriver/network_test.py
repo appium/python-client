@@ -69,3 +69,12 @@ class TestWebDriverNetwork(object):
             appium_command('/session/1234567890/appium/device/toggle_wifi'),
         )
         assert isinstance(driver.toggle_wifi(), WebDriver)
+
+    @httpretty.activate
+    def test_toggle_airplane_mode(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/toggle_airplane_mode'),
+        )
+        assert isinstance(driver.toggle_airplane_mode(), WebDriver)

@@ -85,6 +85,7 @@ class MobileCommand(object):
     GET_SYSTEM_BARS = 'getSystemBars'
     GET_DISPLAY_DENSITY = 'getDisplayDensity'
     TOGGLE_WIFI = 'toggleWiFi'
+    TOGGLE_AIRPLANE_MODE = 'toggleAirplaneMode'
     TOGGLE_LOCATION_SERVICES = 'toggleLocationServices'
     END_TEST_COVERAGE = 'endTestCoverage'
     GET_PERFORMANCE_DATA_TYPES = 'getPerformanceDataTypes'

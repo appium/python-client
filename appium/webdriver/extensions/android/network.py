@@ -77,6 +77,15 @@ class Network(webdriver.Remote):
         self.execute(Command.TOGGLE_WIFI, {})
         return self
 
+    def toggle_airplane_mode(self):
+        """Toggle the airplane mode on the device, Android only.
+
+        Returns:
+            `appium.webdriver.webdriver.WebDriver`
+        """
+        self.execute(Command.TOGGLE_AIRPLANE_MODE, {})
+        return self
+
     def set_network_speed(self, speed_type):
         """Set the network speed emulation.
 
@@ -105,6 +114,8 @@ class Network(webdriver.Remote):
     def _addCommands(self):
         self.command_executor._commands[Command.TOGGLE_WIFI] = \
             ('POST', '/session/$sessionId/appium/device/toggle_wifi')
+        self.command_executor._commands[Command.TOGGLE_AIRPLANE_MODE] = \
+            ('POST', '/session/$sessionId/appium/device/toggle_airplane_mode')
         self.command_executor._commands[Command.GET_NETWORK_CONNECTION] = \
             ('GET', '/session/$sessionId/network_connection')
         self.command_executor._commands[Command.SET_NETWORK_CONNECTION] = \

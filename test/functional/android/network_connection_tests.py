@@ -32,6 +32,11 @@ class NetworkConnectionTests(BaseTestCase):
         self.assertIsInstance(nc, int)
         self.assertEqual(nc, ConnectionType.DATA_ONLY)
 
+    def test_set_airplane_mode(self):
+        if is_ci():
+            self.skipTest('Need to fix flaky test during running on CI')
+        nc = self.driver.toggle_airplane_mode()
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(NetworkConnectionTests)

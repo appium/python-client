@@ -36,10 +36,14 @@ class WebDriverTests(unittest.TestCase):
         desired_caps['deviceName'] = 'iPhone Xs Max'
         desired_caps['wdaLocalPort'] = port
 
+        class get_all_sessions(object):
+            def __call__(self, driver):
+                return len(driver.all_sessions) == 2
+
         driver2 = None
         try:
             driver2 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-            WebDriverWait(driver2, 10).until(len(self.driver.all_sessions) == 2)
+            WebDriverWait(driver2, 10).until(get_all_sessions())
             self.assertEqual(2, len(self.driver.all_sessions))
         finally:
             if driver2 is not None:

@@ -18,7 +18,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
-from test.functional.test_helper import get_available_port
+from test.functional.test_helper import get_available_port_range
 
 from .helper import desired_capabilities
 
@@ -32,7 +32,7 @@ class WebDriverTests(unittest.TestCase):
         self.driver.quit()
 
     def test_all_sessions(self):
-        port = get_available_port(range(8200, 8300))
+        port = get_available_port_range(8200, 8300)
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         desired_caps['deviceName'] = 'iPhone Xs Max'
         desired_caps['wdaLocalPort'] = port

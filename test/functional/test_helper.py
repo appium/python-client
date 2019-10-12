@@ -1,15 +1,15 @@
-def get_available_port(in_range):
+def get_available_port_range(from_range, to_range):
     """Returns available local port number.
     """
-    range(8102, 8200)
-    if not isinstance(in_range, range):
-        raise ValueError('{} should be range'.format(in_range))
+    if isinstance(from_range, int) or isinstance(to_range, int):
+        raise ValueError('from_range and to_range should be type of int')
 
     import socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    for port in in_range:
-        if sock.connect_ex(('localhost', port)) != 0:
+    for port in range(from_range, to_range):
+        try:
+            if sock.connect_ex(('localhost', port)) != 0:
+                return port
+        finally:
             sock.close()
-            return port
-        sock.close()

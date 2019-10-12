@@ -64,18 +64,6 @@ def wda_port():
     return 8100
 
 
-def get_available_port():
-    """Returns available local port number.
-    """
-    import socket
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    for port in range(8102, 8200):
-        if sock.connect_ex(('localhost', port)) != 0:
-            sock.close()
-            return port
-        sock.close()
-
 # Before running tests, you must have iOS simulators named 'iPhone 6s - 8100' and 'iPhone 6s - 8101'
 
 

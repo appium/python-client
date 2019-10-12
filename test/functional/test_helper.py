@@ -2,7 +2,7 @@ def get_available_port(in_range):
     """Returns available local port number.
     """
     range(8102, 8200)
-    if isinstance(in_range, range):
+    if not isinstance(in_range, range):
         raise ValueError('{} should be range'.format(in_range))
 
     import socket

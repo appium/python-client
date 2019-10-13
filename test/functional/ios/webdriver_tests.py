@@ -18,7 +18,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
-from test.functional.test_helper import get_available_port_range
+from test.functional.test_helper import get_available_from_port_range
 
 from .helper import desired_capabilities
 
@@ -32,12 +32,12 @@ class WebDriverTests(unittest.TestCase):
         self.driver.quit()
 
     def test_all_sessions(self):
-        port = get_available_port_range(8200, 8300)
+        port = get_available_from_port_range(8200, 8300)
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         desired_caps['deviceName'] = 'iPhone Xs Max'
         desired_caps['wdaLocalPort'] = port
 
-        class get_all_sessions(object):
+        class GetAllSessions(object):
             TIMEOUT = 10
 
             def __call__(self, driver):
@@ -47,7 +47,7 @@ class WebDriverTests(unittest.TestCase):
         try:
             driver2 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
             WebDriverWait(
-                driver2, get_all_sessions.TIMEOUT).until(get_all_sessions())
+                driver2, GetAllSessions.TIMEOUT).until(GetAllSessions())
             self.assertEqual(2, len(self.driver.all_sessions))
         finally:
             if driver2 is not None:

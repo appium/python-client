@@ -1,3 +1,6 @@
+import socket
+
+
 class NoAvailablePortError(Exception):
     pass
 
@@ -7,7 +10,6 @@ def get_available_from_port_range(from_port, to_port):
     """
     r = range(from_port, to_port)
 
-    import socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     for port in r:

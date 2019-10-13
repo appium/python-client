@@ -37,7 +37,7 @@ class WebDriverTests(unittest.TestCase):
         desired_caps['deviceName'] = 'iPhone Xs Max'
         desired_caps['wdaLocalPort'] = port
 
-        class GetAllSessions(object):
+        class session_counts_is_two(object):
             TIMEOUT = 10
 
             def __call__(self, driver):
@@ -47,7 +47,7 @@ class WebDriverTests(unittest.TestCase):
         try:
             driver2 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
             WebDriverWait(
-                driver2, GetAllSessions.TIMEOUT).until(GetAllSessions())
+                driver2, session_counts_is_two.TIMEOUT).until(session_counts_is_two())
             self.assertEqual(2, len(self.driver.all_sessions))
         finally:
             if driver2 is not None:

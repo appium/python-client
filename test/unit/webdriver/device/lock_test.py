@@ -14,6 +14,7 @@
 
 import httpretty
 
+from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import (
     android_w3c_driver,
     appium_command,
@@ -69,3 +70,12 @@ class TestWebDriverLock(object):
         )
 
         assert driver.is_locked() is True
+
+    @httpretty.activate
+    def test_unlock(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/unlock'),
+        )
+        assert isinstance(driver.unlock(), WebDriver)

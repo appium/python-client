@@ -39,9 +39,23 @@ class TestWebDriverKeyboard(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/press_keycode'),
-            body='{keycode: 86}'
+            body='{"value": "86"}'
         )
-        assert isinstance(driver.press_keycode(86), WebDriver)
+        driver.press_keycode(86)
+        d = get_httpretty_request_body((httpretty.last_request()))
+        assert d['keycode'] == 86
+
+    @httpretty.activate
+    def test_long_press_keycode(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/long_press_keycode'),
+            body='{"value": "86"}'
+        )
+        driver.long_press_keycode(86)
+        d = get_httpretty_request_body((httpretty.last_request()))
+        assert d['keycode'] == 86
 
     @httpretty.activate
     def test_keyevent(self):
@@ -68,16 +82,6 @@ class TestWebDriverKeyboard(object):
                 86, metastate=[
                     0x00000001, 0x00200000], flags=[
                     0x20, 0x00000004, 0x00000008]), WebDriver)
-
-    @httpretty.activate
-    def test_long_press_keycode(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/device/long_press_keycode'),
-            body='{keycode: 86}'
-        )
-        assert isinstance(driver.long_press_keycode(86), WebDriver)
 
     @httpretty.activate
     def test_long_press_keycode_with_flags(self):

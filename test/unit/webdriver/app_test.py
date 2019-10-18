@@ -44,7 +44,7 @@ class TestWebDriverApp(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/install_app'),
-            body='{"value": {"app": ""}}'
+            body='{"value": ""}'
         )
         result = driver.install_app('path/to/app')
 
@@ -57,7 +57,7 @@ class TestWebDriverApp(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/remove_app'),
-            body='{"value": {"app": ""}}'
+            body='{"value": ""}'
         )
         result = driver.remove_app('com.app.id')
 
@@ -94,7 +94,7 @@ class TestWebDriverApp(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/app/background'),
-            body='{"value": {"app": }}'
+            body='{"value": ""}'
         )
         result = driver.background_app(0)
         assert {'app': 0}, get_httpretty_request_body(httpretty.last_request())

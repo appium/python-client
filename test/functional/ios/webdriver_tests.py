@@ -14,8 +14,11 @@
 
 import unittest
 
+from selenium.webdriver.support.ui import WebDriverWait
+
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
+from test.functional.test_helper import get_available_from_port_range
 
 from .helper import desired_capabilities
 
@@ -24,20 +27,31 @@ class WebDriverTests(unittest.TestCase):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-        desired_caps['deviceName'] = 'iPhone Xs Max'
-        desired_caps['wdaLocalPort'] = '8102'
 
     def tearDown(self):
         self.driver.quit()
 
-    def testAllSessions(self):
+    def test_all_sessions(self):
+        port = get_available_from_port_range(8200, 8300)
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         desired_caps['deviceName'] = 'iPhone Xs Max'
-        desired_caps['wdaLocalPort'] = '8102'
-        self.driver1 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-        self.assertEqual(2, len(self.driver.all_sessions))
-        if self.driver1:
-            self.driver1.quit()
+        desired_caps['wdaLocalPort'] = port
+
+        class session_counts_is_two(object):
+            TIMEOUT = 10
+
+            def __call__(self, driver):
+                return len(driver.all_sessions) == 2
+
+        driver2 = None
+        try:
+            driver2 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+            WebDriverWait(
+                driver2, session_counts_is_two.TIMEOUT).until(session_counts_is_two())
+            self.assertEqual(2, len(self.driver.all_sessions))
+        finally:
+            if driver2 is not None:
+                driver2.quit()
 
     def test_app_management(self):
         # this only works in Xcode9+

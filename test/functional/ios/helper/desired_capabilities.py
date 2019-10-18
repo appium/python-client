@@ -63,10 +63,11 @@ def wda_port():
 
     return 8100
 
+
 # Before running tests, you must have iOS simulators named 'iPhone 6s - 8100' and 'iPhone 6s - 8101'
 
 
-def iphone_device_name():
+def iphone_device_name(port=None):
     if PytestXdistWorker.NUMBER == PytestXdistWorker.gw(0):
         return 'iPhone 8 - 8100'
     elif PytestXdistWorker.NUMBER == PytestXdistWorker.gw(1):

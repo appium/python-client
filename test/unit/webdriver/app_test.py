@@ -89,6 +89,19 @@ class TestWebDriverApp(object):
         assert result is True
 
     @httpretty.activate
+    def test_activate_app(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/activate_app'),
+            body='{"value": ""}'
+        )
+        result = driver.activate_app("com.app.id")
+
+        assert {'app': 'com.app.id'}, get_httpretty_request_body(httpretty.last_request())
+        assert isinstance(result, WebDriver)
+
+    @httpretty.activate
     def test_background_app(self):
         driver = android_w3c_driver()
         httpretty.register_uri(

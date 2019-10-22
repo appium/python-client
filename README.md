@@ -531,6 +531,23 @@ launch the activity's application.
 driver.start_activity('com.foo.app', '.MyActivity')
 ```
 
+You can also pass additional arguments to start an activity with intent as below,
+
+```python
+driver.start_activity('com.foo.app', '.MainActivity', app_wait_package='your package name')
+```
+
+and the list of additional arguments that can be passed are,
+
+```python
+             'app_wait_package'
+             'app_wait_activity' 
+             'intent_action' 
+             'intent_category' 
+             'intent_flags' 
+             'optional_intent_arguments' 
+             'dont_stop_app_on_reset'
+```
 
 #### Retrieving application strings
 

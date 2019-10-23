@@ -2,6 +2,122 @@ Changelog
 =========
 
 
+(unreleased)
+------------
+- Bump 0.48. [Kazuaki Matsuo]
+
+
+v0.48 (2019-10-22)
+------------------
+- Add docs on start activity with args. [Manoj Kumar]
+- Add unit tests Activate app. [Manoj Kumar]
+- Test: Add unit tests for application_tests (#454) [Manoj Kumar]
+
+  * Add unit tests for application_tests
+
+  * change body values to be empty
+- Fix docstring, add getting available port number (#448) [Kazuaki
+  Matsuo]
+
+  * fix docstring, add getting available port number
+
+  * add WebDriverWait
+
+  * define custom wait
+
+  * move get available port in another module
+
+  * follow python wait condition name
+- Test: add Unit tests currentPackage (#453) [Manoj Kumar]
+- Add unit tests for keyboard API (#452) [Manoj Kumar]
+
+  * Add Unit tests for Keyboard API
+
+  * incorporating review comments
+
+  * change per review comment
+- Test: add unit test unlock (#450) [Manoj Kumar]
+- Docs: Minor fix in README (#445) [Aliakbar]
+- Feat: Adding getAllSessions (#446) [Manoj Kumar]
+
+  * Adding getAllSessions
+
+  * adjust per lint
+
+  * fix comments
+- AndroidKey class for Key Codes added. (#443) [Aliakbar]
+
+  * AndroidKey class for Key Codes added.
+
+  AndroidKey enum from java client ported. Instead of using unreadable numbers in code we can use these constant in order to write more readable code.
+
+  * Android native key test
+
+  Test for native key module which contains key codes for android keys.
+
+  * Fixed # sign in comment instead of *
+
+  * Change returns
+
+  Instead of `if` and two return statements.
+
+  * Used AndroidKey.XXX instead of numbers in tests
+
+  * Make fuctions similar to  is_gamepad_button
+
+  Used a similar sentence format for similar functions as is_gamepad_button.
+
+  * Make function names as is in java-client
+
+  * Underscore in the beginning of constant removed
+- Add downloads badge (#441) [Mori Atsushi]
+- Fix CI fails (Updated iOS ver) (#440) [Mori Atsushi]
+
+  * Updated iOS ver to fix CI fails
+
+  * Update capability for safari test on ios
+
+  * Fix travis CI fails
+- Fix CI fails (#436) [Mori Atsushi]
+
+  * Skip taking the screenshot not in CI
+
+  * Skip py38 on travis
+- Fix isort behavior for mock (#432) [Mori Atsushi]
+
+  * Fix isort behavior for mock
+
+  * Add guide to add 3rd party modules to isort conf
+
+  * Add guide for docstrings
+
+  * Delete unnecessary codes
+- Run unittest with python3.8 (#433) [Mori Atsushi]
+- Fix android flaky tests (#413) [Mori Atsushi]
+
+  * Fix android flaky tests
+
+  * Use androidSdkVer 27 for emulator
+
+  * Skip find_by_accessibility_id, find_by_uiautomator
+
+  * Changed from https://github.com/ki4070ma/python-client/pull/5
+
+  * Add save_appium_log.yml
+
+  * Don't run flaky tests on CI
+
+  * Rename class name
+- Ci: try run all scripts and exit 1 when something fails (#431)
+  [Kazuaki Matsuo]
+
+  * try run all scripts and exit 1 when something fails
+
+  * ignore link in Python 3.7 because of runtime error
+- Bump 0.47. [Kazuaki Matsuo]
+- Update changelog for 0.47. [Kazuaki Matsuo]
+
+
 v0.47 (2019-08-22)
 ------------------
 

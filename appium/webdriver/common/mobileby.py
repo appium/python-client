@@ -22,6 +22,7 @@ class MobileBy(By):
     ANDROID_UIAUTOMATOR = '-android uiautomator'
     ANDROID_VIEWTAG = '-android viewtag'
     ANDROID_DATA_MATCHER = '-android datamatcher'
+    WINDOWS_UI_AUTOMATION = '-windows uiautomation'
     ACCESSIBILITY_ID = 'accessibility id'
     IMAGE = '-image'
     CUSTOM = '-custom'

@@ -216,6 +216,20 @@ class WebElement(AppiumWebElementSearchContext):
         """
         return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
+    def find_element_by_windows_uiautomation(self, win_uiautomation):
+        """Finds an element by windows uiautomation
+
+        Args:
+            win_uiautomation (str): The element name in the windows UIAutomation selector
+
+        Usage:
+            driver.find_element_by_windows_uiautomation()
+
+        Returns:
+            `appium.webdriver.webelement.WebElement`
+        """
+        return self.find_element(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)
+
     def find_element(self, by=By.ID, value=None):
         """Find an element given a By strategy and locator
 

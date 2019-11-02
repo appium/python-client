@@ -80,3 +80,18 @@ class TestWebElement(object):
         assert d['using'] == '-android datamatcher'
         assert d['value'] == '{}'
         assert len(els) == 0
+
+    @httpretty.activate
+    def test_find_element_by_windows_uiautomation(self):
+        driver = android_w3c_driver()
+        element = MobileWebElement(driver, 'element_id', w3c=True)
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/element/element_id/element'),
+            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "win-element-id"}}'
+        )
+        el = element.find_element_by_windows_uiautomation('win_element')
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['using'] == '-windows uiautomation'
+        assert el.id == 'win-element-id'

@@ -230,6 +230,20 @@ class WebElement(AppiumWebElementSearchContext):
         """
         return self.find_element(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)
 
+    def find_elements_by_windows_uiautomation(self, win_uiautomation):
+        """Finds elements by windows uiautomation
+
+        Args:
+            win_uiautomation (str): The element name in the windows UIAutomation selector
+
+        Usage:
+            driver.find_elements_by_windows_uiautomation()
+
+        Returns:
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+        """
+        return self.find_elements(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)
+
     def find_element(self, by=By.ID, value=None):
         """Find an element given a By strategy and locator
 

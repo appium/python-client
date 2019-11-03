@@ -256,13 +256,47 @@ class iOSSearchContext(BaseSearchContext):
         return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
 
+class WindoesSearchContext(BaseSearchContext):
+    """Define search context for Windows"""
+
+    def find_element_by_windows_uiautomation(self, win_uiautomation):
+        """Finds an element by windows uiautomation
+
+        Args:
+            win_uiautomation (str): The element name in the windows UIAutomation selector
+
+        Usage:
+            driver.find_element_by_windows_uiautomation()
+
+        Returns:
+            `appium.webdriver.webelement.WebElement`
+        """
+        return self.find_element(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)
+
+    def find_elements_by_windows_uiautomation(self, win_uiautomation):
+        """Finds elements by windows uiautomation
+
+        Args:
+            win_uiautomation (str): The element name in the windows UIAutomation selector
+
+        Usage:
+            driver.find_elements_by_windows_uiautomation()
+
+        Returns:
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+        """
+        return self.find_elements(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)
+
+
 class AppiumSearchContext(webdriver.Remote,
                           AndroidSearchContext,
-                          iOSSearchContext):
+                          iOSSearchContext,
+                          WindoesSearchContext):
     """Returns appium driver search conext"""
 
 
 class AppiumWebElementSearchContext(SeleniumWebElement,
                                     AndroidSearchContext,
-                                    iOSSearchContext):
+                                    iOSSearchContext,
+                                    WindoesSearchContext):
     """Returns appium web element search context"""

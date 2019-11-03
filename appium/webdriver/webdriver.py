@@ -29,6 +29,7 @@ from .appium_connection import AppiumConnection
 from .errorhandler import MobileErrorHandler
 from .extensions.action_helpers import ActionHelpers
 from .extensions.android.activities import Activities
+from .extensions.android.common import Common
 from .extensions.android.display import Display
 from .extensions.android.gsm import Gsm
 from .extensions.android.network import Network
@@ -115,6 +116,7 @@ class WebDriver(
     Applications,
     Clipboard,
     Context,
+    Common,
     DeviceTime,
     Display,
     ExecuteDriver,
@@ -618,12 +620,6 @@ class WebDriver(
         self.execute_script('mobile: pressButton', data)
         return self
 
-    @property
-    def current_package(self):
-        """Retrieves the current package running on the device.
-        """
-        return self.execute(Command.GET_CURRENT_PACKAGE)['value']
-
     def set_value(self, element, value):
         """Set the value on an element in the application.
 
@@ -639,34 +635,6 @@ class WebDriver(
             'value': [value],
         }
         self.execute(Command.SET_IMMEDIATE_VALUE, data)
-        return self
-
-    def end_test_coverage(self, intent, path):
-        """Ends the coverage collection and pull the coverage.ec file from the device.
-
-        Android only.
-        See https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android/android-coverage.md
-
-        Args:
-            intent (str): description of operation to be performed
-            path (str): path to coverage.ec file to be pulled from the device
-
-        Returns:
-            TODO
-        """
-        data = {
-            'intent': intent,
-            'path': path,
-        }
-        return self.execute(Command.END_TEST_COVERAGE, data)['value']
-
-    def open_notifications(self):
-        """Open notification shade in Android (API Level 18 and above)
-
-        Returns:
-            `appium.webdriver.webdriver.WebDriver`
-        """
-        self.execute(Command.OPEN_NOTIFICATIONS, {})
         return self
 
     @property

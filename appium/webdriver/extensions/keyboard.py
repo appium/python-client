@@ -129,9 +129,3 @@ class Keyboard(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/device/press_keycode')
         self.command_executor._commands[Command.LONG_PRESS_KEYCODE] = \
             ('POST', '/session/$sessionId/appium/device/long_press_keycode')
-        self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
-            ('POST', '/session/$sessionId/appium/element/$id/value')
-        self.command_executor._commands[Command.REPLACE_KEYS] = \
-            ('POST', '/session/$sessionId/appium/element/$id/replace_value')
-        self.command_executor._commands[Command.CLEAR] = \
-            ('POST', '/session/$sessionId/element/$id/clear')

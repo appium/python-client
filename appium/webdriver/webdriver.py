@@ -718,5 +718,3 @@ class WebDriver(
             ('POST', '/session/$sessionId/appium/app/end_test_coverage')
         self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
             ('POST', '/session/$sessionId/appium/device/open_notifications')
-        self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
-            ('GET', '/session/$sessionId/element/$id/location_in_view')

@@ -8,7 +8,7 @@ jobs:
       - template: ./run_appium.yml
       - template: ./ios_setup.yml
         parameters:
-          xcodeForIOS: ${{ parameters.xcodeForIOS }}
+          xcodeVersion: ${{ parameters.xcodeForIOS }}
       - script: |
           cd test/functional/ios
           py.test ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}

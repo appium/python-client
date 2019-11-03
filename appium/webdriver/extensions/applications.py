@@ -210,3 +210,7 @@ class Applications(webdriver.Remote):
             ('POST', '/session/$sessionId/appium/app/strings')
         self.command_executor._commands[Command.RESET] = \
             ('POST', '/session/$sessionId/appium/app/reset')
+        self.command_executor._commands[Command.LAUNCH_APP] = \
+            ('POST', '/session/$sessionId/appium/app/launch')
+        self.command_executor._commands[Command.CLOSE_APP] = \
+            ('POST', '/session/$sessionId/appium/app/close')

@@ -74,36 +74,6 @@ class WebElement(AppiumWebElementSearchContext):
         """Whether the element is visible to a user."""
         return self._execute(RemoteCommand.IS_ELEMENT_DISPLAYED)['value']
 
-    def find_element_by_accessibility_id(self, accessibility_id):
-        """Finds an element by accessibility id.
-
-        Args:
-            accessibility_id (str): a string corresponding to a recursive element search using the
-                Id/Name that the native Accessibility options utilize
-
-        Usage:
-            driver.find_element_by_accessibility_id()
-
-        Returns:
-            `appium.webdriver.webelement.WebElement`
-        """
-        return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
-
-    def find_elements_by_accessibility_id(self, accessibility_id):
-        """Finds elements by accessibility id.
-
-        Args:
-            accessibility_id (str): a string corresponding to a recursive element search using the
-                Id/Name that the native Accessibility options utilize
-
-        Usage:
-            driver.find_elements_by_accessibility_id()
-
-        Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-        """
-        return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
-
     def find_element(self, by=By.ID, value=None):
         """Find an element given a By strategy and locator
 

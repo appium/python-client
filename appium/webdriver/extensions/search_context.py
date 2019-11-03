@@ -33,6 +33,44 @@ class BaseSearchContext(object):
         raise NotImplementedError
 
 
+class MobileSearchContext(BaseSearchContext):
+    """Define search context for Mobile(Android, iOS)"""
+
+    def find_element_by_accessibility_id(self, accessibility_id):
+        """Finds an element by accessibility id.
+
+        Args:
+            accessibility_id (str): A string corresponding to a recursive element search using the
+                Id/Name that the native Accessibility options utilize
+
+        Usage:
+            driver.find_element_by_accessibility_id()
+
+        Returns:
+            `appium.webdriver.webelement.WebElement`
+
+        :rtype: `MobileWebElement`
+        """
+        return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
+
+    def find_elements_by_accessibility_id(self, accessibility_id):
+        """Finds elements by accessibility id.
+
+        Args:
+            accessibility_id (str): a string corresponding to a recursive element search using the
+                Id/Name that the native Accessibility options utilize
+
+        Usage:
+            driver.find_elements_by_accessibility_id()
+
+        Returns:
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+
+        :rtype: list of `MobileWebElement`
+        """
+        return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
+
+
 class AndroidSearchContext(BaseSearchContext):
     """Define search context for Android"""
 
@@ -256,7 +294,7 @@ class iOSSearchContext(BaseSearchContext):
         return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
 
-class WindoesSearchContext(BaseSearchContext):
+class WindowsSearchContext(BaseSearchContext):
     """Define search context for Windows"""
 
     def find_element_by_windows_uiautomation(self, win_uiautomation):
@@ -289,14 +327,16 @@ class WindoesSearchContext(BaseSearchContext):
 
 
 class AppiumSearchContext(webdriver.Remote,
+                          MobileSearchContext,
                           AndroidSearchContext,
                           iOSSearchContext,
-                          WindoesSearchContext):
+                          WindowsSearchContext):
     """Returns appium driver search conext"""
 
 
 class AppiumWebElementSearchContext(SeleniumWebElement,
+                                    MobileSearchContext,
                                     AndroidSearchContext,
                                     iOSSearchContext,
-                                    WindoesSearchContext):
+                                    WindowsSearchContext):
     """Returns appium web element search context"""

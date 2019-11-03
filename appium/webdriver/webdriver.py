@@ -349,40 +349,6 @@ class WebDriver(
 
         return self.find_elements(by=MobileBy.IMAGE, value=b64_data)
 
-    def find_element_by_accessibility_id(self, accessibility_id):
-        """Finds an element by accessibility id.
-
-        Args:
-            accessibility_id (str): A string corresponding to a recursive element search using the
-                Id/Name that the native Accessibility options utilize
-
-        Usage:
-            driver.find_element_by_accessibility_id()
-
-        Returns:
-            `appium.webdriver.webelement.WebElement`
-
-        :rtype: `MobileWebElement`
-        """
-        return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
-
-    def find_elements_by_accessibility_id(self, accessibility_id):
-        """Finds elements by accessibility id.
-
-        Args:
-            accessibility_id (str): a string corresponding to a recursive element search using the
-                Id/Name that the native Accessibility options utilize
-
-        Usage:
-            driver.find_elements_by_accessibility_id()
-
-        Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-
-        :rtype: list of `MobileWebElement`
-        """
-        return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
-
     def find_element_by_custom(self, selector):
         """Finds an element in conjunction with a custom element finding plugin
 

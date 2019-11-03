@@ -99,6 +99,74 @@ class AndroidSearchContext(BaseSearchContext):
 
         return json.dumps(result)
 
+    def find_element_by_android_uiautomator(self, uia_string):
+        """Finds element by uiautomator in Android.
+
+        Args:
+            uia_string: The element name in the Android UIAutomator library
+
+        Usage:
+            driver.find_element_by_android_uiautomator('.elements()[1].cells()[2]')
+
+        Returns:
+            `appium.webdriver.webelement.WebElement`
+
+        :rtype: `MobileWebElement`
+        """
+        return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
+
+    def find_elements_by_android_uiautomator(self, uia_string):
+        """Finds elements by uiautomator in Android.
+
+        Args:
+            uia_string (str): The element name in the Android UIAutomator library
+
+        Usage:
+            driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
+
+        Returns:
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+
+        :rtype: list of `MobileWebElement`
+        """
+        return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
+
+    def find_element_by_android_viewtag(self, tag):
+        """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
+
+        It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
+
+        Args:
+            tag (str): The tag name of the view to look for
+
+        Usage:
+            driver.find_element_by_android_viewtag('a tag name')
+
+        Returns:
+            `appium.webdriver.webelement.WebElement`
+
+        :rtype: `MobileWebElement`
+        """
+        return self.find_element(by=MobileBy.ANDROID_VIEWTAG, value=tag)
+
+    def find_elements_by_android_viewtag(self, tag):
+        """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
+
+        It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
+
+        Args:
+            tag (str): The tag name of the view to look for
+
+        Usage:
+            driver.find_elements_by_android_viewtag('a tag name')
+
+        Returns:
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+
+        :rtype: list of `MobileWebElement`
+        """
+        return self.find_elements(by=MobileBy.ANDROID_VIEWTAG, value=tag)
+
 
 class iOSSearchContext(BaseSearchContext):
     """Define search context for iOS"""

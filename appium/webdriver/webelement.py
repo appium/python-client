@@ -74,34 +74,6 @@ class WebElement(AppiumWebElementSearchContext):
         """Whether the element is visible to a user."""
         return self._execute(RemoteCommand.IS_ELEMENT_DISPLAYED)['value']
 
-    def find_element_by_android_uiautomator(self, uia_string):
-        """Finds element by uiautomator in Android.
-
-        Args:
-            uia_string (str): The element name in the Android UIAutomator library
-
-        Usage:
-            driver.find_element_by_android_uiautomator('.elements()[1].cells()[2]')
-
-        Returns:
-            `appium.webdriver.webelement.WebElement`
-        """
-        return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
-
-    def find_elements_by_android_uiautomator(self, uia_string):
-        """Finds elements by uiautomator in Android.
-
-        Args:
-            uia_string (str): The element name in the Android UIAutomator library
-
-        Usage:
-            driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
-
-        Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-        """
-        return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
-
     def find_element_by_accessibility_id(self, accessibility_id):
         """Finds an element by accessibility id.
 

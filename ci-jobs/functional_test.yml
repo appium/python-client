@@ -2,6 +2,7 @@ parameters:
   vmImage: 'macOS-10.14'
   pytestOpt: '--doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html'
   androidSdkVer: 28
+  xcodeForIOS: 10.3
   CI: true
 
 # [Android] Need to fix and add flaky tests for activities_tests, find_by_uiautomator_tests
@@ -14,6 +15,7 @@ jobs:
       pytestOpt: ${{ parameters.pytestOpt }}
       testFiles: 'find_*.py remote_fs_tests.py safari_tests.py execute_driver_tests.py'
       CI: ${{ parameters.ci }}
+      xcodeForIOS: ${{ parameters.xcodeForIOS }}
   - template: ./functional/run_ios_test.yml
     parameters:
       name: 'func_test_ios2'
@@ -21,6 +23,7 @@ jobs:
       pytestOpt: ${{ parameters.pytestOpt }}
       testFiles: 'applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py'
       CI: ${{ parameters.ci }}
+      xcodeForIOS: ${{ parameters.xcodeForIOS }}
   - template: ./functional/run_android_test.yml
     parameters:
       name: 'func_test_android1'

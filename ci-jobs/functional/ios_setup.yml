@@ -1,0 +1,5 @@
+steps:
+- script: sudo xcode-select -s /Applications/Xcode_${{ parameters.xcodeVersion }}.app/Contents/Developer
+  displayName: Xcode Select ${{ parameters.xcodeVersion }}
+- script: xcrun simctl list
+  displayName: List Installed Simulators

@@ -371,8 +371,6 @@ class WebElement(AppiumWebElementSearchContext):
         return self
 
     def _addCommands(self):
-        self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
-            ('POST', '/session/$sessionId/appium/element/$id/value')
         self.command_executor._commands[Command.REPLACE_KEYS] = \
             ('POST', '/session/$sessionId/appium/element/$id/replace_value')
         self.command_executor._commands[Command.CLEAR] = \

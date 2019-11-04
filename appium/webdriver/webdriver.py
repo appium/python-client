@@ -718,3 +718,5 @@ class WebDriver(
             ('POST', '/session/$sessionId/appium/app/end_test_coverage')
         self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
             ('POST', '/session/$sessionId/appium/device/open_notifications')
+        self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
+            ('POST', '/session/$sessionId/appium/element/$id/value')

@@ -38,7 +38,7 @@ class WebDriverTests(unittest.TestCase):
         desired_caps['wdaLocalPort'] = port
 
         class session_counts_is_two(object):
-            TIMEOUT = 10
+            TIMEOUT = 30
 
             def __call__(self, driver):
                 return len(driver.all_sessions) == 2

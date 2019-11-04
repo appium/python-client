@@ -369,11 +369,3 @@ class WebElement(AppiumWebElementSearchContext):
         data = {'id': self.id}
         self._execute(Command.CLEAR, data)
         return self
-
-    def _addCommands(self):
-        self.command_executor._commands[Command.REPLACE_KEYS] = \
-            ('POST', '/session/$sessionId/appium/element/$id/replace_value')
-        self.command_executor._commands[Command.CLEAR] = \
-            ('POST', '/session/$sessionId/element/$id/clear')
-        self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
-            ('GET', '/session/$sessionId/element/$id/location_in_view')

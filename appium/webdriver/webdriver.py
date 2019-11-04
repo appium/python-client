@@ -720,3 +720,11 @@ class WebDriver(
             ('POST', '/session/$sessionId/appium/device/open_notifications')
         self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
             ('POST', '/session/$sessionId/appium/element/$id/value')
+
+        # TODO Move commands for element to webelement
+        self.command_executor._commands[Command.REPLACE_KEYS] = \
+            ('POST', '/session/$sessionId/appium/element/$id/replace_value')
+        self.command_executor._commands[Command.CLEAR] = \
+            ('POST', '/session/$sessionId/element/$id/clear')
+        self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
+            ('GET', '/session/$sessionId/element/$id/location_in_view')

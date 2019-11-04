@@ -421,13 +421,3 @@ class TestSubModuleWebDriver(object):
 
         assert len(driver_base.command_executor._commands) == len(driver_sub.command_executor._commands)
         assert len(driver_base.command_executor._commands) == len(driver_subsub.command_executor._commands)
-
-    @httpretty.activate
-    def test_current_package(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.GET,
-            appium_command('/session/1234567890/appium/device/current_package'),
-            body='{"value": ".ExamplePackage"}'
-        )
-        assert driver.current_package == '.ExamplePackage'

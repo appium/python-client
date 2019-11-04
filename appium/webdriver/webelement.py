@@ -12,14 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
-from appium.webdriver.common.mobileby import MobileBy
-
-from .extensions.search_context import AppiumWebElementSearchContext
+from .extensions.search_context.search_context import (
+    AppiumWebElementSearchContext
+)
 from .mobilecommand import MobileCommand as Command
 
 # Python 3 imports

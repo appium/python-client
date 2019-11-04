@@ -4,3 +4,12 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 jobs:
   - template: ./ci-jobs/functional_test.yml
+
+# Runs tests nightly to make sure they works against appium@beta
+schedules:
+  - cron: "0 0 * * *"
+    displayName: Daily Nightly build (UTC)
+    branches:
+      include:
+        - master
+    always: true

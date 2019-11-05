@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import urllib3
-
-from selenium.webdriver.remote.remote_connection import RemoteConnection
+from selenium.webdriver.remote.remote_connection import RemoteConnection, urllib3
 
 from appium.common.helper import library_version
 

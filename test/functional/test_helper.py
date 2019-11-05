@@ -1,3 +1,4 @@
+import os
 import socket
 
 
@@ -21,3 +22,12 @@ def get_available_from_port_range(from_port, to_port):
 
     raise NoAvailablePortError('No available port between {} and {}'.format(
         from_port, to_port))
+
+
+def is_ci():
+    """Returns if current execution is running on CI
+
+    Returns:
+        bool: `True` if current executions is on CI
+    """
+    return os.getenv('CI', 'false') == 'true'

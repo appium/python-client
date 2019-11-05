@@ -17,7 +17,8 @@ import unittest
 
 from appium.webdriver.connectiontype import ConnectionType
 
-from .helper.test_helper import BaseTestCase, is_ci
+from ..test_helper import is_ci
+from .helper.test_helper import BaseTestCase
 
 
 class NetworkConnectionTests(BaseTestCase):

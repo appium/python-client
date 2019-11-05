@@ -20,6 +20,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from appium import webdriver
+from test.functional.test_helper import is_ci
 
 from . import desired_capabilities
 
@@ -46,15 +47,6 @@ def wait_for_element(driver, locator, value, timeout=SLEEPY_TIME):
     return WebDriverWait(driver, timeout).until(
         EC.presence_of_element_located((locator, value))
     )
-
-
-def is_ci():
-    """Returns if current execution is running on CI
-
-    Returns:
-        bool: `True` if current executions is on CI
-    """
-    return os.getenv('CI', 'false') == 'true'
 
 
 class BaseTestCase(unittest.TestCase):

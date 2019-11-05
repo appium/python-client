@@ -36,4 +36,4 @@ class AppiumConnection(RemoteConnection):
                                                resolve_ip=resolve_ip)
         # TODO: Remove this workaround after https://github.com/SeleniumHQ/selenium/pull/7746 is merged to master
         if keep_alive:
-            self._conn = urllib3.PoolManager(timeout=self._timeout, retries=urllib3.Retry(read=3))
+            self._conn = urllib3.PoolManager(timeout=self._timeout, retries=urllib3.Retry(read=READ_RETRIES))

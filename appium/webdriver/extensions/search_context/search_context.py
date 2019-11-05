@@ -19,22 +19,25 @@ from selenium.webdriver.remote.webelement import \
     WebElement as SeleniumWebElement
 
 from .android import AndroidSearchContext
+from .custom import CustomSearchContext
 from .ios import iOSSearchContext
 from .mobile import MobileSearchContext
 from .windows import WindowsSearchContext
 
 
 class AppiumSearchContext(webdriver.Remote,
-                          MobileSearchContext,
                           AndroidSearchContext,
+                          CustomSearchContext,
                           iOSSearchContext,
+                          MobileSearchContext,
                           WindowsSearchContext):
     """Returns appium driver search conext"""
 
 
 class AppiumWebElementSearchContext(SeleniumWebElement,
-                                    MobileSearchContext,
                                     AndroidSearchContext,
+                                    CustomSearchContext,
                                     iOSSearchContext,
+                                    MobileSearchContext,
                                     WindowsSearchContext):
     """Returns appium web element search context"""

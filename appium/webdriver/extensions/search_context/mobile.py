@@ -14,6 +14,8 @@
 
 # pylint: disable=abstract-method
 
+import base64
+
 from appium.webdriver.common.mobileby import MobileBy
 
 from .base_search_context import BaseSearchContext
@@ -55,3 +57,40 @@ class MobileSearchContext(BaseSearchContext):
         :rtype: list of `MobileWebElement`
         """
         return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
+
+    def find_element_by_image(self, img_path):
+        """Finds a portion of a screenshot by an image.
+
+        Uses driver.find_image_occurrence under the hood.
+
+        Args:
+            img_path (str): a string corresponding to the path of a image
+
+        Returns:
+            `appium.webdriver.webelement.WebElement`
+
+        :rtype: `MobileWebElement`
+        """
+        with open(img_path, 'rb') as i_file:
+            b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
+
+        return self.find_element(by=MobileBy.IMAGE, value=b64_data)
+
+    def find_elements_by_image(self, img_path):
+        """Finds a portion of a screenshot by an image.
+
+        Uses driver.find_image_occurrence under the hood. Note that this will
+        only ever return at most one element
+
+        Args:
+            img_path (str): a string corresponding to the path of a image
+
+        Return:
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+
+        :rtype: list of `MobileWebElement`
+        """
+        with open(img_path, 'rb') as i_file:
+            b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
+
+        return self.find_elements(by=MobileBy.IMAGE, value=b64_data)

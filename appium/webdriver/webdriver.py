@@ -14,7 +14,6 @@
 
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
-import base64
 import copy
 
 from selenium.common.exceptions import InvalidArgumentException
@@ -311,81 +310,6 @@ class WebDriver(
         return self.execute(RemoteCommand.FIND_ELEMENTS, {
             'using': by,
             'value': value})['value'] or []
-
-    def find_element_by_image(self, img_path):
-        """Finds a portion of a screenshot by an image.
-
-        Uses driver.find_image_occurrence under the hood.
-
-        Args:
-            img_path (str): a string corresponding to the path of a image
-
-        Returns:
-            `appium.webdriver.webelement.WebElement`
-
-        :rtype: `MobileWebElement`
-        """
-        with open(img_path, 'rb') as i_file:
-            b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
-
-        return self.find_element(by=MobileBy.IMAGE, value=b64_data)
-
-    def find_elements_by_image(self, img_path):
-        """Finds a portion of a screenshot by an image.
-
-        Uses driver.find_image_occurrence under the hood. Note that this will
-        only ever return at most one element
-
-        Args:
-            img_path (str): a string corresponding to the path of a image
-
-        Return:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-
-        :rtype: list of `MobileWebElement`
-        """
-        with open(img_path, 'rb') as i_file:
-            b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
-
-        return self.find_elements(by=MobileBy.IMAGE, value=b64_data)
-
-    def find_element_by_custom(self, selector):
-        """Finds an element in conjunction with a custom element finding plugin
-
-        Args:
-            selector (str): a string of the form "module:selector", where "module" is
-                the shortcut name given in the customFindModules capability, and
-                "selector" is the string that will be passed to the custom element
-                finding plugin itself
-
-        Usage:
-            driver.find_element_by_custom("foo:bar")
-
-        Returns:
-            `appium.webdriver.webelement.WebElement`
-
-        :rtype: `MobileWebElement`
-        """
-        return self.find_element(by=MobileBy.CUSTOM, value=selector)
-
-    def find_elements_by_custom(self, selector):
-        """Finds elements in conjunction with a custom element finding plugin
-
-        Args:
-            selector: a string of the form "module:selector", where "module" is
-                the shortcut name given in the customFindModules capability, and
-                "selector" is the string that will be passed to the custom element
-                finding plugin itself
-
-        Usage:
-            driver.find_elements_by_custom("foo:bar")
-
-        Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-
-        :rtype: list of `MobileWebElement`
-        """
-        return self.find_elements(by=MobileBy.CUSTOM, value=selector)
 
     def create_web_element(self, element_id, w3c=False):
         """Creates a web element with the specified element_id.

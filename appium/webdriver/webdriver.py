@@ -48,7 +48,7 @@ from .extensions.keyboard import Keyboard
 from .extensions.location import Location
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
-from .extensions.search_context.search_context import AppiumSearchContext
+from .extensions.search_context import AppiumSearchContext
 from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo

@@ -37,7 +37,7 @@ class CustomSearchContext(BaseSearchContext):
         Returns:
             `appium.webdriver.webelement.WebElement`
 
-        :rtype: `MobileWebElement`
+        :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.CUSTOM, value=selector)
 
@@ -56,6 +56,6 @@ class CustomSearchContext(BaseSearchContext):
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
 
-        :rtype: list of `MobileWebElement`
+        :rtype: list of `appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.CUSTOM, value=selector)

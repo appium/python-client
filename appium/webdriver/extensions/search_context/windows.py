@@ -33,6 +33,8 @@ class WindowsSearchContext(BaseSearchContext):
 
         Returns:
             `appium.webdriver.webelement.WebElement`
+
+        :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)
 
@@ -47,5 +49,7 @@ class WindowsSearchContext(BaseSearchContext):
 
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+
+        :rtype: list of `appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)

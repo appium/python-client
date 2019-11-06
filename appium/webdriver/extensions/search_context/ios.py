@@ -33,6 +33,9 @@ class iOSSearchContext(BaseSearchContext):
 
         Returns:
             `appium.webdriver.webelement.WebElement`
+
+        # To enable auto completion in PyCharm(IDE)
+        :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
@@ -47,6 +50,8 @@ class iOSSearchContext(BaseSearchContext):
 
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+
+        :rtype: list of `appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
@@ -61,6 +66,8 @@ class iOSSearchContext(BaseSearchContext):
 
         Returns:
             `appium.webdriver.webelement.WebElement`
+
+        :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
@@ -75,6 +82,8 @@ class iOSSearchContext(BaseSearchContext):
 
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+
+        :rtype: list of `appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
@@ -89,6 +98,8 @@ class iOSSearchContext(BaseSearchContext):
 
         Returns:
             `appium.webdriver.webelement.WebElement`
+
+        :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
@@ -103,5 +114,7 @@ class iOSSearchContext(BaseSearchContext):
 
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+
+        :rtype: list of `appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)

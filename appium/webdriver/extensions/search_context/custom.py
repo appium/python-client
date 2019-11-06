@@ -37,6 +37,7 @@ class CustomSearchContext(BaseSearchContext):
         Returns:
             `appium.webdriver.webelement.WebElement`
 
+        # To enable auto completion in PyCharm(IDE)
         :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.CUSTOM, value=selector)

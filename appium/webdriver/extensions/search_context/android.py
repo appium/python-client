@@ -47,6 +47,7 @@ class AndroidSearchContext(BaseSearchContext):
         Usage:
             driver.find_element_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
 
+        # To enable auto completion in PyCharm(IDE)
         :rtype: `appium.webdriver.webelement.WebElement`
         """
 

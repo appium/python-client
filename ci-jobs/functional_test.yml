@@ -69,7 +69,7 @@ jobs:
       name: 'func_test_android6'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'webdriver_tests.py'
+      testFiles: 'common_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}
   - template: ./functional/run_android_test.yml

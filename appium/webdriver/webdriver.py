@@ -438,12 +438,6 @@ class WebDriver(
             ('POST', '/session/$sessionId/touch/perform')
         self.command_executor._commands[Command.MULTI_ACTION] = \
             ('POST', '/session/$sessionId/touch/multi/perform')
-        self.command_executor._commands[Command.GET_CURRENT_PACKAGE] = \
-            ('GET', '/session/$sessionId/appium/device/current_package')
-        self.command_executor._commands[Command.END_TEST_COVERAGE] = \
-            ('POST', '/session/$sessionId/appium/app/end_test_coverage')
-        self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
-            ('POST', '/session/$sessionId/appium/device/open_notifications')
         self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
             ('POST', '/session/$sessionId/appium/element/$id/value')
 

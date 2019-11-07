@@ -53,11 +53,10 @@ class Common(webdriver.Remote):
         """
         return self.execute(Command.GET_CURRENT_PACKAGE)['value']
 
-
-def _addCommands(self):
-    self.command_executor._commands[Command.GET_CURRENT_PACKAGE] = \
-        ('GET', '/session/$sessionId/appium/device/current_package')
-    self.command_executor._commands[Command.END_TEST_COVERAGE] = \
-        ('POST', '/session/$sessionId/appium/app/end_test_coverage')
-    self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
-        ('POST', '/session/$sessionId/appium/device/open_notifications')
+    def _addCommands(self):
+        self.command_executor._commands[Command.GET_CURRENT_PACKAGE] = \
+            ('GET', '/session/$sessionId/appium/device/current_package')
+        self.command_executor._commands[Command.END_TEST_COVERAGE] = \
+            ('POST', '/session/$sessionId/appium/app/end_test_coverage')
+        self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
+            ('POST', '/session/$sessionId/appium/device/open_notifications')

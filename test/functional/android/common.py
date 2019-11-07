@@ -24,7 +24,7 @@ from ..test_helper import is_ci
 from .helper.test_helper import BaseTestCase, wait_for_element
 
 
-class WebdriverTests(BaseTestCase):
+class CommonTests(BaseTestCase):
 
     def test_current_package(self):
         package = self.driver.current_package
@@ -34,10 +34,6 @@ class WebdriverTests(BaseTestCase):
         self.skipTest('Not sure how to set this up to run')
         self.driver.end_test_coverage(intent='android.intent.action.MAIN', path='')
         sleep(5)
-
-    def test_reset(self):
-        self.driver.reset()
-        self.assertTrue(self.driver.is_app_installed('com.example.android.apis'))
 
     def test_open_notifications(self):
         if is_ci():
@@ -71,5 +67,5 @@ class WebdriverTests(BaseTestCase):
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(WebdriverTests)
+    suite = unittest.TestLoader().loadTestsFromTestCase(CommonTests)
     unittest.TextTestRunner(verbosity=2).run(suite)

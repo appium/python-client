@@ -15,18 +15,17 @@
 import unittest
 
 from appium import webdriver
-from test.functional.ios.helper import desired_capabilities
+
+from ..helper import desired_capabilities
 
 
 class FindByElementWebelementTests(unittest.TestCase):
 
-    @classmethod
-    def setUpClass(self):
+    def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    @classmethod
-    def tearDownClass(self):
+    def tearDown(self):
         self.driver.quit()
 
     def test_find_element_by_path(self):

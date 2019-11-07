@@ -13,7 +13,7 @@ jobs:
       name: 'func_test_ios1'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'find_*.py remote_fs_tests.py safari_tests.py execute_driver_tests.py'
+      testFiles: 'search_context/find_*.py remote_fs_tests.py safari_tests.py execute_driver_tests.py'
       CI: ${{ parameters.ci }}
       xcodeForIOS: ${{ parameters.xcodeForIOS }}
   - template: ./functional/run_ios_test.yml
@@ -29,7 +29,7 @@ jobs:
       name: 'func_test_android1'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'device_time_tests.py find_by_accessibility_id_tests.py find_by_image_tests.py'
+      testFiles: 'device_time_tests.py search_context/find_by_*.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}
   - template: ./functional/run_android_test.yml

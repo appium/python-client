@@ -15,9 +15,11 @@
 import unittest
 
 from appium.webdriver.common.mobileby import MobileBy
-
-from ..test_helper import is_ci
-from .helper.test_helper import BaseTestCase, wait_for_element
+from test.functional.android.helper.test_helper import (
+    BaseTestCase,
+    wait_for_element
+)
+from test.functional.test_helper import is_ci
 
 
 class FindByAccessibilityIDTests(BaseTestCase):

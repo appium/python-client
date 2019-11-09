@@ -389,20 +389,24 @@ class WebDriver(
     @property
     def session(self):
         """ Retrieves session information from the current session
+
         Usage:
             session = driver.session
+
         Returns:
-            `dict containing information from the current session`
+            `dict`: containing information from the current session
         """
         return self.execute(Command.GET_SESSION)['value']
 
     @property
     def all_sessions(self):
         """ Retrieves all sessions that are open
+
         Usage:
             sessions = driver.all_sessions
+
         Returns:
-            `dict containing all open sessions`
+            `dict`: containing all open sessions
         """
         return self.execute(Command.GET_ALL_SESSIONS)['value']
 
@@ -413,13 +417,9 @@ class WebDriver(
             events = driver.events
 
         Returns:
-            `dict containing events timing information from the current session`
+            `dict`: containing events timing information from the current session`
         """
-        try:
-            return self.execute(Command.GET_EVENTS)['value']
-        except Exception as e:
-            logger.warning('Could not find events information in the session. Error:', e)
-            return {}
+        return self.execute(Command.GET_EVENTS)['value']
 
     # pylint: disable=protected-access
 

@@ -15,19 +15,10 @@
 import textwrap
 import unittest
 
-from appium import webdriver
-
-from .helper import desired_capabilities
+from test.functional.ios.helper.test_helper import BaseTestCase
 
 
-class ExecuteDriverTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class ExecuteDriverTests(BaseTestCase):
     def test_batch(self):
         script = """
             const status = await driver.status();

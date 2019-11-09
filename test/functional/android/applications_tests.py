@@ -72,6 +72,10 @@ class ApplicationsTests(BaseTestCase):
         strings = self.driver.app_strings('en', 'some_file')
         self.assertEqual(u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
 
+    def test_reset(self):
+        self.driver.reset()
+        self.assertTrue(self.driver.is_app_installed('com.example.android.apis'))
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ApplicationsTests)

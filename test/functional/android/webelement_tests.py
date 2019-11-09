@@ -15,10 +15,8 @@
 
 import unittest
 
-from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 
-from .helper import desired_capabilities
 from .helper.test_helper import BaseTestCase, wait_for_element
 
 

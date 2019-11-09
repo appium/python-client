@@ -11,7 +11,7 @@ jobs:
         displayName: Create and run Emulator
       - script: |
           cd test/functional/android
-          py.test ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
+          python -m pytest ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
         displayName: Run Android functional tests
       - template: ./publish_test_result.yml
       - template: ./save_appium_log.yml

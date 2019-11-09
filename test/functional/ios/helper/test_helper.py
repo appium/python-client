@@ -12,22 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
+
 import unittest
 
-from test.functional.ios.helper.test_helper import BaseTestCase
+from appium import webdriver
+
+from . import desired_capabilities
 
 
-class RemoteFsTests(BaseTestCase):
+class BaseTestCase(unittest.TestCase):
 
-    def test_push_file(self):
-        file_name = 'test_image.jpg'
-        source_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'file', file_name)
-        destination_path = file_name
+    def setUp(self):
+        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-        self.driver.push_file(destination_path, source_path=source_path)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(RemoteFsTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    def tearDown(self):
+        self.driver.quit()

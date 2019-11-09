@@ -14,19 +14,13 @@
 
 import unittest
 
-from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
+from test.functional.ios.helper.test_helper import BaseTestCase
 
 from .helper import desired_capabilities
 
 
-class WebDriverTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
+class WebDriverTests(BaseTestCase):
 
     def test_app_management(self):
         # this only works in Xcode9+

@@ -16,11 +16,9 @@ import unittest
 
 from selenium.common.exceptions import NoSuchElementException
 
-from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 
-from .helper import desired_capabilities
 from .helper.test_helper import BaseTestCase, wait_for_element
 
 

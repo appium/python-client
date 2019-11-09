@@ -14,21 +14,10 @@
 
 import unittest
 
-from appium import webdriver
-
-from .helper import desired_capabilities
+from test.functional.ios.helper.test_helper import BaseTestCase
 
 
-class FindByIOClassChainTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    @classmethod
-    def tearDownClass(self):
-        self.driver.quit()
-
+class FindByIOClassChainTests(BaseTestCase):
     def test_find_element_by_path(self):
         el = self.driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/**/XCUIElementTypeStaticText')
         self.assertEqual('Action Sheets', el.get_attribute('name'))

@@ -15,19 +15,10 @@
 import unittest
 from time import sleep
 
-from appium import webdriver
-
-from .helper import desired_capabilities
+from test.functional.ios.helper.test_helper import BaseTestCase
 
 
-class ScreenRecordTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
+class ScreenRecordTests(BaseTestCase):
     def test_screen_record(self):
         self.driver.start_recording_screen()
         sleep(10)

@@ -11,6 +11,6 @@ jobs:
           xcodeVersion: ${{ parameters.xcodeForIOS }}
       - script: |
           cd test/functional/ios
-          py.test ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
+          python -m pytest ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
         displayName: Run iOS functional tests
       - template: ./publish_test_result.yml

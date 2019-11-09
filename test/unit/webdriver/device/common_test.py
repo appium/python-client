@@ -15,14 +15,10 @@
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
+from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
-class TestWebDriverNotifications(object):
+class TestWebDriverCommon(object):
 
     @httpretty.activate
     def test_open_notifications(self):

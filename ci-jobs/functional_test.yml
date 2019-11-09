@@ -13,7 +13,7 @@ jobs:
       name: 'func_test_ios1'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'search_context/find_*.py remote_fs_tests.py safari_tests.py execute_driver_tests.py'
+      testFiles: 'search_context/find_by_*.py remote_fs_tests.py safari_tests.py execute_driver_tests.py'
       CI: ${{ parameters.ci }}
       xcodeForIOS: ${{ parameters.xcodeForIOS }}
   - template: ./functional/run_ios_test.yml

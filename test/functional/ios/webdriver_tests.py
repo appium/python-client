@@ -18,19 +18,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
+from test.functional.ios.helper.test_helper import BaseTestCase
 from test.functional.test_helper import get_available_from_port_range
 
 from ..test_helper import is_ci
 from .helper import desired_capabilities
 
 
-class WebDriverTests(unittest.TestCase):
-    def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
+class WebDriverTests(BaseTestCase):
 
     def test_all_sessions(self):
         if is_ci():

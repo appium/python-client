@@ -14,10 +14,7 @@
 
 import unittest
 
-from appium import webdriver
 from test.functional.ios.helper.test_helper import BaseTestCase
-
-from .helper import desired_capabilities
 
 
 class HwActionsTests(BaseTestCase):

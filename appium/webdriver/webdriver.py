@@ -416,8 +416,7 @@ class WebDriver(
             `dict containing events timing information from the current session`
         """
         try:
-            session = self.session
-            return session['events']
+            return self.execute(Command.GET_EVENTS)['value']
         except Exception as e:
             logger.warning('Could not find events information in the session. Error:', e)
             return {}
@@ -440,6 +439,8 @@ class WebDriver(
             ('POST', '/session/$sessionId/touch/multi/perform')
         self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
             ('POST', '/session/$sessionId/appium/element/$id/value')
+        self.command_executor._commands[Command.GET_EVENTS] = \
+            ('POST', '/session/$sessionId/appium/events')
 
         # TODO Move commands for element to webelement
         self.command_executor._commands[Command.REPLACE_KEYS] = \

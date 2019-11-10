@@ -36,8 +36,48 @@ class LogEvents(webdriver.Remote):
         """
         return self.execute(Command.GET_EVENTS)['value']
 
+    def log_event(self, vendor, event):
+        """Log a custom event on the Appium server.
+        (Since Appium 1.16.0)
+
+        Args:
+            vendor: The vendor to log
+            event: The event to log
+
+        Usage:
+            driver.log_event('appium', 'funEvent')
+
+        Returns:
+            `appium.webdriver.webdriver.WebDriver`
+
+        Note:
+            When below commands are called,
+
+            ```
+            driver.log_event('appium', 'funEvent')
+            print(driver.events)
+            ```
+
+            output is as below.
+
+            ```
+            {'commands': [{'cmd': 'getWindowRect', 'startTime': 12345, 'endTime': 12346}],
+             'appium:funEvent': [12347]}
+
+            ```
+
+        """
+        data = {
+            'vendor': vendor,
+            'event': event
+        }
+        self.execute(Command.LOG_EVENT, data)
+        return self
+
     # pylint: disable=protected-access
 
     def _addCommands(self):
         self.command_executor._commands[Command.GET_EVENTS] = \
             ('POST', '/session/$sessionId/appium/events')
+        self.command_executor._commands[Command.LOG_EVENT] = \
+            ('POST', '/session/$sessionId/appium/log_event')

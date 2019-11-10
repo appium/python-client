@@ -37,6 +37,23 @@ class TestWebDriverLogEvents(object):
         events = driver.get_events()
         assert events['appium:funEvent'] == [12347]
 
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert 'type' not in d.keys()
+
+    @httpretty.activate
+    def test_get_events_args(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/events'),
+            body=json.dumps({'value': {'appium:funEvent': [12347]}})
+        )
+        events = driver.get_events(type='TYPE')
+        assert events['appium:funEvent'] == [12347]
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert 'type' in d.keys()
+
     @httpretty.activate
     def test_log_event(self):
         driver = ios_w3c_driver()

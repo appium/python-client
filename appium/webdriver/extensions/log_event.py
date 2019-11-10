@@ -19,13 +19,9 @@ from ..mobilecommand import MobileCommand as Command
 
 class LogEvent(webdriver.Remote):
 
-    def get_events(self, type=None):
+    def get_events(self):
         """ Retrieves events information from the current session
         (Since Appium 1.16.0)
-
-        Args:
-            type: (Not implemented yet)
-                https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/commands/event.js
 
         Usage:
             events = driver.get_events()
@@ -37,10 +33,7 @@ class LogEvent(webdriver.Remote):
                     startTime: (int) Received time
                     endTime: (init) Response time
         """
-        data = {}
-        if type is not None:
-            data['type'] = type
-        return self.execute(Command.GET_EVENTS, data)['value']
+        return self.execute(Command.GET_EVENTS)['value']
 
     def log_event(self, vendor, event):
         """Log a custom event on the Appium server.

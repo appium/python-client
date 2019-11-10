@@ -413,11 +413,17 @@ class WebDriver(
     @property
     def events(self):
         """ Retrieves events information from the current session
+        (Since Appium 1.16.0)
+
         Usage:
             events = driver.events
 
         Returns:
-            `dict`: containing events timing information from the current session`
+            `dict`: A dictionary of events timing information containing the following entries
+                commands: (`list` of `dict`) List of dictionaries containing the following entries
+                    cmd: (str) Sent command to appium server
+                    startTime: (int) Received time
+                    endTime: (init)Response time
         """
         return self.execute(Command.GET_EVENTS)['value']
 

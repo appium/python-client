@@ -370,7 +370,7 @@ class WebDriver(
         """Retrieves battery information for the device under test.
 
         Returns:
-            A dictionary containing the following entries
+            `dict`: containing the following entries
                 level: Battery level in range [0.0, 1.0], where 1.0 means 100% charge.
                     Any value lower than 0 means the level cannot be retrieved
                 state: Platform-dependent battery state value.
@@ -417,10 +417,12 @@ class WebDriver(
     @property
     def events(self):
         """ Retrieves events information from the current session
+
         Usage:
             events = driver.events
+
         Returns:
-            `dict containing events timing information from the current session`
+            `dict`:  containing events timing information from the current session
         """
         try:
             session = self.session
@@ -428,6 +430,8 @@ class WebDriver(
         except Exception as e:
             logger.warning('Could not find events information in the session. Error:', e)
             return {}
+
+    # pylint: disable=protected-access
 
     def _addCommands(self):
         # call the overridden command binders from all mixin classes except for

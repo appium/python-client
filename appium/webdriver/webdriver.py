@@ -46,6 +46,7 @@ from .extensions.images_comparison import ImagesComparison
 from .extensions.ime import IME
 from .extensions.keyboard import Keyboard
 from .extensions.location import Location
+from .extensions.log_events import LogEvents
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.search_context import AppiumSearchContext
@@ -125,6 +126,7 @@ class WebDriver(
     IME,
     Keyboard,
     Location,
+    LogEvents,
     Network,
     Performance,
     Power,
@@ -410,23 +412,6 @@ class WebDriver(
         """
         return self.execute(Command.GET_ALL_SESSIONS)['value']
 
-    @property
-    def events(self):
-        """ Retrieves events information from the current session
-        (Since Appium 1.16.0)
-
-        Usage:
-            events = driver.events
-
-        Returns:
-            `dict`: A dictionary of events timing information containing the following entries
-                commands: (`list` of `dict`) List of dictionaries containing the following entries
-                    cmd: (str) Sent command to appium server
-                    startTime: (int) Received time
-                    endTime: (init)Response time
-        """
-        return self.execute(Command.GET_EVENTS)['value']
-
     # pylint: disable=protected-access
 
     def _addCommands(self):
@@ -445,8 +430,6 @@ class WebDriver(
             ('POST', '/session/$sessionId/touch/multi/perform')
         self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
             ('POST', '/session/$sessionId/appium/element/$id/value')
-        self.command_executor._commands[Command.GET_EVENTS] = \
-            ('POST', '/session/$sessionId/appium/events')
 
         # TODO Move commands for element to webelement
         self.command_executor._commands[Command.REPLACE_KEYS] = \

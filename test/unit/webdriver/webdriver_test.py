@@ -227,17 +227,6 @@ class TestWebDriverWebDriver(object):
         assert session['deviceName'] == 'iPhone Simulator'
         assert session['events']['simStarted'] == [1234567890]
 
-    @httpretty.activate
-    def test_get_events(self):
-        driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/events'),
-            body=json.dumps({'value': {'simStarted': [1234567890]}})
-        )
-        events = driver.events
-        assert events['simStarted'] == [1234567890]
-
 
 class SubWebDriver(WebDriver):
     def __init__(self, command_executor, desired_capabilities, direct_connection=False):

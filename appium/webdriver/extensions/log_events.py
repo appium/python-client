@@ -63,7 +63,6 @@ class LogEvents(webdriver.Remote):
             ```
             {'commands': [{'cmd': 'getWindowRect', 'startTime': 12345, 'endTime': 12346}],
              'appium:funEvent': [12347]}
-
             ```
 
         """

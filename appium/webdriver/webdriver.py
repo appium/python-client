@@ -414,6 +414,21 @@ class WebDriver(
 
     # pylint: disable=protected-access
 
+    @property
+    def events(self):
+        """ Retrieves events information from the current session
+        Usage:
+            events = driver.events
+        Returns:
+            `dict containing events timing information from the current session`
+        """
+        try:
+            session = self.session
+            return session['events']
+        except Exception as e:
+            logger.warning('Could not find events information in the session. Error:', e)
+            return {}
+
     def _addCommands(self):
         # call the overridden command binders from all mixin classes except for
         # appium.webdriver.webdriver.WebDriver and its sub-classes

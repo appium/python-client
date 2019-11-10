@@ -19,13 +19,12 @@ from ..mobilecommand import MobileCommand as Command
 
 class LogEvent(webdriver.Remote):
 
-    @property
-    def events(self):
+    def get_events(self):
         """ Retrieves events information from the current session
         (Since Appium 1.16.0)
 
         Usage:
-            events = driver.events
+            events = driver.get_events()
 
         Returns:
             `dict`: A dictionary of events timing information containing the following entries
@@ -55,7 +54,7 @@ class LogEvent(webdriver.Remote):
 
             ```
             driver.log_event('appium', 'funEvent')
-            print(driver.events)
+            print(driver.get_events())
             ```
 
             produce the following output

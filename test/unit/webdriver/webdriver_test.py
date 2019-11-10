@@ -227,6 +227,51 @@ class TestWebDriverWebDriver(object):
         assert session['deviceName'] == 'iPhone Simulator'
         assert session['events']['simStarted'] == [1234567890]
 
+    @httpretty.activate
+    def test_get_events(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890'),
+            body=json.dumps({'value': {'events': {'simStarted': [1234567890]}}})
+        )
+        events = driver.events
+        assert events['simStarted'] == [1234567890]
+
+    @httpretty.activate
+    def test_get_events_catches_missing_events(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890'),
+            body=json.dumps({'value': {}})
+        )
+        events = driver.events
+        assert events == {}
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890'),
+            body=json.dumps({})
+        )
+        events = driver.events
+        assert events == {}
+
+    @httpretty.activate
+    @patch("appium.webdriver.webdriver.logger.warning")
+    def test_session_catches_error(self, mock_warning):
+        def exceptionCallback(request, uri, headers):
+            raise Exception()
+
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890'),
+            body=exceptionCallback
+        )
+        events = driver.events
+        mock_warning.assert_called_once()
+        assert events == {}
+
 
 class SubWebDriver(WebDriver):
     def __init__(self, command_executor, desired_capabilities, direct_connection=False):

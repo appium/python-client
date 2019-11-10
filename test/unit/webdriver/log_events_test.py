@@ -34,7 +34,7 @@ class TestWebDriverLogEvents(object):
             appium_command('/session/1234567890/appium/events'),
             body=json.dumps({'value': {'simStarted': [1234567890]}})
         )
-        events = driver.events
+        events = driver.get_events()
         assert events['simStarted'] == [1234567890]
 
     @httpretty.activate

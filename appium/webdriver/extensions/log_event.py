@@ -30,9 +30,9 @@ class LogEvent(webdriver.Remote):
         Returns:
             `dict`: A dictionary of events timing information containing the following entries
                 commands: (`list` of `dict`) List of dictionaries containing the following entries
-                    cmd: (str) Sent command to appium server
+                    cmd: (str) The command name that has been sent to the appium server
                     startTime: (int) Received time
-                    endTime: (init)Response time
+                    endTime: (init) Response time
         """
         return self.execute(Command.GET_EVENTS)['value']
 
@@ -41,8 +41,8 @@ class LogEvent(webdriver.Remote):
         (Since Appium 1.16.0)
 
         Args:
-            vendor: The vendor to log
-            event: The event to log
+            vendor (str): The vendor to log
+            event (str): The event to log
 
         Usage:
             driver.log_event('appium', 'funEvent')
@@ -51,14 +51,14 @@ class LogEvent(webdriver.Remote):
             `appium.webdriver.webdriver.WebDriver`
 
         Note:
-            When below commands are called,
+            The below commands
 
             ```
             driver.log_event('appium', 'funEvent')
             print(driver.events)
             ```
 
-            output is as below.
+            produce the following output
 
             ```
             {'commands': [{'cmd': 'getWindowRect', 'startTime': 12345, 'endTime': 12346}],

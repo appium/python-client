@@ -46,7 +46,7 @@ from .extensions.images_comparison import ImagesComparison
 from .extensions.ime import IME
 from .extensions.keyboard import Keyboard
 from .extensions.location import Location
-from .extensions.log_events import LogEvents
+from .extensions.log_event import LogEvent
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.search_context import AppiumSearchContext
@@ -126,7 +126,7 @@ class WebDriver(
     IME,
     Keyboard,
     Location,
-    LogEvents,
+    LogEvent,
     Network,
     Performance,
     Power,

@@ -85,6 +85,6 @@ jobs:
       name: 'func_test_android8'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'network_connection_tests.py'
+      testFiles: 'network_connection_tests.py log_event_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}

@@ -17,7 +17,7 @@ from selenium import webdriver
 from ..mobilecommand import MobileCommand as Command
 
 
-class LogEvents(webdriver.Remote):
+class LogEvent(webdriver.Remote):
 
     @property
     def events(self):

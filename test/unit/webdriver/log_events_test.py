@@ -48,11 +48,12 @@ class TestWebDriverLogEvents(object):
             appium_command('/session/1234567890/appium/events'),
             body=json.dumps({'value': {'appium:funEvent': [12347]}})
         )
-        events = driver.get_events(type='TYPE')
+        events_to_filter = ['appium:funEvent']
+        events = driver.get_events(events_to_filter)
         assert events['appium:funEvent'] == [12347]
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert 'type' in d.keys()
+        assert d['type'] == events_to_filter
 
     @httpretty.activate
     def test_log_event(self):

@@ -24,11 +24,11 @@ class LogEvent(webdriver.Remote):
         (Since Appium 1.16.0)
 
         Args:
-            type: (Not implemented yet)
-                https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/commands/event.js
+            type (:obj:`list` of :obj:`str`): The event type to filter with
 
         Usage:
             events = driver.get_events()
+            events = driver.get_events(['appium:funEvent'])
 
         Returns:
             `dict`: A dictionary of events timing information containing the following entries
@@ -39,8 +39,7 @@ class LogEvent(webdriver.Remote):
         """
         data = {}
         if type is not None:
-            data['type'] = None
-            # data['type'] = type  # TODO Use here when type is ready on the appium server
+            data['type'] = type
         return self.execute(Command.GET_EVENTS, data)['value']
 
     def log_event(self, vendor, event):
@@ -56,22 +55,6 @@ class LogEvent(webdriver.Remote):
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`
-
-        Note:
-            The below commands
-
-            ```
-            driver.log_event('appium', 'funEvent')
-            print(driver.get_events())
-            ```
-
-            produce the following output
-
-            ```
-            {'commands': [{'cmd': 'getWindowRect', 'startTime': 12345, 'endTime': 12346}],
-             'appium:funEvent': [12347]}
-            ```
-
         """
         data = {
             'vendor': vendor,

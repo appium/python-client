@@ -46,6 +46,7 @@ from .extensions.images_comparison import ImagesComparison
 from .extensions.ime import IME
 from .extensions.keyboard import Keyboard
 from .extensions.location import Location
+from .extensions.log_event import LogEvent
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.search_context import AppiumSearchContext
@@ -125,6 +126,7 @@ class WebDriver(
     IME,
     Keyboard,
     Location,
+    LogEvent,
     Network,
     Performance,
     Power,
@@ -368,7 +370,7 @@ class WebDriver(
         """Retrieves battery information for the device under test.
 
         Returns:
-            A dictionary containing the following entries
+            `dict`: containing the following entries
                 level: Battery level in range [0.0, 1.0], where 1.0 means 100% charge.
                     Any value lower than 0 means the level cannot be retrieved
                 state: Platform-dependent battery state value.
@@ -389,31 +391,38 @@ class WebDriver(
     @property
     def session(self):
         """ Retrieves session information from the current session
+
         Usage:
             session = driver.session
+
         Returns:
-            `dict containing information from the current session`
+            `dict`: containing information from the current session
         """
         return self.execute(Command.GET_SESSION)['value']
 
     @property
     def all_sessions(self):
         """ Retrieves all sessions that are open
+
         Usage:
             sessions = driver.all_sessions
+
         Returns:
-            `dict containing all open sessions`
+            `dict`: containing all open sessions
         """
         return self.execute(Command.GET_ALL_SESSIONS)['value']
+
+    # pylint: disable=protected-access
 
     @property
     def events(self):
         """ Retrieves events information from the current session
+
         Usage:
             events = driver.events
 
         Returns:
-            `dict containing events timing information from the current session`
+            `dict`:  containing events timing information from the current session
         """
         try:
             session = self.session

@@ -77,6 +77,9 @@ class MobileCommand(object):
 
     EXECUTE_DRIVER = 'executeDriver'
 
+    GET_EVENTS = 'getLogEvents'
+    LOG_EVENT = 'logCustomEvent'
+
     # Android
     OPEN_NOTIFICATIONS = 'openNotifications'
     START_ACTIVITY = 'startActivity'

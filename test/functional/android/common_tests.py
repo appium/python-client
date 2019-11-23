@@ -21,14 +21,17 @@ from selenium.common.exceptions import NoSuchElementException
 from appium.webdriver.common.mobileby import MobileBy
 
 from ..test_helper import is_ci
-from .helper.test_helper import BaseTestCase, wait_for_element
+from .helper.test_helper import (
+    APIDEMO_PKG_NAME,
+    BaseTestCase,
+    wait_for_element
+)
 
 
 class CommonTests(BaseTestCase):
 
     def test_current_package(self):
-        package = self.driver.current_package
-        self.assertEqual('io.appium.android.apis', package)
+        self.assertEqual(APIDEMO_PKG_NAME, self.driver.current_package)
 
     def test_end_test_coverage(self):
         self.skipTest('Not sure how to set this up to run')

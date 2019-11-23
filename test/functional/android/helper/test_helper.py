@@ -27,6 +27,9 @@ from . import desired_capabilities
 # the emulator is sometimes slow and needs time to think
 SLEEPY_TIME = 10
 
+# The package name of ApiDemos-debug.apk.zip
+APIDEMO_PKG_NAME = 'io.appium.android.apis'
+
 
 def wait_for_element(driver, locator, value, timeout=SLEEPY_TIME):
     """Wait until the element located
@@ -52,7 +55,7 @@ def wait_for_element(driver, locator, value, timeout=SLEEPY_TIME):
 class BaseTestCase(unittest.TestCase):
 
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def tearDown(self):

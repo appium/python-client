@@ -18,7 +18,7 @@ from time import sleep
 
 from appium.webdriver.applicationstate import ApplicationState
 
-from .helper.test_helper import BaseTestCase
+from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 
 
 class ApplicationsTests(BaseTestCase):
@@ -30,7 +30,7 @@ class ApplicationsTests(BaseTestCase):
 
     def test_is_app_installed(self):
         self.assertFalse(self.driver.is_app_installed('sdfsdf'))
-        self.assertTrue(self.driver.is_app_installed('io.appium.android.apis'))
+        self.assertTrue(self.driver.is_app_installed(APIDEMO_PKG_NAME))
 
     def test_install_app(self):
         self.skipTest('This causes the server to crash. no idea why')
@@ -39,9 +39,9 @@ class ApplicationsTests(BaseTestCase):
         self.assertTrue(self.driver.is_app_installed('io.selendroid.testapp'))
 
     def test_remove_app(self):
-        self.assertTrue(self.driver.is_app_installed('io.appium.android.apis'))
-        self.driver.remove_app('io.appium.android.apis')
-        self.assertFalse(self.driver.is_app_installed('io.appium.android.apis'))
+        self.assertTrue(self.driver.is_app_installed(APIDEMO_PKG_NAME))
+        self.driver.remove_app(APIDEMO_PKG_NAME)
+        self.assertFalse(self.driver.is_app_installed(APIDEMO_PKG_NAME))
 
     def test_close_and_launch_app(self):
         self.driver.close_app()
@@ -74,7 +74,7 @@ class ApplicationsTests(BaseTestCase):
 
     def test_reset(self):
         self.driver.reset()
-        self.assertTrue(self.driver.is_app_installed('io.appium.android.apis'))
+        self.assertTrue(self.driver.is_app_installed(APIDEMO_PKG_NAME))
 
 
 if __name__ == '__main__':

@@ -50,6 +50,7 @@ from .extensions.log_event import LogEvent
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.search_context import AppiumSearchContext
+from .extensions.session import Session
 from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
@@ -132,6 +133,7 @@ class WebDriver(
     Power,
     RemoteFS,
     ScreenRecord,
+    Session,
     Settings,
     Sms,
     SystemBars
@@ -388,49 +390,6 @@ class WebDriver(
         """
         return self.execute_script('mobile: batteryInfo')
 
-    @property
-    def session(self):
-        """ Retrieves session information from the current session
-
-        Usage:
-            session = driver.session
-
-        Returns:
-            `dict`: containing information from the current session
-        """
-        return self.execute(Command.GET_SESSION)['value']
-
-    @property
-    def all_sessions(self):
-        """ Retrieves all sessions that are open
-
-        Usage:
-            sessions = driver.all_sessions
-
-        Returns:
-            `dict`: containing all open sessions
-        """
-        return self.execute(Command.GET_ALL_SESSIONS)['value']
-
-    # pylint: disable=protected-access
-
-    @property
-    def events(self):
-        """ Retrieves events information from the current session
-
-        Usage:
-            events = driver.events
-
-        Returns:
-            `dict`:  containing events timing information from the current session
-        """
-        try:
-            session = self.session
-            return session['events']
-        except Exception as e:
-            logger.warning('Could not find events information in the session. Error:', e)
-            return {}
-
     # pylint: disable=protected-access
 
     def _addCommands(self):
@@ -441,8 +400,6 @@ class WebDriver(
             if hasattr(mixin_class, self._addCommands.__name__):
                 getattr(mixin_class, self._addCommands.__name__, None)(self)
 
-        self.command_executor._commands[Command.GET_SESSION] = \
-            ('GET', '/session/$sessionId')
         self.command_executor._commands[Command.TOUCH_ACTION] = \
             ('POST', '/session/$sessionId/touch/perform')
         self.command_executor._commands[Command.MULTI_ACTION] = \

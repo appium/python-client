@@ -28,7 +28,7 @@ class CommonTests(BaseTestCase):
 
     def test_current_package(self):
         package = self.driver.current_package
-        self.assertEqual('com.example.android.apis', package)
+        self.assertEqual('io.appium.android.apis', package)
 
     def test_end_test_coverage(self):
         self.skipTest('Not sure how to set this up to run')

@@ -30,7 +30,7 @@ class ApplicationsTests(BaseTestCase):
 
     def test_is_app_installed(self):
         self.assertFalse(self.driver.is_app_installed('sdfsdf'))
-        self.assertTrue(self.driver.is_app_installed('com.example.android.apis'))
+        self.assertTrue(self.driver.is_app_installed('io.appium.android.apis'))
 
     def test_install_app(self):
         self.skipTest('This causes the server to crash. no idea why')
@@ -39,9 +39,9 @@ class ApplicationsTests(BaseTestCase):
         self.assertTrue(self.driver.is_app_installed('io.selendroid.testapp'))
 
     def test_remove_app(self):
-        self.assertTrue(self.driver.is_app_installed('com.example.android.apis'))
-        self.driver.remove_app('com.example.android.apis')
-        self.assertFalse(self.driver.is_app_installed('com.example.android.apis'))
+        self.assertTrue(self.driver.is_app_installed('io.appium.android.apis'))
+        self.driver.remove_app('io.appium.android.apis')
+        self.assertFalse(self.driver.is_app_installed('io.appium.android.apis'))
 
     def test_close_and_launch_app(self):
         self.driver.close_app()
@@ -74,7 +74,7 @@ class ApplicationsTests(BaseTestCase):
 
     def test_reset(self):
         self.driver.reset()
-        self.assertTrue(self.driver.is_app_installed('com.example.android.apis'))
+        self.assertTrue(self.driver.is_app_installed('io.appium.android.apis'))
 
 
 if __name__ == '__main__':

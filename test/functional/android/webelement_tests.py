@@ -45,7 +45,7 @@ class WebelementTests(BaseTestCase):
             wait_for_element(self.driver, MobileBy.XPATH,
                              "//android.widget.TextView[@text='{}']".format(text)).click()
 
-        el = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/left_text_edit')
+        el = wait_for_element(self.driver, MobileBy.ID, 'io.appium.android.apis:id/left_text_edit')
         el.send_keys(' text')
 
         self.assertEqual('Left is best text', el.text)

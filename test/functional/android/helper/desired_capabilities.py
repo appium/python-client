@@ -22,15 +22,17 @@ def PATH(p):
     )
 
 
-def get_desired_capabilities(app):
+def get_desired_capabilities(app=None):
     desired_caps = {
         'platformName': 'Android',
         'deviceName': 'Android Emulator',
-        'app': PATH('../../apps/{}'.format(app)),
         'newCommandTimeout': 240,
         'automationName': 'UIAutomator2',
         'uiautomator2ServerInstallTimeout': 120000,
         'adbExecTimeout': 120000
     }
+
+    if app is not None:
+        desired_caps['app'] = PATH('../../apps/{}'.format(app))
 
     return desired_caps

@@ -175,13 +175,13 @@ class TouchActionTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Drag and Drop')
         action.tap(el).perform()
 
-        dd3 = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_dot_3')
-        dd2 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_2')
+        dd3 = wait_for_element(self.driver, MobileBy.ID, 'io.appium.android.apis:id/drag_dot_3')
+        dd2 = self.driver.find_element_by_id('io.appium.android.apis:id/drag_dot_2')
 
         # dnd is stimulated by longpress-move_to-release
         action.long_press(dd3).move_to(dd2).release().perform()
 
-        el = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_text')
+        el = wait_for_element(self.driver, MobileBy.ID, 'io.appium.android.apis:id/drag_text')
         self.assertTrue('drag_dot_3' in el.text)
 
     def test_driver_drag_and_drop(self):
@@ -196,12 +196,12 @@ class TouchActionTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Drag and Drop')
         action.tap(el).perform()
 
-        dd3 = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_dot_3')
-        dd2 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_2')
+        dd3 = wait_for_element(self.driver, MobileBy.ID, 'io.appium.android.apis:id/drag_dot_3')
+        dd2 = self.driver.find_element_by_id('io.appium.android.apis:id/drag_dot_2')
 
         self.driver.drag_and_drop(dd3, dd2)
 
-        el = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_text')
+        el = wait_for_element(self.driver, MobileBy.ID, 'io.appium.android.apis:id/drag_text')
         self.assertTrue('drag_dot_3' in el.text)
 
     def test_driver_swipe(self):

@@ -24,14 +24,14 @@ class ActivitiesTests(BaseTestCase):
         self.assertEqual('.ApiDemos', activity)
 
     def test_start_activity_this_app(self):
-        self.driver.start_activity("com.example.android.apis", ".ApiDemos")
+        self.driver.start_activity("io.appium.android.apis", ".ApiDemos")
         self._assert_activity_contains('Demos')
 
-        self.driver.start_activity("com.example.android.apis", ".accessibility.AccessibilityNodeProviderActivity")
+        self.driver.start_activity("io.appium.android.apis", ".accessibility.AccessibilityNodeProviderActivity")
         self._assert_activity_contains('Node')
 
     def test_start_activity_other_app(self):
-        self.driver.start_activity("com.example.android.apis", ".ApiDemos")
+        self.driver.start_activity("io.appium.android.apis", ".ApiDemos")
         self._assert_activity_contains('Demos')
 
         self.driver.start_activity("com.android.calculator2", ".Calculator")

@@ -35,7 +35,7 @@ def get_desired_capabilities(app=None):
     }
 
     if app is not None:
-        desired_caps['app'] = PATH('../../../apps/{}'.format(app))
+        desired_caps['app'] = PATH(os.path.join('../../..', 'apps', app))
 
     return desired_caps
 

@@ -312,10 +312,10 @@ class TestSubModuleWebDriver(object):
                         'deviceName': 'emulator-5554',
                         'app': '/test/apps/ApiDemos-debug.apk',
                         'deviceUDID': 'emulator-5554',
-                        'appPackage': 'com.example.android.apis',
-                        'appWaitPackage': 'com.example.android.apis',
-                        'appActivity': 'com.example.android.apis.ApiDemos',
-                        'appWaitActivity': 'com.example.android.apis.ApiDemos'
+                        'appPackage': 'io.appium.android.apis',
+                        'appWaitPackage': 'io.appium.android.apis',
+                        'appActivity': 'io.appium.android.apis.ApiDemos',
+                        'appWaitActivity': 'io.appium.android.apis.ApiDemos'
                     }
                 }
             }

@@ -19,7 +19,11 @@ from selenium.common.exceptions import NoSuchElementException
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 
-from .helper.test_helper import BaseTestCase, wait_for_element
+from .helper.test_helper import (
+    APIDEMO_PKG_NAME,
+    BaseTestCase,
+    wait_for_element
+)
 
 
 class TouchActionTests(BaseTestCase):
@@ -175,13 +179,13 @@ class TouchActionTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Drag and Drop')
         action.tap(el).perform()
 
-        dd3 = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_dot_3')
-        dd2 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_2')
+        dd3 = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_dot_3'.format(APIDEMO_PKG_NAME))
+        dd2 = self.driver.find_element_by_id('{}:id/drag_dot_2'.format(APIDEMO_PKG_NAME))
 
         # dnd is stimulated by longpress-move_to-release
         action.long_press(dd3).move_to(dd2).release().perform()
 
-        el = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_text')
+        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_text'.format(APIDEMO_PKG_NAME))
         self.assertTrue('drag_dot_3' in el.text)
 
     def test_driver_drag_and_drop(self):
@@ -196,12 +200,12 @@ class TouchActionTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Drag and Drop')
         action.tap(el).perform()
 
-        dd3 = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_dot_3')
-        dd2 = self.driver.find_element_by_id('com.example.android.apis:id/drag_dot_2')
+        dd3 = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_dot_3'.format(APIDEMO_PKG_NAME))
+        dd2 = self.driver.find_element_by_id('{}:id/drag_dot_2'.format(APIDEMO_PKG_NAME))
 
         self.driver.drag_and_drop(dd3, dd2)
 
-        el = wait_for_element(self.driver, MobileBy.ID, 'com.example.android.apis:id/drag_text')
+        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_text'.format(APIDEMO_PKG_NAME))
         self.assertTrue('drag_dot_3' in el.text)
 
     def test_driver_swipe(self):

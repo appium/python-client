@@ -16,18 +16,14 @@ import unittest
 
 from appium import webdriver
 
+from .helper.desired_capabilities import get_desired_capabilities
+
 
 class ChromeTests(unittest.TestCase):
     def setUp(self):
-        desired_caps = {
-            'platformName': 'Android',
-            'platformVersion': '9',
-            'deviceName': 'Android Emulator',
-            'browserName': 'Chrome',
-            'uiautomator2ServerInstallTimeout': 120000,
-            'adbExecTimeout': 120000
-        }
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        caps = get_desired_capabilities()
+        caps['browserName'] = 'Chrome'
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', caps)
 
     def tearDown(self):
         self.driver.quit()

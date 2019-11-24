@@ -68,3 +68,5 @@ class Session(webdriver.Remote):
     def _addCommands(self):
         self.command_executor._commands[Command.GET_SESSION] = \
             ('GET', '/session/$sessionId')
+        self.command_executor._commands[Command.GET_ALL_SESSIONS] = \
+            ('GET', '/sessions')

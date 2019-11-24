@@ -44,8 +44,6 @@ class Session(webdriver.Remote):
         """
         return self.execute(Command.GET_ALL_SESSIONS)['value']
 
-    # pylint: disable=protected-access
-
     @property
     def events(self):
         """ Retrieves events information from the current session

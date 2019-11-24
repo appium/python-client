@@ -26,9 +26,10 @@ except NameError:
 
 
 class WebElement(AppiumWebElementSearchContext):
-    # Override
     def get_attribute(self, name):
         """Gets the given attribute or property of the element.
+
+        Override for Appium
 
         This method will first try to return the value of a property with the
         given name. If a property with that name doesn't exist, it returns the
@@ -65,13 +66,17 @@ class WebElement(AppiumWebElementSearchContext):
 
         return attributeValue
 
-    # Override
     def is_displayed(self):
-        """Whether the element is visible to a user."""
+        """Whether the element is visible to a user.
+
+        Override for Appium
+        """
         return self._execute(RemoteCommand.IS_ELEMENT_DISPLAYED)['value']
 
     def find_element(self, by=By.ID, value=None):
         """Find an element given a By strategy and locator
+
+        Override for Appium
 
         Prefer the find_element_by_* methods when possible.
 
@@ -105,6 +110,8 @@ class WebElement(AppiumWebElementSearchContext):
     def find_elements(self, by=By.ID, value=None):
         """Find elements given a By strategy and locator
 
+        Override for Appium
+
         Prefer the find_elements_by_* methods when possible.
 
         Args:
@@ -133,6 +140,18 @@ class WebElement(AppiumWebElementSearchContext):
 
         return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS,
                              {"using": by, "value": value})['value']
+
+    def clear(self):
+        """Clears text.
+
+        Override for Appium
+
+        Returns:
+            `appium.webdriver.webelement.WebElement`
+        """
+        data = {'id': self.id}
+        self._execute(Command.CLEAR, data)
+        return self
 
     def set_text(self, keys=''):
         """Sends text to the element.
@@ -184,14 +203,4 @@ class WebElement(AppiumWebElementSearchContext):
             'value': [value],
         }
         self._execute(Command.SET_IMMEDIATE_VALUE, data)
-        return self
-
-    def clear(self):
-        """Clears text.
-
-        Returns:
-            `appium.webdriver.webelement.WebElement`
-        """
-        data = {'id': self.id}
-        self._execute(Command.CLEAR, data)
         return self

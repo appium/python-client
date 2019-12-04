@@ -41,6 +41,7 @@ from .extensions.clipboard import Clipboard
 from .extensions.context import Context
 from .extensions.device_time import DeviceTime
 from .extensions.execute_driver import ExecuteDriver
+from .extensions.execute_mobile_command import ExecuteMobileCommand
 from .extensions.hw_actions import HardwareActions
 from .extensions.images_comparison import ImagesComparison
 from .extensions.ime import IME
@@ -50,6 +51,7 @@ from .extensions.log_event import LogEvent
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.search_context import AppiumSearchContext
+from .extensions.session import Session
 from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
@@ -120,6 +122,7 @@ class WebDriver(
     DeviceTime,
     Display,
     ExecuteDriver,
+    ExecuteMobileCommand,
     Gsm,
     HardwareActions,
     ImagesComparison,
@@ -132,6 +135,7 @@ class WebDriver(
     Power,
     RemoteFS,
     ScreenRecord,
+    Session,
     Settings,
     Sms,
     SystemBars
@@ -328,26 +332,6 @@ class WebDriver(
         """
         return MobileWebElement(self, element_id, w3c)
 
-    def press_button(self, button_name):
-        """Sends a physical button name to the device to simulate the user pressing.
-
-        iOS only.
-        Possible button names can be found in
-        https://github.com/appium/WebDriverAgent/blob/master/WebDriverAgentLib/Categories/XCUIDevice%2BFBHelpers.h
-
-        Args:
-            button_name (str): the button name to be sent to the device
-
-        Returns:
-            `appium.webdriver.webdriver.WebDriver`
-
-        """
-        data = {
-            'name': button_name
-        }
-        self.execute_script('mobile: pressButton', data)
-        return self
-
     def set_value(self, element, value):
         """Set the value on an element in the application.
 
@@ -365,72 +349,6 @@ class WebDriver(
         self.execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
 
-    @property
-    def battery_info(self):
-        """Retrieves battery information for the device under test.
-
-        Returns:
-            `dict`: containing the following entries
-                level: Battery level in range [0.0, 1.0], where 1.0 means 100% charge.
-                    Any value lower than 0 means the level cannot be retrieved
-                state: Platform-dependent battery state value.
-                    On iOS (XCUITest):
-                        1: Unplugged
-                        2: Charging
-                        3: Full
-                        Any other value means the state cannot be retrieved
-                    On Android (UIAutomator2):
-                        2: Charging
-                        3: Discharging
-                        4: Not charging
-                        5: Full
-                        Any other value means the state cannot be retrieved
-        """
-        return self.execute_script('mobile: batteryInfo')
-
-    @property
-    def session(self):
-        """ Retrieves session information from the current session
-
-        Usage:
-            session = driver.session
-
-        Returns:
-            `dict`: containing information from the current session
-        """
-        return self.execute(Command.GET_SESSION)['value']
-
-    @property
-    def all_sessions(self):
-        """ Retrieves all sessions that are open
-
-        Usage:
-            sessions = driver.all_sessions
-
-        Returns:
-            `dict`: containing all open sessions
-        """
-        return self.execute(Command.GET_ALL_SESSIONS)['value']
-
-    # pylint: disable=protected-access
-
-    @property
-    def events(self):
-        """ Retrieves events information from the current session
-
-        Usage:
-            events = driver.events
-
-        Returns:
-            `dict`:  containing events timing information from the current session
-        """
-        try:
-            session = self.session
-            return session['events']
-        except Exception as e:
-            logger.warning('Could not find events information in the session. Error:', e)
-            return {}
-
     # pylint: disable=protected-access
 
     def _addCommands(self):
@@ -441,8 +359,6 @@ class WebDriver(
             if hasattr(mixin_class, self._addCommands.__name__):
                 getattr(mixin_class, self._addCommands.__name__, None)(self)
 
-        self.command_executor._commands[Command.GET_SESSION] = \
-            ('GET', '/session/$sessionId')
         self.command_executor._commands[Command.TOUCH_ACTION] = \
             ('POST', '/session/$sessionId/touch/perform')
         self.command_executor._commands[Command.MULTI_ACTION] = \

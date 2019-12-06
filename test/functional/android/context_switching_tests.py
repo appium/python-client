@@ -22,7 +22,6 @@ from appium.common.exceptions import NoSuchContextException
 from .helper import desired_capabilities
 
 
-@pytest.mark.skip(reason="Need to fix broken test")
 class ContextSwitchingTests(unittest.TestCase):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('selendroid-test-app.apk')

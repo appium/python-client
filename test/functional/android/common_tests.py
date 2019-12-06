@@ -39,9 +39,6 @@ class CommonTests(BaseTestCase):
         sleep(5)
 
     def test_open_notifications(self):
-        if is_ci():
-            # TODO Due to unexpected dialog, "System UI isn't responding"
-            self.skipTest('Need to fix flaky test during running on CI.')
         for word in ['App', 'Notification', 'Status Bar', ':-|']:
             wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
                              'new UiSelector().text("{}")'.format(word)).click()

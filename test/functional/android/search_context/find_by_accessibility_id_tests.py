@@ -35,8 +35,6 @@ class FindByAccessibilityIDTests(BaseTestCase):
         self.assertIsInstance(els, list)
 
     def test_element_find_single_element(self):
-        if is_ci():
-            self.skipTest('Need to fix flaky test during running on CI')
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
                          'new UiSelector().text("Accessibility Node Querying")').click()

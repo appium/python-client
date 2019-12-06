@@ -33,7 +33,6 @@ class ApplicationsTests(BaseTestCase):
         self.assertTrue(self.driver.is_app_installed(APIDEMO_PKG_NAME))
 
     def test_install_app(self):
-        self.skipTest('This causes the server to crash. no idea why')
         self.assertFalse(self.driver.is_app_installed('io.selendroid.testapp'))
         self.driver.install_app('/Users/isaac/code/python-client/test/apps/selendroid-test-app.apk')
         self.assertTrue(self.driver.is_app_installed('io.selendroid.testapp'))

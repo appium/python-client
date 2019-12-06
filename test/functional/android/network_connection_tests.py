@@ -27,8 +27,6 @@ class NetworkConnectionTests(BaseTestCase):
         self.assertIsInstance(nc, int)
 
     def test_set_network_connection(self):
-        if is_ci():
-            self.skipTest('Need to fix flaky test during running on CI')
         nc = self.driver.set_network_connection(ConnectionType.DATA_ONLY)
         self.assertIsInstance(nc, int)
         self.assertEqual(nc, ConnectionType.DATA_ONLY)

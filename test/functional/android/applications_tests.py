@@ -35,7 +35,7 @@ class ApplicationsTests(BaseTestCase):
 
     def test_install_app(self):
         self.assertFalse(self.driver.is_app_installed('io.selendroid.testapp'))
-        self.driver.install_app(os.path.join('../..', 'apps', 'selendroid-test-app.apk'))
+        self.driver.install_app(os.path.join('..', 'apps', 'selendroid-test-app.apk'))
         self.assertTrue(self.driver.is_app_installed('io.selendroid.testapp'))
 
     def test_remove_app(self):

@@ -19,7 +19,7 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 
-from .helper.test_helper import BaseTestCase, wait_for_element
+from .helper.test_helper import BaseTestCase, is_ci, wait_for_element
 
 
 class MultiActionTests(BaseTestCase):
@@ -96,6 +96,8 @@ class MultiActionTests(BaseTestCase):
         ma.perform()
 
     def test_driver_multi_tap(self):
+        if is_ci():
+            self.skipTest('Skip since the test must be watched to check if it works')
         el = self.driver.find_element_by_accessibility_id('Graphics')
         action = TouchAction(self.driver)
         action.tap(el).perform()

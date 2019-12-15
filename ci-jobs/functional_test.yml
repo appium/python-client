@@ -5,8 +5,6 @@ parameters:
   xcodeForIOS: 11.3
   CI: true
 
-# [Android] Need to fix and add flaky tests for ,
-
 jobs:
   - template: ./functional/run_ios_test.yml
     parameters:

@@ -19,7 +19,6 @@ from time import sleep
 
 from appium.webdriver.applicationstate import ApplicationState
 
-from .helper.desired_capabilities import PATH
 from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 
 

@@ -28,7 +28,7 @@ def get_desired_capabilities(app=None):
     desired_caps = {
         'deviceName': iphone_device_name(),
         'platformName': 'iOS',
-        'platformVersion': '12.4',
+        'platformVersion': '13.3',
         'automationName': 'XCUITest',
         'allowTouchIdEnroll': True,
         'wdaLocalPort': wda_port(),

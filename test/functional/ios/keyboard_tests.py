@@ -15,7 +15,7 @@
 import unittest
 from time import sleep
 
-from test.functional.ios.helper.test_helper import BaseTestCase
+from test.functional.ios.helper.test_helper import BaseTestCase, get_xcode_ver
 
 
 class KeyboardTests(BaseTestCase):
@@ -23,6 +23,7 @@ class KeyboardTests(BaseTestCase):
         self._move_to_textbox()
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
+        el.click()
         el.set_value('Testing')
 
         el = self.driver.find_element_by_class_name('UIAKeyboard')
@@ -36,6 +37,7 @@ class KeyboardTests(BaseTestCase):
         self._move_to_textbox()
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
+        el.click()
         el.set_value('Testing')
 
         el = self.driver.find_element_by_class_name('UIAKeyboard')
@@ -46,9 +48,14 @@ class KeyboardTests(BaseTestCase):
         self.assertFalse(el.is_displayed())
 
     def test_hide_keyboard_no_key_name(self):
+        if get_xcode_ver() == '11.3':
+            # TODO Needs to dismiss dictation dialog.
+            self.skipTest('On iOS13, needs to dismiss dictation dialog.')
+
         self._move_to_textbox()
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
+        el.click()
         el.set_value('Testing')
 
         el = self.driver.find_element_by_class_name('UIAKeyboard')
@@ -64,6 +71,7 @@ class KeyboardTests(BaseTestCase):
         self._move_to_textbox()
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
+        el.click()
         el.set_value('Testing')
         self.assertTrue(self.driver.is_keyboard_shown())
 

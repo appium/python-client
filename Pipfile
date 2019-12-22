@@ -21,7 +21,6 @@ httpretty = "~=0.9"
 python-dateutil = "~=2.8"
 mock = "~=3.0"
 
-# TODO Update to the latest ver when py2 support dropped
-pylint = "~=1.9"
-astroid = "~=1.6"
+pylint = "~=2.4"
+astroid = "~=2.3"
 isort = "~=4.3"

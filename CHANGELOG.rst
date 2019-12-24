@@ -2,8 +2,151 @@ Changelog
 =========
 
 
-(unreleased)
-------------
+v0.49 (2019-12-24)
+------------------
+- Bump 0.49. [Kazuaki Matsuo]
+- Add IME unittest (#475) [Mori Atsushi]
+- Move session/execute_mobile commands to mixin class (#471) [Mori
+  Atsushi]
+
+  * Fix get_all_sessions
+
+  * Revert changes
+
+  * Move execute_mobile_command codes to mixin class
+
+  * Update docstring
+
+  It's same to webdriver.py
+
+  * Use /sessions as endpoint for all_sessions
+
+  https://github.com/appium/appium-base-driver/blob/master/docs/mjsonwp/protocol-methods.md
+
+  * Delete unnecessary codes
+- Replace apk for functional test (#470) [Mori Atsushi]
+
+  * Replace apk for functional test
+
+  https://github.com/appium/android-apidemos/releases/tag/v3.1.0
+
+  * Use sdkVer 27
+
+  * Update app package name
+
+  * Fix: can't find android device
+
+  * review comments
+
+  * tweak
+- Support for log_event and get_events command (#469) [Mori Atsushi]
+
+  * Use appium/events as endpoint to get events
+
+  * Removed unnecessary codes
+
+  * Update unittest along to changes
+
+  * Update docstring
+
+  * Created LogEvents class
+
+  * Support log_event
+
+  * Add unittest for log_event
+
+  * Add functional test for log_event and get_event
+
+  * review comments
+
+  * Restore events API
+
+  * Add type as arg to get_events
+
+  * tweak
+
+  * Removed type arg from get_events
+
+  It isn't implemented yet for now
+
+  * Add type arg to get_event
+
+  The value isn't passed to the server for now.
+
+  * Updated along to type
+- Cleaned up test codes (#466) [Mori Atsushi]
+
+  * Deleted unnecessary codes
+
+  * Move functional tests to correct class
+
+  * Move some tests
+
+  * Created search_context/windows_test
+
+  * [functional] Created search_context package
+
+  * Remove class method decolator
+
+  * Fix import error
+
+  * Add BaseTestCase for ios functional testcases
+
+  * Add test_helper for android functional test
+
+  * Add __init__.py
+
+  * Deleted unused imports
+- Move search context methods from webdriver and webelement to
+  search_context (#461) [Mori Atsushi]
+
+  * Move ios search context methods to search_context file
+
+  * Move android search text methods
+
+  * Move windows search context
+
+  * Move mobile search context
+
+  * Divided search_context into each class
+
+  * Move custom and image methods
+
+  * Move contents in search_context.py to __init__.py
+
+  * Add rtype to each docstring for auto completion in IDE
+
+  * Add comments
+- [CI] Run functional tests nightly (#463) [Mori Atsushi]
+
+  * [CI] Run functional tests nightly
+
+  * Extend timeout to wait for 2nd session created
+
+  * Skip flaky test_all_sessions
+- Revert some changes to fix broken codes (#462) [Mori Atsushi]
+
+  * Revert some changes
+
+  * Fix typo
+- Fix functional test broken by previous commit. [Manoj Kumar]
+- Move commands from webdriver as mixins class (#459) [Manoj Kumar]
+
+  * move to mixins class
+
+  * Create common class with its tests
+
+  * incorporating PR comments
+- Fix CI (Failed iOS) (#460) [Mori Atsushi]
+
+  * Fix CI (Failed iOS)
+
+  * Fix variable name
+- Add new locator strategy find_elements_by_windows_uiautomation and
+  test. [Manoj Kumar]
+- Add new locator strategy find_element_by_windows_uiautomation. [Manoj
+  Kumar]
+- Update changelog for 0.48. [Kazuaki Matsuo]
 - Bump 0.48. [Kazuaki Matsuo]
 
 

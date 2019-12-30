@@ -32,6 +32,7 @@ def get_desired_capabilities(app=None):
         'automationName': 'XCUITest',
         'allowTouchIdEnroll': True,
         'wdaLocalPort': wda_port(),
+        'simpleIsVisibleCheck': True
     }
 
     if app is not None:

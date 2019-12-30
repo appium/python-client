@@ -35,10 +35,6 @@ class FindByIOSPredicateTests(BaseTestCase):
         self.driver.find_element_by_ios_predicate('wdValue == "Buttons"')
 
     def test_find_element_by_isvisible(self):
-        if get_xcode_ver() == '11.3':
-            # TODO Remove skip when it's fixed
-            self.skipTest('Xcode 11.3 has issue. https://github.com/appium/appium/issues/13745')
-
         # Will throw exception if element is not found
         self.driver.find_element_by_ios_predicate('wdValue == "Buttons" AND visible == 1')
 

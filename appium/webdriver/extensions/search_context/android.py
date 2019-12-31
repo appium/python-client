@@ -24,6 +24,18 @@ from .base_search_context import BaseSearchContext
 class AndroidSearchContext(BaseSearchContext):
     """Define search context for Android"""
 
+    def find_element_by_android_view_matcher(self, name=None, args=None, className=None):
+        return self.find_element(
+            by=MobileBy.ANDROID_VIEW_MATCHER,
+            value=self._build_data_matcher(name=name, args=args, className=className)
+        )
+
+    def find_elements_by_android_view_matcher(self, name=None, args=None, className=None):
+        return self.find_elements(
+            by=MobileBy.ANDROID_VIEW_MATCHER,
+            value=self._build_data_matcher(name=name, args=args, className=className)
+        )
+
     def find_element_by_android_data_matcher(self, name=None, args=None, className=None):
         """Finds element by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
 

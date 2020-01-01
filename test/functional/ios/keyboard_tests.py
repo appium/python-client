@@ -48,10 +48,6 @@ class KeyboardTests(BaseTestCase):
         self.assertFalse(el.is_displayed())
 
     def test_hide_keyboard_no_key_name(self):
-        if get_xcode_ver() == '11.3':
-            # TODO Needs to dismiss dictation dialog.
-            self.skipTest('On iOS13, needs to dismiss dictation dialog.')
-
         self._move_to_textbox()
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]

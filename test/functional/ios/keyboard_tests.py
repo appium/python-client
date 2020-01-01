@@ -15,7 +15,7 @@
 import unittest
 from time import sleep
 
-from test.functional.ios.helper.test_helper import BaseTestCase, get_xcode_ver
+from test.functional.ios.helper.test_helper import BaseTestCase
 
 
 class KeyboardTests(BaseTestCase):

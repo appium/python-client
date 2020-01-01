@@ -14,7 +14,7 @@
 
 import unittest
 
-from test.functional.ios.helper.test_helper import BaseTestCase, get_xcode_ver
+from test.functional.ios.helper.test_helper import BaseTestCase
 
 
 class FindByIOSPredicateTests(BaseTestCase):

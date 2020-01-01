@@ -15,7 +15,6 @@
 
 import base64
 import os
-import subprocess as sp
 import unittest
 
 from appium import webdriver
@@ -39,14 +38,3 @@ class BaseTestCase(unittest.TestCase):
             with open(video_path, "wb") as fd:
                 fd.write(base64.b64decode(payload))
         self.driver.quit()
-
-
-def get_xcode_ver():
-    """Returns Xcode version
-
-    Returns:
-        str: Xcode version (e.g. '11.3')
-    """
-    lines = sp.check_output(['xcodebuild', '-version'])
-    return [line.decode('utf-8').split()[-1] for line in lines.strip().split(b'\n')
-            if line.decode('utf-8').startswith('Xcode')][0]

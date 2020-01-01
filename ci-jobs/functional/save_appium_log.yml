@@ -9,7 +9,7 @@ steps:
   condition: succeededOrFailed()
   inputs:
     contents:
-      '**/test_*.png'
+      '**/test_*.mp4'
     targetFolder: $(Build.ArtifactStagingDirectory)
 - task: PublishBuildArtifacts@1
   condition: succeededOrFailed()

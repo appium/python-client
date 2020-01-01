@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+import base64
 import os
 import unittest
 
@@ -57,10 +58,13 @@ class BaseTestCase(unittest.TestCase):
     def setUp(self):
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        if is_ci():
+            self.driver.start_recording_screen()
 
     def tearDown(self):
         if is_ci():
-            # Take the screenshot to investigate when tests failed only on CI
-            img_path = os.path.join(os.getcwd(), self._testMethodName + '.png')
-            self.driver.get_screenshot_as_file(img_path)
+            payload = self.driver.stop_recording_screen()
+            video_path = os.path.join(os.getcwd(), self._testMethodName + '.mp4')
+            with open(video_path, "wb") as fd:
+                fd.write(base64.b64decode(payload))
         self.driver.quit()

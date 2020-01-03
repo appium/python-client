@@ -27,7 +27,7 @@ class FindByElementWebelementTests(BaseTestCase):
         self.assertEqual('Action Sheets', c_el[0].get_attribute('name'))
 
         c_el = el.find_elements_by_ios_class_chain('**/XCUIElementTypeStaticText')
-        self.assertEqual('Action Sheets', c_el[0].get_attribute('name'))
+        self.assertEqual('UICatalog', c_el[0].get_attribute('name'))
 
         c_el = el.find_elements_by_accessibility_id('UICatalog')
         self.assertEqual('UICatalog', c_el[0].get_attribute('name'))

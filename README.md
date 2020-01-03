@@ -80,19 +80,19 @@ You also can run particular tests like below.
 ### Unit
 
 ```
-$ py.test test/unit
+$ pytest test/unit
 ```
 
 Run with `pytest-xdist`
 
 ```
-$ py.test -n 2 test/unit
+$ pytest -n 2 test/unit
 ```
 
 ### Functional
 
 ```
-$ py.test test/functional/ios/find_by_ios_class_chain_tests.py
+$ pytest test/functional/ios/find_by_ios_class_chain_tests.py
 ```
 
 ### In parallel for iOS
@@ -103,7 +103,7 @@ $ py.test test/functional/ios/find_by_ios_class_chain_tests.py
     ```
 3. Run tests
     ```
-    $ py.test -n 2 test/functional/ios/find_by_ios_class_chain_tests.py
+    $ pytest -n 2 test/functional/ios/find_by_ios_class_chain_tests.py
     ```
 
 # Release

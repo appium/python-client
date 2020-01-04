@@ -65,7 +65,13 @@ def tag_and_generate_changelog(new_version_num):
 
 
 def upload_sdist(new_version_num):
-    call_bash_script('twine upload "dist/Appium-Python-Client-{}.tar.gz"'.format(new_version_num))
+    push_file = 'dist/Appium-Python-Client-{}.tar.gz'.format(new_version_num)
+    try:
+        call_bash_script('twine upload "{}"'.format(push_file))
+    except Exception as e:
+        print('Failed to upload {} to pypi. '
+              'Please fix the original error and push it again later. Original error: {}'.format(
+                  push_file, e))
 
 
 def push_changes_to_master(new_version_num):
@@ -81,7 +87,7 @@ def ensure_publication(new_version_num):
     for line in sys.stdin:
         if line.rstrip().lower() == 'y':
             return
-        exit('Canceled release pricess.')
+        exit('Canceled release process.')
 
 
 def build_sdist():

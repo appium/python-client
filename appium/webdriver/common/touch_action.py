@@ -35,7 +35,7 @@ T = TypeVar('T', bound='TouchAction')
 
 class TouchAction(object):
     def __init__(self, driver: WebDriver = None):
-        self._driver: WebDriver = driver
+        self._driver = driver
         self._actions: List = []
 
     def tap(self: T, element: WebElement = None, x: int = None, y: int = None, count: int = 1) -> T:
@@ -159,7 +159,7 @@ class TouchAction(object):
         }
         self._actions.append(gesture)
 
-    def _get_opts(self, element: WebElement, x: int = None, y: int = None,
+    def _get_opts(self, element: WebElement = None, x: int = None, y: int = None,
                   duration: int = None, pressure: float = None) -> Dict:
         opts = {}
         if element is not None:

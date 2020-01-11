@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 import os
-import subprocess
+import subprocess as sp
 import sys
 import time
+from typing import Dict, List, Union
 
 import urllib3
 
@@ -27,7 +27,7 @@ MAIN_SCRIPT_PATH = 'appium/build/lib/main.js'
 STATUS_URL = '/wd/hub/status'
 
 
-def find_executable(executable):
+def find_executable(executable: str) -> Union[str, None]:
     path = os.environ['PATH']
     paths = path.split(os.pathsep)
     base, ext = os.path.splitext(executable)
@@ -45,7 +45,7 @@ def find_executable(executable):
     return None
 
 
-def poll_url(host, port, path, timeout_ms):
+def poll_url(host: str, port: str, path: str, timeout_ms: int) -> bool:
     time_started_sec = time.time()
     while time.time() < time_started_sec + timeout_ms / 1000.0:
         try:
@@ -89,19 +89,19 @@ class AppiumService(object):
         if not hasattr(self, '_main_script'):
             for args in [['root', '-g'], ['root']]:
                 try:
-                    modules_root = subprocess.check_output([self._get_npm()] + args).strip().decode('utf-8')
+                    modules_root = sp.check_output([self._get_npm()] + args).strip().decode('utf-8')
                     if os.path.exists(os.path.join(modules_root, MAIN_SCRIPT_PATH)):
                         self._main_script = os.path.join(modules_root, MAIN_SCRIPT_PATH)
                         break
-                except subprocess.CalledProcessError:
+                except sp.CalledProcessError:
                     continue
             if not hasattr(self, '_main_script'):
                 try:
-                    self._main_script = subprocess.check_output(
+                    self._main_script = sp.check_output(
                         [self._get_node(),
                          '-e',
                          'console.log(require.resolve("{}"))'.format(MAIN_SCRIPT_PATH)]).strip()
-                except subprocess.CalledProcessError as e:
+                except sp.CalledProcessError as e:
                     raise AppiumServiceError(e.output)
         return self._main_script
 
@@ -119,7 +119,7 @@ class AppiumService(object):
                 return args[idx + 1]
         return DEFAULT_HOST
 
-    def start(self, **kwargs):
+    def start(self, **kwargs: Union[Dict, str, int]) -> sp.Popen:
         """Starts Appium service with given arguments.
 
         The service will be forcefully restarted if it is already running.
@@ -153,15 +153,15 @@ class AppiumService(object):
 
         env = kwargs['env'] if 'env' in kwargs else None
         node = kwargs['node'] if 'node' in kwargs else self._get_node()
-        stdout = kwargs['stdout'] if 'stdout' in kwargs else subprocess.PIPE
-        stderr = kwargs['stderr'] if 'stderr' in kwargs else subprocess.PIPE
+        stdout = kwargs['stdout'] if 'stdout' in kwargs else sp.PIPE
+        stderr = kwargs['stderr'] if 'stderr' in kwargs else sp.PIPE
         timeout_ms = int(kwargs['timeout_ms']) if 'timeout_ms' in kwargs else STARTUP_TIMEOUT_MS
         main_script = kwargs['main_script'] if 'main_script' in kwargs else self._get_main_script()
         args = [node, main_script]
         if 'args' in kwargs:
             args.extend(kwargs['args'])
         self._cmd = args
-        self._process = subprocess.Popen(args=args, stdout=stdout, stderr=stderr, env=env)
+        self._process = sp.Popen(args=args, stdout=stdout, stderr=stderr, env=env)
         host = self._parse_host(args)
         port = self._parse_port(args)
         error_msg = None
@@ -169,7 +169,7 @@ class AppiumService(object):
             error_msg = 'Appium has failed to start on {}:{} within {}ms timeout'\
                         .format(host, port, timeout_ms)
         if error_msg is not None:
-            if stderr == subprocess.PIPE:
+            if stderr == sp.PIPE:
                 err_output = self._process.stderr.read()
                 if err_output:
                     error_msg += '\nOriginal error: {}'.format(err_output)

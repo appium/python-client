@@ -19,17 +19,23 @@
 # chaining as the spec requires.
 
 import copy
+from typing import Dict, List, TypeVar
 
+from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.mobilecommand import MobileCommand as Command
+from appium.webdriver.webdriver import WebDriver
+from appium.webdriver.webelement import WebElement
+
+T = TypeVar('T', bound='MultiAction')
 
 
 class MultiAction(object):
-    def __init__(self, driver, element=None):
-        self._driver = driver
-        self._element = element
-        self._touch_actions = []
+    def __init__(self, driver: WebDriver, element: WebElement = None) -> None:
+        self._driver: WebDriver = driver
+        self._element: WebElement = element
+        self._touch_actions: List[TouchAction] = []
 
-    def add(self, *touch_actions):
+    def add(self: T, *touch_actions: TouchAction) -> None:
         """Add TouchAction objects to the MultiAction, to be performed later.
 
         Args:
@@ -49,7 +55,7 @@ class MultiAction(object):
 
             self._touch_actions.append(copy.copy(touch_action))
 
-    def perform(self):
+    def perform(self: T) -> T:
         """Perform the actions stored in the object.
 
         Usage:
@@ -68,7 +74,7 @@ class MultiAction(object):
         return self
 
     @property
-    def json_wire_gestures(self):
+    def json_wire_gestures(self) -> Dict:
         actions = []
         for action in self._touch_actions:
             actions.append(action.json_wire_gestures)

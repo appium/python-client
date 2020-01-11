@@ -24,11 +24,13 @@
 # pylint: disable=no-self-use
 
 import copy
-from typing import Dict, List
+from typing import Dict, List, TypeVar
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.webelement import WebElement
+
+T = TypeVar('T', bound='TouchAction')
 
 
 class TouchAction(object):
@@ -36,7 +38,7 @@ class TouchAction(object):
         self._driver: WebDriver = driver
         self._actions: List = []
 
-    def tap(self, element: WebElement = None, x: int = None, y: int = None, count: int = 1) -> WebDriver:
+    def tap(self: T, element: WebElement = None, x: int = None, y: int = None, count: int = 1) -> T:
         """Perform a tap action on the element
 
         Args:
@@ -53,7 +55,7 @@ class TouchAction(object):
 
         return self
 
-    def press(self, el: WebElement = None, x: int = None, y: int = None, pressure: float = None) -> WebDriver:
+    def press(self: T, el: WebElement = None, x: int = None, y: int = None, pressure: float = None) -> T:
         """Begin a chain with a press down action at a particular element or point
 
         Args:
@@ -70,7 +72,7 @@ class TouchAction(object):
 
         return self
 
-    def long_press(self, el: WebElement = None, x: int = None, y: int = None, duration: int = 1000) -> WebDriver:
+    def long_press(self: T, el: WebElement = None, x: int = None, y: int = None, duration: int = 1000) -> T:
         """Begin a chain with a press down that lasts `duration` milliseconds
 
         Args:
@@ -86,7 +88,7 @@ class TouchAction(object):
 
         return self
 
-    def wait(self, ms: int = 0) -> WebDriver:
+    def wait(self: T, ms: int = 0) -> T:
         """Pause for `ms` milliseconds.
 
         Args:
@@ -104,7 +106,7 @@ class TouchAction(object):
 
         return self
 
-    def move_to(self, el: WebElement = None, x: int = None, y: int = None) -> WebDriver:
+    def move_to(self: T, el: WebElement = None, x: int = None, y: int = None) -> T:
         """Move the pointer from the previous point to the element or point specified
 
         Args:
@@ -119,7 +121,7 @@ class TouchAction(object):
 
         return self
 
-    def release(self) -> WebDriver:
+    def release(self: T) -> T:
         """End the action by lifting the pointer off the screen
 
         Returns:
@@ -129,7 +131,7 @@ class TouchAction(object):
 
         return self
 
-    def perform(self) -> WebDriver:
+    def perform(self: T) -> T:
         """Perform the action by sending the commands to the server to be operated upon
 
         Returns:

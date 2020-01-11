@@ -24,16 +24,19 @@
 # pylint: disable=no-self-use
 
 import copy
+from typing import Dict, List
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
+from appium.webdriver.webdriver import WebDriver
+from appium.webdriver.webelement import WebElement
 
 
 class TouchAction(object):
-    def __init__(self, driver=None):
-        self._driver = driver
-        self._actions = []
+    def __init__(self, driver: WebDriver = None):
+        self._driver: WebDriver = driver
+        self._actions: List = []
 
-    def tap(self, element=None, x=None, y=None, count=1):
+    def tap(self, element: WebElement = None, x: int = None, y: int = None, count: int = 1) -> WebDriver:
         """Perform a tap action on the element
 
         Args:
@@ -50,7 +53,7 @@ class TouchAction(object):
 
         return self
 
-    def press(self, el=None, x=None, y=None, pressure=None):
+    def press(self, el: WebElement = None, x: int = None, y: int = None, pressure: float = None) -> WebDriver:
         """Begin a chain with a press down action at a particular element or point
 
         Args:
@@ -67,7 +70,7 @@ class TouchAction(object):
 
         return self
 
-    def long_press(self, el=None, x=None, y=None, duration=1000):
+    def long_press(self, el: WebElement = None, x: int = None, y: int = None, duration: int = 1000) -> WebDriver:
         """Begin a chain with a press down that lasts `duration` milliseconds
 
         Args:
@@ -83,7 +86,7 @@ class TouchAction(object):
 
         return self
 
-    def wait(self, ms=0):
+    def wait(self, ms: int = 0) -> WebDriver:
         """Pause for `ms` milliseconds.
 
         Args:
@@ -101,7 +104,7 @@ class TouchAction(object):
 
         return self
 
-    def move_to(self, el=None, x=None, y=None):
+    def move_to(self, el: WebElement = None, x: int = None, y: int = None) -> WebDriver:
         """Move the pointer from the previous point to the element or point specified
 
         Args:
@@ -116,7 +119,7 @@ class TouchAction(object):
 
         return self
 
-    def release(self):
+    def release(self) -> WebDriver:
         """End the action by lifting the pointer off the screen
 
         Returns:
@@ -126,7 +129,7 @@ class TouchAction(object):
 
         return self
 
-    def perform(self):
+    def perform(self) -> WebDriver:
         """Perform the action by sending the commands to the server to be operated upon
 
         Returns:
@@ -141,20 +144,21 @@ class TouchAction(object):
         return self
 
     @property
-    def json_wire_gestures(self):
+    def json_wire_gestures(self) -> List[Dict]:
         gestures = []
         for action in self._actions:
             gestures.append(copy.deepcopy(action))
         return gestures
 
-    def _add_action(self, action, options):
+    def _add_action(self, action: str, options: Dict) -> None:
         gesture = {
             'action': action,
             'options': options,
         }
         self._actions.append(gesture)
 
-    def _get_opts(self, element, x, y, duration=None, pressure=None):
+    def _get_opts(self, element: WebElement, x: int = None, y: int = None,
+                  duration: int = None, pressure: float = None) -> Dict:
         opts = {}
         if element is not None:
             opts['element'] = element.id

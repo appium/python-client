@@ -21,21 +21,23 @@
 import copy
 from typing import Dict, List, Optional, TypeVar
 
-from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.mobilecommand import MobileCommand as Command
-from appium.webdriver.webdriver import WebDriver
-from appium.webdriver.webelement import WebElement
+
+if False:  # For mypy
+    from appium.webdriver.common.touch_action import TouchAction
+    from appium.webdriver.webdriver import WebDriver
+    from appium.webdriver.webelement import WebElement
 
 T = TypeVar('T', bound='MultiAction')
 
 
 class MultiAction(object):
-    def __init__(self, driver: WebDriver, element: WebElement = None) -> None:
-        self._driver: WebDriver = driver
-        self._element: Optional[WebElement] = element
-        self._touch_actions: List[TouchAction] = []
+    def __init__(self, driver, element=None) -> None:
+        self._driver = driver
+        self._element = element
+        self._touch_actions = []
 
-    def add(self, *touch_actions: TouchAction) -> None:
+    def add(self, *touch_actions) -> None:
         """Add TouchAction objects to the MultiAction, to be performed later.
 
         Args:

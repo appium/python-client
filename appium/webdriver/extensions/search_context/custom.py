@@ -17,15 +17,16 @@
 from typing import List
 
 from appium.webdriver.common.mobileby import MobileBy
-from appium.webdriver.webelement import WebElement
 
 from .base_search_context import BaseSearchContext
+
+# from appium.webdriver.webelement import WebElement
 
 
 class CustomSearchContext(BaseSearchContext):
     """Define search context for custom plugin"""
 
-    def find_element_by_custom(self, selector: str) -> WebElement:
+    def find_element_by_custom(self, selector: str):  # -> WebElement:
         """Finds an element in conjunction with a custom element finding plugin
 
         Args:
@@ -45,7 +46,7 @@ class CustomSearchContext(BaseSearchContext):
         """
         return self.find_element(by=MobileBy.CUSTOM, value=selector)
 
-    def find_elements_by_custom(self, selector: str) -> List[WebElement]:
+    def find_elements_by_custom(self, selector: str):  # -> List[WebElement]:
         """Finds elements in conjunction with a custom element finding plugin
 
         Args:

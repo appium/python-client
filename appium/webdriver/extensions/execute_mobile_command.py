@@ -14,12 +14,10 @@
 
 from selenium import webdriver
 
-from appium.webdriver.webdriver import WebDriver
-
 
 class ExecuteMobileCommand(webdriver.Remote):
 
-    def press_button(self, button_name: str) -> WebDriver:
+    def press_button(self, button_name: str):
         """Sends a physical button name to the device to simulate the user pressing.
 
         iOS only.

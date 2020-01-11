@@ -15,8 +15,10 @@
 # pylint: disable=abstract-method
 
 import json
+from typing import List
 
 from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.webelement import WebElement
 
 from .base_search_context import BaseSearchContext
 
@@ -24,7 +26,8 @@ from .base_search_context import BaseSearchContext
 class AndroidSearchContext(BaseSearchContext):
     """Define search context for Android"""
 
-    def find_element_by_android_data_matcher(self, name=None, args=None, className=None):
+    def find_element_by_android_data_matcher(
+            self, name: str = None, args: str = None, className: str = None) -> WebElement:
         """Finds element by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
@@ -56,7 +59,8 @@ class AndroidSearchContext(BaseSearchContext):
             value=self._build_data_matcher(name=name, args=args, className=className)
         )
 
-    def find_elements_by_android_data_matcher(self, name=None, args=None, className=None):
+    def find_elements_by_android_data_matcher(
+            self, name: str = None, args: str = None, className: str = None) -> List[WebElement]:
         """Finds elements by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
@@ -83,7 +87,7 @@ class AndroidSearchContext(BaseSearchContext):
             value=self._build_data_matcher(name=name, args=args, className=className)
         )
 
-    def _build_data_matcher(self, name=None, args=None, className=None):
+    def _build_data_matcher(self, name: str = None, args: str = None, className: str = None) -> str:
         result = {}
 
         for key, value in {'name': name, 'args': args, 'class': className}.items():
@@ -92,7 +96,7 @@ class AndroidSearchContext(BaseSearchContext):
 
         return json.dumps(result)
 
-    def find_element_by_android_uiautomator(self, uia_string):
+    def find_element_by_android_uiautomator(self, uia_string: str) -> WebElement:
         """Finds element by uiautomator in Android.
 
         Args:
@@ -108,7 +112,7 @@ class AndroidSearchContext(BaseSearchContext):
         """
         return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
-    def find_elements_by_android_uiautomator(self, uia_string):
+    def find_elements_by_android_uiautomator(self, uia_string: str) -> List[WebElement]:
         """Finds elements by uiautomator in Android.
 
         Args:
@@ -124,7 +128,7 @@ class AndroidSearchContext(BaseSearchContext):
         """
         return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
-    def find_element_by_android_viewtag(self, tag):
+    def find_element_by_android_viewtag(self, tag: str) -> WebElement:
         """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
@@ -142,7 +146,7 @@ class AndroidSearchContext(BaseSearchContext):
         """
         return self.find_element(by=MobileBy.ANDROID_VIEWTAG, value=tag)
 
-    def find_elements_by_android_viewtag(self, tag):
+    def find_elements_by_android_viewtag(self, tag: str) -> List[WebElement]:
         """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).

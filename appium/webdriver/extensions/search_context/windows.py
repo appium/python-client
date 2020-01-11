@@ -14,7 +14,10 @@
 
 # pylint: disable=abstract-method
 
+from typing import List
+
 from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.webelement import WebElement
 
 from .base_search_context import BaseSearchContext
 
@@ -22,7 +25,7 @@ from .base_search_context import BaseSearchContext
 class WindowsSearchContext(BaseSearchContext):
     """Define search context for Windows"""
 
-    def find_element_by_windows_uiautomation(self, win_uiautomation):
+    def find_element_by_windows_uiautomation(self, win_uiautomation: str) -> WebElement:
         """Finds an element by windows uiautomation
 
         Args:
@@ -39,7 +42,7 @@ class WindowsSearchContext(BaseSearchContext):
         """
         return self.find_element(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)
 
-    def find_elements_by_windows_uiautomation(self, win_uiautomation):
+    def find_elements_by_windows_uiautomation(self, win_uiautomation: str) -> List[WebElement]:
         """Finds elements by windows uiautomation
 
         Args:

@@ -17,7 +17,7 @@ from collections import OrderedDict
 from appium import version as appium_version
 
 
-def appium_bytes(value, encoding):
+def appium_bytes(value: str, encoding: str) -> str:
     """Return a bytes-like object
 
     Has _appium_ prefix to avoid overriding built-in bytes.

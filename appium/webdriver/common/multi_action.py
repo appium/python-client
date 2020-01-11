@@ -35,7 +35,7 @@ class MultiAction(object):
         self._element: WebElement = element
         self._touch_actions: List[TouchAction] = []
 
-    def add(self: T, *touch_actions: TouchAction) -> None:
+    def add(self, *touch_actions: TouchAction) -> None:
         """Add TouchAction objects to the MultiAction, to be performed later.
 
         Args:

@@ -12,11 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Any, TypeVar
+
 from selenium import webdriver
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
+
+T = TypeVar('T', bound=webdriver.Remote)
 
 
 class NetSpeed(object):
@@ -34,7 +38,7 @@ class NetSpeed(object):
 class Network(webdriver.Remote):
 
     @property
-    def network_connection(self):
+    def network_connection(self) -> Any:  # TODO Check return type
         """Returns an integer bitmask specifying the network connection type.
 
         Android only.
@@ -42,7 +46,7 @@ class Network(webdriver.Remote):
         """
         return self.execute(Command.GET_NETWORK_CONNECTION, {})['value']
 
-    def set_network_connection(self, connection_type):
+    def set_network_connection(self, connection_type: int) -> Any:  # TODO Check return type
         """Sets the network connection type. Android only.
 
         Possible values:
@@ -58,8 +62,8 @@ class Network(webdriver.Remote):
         Args:
             connection_type (int): a member of the enum appium.webdriver.ConnectionType
 
-        Returns:
-            `appium.webdriver.webdriver.WebDriver`
+        Return:
+            TODO
         """
         data = {
             'parameters': {
@@ -68,7 +72,7 @@ class Network(webdriver.Remote):
         }
         return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
 
-    def toggle_wifi(self):
+    def toggle_wifi(self) -> T:
         """Toggle the wifi on the device, Android only.
 
         Returns:
@@ -77,7 +81,7 @@ class Network(webdriver.Remote):
         self.execute(Command.TOGGLE_WIFI, {})
         return self
 
-    def set_network_speed(self, speed_type):
+    def set_network_speed(self, speed_type: str) -> T:
         """Set the network speed emulation.
 
         Android Emulator only.
@@ -102,7 +106,7 @@ class Network(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.TOGGLE_WIFI] = \
             ('POST', '/session/$sessionId/appium/device/toggle_wifi')
         self.command_executor._commands[Command.GET_NETWORK_CONNECTION] = \

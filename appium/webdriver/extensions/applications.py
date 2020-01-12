@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Any, Dict, TypeVar
+
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
+T = TypeVar('T', bound=webdriver.Remote)
+
 
 class Applications(webdriver.Remote):
-    def background_app(self, seconds):
+    def background_app(self, seconds: int) -> T:
         """Puts the application in the background on the device for a certain duration.
 
         Args:
@@ -33,7 +37,7 @@ class Applications(webdriver.Remote):
         self.execute(Command.BACKGROUND, data)
         return self
 
-    def is_app_installed(self, bundle_id):
+    def is_app_installed(self, bundle_id: str) -> bool:
         """Checks whether the application specified by `bundle_id` is installed on the device.
 
         Args:
@@ -47,7 +51,7 @@ class Applications(webdriver.Remote):
         }
         return self.execute(Command.IS_APP_INSTALLED, data)['value']
 
-    def install_app(self, app_path, **options):
+    def install_app(self, app_path: str, **options: Any) -> T:
         """Install the application found at `app_path` on the device.
 
         Args:
@@ -67,7 +71,7 @@ class Applications(webdriver.Remote):
         Returns:
             `appium.webdriver.webdriver.WebDriver`
         """
-        data = {
+        data: Dict[str, Any] = {
             'appPath': app_path,
         }
         if options:
@@ -75,7 +79,7 @@ class Applications(webdriver.Remote):
         self.execute(Command.INSTALL_APP, data)
         return self
 
-    def remove_app(self, app_id, **options):
+    def remove_app(self, app_id: str, **options: Any) -> T:
         """Remove the specified application from the device.
 
         Args:
@@ -90,7 +94,7 @@ class Applications(webdriver.Remote):
         Returns:
             `appium.webdriver.webdriver.WebDriver`
         """
-        data = {
+        data: Dict[str, Any] = {
             'appId': app_id,
         }
         if options:
@@ -98,7 +102,7 @@ class Applications(webdriver.Remote):
         self.execute(Command.REMOVE_APP, data)
         return self
 
-    def launch_app(self):
+    def launch_app(self) -> T:
         """Start on the device the application specified in the desired capabilities.
 
         Returns:
@@ -107,7 +111,7 @@ class Applications(webdriver.Remote):
         self.execute(Command.LAUNCH_APP)
         return self
 
-    def close_app(self):
+    def close_app(self) -> T:
         """Stop the running application, specified in the desired capabilities, on
         the device.
 
@@ -117,7 +121,7 @@ class Applications(webdriver.Remote):
         self.execute(Command.CLOSE_APP)
         return self
 
-    def terminate_app(self, app_id, **options):
+    def terminate_app(self, app_id: str, **options: Any) -> bool:
         """Terminates the application if it is running.
 
         Args:
@@ -137,7 +141,7 @@ class Applications(webdriver.Remote):
             data.update({'options': options})
         return self.execute(Command.TERMINATE_APP, data)['value']
 
-    def activate_app(self, app_id):
+    def activate_app(self, app_id: str) -> T:
         """Activates the application if it is not running
         or is running in the background.
 
@@ -153,7 +157,7 @@ class Applications(webdriver.Remote):
         self.execute(Command.ACTIVATE_APP, data)
         return self
 
-    def query_app_state(self, app_id):
+    def query_app_state(self, app_id: str) -> int:
         """Queries the state of the application.
 
         Args:
@@ -168,7 +172,7 @@ class Applications(webdriver.Remote):
         }
         return self.execute(Command.QUERY_APP_STATE, data)['value']
 
-    def app_strings(self, language=None, string_file=None):
+    def app_strings(self, language: str = None, string_file: str = None) -> str:
         """Returns the application strings from the device for the specified
         language.
 
@@ -183,7 +187,7 @@ class Applications(webdriver.Remote):
             data['stringFile'] = string_file
         return self.execute(Command.GET_APP_STRINGS, data)['value']
 
-    def reset(self):
+    def reset(self) -> T:
         """Resets the current application on the device.
         """
         self.execute(Command.RESET)
@@ -191,7 +195,7 @@ class Applications(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.BACKGROUND] = \
             ('POST', '/session/$sessionId/appium/app/background')
         self.command_executor._commands[Command.IS_APP_INSTALLED] = \

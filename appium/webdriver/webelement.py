@@ -12,21 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Dict, List, Optional, TypeVar, Union
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
 from .extensions.search_context import AppiumWebElementSearchContext
 from .mobilecommand import MobileCommand as Command
 
-# Python 3 imports
-try:
-    str = basestring
-except NameError:
-    pass
+T = TypeVar('T', bound='WebElement')
 
 
 class WebElement(AppiumWebElementSearchContext):
-    def get_attribute(self, name):
+    def get_attribute(self, name: str) -> Optional[str]:
         """Gets the given attribute or property of the element.
 
         Override for Appium
@@ -66,14 +64,14 @@ class WebElement(AppiumWebElementSearchContext):
 
         return attributeValue
 
-    def is_displayed(self):
+    def is_displayed(self) -> bool:
         """Whether the element is visible to a user.
 
         Override for Appium
         """
         return self._execute(RemoteCommand.IS_ELEMENT_DISPLAYED)['value']
 
-    def find_element(self, by=By.ID, value=None):
+    def find_element(self, by: Optional[str] = By.ID, value: Union[str, Dict] = None) -> T:
         """Find an element given a By strategy and locator
 
         Override for Appium
@@ -107,7 +105,7 @@ class WebElement(AppiumWebElementSearchContext):
         return self._execute(RemoteCommand.FIND_CHILD_ELEMENT,
                              {"using": by, "value": value})['value']
 
-    def find_elements(self, by=By.ID, value=None):
+    def find_elements(self, by: Optional[str] = By.ID, value: Union[str, Dict] = None) -> List[T]:
         """Find elements given a By strategy and locator
 
         Override for Appium
@@ -141,7 +139,7 @@ class WebElement(AppiumWebElementSearchContext):
         return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS,
                              {"using": by, "value": value})['value']
 
-    def clear(self):
+    def clear(self) -> T:
         """Clears text.
 
         Override for Appium
@@ -153,7 +151,7 @@ class WebElement(AppiumWebElementSearchContext):
         self._execute(Command.CLEAR, data)
         return self
 
-    def set_text(self, keys=''):
+    def set_text(self, keys: str = '') -> T:
         """Sends text to the element.
 
         Previous text is removed.
@@ -176,7 +174,7 @@ class WebElement(AppiumWebElementSearchContext):
         return self
 
     @property
-    def location_in_view(self):
+    def location_in_view(self) -> Dict:
         """Gets the location of an element relative to the view.
 
         Usage:
@@ -189,7 +187,7 @@ class WebElement(AppiumWebElementSearchContext):
         """
         return self._execute(Command.LOCATION_IN_VIEW)['value']
 
-    def set_value(self, value):
+    def set_value(self, value: str) -> T:
         """Set the value on this element in the application
 
         Args:

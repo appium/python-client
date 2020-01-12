@@ -14,19 +14,20 @@
 
 # pylint: disable=abstract-method
 
-from typing import List
+from typing import TYPE_CHECKING, List
 
 from appium.webdriver.common.mobileby import MobileBy
 
 from .base_search_context import BaseSearchContext
 
-# from appium.webdriver.webelement import WebElement
+if TYPE_CHECKING:
+    from appium.webdriver.webelement import WebElement
 
 
 class iOSSearchContext(BaseSearchContext):
     """Define search context for iOS"""
 
-    def find_element_by_ios_uiautomation(self, uia_string: str):  # -> WebElement:
+    def find_element_by_ios_uiautomation(self, uia_string: str) -> 'WebElement':
         """Finds an element by uiautomation in iOS.
 
         Args:
@@ -43,7 +44,7 @@ class iOSSearchContext(BaseSearchContext):
         """
         return self.find_element(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
-    def find_elements_by_ios_uiautomation(self, uia_string: str):  # -> List[WebElement]:
+    def find_elements_by_ios_uiautomation(self, uia_string: str) -> List['WebElement']:
         """Finds elements by uiautomation in iOS.
 
         Args:
@@ -59,7 +60,7 @@ class iOSSearchContext(BaseSearchContext):
         """
         return self.find_elements(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
 
-    def find_element_by_ios_predicate(self, predicate_string: str):  # -> WebElement:
+    def find_element_by_ios_predicate(self, predicate_string: str) -> 'WebElement':
         """Find an element by ios predicate string.
 
         Args:
@@ -75,7 +76,7 @@ class iOSSearchContext(BaseSearchContext):
         """
         return self.find_element(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
-    def find_elements_by_ios_predicate(self, predicate_string: str):  # -> List[WebElement]:
+    def find_elements_by_ios_predicate(self, predicate_string: str) -> List['WebElement']:
         """Finds elements by ios predicate string.
 
         Args:
@@ -91,7 +92,7 @@ class iOSSearchContext(BaseSearchContext):
         """
         return self.find_elements(by=MobileBy.IOS_PREDICATE, value=predicate_string)
 
-    def find_element_by_ios_class_chain(self, class_chain_string: str):  # -> WebElement:
+    def find_element_by_ios_class_chain(self, class_chain_string: str) -> 'WebElement':
         """Find an element by ios class chain string.
 
         Args:
@@ -107,7 +108,7 @@ class iOSSearchContext(BaseSearchContext):
         """
         return self.find_element(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
-    def find_elements_by_ios_class_chain(self, class_chain_string: str):  # -> List[WebElement]:
+    def find_elements_by_ios_class_chain(self, class_chain_string: str) -> List['WebElement']:
         """Finds elements by ios class chain string.
 
         Args:

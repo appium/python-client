@@ -19,25 +19,25 @@
 # chaining as the spec requires.
 
 import copy
-from typing import Dict, List, TypeVar, Union
+from typing import TYPE_CHECKING, Dict, List, TypeVar, Union
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if False:  # For mypy
-    from appium.webdriver.common.touch_action import TouchAction
+if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
     from appium.webdriver.webelement import WebElement
+    from appium.webdriver.common.touch_action import TouchAction
 
 T = TypeVar('T', bound='MultiAction')
 
 
 class MultiAction(object):
-    def __init__(self, driver, element=None) -> None:
+    def __init__(self, driver: 'WebDriver', element: 'WebElement' = None) -> None:
         self._driver = driver
         self._element = element
-        self._touch_actions = []
+        self._touch_actions: List['TouchAction'] = []
 
-    def add(self, *touch_actions) -> None:
+    def add(self, *touch_actions: 'TouchAction') -> None:
         """Add TouchAction objects to the MultiAction, to be performed later.
 
         Args:

@@ -15,7 +15,7 @@
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
 import copy
-from typing import Dict, List, TypeVar, Union
+from typing import Dict, List, Optional, TypeVar, Union
 
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
@@ -256,7 +256,7 @@ class WebDriver(
         w3c_caps = _make_w3c_caps(capabilities)
         return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 
-    def find_element(self, by: str = By.ID, value: Union[str, Dict] = None) -> MobileWebElement:  # type: ignore
+    def find_element(self, by: Optional[str] = By.ID, value: Union[str, Dict] = None) -> MobileWebElement:
         """'Private' method used by the find_element_by_* methods.
 
         Override for Appium
@@ -287,8 +287,8 @@ class WebDriver(
             'using': by,
             'value': value})['value']
 
-    # type: ignore
-    def find_elements(self, by: str = By.ID, value: Union[str, Dict] = None) -> Union[List[MobileWebElement], List]:
+    def find_elements(self, by: Optional[str] = By.ID, value: Union[str, Dict]
+                      = None) -> Union[List[MobileWebElement], List]:
         """'Private' method used by the find_elements_by_* methods.
 
         Override for Appium

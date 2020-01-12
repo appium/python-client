@@ -52,7 +52,7 @@ class Common(webdriver.Remote):
         return self
 
     @property
-    def current_package(self) -> Any:  # TODO Check return type
+    def current_package(self) -> str:
         """Retrieves the current package running on the device.
         """
         return self.execute(Command.GET_CURRENT_PACKAGE)['value']

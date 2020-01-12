@@ -16,7 +16,7 @@ import os
 import subprocess as sp
 import sys
 import time
-from typing import Dict, List, Union
+from typing import Any, Optional, Union
 
 import urllib3
 
@@ -27,7 +27,7 @@ MAIN_SCRIPT_PATH = 'appium/build/lib/main.js'
 STATUS_URL = '/wd/hub/status'
 
 
-def find_executable(executable: str) -> Union[str, None]:
+def find_executable(executable: str) -> Optional[str]:
     path = os.environ['PATH']
     paths = path.split(os.pathsep)
     base, ext = os.path.splitext(executable)
@@ -65,11 +65,11 @@ class AppiumServiceError(RuntimeError):
 
 
 class AppiumService(object):
-    def __init__(self):
+    def __init__(self) -> None:
         self._process = None
         self._cmd = None
 
-    def _get_node(self):
+    def _get_node(self) -> Optional[str]:
         if not hasattr(self, '_node_executable'):
             self._node_executable = find_executable('node')
         if self._node_executable is None:
@@ -77,7 +77,7 @@ class AppiumService(object):
                                      'Make sure it is installed and present in PATH')
         return self._node_executable
 
-    def _get_npm(self):
+    def _get_npm(self) -> Optional[str]:
         if not hasattr(self, '_npm_executable'):
             self._npm_executable = find_executable('npm.cmd' if sys.platform == 'win32' else 'npm')
         if self._npm_executable is None:
@@ -85,7 +85,7 @@ class AppiumService(object):
                                      'Make sure it is installed and present in PATH')
         return self._npm_executable
 
-    def _get_main_script(self):
+    def _get_main_script(self) -> str:
         if not hasattr(self, '_main_script'):
             for args in [['root', '-g'], ['root']]:
                 try:
@@ -119,7 +119,7 @@ class AppiumService(object):
                 return args[idx + 1]
         return DEFAULT_HOST
 
-    def start(self, **kwargs: Union[Dict, str, int]) -> sp.Popen:
+    def start(self, **kwargs: Any) -> sp.Popen:
         """Starts Appium service with given arguments.
 
         The service will be forcefully restarted if it is already running.

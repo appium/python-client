@@ -16,7 +16,6 @@ import base64
 
 from selenium import webdriver
 
-from appium.common.helper import appium_bytes
 from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 from ..mobilecommand import MobileCommand as Command
@@ -49,7 +48,7 @@ class Clipboard(webdriver.Remote):
             label (:obj:`int`, optional):label argument, which only works for Android
         """
 
-        self.set_clipboard(appium_bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
+        self.set_clipboard(bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
 
     def get_clipboard(self, content_type=ClipboardContentType.PLAINTEXT):
         """Receives the content of the system clipboard

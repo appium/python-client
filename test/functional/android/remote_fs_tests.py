@@ -19,15 +19,13 @@ import unittest
 from io import BytesIO
 from zipfile import ZipFile
 
-from appium.common.helper import appium_bytes
-
 from .helper.test_helper import BaseTestCase
 
 
 class RemoteFsTests(BaseTestCase):
     def test_push_pull_file(self):
         dest_path = '/data/local/tmp/test_push_file.txt'
-        data = appium_bytes('This is the contents of the file to push to the device.', 'utf-8')
+        data = bytes('This is the contents of the file to push to the device.', 'utf-8')
 
         self.driver.push_file(dest_path, base64.b64encode(data).decode('utf-8'))
         data_ret = base64.b64decode(self.driver.pull_file(dest_path))
@@ -35,7 +33,7 @@ class RemoteFsTests(BaseTestCase):
         self.assertEqual(data, data_ret)
 
     def test_pull_folder(self):
-        data = appium_bytes('random string data {}'.format(random.randint(0, 1000)), 'utf-8')
+        data = bytes('random string data {}'.format(random.randint(0, 1000)), 'utf-8')
         dest_dir = '/data/local/tmp/'
 
         for filename in ['1.txt', '2.txt']:

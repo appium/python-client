@@ -38,7 +38,7 @@ class NetSpeed(object):
 class Network(webdriver.Remote):
 
     @property
-    def network_connection(self) -> Any:  # TODO Check return type
+    def network_connection(self) -> int:
         """Returns an integer bitmask specifying the network connection type.
 
         Android only.

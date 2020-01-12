@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Any, Dict
+
 from selenium import webdriver
 
 
@@ -38,7 +40,7 @@ class ExecuteMobileCommand(webdriver.Remote):
         return self
 
     @property
-    def battery_info(self) -> dict:
+    def battery_info(self) -> Dict[str, Any]:
         """Retrieves battery information for the device under test.
 
         Returns:

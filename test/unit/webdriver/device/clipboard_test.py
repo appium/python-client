@@ -14,7 +14,6 @@
 
 import httpretty
 
-from appium.common.helper import appium_bytes
 from appium.webdriver.clipboard_content_type import ClipboardContentType
 from test.unit.helper.test_helper import (
     android_w3c_driver,
@@ -34,7 +33,7 @@ class TestWebDriverClipboard(object):
             appium_command('/session/1234567890/appium/device/set_clipboard'),
             body='{"value": ""}'
         )
-        driver.set_clipboard(appium_bytes(str('http://appium.io/'), 'UTF-8'),
+        driver.set_clipboard(bytes(str('http://appium.io/'), 'UTF-8'),
                              ClipboardContentType.URL, 'label for android')
 
         d = get_httpretty_request_body(httpretty.last_request())

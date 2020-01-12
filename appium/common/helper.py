@@ -17,25 +17,6 @@ from collections import OrderedDict
 from appium import version as appium_version
 
 
-def appium_bytes(value: str, encoding: str) -> str:
-    """Return a bytes-like object
-
-    Has _appium_ prefix to avoid overriding built-in bytes.
-
-    Args:
-        value (str): A value to convert
-        encoding (str): A encoding which will convert to
-
-    Returns:
-        str: A bytes-like object
-    """
-
-    try:
-        return bytes(value, encoding)  # Python 3
-    except TypeError:
-        return value  # Python 2
-
-
 def extract_const_attributes(cls) -> OrderedDict:
     """Return dict with constants attributes and values in the class(e.g. {'VAL1': 1, 'VAL2': 2})
 

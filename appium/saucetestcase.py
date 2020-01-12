@@ -19,7 +19,7 @@ from __future__ import print_function
 import os
 import sys
 import unittest
-from typing import Any, List, TypeVar
+from typing import Any, Callable, List
 
 from sauceclient import SauceClient
 
@@ -30,8 +30,8 @@ SAUCE_ACCESS_KEY = os.environ.get('SAUCE_ACCESS_KEY')
 sauce = SauceClient(SAUCE_USERNAME, SAUCE_ACCESS_KEY)
 
 
-def on_platforms(platforms: List) -> Any:
-    def decorator(base_class: Any) -> None:
+def on_platforms(platforms: List[str]) -> Callable[[type], None]:
+    def decorator(base_class: type) -> None:
         module = sys.modules[base_class.__module__].__dict__
         for i, platform in enumerate(platforms):
             name = "%s_%s" % (base_class.__name__, i + 1)

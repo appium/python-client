@@ -19,7 +19,7 @@
 # chaining as the spec requires.
 
 import copy
-from typing import Dict, List, Optional, TypeVar
+from typing import Dict, List, TypeVar, Union
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
@@ -76,7 +76,7 @@ class MultiAction(object):
         return self
 
     @property
-    def json_wire_gestures(self) -> Dict:
+    def json_wire_gestures(self) -> Dict[str, Union[List, str]]:
         actions = []
         for action in self._touch_actions:
             actions.append(action.json_wire_gestures)

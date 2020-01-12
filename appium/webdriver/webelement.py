@@ -171,7 +171,7 @@ class WebElement(AppiumWebElementSearchContext):
         return self
 
     @property
-    def location_in_view(self) -> Dict:
+    def location_in_view(self) -> Dict[str, int]:
         """Gets the location of an element relative to the view.
 
         Usage:

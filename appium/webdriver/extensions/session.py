@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List
+from typing import Any, Dict, List
 
 from selenium import webdriver
 
@@ -23,7 +23,7 @@ from ..mobilecommand import MobileCommand as Command
 
 class Session(webdriver.Remote):
     @property
-    def session(self) -> Dict:
+    def session(self) -> Dict[str, Any]:
         """ Retrieves session information from the current session
 
         Usage:
@@ -35,7 +35,7 @@ class Session(webdriver.Remote):
         return self.execute(Command.GET_SESSION)['value']
 
     @property
-    def all_sessions(self) -> List[Dict]:
+    def all_sessions(self) -> List[Dict[str, Any]]:
         """ Retrieves all sessions that are open
 
         Usage:
@@ -47,7 +47,7 @@ class Session(webdriver.Remote):
         return self.execute(Command.GET_ALL_SESSIONS)['value']
 
     @property
-    def events(self) -> Dict:
+    def events(self) -> Any:
         """ Retrieves events information from the current session
 
         Usage:

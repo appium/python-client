@@ -21,7 +21,7 @@ from appium.webdriver.mobilecommand import MobileCommand as Command
 
 class Performance(webdriver.Remote):
 
-    def get_performance_data(self, package_name: str, data_type: str, data_read_timeout: int = None) -> Dict:
+    def get_performance_data(self, package_name: str, data_type: str, data_read_timeout: int = None) -> List[List[str]]:
         """Returns the information of the system state
         which is supported to read as like cpu, memory, network traffic, and battery.
 
@@ -38,7 +38,7 @@ class Performance(webdriver.Remote):
             self.driver.get_performance_data('my.app.package', 'cpuinfo', 5)
 
         Returns:
-            dict: The data along to `data_type`
+            list: The data along to `data_type`
         """
         data: Dict[str, Union[str, int]] = {'packageName': package_name, 'dataType': data_type}
         if data_read_timeout is not None:

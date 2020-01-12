@@ -15,7 +15,7 @@
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
 import copy
-from typing import Dict, List, Optional, TypeVar, Union
+from typing import Any, Dict, List, Optional, TypeVar, Union
 
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
@@ -85,7 +85,7 @@ _FORCE_MJSONWP = 'forceMjsonwp'
 # Add appium prefix for the non-W3C capabilities
 
 
-def _make_w3c_caps(caps: Dict) -> Dict:
+def _make_w3c_caps(caps: Dict) -> Dict[str, List[Dict[str, Any]]]:
     appium_prefix = 'appium:'
 
     caps = copy.deepcopy(caps)
@@ -245,7 +245,7 @@ class WebDriver(
         self.w3c = response.get('status') is None
         self.command_executor.w3c = self.w3c
 
-    def _merge_capabilities(self, capabilities: Dict) -> Dict:
+    def _merge_capabilities(self, capabilities: Dict) -> Dict[str, Any]:
         """Manage capabilities whether W3C format or MJSONWP format
         """
         if _FORCE_MJSONWP in capabilities:

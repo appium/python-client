@@ -21,7 +21,7 @@ from ..mobilecommand import MobileCommand as Command
 
 class ImagesComparison(webdriver.Remote):
 
-    def match_images_features(self, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> Dict:
+    def match_images_features(self, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> Dict[str, Any]:
         """Performs images matching by features.
 
         Read
@@ -107,7 +107,7 @@ class ImagesComparison(webdriver.Remote):
         }
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
-    def get_images_similarity(self, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> bool:
+    def get_images_similarity(self, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> Tuple[bytes, float]:
         """Performs images matching to calculate the similarity score between them.
 
         The flow there is similar to the one used in

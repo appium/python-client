@@ -24,7 +24,7 @@
 # pylint: disable=no-self-use
 
 import copy
-from typing import TYPE_CHECKING, Dict, List, TypeVar
+from typing import TYPE_CHECKING, Dict, List, TypeVar, Union
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
@@ -165,7 +165,7 @@ class TouchAction(object):
         self._actions.append(gesture)
 
     def _get_opts(self, el: 'WebElement' = None, x: int = None, y: int = None,
-                  duration: int = None, pressure: float = None) -> Dict:
+                  duration: int = None, pressure: float = None) -> Dict[str, Union[int, float]]:
         opts = {}
         if el is not None:
             opts['element'] = el.id

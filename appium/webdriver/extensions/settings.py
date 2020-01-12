@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, TypeVar
+from typing import Any, Dict, TypeVar
 
 from selenium import webdriver
 
@@ -22,7 +22,7 @@ T = TypeVar('T', bound='Settings')
 
 
 class Settings(webdriver.Remote):
-    def get_settings(self) -> Dict:
+    def get_settings(self) -> Dict[str, Any]:
         """Returns the appium server Settings for the current session.
 
         Do not get Settings confused with Desired Capabilities, they are
@@ -33,7 +33,7 @@ class Settings(webdriver.Remote):
         """
         return self.execute(Command.GET_SETTINGS, {})['value']
 
-    def update_settings(self, settings: Dict) -> T:
+    def update_settings(self, settings: Dict[str, Any]) -> T:
         """Set settings for the current session.
 
         For more on settings, see: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md

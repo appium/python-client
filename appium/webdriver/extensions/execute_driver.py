@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Optional
+from typing import Any, Dict, Optional, Union
 
 from selenium import webdriver
 
@@ -46,11 +46,11 @@ class ExecuteDriver(webdriver.Remote):
 
         class Result(object):
 
-            def __init__(self, response):
+            def __init__(self, response: Dict):
                 self.result = response['result']
                 self.logs = response['logs']
 
-        option = {'script': script, 'type': script_type}
+        option: Dict[str, Union[str, int]] = {'script': script, 'type': script_type}
         if timeout_ms is not None:
             option['timeout'] = timeout_ms
 

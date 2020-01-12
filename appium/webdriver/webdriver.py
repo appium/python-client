@@ -339,7 +339,7 @@ class WebDriver(
         """
         return MobileWebElement(self, element_id, w3c)
 
-    def set_value(self: T, element: MobileWebElement, value: str) -> T:
+    def set_value(self, element: MobileWebElement, value: str) -> T:
         """Set the value on an element in the application.
 
         Args:

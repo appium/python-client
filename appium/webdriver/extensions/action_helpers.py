@@ -52,7 +52,7 @@ class ActionHelpers(webdriver.Remote):
             action.press(origin_el).wait(duration).move_to(destination_el).release().perform()
         return self
 
-    def drag_and_drop(self: T, origin_el: WebElement, destination_el: WebElement) -> T:
+    def drag_and_drop(self, origin_el: WebElement, destination_el: WebElement) -> T:
         """Drag the origin element to the destination element
 
         Args:
@@ -66,7 +66,7 @@ class ActionHelpers(webdriver.Remote):
         action.long_press(origin_el).move_to(destination_el).release().perform()
         return self
 
-    def tap(self: T, positions: List[Tuple], duration: int = None) -> T:
+    def tap(self, positions: List[Tuple], duration: int = None) -> T:
         """Taps on an particular place with up to five fingers, holding for a
         certain time
 
@@ -105,7 +105,7 @@ class ActionHelpers(webdriver.Remote):
             ma.perform()
         return self
 
-    def swipe(self: T, start_x: int, start_y: int, end_x: int, end_y: int, duration: int = 0) -> T:
+    def swipe(self, start_x: int, start_y: int, end_x: int, end_y: int, duration: int = 0) -> T:
         """Swipe from one point to another point, for an optional duration.
 
         Args:
@@ -132,7 +132,7 @@ class ActionHelpers(webdriver.Remote):
         action.perform()
         return self
 
-    def flick(self: T, start_x: int, start_y: int, end_x: int, end_y: int) -> T:
+    def flick(self, start_x: int, start_y: int, end_x: int, end_y: int) -> T:
         """Flick from one point to another point.
 
         Args:

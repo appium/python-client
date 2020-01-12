@@ -222,10 +222,10 @@ class WebDriver(
             raise InvalidArgumentException('Capabilities must be a dictionary')
         if browser_profile:
             if 'moz:firefoxOptions' in capabilities:
-                # encodesd is defined in selenium's original codes
+                # encoded is defined in selenium's original codes
                 capabilities['moz:firefoxOptions']['profile'] = browser_profile.encoded  # type: ignore
             else:
-                # encodesd is defined in selenium's original codes
+                # encoded is defined in selenium's original codes
                 capabilities.update({'firefox_profile': browser_profile.encoded})  # type: ignore
 
         parameters = self._merge_capabilities(capabilities)

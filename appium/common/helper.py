@@ -17,7 +17,7 @@ from collections import OrderedDict
 from appium import version as appium_version
 
 
-def extract_const_attributes(cls) -> OrderedDict:
+def extract_const_attributes(cls: type) -> OrderedDict:
     """Return dict with constants attributes and values in the class(e.g. {'VAL1': 1, 'VAL2': 2})
 
     Args:
@@ -30,7 +30,7 @@ def extract_const_attributes(cls) -> OrderedDict:
         [(attr, value) for attr, value in vars(cls).items() if not callable(getattr(cls, attr)) and attr.isupper()])
 
 
-def library_version():
+def library_version() -> str:
     """Return a version of this python library
     """
 

@@ -16,7 +16,7 @@ import logging
 import sys
 
 
-def setup_logger(level=logging.NOTSET):
+def setup_logger(level: int = logging.NOTSET) -> None:
     logger.propagate = False
     logger.setLevel(level)
     handler = logging.StreamHandler(stream=sys.stderr)

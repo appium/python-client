@@ -42,10 +42,10 @@ def on_platforms(platforms: List[str]) -> Callable[[type], None]:
 
 class SauceTestCase(unittest.TestCase):
     def setUp(self) -> None:
-        self.desired_capabilities['name'] = self.id()
+        self.desired_capabilities['name'] = self.id()  # type: ignore
         sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
         self.driver = webdriver.Remote(
-            desired_capabilities=self.desired_capabilities,
+            desired_capabilities=self.desired_capabilities,  # type: ignore
             command_executor=sauce_url % (SAUCE_USERNAME, SAUCE_ACCESS_KEY)
         )
         self.driver.implicitly_wait(30)

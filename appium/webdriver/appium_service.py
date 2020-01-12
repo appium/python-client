@@ -100,10 +100,10 @@ class AppiumService(object):
                     continue
             if not hasattr(self, '_main_script'):
                 try:
-                    self._main_script = sp.check_output(
+                    self._main_script = str(sp.check_output(
                         [self._get_node(),
                          '-e',
-                         'console.log(require.resolve("{}"))'.format(MAIN_SCRIPT_PATH)]).strip()
+                         'console.log(require.resolve("{}"))'.format(MAIN_SCRIPT_PATH)]).strip())
                 except sp.CalledProcessError as e:
                     raise AppiumServiceError(e.output)
         return self._main_script
@@ -175,7 +175,7 @@ class AppiumService(object):
             if stderr == sp.PIPE:
                 err_output = self._process.stderr.read()
                 if err_output:
-                    error_msg += '\nOriginal error: {}'.format(err_output)
+                    error_msg += '\nOriginal error: {}'.format(str(err_output))
             self.stop()
             raise AppiumServiceError(error_msg)
         return self._process
@@ -190,7 +190,7 @@ class AppiumService(object):
             bool: `True` if the service was running before being stopped
         """
         is_terminated = False
-        if self.is_running:
+        if self.is_running and self._process is not None:
             self._process.terminate()
             is_terminated = True
         self._process = None

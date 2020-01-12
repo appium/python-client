@@ -140,6 +140,8 @@ class TouchAction(object):
         Returns:
             `TouchAction`: self instance
         """
+        if self._driver is None:
+            raise AttributeError('Set driver to constructor as a argument when to create the instance.')
         params = {'actions': self._actions}
         self._driver.execute(Command.TOUCH_ACTION, params)
 

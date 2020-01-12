@@ -134,7 +134,7 @@ class Applications(webdriver.Remote):
         Returns:
             bool: True if the app has been successfully terminated
         """
-        data = {
+        data: Dict[str, Any] = {
             'appId': app_id,
         }
         if options:

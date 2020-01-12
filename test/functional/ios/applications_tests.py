@@ -30,7 +30,6 @@ class WebDriverTests(BaseTestCase):
         self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
                          ApplicationState.RUNNING_IN_FOREGROUND)
         self.driver.background_app(-1)
-        self.driver.find_element_by_accessibility_id()
         self.assertTrue(self.driver.query_app_state(desired_capabilities.BUNDLE_ID) <
                         ApplicationState.RUNNING_IN_FOREGROUND)
         self.driver.activate_app(desired_capabilities.BUNDLE_ID)

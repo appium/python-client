@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import List
+
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
@@ -19,7 +21,7 @@ from ..mobilecommand import MobileCommand as Command
 
 class Context(webdriver.Remote):
     @property
-    def contexts(self):
+    def contexts(self) -> List[str]:
         """Returns the contexts within the current session.
 
         Usage:
@@ -32,7 +34,7 @@ class Context(webdriver.Remote):
         return self.execute(Command.CONTEXTS)['value']
 
     @property
-    def current_context(self):
+    def current_context(self) -> str:
         """Returns the current context of the current session.
 
         Usage:
@@ -44,7 +46,7 @@ class Context(webdriver.Remote):
         return self.execute(Command.GET_CURRENT_CONTEXT)['value']
 
     @property
-    def context(self):
+    def context(self) -> str:
         """Returns the current context of the current session.
 
         Usage:
@@ -57,7 +59,7 @@ class Context(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')
         self.command_executor._commands[Command.GET_CURRENT_CONTEXT] = \

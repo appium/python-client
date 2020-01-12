@@ -20,7 +20,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=webdriver.Remote)
+T = TypeVar('T', bound='Activities')
 
 
 class Activities(webdriver.Remote):

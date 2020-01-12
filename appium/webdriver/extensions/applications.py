@@ -18,7 +18,7 @@ from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=webdriver.Remote)
+T = TypeVar('T', bound='Applications')
 
 
 class Applications(webdriver.Remote):

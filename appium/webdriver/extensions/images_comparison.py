@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Any, Dict, Tuple
+
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
@@ -19,7 +21,7 @@ from ..mobilecommand import MobileCommand as Command
 
 class ImagesComparison(webdriver.Remote):
 
-    def match_images_features(self, base64_image1, base64_image2, **opts):
+    def match_images_features(self, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> Dict:
         """Performs images matching by features.
 
         Read
@@ -73,7 +75,8 @@ class ImagesComparison(webdriver.Remote):
         }
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
-    def find_image_occurrence(self, base64_full_image, base64_partial_image, **opts):
+    def find_image_occurrence(self, base64_full_image: bytes, base64_partial_image: bytes,
+                              **opts: Any) -> Tuple[bytes, Dict[str, int]]:
         """Performs images matching by template to find possible occurrence of the partial image
         in the full image.
 
@@ -104,7 +107,7 @@ class ImagesComparison(webdriver.Remote):
         }
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
-    def get_images_similarity(self, base64_image1, base64_image2, **opts):
+    def get_images_similarity(self, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> bool:
         """Performs images matching to calculate the similarity score between them.
 
         The flow there is similar to the one used in
@@ -135,6 +138,6 @@ class ImagesComparison(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.COMPARE_IMAGES] = \
             ('POST', '/session/$sessionId/appium/compare_images')

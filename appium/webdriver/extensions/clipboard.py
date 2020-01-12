@@ -21,7 +21,7 @@ from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=webdriver.Remote)
+T = TypeVar('T', bound='Clipboard')
 
 
 class Clipboard(webdriver.Remote):

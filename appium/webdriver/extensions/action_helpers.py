@@ -20,12 +20,12 @@ from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.webelement import WebElement
 
-T = TypeVar('T', bound=webdriver.Remote)
+T = TypeVar('T', bound='ActionHelpers')
 
 
 class ActionHelpers(webdriver.Remote):
 
-    def scroll(self: T, origin_el: WebElement, destination_el: WebElement, duration: int = None) -> T:
+    def scroll(self, origin_el: WebElement, destination_el: WebElement, duration: int = None) -> T:
         """Scrolls from one element to another
 
         Args:

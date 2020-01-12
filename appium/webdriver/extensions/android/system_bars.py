@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Dict, Union
+
 from selenium import webdriver
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
@@ -19,7 +21,7 @@ from appium.webdriver.mobilecommand import MobileCommand as Command
 
 class SystemBars(webdriver.Remote):
 
-    def get_system_bars(self):
+    def get_system_bars(self) -> Dict[str, Dict[str, Union[int, bool]]]:
         """Retrieve visibility and bounds information of the status and navigation bars.
 
         Android only.
@@ -43,6 +45,6 @@ class SystemBars(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.GET_SYSTEM_BARS] = \
             ('GET', '/session/$sessionId/appium/device/system_bars')

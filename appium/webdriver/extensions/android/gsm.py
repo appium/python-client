@@ -46,7 +46,7 @@ class GsmVoiceState(object):
     ON = 'on'
 
 
-T = TypeVar('T', bound=webdriver.Remote)
+T = TypeVar('T', bound='Gsm')
 
 
 class Gsm(webdriver.Remote):

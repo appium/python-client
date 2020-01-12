@@ -20,7 +20,7 @@ from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=webdriver.Remote)
+T = TypeVar('T', bound='Network')
 
 
 class NetSpeed(object):

@@ -18,7 +18,7 @@ from selenium import webdriver
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=webdriver.Remote)
+T = TypeVar('T', bound='Common')
 
 
 class Common(webdriver.Remote):

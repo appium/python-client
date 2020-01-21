@@ -33,8 +33,10 @@ class Location(webdriver.Remote):
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
         return self
 
-    def set_location(self, latitude: Union[float, str], longitude: Union[float,
-                                                                         str], altitude: Union[float, str] = None) -> T:
+    def set_location(self,
+                     latitude: Union[float, str],
+                     longitude: Union[float, str],
+                     altitude: Union[float, str] = None) -> T:
         """Set the location of the device
 
         Args:

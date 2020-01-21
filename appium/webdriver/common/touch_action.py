@@ -24,7 +24,7 @@
 # pylint: disable=no-self-use
 
 import copy
-from typing import TYPE_CHECKING, Dict, List, TypeVar, Union
+from typing import TYPE_CHECKING, Dict, List, Optional, TypeVar, Union
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
@@ -37,11 +37,12 @@ T = TypeVar('T', bound='TouchAction')
 
 class TouchAction(object):
 
-    def __init__(self, driver: 'WebDriver' = None):
+    def __init__(self, driver: Optional['WebDriver'] = None):
         self._driver = driver
         self._actions: List = []
 
-    def tap(self: T, element: 'WebElement' = None, x: int = None, y: int = None, count: int = 1) -> T:
+    def tap(self: T, element: Optional['WebElement'] = None, x: Optional[int]
+            = None, y: Optional[int] = None, count: int = 1) -> T:
         """Perform a tap action on the element
 
         Args:
@@ -58,7 +59,8 @@ class TouchAction(object):
 
         return self
 
-    def press(self: T, el: 'WebElement' = None, x: int = None, y: int = None, pressure: float = None) -> T:
+    def press(self: T, el: Optional['WebElement'] = None, x: Optional[int] = None,
+              y: Optional[int] = None, pressure: Optional[float] = None) -> T:
         """Begin a chain with a press down action at a particular element or point
 
         Args:
@@ -75,7 +77,8 @@ class TouchAction(object):
 
         return self
 
-    def long_press(self: T, el: 'WebElement' = None, x: int = None, y: int = None, duration: int = 1000) -> T:
+    def long_press(self: T, el: Optional['WebElement'] = None, x: Optional[int]
+                   = None, y: Optional[int] = None, duration: int = 1000) -> T:
         """Begin a chain with a press down that lasts `duration` milliseconds
 
         Args:
@@ -109,7 +112,7 @@ class TouchAction(object):
 
         return self
 
-    def move_to(self: T, el: 'WebElement' = None, x: int = None, y: int = None) -> T:
+    def move_to(self: T, el: Optional['WebElement'] = None, x: Optional[int] = None, y: Optional[int] = None) -> T:
         """Move the pointer from the previous point to the element or point specified
 
         Args:
@@ -141,7 +144,7 @@ class TouchAction(object):
             `TouchAction`: self instance
         """
         if self._driver is None:
-            raise AttributeError('Set driver to constructor as a argument when to create the instance.')
+            raise TypeError('Set driver to constructor as a argument when to create the instance.')
         params = {'actions': self._actions}
         self._driver.execute(Command.TOUCH_ACTION, params)
 
@@ -164,8 +167,8 @@ class TouchAction(object):
         }
         self._actions.append(gesture)
 
-    def _get_opts(self, el: 'WebElement' = None, x: int = None, y: int = None,
-                  duration: int = None, pressure: float = None) -> Dict[str, Union[int, float]]:
+    def _get_opts(self, el: Optional['WebElement'] = None, x: Optional[int] = None, y: Optional[int] = None,
+                  duration: Optional[int] = None, pressure: Optional[float] = None) -> Dict[str, Union[int, float]]:
         opts = {}
         if el is not None:
             opts['element'] = el.id

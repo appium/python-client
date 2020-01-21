@@ -14,7 +14,7 @@
 
 # pylint: disable=abstract-method
 
-from typing import TYPE_CHECKING, Dict, List, Union
+from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
@@ -23,8 +23,8 @@ if TYPE_CHECKING:
 class BaseSearchContext(object):
     """Used by each search context. Dummy find_element/s are for preventing pylint error"""
 
-    def find_element(self, by: str = None, value: Union[str, Dict] = None) -> 'WebElement':
+    def find_element(self, by: Optional[str] = None, value: Union[str, Dict] = None) -> 'WebElement':
         raise NotImplementedError
 
-    def find_elements(self, by: str = None, value: Union[str, Dict] = None) -> List['WebElement']:
+    def find_elements(self, by: Optional[str] = None, value: Union[str, Dict] = None) -> List['WebElement']:
         raise NotImplementedError

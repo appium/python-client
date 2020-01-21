@@ -46,7 +46,7 @@ class Network(webdriver.Remote):
         """
         return self.execute(Command.GET_NETWORK_CONNECTION, {})['value']
 
-    def set_network_connection(self, connection_type: int) -> Any:  # TODO Check return type
+    def set_network_connection(self, connection_type: int) -> int:
         """Sets the network connection type. Android only.
 
         Possible values:
@@ -63,7 +63,7 @@ class Network(webdriver.Remote):
             connection_type (int): a member of the enum appium.webdriver.ConnectionType
 
         Return:
-            TODO
+            int: Set network connection type
         """
         data = {
             'parameters': {

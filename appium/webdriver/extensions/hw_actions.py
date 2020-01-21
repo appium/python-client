@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, TypeVar
+from typing import Any, Optional, TypeVar
 
 from selenium import webdriver
 
@@ -23,7 +23,7 @@ T = TypeVar('T', bound='HardwareActions')
 
 class HardwareActions(webdriver.Remote):
 
-    def lock(self, seconds: int = None) -> T:
+    def lock(self, seconds: Optional[int] = None) -> T:
         """Lock the device. No changes are made if the device is already unlocked.
 
         Args:

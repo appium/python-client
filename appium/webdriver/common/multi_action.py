@@ -19,7 +19,7 @@
 # chaining as the spec requires.
 
 import copy
-from typing import TYPE_CHECKING, Dict, List, TypeVar, Union
+from typing import TYPE_CHECKING, Dict, List, Optional, TypeVar, Union
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
@@ -32,7 +32,7 @@ T = TypeVar('T', bound='MultiAction')
 
 
 class MultiAction(object):
-    def __init__(self, driver: 'WebDriver', element: 'WebElement' = None) -> None:
+    def __init__(self, driver: 'WebDriver', element: Optional['WebElement'] = None) -> None:
         self._driver = driver
         self._element = element
         self._touch_actions: List['TouchAction'] = []

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Tuple, TypeVar
+from typing import List, Optional, Tuple, TypeVar
 
 from selenium import webdriver
 
@@ -25,7 +25,7 @@ T = TypeVar('T', bound='ActionHelpers')
 
 class ActionHelpers(webdriver.Remote):
 
-    def scroll(self, origin_el: WebElement, destination_el: WebElement, duration: int = None) -> T:
+    def scroll(self, origin_el: WebElement, destination_el: WebElement, duration: Optional[int] = None) -> T:
         """Scrolls from one element to another
 
         Args:
@@ -66,7 +66,7 @@ class ActionHelpers(webdriver.Remote):
         action.long_press(origin_el).move_to(destination_el).release().perform()
         return self
 
-    def tap(self, positions: List[Tuple], duration: int = None) -> T:
+    def tap(self, positions: List[Tuple], duration: Optional[int] = None) -> T:
         """Taps on an particular place with up to five fingers, holding for a
         certain time
 

@@ -16,7 +16,7 @@ import os
 import subprocess as sp
 import sys
 import time
-from typing import Any, List, Optional, TypeVar
+from typing import Any, List, Optional, TypeVar, Union
 
 import urllib3
 
@@ -88,22 +88,22 @@ class AppiumService(object):
                                      'Make sure it is installed and present in PATH')
         return self._npm_executable
 
-    def _get_main_script(self) -> str:
+    def _get_main_script(self) -> Union[str, bytes]:
         if not hasattr(self, '_main_script'):
             for args in [['root', '-g'], ['root']]:
                 try:
                     modules_root = sp.check_output([self._get_npm()] + args).strip().decode('utf-8')
                     if os.path.exists(os.path.join(modules_root, MAIN_SCRIPT_PATH)):
-                        self._main_script = os.path.join(modules_root, MAIN_SCRIPT_PATH)
+                        self._main_script: Union[str, bytes] = os.path.join(modules_root, MAIN_SCRIPT_PATH)
                         break
                 except sp.CalledProcessError:
                     continue
             if not hasattr(self, '_main_script'):
                 try:
-                    self._main_script = str(sp.check_output(
+                    self._main_script = sp.check_output(
                         [self._get_node(),
                          '-e',
-                         'console.log(require.resolve("{}"))'.format(MAIN_SCRIPT_PATH)]).strip())
+                         'console.log(require.resolve("{}"))'.format(MAIN_SCRIPT_PATH)]).strip()
                 except sp.CalledProcessError as e:
                     raise AppiumServiceError(e.output)
         return self._main_script
@@ -190,8 +190,8 @@ class AppiumService(object):
             bool: `True` if the service was running before being stopped
         """
         is_terminated = False
-        if self.is_running and self._process is not None:
-            self._process.terminate()
+        if self.is_running:
+            self._process.terminate()  # type: ignore
             is_terminated = True
         self._process = None
         self._cmd = None

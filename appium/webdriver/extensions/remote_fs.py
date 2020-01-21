@@ -52,7 +52,8 @@ class RemoteFS(webdriver.Remote):
         }
         return self.execute(Command.PULL_FOLDER, data)['value']
 
-    def push_file(self, destination_path: str, base64data: Optional[str] = None, source_path: str = None) -> T:
+    def push_file(self, destination_path: str,
+                  base64data: Optional[str] = None, source_path: Optional[str] = None) -> T:
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
         Specify either `base64data` or `source_path`, if both specified default to `source_path`

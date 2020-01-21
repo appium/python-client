@@ -146,7 +146,7 @@ class WebDriver(
 ):
 
     def __init__(self, command_executor: str = 'http://127.0.0.1:4444/wd/hub',
-                 desired_capabilities: Dict = None, browser_profile: str = None, proxy: str = None, keep_alive: bool = True, direct_connection: bool = False):
+                 desired_capabilities: Optional[Dict] = None, browser_profile: str = None, proxy: str = None, keep_alive: bool = True, direct_connection: bool = False):
 
         super(WebDriver, self).__init__(
             AppiumConnection(command_executor, keep_alive=keep_alive),
@@ -205,7 +205,7 @@ class WebDriver(
         self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
         self._addCommands()
 
-    def start_session(self, capabilities: Dict, browser_profile: str = None) -> None:
+    def start_session(self, capabilities: Dict, browser_profile: Optional[str] = None) -> None:
         """Creates a new session with the desired capabilities.
 
         Override for Appium

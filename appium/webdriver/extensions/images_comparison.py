@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Union
 
 from selenium import webdriver
 
@@ -76,7 +76,7 @@ class ImagesComparison(webdriver.Remote):
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
     def find_image_occurrence(self, base64_full_image: bytes, base64_partial_image: bytes,
-                              **opts: Any) -> Tuple[bytes, Dict[str, int]]:
+                              **opts: Any) -> Dict[str, Union[bytes, Dict]]:
         """Performs images matching by template to find possible occurrence of the partial image
         in the full image.
 
@@ -94,10 +94,11 @@ class ImagesComparison(webdriver.Remote):
                 False by default
 
         Returns:
-            visualization (bytes): base64-encoded content of PNG visualization of the current comparison
-                operation. This entry is only present if `visualize` option is enabled
-            rect (dict): The region of the partial image occurrence on the full image.
-                The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
+            The dictionary containing the following entries:
+                visualization (bytes): base64-encoded content of PNG visualization of the current comparison
+                    operation. This entry is only present if `visualize` option is enabled
+                rect (dict): The region of the partial image occurrence on the full image.
+                    The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
         """
         options = {
             'mode': 'matchTemplate',
@@ -107,7 +108,8 @@ class ImagesComparison(webdriver.Remote):
         }
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
-    def get_images_similarity(self, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> Tuple[bytes, float]:
+    def get_images_similarity(self, base64_image1: bytes, base64_image2: bytes,
+                              **opts: Any) -> Dict[str, Union[bytes, Dict]]:
         """Performs images matching to calculate the similarity score between them.
 
         The flow there is similar to the one used in
@@ -123,10 +125,11 @@ class ImagesComparison(webdriver.Remote):
                 False by default
 
         Returns:
-            visualization (bytes): base64-encoded content of PNG visualization of the current comparison
-                operation. This entry is only present if `visualize` option is enabled
-            score (float): The similarity score as a float number in range [0.0, 1.0].
-                1.0 is the highest score (means both images are totally equal).
+            The dictionary containing the following entries:
+                visualization (bytes): base64-encoded content of PNG visualization of the current comparison
+                    operation. This entry is only present if `visualize` option is enabled
+                score (float): The similarity score as a float number in range [0.0, 1.0].
+                    1.0 is the highest score (means both images are totally equal).
         """
         options = {
             'mode': 'getSimilarity',

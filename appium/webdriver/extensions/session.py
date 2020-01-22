@@ -47,7 +47,7 @@ class Session(webdriver.Remote):
         return self.execute(Command.GET_ALL_SESSIONS)['value']
 
     @property
-    def events(self) -> Any:
+    def events(self) -> Dict:
         """ Retrieves events information from the current session
 
         Usage:

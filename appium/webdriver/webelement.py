@@ -56,6 +56,7 @@ class WebElement(AppiumWebElementSearchContext):
         if attributeValue is None:
             return None
 
+        # Convert to str along to the spec
         if not isinstance(attributeValue, str):
             attributeValue = str(attributeValue)
 

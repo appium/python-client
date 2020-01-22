@@ -31,7 +31,7 @@ class RemoteFS(webdriver.Remote):
             path (str): the path to the file on the device
 
         Returns:
-            str: The file's contents as encoded as Base64.
+            str: The file's contents encoded as Base64.
         """
         data = {
             'path': path,

@@ -24,28 +24,28 @@ T = TypeVar('T', bound='RemoteFS')
 
 
 class RemoteFS(webdriver.Remote):
-    def pull_file(self, path: str) -> bytes:
+    def pull_file(self, path: str) -> str:
         """Retrieves the file at `path`.
 
         Args:
             path (str): the path to the file on the device
 
         Returns:
-            bytes: The file's contents as base64.
+            str: The file's contents as encoded as Base64.
         """
         data = {
             'path': path,
         }
         return self.execute(Command.PULL_FILE, data)['value']
 
-    def pull_folder(self, path: str) -> bytes:
+    def pull_folder(self, path: str) -> str:
         """Retrieves a folder at `path`.
 
         Args:
             path (str): the path to the folder on the device
 
         Returns:
-            bytes: The folder's contents zipped and encoded as Base64.
+            str: The folder's contents zipped and encoded as Base64.
         """
         data = {
             'path': path,

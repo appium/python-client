@@ -56,6 +56,9 @@ class WebElement(AppiumWebElementSearchContext):
         if attributeValue is None:
             return None
 
+        if not isinstance(attributeValue, str):
+            attributeValue = str(attributeValue)
+
         if name != 'value' and attributeValue.lower() in ('true', 'false'):
             return attributeValue.lower()
 

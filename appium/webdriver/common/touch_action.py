@@ -29,8 +29,8 @@ from typing import TYPE_CHECKING, Dict, List, Optional, TypeVar, Union
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
-    from appium.webdriver.webelement import WebElement as WebElement
-    from appium.webdriver.webdriver import WebDriver as WebDriver
+    from appium.webdriver.webelement import WebElement
+    from appium.webdriver.webdriver import WebDriver
 
 T = TypeVar('T', bound='TouchAction')
 

@@ -289,7 +289,7 @@ class WebDriver(
             'using': by,
             'value': value})['value']
 
-    def find_elements(self, by: Optional[str] = By.ID, value: Union[str, Dict]
+    def find_elements(self, by: str = By.ID, value: Union[str, Dict]
                       = None) -> Union[List[MobileWebElement], List]:
         """'Private' method used by the find_elements_by_* methods.
 

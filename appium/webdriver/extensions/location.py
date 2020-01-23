@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Dict, Optional, TypeVar, Union
+
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
+T = TypeVar('T', bound='Location')
+
 
 class Location(webdriver.Remote):
-    def toggle_location_services(self):
+    def toggle_location_services(self) -> T:
         """Toggle the location services on the device.
 
         Android only.
@@ -29,7 +33,10 @@ class Location(webdriver.Remote):
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
         return self
 
-    def set_location(self, latitude, longitude, altitude=None):
+    def set_location(self,
+                     latitude: Union[float, str],
+                     longitude: Union[float, str],
+                     altitude: Union[float, str] = None) -> T:
         """Set the location of the device
 
         Args:
@@ -52,7 +59,7 @@ class Location(webdriver.Remote):
         return self
 
     @property
-    def location(self):
+    def location(self) -> Dict[str, float]:
         """Retrieves the current location
 
         Returns:
@@ -65,7 +72,7 @@ class Location(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = \
             ('POST', '/session/$sessionId/appium/device/toggle_location_services')
         self.command_executor._commands[Command.GET_LOCATION] = \

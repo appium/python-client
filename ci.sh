@@ -34,4 +34,11 @@ if [[ $? -ne 0 ]] ; then
   EXIT_STATUS=1
 fi
 
+(
+  python -m mypy appium
+)
+if [[ $? -ne 0 ]] ; then
+  EXIT_STATUS=1
+fi
+
 exit $EXIT_STATUS

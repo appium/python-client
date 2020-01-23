@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import TypeVar
+
 from selenium import webdriver
 
 from appium.common.helper import extract_const_attributes
@@ -44,9 +46,12 @@ class GsmVoiceState(object):
     ON = 'on'
 
 
+T = TypeVar('T', bound='Gsm')
+
+
 class Gsm(webdriver.Remote):
 
-    def make_gsm_call(self, phone_number, action):
+    def make_gsm_call(self, phone_number: str, action: str) -> T:
         """Make GSM call (Emulator only)
 
         Android only.
@@ -66,7 +71,7 @@ class Gsm(webdriver.Remote):
         self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
         return self
 
-    def set_gsm_signal(self, strength):
+    def set_gsm_signal(self, strength: int) -> T:
         """Set GSM signal strength (Emulator only)
 
         Android only.
@@ -85,7 +90,7 @@ class Gsm(webdriver.Remote):
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
 
-    def set_gsm_voice(self, state):
+    def set_gsm_voice(self, state: str) -> T:
         """Set GSM voice state (Emulator only)
 
         Android only.
@@ -106,7 +111,7 @@ class Gsm(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.MAKE_GSM_CALL] = \
             ('POST', '/session/$sessionId/appium/device/gsm_call')
         self.command_executor._commands[Command.SET_GSM_SIGNAL] = \

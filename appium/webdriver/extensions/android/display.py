@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import TypeVar
+
 from selenium import webdriver
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
@@ -19,7 +21,7 @@ from appium.webdriver.mobilecommand import MobileCommand as Command
 
 class Display(webdriver.Remote):
 
-    def get_display_density(self):
+    def get_display_density(self) -> int:
         """Get the display density, Android only
 
         Returns:
@@ -32,6 +34,6 @@ class Display(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.GET_DISPLAY_DENSITY] = \
             ('GET', '/session/$sessionId/appium/device/display_density')

@@ -12,18 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Any, Optional, TypeVar
+
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
+T = TypeVar('T', bound='HardwareActions')
+
 
 class HardwareActions(webdriver.Remote):
 
-    def lock(self, seconds=None):
+    def lock(self, seconds: Optional[int] = None) -> T:
         """Lock the device. No changes are made if the device is already unlocked.
 
         Args:
-            seconds (optional): The duration to lock the device, in seconds.
+            seconds (:obj:`int`, optional): The duration to lock the device, in seconds.
                 The device is going to be locked forever until `unlock` is called
                 if it equals or is less than zero, otherwise this call blocks until
                 the timeout expires and unlocks the screen automatically.
@@ -38,7 +42,7 @@ class HardwareActions(webdriver.Remote):
 
         return self
 
-    def unlock(self):
+    def unlock(self) -> T:
         """Unlock the device. No changes are made if the device is already locked.
 
         Returns:
@@ -47,7 +51,7 @@ class HardwareActions(webdriver.Remote):
         self.execute(Command.UNLOCK)
         return self
 
-    def is_locked(self):
+    def is_locked(self) -> bool:
         """Checks whether the device is locked.
 
         Returns:
@@ -55,7 +59,7 @@ class HardwareActions(webdriver.Remote):
         """
         return self.execute(Command.IS_LOCKED)['value']
 
-    def shake(self):
+    def shake(self) -> T:
         """Shake the device.
 
         Returns:
@@ -64,7 +68,7 @@ class HardwareActions(webdriver.Remote):
         self.execute(Command.SHAKE)
         return self
 
-    def touch_id(self, match):
+    def touch_id(self, match: bool) -> T:
         """Simulate touchId on iOS Simulator
 
         Args:
@@ -79,7 +83,7 @@ class HardwareActions(webdriver.Remote):
         self.execute(Command.TOUCH_ID, data)
         return self
 
-    def toggle_touch_id_enrollment(self):
+    def toggle_touch_id_enrollment(self) -> T:
         """Toggle enroll touchId on iOS Simulator
 
         Returns:
@@ -88,7 +92,7 @@ class HardwareActions(webdriver.Remote):
         self.execute(Command.TOGGLE_TOUCH_ID_ENROLLMENT)
         return self
 
-    def finger_print(self, finger_id):
+    def finger_print(self, finger_id: int) -> Any:
         """Authenticate users by using their finger print scans on supported Android emulators.
 
         Args:
@@ -101,7 +105,7 @@ class HardwareActions(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.LOCK] = \
             ('POST', '/session/$sessionId/appium/device/lock')
         self.command_executor._commands[Command.UNLOCK] = \

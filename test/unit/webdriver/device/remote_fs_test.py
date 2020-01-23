@@ -18,7 +18,6 @@ import httpretty
 import pytest
 from selenium.common.exceptions import InvalidArgumentException
 
-from appium.common.helper import appium_bytes
 from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import (
     android_w3c_driver,
@@ -37,7 +36,7 @@ class TestWebDriverRemoteFs(object):
             appium_command('/session/1234567890/appium/device/push_file'),
         )
         dest_path = '/path/to/file.txt'
-        data = base64.b64encode(appium_bytes('HelloWorld', 'utf-8')).decode('utf-8')
+        data = base64.b64encode(bytes('HelloWorld', 'utf-8')).decode('utf-8')
 
         assert isinstance(driver.push_file(dest_path, data), WebDriver)
 
@@ -80,7 +79,7 @@ class TestWebDriverRemoteFs(object):
         )
         dest_path = '/path/to/file.txt'
 
-        assert driver.pull_file(dest_path) == str(base64.b64encode(appium_bytes('HelloWorld', 'utf-8')).decode('utf-8'))
+        assert driver.pull_file(dest_path) == str(base64.b64encode(bytes('HelloWorld', 'utf-8')).decode('utf-8'))
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['path'] == dest_path

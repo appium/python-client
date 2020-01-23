@@ -19,6 +19,7 @@ from __future__ import print_function
 import os
 import sys
 import unittest
+from typing import Any, Callable, List
 
 from sauceclient import SauceClient
 
@@ -29,8 +30,8 @@ SAUCE_ACCESS_KEY = os.environ.get('SAUCE_ACCESS_KEY')
 sauce = SauceClient(SAUCE_USERNAME, SAUCE_ACCESS_KEY)
 
 
-def on_platforms(platforms):
-    def decorator(base_class):
+def on_platforms(platforms: List[str]) -> Callable[[type], None]:
+    def decorator(base_class: type) -> None:
         module = sys.modules[base_class.__module__].__dict__
         for i, platform in enumerate(platforms):
             name = "%s_%s" % (base_class.__name__, i + 1)
@@ -40,16 +41,16 @@ def on_platforms(platforms):
 
 
 class SauceTestCase(unittest.TestCase):
-    def setUp(self):
-        self.desired_capabilities['name'] = self.id()
+    def setUp(self) -> None:
+        self.desired_capabilities['name'] = self.id()  # type: ignore
         sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
         self.driver = webdriver.Remote(
-            desired_capabilities=self.desired_capabilities,
+            desired_capabilities=self.desired_capabilities,  # type: ignore
             command_executor=sauce_url % (SAUCE_USERNAME, SAUCE_ACCESS_KEY)
         )
         self.driver.implicitly_wait(30)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         print("Link to your job: https://saucelabs.com/jobs/%s" % self.driver.session_id)
         try:
             if sys.exc_info() == (None, None, None):

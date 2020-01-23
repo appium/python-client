@@ -1,3 +1,18 @@
+#!/usr/bin/env python
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 class AndroidKey:
     # Key code constant: Unknown key code.
     UNKNOWN = 0
@@ -1005,14 +1020,14 @@ class AndroidKey:
                        BUTTON_15, BUTTON_16]
 
     @staticmethod
-    def is_gamepad_button(code):
+    def is_gamepad_button(code: int) -> bool:
         """Returns true if the specified nativekey is a gamepad button."""
         return code in AndroidKey.gamepad_buttons
 
     confirm_buttons = [DPAD_CENTER, ENTER, SPACE, NUMPAD_ENTER]
 
     @staticmethod
-    def is_confirm_key(code):
+    def is_confirm_key(code: int) -> bool:
         """Returns true if the key will, by default, trigger a click on the focused view."""
         return code in AndroidKey.confirm_buttons
 
@@ -1021,7 +1036,7 @@ class AndroidKey:
                      MEDIA_REWIND, MEDIA_RECORD, MEDIA_FAST_FORWARD]
 
     @staticmethod
-    def is_media_key(code):
+    def is_media_key(code: int) -> bool:
         """Returns true if this key is a media key, which can be send to apps that are
         interested in media key events."""
         return code in AndroidKey.media_buttons
@@ -1035,13 +1050,13 @@ class AndroidKey:
                       BRIGHTNESS_DOWN, BRIGHTNESS_UP, MEDIA_AUDIO_TRACK]
 
     @staticmethod
-    def is_system_key(code):
+    def is_system_key(code: int) -> bool:
         """Returns true if the key is a system key, System keys can not be used for menu shortcuts."""
         return code in AndroidKey.system_buttons
 
     wake_buttons = [BACK, MENU, WAKEUP, PAIRING, STEM_1, STEM_2, STEM_3]
 
     @staticmethod
-    def is_wake_key(code):
+    def is_wake_key(code: int) -> bool:
         """Returns true if the key is a wake key."""
         return code in AndroidKey.wake_buttons

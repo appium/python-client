@@ -12,15 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import List, Optional, Tuple, TypeVar
+
 from selenium import webdriver
 
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
+from appium.webdriver.webelement import WebElement
+
+T = TypeVar('T', bound='ActionHelpers')
 
 
 class ActionHelpers(webdriver.Remote):
 
-    def scroll(self, origin_el, destination_el, duration=None):
+    def scroll(self, origin_el: WebElement, destination_el: WebElement, duration: Optional[int] = None) -> T:
         """Scrolls from one element to another
 
         Args:
@@ -47,7 +52,7 @@ class ActionHelpers(webdriver.Remote):
             action.press(origin_el).wait(duration).move_to(destination_el).release().perform()
         return self
 
-    def drag_and_drop(self, origin_el, destination_el):
+    def drag_and_drop(self, origin_el: WebElement, destination_el: WebElement) -> T:
         """Drag the origin element to the destination element
 
         Args:
@@ -61,7 +66,7 @@ class ActionHelpers(webdriver.Remote):
         action.long_press(origin_el).move_to(destination_el).release().perform()
         return self
 
-    def tap(self, positions, duration=None):
+    def tap(self, positions: List[Tuple], duration: Optional[int] = None) -> T:
         """Taps on an particular place with up to five fingers, holding for a
         certain time
 
@@ -100,7 +105,7 @@ class ActionHelpers(webdriver.Remote):
             ma.perform()
         return self
 
-    def swipe(self, start_x, start_y, end_x, end_y, duration=None):
+    def swipe(self, start_x: int, start_y: int, end_x: int, end_y: int, duration: int = 0) -> T:
         """Swipe from one point to another point, for an optional duration.
 
         Args:
@@ -127,7 +132,7 @@ class ActionHelpers(webdriver.Remote):
         action.perform()
         return self
 
-    def flick(self, start_x, start_y, end_x, end_y):
+    def flick(self, start_x: int, start_y: int, end_x: int, end_y: int) -> T:
         """Flick from one point to another point.
 
         Args:

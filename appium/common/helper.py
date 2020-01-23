@@ -12,44 +12,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from collections import OrderedDict
+from typing import Dict
 
 from appium import version as appium_version
 
 
-def appium_bytes(value, encoding):
-    """Return a bytes-like object
-
-    Has _appium_ prefix to avoid overriding built-in bytes.
-
-    Args:
-        value (str): A value to convert
-        encoding (str): A encoding which will convert to
-
-    Returns:
-        str: A bytes-like object
-    """
-
-    try:
-        return bytes(value, encoding)  # Python 3
-    except TypeError:
-        return value  # Python 2
-
-
-def extract_const_attributes(cls):
+def extract_const_attributes(cls: type) -> Dict:
     """Return dict with constants attributes and values in the class(e.g. {'VAL1': 1, 'VAL2': 2})
 
     Args:
         cls (type): Class to be extracted constants
 
     Returns:
-        OrderedDict: dict with constants attributes and values in the class
+        dict: dict with constants attributes and values in the class
     """
-    return OrderedDict(
-        [(attr, value) for attr, value in vars(cls).items() if not callable(getattr(cls, attr)) and attr.isupper()])
+    return dict([(attr, value) for attr, value in vars(cls).items()
+                 if not callable(getattr(cls, attr)) and attr.isupper()])
 
 
-def library_version():
+def library_version() -> str:
     """Return a version of this python library
     """
 

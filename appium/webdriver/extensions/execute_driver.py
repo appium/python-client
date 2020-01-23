@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Any, Dict, Optional, Union
+
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
@@ -19,15 +21,16 @@ from ..mobilecommand import MobileCommand as Command
 
 class ExecuteDriver(webdriver.Remote):
 
-    def execute_driver(self, script, script_type='webdriverio', timeout_ms=None):
+    # TODO Inner class case
+    def execute_driver(self, script: str, script_type: str = 'webdriverio', timeout_ms: Optional[int] = None) -> Any:
         """Run a set of script against the current session, allowing execution of many commands in one Appium request.
         Please read http://appium.io/docs/en/commands/session/execute-driver for more details about the acceptable
         scripts and the output format.
 
         Args:
-            script (string): The string consisting of the script itself
-            script_type (string): The name of the script type. Defaults to 'webdriverio'.
-            timeout_ms (optional): The number of `ms` Appium should wait for the script to finish before killing it due to timeout_ms.
+            script (str): The string consisting of the script itself
+            script_type (str): The name of the script type. Defaults to 'webdriverio'.
+            timeout_ms (:obj:`int`, optional): The number of `ms` Appium should wait for the script to finish before killing it due to timeout_ms.
 
         Usage:
             self.driver.execute_driver(script='return [];')
@@ -43,11 +46,11 @@ class ExecuteDriver(webdriver.Remote):
 
         class Result(object):
 
-            def __init__(self, response):
+            def __init__(self, response: Dict):
                 self.result = response['result']
                 self.logs = response['logs']
 
-        option = {'script': script, 'type': script_type}
+        option: Dict[str, Union[str, int]] = {'script': script, 'type': script_type}
         if timeout_ms is not None:
             option['timeout'] = timeout_ms
 
@@ -56,6 +59,6 @@ class ExecuteDriver(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.EXECUTE_DRIVER] = \
             ('POST', '/session/$sessionId/appium/execute_driver')

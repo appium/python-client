@@ -12,12 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Any, Dict, TypeVar
+
 from selenium import webdriver
+
+T = TypeVar('T', bound='ExecuteMobileCommand')
 
 
 class ExecuteMobileCommand(webdriver.Remote):
 
-    def press_button(self, button_name):
+    def press_button(self, button_name: str) -> T:
         """Sends a physical button name to the device to simulate the user pressing.
 
         iOS only.
@@ -38,7 +42,7 @@ class ExecuteMobileCommand(webdriver.Remote):
         return self
 
     @property
-    def battery_info(self):
+    def battery_info(self) -> Dict[str, Any]:
         """Retrieves battery information for the device under test.
 
         Returns:

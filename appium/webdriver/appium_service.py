@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 import os
-import subprocess
+import subprocess as sp
 import sys
 import time
+from typing import Any, List, Optional, TypeVar, Union
 
 import urllib3
 
@@ -27,7 +27,7 @@ MAIN_SCRIPT_PATH = 'appium/build/lib/main.js'
 STATUS_URL = '/wd/hub/status'
 
 
-def find_executable(executable):
+def find_executable(executable: str) -> Optional[str]:
     path = os.environ['PATH']
     paths = path.split(os.pathsep)
     base, ext = os.path.splitext(executable)
@@ -45,7 +45,7 @@ def find_executable(executable):
     return None
 
 
-def poll_url(host, port, path, timeout_ms):
+def poll_url(host: str, port: int, path: str, timeout_ms: int) -> bool:
     time_started_sec = time.time()
     while time.time() < time_started_sec + timeout_ms / 1000.0:
         try:
@@ -64,12 +64,15 @@ class AppiumServiceError(RuntimeError):
     pass
 
 
-class AppiumService(object):
-    def __init__(self):
-        self._process = None
-        self._cmd = None
+T = TypeVar('T', bound='AppiumService')
 
-    def _get_node(self):
+
+class AppiumService(object):
+    def __init__(self) -> None:
+        self._process: Optional[sp.Popen] = None
+        self._cmd: Optional[List] = None
+
+    def _get_node(self) -> str:
         if not hasattr(self, '_node_executable'):
             self._node_executable = find_executable('node')
         if self._node_executable is None:
@@ -77,7 +80,7 @@ class AppiumService(object):
                                      'Make sure it is installed and present in PATH')
         return self._node_executable
 
-    def _get_npm(self):
+    def _get_npm(self) -> str:
         if not hasattr(self, '_npm_executable'):
             self._npm_executable = find_executable('npm.cmd' if sys.platform == 'win32' else 'npm')
         if self._npm_executable is None:
@@ -85,41 +88,41 @@ class AppiumService(object):
                                      'Make sure it is installed and present in PATH')
         return self._npm_executable
 
-    def _get_main_script(self):
+    def _get_main_script(self) -> Union[str, bytes]:
         if not hasattr(self, '_main_script'):
             for args in [['root', '-g'], ['root']]:
                 try:
-                    modules_root = subprocess.check_output([self._get_npm()] + args).strip().decode('utf-8')
+                    modules_root = sp.check_output([self._get_npm()] + args).strip().decode('utf-8')
                     if os.path.exists(os.path.join(modules_root, MAIN_SCRIPT_PATH)):
-                        self._main_script = os.path.join(modules_root, MAIN_SCRIPT_PATH)
+                        self._main_script: Union[str, bytes] = os.path.join(modules_root, MAIN_SCRIPT_PATH)
                         break
-                except subprocess.CalledProcessError:
+                except sp.CalledProcessError:
                     continue
             if not hasattr(self, '_main_script'):
                 try:
-                    self._main_script = subprocess.check_output(
+                    self._main_script = sp.check_output(
                         [self._get_node(),
                          '-e',
                          'console.log(require.resolve("{}"))'.format(MAIN_SCRIPT_PATH)]).strip()
-                except subprocess.CalledProcessError as e:
+                except sp.CalledProcessError as e:
                     raise AppiumServiceError(e.output)
         return self._main_script
 
     @staticmethod
-    def _parse_port(args):
+    def _parse_port(args: List[str]) -> int:
         for idx, arg in enumerate(args or []):
             if arg in ('--port', '-p') and idx < len(args) - 1:
                 return int(args[idx + 1])
         return DEFAULT_PORT
 
     @staticmethod
-    def _parse_host(args):
+    def _parse_host(args: List[str]) -> str:
         for idx, arg in enumerate(args or []):
             if arg in ('--address', '-a') and idx < len(args) - 1:
                 return args[idx + 1]
         return DEFAULT_HOST
 
-    def start(self, **kwargs):
+    def start(self, **kwargs: Any) -> sp.Popen:
         """Starts Appium service with given arguments.
 
         The service will be forcefully restarted if it is already running.
@@ -153,31 +156,31 @@ class AppiumService(object):
 
         env = kwargs['env'] if 'env' in kwargs else None
         node = kwargs['node'] if 'node' in kwargs else self._get_node()
-        stdout = kwargs['stdout'] if 'stdout' in kwargs else subprocess.PIPE
-        stderr = kwargs['stderr'] if 'stderr' in kwargs else subprocess.PIPE
+        stdout = kwargs['stdout'] if 'stdout' in kwargs else sp.PIPE
+        stderr = kwargs['stderr'] if 'stderr' in kwargs else sp.PIPE
         timeout_ms = int(kwargs['timeout_ms']) if 'timeout_ms' in kwargs else STARTUP_TIMEOUT_MS
         main_script = kwargs['main_script'] if 'main_script' in kwargs else self._get_main_script()
         args = [node, main_script]
         if 'args' in kwargs:
             args.extend(kwargs['args'])
         self._cmd = args
-        self._process = subprocess.Popen(args=args, stdout=stdout, stderr=stderr, env=env)
+        self._process = sp.Popen(args=args, stdout=stdout, stderr=stderr, env=env)
         host = self._parse_host(args)
         port = self._parse_port(args)
-        error_msg = None
+        error_msg: Optional[str] = None
         if not self.is_running or (timeout_ms > 0 and not poll_url(host, port, STATUS_URL, timeout_ms)):
             error_msg = 'Appium has failed to start on {}:{} within {}ms timeout'\
                         .format(host, port, timeout_ms)
         if error_msg is not None:
-            if stderr == subprocess.PIPE:
+            if stderr == sp.PIPE:
                 err_output = self._process.stderr.read()
                 if err_output:
-                    error_msg += '\nOriginal error: {}'.format(err_output)
+                    error_msg += '\nOriginal error: {}'.format(str(err_output))
             self.stop()
             raise AppiumServiceError(error_msg)
         return self._process
 
-    def stop(self):
+    def stop(self) -> bool:
         """Stops Appium service if it is running.
 
         The call will be ignored if the service is not running
@@ -188,14 +191,14 @@ class AppiumService(object):
         """
         is_terminated = False
         if self.is_running:
-            self._process.terminate()
+            self._process.terminate()  # type: ignore
             is_terminated = True
         self._process = None
         self._cmd = None
         return is_terminated
 
     @property
-    def is_running(self):
+    def is_running(self) -> bool:
         """Check if the service is running.
 
         Returns:
@@ -204,7 +207,7 @@ class AppiumService(object):
         return self._process is not None and self._process.poll() is None
 
     @property
-    def is_listening(self):
+    def is_listening(self) -> bool:
         """Check if the service is listening on the given/default host/port.
 
         The fact, that the service is running, does not always mean it is listening.

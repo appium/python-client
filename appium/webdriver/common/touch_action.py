@@ -24,16 +24,25 @@
 # pylint: disable=no-self-use
 
 import copy
+from typing import TYPE_CHECKING, Dict, List, Optional, TypeVar, Union
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
+if TYPE_CHECKING:
+    from appium.webdriver.webelement import WebElement
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound='TouchAction')
+
 
 class TouchAction(object):
-    def __init__(self, driver=None):
-        self._driver = driver
-        self._actions = []
 
-    def tap(self, element=None, x=None, y=None, count=1):
+    def __init__(self, driver: Optional['WebDriver'] = None):
+        self._driver = driver
+        self._actions: List = []
+
+    def tap(self: T, element: Optional['WebElement'] = None, x: Optional[int]
+            = None, y: Optional[int] = None, count: int = 1) -> T:
         """Perform a tap action on the element
 
         Args:
@@ -50,7 +59,8 @@ class TouchAction(object):
 
         return self
 
-    def press(self, el=None, x=None, y=None, pressure=None):
+    def press(self: T, el: Optional['WebElement'] = None, x: Optional[int] = None,
+              y: Optional[int] = None, pressure: Optional[float] = None) -> T:
         """Begin a chain with a press down action at a particular element or point
 
         Args:
@@ -67,7 +77,8 @@ class TouchAction(object):
 
         return self
 
-    def long_press(self, el=None, x=None, y=None, duration=1000):
+    def long_press(self: T, el: Optional['WebElement'] = None, x: Optional[int]
+                   = None, y: Optional[int] = None, duration: int = 1000) -> T:
         """Begin a chain with a press down that lasts `duration` milliseconds
 
         Args:
@@ -83,7 +94,7 @@ class TouchAction(object):
 
         return self
 
-    def wait(self, ms=0):
+    def wait(self: T, ms: int = 0) -> T:
         """Pause for `ms` milliseconds.
 
         Args:
@@ -101,7 +112,7 @@ class TouchAction(object):
 
         return self
 
-    def move_to(self, el=None, x=None, y=None):
+    def move_to(self: T, el: Optional['WebElement'] = None, x: Optional[int] = None, y: Optional[int] = None) -> T:
         """Move the pointer from the previous point to the element or point specified
 
         Args:
@@ -116,7 +127,7 @@ class TouchAction(object):
 
         return self
 
-    def release(self):
+    def release(self: T) -> T:
         """End the action by lifting the pointer off the screen
 
         Returns:
@@ -126,12 +137,14 @@ class TouchAction(object):
 
         return self
 
-    def perform(self):
+    def perform(self: T) -> T:
         """Perform the action by sending the commands to the server to be operated upon
 
         Returns:
             `TouchAction`: self instance
         """
+        if self._driver is None:
+            raise TypeError('Set driver to constructor as a argument when to create the instance.')
         params = {'actions': self._actions}
         self._driver.execute(Command.TOUCH_ACTION, params)
 
@@ -141,23 +154,24 @@ class TouchAction(object):
         return self
 
     @property
-    def json_wire_gestures(self):
+    def json_wire_gestures(self) -> List[Dict]:
         gestures = []
         for action in self._actions:
             gestures.append(copy.deepcopy(action))
         return gestures
 
-    def _add_action(self, action, options):
+    def _add_action(self, action: str, options: Dict) -> None:
         gesture = {
             'action': action,
             'options': options,
         }
         self._actions.append(gesture)
 
-    def _get_opts(self, element, x, y, duration=None, pressure=None):
+    def _get_opts(self, el: Optional['WebElement'] = None, x: Optional[int] = None, y: Optional[int] = None,
+                  duration: Optional[int] = None, pressure: Optional[float] = None) -> Dict[str, Union[int, float]]:
         opts = {}
-        if element is not None:
-            opts['element'] = element.id
+        if el is not None:
+            opts['element'] = el.id
 
         # it makes no sense to have x but no y, or vice versa.
         if x is not None and y is not None:

@@ -258,7 +258,7 @@ class WebDriver(
         w3c_caps = _make_w3c_caps(capabilities)
         return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 
-    def find_element(self, by: Optional[str] = By.ID, value: Union[str, Dict] = None) -> MobileWebElement:
+    def find_element(self, by: str = By.ID, value: Union[str, Dict] = None) -> MobileWebElement:
         """'Private' method used by the find_element_by_* methods.
 
         Override for Appium

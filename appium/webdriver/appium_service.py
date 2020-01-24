@@ -67,7 +67,7 @@ class AppiumServiceError(RuntimeError):
 T = TypeVar('T', bound='AppiumService')
 
 
-class AppiumService(object):
+class AppiumService:
     def __init__(self) -> None:
         self._process: Optional[sp.Popen] = None
         self._cmd: Optional[List] = None

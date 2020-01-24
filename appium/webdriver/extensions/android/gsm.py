@@ -21,14 +21,14 @@ from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
-class GsmCallActions(object):
+class GsmCallActions:
     CALL = 'call'
     ACCEPT = 'accept'
     CANCEL = 'cancel'
     HOLD = 'hold'
 
 
-class GsmSignalStrength(object):
+class GsmSignalStrength:
     NONE_OR_UNKNOWN = 0
     POOR = 1
     MODERATE = 2
@@ -36,7 +36,7 @@ class GsmSignalStrength(object):
     GREAT = 4
 
 
-class GsmVoiceState(object):
+class GsmVoiceState:
     UNREGISTERED = 'unregistered'
     HOME = 'home'
     ROAMING = 'roaming'

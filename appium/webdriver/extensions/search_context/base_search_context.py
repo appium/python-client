@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
 
 
-class BaseSearchContext(object):
+class BaseSearchContext:
     """Used by each search context. Dummy find_element/s are for preventing pylint error"""
 
     def find_element(self, by: str, value: Union[str, Dict] = None) -> 'WebElement':

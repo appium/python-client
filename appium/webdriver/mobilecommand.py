@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-class MobileCommand(object):
+class MobileCommand:
     # Common
     GET_SESSION = 'getSession'
     GET_ALL_SESSIONS = 'getAllSessions'

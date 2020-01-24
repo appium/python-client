@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-class ApplicationState(object):
+class ApplicationState:
     NOT_INSTALLED = 0
     NOT_RUNNING = 1
     RUNNING_IN_BACKGROUND_SUSPENDED = 2

@@ -36,7 +36,7 @@ class WebDriverTests(BaseTestCase):
         desired_caps['deviceName'] = 'iPhone Xs Max'
         desired_caps['wdaLocalPort'] = port
 
-        class session_counts_is_two(object):
+        class session_counts_is_two:
             TIMEOUT = 10
 
             def __call__(self, driver):

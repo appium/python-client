@@ -35,7 +35,7 @@ if TYPE_CHECKING:
 T = TypeVar('T', bound='TouchAction')
 
 
-class TouchAction(object):
+class TouchAction:
 
     def __init__(self, driver: Optional['WebDriver'] = None):
         self._driver = driver

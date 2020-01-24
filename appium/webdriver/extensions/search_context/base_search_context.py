@@ -14,7 +14,7 @@
 
 # pylint: disable=abstract-method
 
-from typing import TYPE_CHECKING, Dict, List, Optional, Union
+from typing import TYPE_CHECKING, Dict, List, Union
 
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement

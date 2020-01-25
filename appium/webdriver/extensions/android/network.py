@@ -98,8 +98,8 @@ class Network(webdriver.Remote):
         """
         constants = extract_const_attributes(NetSpeed)
         if speed_type not in constants.values():
-            logger.warning('{} is unknown. Consider using one of {} constants. (e.g. {}.LTE)'.format(
-                speed_type, list(constants.keys()), NetSpeed.__name__))
+            logger.warning(
+                f'{speed_type} is unknown. Consider using one of {list(constants.keys())} constants. (e.g. {NetSpeed.__name__}.LTE)')
 
         self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
         return self

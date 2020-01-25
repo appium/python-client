@@ -28,7 +28,7 @@ def appium_command(command):
     Returns:
         str: A string of command URL
     """
-    return '{}{}'.format(SERVER_URL_BASE, command)
+    return f'{SERVER_URL_BASE}{command}'
 
 
 def android_w3c_driver():

@@ -53,7 +53,7 @@ class PytestXdistWorker:
         if number >= PytestXdistWorker.COUNT:
             return 'gw0'
 
-        return 'gw{}'.format(number)
+        return f'gw{number}'
 
 # If you run tests with pytest-xdist, you can run tests in parallel.
 

@@ -185,7 +185,7 @@ class WebDriver(
         if (not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.capabilities))):
             message = 'Direct connect capabilities from server were:\n'
             for key in [direct_protocol, direct_host, direct_port, direct_path]:
-                message += '{}: \'{}\'\n'.format(key, self.capabilities.get(key, ''))
+                message += f'{key}: \'{self.capabilities.get(key, "")}\'\n'
             logger.warning(message)
             return
 
@@ -193,12 +193,7 @@ class WebDriver(
         hostname = self.capabilities[direct_host]
         port = self.capabilities[direct_port]
         path = self.capabilities[direct_path]
-        executor = '{scheme}://{hostname}:{port}{path}'.format(
-            scheme=protocol,
-            hostname=hostname,
-            port=port,
-            path=path
-        )
+        executor = f'{protocol}://{hostname}:{port}{path}'
 
         logger.info('Updated request endpoint to %s', executor)
         # Override command executor

@@ -74,7 +74,7 @@ class RemoteFS(webdriver.Remote):
                 with open(source_path, 'rb') as f:
                     file_data = f.read()
             except IOError:
-                message = f'source_path {source_path} could not be found. Are you sure the file exists?'
+                message = f'source_path "{source_path}" could not be found. Are you sure the file exists?'
                 raise InvalidArgumentException(message)
             base64data = base64.b64encode(file_data).decode('utf-8')
 

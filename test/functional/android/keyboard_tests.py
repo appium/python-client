@@ -19,12 +19,12 @@ from .helper.test_helper import BaseTestCase
 
 
 class KeyboardTests(BaseTestCase):
-    def test_press_keycode(self):
-        # not sure how to test this.
+    def test_press_keycode(self) -> None:
+        # TODO not sure how to test this.
         self.driver.press_keycode(176)
 
-    def test_long_press_keycode(self):
-        # not sure how to test this.
+    def test_long_press_keycode(self) -> None:
+        # TODO not sure how to test this.
         self.driver.long_press_keycode(176)
 
 

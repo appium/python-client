@@ -23,25 +23,25 @@ GOOGLE_LATIN = 'com.google.android.inputmethod.latin/com.android.inputmethod.lat
 
 
 class IMETests(BaseTestCase):
-    def test_available_ime_engines(self):
+    def test_available_ime_engines(self) -> None:
         engines = self.driver.available_ime_engines
         self.assertIsInstance(engines, list)
         self.assertTrue(ANDROID_LATIN in engines or GOOGLE_LATIN in engines)
 
-    def test_is_ime_active(self):
+    def test_is_ime_active(self) -> None:
         self.assertTrue(self.driver.is_ime_active())
 
-    def test_active_ime_engine(self):
+    def test_active_ime_engine(self) -> None:
         engines = self.driver.available_ime_engines
         self.assertTrue(self.driver.active_ime_engine in engines)
 
-    def test_activate_ime_engine(self):
+    def test_activate_ime_engine(self) -> None:
         engines = self.driver.available_ime_engines
 
         self.driver.activate_ime_engine(engines[-1])
         self.assertEqual(self.driver.active_ime_engine, engines[-1])
 
-    def test_deactivate_ime_engine(self):
+    def test_deactivate_ime_engine(self) -> None:
         engines = self.driver.available_ime_engines
         self.driver.activate_ime_engine(engines[-1])
 

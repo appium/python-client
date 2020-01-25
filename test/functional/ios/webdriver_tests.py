@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import unittest
+from typing import TYPE_CHECKING
 
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -24,10 +25,13 @@ from test.functional.test_helper import get_available_from_port_range
 from ..test_helper import is_ci
 from .helper import desired_capabilities
 
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
+
 
 class WebDriverTests(BaseTestCase):
 
-    def test_all_sessions(self):
+    def test_all_sessions(self) -> None:
         if is_ci():
             # TODO Due to not created 2nd session somehow
             self.skipTest('Need to fix flaky test during running on CI.')
@@ -39,7 +43,7 @@ class WebDriverTests(BaseTestCase):
         class session_counts_is_two:
             TIMEOUT = 10
 
-            def __call__(self, driver):
+            def __call__(self, driver: 'WebDriver') -> bool:
                 return len(driver.all_sessions) == 2
 
         driver2 = None
@@ -52,7 +56,7 @@ class WebDriverTests(BaseTestCase):
             if driver2 is not None:
                 driver2.quit()
 
-    def test_app_management(self):
+    def test_app_management(self) -> None:
         # this only works in Xcode9+
         if float(desired_capabilities.get_desired_capabilities(
                 desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:
@@ -66,7 +70,7 @@ class WebDriverTests(BaseTestCase):
         self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
                          ApplicationState.RUNNING_IN_FOREGROUND)
 
-    def test_clear(self):
+    def test_clear(self) -> None:
         self._move_to_textbox()
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
@@ -90,7 +94,7 @@ class WebDriverTests(BaseTestCase):
         text = el.get_attribute('value')
         self.assertEqual(text, def_text)
 
-    def test_press_button(self):
+    def test_press_button(self) -> None:
         self.driver.press_button("Home")
         if float(desired_capabilities.get_desired_capabilities(
                 desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:
@@ -98,7 +102,7 @@ class WebDriverTests(BaseTestCase):
         self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
                          ApplicationState.RUNNING_IN_FOREGROUND)
 
-    def _move_to_textbox(self):
+    def _move_to_textbox(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Sliders')
         el2 = self.driver.find_element_by_accessibility_id('Buttons')
         self.driver.scroll(el1, el2)

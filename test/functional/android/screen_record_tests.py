@@ -20,7 +20,7 @@ from .helper.test_helper import BaseTestCase
 
 
 class ScreenRecordTests(BaseTestCase):
-    def test_screen_record(self):
+    def test_screen_record(self) -> None:
         self.driver.start_recording_screen(timeLimit=10, forcedRestart=True)
         sleep(10)
         result = self.driver.stop_recording_screen()

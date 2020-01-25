@@ -19,7 +19,7 @@ from .helper.test_helper import BaseTestCase
 
 
 class FingerPrintTests(BaseTestCase):
-    def test_finger_print(self):
+    def test_finger_print(self) -> None:
         result = self.driver.finger_print(1)
         self.assertEqual(None, result)
 

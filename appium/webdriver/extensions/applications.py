@@ -172,13 +172,16 @@ class Applications(webdriver.Remote):
         }
         return self.execute(Command.QUERY_APP_STATE, data)['value']
 
-    def app_strings(self, language: str = None, string_file: str = None) -> str:
+    def app_strings(self, language: str = None, string_file: str = None) -> Dict[str, str]:
         """Returns the application strings from the device for the specified
         language.
 
         Args:
             language (str): strings language code
             string_file (str): the name of the string file to query
+
+        Returns:
+            Dict[str, str]: The key is string id and the value is the content.
         """
         data = {}
         if language is not None:

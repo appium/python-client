@@ -18,7 +18,7 @@ from test.functional.ios.helper.test_helper import BaseTestCase
 
 
 class HwActionsTests(BaseTestCase):
-    def test_lock(self):
+    def test_lock(self) -> None:
         self.driver.lock(-1)
         try:
             self.assertTrue(self.driver.is_locked())
@@ -26,16 +26,16 @@ class HwActionsTests(BaseTestCase):
             self.driver.unlock()
         self.assertFalse(self.driver.is_locked())
 
-    def test_shake(self):
-        # what can we assert about this?
+    def test_shake(self) -> None:
+        # TODO what can we assert about this?
         self.driver.shake()
 
-    def test_touch_id(self):
+    def test_touch_id(self) -> None:
         # nothing to assert, just verify that it doesn't blow up
         self.driver.touch_id(True)
         self.driver.touch_id(False)
 
-    def test_toggle_touch_id_enrollment(self):
+    def test_toggle_touch_id_enrollment(self) -> None:
         # nothing to assert, just verify that it doesn't blow up
         self.driver.toggle_touch_id_enrollment()
 

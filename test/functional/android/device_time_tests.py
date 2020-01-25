@@ -21,7 +21,7 @@ from .helper.test_helper import BaseTestCase
 
 
 class DeviceTimeTests(BaseTestCase):
-    def test_device_time(self):
+    def test_device_time(self) -> None:
         date_time = self.driver.device_time
         # convert to date ought to work
         parse(date_time)

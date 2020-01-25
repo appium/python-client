@@ -20,7 +20,7 @@ from .helper.test_helper import BaseTestCase
 
 
 class HwActionsTests(BaseTestCase):
-    def test_lock(self):
+    def test_lock(self) -> None:
         self.driver.lock(-1)
         sleep(10)
         try:

@@ -27,14 +27,14 @@ from .helper.test_helper import (
 
 
 class TouchActionTests(BaseTestCase):
-    def test_tap(self):
+    def test_tap(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Animation')
         action = TouchAction(self.driver)
         action.tap(el).perform()
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls')
         self.assertIsNotNone(el)
 
-    def test_tap_x_y(self):
+    def test_tap_x_y(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Animation')
         action = TouchAction(self.driver)
         action.tap(el, 100, 10).perform()
@@ -42,7 +42,7 @@ class TouchActionTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls')
         self.assertIsNotNone(el)
 
-    def test_tap_twice(self):
+    def test_tap_twice(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Text')
         action = TouchAction(self.driver)
         action.tap(el).perform()
@@ -56,7 +56,7 @@ class TouchActionTests(BaseTestCase):
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
         self.assertEqual('This is a test\nThis is a test\n', els[1].get_attribute("text"))
 
-    def test_press_and_immediately_release(self):
+    def test_press_and_immediately_release(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Animation')
         action = TouchAction(self.driver)
         action.press(el).release().perform()
@@ -64,7 +64,7 @@ class TouchActionTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls')
         self.assertIsNotNone(el)
 
-    def test_press_and_immediately_release_x_y(self):
+    def test_press_and_immediately_release_x_y(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Animation')
         action = TouchAction(self.driver)
         action.press(el, 100, 10).release().perform()
@@ -72,7 +72,7 @@ class TouchActionTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls')
         self.assertIsNotNone(el)
 
-    def test_press_and_wait(self):
+    def test_press_and_wait(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
 
@@ -97,7 +97,7 @@ class TouchActionTests(BaseTestCase):
                               'new UiSelector().text("Sample menu")')
         self.assertIsNotNone(el)
 
-    def test_press_and_moveto(self):
+    def test_press_and_moveto(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
 
@@ -107,7 +107,7 @@ class TouchActionTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
         self.assertIsNotNone(el)
 
-    def test_press_and_moveto_x_y(self):
+    def test_press_and_moveto_x_y(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('App')
 
@@ -117,7 +117,7 @@ class TouchActionTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
         self.assertIsNotNone(el)
 
-    def test_long_press(self):
+    def test_long_press(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
 
@@ -142,7 +142,7 @@ class TouchActionTests(BaseTestCase):
                               'new UiSelector().text("Sample menu")')
         self.assertIsNotNone(el)
 
-    def test_long_press_x_y(self):
+    def test_long_press_x_y(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
 
@@ -167,7 +167,7 @@ class TouchActionTests(BaseTestCase):
                               'new UiSelector().text("Sample menu")')
         self.assertIsNotNone(el)
 
-    def test_drag_and_drop(self):
+    def test_drag_and_drop(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
@@ -188,7 +188,7 @@ class TouchActionTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_text'.format(APIDEMO_PKG_NAME))
         self.assertTrue('drag_dot_3' in el.text)
 
-    def test_driver_drag_and_drop(self):
+    def test_driver_drag_and_drop(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
@@ -208,7 +208,7 @@ class TouchActionTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_text'.format(APIDEMO_PKG_NAME))
         self.assertTrue('drag_dot_3' in el.text)
 
-    def test_driver_swipe(self):
+    def test_driver_swipe(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Views')
         action = TouchAction(self.driver)
         action.tap(el).perform()

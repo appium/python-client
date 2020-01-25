@@ -28,7 +28,7 @@ from test.functional.android.helper import desired_capabilities
 @pytest.mark.skip(reason="Need to fix broken test")
 class FindByImageTests(unittest.TestCase):
 
-    def setUp(self):
+    def setUp(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
@@ -37,10 +37,10 @@ class FindByImageTests(unittest.TestCase):
                                      "fixImageTemplateSize": True,
                                      "autoUpdateImageElementPosition": True})
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.driver.quit()
 
-    def test_find_based_on_image_template(self):
+    def test_find_based_on_image_template(self) -> None:
         image_path = desired_capabilities.PATH('file/find_by_image_success.png')
         print(image_path)
         with open(image_path, 'rb') as png_file:
@@ -64,7 +64,7 @@ class FindByImageTests(unittest.TestCase):
         el.click()
         self.driver.find_element_by_accessibility_id("Alarm")
 
-    def test_find_multiple_elements_by_image_just_returns_one(self):
+    def test_find_multiple_elements_by_image_just_returns_one(self) -> None:
         WebDriverWait(self.driver, 3).until(
             EC.presence_of_element_located((By.ACCESSIBILITY_ID, "App"))
         )
@@ -73,7 +73,7 @@ class FindByImageTests(unittest.TestCase):
         els[0].click()
         self.driver.find_element_by_accessibility_id("Alarm")
 
-    def test_find_throws_no_such_element(self):
+    def test_find_throws_no_such_element(self) -> None:
         image_path = desired_capabilities.PATH('file/find_by_image_failure.png')
         with open(image_path, 'rb') as png_file:
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')

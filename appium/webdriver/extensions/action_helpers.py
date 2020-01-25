@@ -66,7 +66,7 @@ class ActionHelpers(webdriver.Remote):
         action.long_press(origin_el).move_to(destination_el).release().perform()
         return self
 
-    def tap(self, positions: List[Tuple], duration: Optional[int] = None) -> T:
+    def tap(self, positions: List[Tuple[int, int]], duration: Optional[int] = None) -> T:
         """Taps on an particular place with up to five fingers, holding for a
         certain time
 

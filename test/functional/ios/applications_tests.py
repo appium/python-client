@@ -22,7 +22,7 @@ from .helper import desired_capabilities
 
 class WebDriverTests(BaseTestCase):
 
-    def test_app_management(self):
+    def test_app_management(self) -> None:
         # this only works in Xcode9+
         if float(desired_capabilities.get_desired_capabilities(
                 desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:

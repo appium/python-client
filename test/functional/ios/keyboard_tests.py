@@ -19,7 +19,7 @@ from test.functional.ios.helper.test_helper import BaseTestCase
 
 
 class KeyboardTests(BaseTestCase):
-    def test_hide_keyboard(self):
+    def test_hide_keyboard(self) -> None:
         self._move_to_textbox()
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
@@ -33,7 +33,7 @@ class KeyboardTests(BaseTestCase):
 
         self.assertFalse(el.is_displayed())
 
-    def test_hide_keyboard_presskey_strategy(self):
+    def test_hide_keyboard_presskey_strategy(self) -> None:
         self._move_to_textbox()
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
@@ -47,7 +47,7 @@ class KeyboardTests(BaseTestCase):
 
         self.assertFalse(el.is_displayed())
 
-    def test_hide_keyboard_no_key_name(self):
+    def test_hide_keyboard_no_key_name(self) -> None:
         self._move_to_textbox()
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
@@ -63,7 +63,7 @@ class KeyboardTests(BaseTestCase):
         # currently fails.
         self.assertFalse(el.is_displayed())
 
-    def test_is_keyboard_shown(self):
+    def test_is_keyboard_shown(self) -> None:
         self._move_to_textbox()
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
@@ -71,7 +71,7 @@ class KeyboardTests(BaseTestCase):
         el.set_value('Testing')
         self.assertTrue(self.driver.is_keyboard_shown())
 
-    def _move_to_textbox(self):
+    def _move_to_textbox(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Sliders')
         el2 = self.driver.find_element_by_accessibility_id('Buttons')
         self.driver.scroll(el1, el2)

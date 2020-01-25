@@ -25,13 +25,13 @@ from .helper.test_helper import (
 
 
 class WebelementTests(BaseTestCase):
-    def test_element_location_in_view(self):
+    def test_element_location_in_view(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Content')
         loc = el.location_in_view
         self.assertIsNotNone(loc['x'])
         self.assertIsNotNone(loc['y'])
 
-    def test_set_text(self):
+    def test_set_text(self) -> None:
         self.driver.find_element_by_android_uiautomator(
             'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
 
@@ -44,7 +44,7 @@ class WebelementTests(BaseTestCase):
 
         self.assertEqual('new text', el.text)
 
-    def test_send_keys(self):
+    def test_send_keys(self) -> None:
         for text in ['App', 'Activity', 'Custom Title']:
             wait_for_element(self.driver, MobileBy.XPATH,
                              f"//android.widget.TextView[@text='{text}']").click()

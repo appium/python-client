@@ -44,7 +44,7 @@ class ExecuteDriver(webdriver.Remote):
             WebDriverException: If something error happenes in the script. The message has the original error message.
         """
 
-        class Result(object):
+        class Result:
 
             def __init__(self, response: Dict):
                 self.result = response['result']

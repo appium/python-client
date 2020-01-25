@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, TypeVar
+from typing import TypeVar
 
 from selenium import webdriver
 
@@ -23,7 +23,7 @@ from appium.webdriver.mobilecommand import MobileCommand as Command
 T = TypeVar('T', bound='Network')
 
 
-class NetSpeed(object):
+class NetSpeed:
     GSM = 'gsm'  # GSM/CSD (up: 14.4(kbps), down: 14.4(kbps))
     SCSD = 'scsd'  # HSCSD (up: 14.4, down: 57.6)
     GPRS = 'gprs'  # GPRS (up: 28.8, down: 57.6)
@@ -98,8 +98,8 @@ class Network(webdriver.Remote):
         """
         constants = extract_const_attributes(NetSpeed)
         if speed_type not in constants.values():
-            logger.warning('{} is unknown. Consider using one of {} constants. (e.g. {}.LTE)'.format(
-                speed_type, list(constants.keys()), NetSpeed.__name__))
+            logger.warning(
+                f'{speed_type} is unknown. Consider using one of {list(constants.keys())} constants. (e.g. {NetSpeed.__name__}.LTE)')
 
         self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
         return self

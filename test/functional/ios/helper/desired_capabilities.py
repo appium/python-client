@@ -41,7 +41,7 @@ def get_desired_capabilities(app=None):
     return desired_caps
 
 
-class PytestXdistWorker(object):
+class PytestXdistWorker:
     NUMBER = os.getenv('PYTEST_XDIST_WORKER')
     COUNT = os.getenv('PYTEST_XDIST_WORKER_COUNT')  # Return 2 if `-n 2` is passed
 
@@ -53,7 +53,7 @@ class PytestXdistWorker(object):
         if number >= PytestXdistWorker.COUNT:
             return 'gw0'
 
-        return 'gw{}'.format(number)
+        return f'gw{number}'
 
 # If you run tests with pytest-xdist, you can run tests in parallel.
 

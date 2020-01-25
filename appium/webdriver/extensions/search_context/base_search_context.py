@@ -14,13 +14,13 @@
 
 # pylint: disable=abstract-method
 
-from typing import TYPE_CHECKING, Dict, List, Optional, Union
+from typing import TYPE_CHECKING, Dict, List, Union
 
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
 
 
-class BaseSearchContext(object):
+class BaseSearchContext:
     """Used by each search context. Dummy find_element/s are for preventing pylint error"""
 
     def find_element(self, by: str, value: Union[str, Dict] = None) -> 'WebElement':

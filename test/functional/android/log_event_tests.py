@@ -23,7 +23,7 @@ class LogEventTests(BaseTestCase):
         vendor = 'appium'
         event = 'funEvent'
         self.driver.log_event(vendor, event)
-        assert '{}:{}'.format(vendor, event) in self.driver.get_events().keys()
+        assert f'{vendor}:{event}' in self.driver.get_events().keys()
 
 
 if __name__ == '__main__':

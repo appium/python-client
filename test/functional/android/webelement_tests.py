@@ -47,7 +47,7 @@ class WebelementTests(BaseTestCase):
     def test_send_keys(self):
         for text in ['App', 'Activity', 'Custom Title']:
             wait_for_element(self.driver, MobileBy.XPATH,
-                             "//android.widget.TextView[@text='{}']".format(text)).click()
+                             f"//android.widget.TextView[@text='{text}']").click()
 
         el = wait_for_element(self.driver, MobileBy.ID, '{}:id/left_text_edit'.format(APIDEMO_PKG_NAME))
         el.send_keys(' text')

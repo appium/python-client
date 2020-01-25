@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import base64
-from typing import Any, Dict, Optional, TypeVar
+from typing import Optional, TypeVar
 
 from selenium import webdriver
 

@@ -44,7 +44,7 @@ class CommonTests(BaseTestCase):
             self.skipTest('Need to fix flaky test during running on CI.')
         for word in ['App', 'Notification', 'Status Bar', ':-|']:
             wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
-                             'new UiSelector().text("{}")'.format(word)).click()
+                             f'new UiSelector().text("{word}")').click()
 
         self.driver.open_notifications()
         sleep(1)

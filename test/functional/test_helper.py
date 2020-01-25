@@ -20,8 +20,7 @@ def get_available_from_port_range(from_port, to_port):
         finally:
             sock.close()
 
-    raise NoAvailablePortError('No available port between {} and {}'.format(
-        from_port, to_port))
+    raise NoAvailablePortError(f'No available port between {from_port} and {to_port}')
 
 
 def is_ci():

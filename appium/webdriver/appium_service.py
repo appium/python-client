@@ -50,8 +50,7 @@ def poll_url(host: str, port: int, path: str, timeout_ms: int) -> bool:
     while time.time() < time_started_sec + timeout_ms / 1000.0:
         try:
             conn = urllib3.PoolManager(timeout=1.0)
-            resp = conn.request('HEAD', 'http://{host}:{port}{path}'.format(
-                host=host, port=port, path=path))
+            resp = conn.request('HEAD', f'http://{host}:{port}{path}')
             if resp.status < 400:
                 return True
         except Exception:
@@ -67,7 +66,7 @@ class AppiumServiceError(RuntimeError):
 T = TypeVar('T', bound='AppiumService')
 
 
-class AppiumService(object):
+class AppiumService:
     def __init__(self) -> None:
         self._process: Optional[sp.Popen] = None
         self._cmd: Optional[List] = None
@@ -169,13 +168,12 @@ class AppiumService(object):
         port = self._parse_port(args)
         error_msg: Optional[str] = None
         if not self.is_running or (timeout_ms > 0 and not poll_url(host, port, STATUS_URL, timeout_ms)):
-            error_msg = 'Appium has failed to start on {}:{} within {}ms timeout'\
-                        .format(host, port, timeout_ms)
+            error_msg = f'Appium has failed to start on {host}:{port} within {timeout_ms}ms timeout'
         if error_msg is not None:
             if stderr == sp.PIPE:
                 err_output = self._process.stderr.read()
                 if err_output:
-                    error_msg += '\nOriginal error: {}'.format(str(err_output))
+                    error_msg += f'\nOriginal error: {str(err_output)}'
             self.stop()
             raise AppiumServiceError(error_msg)
         return self._process

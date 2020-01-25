@@ -21,14 +21,14 @@ from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
-class GsmCallActions(object):
+class GsmCallActions:
     CALL = 'call'
     ACCEPT = 'accept'
     CANCEL = 'cancel'
     HOLD = 'hold'
 
 
-class GsmSignalStrength(object):
+class GsmSignalStrength:
     NONE_OR_UNKNOWN = 0
     POOR = 1
     MODERATE = 2
@@ -36,7 +36,7 @@ class GsmSignalStrength(object):
     GREAT = 4
 
 
-class GsmVoiceState(object):
+class GsmVoiceState:
     UNREGISTERED = 'unregistered'
     HOME = 'home'
     ROAMING = 'roaming'
@@ -66,8 +66,8 @@ class Gsm(webdriver.Remote):
         """
         constants = extract_const_attributes(GsmCallActions)
         if action not in constants.values():
-            logger.warning('{} is unknown. Consider using one of {} constants. (e.g. {}.CALL)'.format(
-                action, list(constants.keys()), GsmCallActions.__name__))
+            logger.warning(
+                f'{action} is unknown. Consider using one of {list(constants.keys())} constants. (e.g. {GsmCallActions.__name__}.CALL)')
         self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
         return self
 
@@ -85,8 +85,8 @@ class Gsm(webdriver.Remote):
         """
         constants = extract_const_attributes(GsmSignalStrength)
         if strength not in constants.values():
-            logger.warning('{} is out of range. Consider using one of {} constants. (e.g. {}.GOOD)'.format(
-                strength, list(constants.keys()), GsmSignalStrength.__name__))
+            logger.warning(
+                f'{strength} is out of range. Consider using one of {list(constants.keys())} constants. (e.g. {GsmSignalStrength.__name__}.GOOD)')
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
 
@@ -104,8 +104,8 @@ class Gsm(webdriver.Remote):
         """
         constants = extract_const_attributes(GsmVoiceState)
         if state not in constants.values():
-            logger.warning('{} is unknown. Consider using one of {} constants. (e.g. {}.HOME)'.format(
-                state, list(constants.keys()), GsmVoiceState.__name__))
+            logger.warning(
+                f'{state} is unknown. Consider using one of {list(constants.keys())} constants. (e.g. {GsmVoiceState.__name__}.HOME)')
         self.execute(Command.SET_GSM_VOICE, {'state': state})
         return self
 

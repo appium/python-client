@@ -19,7 +19,7 @@ from __future__ import print_function
 import os
 import sys
 import unittest
-from typing import Any, Callable, List
+from typing import Callable, List
 
 from sauceclient import SauceClient
 

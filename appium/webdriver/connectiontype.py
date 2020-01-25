@@ -26,7 +26,7 @@ Connection types are specified here:
 """
 
 
-class ConnectionType(object):
+class ConnectionType:
     NO_CONNECTION = 0
     AIRPLANE_MODE = 1
     WIFI_ONLY = 2

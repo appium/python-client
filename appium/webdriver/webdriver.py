@@ -193,12 +193,7 @@ class WebDriver(
         hostname = self.capabilities[direct_host]
         port = self.capabilities[direct_port]
         path = self.capabilities[direct_path]
-        executor = '{scheme}://{hostname}:{port}{path}'.format(
-            scheme=protocol,
-            hostname=hostname,
-            port=port,
-            path=path
-        )
+        executor = f'{protocol}://{hostname}:{port}{path}'
 
         logger.info('Updated request endpoint to %s', executor)
         # Override command executor

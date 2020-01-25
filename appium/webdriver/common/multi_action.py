@@ -31,7 +31,7 @@ if TYPE_CHECKING:
 T = TypeVar('T', bound='MultiAction')
 
 
-class MultiAction(object):
+class MultiAction:
     def __init__(self, driver: 'WebDriver', element: Optional['WebElement'] = None) -> None:
         self._driver = driver
         self._element = element

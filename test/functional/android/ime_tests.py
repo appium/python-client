@@ -37,10 +37,9 @@ class IMETests(BaseTestCase):
 
     def test_activate_ime_engine(self):
         engines = self.driver.available_ime_engines
-        active_engine = self.driver.active_ime_engine
 
         self.driver.activate_ime_engine(engines[-1])
-        self.assertEqual(active_engine, engines[-1])
+        self.assertEqual(self.driver.active_ime_engine, engines[-1])
 
     def test_deactivate_ime_engine(self):
         engines = self.driver.available_ime_engines

@@ -102,7 +102,7 @@ class AppiumService:
                     self._main_script = sp.check_output(
                         [self._get_node(),
                          '-e',
-                         f'console.log(require.resolve("{MAIN_SCRIPT_PATH}"))']).strip()
+                         'console.log(require.resolve("{}"))'.format(MAIN_SCRIPT_PATH)]).strip()
                 except sp.CalledProcessError as e:
                     raise AppiumServiceError(e.output)
         return self._main_script

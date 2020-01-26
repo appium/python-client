@@ -9,7 +9,7 @@ pre-commit = "~=1.13"
 [packages]
 selenium = "~=3.141"
 
-autopep8 = "~=1.4"
+autopep8 = "~=1.5"
 
 pytest = "~=4.0"
 pytest-cov = "~=2.8"

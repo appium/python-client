@@ -23,7 +23,7 @@ from appium.common.exceptions import NoSuchContextException
 class MobileErrorHandler(errorhandler.ErrorHandler):
     def check_response(self, response: Dict) -> None:
         try:
-            super(MobileErrorHandler, self).check_response(response)
+            super().check_response(response)
         except WebDriverException as wde:
             if wde.msg == 'No such context found.':
                 raise NoSuchContextException(wde.msg, wde.screen, wde.stacktrace)

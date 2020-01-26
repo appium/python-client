@@ -24,7 +24,7 @@ from . import desired_capabilities
 
 class BaseTestCase(object):
 
-    def setup_method(self, method) -> None:  # type: ignore
+    def setup_method(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
         if is_ci():

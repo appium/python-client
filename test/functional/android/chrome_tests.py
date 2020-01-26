@@ -18,12 +18,12 @@ from .helper.desired_capabilities import get_desired_capabilities
 
 
 class TestChrome(object):
-    def setup_method(self, method) -> None:  # type: ignore
+    def setup_method(self) -> None:
         caps = get_desired_capabilities()
         caps['browserName'] = 'Chrome'
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', caps)
 
-    def teardown_method(self, method) -> None:  # type: ignore
+    def teardown_method(self) -> None:
         self.driver.quit()
 
     def test_test(self) -> None:

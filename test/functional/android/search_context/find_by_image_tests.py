@@ -27,7 +27,7 @@ from test.functional.android.helper import desired_capabilities
 @pytest.mark.skip(reason="Need to fix broken test")
 class TestFindByImage(object):
 
-    def setup_method(self, method) -> None:  # type: ignore
+    def setup_method(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
@@ -36,7 +36,7 @@ class TestFindByImage(object):
                                      "fixImageTemplateSize": True,
                                      "autoUpdateImageElementPosition": True})
 
-    def teardown_method(self, method) -> None:  # type: ignore
+    def teardown_method(self) -> None:
         self.driver.quit()
 
     def test_find_based_on_image_template(self) -> None:

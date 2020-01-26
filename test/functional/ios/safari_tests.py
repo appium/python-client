@@ -18,7 +18,7 @@ from .helper.desired_capabilities import get_desired_capabilities
 
 
 class TestSafari(object):
-    def setup_method(self, method) -> None:  # type: ignore
+    def setup_method(self) -> None:
         desired_caps = get_desired_capabilities()
         desired_caps.update({
             'browserName': 'safari',
@@ -28,7 +28,7 @@ class TestSafari(object):
 
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    def teardown_method(self, method) -> None:  # type: ignore
+    def teardown_method(self) -> None:
         self.driver.quit()
 
     def test_context(self) -> None:

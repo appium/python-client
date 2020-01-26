@@ -15,7 +15,6 @@
 
 import base64
 import os
-import unittest
 from typing import TYPE_CHECKING
 
 from selenium.webdriver.support import expected_conditions as EC
@@ -58,18 +57,19 @@ def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout: int
     )
 
 
-class BaseTestCase(unittest.TestCase):
+class BaseTestCase():
 
-    def setUp(self) -> None:
+    def setup_method(self, method) -> None:  # type: ignore
+        print(type(method))
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
         if is_ci():
             self.driver.start_recording_screen()
 
-    def tearDown(self) -> None:
+    def teardown_method(self, method) -> None:  # type: ignore
         if is_ci():
             payload = self.driver.stop_recording_screen()
-            video_path = os.path.join(os.getcwd(), self._testMethodName + '.mp4')
+            video_path = os.path.join(os.getcwd(), method.__name__ + '.mp4')
             with open(video_path, "wb") as fd:
                 fd.write(base64.b64decode(payload))
         self.driver.quit()

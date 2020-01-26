@@ -13,23 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 from time import sleep
 
 from .helper.test_helper import BaseTestCase
 
 
-class HwActionsTests(BaseTestCase):
+class TestHwActions(BaseTestCase):
     def test_lock(self) -> None:
         self.driver.lock(-1)
         sleep(10)
         try:
-            self.assertTrue(self.driver.is_locked())
+            assert self.driver.is_locked()
         finally:
             self.driver.unlock()
-        self.assertFalse(self.driver.is_locked())
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(HwActionsTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert not self.driver.is_locked()

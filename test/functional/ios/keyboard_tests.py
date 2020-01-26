@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 from time import sleep
 
 from test.functional.ios.helper.test_helper import BaseTestCase
 
 
-class KeyboardTests(BaseTestCase):
+class TestKeyboard(BaseTestCase):
     def test_hide_keyboard(self) -> None:
         self._move_to_textbox()
 
@@ -27,11 +26,11 @@ class KeyboardTests(BaseTestCase):
         el.set_value('Testing')
 
         el = self.driver.find_element_by_class_name('UIAKeyboard')
-        self.assertTrue(el.is_displayed())
+        assert el.is_displayed()
 
         self.driver.hide_keyboard(key_name='Done')
 
-        self.assertFalse(el.is_displayed())
+        assert not el.is_displayed()
 
     def test_hide_keyboard_presskey_strategy(self) -> None:
         self._move_to_textbox()
@@ -41,11 +40,11 @@ class KeyboardTests(BaseTestCase):
         el.set_value('Testing')
 
         el = self.driver.find_element_by_class_name('UIAKeyboard')
-        self.assertTrue(el.is_displayed())
+        assert el.is_displayed()
 
         self.driver.hide_keyboard(strategy='pressKey', key='Done')
 
-        self.assertFalse(el.is_displayed())
+        assert not el.is_displayed()
 
     def test_hide_keyboard_no_key_name(self) -> None:
         self._move_to_textbox()
@@ -55,13 +54,13 @@ class KeyboardTests(BaseTestCase):
         el.set_value('Testing')
 
         el = self.driver.find_element_by_class_name('UIAKeyboard')
-        self.assertTrue(el.is_displayed())
+        assert el.is_displayed()
 
         self.driver.hide_keyboard()
         sleep(10)
 
         # currently fails.
-        self.assertFalse(el.is_displayed())
+        assert not el.is_displayed()
 
     def test_is_keyboard_shown(self) -> None:
         self._move_to_textbox()
@@ -69,7 +68,7 @@ class KeyboardTests(BaseTestCase):
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
         el.click()
         el.set_value('Testing')
-        self.assertTrue(self.driver.is_keyboard_shown())
+        assert self.driver.is_keyboard_shown()
 
     def _move_to_textbox(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Sliders')
@@ -78,8 +77,3 @@ class KeyboardTests(BaseTestCase):
 
         # Click text fields
         self.driver.find_element_by_accessibility_id('Text Fields').click()
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(KeyboardTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

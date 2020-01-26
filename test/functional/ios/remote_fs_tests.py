@@ -13,12 +13,11 @@
 # limitations under the License.
 
 import os
-import unittest
 
 from test.functional.ios.helper.test_helper import BaseTestCase
 
 
-class RemoteFsTests(BaseTestCase):
+class TestRemoteFs(BaseTestCase):
 
     def test_push_file(self) -> None:
         file_name = 'test_image.jpg'
@@ -26,8 +25,3 @@ class RemoteFsTests(BaseTestCase):
         destination_path = file_name
 
         self.driver.push_file(destination_path, source_path=source_path)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(RemoteFsTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

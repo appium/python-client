@@ -13,20 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from dateutil.parser import parse
 
 from .helper.test_helper import BaseTestCase
 
 
-class DeviceTimeTests(BaseTestCase):
+class TestDeviceTime(BaseTestCase):
     def test_device_time(self) -> None:
         date_time = self.driver.device_time
         # convert to date ought to work
         parse(date_time)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(DeviceTimeTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

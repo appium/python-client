@@ -12,31 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from appium.webdriver.applicationstate import ApplicationState
 from test.functional.ios.helper.test_helper import BaseTestCase
 
 from .helper import desired_capabilities
 
 
-class WebDriverTests(BaseTestCase):
+class TestWebDriver(BaseTestCase):
 
     def test_app_management(self) -> None:
         # this only works in Xcode9+
         if float(desired_capabilities.get_desired_capabilities(
                 desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:
             return
-        self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
-                         ApplicationState.RUNNING_IN_FOREGROUND)
+        assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND
         self.driver.background_app(-1)
-        self.assertTrue(self.driver.query_app_state(desired_capabilities.BUNDLE_ID) <
-                        ApplicationState.RUNNING_IN_FOREGROUND)
+        assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) < ApplicationState.RUNNING_IN_FOREGROUND
         self.driver.activate_app(desired_capabilities.BUNDLE_ID)
-        self.assertEqual(self.driver.query_app_state(desired_capabilities.BUNDLE_ID),
-                         ApplicationState.RUNNING_IN_FOREGROUND)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(WebDriverTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND

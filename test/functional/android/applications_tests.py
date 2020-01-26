@@ -13,15 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 from time import sleep
+
+import pytest
 
 from appium.webdriver.applicationstate import ApplicationState
 
 from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 
 
-class ApplicationsTests(BaseTestCase):
+class TestApplications(BaseTestCase):
 
     def test_background_app(self) -> None:
         self.driver.background_app(1)
@@ -29,54 +30,46 @@ class ApplicationsTests(BaseTestCase):
         self.driver.launch_app()
 
     def test_is_app_installed(self) -> None:
-        self.assertFalse(self.driver.is_app_installed('sdfsdf'))
-        self.assertTrue(self.driver.is_app_installed(APIDEMO_PKG_NAME))
+        assert not self.driver.is_app_installed('sdfsdf')
+        assert self.driver.is_app_installed(APIDEMO_PKG_NAME)
 
+    @pytest.mark.skip('This causes the server to crash. no idea why')
     def test_install_app(self) -> None:
-        self.skipTest('This causes the server to crash. no idea why')
-        self.assertFalse(self.driver.is_app_installed('io.selendroid.testapp'))
+        assert not self.driver.is_app_installed('io.selendroid.testapp')
         self.driver.install_app('/Users/isaac/code/python-client/test/apps/selendroid-test-app.apk')
-        self.assertTrue(self.driver.is_app_installed('io.selendroid.testapp'))
+        assert self.driver.is_app_installed('io.selendroid.testapp')
 
     def test_remove_app(self) -> None:
-        self.assertTrue(self.driver.is_app_installed(APIDEMO_PKG_NAME))
+        assert self.driver.is_app_installed(APIDEMO_PKG_NAME)
         self.driver.remove_app(APIDEMO_PKG_NAME)
-        self.assertFalse(self.driver.is_app_installed(APIDEMO_PKG_NAME))
+        assert not self.driver.is_app_installed(APIDEMO_PKG_NAME)
 
     def test_close_and_launch_app(self) -> None:
         self.driver.close_app()
         self.driver.launch_app()
         activity = self.driver.current_activity
-        self.assertEqual('.ApiDemos', activity)
+        assert '.ApiDemos' == activity
 
     def test_app_management(self) -> None:
         app_id = self.driver.current_package
-        self.assertEqual(self.driver.query_app_state(app_id),
-                         ApplicationState.RUNNING_IN_FOREGROUND)
+        assert self.driver.query_app_state(app_id) == ApplicationState.RUNNING_IN_FOREGROUND
         self.driver.background_app(-1)
-        self.assertTrue(self.driver.query_app_state(app_id) <
-                        ApplicationState.RUNNING_IN_FOREGROUND)
+        assert self.driver.query_app_state(app_id) < ApplicationState.RUNNING_IN_FOREGROUND
         self.driver.activate_app(app_id)
-        self.assertEqual(self.driver.query_app_state(app_id),
-                         ApplicationState.RUNNING_IN_FOREGROUND)
+        assert self.driver.query_app_state(app_id) == ApplicationState.RUNNING_IN_FOREGROUND
 
     def test_app_strings(self) -> None:
         strings = self.driver.app_strings()
-        self.assertEqual(u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
+        assert u'You can\'t wipe my data, you are a monkey!' == strings[u'monkey_wipe_data']
 
     def test_app_strings_with_language(self) -> None:
         strings = self.driver.app_strings('en')
-        self.assertEqual(u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
+        assert u'You can\'t wipe my data, you are a monkey!' == strings[u'monkey_wipe_data']
 
     def test_app_strings_with_language_and_file(self) -> None:
         strings = self.driver.app_strings('en', 'some_file')
-        self.assertEqual(u'You can\'t wipe my data, you are a monkey!', strings[u'monkey_wipe_data'])
+        assert u'You can\'t wipe my data, you are a monkey!' == strings[u'monkey_wipe_data']
 
     def test_reset(self) -> None:
         self.driver.reset()
-        self.assertTrue(self.driver.is_app_installed(APIDEMO_PKG_NAME))
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(ApplicationsTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert self.driver.is_app_installed(APIDEMO_PKG_NAME)

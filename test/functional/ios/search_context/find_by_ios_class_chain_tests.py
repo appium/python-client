@@ -12,24 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from test.functional.ios.helper.test_helper import BaseTestCase
 
 
-class FindByIOClassChainTests(BaseTestCase):
+class TestFindByIOClassChain(BaseTestCase):
     def test_find_element_by_path(self) -> None:
         els = self.driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow/**/XCUIElementTypeStaticText')
-        self.assertEqual(35, len(els))
-        self.assertEqual('UICatalog', els[0].get_attribute('name'))
+        assert 35 == len(els)
+        assert 'UICatalog' == els[0].get_attribute('name')
 
     def test_find_multiple_elements_by_path(self) -> None:
         el = self.driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow/*/*/*')
-        self.assertEqual(2, len(el))
-        self.assertEqual('UICatalog', el[0].get_attribute('name'))
-        self.assertEqual(None, el[1].get_attribute('name'))
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(FindByIOClassChainTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert 2 == len(el)
+        assert 'UICatalog' == el[0].get_attribute('name')
+        assert el[1].get_attribute('name') is None

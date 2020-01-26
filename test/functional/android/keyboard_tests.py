@@ -13,12 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from .helper.test_helper import BaseTestCase
 
 
-class KeyboardTests(BaseTestCase):
+class TestKeyboard(BaseTestCase):
     def test_press_keycode(self) -> None:
         # TODO not sure how to test this.
         self.driver.press_keycode(176)
@@ -26,8 +24,3 @@ class KeyboardTests(BaseTestCase):
     def test_long_press_keycode(self) -> None:
         # TODO not sure how to test this.
         self.driver.long_press_keycode(176)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(KeyboardTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

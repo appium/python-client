@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from appium.webdriver.common.mobileby import MobileBy
 
 from .helper.test_helper import (
@@ -24,12 +22,12 @@ from .helper.test_helper import (
 )
 
 
-class WebelementTests(BaseTestCase):
+class TestWebelement(BaseTestCase):
     def test_element_location_in_view(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Content')
         loc = el.location_in_view
-        self.assertIsNotNone(loc['x'])
-        self.assertIsNotNone(loc['y'])
+        assert loc['x'] is not None
+        assert loc['y'] is not None
 
     def test_set_text(self) -> None:
         self.driver.find_element_by_android_uiautomator(
@@ -42,7 +40,7 @@ class WebelementTests(BaseTestCase):
         el.send_keys('original text')
         el.set_text('new text')
 
-        self.assertEqual('new text', el.text)
+        assert 'new text' == el.text
 
     def test_send_keys(self) -> None:
         for text in ['App', 'Activity', 'Custom Title']:
@@ -52,9 +50,4 @@ class WebelementTests(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ID, '{}:id/left_text_edit'.format(APIDEMO_PKG_NAME))
         el.send_keys(' text')
 
-        self.assertEqual('Left is best text', el.text)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(WebelementTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert 'Left is best text' == el.text

@@ -30,15 +30,15 @@ from .helper.test_helper import (
 
 class CommonTests(BaseTestCase):
 
-    def test_current_package(self):
+    def test_current_package(self) -> None:
         self.assertEqual(APIDEMO_PKG_NAME, self.driver.current_package)
 
-    def test_end_test_coverage(self):
+    def test_end_test_coverage(self) -> None:
         self.skipTest('Not sure how to set this up to run')
         self.driver.end_test_coverage(intent='android.intent.action.MAIN', path='')
         sleep(5)
 
-    def test_open_notifications(self):
+    def test_open_notifications(self) -> None:
         if is_ci():
             # TODO Due to unexpected dialog, "System UI isn't responding"
             self.skipTest('Need to fix flaky test during running on CI.')

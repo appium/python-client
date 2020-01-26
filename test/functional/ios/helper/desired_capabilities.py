@@ -12,11 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import os
+from typing import Any, Dict, Optional
 
 # Returns abs path relative to this file and not cwd
 
 
-def PATH(p): return os.path.abspath(
+def PATH(p: str) -> str: return os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
 
@@ -24,8 +25,8 @@ def PATH(p): return os.path.abspath(
 BUNDLE_ID = 'com.example.apple-samplecode.UICatalog'
 
 
-def get_desired_capabilities(app=None):
-    desired_caps = {
+def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
+    desired_caps: Dict[str, Any] = {
         'deviceName': iphone_device_name(),
         'platformName': 'iOS',
         'platformVersion': '13.3',
@@ -42,15 +43,15 @@ def get_desired_capabilities(app=None):
 
 
 class PytestXdistWorker:
-    NUMBER = os.getenv('PYTEST_XDIST_WORKER')
-    COUNT = os.getenv('PYTEST_XDIST_WORKER_COUNT')  # Return 2 if `-n 2` is passed
+    NUMBER: Optional[str] = os.getenv('PYTEST_XDIST_WORKER')
+    COUNT: Optional[str] = os.getenv('PYTEST_XDIST_WORKER_COUNT')  # Return 2 if `-n 2` is passed
 
     @staticmethod
-    def gw(number):
+    def gw(number: int) -> str:
         if PytestXdistWorker.COUNT is None:
             return '0'
 
-        if number >= PytestXdistWorker.COUNT:
+        if number >= int(PytestXdistWorker.COUNT):
             return 'gw0'
 
         return f'gw{number}'
@@ -58,7 +59,7 @@ class PytestXdistWorker:
 # If you run tests with pytest-xdist, you can run tests in parallel.
 
 
-def wda_port():
+def wda_port() -> int:
     if PytestXdistWorker.NUMBER == PytestXdistWorker.gw(1):
         return 8101
 
@@ -68,7 +69,7 @@ def wda_port():
 # Before running tests, you must have iOS simulators named 'iPhone 6s - 8100' and 'iPhone 6s - 8101'
 
 
-def iphone_device_name(port=None):
+def iphone_device_name() -> str:
     if PytestXdistWorker.NUMBER == PytestXdistWorker.gw(0):
         return 'iPhone 8 - 8100'
     elif PytestXdistWorker.NUMBER == PytestXdistWorker.gw(1):

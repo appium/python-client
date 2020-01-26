@@ -23,18 +23,18 @@ from test.functional.test_helper import is_ci
 
 
 class FindByAccessibilityIDTests(BaseTestCase):
-    def test_find_single_element(self):
+    def test_find_single_element(self) -> None:
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
                          'new UiSelector().text("Accessibility Node Querying")').click()
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Task Take out Trash')
         self.assertIsNotNone(el)
 
-    def test_find_multiple_elements(self):
+    def test_find_multiple_elements(self) -> None:
         els = self.driver.find_elements_by_accessibility_id('Accessibility')
         self.assertIsInstance(els, list)
 
-    def test_element_find_single_element(self):
+    def test_element_find_single_element(self) -> None:
         if is_ci():
             self.skipTest('Need to fix flaky test during running on CI')
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
@@ -45,7 +45,7 @@ class FindByAccessibilityIDTests(BaseTestCase):
         sub_el = el.find_element_by_accessibility_id('Task Take out Trash')
         self.assertIsNotNone(sub_el)
 
-    def test_element_find_multiple_elements(self):
+    def test_element_find_multiple_elements(self) -> None:
         wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView')
         el = self.driver.find_element_by_class_name('android.widget.ListView')
 

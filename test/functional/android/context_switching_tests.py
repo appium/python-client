@@ -24,37 +24,37 @@ from .helper import desired_capabilities
 
 @pytest.mark.skip(reason="Need to fix broken test")
 class ContextSwitchingTests(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('selendroid-test-app.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    def test_contexts_list(self):
+    def tearDown(self) -> None:
+        self.driver.quit()
+
+    def test_contexts_list(self) -> None:
         self._enter_webview()
         contexts = self.driver.contexts
         self.assertEqual(2, len(contexts))
 
-    def test_move_to_correct_context(self):
+    def test_move_to_correct_context(self) -> None:
         self._enter_webview()
         self.assertEqual('WEBVIEW_io.selendroid.testapp', self.driver.current_context)
 
-    def test_actually_in_webview(self):
+    def test_actually_in_webview(self) -> None:
         self._enter_webview()
         self.driver.find_element_by_css_selector('input[type=submit]').click()
         el = self.driver.find_element_by_xpath("//h1[contains(., 'This is my way')]")
         self.assertIsNot(None, el)
 
-    def test_move_back_to_native_context(self):
+    def test_move_back_to_native_context(self) -> None:
         self._enter_webview()
         self.driver.switch_to.context(None)
         self.assertEqual('NATIVE_APP', self.driver.current_context)
 
-    def test_set_invalid_context(self):
+    def test_set_invalid_context(self) -> None:
         self.assertRaises(NoSuchContextException, self.driver.switch_to.context, 'invalid name')
 
-    def tearDown(self):
-        self.driver.quit()
-
-    def _enter_webview(self):
+    def _enter_webview(self) -> None:
         btn = self.driver.find_element_by_name('buttonStartWebviewCD')
         btn.click()
         self.driver.switch_to.context('WEBVIEW')

@@ -20,15 +20,15 @@ from .helper.desired_capabilities import get_desired_capabilities
 
 
 class ChromeTests(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         caps = get_desired_capabilities()
         caps['browserName'] = 'Chrome'
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', caps)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.driver.quit()
 
-    def test_find_single_element(self):
+    def test_find_single_element(self) -> None:
         self.driver.get('http://10.0.2.2:4723/test/guinea-pig')
         self.driver.find_element_by_link_text('i am a link').click()
 

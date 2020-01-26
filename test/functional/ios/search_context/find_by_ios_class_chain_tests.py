@@ -18,12 +18,12 @@ from test.functional.ios.helper.test_helper import BaseTestCase
 
 
 class FindByIOClassChainTests(BaseTestCase):
-    def test_find_element_by_path(self):
+    def test_find_element_by_path(self) -> None:
         els = self.driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow/**/XCUIElementTypeStaticText')
         self.assertEqual(35, len(els))
         self.assertEqual('UICatalog', els[0].get_attribute('name'))
 
-    def test_find_multiple_elements_by_path(self):
+    def test_find_multiple_elements_by_path(self) -> None:
         el = self.driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow/*/*/*')
         self.assertEqual(2, len(el))
         self.assertEqual('UICatalog', el[0].get_attribute('name'))

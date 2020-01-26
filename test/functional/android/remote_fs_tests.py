@@ -23,7 +23,7 @@ from .helper.test_helper import BaseTestCase
 
 
 class RemoteFsTests(BaseTestCase):
-    def test_push_pull_file(self):
+    def test_push_pull_file(self) -> None:
         dest_path = '/data/local/tmp/test_push_file.txt'
         data = bytes('This is the contents of the file to push to the device.', 'utf-8')
 
@@ -32,7 +32,7 @@ class RemoteFsTests(BaseTestCase):
 
         self.assertEqual(data, data_ret)
 
-    def test_pull_folder(self):
+    def test_pull_folder(self) -> None:
         data = bytes('random string data {}'.format(random.randint(0, 1000)), 'utf-8')
         dest_dir = '/data/local/tmp/'
 
@@ -45,7 +45,7 @@ class RemoteFsTests(BaseTestCase):
             for filename in ['1.txt', '2.txt']:
                 self.assertTrue(filename in fzip.namelist())
 
-    def test_push_file_with_src_path(self):
+    def test_push_file_with_src_path(self) -> None:
         test_files = ['test_image.jpg', 'test_file.txt']
         for file_name in test_files:
             src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'file', file_name)

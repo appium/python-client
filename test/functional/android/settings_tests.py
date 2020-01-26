@@ -19,11 +19,11 @@ from .helper.test_helper import BaseTestCase
 
 
 class SettingsTests(BaseTestCase):
-    def test_get_settings(self):
+    def test_get_settings(self) -> None:
         settings = self.driver.get_settings()
         self.assertIsNotNone(settings)
 
-    def test_update_settings(self):
+    def test_update_settings(self) -> None:
         self.driver.update_settings({"waitForIdleTimeout": 10001})
         settings = self.driver.get_settings()
         self.assertEqual(settings["waitForIdleTimeout"], 10001)

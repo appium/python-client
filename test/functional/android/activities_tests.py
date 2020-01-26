@@ -19,25 +19,25 @@ from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 
 
 class ActivitiesTests(BaseTestCase):
-    def test_current_activity(self):
+    def test_current_activity(self) -> None:
         activity = self.driver.current_activity
         self.assertEqual('.ApiDemos', activity)
 
-    def test_start_activity_this_app(self):
+    def test_start_activity_this_app(self) -> None:
         self.driver.start_activity(APIDEMO_PKG_NAME, ".ApiDemos")
         self._assert_activity_contains('Demos')
 
         self.driver.start_activity(APIDEMO_PKG_NAME, ".accessibility.AccessibilityNodeProviderActivity")
         self._assert_activity_contains('Node')
 
-    def test_start_activity_other_app(self):
+    def test_start_activity_other_app(self) -> None:
         self.driver.start_activity(APIDEMO_PKG_NAME, ".ApiDemos")
         self._assert_activity_contains('Demos')
 
         self.driver.start_activity("com.android.calculator2", ".Calculator")
         self._assert_activity_contains('Calculator')
 
-    def _assert_activity_contains(self, activity):
+    def _assert_activity_contains(self, activity: str) -> None:
         current = self.driver.current_activity
         self.assertTrue(activity in current)
 

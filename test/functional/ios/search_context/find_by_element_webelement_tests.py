@@ -19,7 +19,7 @@ from test.functional.ios.helper.test_helper import BaseTestCase
 
 class FindByElementWebelementTests(BaseTestCase):
 
-    def test_find_element_by_path(self):
+    def test_find_element_by_path(self) -> None:
         el = self.driver.find_element_by_ios_predicate('wdName == "UICatalog"')
         self.assertEqual('UICatalog', el.get_attribute('name'))
 

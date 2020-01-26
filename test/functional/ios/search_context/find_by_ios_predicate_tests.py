@@ -18,23 +18,23 @@ from test.functional.ios.helper.test_helper import BaseTestCase
 
 
 class FindByIOSPredicateTests(BaseTestCase):
-    def test_find_element_by_name(self):
+    def test_find_element_by_name(self) -> None:
         # Will throw exception if element is not found
         self.driver.find_element_by_ios_predicate('wdName == "Buttons"')
 
-    def test_find_multiple_element_by_type(self):
+    def test_find_multiple_element_by_type(self) -> None:
         e = self.driver.find_elements_by_ios_predicate('wdType == "XCUIElementTypeStaticText"')
         self.assertNotEqual(len(e), 0)
 
-    def test_find_element_by_label(self):
+    def test_find_element_by_label(self) -> None:
         # Will throw exception if element is not found
         self.driver.find_element_by_ios_predicate('label == "Buttons"')
 
-    def test_find_element_by_value(self):
+    def test_find_element_by_value(self) -> None:
         # Will throw exception if element is not found
         self.driver.find_element_by_ios_predicate('wdValue == "Buttons"')
 
-    def test_find_element_by_isvisible(self):
+    def test_find_element_by_isvisible(self) -> None:
         # Will throw exception if element is not found
         self.driver.find_element_by_ios_predicate('wdValue == "Buttons" AND visible == 1')
 
@@ -42,7 +42,7 @@ class FindByIOSPredicateTests(BaseTestCase):
         e = self.driver.find_elements_by_ios_predicate('wdValue == "Buttons" AND visible == 0')
         self.assertEqual(len(e), 0)
 
-    def test_find_element_by_isenabled(self):
+    def test_find_element_by_isenabled(self) -> None:
         # Will throw exception if element is not found
         self.driver.find_element_by_ios_predicate('wdValue == "Buttons" AND enabled == 1')
 

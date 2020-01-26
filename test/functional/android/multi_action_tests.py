@@ -23,7 +23,7 @@ from .helper.test_helper import BaseTestCase, wait_for_element
 
 
 class MultiActionTests(BaseTestCase):
-    def test_parallel_actions(self):
+    def test_parallel_actions(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
@@ -55,7 +55,7 @@ class MultiActionTests(BaseTestCase):
         ma.add(a1, a2)
         ma.perform()
 
-    def test_actions_with_waits(self):
+    def test_actions_with_waits(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
@@ -95,7 +95,7 @@ class MultiActionTests(BaseTestCase):
         ma.add(a1, a2)
         ma.perform()
 
-    def test_driver_multi_tap(self):
+    def test_driver_multi_tap(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Graphics')
         action = TouchAction(self.driver)
         action.tap(el).perform()

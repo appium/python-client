@@ -20,7 +20,7 @@ from .helper.desired_capabilities import get_desired_capabilities
 
 
 class SafariTests(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         desired_caps = get_desired_capabilities()
         desired_caps.update({
             'browserName': 'safari',
@@ -30,15 +30,15 @@ class SafariTests(unittest.TestCase):
 
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.driver.quit()
 
-    def test_context(self):
+    def test_context(self) -> None:
         self.assertEqual('NATIVE_APP', self.driver.contexts[0])
         self.assertTrue(self.driver.contexts[1].startswith('WEBVIEW_'))
         self.assertTrue('WEBVIEW_' in self.driver.current_context)
 
-    def test_get(self):
+    def test_get(self) -> None:
         self.driver.get("http://google.com")
         self.assertEqual('Google', self.driver.title)
 

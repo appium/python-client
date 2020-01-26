@@ -12,6 +12,5 @@
     rev: 'v0.761'
     hooks:
     -   id: mypy
-        files: ^appium/
-        entry: mypy appium/
+        entry: mypy appium/ test/
         pass_filenames: false

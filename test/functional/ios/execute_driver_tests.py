@@ -19,7 +19,7 @@ from test.functional.ios.helper.test_helper import BaseTestCase
 
 
 class ExecuteDriverTests(BaseTestCase):
-    def test_batch(self):
+    def test_batch(self) -> None:
         script = """
             const status = await driver.status();
             console.warn('warning message');
@@ -30,7 +30,7 @@ class ExecuteDriverTests(BaseTestCase):
         assert(response.result['build'])
         assert(response.logs['warn'] == ['warning message'])
 
-    def test_batch_combination_python_script(self):
+    def test_batch_combination_python_script(self) -> None:
         script = """
             console.warn('warning message');
             const element = await driver.findElement('accessibility id', 'Buttons');

@@ -19,7 +19,7 @@ from .helper.test_helper import BaseTestCase
 
 
 class LogEventTests(BaseTestCase):
-    def test_log_event(self):
+    def test_log_event(self) -> None:
         vendor = 'appium'
         event = 'funEvent'
         self.driver.log_event(vendor, event)

@@ -19,8 +19,8 @@ from .helper.test_helper import BaseTestCase
 
 
 class LocationTests(BaseTestCase):
-    def test_toggle_location_services(self):
-        self.driver.toggle_location_services()
+    def test_toggle_location_services(self) -> None:
+        self.driver.toggle_location_services()  # TODO Add assert
 
 
 if __name__ == '__main__':

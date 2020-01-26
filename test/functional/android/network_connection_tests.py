@@ -22,11 +22,11 @@ from .helper.test_helper import BaseTestCase
 
 
 class NetworkConnectionTests(BaseTestCase):
-    def test_get_network_connection(self):
+    def test_get_network_connection(self) -> None:
         nc = self.driver.network_connection
         self.assertIsInstance(nc, int)
 
-    def test_set_network_connection(self):
+    def test_set_network_connection(self) -> None:
         if is_ci():
             self.skipTest('Need to fix flaky test during running on CI')
         nc = self.driver.set_network_connection(ConnectionType.DATA_ONLY)

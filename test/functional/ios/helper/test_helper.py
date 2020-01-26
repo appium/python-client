@@ -25,13 +25,13 @@ from . import desired_capabilities
 
 class BaseTestCase(unittest.TestCase):
 
-    def setUp(self):
+    def setUp(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
         if is_ci():
             self.driver.start_recording_screen()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         if is_ci():
             payload = self.driver.stop_recording_screen()
             video_path = os.path.join(os.getcwd(), self._testMethodName + '.mp4')

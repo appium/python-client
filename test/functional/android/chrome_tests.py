@@ -26,9 +26,6 @@ class TestChrome(object):
     def teardown_method(self) -> None:
         self.driver.quit()
 
-    def test_test(self) -> None:
-        assert True
-
     def test_find_single_element(self) -> None:
         self.driver.get('http://10.0.2.2:4723/test/guinea-pig')
         self.driver.find_element_by_link_text('i am a link').click()

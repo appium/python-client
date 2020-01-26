@@ -60,7 +60,6 @@ def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout: int
 class BaseTestCase():
 
     def setup_method(self, method) -> None:  # type: ignore
-        print(type(method))
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
         if is_ci():

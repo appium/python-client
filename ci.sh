@@ -35,7 +35,7 @@ if [[ $? -ne 0 ]] ; then
 fi
 
 (
-  python -m mypy appium
+  python -m mypy appium test
 )
 if [[ $? -ne 0 ]] ; then
   EXIT_STATUS=1

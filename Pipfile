@@ -15,7 +15,7 @@ pytest = "~=4.0"
 pytest-cov = "~=2.8"
 
 tox = "~=3.6"
-tox-travis = "~=0.11"
+tox-travis = "~=0.12"
 
 httpretty = "~=0.9"
 python-dateutil = "~=2.8"

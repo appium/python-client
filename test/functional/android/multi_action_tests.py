@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 from time import sleep
 
 from appium.webdriver.common.mobileby import MobileBy
@@ -22,7 +21,7 @@ from appium.webdriver.common.touch_action import TouchAction
 from .helper.test_helper import BaseTestCase, wait_for_element
 
 
-class MultiActionTests(BaseTestCase):
+class TestMultiAction(BaseTestCase):
     def test_parallel_actions(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
@@ -117,8 +116,3 @@ class MultiActionTests(BaseTestCase):
         # THE TEST MUST BE WATCHED TO CHECK IF IT WORKS
         self.driver.tap(positions)
         sleep(10)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(MultiActionTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

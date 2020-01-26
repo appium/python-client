@@ -13,12 +13,11 @@
 # limitations under the License.
 
 import textwrap
-import unittest
 
 from test.functional.ios.helper.test_helper import BaseTestCase
 
 
-class ExecuteDriverTests(BaseTestCase):
+class TestExecuteDriver(BaseTestCase):
     def test_batch(self) -> None:
         script = """
             const status = await driver.status();
@@ -42,8 +41,3 @@ class ExecuteDriverTests(BaseTestCase):
         r = response.result[0].rect
 
         assert(r == response.result[1])
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(ExecuteDriverTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

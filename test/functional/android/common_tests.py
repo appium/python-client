@@ -13,9 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 from time import sleep
 
+import pytest
 from selenium.common.exceptions import NoSuchElementException
 
 from appium.webdriver.common.mobileby import MobileBy
@@ -28,28 +28,27 @@ from .helper.test_helper import (
 )
 
 
-class CommonTests(BaseTestCase):
+class TestCommon(BaseTestCase):
 
     def test_current_package(self) -> None:
-        self.assertEqual(APIDEMO_PKG_NAME, self.driver.current_package)
+        assert APIDEMO_PKG_NAME == self.driver.current_package
 
+    @pytest.mark.skip('Not sure how to set this up to run')
     def test_end_test_coverage(self) -> None:
-        self.skipTest('Not sure how to set this up to run')
         self.driver.end_test_coverage(intent='android.intent.action.MAIN', path='')
         sleep(5)
 
+    # TODO Due to unexpected dialog, "System UI isn't responding"
+    @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI.')
     def test_open_notifications(self) -> None:
-        if is_ci():
-            # TODO Due to unexpected dialog, "System UI isn't responding"
-            self.skipTest('Need to fix flaky test during running on CI.')
         for word in ['App', 'Notification', 'Status Bar', ':-|']:
             wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
                              f'new UiSelector().text("{word}")').click()
 
         self.driver.open_notifications()
         sleep(1)
-        self.assertRaises(NoSuchElementException,
-                          self.driver.find_element_by_android_uiautomator, 'new UiSelector().text(":-|")')
+        with pytest.raises(NoSuchElementException):
+            self.driver.find_element_by_android_uiautomator, 'new UiSelector().text(":-|")'
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
         # sometimes numbers shift
@@ -61,14 +60,9 @@ class CommonTests(BaseTestCase):
                 title = True
             elif text == 'I am ok':
                 body = True
-        self.assertTrue(title)
-        self.assertTrue(body)
+        assert title
+        assert body
 
         self.driver.keyevent(4)
         sleep(1)
         self.driver.find_element_by_android_uiautomator('new UiSelector().text(":-|")')
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(CommonTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

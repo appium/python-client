@@ -12,27 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from test.functional.ios.helper.test_helper import BaseTestCase
 
 
-class FindByElementWebelementTests(BaseTestCase):
+class TestFindByElementWebelement(BaseTestCase):
 
     def test_find_element_by_path(self) -> None:
         el = self.driver.find_element_by_ios_predicate('wdName == "UICatalog"')
-        self.assertEqual('UICatalog', el.get_attribute('name'))
+        assert 'UICatalog' == el.get_attribute('name')
 
         c_el = el.find_elements_by_ios_predicate('label == "Action Sheets"')
-        self.assertEqual('Action Sheets', c_el[0].get_attribute('name'))
+        assert 'Action Sheets' == c_el[0].get_attribute('name')
 
         c_el = el.find_elements_by_ios_class_chain('**/XCUIElementTypeStaticText')
-        self.assertEqual('UICatalog', c_el[0].get_attribute('name'))
+        assert 'UICatalog' == c_el[0].get_attribute('name')
 
         c_el = el.find_elements_by_accessibility_id('UICatalog')
-        self.assertEqual('UICatalog', c_el[0].get_attribute('name'))
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(FindByElementWebelementTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert 'UICatalog' == c_el[0].get_attribute('name')

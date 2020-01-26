@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 import pytest
 
 from appium import webdriver
@@ -23,43 +21,39 @@ from .helper import desired_capabilities
 
 
 @pytest.mark.skip(reason="Need to fix broken test")
-class ContextSwitchingTests(unittest.TestCase):
-    def setUp(self) -> None:
+class TestContextSwitching(object):
+    def setup_method(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('selendroid-test-app.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    def tearDown(self) -> None:
+    def teardown_method(self) -> None:
         self.driver.quit()
 
     def test_contexts_list(self) -> None:
         self._enter_webview()
         contexts = self.driver.contexts
-        self.assertEqual(2, len(contexts))
+        assert 2 == len(contexts)
 
     def test_move_to_correct_context(self) -> None:
         self._enter_webview()
-        self.assertEqual('WEBVIEW_io.selendroid.testapp', self.driver.current_context)
+        assert 'WEBVIEW_io.selendroid.testapp' == self.driver.current_context
 
     def test_actually_in_webview(self) -> None:
         self._enter_webview()
         self.driver.find_element_by_css_selector('input[type=submit]').click()
         el = self.driver.find_element_by_xpath("//h1[contains(., 'This is my way')]")
-        self.assertIsNot(None, el)
+        assert el is not None
 
     def test_move_back_to_native_context(self) -> None:
         self._enter_webview()
         self.driver.switch_to.context(None)
-        self.assertEqual('NATIVE_APP', self.driver.current_context)
+        assert 'NATIVE_APP' == self.driver.current_context
 
     def test_set_invalid_context(self) -> None:
-        self.assertRaises(NoSuchContextException, self.driver.switch_to.context, 'invalid name')
+        with pytest.raises(NoSuchContextException):
+            self.driver.switch_to.context('invalid name')
 
     def _enter_webview(self) -> None:
         btn = self.driver.find_element_by_name('buttonStartWebviewCD')
         btn.click()
         self.driver.switch_to.context('WEBVIEW')
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(ContextSwitchingTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

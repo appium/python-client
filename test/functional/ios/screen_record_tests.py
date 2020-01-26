@@ -12,20 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 from time import sleep
 
 from test.functional.ios.helper.test_helper import BaseTestCase
 
 
-class ScreenRecordTests(BaseTestCase):
+class TestScreenRecord(BaseTestCase):
     def test_screen_record(self) -> None:
         self.driver.start_recording_screen()
         sleep(10)
         result = self.driver.stop_recording_screen()
-        self.assertTrue(len(result) > 0)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(ScreenRecordTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert len(result) > 0

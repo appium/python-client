@@ -12,15 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from appium import webdriver
 
 from .helper.desired_capabilities import get_desired_capabilities
 
 
-class SafariTests(unittest.TestCase):
-    def setUp(self) -> None:
+class TestSafari(object):
+    def setup_method(self) -> None:
         desired_caps = get_desired_capabilities()
         desired_caps.update({
             'browserName': 'safari',
@@ -30,19 +28,14 @@ class SafariTests(unittest.TestCase):
 
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    def tearDown(self) -> None:
+    def teardown_method(self) -> None:
         self.driver.quit()
 
     def test_context(self) -> None:
-        self.assertEqual('NATIVE_APP', self.driver.contexts[0])
-        self.assertTrue(self.driver.contexts[1].startswith('WEBVIEW_'))
-        self.assertTrue('WEBVIEW_' in self.driver.current_context)
+        assert 'NATIVE_APP' == self.driver.contexts[0]
+        assert self.driver.contexts[1].startswith('WEBVIEW_')
+        assert 'WEBVIEW_' in self.driver.current_context
 
     def test_get(self) -> None:
         self.driver.get("http://google.com")
-        self.assertEqual('Google', self.driver.title)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(SafariTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert 'Google' == self.driver.title

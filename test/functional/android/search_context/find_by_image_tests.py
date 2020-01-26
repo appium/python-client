@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import base64
-import unittest
 
 import pytest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
@@ -26,9 +25,9 @@ from test.functional.android.helper import desired_capabilities
 
 
 @pytest.mark.skip(reason="Need to fix broken test")
-class FindByImageTests(unittest.TestCase):
+class TestFindByImage(object):
 
-    def setUp(self) -> None:
+    def setup_method(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
@@ -37,7 +36,7 @@ class FindByImageTests(unittest.TestCase):
                                      "fixImageTemplateSize": True,
                                      "autoUpdateImageElementPosition": True})
 
-    def tearDown(self) -> None:
+    def teardown_method(self) -> None:
         self.driver.quit()
 
     def test_find_based_on_image_template(self) -> None:
@@ -50,17 +49,17 @@ class FindByImageTests(unittest.TestCase):
             EC.presence_of_element_located((By.IMAGE, b64_data))
         )
         size = el.size
-        self.assertIsNotNone(size['width'])
-        self.assertIsNotNone(size['height'])
+        assert size['width'] is not None
+        assert size['height'] is not None
         loc = el.location
-        self.assertIsNotNone(loc['x'])
-        self.assertIsNotNone(loc['y'])
+        assert loc['x'] is not None
+        assert loc['y'] is not None
         rect = el.rect
-        self.assertIsNotNone(rect['width'])
-        self.assertIsNotNone(rect['height'])
-        self.assertIsNotNone(rect['x'])
-        self.assertIsNotNone(rect['y'])
-        self.assertTrue(el.is_displayed())
+        assert rect['width'] is not None
+        assert rect['height'] is not None
+        assert rect['x'] is not None
+        assert rect['y'] is not None
+        assert el.is_displayed()
         el.click()
         self.driver.find_element_by_accessibility_id("Alarm")
 
@@ -78,14 +77,9 @@ class FindByImageTests(unittest.TestCase):
         with open(image_path, 'rb') as png_file:
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
 
-        with self.assertRaises(TimeoutException):
+        with pytest.raises(TimeoutException):
             WebDriverWait(self.driver, 3).until(
                 EC.presence_of_element_located((By.IMAGE, b64_data))
             )
-        with self.assertRaises(NoSuchElementException):
+        with pytest.raises(NoSuchElementException):
             self.driver.find_element_by_image(image_path)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(FindByImageTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

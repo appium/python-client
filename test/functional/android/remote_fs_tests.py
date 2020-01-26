@@ -15,14 +15,13 @@
 import base64
 import os
 import random
-import unittest
 from io import BytesIO
 from zipfile import ZipFile
 
 from .helper.test_helper import BaseTestCase
 
 
-class RemoteFsTests(BaseTestCase):
+class TestRemoteFs(BaseTestCase):
     def test_push_pull_file(self) -> None:
         dest_path = '/data/local/tmp/test_push_file.txt'
         data = bytes('This is the contents of the file to push to the device.', 'utf-8')
@@ -30,7 +29,7 @@ class RemoteFsTests(BaseTestCase):
         self.driver.push_file(dest_path, base64.b64encode(data).decode('utf-8'))
         data_ret = base64.b64decode(self.driver.pull_file(dest_path))
 
-        self.assertEqual(data, data_ret)
+        assert data == data_ret
 
     def test_pull_folder(self) -> None:
         data = bytes('random string data {}'.format(random.randint(0, 1000)), 'utf-8')
@@ -43,7 +42,7 @@ class RemoteFsTests(BaseTestCase):
 
         with ZipFile(BytesIO(base64.b64decode(folder))) as fzip:
             for filename in ['1.txt', '2.txt']:
-                self.assertTrue(filename in fzip.namelist())
+                assert filename in fzip.namelist()
 
     def test_push_file_with_src_path(self) -> None:
         test_files = ['test_image.jpg', 'test_file.txt']
@@ -56,9 +55,4 @@ class RemoteFsTests(BaseTestCase):
 
             self.driver.push_file(dest_path, source_path=src_path)
             new_data = base64.b64decode(self.driver.pull_file(dest_path))
-            self.assertEqual(original_data, new_data)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(RemoteFsTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+            assert original_data == new_data

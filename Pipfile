@@ -4,18 +4,18 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pre-commit = "~=1.13"
+pre-commit = "~=1.21"
 
 [packages]
 selenium = "~=3.141"
 
-autopep8 = "~=1.4"
+autopep8 = "~=1.5"
 
-pytest = "~=4.0"
-pytest-cov = "~=2.6"
+pytest = "~=5.3"
+pytest-cov = "~=2.8"
 
-tox = "~=3.6"
-tox-travis = "~=0.11"
+tox = "~=3.14"
+tox-travis = "~=0.12"
 
 httpretty = "~=0.9"
 python-dateutil = "~=2.8"

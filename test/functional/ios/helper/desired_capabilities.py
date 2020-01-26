@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import os
-from typing import Dict, Optional, Union
+from typing import Any, Dict, Optional
 
 # Returns abs path relative to this file and not cwd
 
@@ -25,8 +25,8 @@ def PATH(p: str) -> str: return os.path.abspath(
 BUNDLE_ID = 'com.example.apple-samplecode.UICatalog'
 
 
-def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Union[str, bool, int]]:
-    desired_caps: Dict[str, Union[str, bool, int]] = {
+def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
+    desired_caps: Dict[str, Any] = {
         'deviceName': iphone_device_name(),
         'platformName': 'iOS',
         'platformVersion': '13.3',

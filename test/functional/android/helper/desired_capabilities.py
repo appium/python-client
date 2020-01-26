@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import os
-from typing import Dict, Optional, Union
+from typing import Any, Dict, Optional
 
 # Returns abs path relative to this file and not cwd
 
@@ -24,8 +24,8 @@ def PATH(p: str) -> str:
     )
 
 
-def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Union[str, int, bool]]:
-    desired_caps: Dict[str, Union[str, int, bool]] = {
+def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
+    desired_caps: Dict[str, Any] = {
         'platformName': 'Android',
         'deviceName': 'Android Emulator',
         'newCommandTimeout': 240,

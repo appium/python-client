@@ -25,11 +25,10 @@ from appium import webdriver
 from test.functional.android.helper import desired_capabilities
 
 
-@pytest.mark.skip(reason="Need to fix broken test")
 class FindByImageTests(unittest.TestCase):
 
     def setUp(self):
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
         # relax template matching

@@ -13,9 +13,9 @@
 # limitations under the License.
 
 import base64
+import os
 import unittest
 
-import pytest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -23,6 +23,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from appium import webdriver
 from test.functional.android.helper import desired_capabilities
+from test.functional.test_helper import is_ci
 
 
 class FindByImageTests(unittest.TestCase):
@@ -35,8 +36,15 @@ class FindByImageTests(unittest.TestCase):
         self.driver.update_settings({"fixImageFindScreenshotDims": False,
                                      "fixImageTemplateSize": True,
                                      "autoUpdateImageElementPosition": True})
+        if is_ci():
+            self.driver.start_recording_screen()
 
     def tearDown(self):
+        if is_ci():
+            payload = self.driver.stop_recording_screen()
+            video_path = os.path.join(os.getcwd(), self._testMethodName + '.mp4')
+            with open(video_path, "wb") as fd:
+                fd.write(base64.b64decode(payload))
         self.driver.quit()
 
     def test_find_based_on_image_template(self):

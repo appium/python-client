@@ -7,6 +7,8 @@ jobs:
       CI: ${{ parameters.ci }}
     steps:
       - template: ./run_appium.yml
+        parameters:
+          OEPNCV: ${{ parameters.opencv }}
       - script: bash ci-jobs/functional/start-emulator.sh
         displayName: Create and run Emulator
       - script: |

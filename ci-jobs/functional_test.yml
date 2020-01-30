@@ -32,6 +32,7 @@ jobs:
       testFiles: 'device_time_tests.py search_context/find_by_*.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}
+      OPENCV: true
   - template: ./functional/run_android_test.yml
     parameters:
       name: 'func_test_android2'

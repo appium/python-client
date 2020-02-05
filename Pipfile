@@ -19,7 +19,7 @@ tox-travis = "~=0.12"
 
 httpretty = "~=0.9"
 python-dateutil = "~=2.8"
-mock = "~=3.0"
+mock = "~=4.0"
 
 pylint = "~=2.4"
 astroid = "~=2.3"

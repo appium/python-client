@@ -46,7 +46,7 @@ class AndroidSearchContext(BaseSearchContext):
             TypeError - Raises a TypeError if the arguments are not validated for JSON format
 
         Usage:
-            driver.find_element_by_android_view_matcher(name='hasEntry', args=['title', 'Animation'])
+            driver.find_element_by_android_view_matcher(name='withText', args=['Accessibility'], className='ViewMatchers')
 
         # To enable auto completion in PyCharm(IDE)
         :rtype: `appium.webdriver.webelement.WebElement`

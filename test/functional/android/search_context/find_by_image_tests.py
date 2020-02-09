@@ -42,15 +42,11 @@ class FindByImageTests(unittest.TestCase):
         self.driver.quit()
 
     def test_find_based_on_image_template(self):
-        if is_ci():
-            self.skipTest('Skip since opencv4nodejs fails to install on the macOS instance')
         image_path = desired_capabilities.PATH('file/find_by_image_success.png')
         with open(image_path, 'rb') as png_file:
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
 
-        el = WebDriverWait(self.driver, 3).until(
-            EC.presence_of_element_located((MobileBy.IMAGE, b64_data))
-        )
+        el = wait_for_element(self.driver, MobileBy.IMAGE, b64_data)
         size = el.size
         self.assertIsNotNone(size['width'])
         self.assertIsNotNone(size['height'])
@@ -67,19 +63,13 @@ class FindByImageTests(unittest.TestCase):
         wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, "Alarm")
 
     def test_find_multiple_elements_by_image_just_returns_one(self):
-        if is_ci():
-            self.skipTest('Skip since opencv4nodejs fails to install on the macOS instance')
-        WebDriverWait(self.driver, 3).until(
-            EC.presence_of_element_located((MobileBy.ACCESSIBILITY_ID, "App"))
-        )
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, "App")
         image_path = desired_capabilities.PATH('file/find_by_image_success.png')
         els = self.driver.find_elements_by_image(image_path)
         els[0].click()
         wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, "Alarm")
 
     def test_find_throws_no_such_element(self):
-        if is_ci():
-            self.skipTest('Skip since opencv4nodejs fails to install on the macOS instance')
         image_path = desired_capabilities.PATH('file/find_by_image_failure.png')
         with open(image_path, 'rb') as png_file:
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')

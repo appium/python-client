@@ -15,7 +15,14 @@
 import os
 import unittest
 
+import pytest
+from selenium.common.exceptions import WebDriverException
+
 from appium import webdriver
+from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.extensions.search_context.android import (
+    AndroidSearchContext
+)
 from test.functional.android.helper.test_helper import (
     desired_capabilities,
     is_ci
@@ -37,8 +44,32 @@ class FindByViewMatcherTests(unittest.TestCase):
         self.driver.quit()
 
     def test_find_single_element(self):
-        els = self.driver.find_elements_by_android_view_matcher(name='hasEntry', args=['title', 'Animation'])
-        assert len(els) == 1
+        el = self.driver.find_element_by_android_view_matcher(
+            name='withText', args=['Accessibility'], className='ViewMatchers')
+        assert el.text == 'Accessibility'
+
+    def test_find_single_element_ful_class_name(self):
+        el = self.driver.find_element_by_android_view_matcher(
+            name='withText', args=['Accessibility'], className='androidx.test.espresso.matcher.ViewMatchers')
+        assert el.text == 'Accessibility'
+
+    def test_find_single_element_using_hamcrest_matcher(self):
+        el = self.driver.find_element_by_android_view_matcher(
+            name='withText',
+            args={
+                'name': 'containsString',
+                'args': 'Animati',
+                'class': 'org.hamcrest.Matchers'},
+            className='ViewMatchers')
+        assert el.text == 'Animation'
+
+    # androidx.test.espresso.AmbiguousViewMatcherException:
+    # 'with text: a string containing "Access"' matches multiple views in the hierarchy.
+    def test_find_multiple_elements(self):
+        value = AndroidSearchContext()._build_data_matcher(
+            name='withSubstring', args=['Access'], className='ViewMatchers')
+        with pytest.raises(WebDriverException):
+            self.driver.find_elements(by=MobileBy.ANDROID_VIEW_MATCHER, value=value)
 
 
 if __name__ == '__main__':

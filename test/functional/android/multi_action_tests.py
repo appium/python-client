@@ -73,7 +73,7 @@ class MultiActionTests(BaseTestCase):
         el = self.driver.find_element_by_accessibility_id('Splitting Touches across Views')
         action.tap(el).perform()
 
-        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView')
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Acorn')
         els = self.driver.find_elements_by_class_name('android.widget.ListView')
         a1 = TouchAction()
         a1.press(els[0]) \

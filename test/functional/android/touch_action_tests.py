@@ -173,7 +173,7 @@ class TouchActionTests(BaseTestCase):
         self.assertRaises(NoSuchElementException, self.driver.find_element_by_accessibility_id, 'ImageView')
 
         self.driver.swipe(100, 1000, 100, 100, 800)
-        el = self.driver.find_element_by_accessibility_id('ImageView')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'ImageView')
         self.assertIsNotNone(el)
 
     def _move_to_views(self):

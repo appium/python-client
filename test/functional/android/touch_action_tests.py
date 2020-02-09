@@ -170,6 +170,7 @@ class TouchActionTests(BaseTestCase):
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Animation')
         self.assertRaises(NoSuchElementException, self.driver.find_element_by_accessibility_id, 'ImageView')
 
         self.driver.swipe(100, 1000, 100, 100, 800)

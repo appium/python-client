@@ -35,7 +35,8 @@ class AndroidSearchContext(BaseSearchContext):
                 [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
             args (:obj:`str`, optional): The args provided to the method
             className (:obj:`str`, optional): The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
-                Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
+                Can be fully qualified by having the androidx.test.espresso.matcher. prefix.
+                If the prefix is not provided then it is going to be added implicitly.
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
 
         Returns:

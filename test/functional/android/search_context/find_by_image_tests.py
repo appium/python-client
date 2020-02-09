@@ -22,7 +22,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from test.functional.android.helper import desired_capabilities
-from test.functional.test_helper import is_ci
 
 from ..helper.test_helper import wait_for_element
 

@@ -22,6 +22,7 @@ from appium.webdriver.common.touch_action import TouchAction
 from .helper.test_helper import (
     APIDEMO_PKG_NAME,
     BaseTestCase,
+    is_ci,
     wait_for_element
 )
 
@@ -119,6 +120,8 @@ class TouchActionTests(BaseTestCase):
         self.assertIsNotNone(el)
 
     def test_long_press_x_y(self):
+        if is_ci():
+            self.skipTest("Skip since this check is low robust due to hard-coded position.")
         self._move_to_custom_adapter()
         action = TouchAction(self.driver)
 
@@ -144,8 +147,8 @@ class TouchActionTests(BaseTestCase):
         # dnd is stimulated by longpress-move_to-release
         action.long_press(dd3).move_to(dd2).release().perform()
 
-        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_text'.format(APIDEMO_PKG_NAME))
-        self.assertTrue('drag_dot_3' in el.text)
+        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
+        self.assertTrue('Dropped!' in el.text)
 
     def test_driver_drag_and_drop(self):
         self._move_to_views()
@@ -159,8 +162,8 @@ class TouchActionTests(BaseTestCase):
 
         self.driver.drag_and_drop(dd3, dd2)
 
-        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_text'.format(APIDEMO_PKG_NAME))
-        self.assertTrue('drag_dot_3' in el.text)
+        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
+        self.assertTrue('Dropped!' in el.text)
 
     def test_driver_swipe(self):
         el = self.driver.find_element_by_accessibility_id('Views')

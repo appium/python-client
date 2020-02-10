@@ -2,6 +2,100 @@ Changelog
 =========
 
 
+v0.50 (2020-02-10)
+------------------
+- Bump 0.50. [Kazuaki Matsuo]
+- Feat: Add viewmatcher (#480) [Mori Atsushi]
+
+  * Add android view matcher as strategy locator
+
+  * Add docstring
+
+  * Add functional test
+
+  * Remove find_elements_by_android_data_matcher
+
+  * Fix docstring
+
+  * tweak docstring
+- Chore: Fix find_by_images_tests.py (#495) [Mori Atsushi]
+
+  * chore: Fix find_by_images_tests.py
+
+  * Add installation opencv4nodejs
+
+  * Fix typo
+
+  * Add taking screen record to find_by_image_test
+
+  * Fix errors on the emulator
+
+  * Remove unused imports
+- Update tox requirement from ~=3.6 to ~=3.14 (#494) [dependabot-
+  preview[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.6.0...3.14.3)
+- Update tox-travis requirement from ~=0.11 to ~=0.12 (#491)
+  [dependabot-preview[bot]]
+
+  Updates the requirements on [tox-travis](https://github.com/tox-dev/tox-travis) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox-travis/releases)
+  - [Changelog](https://github.com/tox-dev/tox-travis/blob/master/HISTORY.rst)
+  - [Commits](https://github.com/tox-dev/tox-travis/compare/0.11...0.12)
+- Update autopep8 requirement from ~=1.4 to ~=1.5 (#490) [dependabot-
+  preview[bot]]
+
+  Updates the requirements on [autopep8](https://github.com/hhatto/autopep8) to permit the latest version.
+  - [Release notes](https://github.com/hhatto/autopep8/releases)
+  - [Commits](https://github.com/hhatto/autopep8/compare/v1.4...v1.5)
+- Update pytest-cov requirement from ~=2.6 to ~=2.8 (#489) [dependabot-
+  preview[bot]]
+
+  Updates the requirements on [pytest-cov](https://github.com/pytest-dev/pytest-cov) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest-cov/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest-cov/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest-cov/compare/v2.6.0...v2.8.1)
+- Chore: add try/catch in release script (#479) [Kazuaki Matsuo]
+
+  * Add m and try/catch in pushing
+
+  * fix error message
+
+  * remove -m since it does not work for this usage
+- [CI] Run with iOS 13.3 and Xcode 11.3 (#477) [Mori Atsushi]
+
+  * [CI] Run with iOS 13.3 and Xcode 11.3
+
+  * Skip the case which has problem on Xcode 11.3
+
+  * Update FyndByIOClassChainTests along to iOS13
+
+  * Update FyndByElementWebelementTests along to iOS13
+
+  * Update KeyboardTests along to iOS13
+
+  * Update webdriver_tests along to iOS13
+
+  * Run test_find_element_by_isvisible with simpleIsVisibleCheck caps
+
+  * Run test_hide_keyboard_no_key_name
+
+  * Remove unused codes
+
+  * [Readme] py.test -> pytest
+- Ci: Take screen record as evidence (#481) [Mori Atsushi]
+
+  * Take screen record for android
+
+  * Take screen record for iOS
+
+  * Save screen record for iOS
+- Update changelog for 0.49. [Kazuaki Matsuo]
+
+
 v0.49 (2019-12-24)
 ------------------
 - Bump 0.49. [Kazuaki Matsuo]

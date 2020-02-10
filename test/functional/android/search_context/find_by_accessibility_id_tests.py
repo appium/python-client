@@ -19,7 +19,6 @@ from test.functional.android.helper.test_helper import (
     BaseTestCase,
     wait_for_element
 )
-from test.functional.test_helper import is_ci
 
 
 class FindByAccessibilityIDTests(BaseTestCase):
@@ -35,12 +34,10 @@ class FindByAccessibilityIDTests(BaseTestCase):
         self.assertIsInstance(els, list)
 
     def test_element_find_single_element(self):
-        if is_ci():
-            self.skipTest('Need to fix flaky test during running on CI')
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
                          'new UiSelector().text("Accessibility Node Querying")').click()
-        el = wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Task Take out Trash')
 
         sub_el = el.find_element_by_accessibility_id('Task Take out Trash')
         self.assertIsNotNone(sub_el)

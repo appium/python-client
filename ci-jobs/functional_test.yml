@@ -5,8 +5,6 @@ parameters:
   xcodeForIOS: 11.3
   CI: true
 
-# [Android] Need to fix and add flaky tests for activities_tests, find_by_uiautomator_tests
-
 jobs:
   - template: ./functional/run_ios_test.yml
     parameters:
@@ -70,7 +68,7 @@ jobs:
       name: 'func_test_android6'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'common_tests.py'
+      testFiles: 'common_tests.py multi_action_tests.py webelement_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}
   - template: ./functional/run_android_test.yml
@@ -86,6 +84,6 @@ jobs:
       name: 'func_test_android8'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'network_connection_tests.py log_event_tests.py'
+      testFiles: 'network_connection_tests.py log_event_tests.py activities_tests.py hw_actions_tests.py touch_action_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}

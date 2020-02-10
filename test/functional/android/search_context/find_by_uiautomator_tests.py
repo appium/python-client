@@ -19,7 +19,6 @@ import pytest
 from test.functional.android.helper.test_helper import BaseTestCase
 
 
-@pytest.mark.skip(reason="Need to fix flaky test")
 class FindByUIAutomatorTests(BaseTestCase):
     def test_find_single_element(self):
         el = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Animation")')

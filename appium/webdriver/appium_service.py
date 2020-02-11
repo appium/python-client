@@ -104,7 +104,7 @@ class AppiumService:
                          '-e',
                          'console.log(require.resolve("{}"))'.format(MAIN_SCRIPT_PATH)]).strip()
                 except sp.CalledProcessError as e:
-                    raise AppiumServiceError(e.output)
+                    raise AppiumServiceError(e.output) from e
         return self._main_script
 
     @staticmethod

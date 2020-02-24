@@ -51,7 +51,7 @@ class Power(webdriver.Remote):
             ac_state (str): The power ac state to be set. Use `.AC_OFF`, `.AC_ON`
 
         Usage:
-            self.driver.set_power_ac(Power.AC_OFF)
+            self.driver.set_power_ac(Power.AC_OFF)\n
             self.driver.set_power_ac(Power.AC_ON)
 
         Returns:

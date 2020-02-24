@@ -44,10 +44,10 @@ class MultiAction:
             touch_actions (`TouchAction`): one or more TouchAction objects describing a chain of actions to be performed by one finger
 
         Usage:
-            a1 = TouchAction(driver)
-            a1.press(el1).move_to(el2).release()
-            a2 = TouchAction(driver)
-            a2.press(el2).move_to(el1).release()
+            a1 = TouchAction(driver)\n
+            a1.press(el1).move_to(el2).release()\n
+            a2 = TouchAction(driver)\n
+            a2.press(el2).move_to(el1).release()\n
 
             MultiAction(driver).add(a1, a2)
         """
@@ -61,10 +61,10 @@ class MultiAction:
         """Perform the actions stored in the object.
 
         Usage:
-            a1 = TouchAction(driver)
-            a1.press(el1).move_to(el2).release()
-            a2 = TouchAction(driver)
-            a2.press(el2).move_to(el1).release()
+            a1 = TouchAction(driver)\n
+            a1.press(el1).move_to(el2).release()\n
+            a2 = TouchAction(driver)\n
+            a2.press(el2).move_to(el1).release()\n
 
             MultiAction(driver).add(a1, a2).perform()
         """

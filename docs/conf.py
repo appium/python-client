@@ -13,7 +13,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../appium/webdriver'))
+sys.path.insert(0, os.path.abspath('../appium'))
 
 
 # -- Project information -----------------------------------------------------

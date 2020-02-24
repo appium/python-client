@@ -5,6 +5,7 @@
 *._*
 *.log
 *.log.*
+_*/
 
 *.pyc
 *.egg-info

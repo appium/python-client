@@ -1,3 +1,4 @@
 #!/bin/sh
-sphinx-apidoc -F -o . ../appium/webdriver
+rm -rf *rst _build
+sphinx-apidoc -F -H 'Appium python client' -o . ../appium/webdriver
 make html

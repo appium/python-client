@@ -31,7 +31,8 @@ class LogEvent(webdriver.Remote):
             type (:obj:`list` of :obj:`str`): The event type to filter with
 
         Usage:
-            events = driver.get_events()\n
+            events = driver.get_events()
+
             events = driver.get_events(['appium:funEvent'])
 
         Returns:

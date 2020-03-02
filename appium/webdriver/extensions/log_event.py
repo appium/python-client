@@ -32,6 +32,7 @@ class LogEvent(webdriver.Remote):
 
         Usage:
             events = driver.get_events()
+
             events = driver.get_events(['appium:funEvent'])
 
         Returns:

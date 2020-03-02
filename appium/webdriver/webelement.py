@@ -180,7 +180,9 @@ class WebElement(AppiumWebElementSearchContext):
 
         Usage:
             location = element.location_in_view
+
             x = location['x']
+
             y = location['y']
 
         Returns:

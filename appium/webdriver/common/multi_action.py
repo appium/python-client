@@ -45,8 +45,11 @@ class MultiAction:
 
         Usage:
             a1 = TouchAction(driver)
+
             a1.press(el1).move_to(el2).release()
+
             a2 = TouchAction(driver)
+
             a2.press(el2).move_to(el1).release()
 
             MultiAction(driver).add(a1, a2)
@@ -62,8 +65,11 @@ class MultiAction:
 
         Usage:
             a1 = TouchAction(driver)
+
             a1.press(el1).move_to(el2).release()
+
             a2 = TouchAction(driver)
+
             a2.press(el2).move_to(el1).release()
 
             MultiAction(driver).add(a1, a2).perform()

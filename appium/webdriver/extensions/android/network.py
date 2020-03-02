@@ -50,13 +50,21 @@ class Network(webdriver.Remote):
         """Sets the network connection type. Android only.
 
         Possible values:
-            Value (Alias)      | Data | Wifi | Airplane Mode
-            -------------------------------------------------
-            0 (None)           | 0    | 0    | 0
-            1 (Airplane Mode)  | 0    | 0    | 1
-            2 (Wifi only)      | 0    | 1    | 0
-            4 (Data only)      | 1    | 0    | 0
-            6 (All network on) | 1    | 1    | 0
+
+            +--------------------+------+------+---------------+
+            | Value (Alias)      | Data | Wifi | Airplane Mode |
+            +====================+======+======+===============+
+            | 0 (None)           | 0    | 0    | 0             |
+            +--------------------+------+------+---------------+
+            | 1 (Airplane Mode)  | 0    | 0    | 1             |
+            +--------------------+------+------+---------------+
+            | 2 (Wifi only)      | 0    | 1    | 0             |
+            +--------------------+------+------+---------------+
+            | 4 (Data only)      | 1    | 0    | 0             |
+            +--------------------+------+------+---------------+
+            | 6 (All network on) | 1    | 1    | 0             |
+            +--------------------+------+------+---------------+
+
         These are available through the enumeration `appium.webdriver.ConnectionType`
 
         Args:

@@ -52,6 +52,7 @@ class Power(webdriver.Remote):
 
         Usage:
             self.driver.set_power_ac(Power.AC_OFF)
+
             self.driver.set_power_ac(Power.AC_ON)
 
         Returns:

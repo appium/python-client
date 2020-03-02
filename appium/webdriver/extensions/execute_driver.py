@@ -34,7 +34,9 @@ class ExecuteDriver(webdriver.Remote):
 
         Usage:
             self.driver.execute_driver(script='return [];')
+
             self.driver.execute_driver(script='return [];', script_type='webdriverio')
+
             self.driver.execute_driver(script='return [];', script_type='webdriverio', timeout_ms=10000)
 
         Returns:

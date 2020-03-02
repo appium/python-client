@@ -41,6 +41,7 @@ class DeviceTime(webdriver.Remote):
 
         Usage:
             self.driver.get_device_time()
+
             self.driver.get_device_time("YYYY-MM-DD")
 
         Return:

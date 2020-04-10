@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import uuid
+
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.helper import library_version
@@ -24,5 +26,8 @@ class AppiumConnection(RemoteConnection):
         """Override get_remote_connection_headers in RemoteConnection"""
         headers = RemoteConnection.get_remote_connection_headers(parsed_url, keep_alive=keep_alive)
         headers['User-Agent'] = 'appium/python {} ({})'.format(library_version(), headers['User-Agent'])
+        if parsed_url.path.endswith('/session'):
+            # https://github.com/appium/appium-base-driver/pull/400
+            headers['X-Idempotency-Key'] = str(uuid.uuid4())
 
         return headers

@@ -206,15 +206,17 @@ class WebElement(AppiumWebElementSearchContext):
         self._execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
 
-    def send_keys_direct(self, *value):
+    # Override
+    def send_keys(self, *value):
         """Simulates typing into the element.
 
-        Please consider to use this method if WebElement#send_keys did not work.
-        WebElement#send_keys works uploading a local file, but this method simply
-        sends given string without such uploading.
+        Args:
+            value (str): A string for typing.
 
-        Argument is the same as WebElement#send_keys
+        Returns:
+            `appium.webdriver.webelement.WebElement`
         """
         self._execute(RemoteCommand.SEND_KEYS_TO_ELEMENT,
                       {'text': "".join(keys_to_typing(value)),
                        'value': keys_to_typing(value)})
+        return self

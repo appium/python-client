@@ -52,7 +52,7 @@ class KeyboardTests(BaseTestCase):
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
         el.click()
-        el.set_value('Testing')
+        el.send_keys('Testing')
 
         el = self.driver.find_element_by_class_name('UIAKeyboard')
         self.assertTrue(el.is_displayed())
@@ -68,7 +68,7 @@ class KeyboardTests(BaseTestCase):
 
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
         el.click()
-        el.set_value('Testing')
+        el.send_keys('Testing')
         self.assertTrue(self.driver.is_keyboard_shown())
 
     def _move_to_textbox(self):

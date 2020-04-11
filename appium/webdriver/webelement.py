@@ -216,7 +216,7 @@ class WebElement(AppiumWebElementSearchContext):
         Returns:
             `appium.webdriver.webelement.WebElement`
         """
+        _value = keys_to_typing(value)
         self._execute(RemoteCommand.SEND_KEYS_TO_ELEMENT,
-                      {'text': "".join(keys_to_typing(value)),
-                       'value': keys_to_typing(value)})
+                      {'text': "".join(_value), 'value': _value})
         return self

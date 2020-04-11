@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
 from .extensions.search_context import AppiumWebElementSearchContext
@@ -204,3 +205,16 @@ class WebElement(AppiumWebElementSearchContext):
         }
         self._execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
+
+    def send_keys_direct(self, *value):
+        """Simulates typing into the element.
+
+        Please consider to use this method if WebElement#send_keys did not work.
+        WebElement#send_keys works uploading a local file, but this method simply
+        sends given string without such uploading.
+
+        Argument is the same as WebElement#send_keys
+        """
+        self._execute(RemoteCommand.SEND_KEYS_TO_ELEMENT,
+                      {'text': "".join(keys_to_typing(value)),
+                       'value': keys_to_typing(value)})

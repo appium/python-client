@@ -2,6 +2,56 @@ Changelog
 =========
 
 
+v0.51 (2020-04-12)
+------------------
+- Bump 0.51. [Kazuaki Matsuo]
+- Feat: Override send_keys without file upload function (#515) [Kazuaki
+  Matsuo]
+
+  * add send_keys_direct
+
+  * override send_keys
+
+  * tune
+
+  * add unittest instead of functional test
+
+  * tweak syntax
+- Feat: Add idempotency key header to create session requests (#514)
+  [Mykola Mokhnach]
+- Fix flaky functional tests (#473) [Mori Atsushi]
+
+  * Run all tests
+
+  * Fix apk file path
+
+  * Skip find_element_by_image test cases
+
+  * Skip context switching test
+
+  * Skip multi tap test on CI
+
+  * Change strategy for waiting element
+
+  * Add functions for same steps
+
+  * Restore unexpected changes
+
+  * Fix touch_action_tests
+
+  * Fix
+
+  * Fix
+  Fix test_driver_swipe
+
+  * fix
+
+  * Create _move_to_[target_view]
+
+  * [test_driver_swipe] Add wait
+- Update changelog for 0.50. [Kazuaki Matsuo]
+
+
 v0.50 (2020-02-10)
 ------------------
 - Bump 0.50. [Kazuaki Matsuo]

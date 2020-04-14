@@ -24,3 +24,5 @@ venv*
 .tox
 
 Pipfile.lock
+
+.coverage

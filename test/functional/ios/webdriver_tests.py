@@ -80,6 +80,8 @@ class WebDriverTests(BaseTestCase):
         input_text = 'blah'
         el.click()
         el.send_keys(input_text)
+        self.driver.hide_keyboard()
+
         # TODO Needs to get the element again to update value in the element. Remove below one line when it's fixed.
         el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
         text = el.get_attribute('value')

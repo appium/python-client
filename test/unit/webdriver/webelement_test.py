@@ -29,6 +29,21 @@ from test.unit.helper.test_helper import (
 class TestWebElement(object):
 
     @httpretty.activate
+    def test_set_value(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/element/element_id/value')
+        )
+
+        element = MobileWebElement(driver, 'element_id', w3c=True)
+        value = 'happy testing'
+        element.set_value(value)
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['value'] == [value]
+
+    @httpretty.activate
     def test_send_key(self):
         driver = android_w3c_driver()
         httpretty.register_uri(

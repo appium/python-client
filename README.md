@@ -92,18 +92,18 @@ $ pytest -n 2 test/unit
 ### Functional
 
 ```
-$ pytest test/functional/ios/find_by_ios_class_chain_tests.py
+$ pytest test/functional/ios/search_context/find_by_ios_class_chain_tests.py
 ```
 
 ### In parallel for iOS
-1. Create simulators named 'iPhone 6s - 8100' and 'iPhone 6s - 8101'
+1. Create simulators named 'iPhone 8 - 8100' and 'iPhone 8 - 8101'
 2. Install test libraries via pip
     ```
     $ pip install pytest pytest-xdist
     ```
 3. Run tests
     ```
-    $ pytest -n 2 test/functional/ios/find_by_ios_class_chain_tests.py
+    $ pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_tests.py
     ```
 
 # Release

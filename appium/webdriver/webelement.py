@@ -59,8 +59,14 @@ class WebElement(AppiumWebElementSearchContext):
         if attributeValue is None:
             return None
 
+        if isinstance(attributeValue, dict):
+            return attributeValue
+
         if not isinstance(attributeValue, str):
-            attributeValue = unicode(attributeValue)
+            try:
+                attributeValue = unicode(attributeValue)
+            except NameError:
+                attributeValue = str(attributeValue)
 
         if name != 'value' and attributeValue.lower() in ('true', 'false'):
             return attributeValue.lower()

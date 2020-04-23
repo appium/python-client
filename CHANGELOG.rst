@@ -2,6 +2,27 @@ Changelog
 =========
 
 
+v0.52 (2020-04-23)
+------------------
+
+Fix
+~~~
+- Handling of dictionary-values in WebElement.get_attribute() (#521)
+  [Hannes Hauer]
+
+Other
+~~~~~
+- Bump 0.52. [Kazuaki Matsuo]
+- Chore: Fix int - str comparison error in ios desired capabilities
+  (#517) [Venkatesh]
+
+  if number >= PytestXdistWorker.COUNT:
+- Test: Add unit test for set_value (setImmediateValue) (#518) [Nrupesh
+  Patel]
+- Test: Fix test_clear flaky functional test (#519) [Nrupesh Patel]
+- Update changelog for 0.51. [Kazuaki Matsuo]
+
+
 v0.51 (2020-04-12)
 ------------------
 - Bump 0.51. [Kazuaki Matsuo]

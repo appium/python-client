@@ -21,6 +21,7 @@ from appium.webdriver.common.touch_action import TouchAction
 from .helper.test_helper import (
     APIDEMO_PKG_NAME,
     BaseTestCase,
+    is_ci,
     wait_for_element
 )
 
@@ -72,20 +73,8 @@ class TestTouchAction(BaseTestCase):
         assert el is not None
 
     def test_press_and_wait(self) -> None:
-        el1 = self.driver.find_element_by_accessibility_id('Content')
-        el2 = self.driver.find_element_by_accessibility_id('Animation')
-
+        self._move_to_custom_adapter()
         action = TouchAction(self.driver)
-        action.press(el1).move_to(el2).perform()
-
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
-        action.tap(el).perform()
-
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
-        action.tap(el).perform()
-
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter')
-        action.tap(el).perform()
 
         el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
                               'new UiSelector().text("People Names")')
@@ -117,20 +106,8 @@ class TestTouchAction(BaseTestCase):
         assert el is not None
 
     def test_long_press(self) -> None:
-        el1 = self.driver.find_element_by_accessibility_id('Content')
-        el2 = self.driver.find_element_by_accessibility_id('Animation')
-
+        self._move_to_custom_adapter()
         action = TouchAction(self.driver)
-        action.press(el1).move_to(el2).perform()
-
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
-        action.tap(el).perform()
-
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
-        action.tap(el).perform()
-
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter')
-        action.tap(el).perform()
 
         el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
                               'new UiSelector().text("People Names")')
@@ -141,21 +118,10 @@ class TestTouchAction(BaseTestCase):
                               'new UiSelector().text("Sample menu")')
         assert el is not None
 
+    @pytest.mark.skipif(condition=is_ci(), reason='Skip since this check is low robust due to hard-coded position.')
     def test_long_press_x_y(self) -> None:
-        el1 = self.driver.find_element_by_accessibility_id('Content')
-        el2 = self.driver.find_element_by_accessibility_id('Animation')
-
+        self._move_to_custom_adapter()
         action = TouchAction(self.driver)
-        action.press(el1).move_to(el2).perform()
-
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
-        action.tap(el).perform()
-
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
-        action.tap(el).perform()
-
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter')
-        action.tap(el).perform()
 
         # the element "People Names" is located at 430:310 (top left corner)
         # location can be changed by phone resolusion, OS version
@@ -167,13 +133,8 @@ class TestTouchAction(BaseTestCase):
         assert el is not None
 
     def test_drag_and_drop(self) -> None:
-        el1 = self.driver.find_element_by_accessibility_id('Content')
-        el2 = self.driver.find_element_by_accessibility_id('Animation')
-        self.driver.scroll(el1, el2)
-
-        el = self.driver.find_element_by_accessibility_id('Views')
+        self._move_to_views()
         action = TouchAction(self.driver)
-        action.tap(el).perform()
 
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Drag and Drop')
         action.tap(el).perform()
@@ -184,17 +145,12 @@ class TestTouchAction(BaseTestCase):
         # dnd is stimulated by longpress-move_to-release
         action.long_press(dd3).move_to(dd2).release().perform()
 
-        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_text'.format(APIDEMO_PKG_NAME))
-        assert 'drag_dot_3' in el.text
+        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
+        self.assertTrue('Dropped!' in el.text)
 
     def test_driver_drag_and_drop(self) -> None:
-        el1 = self.driver.find_element_by_accessibility_id('Content')
-        el2 = self.driver.find_element_by_accessibility_id('Animation')
-        self.driver.scroll(el1, el2)
-
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
+        self._move_to_views()
         action = TouchAction(self.driver)
-        action.tap(el).perform()
 
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Drag and Drop')
         action.tap(el).perform()
@@ -204,8 +160,8 @@ class TestTouchAction(BaseTestCase):
 
         self.driver.drag_and_drop(dd3, dd2)
 
-        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_text'.format(APIDEMO_PKG_NAME))
-        assert 'drag_dot_3' in el.text
+        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
+        self.assertTrue('Dropped!' in el.text)
 
     def test_driver_swipe(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Views')
@@ -216,5 +172,24 @@ class TestTouchAction(BaseTestCase):
             self.driver.find_element_by_accessibility_id('ImageView')
 
         self.driver.swipe(100, 1000, 100, 100, 800)
-        el = self.driver.find_element_by_accessibility_id('ImageView')
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'ImageView')
         assert el is not None
+
+    def _move_to_views(self):
+        el1 = self.driver.find_element_by_accessibility_id('Content')
+        el2 = self.driver.find_element_by_accessibility_id('Animation')
+        self.driver.scroll(el1, el2)
+
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
+        action = TouchAction(self.driver)
+        action.tap(el).perform()
+
+    def _move_to_custom_adapter(self):
+        self._move_to_views()
+        action = TouchAction(self.driver)
+
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
+        action.tap(el).perform()
+
+        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter')
+        action.tap(el).perform()

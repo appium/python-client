@@ -15,6 +15,7 @@
 from typing import Dict, List, Optional, TypeVar, Union
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
 from .extensions.search_context import AppiumWebElementSearchContext
@@ -55,6 +56,9 @@ class WebElement(AppiumWebElementSearchContext):
 
         if attributeValue is None:
             return None
+
+        if isinstance(attributeValue, dict):
+            return attributeValue
 
         # Convert to str along to the spec
         if not isinstance(attributeValue, str):
@@ -204,4 +208,19 @@ class WebElement(AppiumWebElementSearchContext):
             'value': [value],
         }
         self._execute(Command.SET_IMMEDIATE_VALUE, data)
+        return self
+
+    # Override
+    def send_keys(self, *value):
+        """Simulates typing into the element.
+
+        Args:
+            value (str): A string for typing.
+
+        Returns:
+            `appium.webdriver.webelement.WebElement`
+        """
+        keys = keys_to_typing(value)
+        self._execute(RemoteCommand.SEND_KEYS_TO_ELEMENT,
+                      {'text': ''.join(keys), 'value': keys})
         return self

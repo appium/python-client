@@ -15,7 +15,7 @@
 # pylint: disable=abstract-method
 
 import json
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING, Any, List, Optional
 
 from appium.webdriver.common.mobileby import MobileBy
 
@@ -28,8 +28,42 @@ if TYPE_CHECKING:
 class AndroidSearchContext(BaseSearchContext):
     """Define search context for Android"""
 
+    def find_element_by_android_view_matcher(
+            self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None) -> 'WebElement':
+        """Finds element by [onView](https://developer.android.com/training/testing/espresso/basics) in Android
+
+        It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
+
+        Args:
+            name (:obj:`str`, optional): The name of a method to invoke.
+                The method must return a Hamcrest
+                [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
+            args (:obj:`Any`, optional): The args provided to the method
+            className (:obj:`str`, optional): The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
+                Can be fully qualified by having the androidx.test.espresso.matcher. prefix.
+                If the prefix is not provided then it is going to be added implicitly.
+                (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
+
+        Returns:
+            `appium.webdriver.webelement.WebElement`: The found element
+
+        Raises:
+            TypeError - Raises a TypeError if the arguments are not validated for JSON format
+
+        Usage:
+            driver.find_element_by_android_view_matcher(name='withText', args=['Accessibility'], className='ViewMatchers')
+
+        # To enable auto completion in PyCharm(IDE)
+        :rtype: `appium.webdriver.webelement.WebElement`
+        """
+
+        return self.find_element(
+            by=MobileBy.ANDROID_VIEW_MATCHER,
+            value=self._build_data_matcher(name=name, args=args, className=className)
+        )
+
     def find_element_by_android_data_matcher(
-            self, name: Optional[str] = None, args: Optional[str] = None, className: Optional[str] = None) -> 'WebElement':
+            self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None) -> 'WebElement':
         """Finds element by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
@@ -38,7 +72,7 @@ class AndroidSearchContext(BaseSearchContext):
             name (:obj:`str`, optional): The name of a method to invoke.
                 The method must return a Hamcrest
                 [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
-            args (:obj:`str`, optional): The args provided to the method
+            args (:obj:`Any`, optional): The args provided to the method
             className (:obj:`str`, optional): The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
                 Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
@@ -62,7 +96,7 @@ class AndroidSearchContext(BaseSearchContext):
         )
 
     def find_elements_by_android_data_matcher(
-            self, name: Optional[str] = None, args: Optional[str] = None, className: Optional[str] = None) -> List['WebElement']:
+            self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None) -> List['WebElement']:
         """Finds elements by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
@@ -70,7 +104,7 @@ class AndroidSearchContext(BaseSearchContext):
             name (:obj:`str`, optional): The name of a method to invoke.
                 The method must return a Hamcrest
                 [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
-            args (:obj:`str`, optional): The args provided to the method
+            args (:obj:`Any`, optional): The args provided to the method
             className (:obj:`str`, optional): The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
                 Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
@@ -89,7 +123,7 @@ class AndroidSearchContext(BaseSearchContext):
             value=self._build_data_matcher(name=name, args=args, className=className)
         )
 
-    def _build_data_matcher(self, name: Optional[str] = None, args: Optional[str]
+    def _build_data_matcher(self, name: Optional[str] = None, args: Optional[Any]
                             = None, className: Optional[str] = None) -> str:
         result = {}
 

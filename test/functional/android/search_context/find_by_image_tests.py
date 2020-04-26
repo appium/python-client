@@ -21,14 +21,16 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from appium import webdriver
+from appium.webdriver.common.mobileby import MobileBy
 from test.functional.android.helper import desired_capabilities
 
+from ..helper.test_helper import wait_for_element
 
-@pytest.mark.skip(reason="Need to fix broken test")
+
 class TestFindByImage(object):
 
     def setup_method(self) -> None:
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk')
+        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
         # relax template matching
@@ -45,9 +47,7 @@ class TestFindByImage(object):
         with open(image_path, 'rb') as png_file:
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
 
-        el = WebDriverWait(self.driver, 3).until(
-            EC.presence_of_element_located((By.IMAGE, b64_data))
-        )
+        el = wait_for_element(self.driver, MobileBy.IMAGE, b64_data)
         size = el.size
         assert size['width'] is not None
         assert size['height'] is not None
@@ -61,16 +61,14 @@ class TestFindByImage(object):
         assert rect['y'] is not None
         assert el.is_displayed()
         el.click()
-        self.driver.find_element_by_accessibility_id("Alarm")
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, "Alarm")
 
     def test_find_multiple_elements_by_image_just_returns_one(self) -> None:
-        WebDriverWait(self.driver, 3).until(
-            EC.presence_of_element_located((By.ACCESSIBILITY_ID, "App"))
-        )
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, "App")
         image_path = desired_capabilities.PATH('file/find_by_image_success.png')
         els = self.driver.find_elements_by_image(image_path)
         els[0].click()
-        self.driver.find_element_by_accessibility_id("Alarm")
+        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, "Alarm")
 
     def test_find_throws_no_such_element(self) -> None:
         image_path = desired_capabilities.PATH('file/find_by_image_failure.png')
@@ -78,8 +76,7 @@ class TestFindByImage(object):
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
 
         with pytest.raises(TimeoutException):
-            WebDriverWait(self.driver, 3).until(
-                EC.presence_of_element_located((By.IMAGE, b64_data))
-            )
+            wait_for_element(self.driver, MobileBy.IMAGE, b64_data, timeout=3)
+
         with pytest.raises(NoSuchElementException):
             self.driver.find_element_by_image(image_path)

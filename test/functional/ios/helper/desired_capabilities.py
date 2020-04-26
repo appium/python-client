@@ -66,7 +66,7 @@ def wda_port() -> int:
     return 8100
 
 
-# Before running tests, you must have iOS simulators named 'iPhone 6s - 8100' and 'iPhone 6s - 8101'
+# Before running tests, you must have iOS simulators named 'iPhone 8 - 8100' and 'iPhone 8 - 8101'
 
 
 def iphone_device_name() -> str:

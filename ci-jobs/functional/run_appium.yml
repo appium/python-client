@@ -5,6 +5,9 @@ steps:
   displayName: Install Node 11.x
 - script: npm install -g appium@beta --chromedriver_version='2.44'
   displayName: Install appium
+- script: npm install -g opencv4nodejs
+  condition: and(succeeded(), eq('${{ parameters.opencv }}', true))
+  displayName: Install opencv4nodejs
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.x'

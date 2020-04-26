@@ -13,12 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 from time import sleep
 
 import pytest
 
 from appium.webdriver.applicationstate import ApplicationState
 
+from .helper.desired_capabilities import PATH
 from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 
 
@@ -36,7 +38,7 @@ class TestApplications(BaseTestCase):
     @pytest.mark.skip('This causes the server to crash. no idea why')
     def test_install_app(self) -> None:
         assert not self.driver.is_app_installed('io.selendroid.testapp')
-        self.driver.install_app('/Users/isaac/code/python-client/test/apps/selendroid-test-app.apk')
+        self.driver.install_app(PATH(os.path.join('../..', 'apps', 'selendroid-test-app.apk')))
         assert self.driver.is_app_installed('io.selendroid.testapp')
 
     def test_remove_app(self) -> None:

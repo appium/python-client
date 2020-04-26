@@ -13,7 +13,7 @@ framework [Appium](https://appium.io).
 
 # Notice
 
-**1.0.0 will drop Python 2 support**
+**Since v1.0.0 only Python 3 is supported**
 
 # Getting the Appium Python client
 

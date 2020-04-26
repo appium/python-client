@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+(unreleased)
+------------
+- Chore: tweak changelog filter. [Kazuaki Matsuo]
+- Update changelog for 0.52. [Kazuaki Matsuo]
+
+
 v0.52 (2020-04-23)
 ------------------
 
@@ -10,6 +16,12 @@ Fix
 - Handling of dictionary-values in WebElement.get_attribute() (#521)
   [Hannes Hauer]
 
+Test
+~~~~
+- Test: Add unit test for set_value (setImmediateValue) (#518) [Nrupesh
+  Patel]
+- Test: Fix test_clear flaky functional test (#519) [Nrupesh Patel]
+
 Other
 ~~~~~
 - Bump 0.52. [Kazuaki Matsuo]
@@ -17,15 +29,14 @@ Other
   (#517) [Venkatesh]
 
   if number >= PytestXdistWorker.COUNT:
-- Test: Add unit test for set_value (setImmediateValue) (#518) [Nrupesh
-  Patel]
-- Test: Fix test_clear flaky functional test (#519) [Nrupesh Patel]
 - Update changelog for 0.51. [Kazuaki Matsuo]
 
 
 v0.51 (2020-04-12)
 ------------------
-- Bump 0.51. [Kazuaki Matsuo]
+
+New
+~~~
 - Feat: Override send_keys without file upload function (#515) [Kazuaki
   Matsuo]
 
@@ -40,6 +51,9 @@ v0.51 (2020-04-12)
   * tweak syntax
 - Feat: Add idempotency key header to create session requests (#514)
   [Mykola Mokhnach]
+
+Fix
+~~~
 - Fix flaky functional tests (#473) [Mori Atsushi]
 
   * Run all tests
@@ -70,12 +84,18 @@ v0.51 (2020-04-12)
   * Create _move_to_[target_view]
 
   * [test_driver_swipe] Add wait
+
+Other
+~~~~~
+- Bump 0.51. [Kazuaki Matsuo]
 - Update changelog for 0.50. [Kazuaki Matsuo]
 
 
 v0.50 (2020-02-10)
 ------------------
-- Bump 0.50. [Kazuaki Matsuo]
+
+New
+~~~
 - Feat: Add viewmatcher (#480) [Mori Atsushi]
 
   * Add android view matcher as strategy locator
@@ -89,6 +109,20 @@ v0.50 (2020-02-10)
   * Fix docstring
 
   * tweak docstring
+
+Test
+~~~~
+- Ci: Take screen record as evidence (#481) [Mori Atsushi]
+
+  * Take screen record for android
+
+  * Take screen record for iOS
+
+  * Save screen record for iOS
+
+Other
+~~~~~
+- Bump 0.50. [Kazuaki Matsuo]
 - Chore: Fix find_by_images_tests.py (#495) [Mori Atsushi]
 
   * chore: Fix find_by_images_tests.py
@@ -157,20 +191,32 @@ v0.50 (2020-02-10)
   * Remove unused codes
 
   * [Readme] py.test -> pytest
-- Ci: Take screen record as evidence (#481) [Mori Atsushi]
-
-  * Take screen record for android
-
-  * Take screen record for iOS
-
-  * Save screen record for iOS
 - Update changelog for 0.49. [Kazuaki Matsuo]
 
 
 v0.49 (2019-12-24)
 ------------------
-- Bump 0.49. [Kazuaki Matsuo]
+
+New
+~~~
 - Add IME unittest (#475) [Mori Atsushi]
+- Add new locator strategy find_elements_by_windows_uiautomation and
+  test. [Manoj Kumar]
+- Add new locator strategy find_element_by_windows_uiautomation. [Manoj
+  Kumar]
+
+Fix
+~~~
+- Fix functional test broken by previous commit. [Manoj Kumar]
+- Fix CI (Failed iOS) (#460) [Mori Atsushi]
+
+  * Fix CI (Failed iOS)
+
+  * Fix variable name
+
+Other
+~~~~~
+- Bump 0.49. [Kazuaki Matsuo]
 - Move session/execute_mobile commands to mixin class (#471) [Mori
   Atsushi]
 
@@ -294,7 +340,6 @@ v0.49 (2019-12-24)
   * Revert some changes
 
   * Fix typo
-- Fix functional test broken by previous commit. [Manoj Kumar]
 - Move commands from webdriver as mixins class (#459) [Manoj Kumar]
 
   * move to mixins class
@@ -302,28 +347,35 @@ v0.49 (2019-12-24)
   * Create common class with its tests
 
   * incorporating PR comments
-- Fix CI (Failed iOS) (#460) [Mori Atsushi]
-
-  * Fix CI (Failed iOS)
-
-  * Fix variable name
-- Add new locator strategy find_elements_by_windows_uiautomation and
-  test. [Manoj Kumar]
-- Add new locator strategy find_element_by_windows_uiautomation. [Manoj
-  Kumar]
 - Update changelog for 0.48. [Kazuaki Matsuo]
 - Bump 0.48. [Kazuaki Matsuo]
 
 
 v0.48 (2019-10-22)
 ------------------
+
+New
+~~~
 - Add docs on start activity with args. [Manoj Kumar]
 - Add unit tests Activate app. [Manoj Kumar]
-- Test: Add unit tests for application_tests (#454) [Manoj Kumar]
+- Add unit tests for keyboard API (#452) [Manoj Kumar]
 
-  * Add unit tests for application_tests
+  * Add Unit tests for Keyboard API
 
-  * change body values to be empty
+  * incorporating review comments
+
+  * change per review comment
+- Feat: Adding getAllSessions (#446) [Manoj Kumar]
+
+  * Adding getAllSessions
+
+  * adjust per lint
+
+  * fix comments
+- Add downloads badge (#441) [Mori Atsushi]
+
+Fix
+~~~
 - Fix docstring, add getting available port number (#448) [Kazuaki
   Matsuo]
 
@@ -336,23 +388,62 @@ v0.48 (2019-10-22)
   * move get available port in another module
 
   * follow python wait condition name
+- Fix CI fails (Updated iOS ver) (#440) [Mori Atsushi]
+
+  * Updated iOS ver to fix CI fails
+
+  * Update capability for safari test on ios
+
+  * Fix travis CI fails
+- Fix CI fails (#436) [Mori Atsushi]
+
+  * Skip taking the screenshot not in CI
+
+  * Skip py38 on travis
+- Fix isort behavior for mock (#432) [Mori Atsushi]
+
+  * Fix isort behavior for mock
+
+  * Add guide to add 3rd party modules to isort conf
+
+  * Add guide for docstrings
+
+  * Delete unnecessary codes
+- Fix android flaky tests (#413) [Mori Atsushi]
+
+  * Fix android flaky tests
+
+  * Use androidSdkVer 27 for emulator
+
+  * Skip find_by_accessibility_id, find_by_uiautomator
+
+  * Changed from https://github.com/ki4070ma/python-client/pull/5
+
+  * Add save_appium_log.yml
+
+  * Don't run flaky tests on CI
+
+  * Rename class name
+
+Test
+~~~~
+- Test: Add unit tests for application_tests (#454) [Manoj Kumar]
+
+  * Add unit tests for application_tests
+
+  * change body values to be empty
 - Test: add Unit tests currentPackage (#453) [Manoj Kumar]
-- Add unit tests for keyboard API (#452) [Manoj Kumar]
-
-  * Add Unit tests for Keyboard API
-
-  * incorporating review comments
-
-  * change per review comment
 - Test: add unit test unlock (#450) [Manoj Kumar]
+- Ci: try run all scripts and exit 1 when something fails (#431)
+  [Kazuaki Matsuo]
+
+  * try run all scripts and exit 1 when something fails
+
+  * ignore link in Python 3.7 because of runtime error
+
+Other
+~~~~~
 - Docs: Minor fix in README (#445) [Aliakbar]
-- Feat: Adding getAllSessions (#446) [Manoj Kumar]
-
-  * Adding getAllSessions
-
-  * adjust per lint
-
-  * fix comments
 - AndroidKey class for Key Codes added. (#443) [Aliakbar]
 
   * AndroidKey class for Key Codes added.
@@ -378,50 +469,7 @@ v0.48 (2019-10-22)
   * Make function names as is in java-client
 
   * Underscore in the beginning of constant removed
-- Add downloads badge (#441) [Mori Atsushi]
-- Fix CI fails (Updated iOS ver) (#440) [Mori Atsushi]
-
-  * Updated iOS ver to fix CI fails
-
-  * Update capability for safari test on ios
-
-  * Fix travis CI fails
-- Fix CI fails (#436) [Mori Atsushi]
-
-  * Skip taking the screenshot not in CI
-
-  * Skip py38 on travis
-- Fix isort behavior for mock (#432) [Mori Atsushi]
-
-  * Fix isort behavior for mock
-
-  * Add guide to add 3rd party modules to isort conf
-
-  * Add guide for docstrings
-
-  * Delete unnecessary codes
 - Run unittest with python3.8 (#433) [Mori Atsushi]
-- Fix android flaky tests (#413) [Mori Atsushi]
-
-  * Fix android flaky tests
-
-  * Use androidSdkVer 27 for emulator
-
-  * Skip find_by_accessibility_id, find_by_uiautomator
-
-  * Changed from https://github.com/ki4070ma/python-client/pull/5
-
-  * Add save_appium_log.yml
-
-  * Don't run flaky tests on CI
-
-  * Rename class name
-- Ci: try run all scripts and exit 1 when something fails (#431)
-  [Kazuaki Matsuo]
-
-  * try run all scripts and exit 1 when something fails
-
-  * ignore link in Python 3.7 because of runtime error
 - Bump 0.47. [Kazuaki Matsuo]
 - Update changelog for 0.47. [Kazuaki Matsuo]
 
@@ -429,16 +477,8 @@ v0.48 (2019-10-22)
 v0.47 (2019-08-22)
 ------------------
 
-Fix
+New
 ~~~
-- CI doesn't fail even if autopep8 makes changes (#422) [Mori Atsushi]
-
-  * Fix: CI doesn't fail even if autopep8 makes changes
-
-  * Fix: CI failure
-
-Other
-~~~~~
 - Add events property (#429) [Dan Graham]
 
   * add GET_SESSION
@@ -462,13 +502,6 @@ Other
 
   * Fix docstring
 - Add videoFilters option documentation (#419) [Mykola Mokhnach]
-- Change altitude optional as arg for set_location (#415) [Mori Atsushi]
-
-  * Change altitude optional as arg for set_location
-
-  * Add comments
-
-  * review comments
 - Add remote_fs unittest (#410) [Mori Atsushi]
 
   * Add test_push_file unittest
@@ -476,6 +509,24 @@ Other
   * Add test_pull_file unittest
 
   * Add remote_fs error cases unittest
+
+Fix
+~~~
+- CI doesn't fail even if autopep8 makes changes (#422) [Mori Atsushi]
+
+  * Fix: CI doesn't fail even if autopep8 makes changes
+
+  * Fix: CI failure
+
+Other
+~~~~~
+- Change altitude optional as arg for set_location (#415) [Mori Atsushi]
+
+  * Change altitude optional as arg for set_location
+
+  * Add comments
+
+  * review comments
 - Update docstring (#407) [Mori Atsushi]
 
   * Remove import error on pycharm
@@ -505,7 +556,9 @@ v0.46 (2019-06-27)
 
 v0.45 (2019-06-26)
 ------------------
-- Bump 0.45. [Kazuaki Matsuo]
+
+New
+~~~
 - Add execute driver (#406) [Kazuaki Matsuo]
 
   * add execute driver
@@ -525,8 +578,12 @@ v0.45 (2019-06-26)
   * Add autocompletion for pycharm
 
   * Removed flaky tests from running
-- Moving reset method from WebDriver to Applications (#399) [Mayura]
 - Add unit test for open_notifications (#398) [tabatask]
+
+Other
+~~~~~
+- Bump 0.45. [Kazuaki Matsuo]
+- Moving reset method from WebDriver to Applications (#399) [Mayura]
 - Run android functional tests on ci (#396) [Mori Atsushi]
 
   * Add android functional test to ci
@@ -638,19 +695,6 @@ Fix
   * Fix: installed selenium4 when setup.py install
 
   * Keep existing comparison operator
-
-Other
-~~~~~
-- Bump 0.44. [Kazuaki Matsuo]
-- Support get_display_density (#388) [Mori Atsushi]
-
-  * Support get_display_density
-
-  * Add get_display_density unittest
-
-  * Add api doc
-
-  * Add return description to api doc
 - Fix ios functional tests failed (#385) [Mori Atsushi]
 
   * Fix safari test(iOS)
@@ -668,6 +712,19 @@ Other
   * Fix tests failed along to replaced test app
 
   * review comments
+
+Other
+~~~~~
+- Bump 0.44. [Kazuaki Matsuo]
+- Support get_display_density (#388) [Mori Atsushi]
+
+  * Support get_display_density
+
+  * Add get_display_density unittest
+
+  * Add api doc
+
+  * Add return description to api doc
 - Support set_network_speed (#386) [Mori Atsushi]
 
   * Support set_nework_speed
@@ -684,7 +741,9 @@ Other
 
 v0.43 (2019-05-18)
 ------------------
-- Bump 0.43. [Kazuaki Matsuo]
+
+New
+~~~
 - Add assertions for w3c (#384) [Kazuaki Matsuo]
 - Add isort to pre-commit (#379) [Mori Atsushi]
 
@@ -699,30 +758,9 @@ v0.43 (2019-05-18)
   * Add check to ci.sh
 
   * Use exit code for condition check in ci.sh
-- [RD-34891] Assign w3c property on the command executor. (#382)
-  [Erustus Agutu]
-- Get rid of sessionId (#383) [Kazuaki Matsuo]
-- Divide functional appium tests into each module(android) (#378) [Mori
-  Atsushi]
 
-  * Move non test files
-
-  * Divide appium_tests into each module tests(android)
-
-  * Skip contexts, find_by_image tests
-
-  * Removed unnecessary codes
-- Introduced pipfile (#376) [Mori Atsushi]
-
-  * Added Pipfile
-
-  Just created by pipenv install -r ci-requirements.txt
-
-  * Introduced pipenv
-
-  * Add Pipfile.lock to gitignore
-
-  * Cover any minor versions for packages
+Fix
+~~~
 - Fix functional tests failed (android, push_file)  (#375) [Mori
   Atsushi]
 
@@ -773,6 +811,34 @@ v0.43 (2019-05-18)
   * Add SLEEPY_TIME
 
   * Remove set with sleep and find_element
+
+Other
+~~~~~
+- Bump 0.43. [Kazuaki Matsuo]
+- [RD-34891] Assign w3c property on the command executor. (#382)
+  [Erustus Agutu]
+- Get rid of sessionId (#383) [Kazuaki Matsuo]
+- Divide functional appium tests into each module(android) (#378) [Mori
+  Atsushi]
+
+  * Move non test files
+
+  * Divide appium_tests into each module tests(android)
+
+  * Skip contexts, find_by_image tests
+
+  * Removed unnecessary codes
+- Introduced pipfile (#376) [Mori Atsushi]
+
+  * Added Pipfile
+
+  Just created by pipenv install -r ci-requirements.txt
+
+  * Introduced pipenv
+
+  * Add Pipfile.lock to gitignore
+
+  * Cover any minor versions for packages
 - Move android commands to android package (#371) [Mori Atsushi]
 
   * Reorder mobilecommands
@@ -787,7 +853,15 @@ v0.43 (2019-05-18)
 
 v0.42 (2019-05-10)
 ------------------
-- Bump 0.42. [Kazuaki Matsuo]
+
+New
+~~~
+- Add return value. [Atsushi Mori]
+- Add set_power_ac unittest. [Atsushi Mori]
+- Added set_power_capacity unittest. [Atsushi Mori]
+
+Fix
+~~~
 - Fix functional tests failed (android, appium_tests) (#366) [Mori
   Atsushi]
 
@@ -802,26 +876,7 @@ v0.42 (2019-05-10)
   * Update along to review comments
 
   * Add return value to wait_for_element
-- Support get_performance_data, get_performance_data_types (#368) [Mori
-  Atsushi]
-
-  * Support get_performance_data, get_performance_data_types
-
-  * Add api doc
-
-  * Add performance unittest
-
-  * Tweak
-
-  * Update api doc
 - Fix poll_url in Python 3 (#370) [Kazuaki Matsuo]
-- Support set_gsm_voice (#367) [Mori Atsushi]
-
-  * Support set_gsm_voice
-
-  * Add set_gsm_voice unittest
-
-  * Fix typo
 - Fix functional tests failed (#364) [Mori Atsushi]
 
   * Fix test failed: element_location_in_view, set_text
@@ -837,6 +892,29 @@ v0.42 (2019-05-10)
   * Removed unnecessary codes
 
   * Remove magic number
+
+Other
+~~~~~
+- Bump 0.42. [Kazuaki Matsuo]
+- Support get_performance_data, get_performance_data_types (#368) [Mori
+  Atsushi]
+
+  * Support get_performance_data, get_performance_data_types
+
+  * Add api doc
+
+  * Add performance unittest
+
+  * Tweak
+
+  * Update api doc
+- Support set_gsm_voice (#367) [Mori Atsushi]
+
+  * Support set_gsm_voice
+
+  * Add set_gsm_voice unittest
+
+  * Fix typo
 - Support get_system_bars (#363) [Mori Atsushi]
 
   * Support get_system_bars
@@ -889,11 +967,8 @@ v0.42 (2019-05-10)
 - Update api doc. [Atsushi Mori]
 - Define AC_OFF, AC_ON as const. [Atsushi Mori]
 - Skip pylint warnings. [Atsushi Mori]
-- Add return value. [Atsushi Mori]
 - Update api doc. [Atsushi Mori]
-- Add set_power_ac unittest. [Atsushi Mori]
 - Support set_power_ac. [Atsushi Mori]
-- Added set_power_capacity unittest. [Atsushi Mori]
 - Support set_power_capacity. [Atsushi Mori]
 - Update changelog for 0.41. [Kazuaki Matsuo]
 - Bump 0.41. [Kazuaki Matsuo]
@@ -901,12 +976,9 @@ v0.42 (2019-05-10)
 
 v0.41 (2019-04-23)
 ------------------
-- Fix True/False in image settings, add boolean value in settings test
-  (#352) [Kazuaki Matsuo]
 
-  * Fix True/False in image settings, add boolean value in settings test
-
-  * use is for boolean
+New
+~~~
 - Add send sms support (#351) [Mori Atsushi]
 
   * Support sendSms function
@@ -918,18 +990,31 @@ v0.41 (2019-04-23)
   * Revert unexpected changes
 
   * Update api doc
-- Make keep alive True by default (#348) [Kazuaki Matsuo]
-- Move settings to mixin classes (#347) [Mori Atsushi]
 - Add pixelFormat in docstring (#346) [Kazuaki Matsuo]
 - Add fingerprint unittest (#345) [Mori Atsushi]
 - Add shake unittest (#344) [Mori Atsushi]
+
+Fix
+~~~
+- Fix True/False in image settings, add boolean value in settings test
+  (#352) [Kazuaki Matsuo]
+
+  * Fix True/False in image settings, add boolean value in settings test
+
+  * use is for boolean
+
+Other
+~~~~~
+- Make keep alive True by default (#348) [Kazuaki Matsuo]
+- Move settings to mixin classes (#347) [Mori Atsushi]
 - Update changelog for 0.40. [Kazuaki Matsuo]
 
 
 v0.40 (2019-03-14)
 ------------------
-- Bump 0.40. [Kazuaki Matsuo]
-- Update missing changelog in 0.39. [Kazuaki Matsuo]
+
+Fix
+~~~
 - Fix RuntimeError: maximum recursion depth exceeded in cmp happened
   (#343) [Kazuaki Matsuo]
 
@@ -941,9 +1026,17 @@ v0.40 (2019-03-14)
 
   * use issubclass to ensure the class is sub
 
+Other
+~~~~~
+- Bump 0.40. [Kazuaki Matsuo]
+- Update missing changelog in 0.39. [Kazuaki Matsuo]
+
 
 v0.39 (2019-02-27)
 ------------------
+
+New
+~~~
 - Add direct connect flag to be able to handle directConnectXxxxc (#338)
   [Kazuaki Matsuo]
 
@@ -969,12 +1062,10 @@ v0.39 (2019-02-27)
   * add zero case
 
   * defines search context for driver and element
+
+Other
+~~~~~
 - Update changelog for 0.38. [Kazuaki Matsuo]
-- Bump 0.38. [Kazuaki Matsuo]
-
-
-v0.38 (2019-02-11)
-------------------
 - Bump 0.38. [Kazuaki Matsuo]
 - Remove io.open from getting version code (#334) [Kazuaki Matsuo]
 
@@ -985,8 +1076,9 @@ v0.38 (2019-02-11)
 
 v0.37 (2019-02-10)
 ------------------
-- Cast set_location arguments to float (#332) [Mykola Mokhnach]
-- Fix passing options to screen record commands (#330) [Mykola Mokhnach]
+
+New
+~~~
 - Add AppiumConnection to customise user agent (#327) [Kazuaki Matsuo]
 - Add a test for reset (#326) [Kazuaki Matsuo]
 - Add a simple class to control Appium execution from the client code
@@ -999,6 +1091,14 @@ v0.37 (2019-02-10)
 
   * fix typo
 - Add a test case using another session id (#320) [Kazuaki Matsuo]
+
+Fix
+~~~
+- Fix passing options to screen record commands (#330) [Mykola Mokhnach]
+
+Other
+~~~~~
+- Cast set_location arguments to float (#332) [Mykola Mokhnach]
 - Update changelog for 0.36. [Kazuaki MATSUO]
 - Bump 0.36. [Kazuaki MATSUO]
 
@@ -1012,7 +1112,9 @@ v0.36 (2019-01-18)
 
 v0.35 (2019-01-17)
 ------------------
-- Bump 0.35. [Kazuaki MATSUO]
+
+New
+~~~
 - Add location unittest (#317) [Mori Atsushi]
 
   * Add test_location
@@ -1025,17 +1127,6 @@ v0.35 (2019-01-17)
   * Add settings unittest
 
   * Remove unused import
-- Move device_time to a mixin class (#314) [Mori Atsushi]
-- Define getting httpretty request body decoded by utf-8 (#313) [Kazuaki
-  Matsuo]
-
-  * define httpretty_last_request_body
-
-  * replace the order
-
-  * update
-
-  * rename
 - Added format to device_time as argument (#312) [Mori Atsushi]
 - Add devicetime unittest (#309) [Mori Atsushi]
 
@@ -1085,27 +1176,47 @@ v0.35 (2019-01-17)
   * 10 -> 9
 
   * Modify  based on comment
-- Move action and keyboard helpers to mixin classes (#307) [Mykola
-  Mokhnach]
 - Add precommit (#304) [Kazuaki Matsuo]
 
   * add pre-commit hook
+
+Fix
+~~~
 - Fixing broken pypi long description rendering (#303) [Prabhash]
 
   reference: https://packaging.python.org/guides/making-a-pypi-friendly-readme
 
   Tested at https://pypi.org/project/delayed-assert
+- Fix overridden mixin method call (#297) [Mykola Mokhnach]
+
+Other
+~~~~~
+- Bump 0.35. [Kazuaki MATSUO]
+- Move device_time to a mixin class (#314) [Mori Atsushi]
+- Define getting httpretty request body decoded by utf-8 (#313) [Kazuaki
+  Matsuo]
+
+  * define httpretty_last_request_body
+
+  * replace the order
+
+  * update
+
+  * rename
+- Move action and keyboard helpers to mixin classes (#307) [Mykola
+  Mokhnach]
 - Extract more webdriver methods into specialized mixin classes (#302)
   [Mykola Mokhnach]
 - Move specialized method groups to mixin classes (#301) [Mykola
   Mokhnach]
-- Fix overridden mixin method call (#297) [Mykola Mokhnach]
 - Update changelog for 0.34. [Kazuaki MATSUO]
 
 
 v0.34 (2018-12-18)
 ------------------
-- Bump 0.34. [Kazuaki MATSUO]
+
+Fix
+~~~
 - Fix missing package, missing commands and a test (#296) [Kazuaki
   Matsuo]
 
@@ -1114,27 +1225,33 @@ v0.34 (2018-12-18)
   * add tests for context to make sure it loads
 
   * move command definition from extensions to root
+
+Other
+~~~~~
+- Bump 0.34. [Kazuaki MATSUO]
 - Update changelog for 0.33. [Kazuaki MATSUO]
 
 
 v0.33 (2018-12-18)
 ------------------
-- Bump 0.33. [Kazuaki MATSUO]
-- Move read version (#294) [Kazuaki Matsuo]
+
+New
+~~~
 - Add newline in release script because of autopep8 (#292) [Kazuaki
   Matsuo]
+
+Other
+~~~~~
+- Bump 0.33. [Kazuaki MATSUO]
+- Move read version (#294) [Kazuaki Matsuo]
 - Update changelog for 0.32. [Kazuaki MATSUO]
 
 
 v0.32 (2018-12-18)
 ------------------
-- Bump 0.32. [Kazuaki MATSUO]
-- Split driver methods into mixin classes (#291) [Mykola Mokhnach]
-- Run with tox on travis (#290) [Kazuaki Matsuo]
 
-  * run with tox on travis
-
-  * update readme
+New
+~~~
 - Add unit tests for isLocked Library (#288) [Venkatesh Singh]
 
   * Add unit tests for isLocked Lib
@@ -1143,6 +1260,27 @@ v0.32 (2018-12-18)
 - Add unit test for lock lib (#287) [Venkatesh Singh]
 
   * Add unit test for lock lib
+
+Fix
+~~~
+- Fixed few failing tests in appium_tests.py (#278)
+  [RajeshkumarAyyadurai]
+
+  * fixed few failing tests in appium_tests.py
+
+  * updated few tests in appium_tests.py by removing uiautomator strategy
+- Fixed failing tests in find_by_accessibility_id_tests.py.
+  [RajeshkumarAyyadurai]
+
+Other
+~~~~~
+- Bump 0.32. [Kazuaki MATSUO]
+- Split driver methods into mixin classes (#291) [Mykola Mokhnach]
+- Run with tox on travis (#290) [Kazuaki Matsuo]
+
+  * run with tox on travis
+
+  * update readme
 - Improve pytest, adding pytest.ini and set default arguments (#284)
   [Kazuaki Matsuo]
 - Extract bytes and add a test for set clipboard (#282) [Kazuaki Matsuo]
@@ -1162,14 +1300,6 @@ v0.32 (2018-12-18)
 
   * remove docgen since we can use markdown format in pypi
 - Release automation (#276) [Kazuaki Matsuo]
-- Fixed few failing tests in appium_tests.py (#278)
-  [RajeshkumarAyyadurai]
-
-  * fixed few failing tests in appium_tests.py
-
-  * updated few tests in appium_tests.py by removing uiautomator strategy
-- Fixed failing tests in find_by_accessibility_id_tests.py.
-  [RajeshkumarAyyadurai]
 - Updated requirements.txt file with version (#275)
   [RajeshkumarAyyadurai]
 
@@ -1211,32 +1341,31 @@ v0.31 (2018-11-21)
 
 v0.30 (2018-10-31)
 ------------------
-- V0.30. [Kazuaki MATSUO]
+
+New
+~~~
+- Add release section in readme. [Kazuaki MATSUO]
+
+Fix
+~~~
 - Fix python3 set_clipboard error (#267) [Kazuaki Matsuo]
 
   * fix python3 set_clipboard error
 
   * apply formatter
-- Add release section in readme. [Kazuaki MATSUO]
+
+Other
+~~~~~
+- V0.30. [Kazuaki MATSUO]
 
 
 v0.29 (2018-10-30)
 ------------------
-- V0.29. [Kazuaki MATSUO]
+
+New
+~~~
 - Add an endpoint for pressing buttons (#262) [Alex]
 - Add custom locator strategy (#260) [Jonathan Lipps]
-- Bump selenium 3.14.1, call RemoteCommand without workaround (#259)
-  [Kazuaki Matsuo]
-
-  * bump selenium 3.14.1, call RemoteCommand without workaround
-
-  * make attributeValue check safe
-
-  * define str = basestring for Python 2
-
-  * apply formatter
-
-  * add missing value check
 - Add a duration for scroll for ios (#256) [Kazuaki Matsuo]
 
   * add a duration for scroll for ios
@@ -1250,8 +1379,6 @@ v0.29 (2018-10-30)
   * skip wait if duration is none
 
   * add comment
-- Update obsolete link for mobile json wire protocol spec. (#257)
-  [Andrei Petre]
 - Add finger print (#252) [Kazuaki Matsuo]
 
   * add fingre print
@@ -1272,20 +1399,6 @@ v0.29 (2018-10-30)
   * define PytestXdistWorker
 
   * use gw0 if the number of worker is over the count of workers
-- Remove always_match and use first_match instead (#246) [Kazuaki
-  Matsuo]
-
-  remove always_match and use first_match instead
-- Use normal element for find image by (#236) [Kazuaki Matsuo]
-
-  * use normal element
-
-  * get rid of png
-
-  * get rid of imagelement.py
-
-  * apply formatter
-- Typo fix: finiding -> finding (#245) [Andrew Fuller]
 - Add autopep8 (#243) [Kazuaki Matsuo]
 
   * apply autopep8
@@ -1327,23 +1440,58 @@ v0.29 (2018-10-30)
   * tweak docstring
 
   * add find element by viewtag section in readme
+
+Other
+~~~~~
+- V0.29. [Kazuaki MATSUO]
+- Bump selenium 3.14.1, call RemoteCommand without workaround (#259)
+  [Kazuaki Matsuo]
+
+  * bump selenium 3.14.1, call RemoteCommand without workaround
+
+  * make attributeValue check safe
+
+  * define str = basestring for Python 2
+
+  * apply formatter
+
+  * add missing value check
+- Update obsolete link for mobile json wire protocol spec. (#257)
+  [Andrei Petre]
+- Remove always_match and use first_match instead (#246) [Kazuaki
+  Matsuo]
+
+  remove always_match and use first_match instead
+- Use normal element for find image by (#236) [Kazuaki Matsuo]
+
+  * use normal element
+
+  * get rid of png
+
+  * get rid of imagelement.py
+
+  * apply formatter
+- Typo fix: finiding -> finding (#245) [Andrew Fuller]
 - Tweak PyPi URLs and add a badge (#232) [Kazuaki Matsuo]
 
 
 v0.28 (2018-07-13)
 ------------------
-- V0.28. [Isaac Murchie]
+
+Fix
+~~~
 - Fix base64 encoded string (#231) [Kazuaki Matsuo]
+
+Other
+~~~~~
+- V0.28. [Isaac Murchie]
 
 
 v0.27 (2018-07-10)
 ------------------
-- V0.27. [Isaac Murchie]
-- Set None as default value to lock device (#227) [Miguel Hernández]
 
-  * Set 0 as default value to lock device
-
-  * Set None as default value instead of 0
+New
+~~~
 - Add support for is keyboard shown command. [Jonathan Lipps]
 - Add find by image commands and tests (#224) [Jonathan Lipps]
 
@@ -1366,8 +1514,6 @@ v0.27 (2018-07-10)
   * Add wrappers for OpenCV-based image comparison
 
   * Tune some docs
-- Avoid setting coordinates to null for touch actions (#214) [Mykola
-  Mokhnach]
 - Add clipboard handlers (#209) [Mykola Mokhnach]
 
   * Add clipboard handlers
@@ -1375,7 +1521,6 @@ v0.27 (2018-07-10)
   * Fix documentation
 
   * fix options notation
-- Change QUERY_APP_STATE request type to POST (#205) [Mykola Mokhnach]
 - Add applications management endpoint handlers (#204) [Mykola Mokhnach]
 - Add methods for start/stop screen record API endpoints (#201) [Mykola
   Mokhnach]
@@ -1407,6 +1552,18 @@ v0.27 (2018-07-10)
   * update the docset
 - Add endpoints for lock/unlock. [Mykola Mokhnach]
 
+Other
+~~~~~
+- V0.27. [Isaac Murchie]
+- Set None as default value to lock device (#227) [Miguel Hernández]
+
+  * Set 0 as default value to lock device
+
+  * Set None as default value instead of 0
+- Avoid setting coordinates to null for touch actions (#214) [Mykola
+  Mokhnach]
+- Change QUERY_APP_STATE request type to POST (#205) [Mykola Mokhnach]
+
 
 v0.26 (2018-01-09)
 ------------------
@@ -1415,19 +1572,28 @@ v0.26 (2018-01-09)
 
 v0.25 (2018-01-09)
 ------------------
-- V0.25. [Isaac Murchie]
-- Only if key_name, key, and strategy are None do we need to set the
-  strategy to 'tapOutside'. This change allows setting just the strategy
-  to some other value, like 'swipeDown'. (#181) [Daniel Freer]
-- Fix typos in the README. [Mel Shafer]
-- Correct a wording. [Kazuaki MATSUO]
+
+New
+~~~
 - Add method for getting current package. [Isaac Murchie]
-- Create README.md. [Kazuaki Matsuo]
-- Append class chain related descriptions. [Kazuaki MATSUO]
 - Add tests for ios class chain and rename methods a bit. [Kazuaki
   MATSUO]
 - Add class chain. [Kazuaki MATSUO]
 - Add toggleTouchIdEnrollment. [Dan Graham]
+
+Fix
+~~~
+- Fix typos in the README. [Mel Shafer]
+
+Other
+~~~~~
+- V0.25. [Isaac Murchie]
+- Only if key_name, key, and strategy are None do we need to set the
+  strategy to 'tapOutside'. This change allows setting just the strategy
+  to some other value, like 'swipeDown'. (#181) [Daniel Freer]
+- Correct a wording. [Kazuaki MATSUO]
+- Create README.md. [Kazuaki Matsuo]
+- Append class chain related descriptions. [Kazuaki MATSUO]
 - Update README to include instructions for using iOS predicates. [Emil
   Petersen]
 - Update docs for UIAutomation selector to include version requirement.
@@ -1436,22 +1602,34 @@ v0.25 (2018-01-09)
 
 v0.24 (2016-12-20)
 ------------------
-- V0.24. [Isaac Murchie]
-- DontStopAppOnReset instead of stopAppOnReset. [s.zubov]
+
+New
+~~~
 - Added test cases for clear and find elements by ios predicate string.
   [ben.zhou]
 - Added clear to driver. Added find elements by ios predicate string.
   [ben.zhou]
 
+Other
+~~~~~
+- V0.24. [Isaac Murchie]
+- DontStopAppOnReset instead of stopAppOnReset. [s.zubov]
+
 
 v0.23 (2016-11-10)
 ------------------
-- V0.23. [Isaac Murchie]
+
+New
+~~~
 - Added touchId to driver (#143) [Dan Graham]
 
   * Added touchId to driver
 
   Wrote a test for it (still need help running Python tests though). Updated capabilities to use iOS 10.1
+
+Other
+~~~~~
+- V0.23. [Isaac Murchie]
 
 
 v0.22 (2016-03-16)
@@ -1462,11 +1640,20 @@ v0.22 (2016-03-16)
 
 v0.21 (2016-01-20)
 ------------------
-- V0.21. [Isaac Murchie]
+
+New
+~~~
 - Add device_time property. [Isaac Murchie]
+
+Fix
+~~~
 - Fix saucetestcase to run under Python3. [Ling Lin]
 
   The module 'new' was removed. Instead of new.newclass, use type().
+
+Other
+~~~~~
+- V0.21. [Isaac Murchie]
 - Update README.md. [tophercf]
 
   smallest win in history
@@ -1486,41 +1673,65 @@ v0.19 (2015-10-09)
 
 v0.18 (2015-10-07)
 ------------------
-- V0.18. [Isaac Murchie]
-- Remove dependency on enum. [Isaac Murchie]
+
+New
+~~~
+- Add string file argument to driver.app_strings. [Isaac Murchie]
+- Add wait_activity method for webdriver. [zhaoqifa]
+- Add el.location_in_view method. [Isaac Murchie]
+
+Fix
+~~~
 - Fixed typographical error, changed accomodate to accommodate in
   README. [orthographic-pedant]
-- Bump version. [Isaac Murchie]
-- Add string file argument to driver.app_strings. [Isaac Murchie]
-- Use WebDriverWait to implement wait_activity. [zhaoqifa]
-- Add wait_activity method for webdriver. [zhaoqifa]
-- Make tap duration be handled as ms, not s. [Isaac Murchie]
-- Bump version. [Isaac Murchie]
 - Fix bug with monkeypatching. [Isaac Murchie]
-- Bump version. [Isaac Murchie]
-- Move monkeypatched set_value into WebElement. [Isaac Murchie]
-- Add el.location_in_view method. [Isaac Murchie]
 - Fix to issue #71. [James Salt]
 - Fix start_activity for Python 3.x. [Artur Tanistra]
 - Fix start_activity for Python3. [Isaac Murchie]
 
+Other
+~~~~~
+- V0.18. [Isaac Murchie]
+- Remove dependency on enum. [Isaac Murchie]
+- Bump version. [Isaac Murchie]
+- Use WebDriverWait to implement wait_activity. [zhaoqifa]
+- Make tap duration be handled as ms, not s. [Isaac Murchie]
+- Bump version. [Isaac Murchie]
+- Bump version. [Isaac Murchie]
+- Move monkeypatched set_value into WebElement. [Isaac Murchie]
+
 
 v0.14 (2015-03-06)
 ------------------
-- Bump version. [Isaac Murchie]
+
+Fix
+~~~
 - Fix issue with single tap. [Isaac Murchie]
-- Bump version. [Isaac Murchie]
 - Fix handling of sauce test case so ImportError is suppressed. [Isaac
   Murchie]
+
+Other
+~~~~~
+- Bump version. [Isaac Murchie]
+- Bump version. [Isaac Murchie]
 
 
 v0.12 (2015-01-13)
 ------------------
-- Bump version. [Isaac Murchie]
+
+New
+~~~
 - Add base class for Sauce tests. [Isaac Murchie]
 - Add remaining optional arguments to start_activity method. [Isaac
   Murchie]
+
+Fix
+~~~
 - Fix package names for starting activity. [Isaac Murchie]
+
+Other
+~~~~~
+- Bump version. [Isaac Murchie]
 - Update README.md. [Mikhail Martin]
 
   Missing dot causes errors.
@@ -1529,8 +1740,14 @@ v0.12 (2015-01-13)
 
 v0.11 (2014-11-14)
 ------------------
-- Bump version. [Isaac Murchie]
+
+New
+~~~
 - Add toggle_location_services. [Isaac Murchie]
+
+Other
+~~~~~
+- Bump version. [Isaac Murchie]
 - Update webdriver.py. [urtow]
 
   Start_y - y-coordinate for start, not end
@@ -1538,15 +1755,21 @@ v0.11 (2014-11-14)
 
 v0.10 (2014-09-24)
 ------------------
+
+New
+~~~
+- Added start_activity and tests. [Eric Millin]
+- Added 'keyevent' since it is needed for Selendroid. [Payman Delshad]
+- Add set_text method for Android. [Isaac Murchie]
+
+Other
+~~~~~
 - Bump version. [Isaac Murchie]
 - Removed complex_find, added get_settings, update_settings. [Jonah
   Stiennon]
-- Added start_activity and tests. [Eric Millin]
 - Make long_press works with 'duration' parameter. [ianxiaohanxu]
 
   Add a new parameter 'duration = None' to _get_opts
-- Added 'keyevent' since it is needed for Selendroid. [Payman Delshad]
-- Add set_text method for Android. [Isaac Murchie]
 - Typo fix! [Cass]
 - Update README.md. [Johan Lundstroem]
 
@@ -1558,25 +1781,49 @@ v0.10 (2014-09-24)
 
 v0.9 (2014-07-07)
 -----------------
-- Bump version. [Isaac Murchie]
+
+New
+~~~
 - Add some more tests, fix others. [Isaac Murchie]
 - Add ConnectionType enum. [Isaac Murchie]
 - Add methods for Android ime access. [Isaac Murchie]
 - Add network connection methods. [Isaac Murchie]
-- Bump version. [Isaac Murchie]
-- Change call to single-gesture tap. [Isaac Murchie]
 - Add strategy to hide_keyboard. [Isaac Murchie]
 - Add necessary ios attributes. [Brad Pitcher]
 - Add pull_file method. [Isaac Murchie]
 - Add support for open_notifications. [Isaac Murchie]
+- Add optional argument 'language' to app_strings. [Isaac Murchie]
+- Add context method for simplicity. [Isaac Murchie]
+- Add find methods to WebElement. [Isaac Murchie]
+- Add reset and hide_keyboard. [Isaac Murchie]
+- Add PyPi packaging setup. [Isaac Murchie]
+- Add miscellaneous methods. [Isaac Murchie]
+- Add touch and multi touch. [Isaac Murchie]
+- Add accessibility id locator strategy. [Isaac Murchie]
+- Add Android UIAutomator locator strategy. [Isaac Murchie]
+- Add iOS UIAutomation locator strategy. [Isaac Murchie]
+- Add context methods. [Isaac Murchie]
+
+Fix
+~~~
 - Fix for #23: Re-add 'keyevent' temporarily. [Payman Delshad]
 - Fix keycode command. [Isaac Murchie]
+- Fix for Python 3. [Isaac Murchie]
+- Fix typos with context. [Alexander Bayandin]
+- Fix typo in README (resolve #12) [Alexander Bayandin]
+- Fix timing. [Isaac Murchie]
+- Fix setup for egg distro, and add install instructions. [Isaac
+  Murchie]
+
+Other
+~~~~~
 - Bump version. [Isaac Murchie]
-- Add optional argument 'language' to app_strings. [Isaac Murchie]
+- Bump version. [Isaac Murchie]
+- Change call to single-gesture tap. [Isaac Murchie]
+- Bump version. [Isaac Murchie]
 - Renamed keyevent to press_keycode and added long_press_keycode.
   [Payman Delshad]
 - Bump version. [Isaac Murchie]
-- Fix for Python 3. [Isaac Murchie]
 - Numerous fixes. [Alexander Bayandin]
 
   1. fix comparation with None
@@ -1584,26 +1831,11 @@ v0.9 (2014-07-07)
   3. fix imports order (according to pep8)
   4. style fixes (according to pep8)
   5. another minor fixes
-- Fix typos with context. [Alexander Bayandin]
-- Fix typo in README (resolve #12) [Alexander Bayandin]
-- Add context method for simplicity. [Isaac Murchie]
-- Fix timing. [Isaac Murchie]
 - Update zoom/pinch signatures. [Isaac Murchie]
 - Remove tag name, use class. [Isaac Murchie]
 - Don't send multitouch for single finger tap. [Isaac Murchie]
-- Add find methods to WebElement. [Isaac Murchie]
 - Miscellaneous fixes. [Isaac Murchie]
-- Add reset and hide_keyboard. [Isaac Murchie]
-- Fix setup for egg distro, and add install instructions. [Isaac
-  Murchie]
-- Add PyPi packaging setup. [Isaac Murchie]
-- Add miscellaneous methods. [Isaac Murchie]
-- Add touch and multi touch. [Isaac Murchie]
 - Update desired caps. [Isaac Murchie]
-- Add accessibility id locator strategy. [Isaac Murchie]
-- Add Android UIAutomator locator strategy. [Isaac Murchie]
-- Add iOS UIAutomation locator strategy. [Isaac Murchie]
-- Add context methods. [Isaac Murchie]
 - Basic module structure. [Isaac Murchie]
 
 

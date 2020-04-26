@@ -11,6 +11,10 @@ An extension library for adding [Selenium 3.0 draft](https://dvcs.w3.org/hg/webd
 functionality to the Python language bindings, for use with the mobile testing
 framework [Appium](https://appium.io).
 
+# Notice
+
+**Since v1.0.0 only Python 3 is supported**
+
 # Getting the Appium Python client
 
 There are three ways to install and use the Appium Python client.
@@ -541,11 +545,11 @@ and the list of additional arguments that can be passed are,
 
 ```python
              'app_wait_package'
-             'app_wait_activity' 
-             'intent_action' 
-             'intent_category' 
-             'intent_flags' 
-             'optional_intent_arguments' 
+             'app_wait_activity'
+             'intent_action'
+             'intent_category'
+             'intent_flags'
+             'optional_intent_arguments'
              'dont_stop_app_on_reset'
 ```
 

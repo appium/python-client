@@ -170,7 +170,7 @@ class AppiumService:
         if not self.is_running or (timeout_ms > 0 and not poll_url(host, port, STATUS_URL, timeout_ms)):
             error_msg = f'Appium has failed to start on {host}:{port} within {timeout_ms}ms timeout'
         if error_msg is not None:
-            if stderr == sp.PIPE:
+            if stderr == sp.PIPE and self._process.stderr is not None:
                 err_output = self._process.stderr.read()
                 if err_output:
                     error_msg += f'\nOriginal error: {str(err_output)}'

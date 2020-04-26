@@ -64,7 +64,7 @@ class TestMultiAction(BaseTestCase):
         ma.add(a1, a2)
         ma.perform()
 
-    def _move_to_splitting_touches_accros_views(self):
+    def _move_to_splitting_touches_accros_views(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)

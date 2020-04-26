@@ -25,7 +25,7 @@ T = TypeVar('T', bound='WebElement')
 
 
 class WebElement(AppiumWebElementSearchContext):
-    def get_attribute(self, name: str) -> Optional[str]:
+    def get_attribute(self, name: str) -> Optional[Union[str, Dict]]:
         """Gets the given attribute or property of the element.
 
         Override for Appium
@@ -211,7 +211,7 @@ class WebElement(AppiumWebElementSearchContext):
         return self
 
     # Override
-    def send_keys(self, *value):
+    def send_keys(self, *value: str) -> T:
         """Simulates typing into the element.
 
         Args:

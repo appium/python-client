@@ -146,7 +146,7 @@ class TestTouchAction(BaseTestCase):
         action.long_press(dd3).move_to(dd2).release().perform()
 
         el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
-        self.assertTrue('Dropped!' in el.text)
+        assert 'Dropped!' in el.text
 
     def test_driver_drag_and_drop(self) -> None:
         self._move_to_views()
@@ -161,7 +161,7 @@ class TestTouchAction(BaseTestCase):
         self.driver.drag_and_drop(dd3, dd2)
 
         el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
-        self.assertTrue('Dropped!' in el.text)
+        assert 'Dropped!' in el.text
 
     def test_driver_swipe(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Views')
@@ -175,7 +175,7 @@ class TestTouchAction(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'ImageView')
         assert el is not None
 
-    def _move_to_views(self):
+    def _move_to_views(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
@@ -184,7 +184,7 @@ class TestTouchAction(BaseTestCase):
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
-    def _move_to_custom_adapter(self):
+    def _move_to_custom_adapter(self) -> None:
         self._move_to_views()
         action = TouchAction(self.driver)
 

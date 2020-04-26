@@ -44,6 +44,7 @@ class TestTouchAction(BaseTestCase):
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls')
         assert el is not None
 
+    @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI.')
     def test_tap_twice(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Text')
         action = TouchAction(self.driver)
@@ -54,8 +55,6 @@ class TestTouchAction(BaseTestCase):
 
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Add')
         action.tap(el, count=2).perform()
-
-        time.sleep(3)  # [For CI since behavior is slow] To wait action completed
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
         assert 'This is a test\nThis is a test\n' == els[1].get_attribute("text")

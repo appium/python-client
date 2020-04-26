@@ -29,7 +29,7 @@ class AndroidSearchContext(BaseSearchContext):
     """Define search context for Android"""
 
     def find_element_by_android_view_matcher(
-            self, name: Optional[str] = None, args: Any = None, className: Optional[str] = None) -> 'WebElement':
+            self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None) -> 'WebElement':
         """Finds element by [onView](https://developer.android.com/training/testing/espresso/basics) in Android
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
@@ -63,7 +63,7 @@ class AndroidSearchContext(BaseSearchContext):
         )
 
     def find_element_by_android_data_matcher(
-            self, name: Optional[str] = None, args: Any = None, className: Optional[str] = None) -> 'WebElement':
+            self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None) -> 'WebElement':
         """Finds element by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
@@ -96,7 +96,7 @@ class AndroidSearchContext(BaseSearchContext):
         )
 
     def find_elements_by_android_data_matcher(
-            self, name: Optional[str] = None, args: Any = None, className: Optional[str] = None) -> List['WebElement']:
+            self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None) -> List['WebElement']:
         """Finds elements by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
@@ -123,7 +123,8 @@ class AndroidSearchContext(BaseSearchContext):
             value=self._build_data_matcher(name=name, args=args, className=className)
         )
 
-    def _build_data_matcher(self, name: Optional[str] = None, args: Any = None, className: Optional[str] = None) -> str:
+    def _build_data_matcher(self, name: Optional[str] = None, args: Optional[Any]
+                            = None, className: Optional[str] = None) -> str:
         result = {}
 
         for key, value in {'name': name, 'args': args, 'class': className}.items():

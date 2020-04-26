@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
+
 import pytest
 from selenium.common.exceptions import NoSuchElementException
 
@@ -52,6 +54,8 @@ class TestTouchAction(BaseTestCase):
 
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Add')
         action.tap(el, count=2).perform()
+
+        time.sleep(3)  # [For CI since behavior is slow] To wait action completed
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
         assert 'This is a test\nThis is a test\n' == els[1].get_attribute("text")

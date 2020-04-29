@@ -21,7 +21,7 @@ from ..mobilecommand import MobileCommand as Command
 if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=WebDriver)
+T = TypeVar('T', bound='WebDriver')
 
 
 class Applications(webdriver.Remote):

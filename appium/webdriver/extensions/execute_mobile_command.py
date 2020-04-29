@@ -19,7 +19,7 @@ from selenium import webdriver
 if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=WebDriver)
+T = TypeVar('T', bound='WebDriver')
 
 
 class ExecuteMobileCommand(webdriver.Remote):

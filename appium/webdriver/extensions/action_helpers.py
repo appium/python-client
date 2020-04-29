@@ -23,7 +23,7 @@ from appium.webdriver.webelement import WebElement
 if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=WebDriver)
+T = TypeVar('T', bound='WebDriver')
 
 
 class ActionHelpers(webdriver.Remote):

@@ -17,6 +17,7 @@ import pytest
 from appium.webdriver.common.mobileby import MobileBy
 from test.functional.android.helper.test_helper import (
     BaseTestCase,
+    is_ci,
     wait_for_element
 )
 
@@ -38,7 +39,7 @@ class TestFindByAccessibilityID(BaseTestCase):
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
                          'new UiSelector().text("Accessibility Node Querying")').click()
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Task Take out Trash')
+        el = wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView')
 
         sub_el = el.find_element_by_accessibility_id('Task Take out Trash')
         assert sub_el is not None

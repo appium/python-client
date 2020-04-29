@@ -98,7 +98,6 @@ class AndroidSearchContext(BaseSearchContext):
     def find_elements_by_android_data_matcher(
             self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None) -> List['WebElement']:
         """Finds elements by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
-
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         Args:

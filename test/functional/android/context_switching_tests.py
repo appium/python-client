@@ -44,6 +44,7 @@ class TestContextSwitching(object):
         el = self.driver.find_element_by_xpath("//h1[contains(., 'This is my way')]")
         assert el is not None
 
+
     def test_move_back_to_native_context(self) -> None:
         self._enter_webview()
         self.driver.switch_to.context(None)

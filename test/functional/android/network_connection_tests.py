@@ -17,7 +17,6 @@ import pytest
 
 from appium.webdriver.connectiontype import ConnectionType
 
-from ..test_helper import is_ci
 from .helper.test_helper import BaseTestCase
 
 

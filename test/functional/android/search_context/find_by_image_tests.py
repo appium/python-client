@@ -14,9 +14,7 @@
 
 import base64
 
-import pytest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -43,7 +41,6 @@ class TestFindByImage(object):
 
     def test_find_based_on_image_template(self) -> None:
         image_path = desired_capabilities.PATH('file/find_by_image_success.png')
-        print(image_path)
         with open(image_path, 'rb') as png_file:
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
 

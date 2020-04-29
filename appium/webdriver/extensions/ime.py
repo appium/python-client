@@ -12,13 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, TypeVar
+from typing import TYPE_CHECKING, List, TypeVar
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound='IME')
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=WebDriver)
 
 
 class IME(webdriver.Remote):

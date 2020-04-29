@@ -12,13 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
 from selenium import webdriver
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
+
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
 class GsmCallActions:
@@ -46,7 +49,7 @@ class GsmVoiceState:
     ON = 'on'
 
 
-T = TypeVar('T', bound='Gsm')
+T = TypeVar('T', bound=WebDriver)
 
 
 class Gsm(webdriver.Remote):

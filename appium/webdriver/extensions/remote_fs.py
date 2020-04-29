@@ -13,14 +13,17 @@
 # limitations under the License.
 
 import base64
-from typing import Optional, TypeVar
+from typing import TYPE_CHECKING, Optional, TypeVar
 
 from selenium import webdriver
 from selenium.common.exceptions import InvalidArgumentException
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound='RemoteFS')
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=WebDriver)
 
 
 class RemoteFS(webdriver.Remote):

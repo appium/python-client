@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Optional, Tuple, TypeVar
+from typing import TYPE_CHECKING, List, Optional, Tuple, TypeVar
 
 from selenium import webdriver
 
@@ -20,7 +20,10 @@ from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.webelement import WebElement
 
-T = TypeVar('T', bound='ActionHelpers')
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=WebDriver)
 
 
 class ActionHelpers(webdriver.Remote):

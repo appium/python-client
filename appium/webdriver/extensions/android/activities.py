@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -20,7 +20,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound='Activities')
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=WebDriver)
 
 
 class Activities(webdriver.Remote):

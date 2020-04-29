@@ -12,11 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, TypeVar
 
 from selenium import webdriver
 
-T = TypeVar('T', bound='ExecuteMobileCommand')
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=WebDriver)
 
 
 class ExecuteMobileCommand(webdriver.Remote):

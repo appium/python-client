@@ -319,7 +319,7 @@ class WebDriver(
             'using': by,
             'value': value})['value'] or []
 
-    def create_web_element(self, element_id: int, w3c: bool = False) -> MobileWebElement:
+    def create_web_element(self, element_id: Union[int, str], w3c: bool = False) -> MobileWebElement:
         """Creates a web element with the specified element_id.
 
         Overrides method in Selenium WebDriver in order to always give them

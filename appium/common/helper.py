@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict
+from typing import Any, Dict
 
 from appium import version as appium_version
 
 
-def extract_const_attributes(cls: type) -> Dict:
+def extract_const_attributes(cls: type) -> Dict[str, Any]:
     """Return dict with constants attributes and values in the class(e.g. {'VAL1': 1, 'VAL2': 2})
 
     Args:

@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Any, Dict, List
+
 from selenium import webdriver
 
 from appium.common.logger import logger
@@ -21,7 +23,7 @@ from ..mobilecommand import MobileCommand as Command
 
 class Session(webdriver.Remote):
     @property
-    def session(self):
+    def session(self) -> Dict[str, Any]:
         """ Retrieves session information from the current session
 
         Usage:
@@ -33,19 +35,19 @@ class Session(webdriver.Remote):
         return self.execute(Command.GET_SESSION)['value']
 
     @property
-    def all_sessions(self):
+    def all_sessions(self) -> List[Dict[str, Any]]:
         """ Retrieves all sessions that are open
 
         Usage:
             sessions = driver.all_sessions
 
         Returns:
-            `dict`: containing all open sessions
+            :obj:`list` of :obj:`dict`: containing all open sessions
         """
         return self.execute(Command.GET_ALL_SESSIONS)['value']
 
     @property
-    def events(self):
+    def events(self) -> Dict:
         """ Retrieves events information from the current session
 
         Usage:
@@ -63,7 +65,7 @@ class Session(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.GET_SESSION] = \
             ('GET', '/session/$sessionId')
         self.command_executor._commands[Command.GET_ALL_SESSIONS] = \

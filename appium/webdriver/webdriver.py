@@ -15,6 +15,7 @@
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
 import copy
+from typing import Any, Dict, List, Optional, TypeVar, Union
 
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
@@ -84,7 +85,7 @@ _FORCE_MJSONWP = 'forceMjsonwp'
 # Add appium prefix for the non-W3C capabilities
 
 
-def _make_w3c_caps(caps):
+def _make_w3c_caps(caps: Dict) -> Dict[str, List[Dict[str, Any]]]:
     appium_prefix = 'appium:'
 
     caps = copy.deepcopy(caps)
@@ -109,6 +110,9 @@ def _make_w3c_caps(caps):
             new_opts['profile'] = profile
             first_match['moz:firefoxOptions'] = new_opts
     return {'firstMatch': [first_match]}
+
+
+T = TypeVar('T', bound='WebDriver')
 
 
 class WebDriver(
@@ -141,10 +145,10 @@ class WebDriver(
     SystemBars
 ):
 
-    def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',
-                 desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=True, direct_connection=False):
+    def __init__(self, command_executor: str = 'http://127.0.0.1:4444/wd/hub',
+                 desired_capabilities: Optional[Dict] = None, browser_profile: str = None, proxy: str = None, keep_alive: bool = True, direct_connection: bool = False):
 
-        super(WebDriver, self).__init__(
+        super().__init__(
             AppiumConnection(command_executor, keep_alive=keep_alive),
             desired_capabilities,
             browser_profile,
@@ -171,7 +175,7 @@ class WebDriver(
         By.IMAGE = MobileBy.IMAGE
         By.CUSTOM = MobileBy.CUSTOM
 
-    def _update_command_executor(self, keep_alive):
+    def _update_command_executor(self, keep_alive: bool) -> None:
         """Update command executor following directConnect feature"""
         direct_protocol = 'directConnectProtocol'
         direct_host = 'directConnectHost'
@@ -189,19 +193,14 @@ class WebDriver(
         hostname = self.capabilities[direct_host]
         port = self.capabilities[direct_port]
         path = self.capabilities[direct_path]
-        executor = '{scheme}://{hostname}:{port}{path}'.format(
-            scheme=protocol,
-            hostname=hostname,
-            port=port,
-            path=path
-        )
+        executor = f'{protocol}://{hostname}:{port}{path}'
 
         logger.info('Updated request endpoint to %s', executor)
         # Override command executor
         self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
         self._addCommands()
 
-    def start_session(self, capabilities, browser_profile=None):
+    def start_session(self, capabilities: Dict, browser_profile: Optional[str] = None) -> None:
         """Creates a new session with the desired capabilities.
 
         Override for Appium
@@ -218,9 +217,11 @@ class WebDriver(
             raise InvalidArgumentException('Capabilities must be a dictionary')
         if browser_profile:
             if 'moz:firefoxOptions' in capabilities:
-                capabilities['moz:firefoxOptions']['profile'] = browser_profile.encoded
+                # encoded is defined in selenium's original codes
+                capabilities['moz:firefoxOptions']['profile'] = browser_profile.encoded  # type: ignore
             else:
-                capabilities.update({'firefox_profile': browser_profile.encoded})
+                # encoded is defined in selenium's original codes
+                capabilities.update({'firefox_profile': browser_profile.encoded})  # type: ignore
 
         parameters = self._merge_capabilities(capabilities)
 
@@ -239,7 +240,7 @@ class WebDriver(
         self.w3c = response.get('status') is None
         self.command_executor.w3c = self.w3c
 
-    def _merge_capabilities(self, capabilities):
+    def _merge_capabilities(self, capabilities: Dict) -> Dict[str, Any]:
         """Manage capabilities whether W3C format or MJSONWP format
         """
         if _FORCE_MJSONWP in capabilities:
@@ -252,7 +253,7 @@ class WebDriver(
         w3c_caps = _make_w3c_caps(capabilities)
         return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 
-    def find_element(self, by=By.ID, value=None):
+    def find_element(self, by: str = By.ID, value: Union[str, Dict] = None) -> MobileWebElement:
         """'Private' method used by the find_element_by_* methods.
 
         Override for Appium
@@ -283,7 +284,8 @@ class WebDriver(
             'using': by,
             'value': value})['value']
 
-    def find_elements(self, by=By.ID, value=None):
+    def find_elements(self, by: str = By.ID, value: Union[str, Dict]
+                      = None) -> Union[List[MobileWebElement], List]:
         """'Private' method used by the find_elements_by_* methods.
 
         Override for Appium
@@ -317,7 +319,7 @@ class WebDriver(
             'using': by,
             'value': value})['value'] or []
 
-    def create_web_element(self, element_id, w3c=False):
+    def create_web_element(self, element_id: Union[int, str], w3c: bool = False) -> MobileWebElement:
         """Creates a web element with the specified element_id.
 
         Overrides method in Selenium WebDriver in order to always give them
@@ -332,7 +334,7 @@ class WebDriver(
         """
         return MobileWebElement(self, element_id, w3c)
 
-    def set_value(self, element, value):
+    def set_value(self, element: MobileWebElement, value: str) -> T:
         """Set the value on an element in the application.
 
         Args:
@@ -351,7 +353,7 @@ class WebDriver(
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         # call the overridden command binders from all mixin classes except for
         # appium.webdriver.webdriver.WebDriver and its sub-classes
         # https://github.com/appium/python-client/issues/342

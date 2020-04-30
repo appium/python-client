@@ -13,16 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from .helper.test_helper import BaseTestCase
 
 
-class LocationTests(BaseTestCase):
-    def test_toggle_location_services(self):
-        self.driver.toggle_location_services()
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(LocationTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+class TestLocation(BaseTestCase):
+    def test_toggle_location_services(self) -> None:
+        self.driver.toggle_location_services()  # TODO Add assert

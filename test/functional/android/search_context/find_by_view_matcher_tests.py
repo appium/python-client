@@ -24,36 +24,33 @@ from appium.webdriver.extensions.search_context.android import (
     AndroidSearchContext
 )
 from test.functional.android.helper.test_helper import (
+    BaseTestCase,
     desired_capabilities,
     is_ci
 )
 
 
-class FindByViewMatcherTests(unittest.TestCase):
+class TestFindByViewMatcher(BaseTestCase):
 
-    def setUp(self):
+    # Override
+    def setup_method(self, method) -> None:  # type: ignore
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         desired_caps['automationName'] = 'Espresso'
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-    def tearDown(self):
         if is_ci():
-            # Take the screenshot to investigate when tests failed only on CI
-            img_path = os.path.join(os.getcwd(), self._testMethodName + '.png')
-            self.driver.get_screenshot_as_file(img_path)
-        self.driver.quit()
+            self.driver.start_recording_screen()
 
-    def test_find_single_element(self):
+    def test_find_single_element(self) -> None:
         el = self.driver.find_element_by_android_view_matcher(
             name='withText', args=['Accessibility'], className='ViewMatchers')
         assert el.text == 'Accessibility'
 
-    def test_find_single_element_ful_class_name(self):
+    def test_find_single_element_ful_class_name(self) -> None:
         el = self.driver.find_element_by_android_view_matcher(
             name='withText', args=['Accessibility'], className='androidx.test.espresso.matcher.ViewMatchers')
         assert el.text == 'Accessibility'
 
-    def test_find_single_element_using_hamcrest_matcher(self):
+    def test_find_single_element_using_hamcrest_matcher(self) -> None:
         el = self.driver.find_element_by_android_view_matcher(
             name='withText',
             args={
@@ -65,13 +62,8 @@ class FindByViewMatcherTests(unittest.TestCase):
 
     # androidx.test.espresso.AmbiguousViewMatcherException:
     # 'with text: a string containing "Access"' matches multiple views in the hierarchy.
-    def test_find_multiple_elements(self):
+    def test_find_multiple_elements(self) -> None:
         value = AndroidSearchContext()._build_data_matcher(
             name='withSubstring', args=['Access'], className='ViewMatchers')
         with pytest.raises(WebDriverException):
             self.driver.find_elements(by=MobileBy.ANDROID_VIEW_MATCHER, value=value)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(FindByViewMatcherTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

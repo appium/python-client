@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Dict
+
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.remote import errorhandler
 
@@ -19,11 +21,11 @@ from appium.common.exceptions import NoSuchContextException
 
 
 class MobileErrorHandler(errorhandler.ErrorHandler):
-    def check_response(self, response):
+    def check_response(self, response: Dict) -> None:
         try:
-            super(MobileErrorHandler, self).check_response(response)
+            super().check_response(response)
         except WebDriverException as wde:
             if wde.msg == 'No such context found.':
-                raise NoSuchContextException(wde.msg, wde.screen, wde.stacktrace)
+                raise NoSuchContextException(wde.msg, wde.screen, wde.stacktrace) from wde
             else:
                 raise wde

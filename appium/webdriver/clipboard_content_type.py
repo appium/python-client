@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-class ClipboardContentType(object):
+class ClipboardContentType:
     PLAINTEXT = 'plaintext'
     IMAGE = 'image'
     URL = 'url'

@@ -12,15 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import TYPE_CHECKING, TypeVar
+
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound='WebDriver')
+
 
 class Activities(webdriver.Remote):
-    def start_activity(self, app_package, app_activity, **opts):
+    def start_activity(self, app_package: str, app_activity: str, **opts: str) -> T:
         """Opens an arbitrary activity during a test. If the activity belongs to
         another application, that application is started and the activity is opened.
 
@@ -59,7 +66,7 @@ class Activities(webdriver.Remote):
         return self
 
     @property
-    def current_activity(self):
+    def current_activity(self) -> str:
         """Retrieves the current activity running on the device.
 
         Returns:
@@ -67,7 +74,7 @@ class Activities(webdriver.Remote):
         """
         return self.execute(Command.GET_CURRENT_ACTIVITY)['value']
 
-    def wait_activity(self, activity, timeout, interval=1):
+    def wait_activity(self, activity: str, timeout: int, interval: int = 1) -> bool:
         """Wait for an activity: block until target activity presents or time out.
 
         This is an Android-only method.
@@ -76,6 +83,9 @@ class Activities(webdriver.Remote):
             activity (str): target activity
             timeout (int): max wait time, in seconds
             interval (int): sleep interval between retries, in seconds
+
+        Returns:
+            bool: `True` if the target activity is shown
         """
         try:
             WebDriverWait(self, timeout, interval).until(
@@ -86,7 +96,7 @@ class Activities(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.GET_CURRENT_ACTIVITY] = \
             ('GET', '/session/$sessionId/appium/device/current_activity')
         self.command_executor._commands[Command.START_ACTIVITY] = \

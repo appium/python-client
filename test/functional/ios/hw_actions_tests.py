@@ -12,34 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from test.functional.ios.helper.test_helper import BaseTestCase
 
 
-class HwActionsTests(BaseTestCase):
-    def test_lock(self):
+class TestHwActions(BaseTestCase):
+    def test_lock(self) -> None:
         self.driver.lock(-1)
         try:
-            self.assertTrue(self.driver.is_locked())
+            assert self.driver.is_locked()
         finally:
             self.driver.unlock()
-        self.assertFalse(self.driver.is_locked())
+        assert not self.driver.is_locked()
 
-    def test_shake(self):
-        # what can we assert about this?
+    def test_shake(self) -> None:
+        # TODO what can we assert about this?
         self.driver.shake()
 
-    def test_touch_id(self):
+    def test_touch_id(self) -> None:
         # nothing to assert, just verify that it doesn't blow up
         self.driver.touch_id(True)
         self.driver.touch_id(False)
 
-    def test_toggle_touch_id_enrollment(self):
+    def test_toggle_touch_id_enrollment(self) -> None:
         # nothing to assert, just verify that it doesn't blow up
         self.driver.toggle_touch_id_enrollment()
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(HwActionsTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

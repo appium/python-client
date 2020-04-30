@@ -275,7 +275,7 @@ class TestWebDriverWebDriver(object):
 
 class SubWebDriver(WebDriver):
     def __init__(self, command_executor, desired_capabilities, direct_connection=False):
-        super(SubWebDriver, self).__init__(
+        super().__init__(
             command_executor=command_executor,
             desired_capabilities=desired_capabilities,
             direct_connection=direct_connection
@@ -284,7 +284,7 @@ class SubWebDriver(WebDriver):
 
 class SubSubWebDriver(SubWebDriver):
     def __init__(self, command_executor, desired_capabilities, direct_connection=False):
-        super(SubSubWebDriver, self).__init__(
+        super().__init__(
             command_executor=command_executor,
             desired_capabilities=desired_capabilities,
             direct_connection=direct_connection

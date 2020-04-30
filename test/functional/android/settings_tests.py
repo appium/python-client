@@ -13,22 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from .helper.test_helper import BaseTestCase
 
 
-class SettingsTests(BaseTestCase):
-    def test_get_settings(self):
+class TestSettings(BaseTestCase):
+    def test_get_settings(self) -> None:
         settings = self.driver.get_settings()
-        self.assertIsNotNone(settings)
+        assert settings is not None
 
-    def test_update_settings(self):
+    def test_update_settings(self) -> None:
         self.driver.update_settings({"waitForIdleTimeout": 10001})
         settings = self.driver.get_settings()
-        self.assertEqual(settings["waitForIdleTimeout"], 10001)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(SettingsTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert settings["waitForIdleTimeout"] == 10001

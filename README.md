@@ -49,14 +49,18 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 
 - Style Guide: https://www.python.org/dev/peps/pep-0008/
     - `autopep8` helps to format code automatically
-        ```
+        ```shell
         $ python -m autopep8 -r --global-config .config-pep8 -i .
         ```
     - `isort` helps to order imports automatically
-        ```
+        ```shell
         $ python -m isort -rc .
         ```
         - When you use newly 3rd party modules, add it to [.isort.cfg](.isort.cfg) to keep import order correct
+    - `mypy` helps to check explicit type declarations
+        ```shell
+        $ python -m mypy appium
+        ```
 - Docstring style: Google Style
     - Refer [link](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
 - You can customise `CHANGELOG.rst` with commit messages following [.gitchangelog.rc](.gitchangelog.rc)

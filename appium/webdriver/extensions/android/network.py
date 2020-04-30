@@ -12,14 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import TYPE_CHECKING, TypeVar
+
 from selenium import webdriver
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
-class NetSpeed(object):
+T = TypeVar('T', bound='WebDriver')
+
+
+class NetSpeed:
     GSM = 'gsm'  # GSM/CSD (up: 14.4(kbps), down: 14.4(kbps))
     SCSD = 'scsd'  # HSCSD (up: 14.4, down: 57.6)
     GPRS = 'gprs'  # GPRS (up: 28.8, down: 57.6)
@@ -34,7 +41,7 @@ class NetSpeed(object):
 class Network(webdriver.Remote):
 
     @property
-    def network_connection(self):
+    def network_connection(self) -> int:
         """Returns an integer bitmask specifying the network connection type.
 
         Android only.
@@ -42,24 +49,32 @@ class Network(webdriver.Remote):
         """
         return self.execute(Command.GET_NETWORK_CONNECTION, {})['value']
 
-    def set_network_connection(self, connection_type):
+    def set_network_connection(self, connection_type: int) -> int:
         """Sets the network connection type. Android only.
 
         Possible values:
-            Value (Alias)      | Data | Wifi | Airplane Mode
-            -------------------------------------------------
-            0 (None)           | 0    | 0    | 0
-            1 (Airplane Mode)  | 0    | 0    | 1
-            2 (Wifi only)      | 0    | 1    | 0
-            4 (Data only)      | 1    | 0    | 0
-            6 (All network on) | 1    | 1    | 0
+
+            +--------------------+------+------+---------------+
+            | Value (Alias)      | Data | Wifi | Airplane Mode |
+            +====================+======+======+===============+
+            | 0 (None)           | 0    | 0    | 0             |
+            +--------------------+------+------+---------------+
+            | 1 (Airplane Mode)  | 0    | 0    | 1             |
+            +--------------------+------+------+---------------+
+            | 2 (Wifi only)      | 0    | 1    | 0             |
+            +--------------------+------+------+---------------+
+            | 4 (Data only)      | 1    | 0    | 0             |
+            +--------------------+------+------+---------------+
+            | 6 (All network on) | 1    | 1    | 0             |
+            +--------------------+------+------+---------------+
+
         These are available through the enumeration `appium.webdriver.ConnectionType`
 
         Args:
             connection_type (int): a member of the enum appium.webdriver.ConnectionType
 
-        Returns:
-            `appium.webdriver.webdriver.WebDriver`
+        Return:
+            int: Set network connection type
         """
         data = {
             'parameters': {
@@ -68,7 +83,7 @@ class Network(webdriver.Remote):
         }
         return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
 
-    def toggle_wifi(self):
+    def toggle_wifi(self) -> T:
         """Toggle the wifi on the device, Android only.
 
         Returns:
@@ -77,7 +92,7 @@ class Network(webdriver.Remote):
         self.execute(Command.TOGGLE_WIFI, {})
         return self
 
-    def set_network_speed(self, speed_type):
+    def set_network_speed(self, speed_type: str) -> T:
         """Set the network speed emulation.
 
         Android Emulator only.
@@ -94,15 +109,15 @@ class Network(webdriver.Remote):
         """
         constants = extract_const_attributes(NetSpeed)
         if speed_type not in constants.values():
-            logger.warning('{} is unknown. Consider using one of {} constants. (e.g. {}.LTE)'.format(
-                speed_type, list(constants.keys()), NetSpeed.__name__))
+            logger.warning(
+                f'{speed_type} is unknown. Consider using one of {list(constants.keys())} constants. (e.g. {NetSpeed.__name__}.LTE)')
 
         self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
         return self
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.TOGGLE_WIFI] = \
             ('POST', '/session/$sessionId/appium/device/toggle_wifi')
         self.command_executor._commands[Command.GET_NETWORK_CONNECTION] = \

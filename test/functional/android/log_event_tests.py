@@ -13,19 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from .helper.test_helper import BaseTestCase
 
 
-class LogEventTests(BaseTestCase):
-    def test_log_event(self):
+class TestLogEvent(BaseTestCase):
+    def test_log_event(self) -> None:
         vendor = 'appium'
         event = 'funEvent'
         self.driver.log_event(vendor, event)
-        assert '{}:{}'.format(vendor, event) in self.driver.get_events().keys()
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(LogEventTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert f'{vendor}:{event}' in self.driver.get_events().keys()

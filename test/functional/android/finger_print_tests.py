@@ -13,17 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from .helper.test_helper import BaseTestCase
 
 
-class FingerPrintTests(BaseTestCase):
-    def test_finger_print(self):
+class TestFingerPrint(BaseTestCase):
+    def test_finger_print(self) -> None:
         result = self.driver.finger_print(1)
-        self.assertEqual(None, result)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(FingerPrintTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert result is None

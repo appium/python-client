@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 from time import sleep
 
 from .helper.test_helper import BaseTestCase
@@ -22,37 +21,31 @@ ANDROID_LATIN = 'com.android.inputmethod.latin/.LatinIME'  # Android L/M/N
 GOOGLE_LATIN = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'  # Android O/P
 
 
-class IMETests(BaseTestCase):
-    def test_available_ime_engines(self):
+class TestIME(BaseTestCase):
+    def test_available_ime_engines(self) -> None:
         engines = self.driver.available_ime_engines
-        self.assertIsInstance(engines, list)
-        self.assertTrue(ANDROID_LATIN in engines or GOOGLE_LATIN in engines)
+        assert isinstance(engines, list)
+        assert ANDROID_LATIN in engines or GOOGLE_LATIN in engines
 
-    def test_is_ime_active(self):
-        self.assertTrue(self.driver.is_ime_active())
+    def test_is_ime_active(self) -> None:
+        assert self.driver.is_ime_active()
 
-    def test_active_ime_engine(self):
+    def test_active_ime_engine(self) -> None:
         engines = self.driver.available_ime_engines
-        self.assertTrue(self.driver.active_ime_engine in engines)
+        assert self.driver.active_ime_engine in engines
 
-    def test_activate_ime_engine(self):
+    def test_activate_ime_engine(self) -> None:
         engines = self.driver.available_ime_engines
-        active_engine = self.driver.active_ime_engine
 
         self.driver.activate_ime_engine(engines[-1])
-        self.assertEqual(self.driver.active_ime_engine, engines[-1])
+        assert self.driver.active_ime_engine == engines[-1]
 
-    def test_deactivate_ime_engine(self):
+    def test_deactivate_ime_engine(self) -> None:
         engines = self.driver.available_ime_engines
         self.driver.activate_ime_engine(engines[-1])
 
-        self.assertEqual(self.driver.active_ime_engine, engines[-1])
+        assert self.driver.active_ime_engine == engines[-1]
 
         self.driver.deactivate_ime_engine()
         sleep(1)
-        self.assertNotEqual(self.driver.active_ime_engine, engines[-1])
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(IMETests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert self.driver.active_ime_engine != engines[-1]

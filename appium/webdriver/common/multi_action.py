@@ -19,17 +19,25 @@
 # chaining as the spec requires.
 
 import copy
+from typing import TYPE_CHECKING, Dict, List, Optional, TypeVar, Union
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
+    from appium.webdriver.webelement import WebElement
+    from appium.webdriver.common.touch_action import TouchAction
 
-class MultiAction(object):
-    def __init__(self, driver, element=None):
+T = TypeVar('T', bound='MultiAction')
+
+
+class MultiAction:
+    def __init__(self, driver: 'WebDriver', element: Optional['WebElement'] = None) -> None:
         self._driver = driver
         self._element = element
-        self._touch_actions = []
+        self._touch_actions: List['TouchAction'] = []
 
-    def add(self, *touch_actions):
+    def add(self, *touch_actions: 'TouchAction') -> None:
         """Add TouchAction objects to the MultiAction, to be performed later.
 
         Args:
@@ -37,8 +45,11 @@ class MultiAction(object):
 
         Usage:
             a1 = TouchAction(driver)
+
             a1.press(el1).move_to(el2).release()
+
             a2 = TouchAction(driver)
+
             a2.press(el2).move_to(el1).release()
 
             MultiAction(driver).add(a1, a2)
@@ -49,13 +60,16 @@ class MultiAction(object):
 
             self._touch_actions.append(copy.copy(touch_action))
 
-    def perform(self):
+    def perform(self: T) -> T:
         """Perform the actions stored in the object.
 
         Usage:
             a1 = TouchAction(driver)
+
             a1.press(el1).move_to(el2).release()
+
             a2 = TouchAction(driver)
+
             a2.press(el2).move_to(el1).release()
 
             MultiAction(driver).add(a1, a2).perform()
@@ -68,7 +82,7 @@ class MultiAction(object):
         return self
 
     @property
-    def json_wire_gestures(self):
+    def json_wire_gestures(self) -> Dict[str, Union[List, str]]:
         actions = []
         for action in self._touch_actions:
             actions.append(action.json_wire_gestures)

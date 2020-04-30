@@ -13,24 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
+import pytest
 
 from appium.webdriver.connectiontype import ConnectionType
 
+from ..test_helper import is_ci
 from .helper.test_helper import BaseTestCase
 
 
-class NetworkConnectionTests(BaseTestCase):
-    def test_get_network_connection(self):
+class TestNetworkConnection(BaseTestCase):
+    def test_get_network_connection(self) -> None:
         nc = self.driver.network_connection
-        self.assertIsInstance(nc, int)
+        assert isinstance(nc, int)
 
-    def test_set_network_connection(self):
+    @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI')
+    def test_set_network_connection(self) -> None:
         nc = self.driver.set_network_connection(ConnectionType.DATA_ONLY)
-        self.assertIsInstance(nc, int)
-        self.assertEqual(nc, ConnectionType.DATA_ONLY)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(NetworkConnectionTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+        assert isinstance(nc, int)
+        assert nc == ConnectionType.DATA_ONLY

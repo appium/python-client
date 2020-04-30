@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 from time import sleep
+
+import pytest
 
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
@@ -22,8 +23,8 @@ from appium.webdriver.common.touch_action import TouchAction
 from .helper.test_helper import BaseTestCase, is_ci, wait_for_element
 
 
-class MultiActionTests(BaseTestCase):
-    def test_parallel_actions(self):
+class TestMultiAction(BaseTestCase):
+    def test_parallel_actions(self) -> None:
         self._move_to_splitting_touches_accros_views()
 
         els = self.driver.find_elements_by_class_name('android.widget.ListView')
@@ -39,7 +40,7 @@ class MultiActionTests(BaseTestCase):
         ma.add(a1, a2)
         ma.perform()
 
-    def test_actions_with_waits(self):
+    def test_actions_with_waits(self) -> None:
         self._move_to_splitting_touches_accros_views()
 
         els = self.driver.find_elements_by_class_name('android.widget.ListView')
@@ -63,7 +64,7 @@ class MultiActionTests(BaseTestCase):
         ma.add(a1, a2)
         ma.perform()
 
-    def _move_to_splitting_touches_accros_views(self):
+    def _move_to_splitting_touches_accros_views(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Content')
         el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
@@ -83,9 +84,8 @@ class MultiActionTests(BaseTestCase):
 
         wait_for_element(self.driver, MobileBy.ID, 'io.appium.android.apis:id/list1')
 
-    def test_driver_multi_tap(self):
-        if is_ci():
-            self.skipTest('Skip since the test must be watched to check if it works')
+    @pytest.mark.skipif(condition=is_ci(), reason='Skip since the test must be watched to check if it works')
+    def test_driver_multi_tap(self) -> None:
         el = self.driver.find_element_by_accessibility_id('Graphics')
         action = TouchAction(self.driver)
         action.tap(el).perform()
@@ -107,8 +107,3 @@ class MultiActionTests(BaseTestCase):
         # THE TEST MUST BE WATCHED TO CHECK IF IT WORKS
         self.driver.tap(positions)
         sleep(10)
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(MultiActionTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)

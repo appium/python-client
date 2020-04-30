@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import TypeVar
+
 from selenium.webdriver.remote.switch_to import SwitchTo
 
 from .mobilecommand import MobileCommand
 
+T = TypeVar('T', bound='MobileSwitchTo')
+
 
 class MobileSwitchTo(SwitchTo):
-    def context(self, context_name):
+    def context(self, context_name: str) -> T:
         """Sets the context for the current session.
 
         Args:
@@ -28,3 +32,4 @@ class MobileSwitchTo(SwitchTo):
             driver.switch_to.context('WEBVIEW_1')
         """
         self._driver.execute(MobileCommand.SWITCH_TO_CONTEXT, {'name': context_name})
+        return self

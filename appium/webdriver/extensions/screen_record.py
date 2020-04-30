@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Any, Union
+
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
@@ -19,7 +21,7 @@ from ..mobilecommand import MobileCommand as Command
 
 class ScreenRecord(webdriver.Remote):
 
-    def start_recording_screen(self, **options):
+    def start_recording_screen(self, **options: Any) -> Union[bytes, str]:
         """Start asynchronous screen recording process.
 
         Keyword Args:
@@ -82,7 +84,7 @@ class ScreenRecord(webdriver.Remote):
             del options['password']
         return self.execute(Command.START_RECORDING_SCREEN, {'options': options})['value']
 
-    def stop_recording_screen(self, **options):
+    def stop_recording_screen(self, **options: Any) -> bytes:
         """Gather the output from the previously started screen recording to a media file.
 
         Keyword Args:
@@ -112,7 +114,7 @@ class ScreenRecord(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self):
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.START_RECORDING_SCREEN] = \
             ('POST', '/session/$sessionId/appium/start_recording_screen')
         self.command_executor._commands[Command.STOP_RECORDING_SCREEN] = \

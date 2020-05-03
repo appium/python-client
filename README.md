@@ -1,5 +1,4 @@
-Appium Python Client
-====================
+# Appium Python Client
 
 [![PyPI version](https://badge.fury.io/py/Appium-Python-Client.svg)](https://badge.fury.io/py/Appium-Python-Client)
 [![Downloads](https://pepy.tech/badge/appium-python-client)](https://pepy.tech/project/appium-python-client)
@@ -11,11 +10,11 @@ An extension library for adding [Selenium 3.0 draft](https://dvcs.w3.org/hg/webd
 functionality to the Python language bindings, for use with the mobile testing
 framework [Appium](https://appium.io).
 
-# Notice
+## Notice
 
-**Since v1.0.0 only Python 3 is supported**
+Since **v1.0.0**, only Python 3 is supported
 
-# Getting the Appium Python client
+## Getting the Appium Python client
 
 There are three ways to install and use the Appium Python client.
 
@@ -45,7 +44,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
     python setup.py install
     ```
 
-# Usage
+## Usage
 
 The Appium Python Client is fully compliant with the Selenium 3.0 specification
 draft, with some helpers to make mobile testing in Python easier. The majority of
@@ -64,7 +63,7 @@ from appium import webdriver
 
 From there much of your test code will work with no change.
 
-As a base for the following code examples, the following sets up the [UnitTest](https://docs.python.org/2/library/unittest.html)
+As a base for the following code examples, the following sets up the [UnitTest](https://docs.python.org/3/library/unittest.html)
 environment:
 
 ```python
@@ -72,14 +71,16 @@ environment:
 import unittest
 from appium import webdriver
 
-desired_caps = {}
-desired_caps['platformName'] = 'Android'
-desired_caps['platformVersion'] = '8.1'
-desired_caps['automationName'] = 'uiautomator2'
-desired_caps['deviceName'] = 'Android Emulator'
-desired_caps['app'] = PATH('../../../apps/selendroid-test-app.apk')
-
+desired_caps = dict(
+    platformName='Android'
+    platformVersion='10'
+    automationName='uiautomator2'
+    deviceName='Android Emulator'
+    app=PATH('../../../apps/selendroid-test-app.apk')
+)
 self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+el = self.driver.find_element_by_accessibility_id('item')
+el.click()
 ```
 
 ```python
@@ -87,14 +88,17 @@ self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 import unittest
 from appium import webdriver
 
-desired_caps = {}
-desired_caps['platformName'] = 'iOS'
-desired_caps['platformVersion'] = '11.4'
-desired_caps['automationName'] = 'xcuitest'
-desired_caps['deviceName'] = 'iPhone Simulator'
-desired_caps['app'] = PATH('../../apps/UICatalog.app.zip')
+desired_caps = dict(
+    platformName='iOS'
+    platformVersion='13.4'
+    automationName='xcuitest'
+    deviceName='iPhone Simulator'
+    app=PATH('../../apps/UICatalog.app.zip')
+)
 
 self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+el = self.driver.find_element_by_accessibility_id('item')
+el.click()
 ```
 
 ## Direct Connect URLs
@@ -112,90 +116,75 @@ Then python client will switch its endpoint to the one specified by the values o
 import unittest
 from appium import webdriver
 
-desired_caps = {}
-desired_caps['platformName'] = 'iOS'
-desired_caps['platformVersion'] = '11.4'
-desired_caps['automationName'] = 'xcuitest'
-desired_caps['deviceName'] = 'iPhone Simulator'
-desired_caps['app'] = PATH('../../apps/UICatalog.app.zip')
+desired_caps = dict(
+    platformName='iOS'
+    platformVersion='13.4'
+    automationName='xcuitest'
+    deviceName='iPhone Simulator'
+    app=PATH('../../apps/UICatalog.app.zip')
+)
 
 self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, direct_connection=True)
 ```
 
-# Documentation
+## Documentation
 
 https://python-client-sphinx.github.io/ is detailed documentation
 
-# Development
+## Development
 
-- Style Guide: https://www.python.org/dev/peps/pep-0008/
-    - `autopep8` helps to format code automatically
-        ```shell
-        $ python -m autopep8 -r --global-config .config-pep8 -i .
-        ```
-    - `isort` helps to order imports automatically
-        ```shell
-        $ python -m isort -rc .
-        ```
-        - When you use newly 3rd party modules, add it to [.isort.cfg](.isort.cfg) to keep import order correct
-    - `mypy` helps to check explicit type declarations
-        ```shell
-        $ python -m mypy appium
-        ```
-- Docstring style: Google Style
-    - Refer [link](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
-- You can customise `CHANGELOG.rst` with commit messages following [.gitchangelog.rc](.gitchangelog.rc)
-    - It generates readable changelog
-- Setup
-    - `pip install --user pipenv`
-    - `python -m pipenv lock --clear`
-       - If you experience the below error, then refer [pypa/pipenv#187](https://github.com/pypa/pipenv/issues/187) to solve it.
-          ```
-          Locking Failed! unknown locale: UTF-8
-          ```
-    - `python -m pipenv install --dev --system`
-    - `pre-commit install`
+- Code Style: [PEP-0008](https://www.python.org/dev/peps/pep-0008/)
+  - Apply `autopep8`, `isort` and `mypy` as pre commit hook
+- Docstring style: [Google Style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
+- `gitchangelog` generates `CHANGELOG.rst`
 
-## Run tests
+### Setup
+
+- `pip install --user pipenv`
+- `python -m pipenv lock --clear`
+  - If you experience `Locking Failed! unknown locale: UTF-8` error, then refer [pypa/pipenv#187](https://github.com/pypa/pipenv/issues/187) to solve it.
+- `python -m pipenv install --dev --system`
+- `pre-commit install`
+
+### Run tests
 
 You can run all of tests running on CI via `tox` in your local.
 
-```
+```bash
 $ tox
 ```
 
 You also can run particular tests like below.
 
-### Unit
+#### Unit
 
-```
+```bash
 $ pytest test/unit
 ```
 
 Run with `pytest-xdist`
 
-```
+```bash
 $ pytest -n 2 test/unit
 ```
 
-### Functional
+#### Functional
 
-```
+```bash
 $ pytest test/functional/ios/search_context/find_by_ios_class_chain_tests.py
 ```
 
-### In parallel for iOS
-1. Create simulators named 'iPhone 8 - 8100' and 'iPhone 8 - 8101'
-2. Install test libraries via pip
-    ```
-    $ pip install pytest pytest-xdist
-    ```
-3. Run tests
-    ```
-    $ pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_tests.py
-    ```
+#### In parallel for iOS
 
-# Release
+1. Create simulators named 'iPhone 8 - 8100' and 'iPhone 8 - 8101'
+2. Install test libraries via pip, `pip install pytest pytest-xdist`
+3. Run tests
+
+```bash
+$ pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_tests.py
+```
+
+## Release
 
 Follow below steps.
 
@@ -208,6 +197,6 @@ $ DRY_RUN=1 ./release.sh
 $ ./release.sh # release
 ```
 
-# License
+## License
 
 Apache License v2

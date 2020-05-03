@@ -129,7 +129,7 @@ self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, dir
 
 ## Documentation
 
-https://python-client-sphinx.github.io/ is detailed documentation
+https://appium.github.io/python-client-sphinx/ is detailed documentation
 
 ## Development
 

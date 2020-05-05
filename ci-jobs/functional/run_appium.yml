@@ -6,7 +6,7 @@ steps:
 - script: npm install -g appium@beta --chromedriver_version='2.44'
   displayName: Install appium
 - script: npm install -g opencv4nodejs
-  condition: and(succeeded(), eq('${{ parameters.opencv }}', true))
+  condition: eq('${{ parameters.opencv }}', true)
   displayName: Install opencv4nodejs
 - task: UsePythonVersion@0
   inputs:
@@ -28,5 +28,5 @@ steps:
     node --version
   displayName: Check versions
 - script: nohup appium --relaxed-security > appium_log.txt &
-  condition: and(failed(), eq('${{ parameters.dont_run_appium }}', true))
+  condition: ne('${{ parameters.dont_run_appium }}', true)
   displayName: Run Appium in background

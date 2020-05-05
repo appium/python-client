@@ -9,6 +9,7 @@ jobs:
       - template: ./run_appium.yml
         parameters:
           OPENCV: ${{ parameters.opencv }}
+          DONT_RUN_APPIUM: ${{ parameters.dont_run_appium }}
       - script: bash ci-jobs/functional/start-emulator.sh
         displayName: Create and run Emulator
       - script: |

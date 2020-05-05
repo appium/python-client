@@ -28,4 +28,5 @@ steps:
     node --version
   displayName: Check versions
 - script: nohup appium --relaxed-security > appium_log.txt &
+  condition: and(failed(), eq('${{ parameters.dont_run_appium }}', true))
   displayName: Run Appium in background

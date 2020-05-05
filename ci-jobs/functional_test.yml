@@ -44,15 +44,16 @@ jobs:
       name: 'func_test_android3'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'chrome_tests.py'
+      testFiles: 'appium_service_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}
+      DONT_RUN_APPIUM: true
   - template: ./functional/run_android_test.yml
     parameters:
       name: 'func_test_android4'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'finger_print_tests.py screen_record_tests.py settings_tests.py'
+      testFiles: 'finger_print_tests.py screen_record_tests.py settings_tests.py chrome_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}
   - template: ./functional/run_android_test.yml

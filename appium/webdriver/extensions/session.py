@@ -60,7 +60,7 @@ class Session(webdriver.Remote):
             session = self.session
             return session['events']
         except Exception as e:
-            logger.warning('Could not find events information in the session. Error:', e)
+            logger.warning('Could not find events information in the session. Error: %s', e)
             return {}
 
     # pylint: disable=protected-access

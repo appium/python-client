@@ -32,7 +32,7 @@ class ExecuteMobileCommand(webdriver.Remote):
         https://github.com/appium/WebDriverAgent/blob/master/WebDriverAgentLib/Categories/XCUIDevice%2BFBHelpers.h
 
         Args:
-            button_name (str): the button name to be sent to the device
+            button_name: the button name to be sent to the device
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance

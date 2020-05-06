@@ -10,8 +10,8 @@ def get_available_from_port_range(from_port: int, to_port: int) -> int:
     """Returns available local port number.
 
     Args:
-        from_port (int): The start port to search
-        to_port (int): The end port to search
+        from_port: The start port to search
+        to_port: The end port to search
 
     Returns:
         int: available local port number which are found first

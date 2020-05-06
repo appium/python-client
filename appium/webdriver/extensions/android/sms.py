@@ -32,8 +32,8 @@ class Sms(webdriver.Remote):
         Android only.
 
         Args:
-            phone_number (str): The phone number of message sender
-            message (str): The message to send
+            phone_number: The phone number of message sender
+            message: The message to send
 
         Usage:
             self.driver.send_sms('555-123-4567', 'Hey lol')

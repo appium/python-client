@@ -33,8 +33,8 @@ class Common(webdriver.Remote):
         See https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android/android-coverage.md
 
         Args:
-            intent (str): description of operation to be performed
-            path (str): path to coverage.ec file to be pulled from the device
+            intent: description of operation to be performed
+            path: path to coverage.ec file to be pulled from the device
 
         Returns:
             TODO

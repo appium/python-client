@@ -34,9 +34,9 @@ class Keyboard(webdriver.Remote):
         a particular key, or `strategy`. In Android, no parameters are used.
 
         Args:
-            key_name (:obj:`str`, optional): key to press
-            key (:obj:`str`, optional):
-            strategy (:obj:`str`, optional): strategy for closing the keyboard (e.g., `tapOutside`)
+            key_name: key to press
+            key:
+            strategy: strategy for closing the keyboard (e.g., `tapOutside`)
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance
@@ -67,8 +67,8 @@ class Keyboard(webdriver.Remote):
         Possible keycodes can be found in http://developer.android.com/reference/android/view/KeyEvent.html.
 
         Args:
-            keycode (int): the keycode to be sent to the device
-            metastate (:obj:`int`, optional): meta information about the keycode being sent
+            keycode: the keycode to be sent to the device
+            metastate: meta information about the keycode being sent
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance
@@ -87,9 +87,9 @@ class Keyboard(webdriver.Remote):
         Android only. Possible keycodes can be found in http://developer.android.com/reference/android/view/KeyEvent.html.
 
         Args:
-            keycode (int): the keycode to be sent to the device
-            metastate (:obj:`int`, optional): meta information about the keycode being sent
-            flags (:obj:`int`, optional): the set of key event flags
+            keycode: the keycode to be sent to the device
+            metastate: meta information about the keycode being sent
+            flags: the set of key event flags
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance
@@ -110,9 +110,9 @@ class Keyboard(webdriver.Remote):
         Android only. Possible keycodes can be found in http://developer.android.com/reference/android/view/KeyEvent.html.
 
         Args:
-            keycode (int): the keycode to be sent to the device
-            metastate (:obj:`int`, optional): meta information about the keycode being sent
-            flags (:obj:`int`, optional): the set of key event flags
+            keycode: the keycode to be sent to the device
+            metastate: meta information about the keycode being sent
+            flags: the set of key event flags
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance

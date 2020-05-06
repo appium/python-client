@@ -53,7 +53,7 @@ class IME(webdriver.Remote):
         Android only.
 
         Args:
-           engine (str): the package and activity of the IME engine to activate
+           engine: the package and activity of the IME engine to activate
                (e.g., 'com.android.inputmethod.latin/.LatinIME')
 
         Returns:

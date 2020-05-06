@@ -28,9 +28,9 @@ class ExecuteDriver(webdriver.Remote):
         scripts and the output format.
 
         Args:
-            script (str): The string consisting of the script itself
-            script_type (str): The name of the script type. Defaults to 'webdriverio'.
-            timeout_ms (:obj:`int`, optional): The number of `ms` Appium should wait for the script to finish before killing it due to timeout_ms.
+            script: The string consisting of the script itself
+            script_type: The name of the script type. Defaults to 'webdriverio'.
+            timeout_ms: The number of `ms` Appium should wait for the script to finish before killing it due to timeout_ms.
 
         Usage:
             self.driver.execute_driver(script='return [];')

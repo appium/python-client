@@ -34,7 +34,7 @@ class DeviceTime(webdriver.Remote):
         """Returns the date and time from the device.
 
         Args:
-            format (:obj:`str`, optional):  The set of format specifiers. Read https://momentjs.com/docs/
+            format:  The set of format specifiers. Read https://momentjs.com/docs/
                 to get the full list of supported datetime format specifiers.
                 If unset, return :func:`.device_time` as default format is `YYYY-MM-DDTHH:mm:ssZ`,
                 which complies to ISO-8601

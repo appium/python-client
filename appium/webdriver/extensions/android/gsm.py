@@ -60,8 +60,8 @@ class Gsm(webdriver.Remote):
         Android only.
 
         Args:
-            phone_number (str): The phone number to call to.
-            action (str): The call action.
+            phone_number: The phone number to call to.
+            action: The call action.
                 A member of the const `appium.webdriver.extensions.android.gsm.GsmCallActions`
 
         Usage:
@@ -80,7 +80,7 @@ class Gsm(webdriver.Remote):
         Android only.
 
         Args:
-            strength (int): Signal strength.
+            strength: Signal strength.
                 A member of the enum :obj:`appium.webdriver.extensions.android.gsm.GsmSignalStrength`
 
         Usage:
@@ -99,7 +99,7 @@ class Gsm(webdriver.Remote):
         Android only.
 
         Args:
-            state (str): State of GSM voice.
+            state: State of GSM voice.
                 A member of the const `appium.webdriver.extensions.android.gsm.GsmVoiceState`
 
         Usage:

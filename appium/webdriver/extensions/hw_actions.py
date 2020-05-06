@@ -30,7 +30,7 @@ class HardwareActions(webdriver.Remote):
         """Lock the device. No changes are made if the device is already unlocked.
 
         Args:
-            seconds (:obj:`int`, optional): The duration to lock the device, in seconds.
+            seconds: The duration to lock the device, in seconds.
                 The device is going to be locked forever until `unlock` is called
                 if it equals or is less than zero, otherwise this call blocks until
                 the timeout expires and unlocks the screen automatically.
@@ -75,7 +75,7 @@ class HardwareActions(webdriver.Remote):
         """Simulate touchId on iOS Simulator
 
         Args:
-            match (bool): Simulates a successful touch (`True`) or a failed touch (`False`)
+            match: Simulates a successful touch (`True`) or a failed touch (`False`)
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance
@@ -99,7 +99,7 @@ class HardwareActions(webdriver.Remote):
         """Authenticate users by using their finger print scans on supported Android emulators.
 
         Args:
-            finger_id (int): Finger prints stored in Android Keystore system (from 1 to 10)
+            finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
 
         Returns:
             TODO

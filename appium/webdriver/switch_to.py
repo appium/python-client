@@ -26,7 +26,7 @@ class MobileSwitchTo(SwitchTo):
         """Sets the context for the current session.
 
         Args:
-            context_name (str): The name of the context to switch to.
+            context_name: The name of the context to switch to.
 
         Usage:
             driver.switch_to.context('WEBVIEW_1')

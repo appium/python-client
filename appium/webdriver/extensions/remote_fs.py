@@ -31,7 +31,7 @@ class RemoteFS(webdriver.Remote):
         """Retrieves the file at `path`.
 
         Args:
-            path (str): the path to the file on the device
+            path: the path to the file on the device
 
         Returns:
             str: The file's contents encoded as Base64.
@@ -45,7 +45,7 @@ class RemoteFS(webdriver.Remote):
         """Retrieves a folder at `path`.
 
         Args:
-            path (str): the path to the folder on the device
+            path: the path to the folder on the device
 
         Returns:
             str: The folder's contents zipped and encoded as Base64.
@@ -62,9 +62,9 @@ class RemoteFS(webdriver.Remote):
         Specify either `base64data` or `source_path`, if both specified default to `source_path`
 
         Args:
-            destination_path (str): the location on the device/simulator where the local file contents should be saved
-            base64data (:obj:`str`, optional): file contents, encoded as Base64, to be written to the file on the device/simulator
-            source_path (:obj:`str`, optional): local file path for the file to be loaded on device
+            destination_path: the location on the device/simulator where the local file contents should be saved
+            base64data: file contents, encoded as Base64, to be written to the file on the device/simulator
+            source_path: local file path for the file to be loaded on device
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance

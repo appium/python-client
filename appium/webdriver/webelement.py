@@ -41,7 +41,7 @@ class WebElement(AppiumWebElementSearchContext):
         is returned.
 
         Args:
-            name (str): Name of the attribute/property to retrieve.
+            name: Name of the attribute/property to retrieve.
 
         Usage:
             # Check if the "active" CSS class is applied to an element.
@@ -85,8 +85,8 @@ class WebElement(AppiumWebElementSearchContext):
         Prefer the find_element_by_* methods when possible.
 
         Args:
-            by (:obj:`str`, optional): The strategy
-            value (:obj:`str`, optional): The locator
+            by: The strategy
+            value: The locator
 
         Usage:
             element = element.find_element(By.ID, 'foo')
@@ -119,8 +119,8 @@ class WebElement(AppiumWebElementSearchContext):
         Prefer the find_elements_by_* methods when possible.
 
         Args:
-            by (:obj:`str`, optional): The strategy
-            value (:obj:`str`, optional): The locator
+            by: The strategy
+            value: The locator
 
         Usage:
             element = element.find_elements(By.CLASS_NAME, 'foo')
@@ -164,7 +164,7 @@ class WebElement(AppiumWebElementSearchContext):
         Android only.
 
         Args:
-            keys (str): the text to be sent to the element.
+            keys: the text to be sent to the element.
 
         Usage:
             element.set_text('some text')
@@ -199,7 +199,7 @@ class WebElement(AppiumWebElementSearchContext):
         """Set the value on this element in the application
 
         Args:
-            value (str): The value to be set
+            value: The value to be set
 
         Returns:
             `appium.webdriver.webelement.WebElement`
@@ -216,7 +216,7 @@ class WebElement(AppiumWebElementSearchContext):
         """Simulates typing into the element.
 
         Args:
-            value (str): A string for typing.
+            value: A string for typing.
 
         Returns:
             `appium.webdriver.webelement.WebElement`

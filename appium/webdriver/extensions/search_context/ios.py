@@ -31,13 +31,13 @@ class iOSSearchContext(BaseSearchContext):
         """Finds an element by uiautomation in iOS.
 
         Args:
-            uia_string (str): The element name in the iOS UIAutomation library
+            uia_string: The element name in the iOS UIAutomation library
 
         Usage:
             driver.find_element_by_ios_uiautomation('.elements()[1].cells()[2]')
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            `appium.webdriver.webelement.WebElement`: The found element
 
         # To enable auto completion in PyCharm(IDE)
         :rtype: `appium.webdriver.webelement.WebElement`
@@ -48,13 +48,13 @@ class iOSSearchContext(BaseSearchContext):
         """Finds elements by uiautomation in iOS.
 
         Args:
-            uia_string (str): The element name in the iOS UIAutomation library
+            uia_string: The element name in the iOS UIAutomation library
 
         Usage:
             driver.find_elements_by_ios_uiautomation('.elements()[1].cells()[2]')
 
         Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
 
         :rtype: list of `appium.webdriver.webelement.WebElement`
         """
@@ -64,13 +64,13 @@ class iOSSearchContext(BaseSearchContext):
         """Find an element by ios predicate string.
 
         Args:
-            predicate_string (str): The predicate string
+            predicate_string: The predicate string
 
         Usage:
             driver.find_element_by_ios_predicate('label == "myLabel"')
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            `appium.webdriver.webelement.WebElement`: The found element
 
         :rtype: `appium.webdriver.webelement.WebElement`
         """
@@ -80,13 +80,13 @@ class iOSSearchContext(BaseSearchContext):
         """Finds elements by ios predicate string.
 
         Args:
-            predicate_string (str): The predicate string
+            predicate_string: The predicate string
 
         Usage:
             driver.find_elements_by_ios_predicate('label == "myLabel"')
 
         Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
 
         :rtype: list of `appium.webdriver.webelement.WebElement`
         """
@@ -96,13 +96,13 @@ class iOSSearchContext(BaseSearchContext):
         """Find an element by ios class chain string.
 
         Args:
-            class_chain_string (str): The class chain string
+            class_chain_string: The class chain string
 
         Usage:
             driver.find_element_by_ios_class_chain('XCUIElementTypeWindow/XCUIElementTypeButton[3]')
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            `appium.webdriver.webelement.WebElement`: The found element
 
         :rtype: `appium.webdriver.webelement.WebElement`
         """
@@ -112,13 +112,13 @@ class iOSSearchContext(BaseSearchContext):
         """Finds elements by ios class chain string.
 
         Args:
-            class_chain_string (str): The class chain string
+            class_chain_string: The class chain string
 
         Usage:
             driver.find_elements_by_ios_class_chain('XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]')
 
         Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
 
         :rtype: list of `appium.webdriver.webelement.WebElement`
         """

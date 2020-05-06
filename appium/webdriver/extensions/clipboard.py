@@ -34,10 +34,10 @@ class Clipboard(webdriver.Remote):
         """Set the content of the system clipboard
 
         Args:
-            content (bytes): The content to be set as bytearray string
-            content_type (str): One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
+            content: The content to be set as bytearray string
+            content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
                 is supported on Android
-            label (:obj:`str`, optional): label argument, which only works for Android
+            label: label argument, which only works for Android
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance
@@ -55,8 +55,8 @@ class Clipboard(webdriver.Remote):
         """Copies the given text to the system clipboard
 
         Args:
-            text (str): The text to be set
-            label (:obj:`str`, optional):label argument, which only works for Android
+            text: The text to be set
+            label:label argument, which only works for Android
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance
@@ -69,7 +69,7 @@ class Clipboard(webdriver.Remote):
         """Receives the content of the system clipboard
 
         Args:
-            content_type (str): One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
+            content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
                 is supported on Android
 
         Returns:

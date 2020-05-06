@@ -71,7 +71,7 @@ class Network(webdriver.Remote):
         These are available through the enumeration `appium.webdriver.ConnectionType`
 
         Args:
-            connection_type (int): a member of the enum `appium.webdriver.ConnectionType`
+            connection_type: a member of the enum `appium.webdriver.ConnectionType`
 
         Return:
             int: Set network connection type
@@ -98,7 +98,7 @@ class Network(webdriver.Remote):
         Android Emulator only.
 
         Args:
-            speed_type (str): The network speed type.
+            speed_type: The network speed type.
                 A member of the const appium.webdriver.extensions.android.network.NetSpeed.
 
         Usage:

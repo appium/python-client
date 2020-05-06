@@ -34,17 +34,17 @@ class Activities(webdriver.Remote):
         This is an Android-only method.
 
         Args:
-            app_package (str): The package containing the activity to start.
-            app_activity (str): The activity to start.
+            app_package: The package containing the activity to start.
+            app_activity: The activity to start.
 
         Keyword Args:
-            app_wait_package (str): Begin automation after this package starts.
-            app_wait_activity (str): Begin automation after this activity starts.
-            intent_action (str): Intent to start.
-            intent_category (str): Intent category to start.
-            intent_flags (str): Flags to send to the intent.
-            optional_intent_arguments (str): Optional arguments to the intent.
-            dont_stop_app_on_reset (str): Should the app be stopped on reset?
+            app_wait_package: Begin automation after this package starts.
+            app_wait_activity: Begin automation after this activity starts.
+            intent_action: Intent to start.
+            intent_category: Intent category to start.
+            intent_flags: Flags to send to the intent.
+            optional_intent_arguments: Optional arguments to the intent.
+            dont_stop_app_on_reset: Should the app be stopped on reset?
         """
         data = {
             'appPackage': app_package,
@@ -80,9 +80,9 @@ class Activities(webdriver.Remote):
         This is an Android-only method.
 
         Args:
-            activity (str): target activity
-            timeout (int): max wait time, in seconds
-            interval (int): sleep interval between retries, in seconds
+            activity: target activity
+            timeout: max wait time, in seconds
+            interval: sleep interval between retries, in seconds
 
         Returns:
             bool: `True` if the target activity is shown

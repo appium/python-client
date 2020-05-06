@@ -31,7 +31,7 @@ class LogEvent(webdriver.Remote):
         (Since Appium 1.16.0)
 
         Args:
-            type (:obj:`list` of :obj:`str`): The event type to filter with
+            type ` of :obj:`str`): The event type to filter with
 
         Usage:
             events = driver.get_events()
@@ -41,9 +41,9 @@ class LogEvent(webdriver.Remote):
         Returns:
             `dict`: A dictionary of events timing information containing the following entries
                 commands: (`list` of `dict`) List of dictionaries containing the following entries
-                    cmd: (str) The command name that has been sent to the appium server
-                    startTime: (int) Received time
-                    endTime: (int) Response time
+                    cmd: The command name that has been sent to the appium server
+                    startTime: Received time
+                    endTime: Response time
         """
         data = {}
         if type is not None:
@@ -55,8 +55,8 @@ class LogEvent(webdriver.Remote):
         (Since Appium 1.16.0)
 
         Args:
-            vendor (str): The vendor to log
-            event (str): The event to log
+            vendor: The vendor to log
+            event: The event to log
 
         Usage:
             driver.log_event('appium', 'funEvent')

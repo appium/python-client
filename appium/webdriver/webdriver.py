@@ -206,7 +206,7 @@ class WebDriver(
         Override for Appium
 
         Args:
-            capabilities (dict): Capabilities which has following keys
+            capabilities: Capabilities which has following keys
                 automation_name: The name of automation engine to use.
                 platform_name: The name of target platform.
                 platform_version: The kind of mobile device or emulator to use

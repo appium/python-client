@@ -124,7 +124,7 @@ class AppiumService:
         The service will be forcefully restarted if it is already running.
 
         Keyword Args:
-            env (dict): Environment variables mapping. The default system environment,
+            env: Environment variables mapping. The default system environment,
                 which is inherited from the parent process is assigned by default.
             node: The full path to the main NodeJS executable. The service will try
                 to retrieve it automatically by default.
@@ -197,7 +197,7 @@ class AppiumService:
         """Check if the service is running.
 
         Returns:
-            bool: `True` or `False`
+            bool: `True` if the service is running
         """
         return self._process is not None and self._process.poll() is None
 

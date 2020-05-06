@@ -31,7 +31,7 @@ class LogEvent(webdriver.Remote):
         (Since Appium 1.16.0)
 
         Args:
-            type ` of :obj:`str`): The event type to filter with
+            type: The event type to filter with
 
         Usage:
             events = driver.get_events()

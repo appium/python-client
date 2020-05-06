@@ -42,7 +42,7 @@ class Settings(webdriver.Remote):
         For more on settings, see: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
 
         Args:
-            settings (dict): dictionary of settings to apply to the current test session
+            settings: dictionary of settings to apply to the current test session
         """
         data = {"settings": settings}
 

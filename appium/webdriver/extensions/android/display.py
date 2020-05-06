@@ -27,6 +27,9 @@ class Display(webdriver.Remote):
 
         Usage:
             self.driver.get_display_density()
+
+        Return:
+            int: The display density
         """
         return self.execute(Command.GET_DISPLAY_DENSITY)['value']
 

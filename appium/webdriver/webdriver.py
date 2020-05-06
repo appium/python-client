@@ -259,7 +259,7 @@ class WebDriver(
             Use the corresponding find_element_by_* instead of this.
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            `appium.webdriver.webelement.WebElement`: The found element
 
         :rtype: `MobileWebElement`
         """
@@ -291,7 +291,7 @@ class WebDriver(
             Use the corresponding find_elements_by_* instead of this.
 
         Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
 
         :rtype: list of `MobileWebElement`
         """

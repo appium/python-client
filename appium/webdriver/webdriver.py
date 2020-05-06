@@ -261,7 +261,6 @@ class WebDriver(
         Returns:
             `appium.webdriver.webelement.WebElement`: The found element
 
-        :rtype: `MobileWebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self.w3c:
@@ -292,8 +291,6 @@ class WebDriver(
 
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
-
-        :rtype: list of `MobileWebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self.w3c:

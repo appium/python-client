@@ -41,8 +41,6 @@ class MobileSearchContext(BaseSearchContext):
         Returns:
             `appium.webdriver.webelement.WebElement`: The found element
 
-        # To enable auto completion in PyCharm(IDE)
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
@@ -59,7 +57,6 @@ class MobileSearchContext(BaseSearchContext):
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
 
-        :rtype: list of `appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
@@ -73,8 +70,6 @@ class MobileSearchContext(BaseSearchContext):
 
         Returns:
             `appium.webdriver.webelement.WebElement`: The found element
-
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
         with open(img_path, 'rb') as i_file:
             b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
@@ -92,8 +87,6 @@ class MobileSearchContext(BaseSearchContext):
 
         Return:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
-
-        :rtype: list of `appium.webdriver.webelement.WebElement`
         """
         with open(img_path, 'rb') as i_file:
             b64_data = base64.b64encode(i_file.read()).decode('UTF-8')

@@ -52,9 +52,6 @@ class AndroidSearchContext(BaseSearchContext):
 
         Usage:
             driver.find_element_by_android_view_matcher(name='withText', args=['Accessibility'], className='ViewMatchers')
-
-        # To enable auto completion in PyCharm(IDE)
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
 
         return self.find_element(
@@ -85,9 +82,6 @@ class AndroidSearchContext(BaseSearchContext):
 
         Usage:
             driver.find_element_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
-
-        # To enable auto completion in PyCharm(IDE)
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
 
         return self.find_element(
@@ -114,8 +108,6 @@ class AndroidSearchContext(BaseSearchContext):
 
         Usage:
             driver.find_elements_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
-
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
 
         return self.find_elements(
@@ -144,8 +136,6 @@ class AndroidSearchContext(BaseSearchContext):
 
         Returns:
             `appium.webdriver.webelement.WebElement`: The found element
-
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -160,8 +150,6 @@ class AndroidSearchContext(BaseSearchContext):
 
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
-
-        :rtype: list of `appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -178,8 +166,6 @@ class AndroidSearchContext(BaseSearchContext):
 
         Returns:
             `appium.webdriver.webelement.WebElement`: The found element
-
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.ANDROID_VIEWTAG, value=tag)
 
@@ -196,7 +182,5 @@ class AndroidSearchContext(BaseSearchContext):
 
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
-
-        :rtype: list of `appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.ANDROID_VIEWTAG, value=tag)

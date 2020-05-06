@@ -5,6 +5,7 @@ Subpackages
 -----------
 
 .. toctree::
+   :maxdepth: 4
 
    webdriver.extensions.android
    webdriver.extensions.search_context

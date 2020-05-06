@@ -64,7 +64,7 @@ class Gsm(webdriver.Remote):
             action (str): The call action.
                 A member of the const `appium.webdriver.extensions.android.gsm.GsmCallActions`
 
-        :Usage:
+        Usage:
             self.driver.make_gsm_call('5551234567', GsmCallActions.CALL)
         """
         constants = extract_const_attributes(GsmCallActions)
@@ -81,7 +81,7 @@ class Gsm(webdriver.Remote):
 
         Args:
             strength (int): Signal strength.
-                A member of the enum `appium.webdriver.extensions.android.gsm.GsmSignalStrength`
+                A member of the enum :obj:`appium.webdriver.extensions.android.gsm.GsmSignalStrength`
 
         Usage:
             self.driver.set_gsm_signal(GsmSignalStrength.GOOD)

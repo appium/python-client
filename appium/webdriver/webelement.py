@@ -45,6 +45,7 @@ class WebElement(AppiumWebElementSearchContext):
 
         Usage:
             # Check if the "active" CSS class is applied to an element.
+
             is_active = "active" in target_element.get_attribute("class")
 
         Returns:

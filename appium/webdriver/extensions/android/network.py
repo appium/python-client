@@ -71,7 +71,7 @@ class Network(webdriver.Remote):
         These are available through the enumeration `appium.webdriver.ConnectionType`
 
         Args:
-            connection_type (int): a member of the enum appium.webdriver.ConnectionType
+            connection_type (int): a member of the enum `appium.webdriver.ConnectionType`
 
         Return:
             int: Set network connection type

@@ -51,7 +51,7 @@ class Power(webdriver.Remote):
         Android only.
 
         Args:
-            ac_state (str): The power ac state to be set. Use `.AC_OFF`, `.AC_ON`
+            ac_state (str): The power ac state to be set. Use `Power.AC_OFF`, `Power.AC_ON`
 
         Usage:
             self.driver.set_power_ac(Power.AC_OFF)

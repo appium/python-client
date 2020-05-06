@@ -206,12 +206,13 @@ class WebDriver(
         Override for Appium
 
         Args:
-            automation_name: The name of automation engine to use.
-            platform_name: The name of target platform.
-            platform_version: The kind of mobile device or emulator to use
-            app: The absolute local path or remote http URL to an .ipa or .apk file, or a .zip containing one of these.
-
-        Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
+            capabilities (dict): Capabilities which has following keys
+                automation_name: The name of automation engine to use.
+                platform_name: The name of target platform.
+                platform_version: The kind of mobile device or emulator to use
+                app: The absolute local path or remote http URL to an .ipa or .apk file, or a .zip containing one of these.
+                Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
+            browser_profile (str, optional): Browser profile
         """
         if not isinstance(capabilities, dict):
             raise InvalidArgumentException('Capabilities must be a dictionary')
@@ -338,7 +339,7 @@ class WebDriver(
         """Set the value on an element in the application.
 
         Args:
-            element (`appium.webdriver.webelement.WebElement`: the element whose value will be set
+            element (`appium.webdriver.webelement.WebElement`): the element whose value will be set
             value (str): the value to set on the element
 
         Returns:

@@ -44,15 +44,11 @@ class MultiAction:
             touch_actions: one or more TouchAction objects describing a chain of actions to be performed by one finger
 
         Usage:
-            a1 = TouchAction(driver)
-
-            a1.press(el1).move_to(el2).release()
-
-            a2 = TouchAction(driver)
-
-            a2.press(el2).move_to(el1).release()
-
-            MultiAction(driver).add(a1, a2)
+            | a1 = TouchAction(driver)
+            | a1.press(el1).move_to(el2).release()
+            | a2 = TouchAction(driver)
+            | a2.press(el2).move_to(el1).release()
+            | MultiAction(driver).add(a1, a2)
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance
@@ -67,15 +63,11 @@ class MultiAction:
         """Perform the actions stored in the object.
 
         Usage:
-            a1 = TouchAction(driver)
-
-            a1.press(el1).move_to(el2).release()
-
-            a2 = TouchAction(driver)
-
-            a2.press(el2).move_to(el1).release()
-
-            MultiAction(driver).add(a1, a2).perform()
+            | a1 = TouchAction(driver)
+            | a1.press(el1).move_to(el2).release()
+            | a2 = TouchAction(driver)
+            | a2.press(el2).move_to(el1).release()
+            | MultiAction(driver).add(a1, a2).perform()
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance

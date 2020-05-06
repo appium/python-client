@@ -206,12 +206,8 @@ class WebDriver(
         Override for Appium
 
         Args:
-            capabilities: Capabilities which has following keys
-                automation_name: The name of automation engine to use.
-                platform_name: The name of target platform.
-                platform_version: The kind of mobile device or emulator to use
-                app: The absolute local path or remote http URL to an .ipa or .apk file, or a .zip containing one of these.
-                Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
+            capabilities: Capabilities which have following keys like 'automation_name', 'platform_name', 'platform_version', 'app'.
+                          Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
             browser_profile: Browser profile
         """
         if not isinstance(capabilities, dict):

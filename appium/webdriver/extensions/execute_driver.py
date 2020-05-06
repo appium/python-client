@@ -33,11 +33,9 @@ class ExecuteDriver(webdriver.Remote):
             timeout_ms: The number of `ms` Appium should wait for the script to finish before killing it due to timeout_ms.
 
         Usage:
-            self.driver.execute_driver(script='return [];')
-
-            self.driver.execute_driver(script='return [];', script_type='webdriverio')
-
-            self.driver.execute_driver(script='return [];', script_type='webdriverio', timeout_ms=10000)
+            | self.driver.execute_driver(script='return [];')
+            | self.driver.execute_driver(script='return [];', script_type='webdriverio')
+            | self.driver.execute_driver(script='return [];', script_type='webdriverio', timeout_ms=10000)
 
         Returns:
             ExecuteDriver.Result: The result of the script. It has 'result' and 'logs' keys.

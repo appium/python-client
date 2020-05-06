@@ -40,9 +40,8 @@ class DeviceTime(webdriver.Remote):
                 which complies to ISO-8601
 
         Usage:
-            self.driver.get_device_time()
-
-            self.driver.get_device_time("YYYY-MM-DD")
+            | self.driver.get_device_time()
+            | self.driver.get_device_time("YYYY-MM-DD")
 
         Return:
             str: The date and time

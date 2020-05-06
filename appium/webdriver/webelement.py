@@ -184,11 +184,9 @@ class WebElement(AppiumWebElementSearchContext):
         """Gets the location of an element relative to the view.
 
         Usage:
-            location = element.location_in_view
-
-            x = location['x']
-
-            y = location['y']
+            | location = element.location_in_view
+            | x = location['x']
+            | y = location['y']
 
         Returns:
             dict: The location of an element relative to the view

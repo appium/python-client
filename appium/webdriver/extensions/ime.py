@@ -57,7 +57,7 @@ class IME(webdriver.Remote):
                (e.g., 'com.android.inputmethod.latin/.LatinIME')
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         data = {
             'engine': engine
@@ -71,7 +71,7 @@ class IME(webdriver.Remote):
         Android only.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         self.execute(Command.DEACTIVATE_IME_ENGINE, {})
         return self

@@ -40,7 +40,7 @@ class Clipboard(webdriver.Remote):
             label (:obj:`str`, optional): label argument, which only works for Android
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         options = {
             'content': base64.b64encode(content).decode('UTF-8'),
@@ -59,7 +59,7 @@ class Clipboard(webdriver.Remote):
             label (:obj:`str`, optional):label argument, which only works for Android
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
 
         self.set_clipboard(bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)

@@ -67,7 +67,7 @@ class RemoteFS(webdriver.Remote):
             source_path (:obj:`str`, optional): local file path for the file to be loaded on device
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         if source_path is None and base64data is None:
             raise InvalidArgumentException('Must either pass base64 data or a local file path')

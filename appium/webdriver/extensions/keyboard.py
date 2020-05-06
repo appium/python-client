@@ -37,6 +37,9 @@ class Keyboard(webdriver.Remote):
             key_name (:obj:`str`, optional): key to press
             key (:obj:`str`, optional):
             strategy (:obj:`str`, optional): strategy for closing the keyboard (e.g., `tapOutside`)
+
+        Returns:
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         data: Dict[str, Optional[str]] = {}
         if key_name is not None:
@@ -68,7 +71,7 @@ class Keyboard(webdriver.Remote):
             metastate (:obj:`int`, optional): meta information about the keycode being sent
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         data = {
             'keycode': keycode,
@@ -89,7 +92,7 @@ class Keyboard(webdriver.Remote):
             flags (:obj:`int`, optional): the set of key event flags
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         data = {
             'keycode': keycode,
@@ -112,7 +115,7 @@ class Keyboard(webdriver.Remote):
             flags (:obj:`int`, optional): the set of key event flags
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         data = {
             'keycode': keycode

@@ -49,7 +49,7 @@ class Common(webdriver.Remote):
         """Open notification shade in Android (API Level 18 and above)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         self.execute(Command.OPEN_NOTIFICATIONS, {})
         return self

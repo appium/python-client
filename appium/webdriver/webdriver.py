@@ -343,7 +343,7 @@ class WebDriver(
             value (str): the value to set on the element
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         data = {
             'id': element.id,

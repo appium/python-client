@@ -62,7 +62,7 @@ class LogEvent(webdriver.Remote):
             driver.log_event('appium', 'funEvent')
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         data = {
             'vendor': vendor,

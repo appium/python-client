@@ -87,7 +87,7 @@ class Network(webdriver.Remote):
         """Toggle the wifi on the device, Android only.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         self.execute(Command.TOGGLE_WIFI, {})
         return self
@@ -105,7 +105,7 @@ class Network(webdriver.Remote):
             self.driver.set_network_speed(NetSpeed.LTE)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         constants = extract_const_attributes(NetSpeed)
         if speed_type not in constants.values():

@@ -53,6 +53,9 @@ class MultiAction:
             a2.press(el2).move_to(el1).release()
 
             MultiAction(driver).add(a1, a2)
+
+        Returns:
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         for touch_action in touch_actions:
             if self._touch_actions is None:
@@ -73,6 +76,9 @@ class MultiAction:
             a2.press(el2).move_to(el1).release()
 
             MultiAction(driver).add(a1, a2).perform()
+
+        Returns:
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         self._driver.execute(Command.MULTI_ACTION, self.json_wire_gestures)
 

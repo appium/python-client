@@ -32,9 +32,9 @@ class ActionHelpers(webdriver.Remote):
         """Scrolls from one element to another
 
         Args:
-            originalEl (`appium.webdriver.webelement.WebElement`): the element from which to being scrolling
-            destinationEl (`appium.webdriver.webelement.WebElement`): the element to scroll to
-            duration (int): a duration after pressing originalEl and move the element to destinationEl.
+            original_el (`appium.webdriver.webelement.WebElement`): the element from which to being scrolling
+            destination_el (`appium.webdriver.webelement.WebElement`): the element to scroll to
+            duration (int, optional): a duration after pressing originalEl and move the element to destinationEl.
                 Default is 600 ms for W3C spec. Zero for MJSONWP.
 
         Usage:
@@ -59,8 +59,8 @@ class ActionHelpers(webdriver.Remote):
         """Drag the origin element to the destination element
 
         Args:
-            originEl (`appium.webdriver.webelement.WebElement`): the element to drag
-            destinationEl (`appium.webdriver.webelement.WebElement`): the element to drag to
+            origin_el (`appium.webdriver.webelement.WebElement`): the element to drag
+            destination_el (`appium.webdriver.webelement.WebElement`): the element to drag to
 
         Returns:
             `appium.webdriver.webelement.WebElement`

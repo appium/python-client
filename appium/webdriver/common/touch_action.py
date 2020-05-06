@@ -51,7 +51,7 @@ class TouchAction:
             y : y coordinate. If y is used, x must also be set, and vice versa
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         opts = self._get_opts(element, x, y)
         opts['count'] = count
@@ -71,7 +71,7 @@ class TouchAction:
                                 (https://developer.apple.com/documentation/uikit/uitouch?language=objc) for more details on possible value ranges.
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         self._add_action('press', self._get_opts(el, x, y, pressure=pressure))
 
@@ -88,7 +88,7 @@ class TouchAction:
             duration: Duration to press
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         self._add_action('longPress', self._get_opts(el, x, y, duration))
 
@@ -101,7 +101,7 @@ class TouchAction:
             ms: The time to pause
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         if ms is None:
             ms = 0
@@ -121,7 +121,7 @@ class TouchAction:
             y: y coordiate to be moved to. If x is used, y must also be set
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         self._add_action('moveTo', self._get_opts(el, x, y))
 
@@ -131,7 +131,7 @@ class TouchAction:
         """End the action by lifting the pointer off the screen
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         self._add_action('release', {})
 
@@ -141,7 +141,7 @@ class TouchAction:
         """Perform the action by sending the commands to the server to be operated upon
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         if self._driver is None:
             raise ValueError('Set driver to constructor as a argument when to create the instance.')

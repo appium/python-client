@@ -143,10 +143,8 @@ class AppiumService:
                 about possible arguments and their values.
 
         Returns:
-            subprocess.Popen instance: You can use Popen.communicate interface
-                or stderr/stdout properties of the instance
-                (stdout/stderr must not be set to None in such case)
-                in order to retrieve the actual process output.
+            `sp.Popen`: You can use Popen.communicate interface or stderr/stdout properties
+            of the instance (stdout/stderr must not be set to None in such case) in order to retrieve the actual process output.
         """
         self.stop()
 

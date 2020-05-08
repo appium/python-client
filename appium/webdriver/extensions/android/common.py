@@ -12,21 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Union, Any, TypeVar
 
 from selenium import webdriver
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
-T = TypeVar('T', bound='WebDriver')
+T = TypeVar('T', bound=Union[webdriver.Remote, 'Common'])
 
 
 class Common(webdriver.Remote):
 
-    def end_test_coverage(self, intent: str, path: str) -> Any:  # TODO Check return type
+    def end_test_coverage(self: T, intent: str, path: str) -> Any:  # TODO Check return type
         """Ends the coverage collection and pull the coverage.ec file from the device.
 
         Android only.
@@ -45,7 +42,7 @@ class Common(webdriver.Remote):
         }
         return self.execute(Command.END_TEST_COVERAGE, data)['value']
 
-    def open_notifications(self) -> T:
+    def open_notifications(self: T) -> T:
         """Open notification shade in Android (API Level 18 and above)
 
         Returns:
@@ -55,12 +52,13 @@ class Common(webdriver.Remote):
         return self
 
     @property
-    def current_package(self) -> str:
+    def current_package(self: T) -> str:
         """Retrieves the current package running on the device.
         """
         return self.execute(Command.GET_CURRENT_PACKAGE)['value']
 
-    def _addCommands(self) -> None:
+    # noinspection PyProtectedMember
+    def _addCommands(self: T) -> None:
         self.command_executor._commands[Command.GET_CURRENT_PACKAGE] = \
             ('GET', '/session/$sessionId/appium/device/current_package')
         self.command_executor._commands[Command.END_TEST_COVERAGE] = \

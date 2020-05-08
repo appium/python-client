@@ -12,16 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, TypeVar
 
 from selenium import webdriver
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
+T = TypeVar('T', bound=Union[webdriver.Remote, 'Performance'])
+
 
 class Performance(webdriver.Remote):
 
-    def get_performance_data(self, package_name: str, data_type: str, data_read_timeout: int = None) -> List[List[str]]:
+    def get_performance_data(self: T, package_name: str, data_type: str,
+                             data_read_timeout: int = None) -> List[List[str]]:
         """Returns the information of the system state
         which is supported to read as like cpu, memory, network traffic, and battery.
 
@@ -45,7 +48,7 @@ class Performance(webdriver.Remote):
             data['dataReadTimeout'] = data_read_timeout
         return self.execute(Command.GET_PERFORMANCE_DATA, data)['value']
 
-    def get_performance_data_types(self) -> List:
+    def get_performance_data_types(self: T) -> List:
         """Returns the information types of the system state
         which is supported to read as like cpu, memory, network traffic, and battery.
         Android only.
@@ -60,7 +63,8 @@ class Performance(webdriver.Remote):
 
     # pylint: disable=protected-access
 
-    def _addCommands(self) -> None:
+    # noinspection PyProtectedMember
+    def _addCommands(self: T) -> None:
         self.command_executor._commands[Command.GET_PERFORMANCE_DATA] = \
             ('POST', '/session/$sessionId/appium/getPerformanceData')
         self.command_executor._commands[Command.GET_PERFORMANCE_DATA_TYPES] = \

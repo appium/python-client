@@ -12,16 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
+from typing import List, Union, TypeVar
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
+T = TypeVar('T', bound=Union['Context', webdriver.Remote])
+
 
 class Context(webdriver.Remote):
     @property
-    def contexts(self) -> List[str]:
+    def contexts(self: T) -> List[str]:
         """Returns the contexts within the current session.
 
         Usage:
@@ -34,7 +36,7 @@ class Context(webdriver.Remote):
         return self.execute(Command.CONTEXTS)['value']
 
     @property
-    def current_context(self) -> str:
+    def current_context(self: T) -> str:
         """Returns the current context of the current session.
 
         Usage:
@@ -46,7 +48,7 @@ class Context(webdriver.Remote):
         return self.execute(Command.GET_CURRENT_CONTEXT)['value']
 
     @property
-    def context(self) -> str:
+    def context(self: T) -> str:
         """Returns the current context of the current session.
 
         Usage:
@@ -58,8 +60,8 @@ class Context(webdriver.Remote):
         return self.current_context
 
     # pylint: disable=protected-access
-
-    def _addCommands(self) -> None:
+    # noinspection PyProtectedMember
+    def _addCommands(self: T) -> None:
         self.command_executor._commands[Command.CONTEXTS] = \
             ('GET', '/session/$sessionId/contexts')
         self.command_executor._commands[Command.GET_CURRENT_CONTEXT] = \

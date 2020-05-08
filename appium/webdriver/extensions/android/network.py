@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, TypeVar
+from typing import Union, TypeVar
 
 from selenium import webdriver
 
@@ -20,10 +20,7 @@ from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
-T = TypeVar('T', bound='WebDriver')
+T = TypeVar('T', bound=Union[webdriver.Remote, 'NetSpeed'])
 
 
 class NetSpeed:
@@ -41,7 +38,7 @@ class NetSpeed:
 class Network(webdriver.Remote):
 
     @property
-    def network_connection(self) -> int:
+    def network_connection(self: T) -> int:
         """Returns an integer bitmask specifying the network connection type.
 
         Android only.
@@ -49,7 +46,7 @@ class Network(webdriver.Remote):
         """
         return self.execute(Command.GET_NETWORK_CONNECTION, {})['value']
 
-    def set_network_connection(self, connection_type: int) -> int:
+    def set_network_connection(self: T, connection_type: int) -> int:
         """Sets the network connection type. Android only.
 
         Possible values:
@@ -83,7 +80,7 @@ class Network(webdriver.Remote):
         }
         return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
 
-    def toggle_wifi(self) -> T:
+    def toggle_wifi(self: T) -> T:
         """Toggle the wifi on the device, Android only.
 
         Returns:
@@ -92,7 +89,7 @@ class Network(webdriver.Remote):
         self.execute(Command.TOGGLE_WIFI, {})
         return self
 
-    def set_network_speed(self, speed_type: str) -> T:
+    def set_network_speed(self: T, speed_type: str) -> T:
         """Set the network speed emulation.
 
         Android Emulator only.
@@ -110,14 +107,15 @@ class Network(webdriver.Remote):
         constants = extract_const_attributes(NetSpeed)
         if speed_type not in constants.values():
             logger.warning(
-                f'{speed_type} is unknown. Consider using one of {list(constants.keys())} constants. (e.g. {NetSpeed.__name__}.LTE)')
+                f'{speed_type} is unknown. Consider using one of {list(constants.keys())} constants. '
+                f'(e.g. {NetSpeed.__name__}.LTE)')
 
         self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
         return self
 
     # pylint: disable=protected-access
-
-    def _addCommands(self) -> None:
+    # noinspection PyProtectedMember
+    def _addCommands(self: T) -> None:
         self.command_executor._commands[Command.TOGGLE_WIFI] = \
             ('POST', '/session/$sessionId/appium/device/toggle_wifi')
         self.command_executor._commands[Command.GET_NETWORK_CONNECTION] = \

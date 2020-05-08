@@ -12,21 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Dict, List, TypeVar, Union
+from typing import Dict, List, TypeVar, Union
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
-T = TypeVar('T', bound='WebDriver')
+T = TypeVar('T', bound=Union[webdriver.Remote, 'LogEvent'])
 
 
 class LogEvent(webdriver.Remote):
 
-    def get_events(self, type: List[str] = None) -> Dict[str, Union[str, int]]:
+    def get_events(self: T, type: List[str] = None) -> Dict[str, Union[str, int]]:
         """ Retrieves events information from the current session
         (Since Appium 1.16.0)
 
@@ -50,7 +47,7 @@ class LogEvent(webdriver.Remote):
             data['type'] = type
         return self.execute(Command.GET_EVENTS, data)['value']
 
-    def log_event(self, vendor: str, event: str) -> T:
+    def log_event(self: T, vendor: str, event: str) -> T:
         """Log a custom event on the Appium server.
         (Since Appium 1.16.0)
 
@@ -72,8 +69,8 @@ class LogEvent(webdriver.Remote):
         return self
 
     # pylint: disable=protected-access
-
-    def _addCommands(self) -> None:
+    # noinspection PyProtectedMember
+    def _addCommands(self: T) -> None:
         self.command_executor._commands[Command.GET_EVENTS] = \
             ('POST', '/session/$sessionId/appium/events')
         self.command_executor._commands[Command.LOG_EVENT] = \

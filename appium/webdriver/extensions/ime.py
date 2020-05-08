@@ -12,22 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, List, TypeVar
+from typing import Union, List, TypeVar
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
-T = TypeVar('T', bound='WebDriver')
+T = TypeVar('T', bound=Union[webdriver.Remote, 'IME'])
 
 
 class IME(webdriver.Remote):
 
     @property
-    def available_ime_engines(self) -> List[str]:
+    def available_ime_engines(self: T) -> List[str]:
         """Get the available input methods for an Android device.
 
         Package and activity are returned (e.g., ['com.android.inputmethod.latin/.LatinIME'])
@@ -38,7 +35,7 @@ class IME(webdriver.Remote):
         """
         return self.execute(Command.GET_AVAILABLE_IME_ENGINES, {})['value']
 
-    def is_ime_active(self) -> bool:
+    def is_ime_active(self: T) -> bool:
         """Checks whether the device has IME service active.
         Android only.
 
@@ -47,7 +44,7 @@ class IME(webdriver.Remote):
         """
         return self.execute(Command.IS_IME_ACTIVE, {})['value']
 
-    def activate_ime_engine(self, engine: str) -> T:
+    def activate_ime_engine(self: T, engine: str) -> T:
         """Activates the given IME engine on the device.
 
         Android only.
@@ -65,7 +62,7 @@ class IME(webdriver.Remote):
         self.execute(Command.ACTIVATE_IME_ENGINE, data)
         return self
 
-    def deactivate_ime_engine(self) -> T:
+    def deactivate_ime_engine(self: T) -> T:
         """Deactivates the currently active IME engine on the device.
 
         Android only.
@@ -77,8 +74,9 @@ class IME(webdriver.Remote):
         return self
 
     @property
-    def active_ime_engine(self) -> str:
-        """Returns the activity and package of the currently active IME engine(e.g., 'com.android.inputmethod.latin/.LatinIME').
+    def active_ime_engine(self: T) -> str:
+        """Returns the activity and package of the currently active IME engine
+        (e.g., 'com.android.inputmethod.latin/.LatinIME').
 
         Android only.
 
@@ -88,8 +86,8 @@ class IME(webdriver.Remote):
         return self.execute(Command.GET_ACTIVE_IME_ENGINE, {})['value']
 
     # pylint: disable=protected-access
-
-    def _addCommands(self) -> None:
+    # noinspection PyProtectedMember
+    def _addCommands(self: T) -> None:
         self.command_executor._commands[Command.GET_AVAILABLE_IME_ENGINES] = \
             ('GET', '/session/$sessionId/ime/available_engines')
         self.command_executor._commands[Command.IS_IME_ACTIVE] = \

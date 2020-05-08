@@ -12,20 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, Dict, TypeVar
+from typing import Union, Any, Dict, TypeVar
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
-T = TypeVar('T', bound='WebDriver')
+T = TypeVar('T', bound=Union[webdriver.Remote, 'Settings'])
 
 
 class Settings(webdriver.Remote):
-    def get_settings(self) -> Dict[str, Any]:
+    def get_settings(self: T) -> Dict[str, Any]:
         """Returns the appium server Settings for the current session.
 
         Do not get Settings confused with Desired Capabilities, they are
@@ -36,7 +33,7 @@ class Settings(webdriver.Remote):
         """
         return self.execute(Command.GET_SETTINGS, {})['value']
 
-    def update_settings(self, settings: Dict[str, Any]) -> T:
+    def update_settings(self: T, settings: Dict[str, Any]) -> T:
         """Set settings for the current session.
 
         For more on settings, see: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
@@ -50,8 +47,8 @@ class Settings(webdriver.Remote):
         return self
 
     # pylint: disable=protected-access
-
-    def _addCommands(self) -> None:
+    # noinspection PyProtectedMember
+    def _addCommands(self: T) -> None:
         self.command_executor._commands[Command.GET_SETTINGS] = \
             ('GET', '/session/$sessionId/appium/settings')
         self.command_executor._commands[Command.UPDATE_SETTINGS] = \

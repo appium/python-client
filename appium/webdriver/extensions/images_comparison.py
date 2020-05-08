@@ -12,16 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict, Union
+from typing import Any, Dict, Union, TypeVar
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
+T = TypeVar('T', bound=Union['ImagesComparison', webdriver.Remote])
+
 
 class ImagesComparison(webdriver.Remote):
 
-    def match_images_features(self, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> Dict[str, Any]:
+    def match_images_features(self: T, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> Dict[str, Any]:
         """Performs images matching by features.
 
         Read
@@ -75,7 +77,7 @@ class ImagesComparison(webdriver.Remote):
         }
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
-    def find_image_occurrence(self, base64_full_image: bytes, base64_partial_image: bytes,
+    def find_image_occurrence(self: T, base64_full_image: bytes, base64_partial_image: bytes,
                               **opts: Any) -> Dict[str, Union[bytes, Dict]]:
         """Performs images matching by template to find possible occurrence of the partial image
         in the full image.
@@ -108,7 +110,7 @@ class ImagesComparison(webdriver.Remote):
         }
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
-    def get_images_similarity(self, base64_image1: bytes, base64_image2: bytes,
+    def get_images_similarity(self: T, base64_image1: bytes, base64_image2: bytes,
                               **opts: Any) -> Dict[str, Union[bytes, Dict]]:
         """Performs images matching to calculate the similarity score between them.
 
@@ -140,7 +142,7 @@ class ImagesComparison(webdriver.Remote):
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
     # pylint: disable=protected-access
-
-    def _addCommands(self) -> None:
+    # noinspection PyProtectedMember
+    def _addCommands(self: T) -> None:
         self.command_executor._commands[Command.COMPARE_IMAGES] = \
             ('POST', '/session/$sessionId/appium/compare_images')

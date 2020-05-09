@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict, List, TypeVar, Union
+from typing import Any, Dict, List, TypeVar, Union, TYPE_CHECKING
 
 from selenium import webdriver
 
@@ -20,7 +20,11 @@ from appium.common.logger import logger
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=Union[webdriver.remote, 'Session'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'Session'])
 
 
 class Session(webdriver.Remote):
@@ -67,7 +71,7 @@ class Session(webdriver.Remote):
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
-    def _addCommands(self: T) -> None:
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.GET_SESSION] = \
             ('GET', '/session/$sessionId')
         self.command_executor._commands[Command.GET_ALL_SESSIONS] = \

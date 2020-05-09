@@ -13,14 +13,18 @@
 # limitations under the License.
 
 import base64
-from typing import Union, Optional, TypeVar
+from typing import Union, Optional, TypeVar, TYPE_CHECKING
 
 from selenium import webdriver
 from selenium.common.exceptions import InvalidArgumentException
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=Union[webdriver.remote, 'RemoteFS'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'RemoteFS'])
 
 
 class RemoteFS(webdriver.Remote):
@@ -88,7 +92,7 @@ class RemoteFS(webdriver.Remote):
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
-    def _addCommands(self: T) -> None:
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.PULL_FILE] = \
             ('POST', '/session/$sessionId/appium/device/pull_file')
         self.command_executor._commands[Command.PULL_FOLDER] = \

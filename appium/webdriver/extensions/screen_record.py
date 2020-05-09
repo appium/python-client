@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Union, TypeVar
+from typing import Any, Union, TypeVar, TYPE_CHECKING
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=Union[webdriver.remote, 'ScreenRecord'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'ScreenRecord'])
 
 
 class ScreenRecord(webdriver.Remote):
@@ -117,7 +121,7 @@ class ScreenRecord(webdriver.Remote):
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
-    def _addCommands(self: T) -> None:
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.START_RECORDING_SCREEN] = \
             ('POST', '/session/$sessionId/appium/start_recording_screen')
         self.command_executor._commands[Command.STOP_RECORDING_SCREEN] = \

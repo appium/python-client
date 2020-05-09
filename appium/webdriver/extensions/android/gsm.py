@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Union, TypeVar
+from typing import Union, TypeVar, TYPE_CHECKING
 
 from selenium import webdriver
 
@@ -20,7 +20,11 @@ from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=Union[webdriver.Remote, 'Gsm'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'Gsm'])
 
 
 class GsmCallActions:
@@ -113,7 +117,7 @@ class Gsm(webdriver.Remote):
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
-    def _addCommands(self: T) -> None:
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.MAKE_GSM_CALL] = \
             ('POST', '/session/$sessionId/appium/device/gsm_call')
         self.command_executor._commands[Command.SET_GSM_SIGNAL] = \

@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Union, Any, Dict, TypeVar
+from typing import Union, Any, Dict, TypeVar, TYPE_CHECKING
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=Union[webdriver.Remote, 'Applications'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'Applications'])
 
 
 class Applications(webdriver.Remote):
@@ -198,7 +202,7 @@ class Applications(webdriver.Remote):
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
-    def _addCommands(self: T) -> None:
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.BACKGROUND] = \
             ('POST', '/session/$sessionId/appium/app/background')
         self.command_executor._commands[Command.IS_APP_INSTALLED] = \

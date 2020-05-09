@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, TypeVar, Union
+from typing import Dict, TypeVar, Union, TYPE_CHECKING
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=Union[webdriver.Remote, 'Location'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'Location'])
 
 
 class Location(webdriver.Remote):

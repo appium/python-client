@@ -12,14 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Union, TypeVar
+from typing import Union, TypeVar, TYPE_CHECKING
 
 from selenium import webdriver
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union[webdriver.Remote, 'Power'])
+T = TypeVar('T', bound=Union['WebDriver', 'Power'])
 
 
 class Power(webdriver.Remote):
@@ -64,7 +67,7 @@ class Power(webdriver.Remote):
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
-    def _addCommands(self: T) -> None:
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.SET_POWER_CAPACITY] = \
             ('POST', '/session/$sessionId/appium/device/power_capacity')
         self.command_executor._commands[Command.SET_POWER_AC] = \

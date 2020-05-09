@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Union, Any, TypeVar
+from typing import Union, Any, TypeVar, TYPE_CHECKING
 
 from selenium import webdriver
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=Union[webdriver.Remote, 'Common'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'Common'])
 
 
 class Common(webdriver.Remote):
@@ -58,7 +62,7 @@ class Common(webdriver.Remote):
         return self.execute(Command.GET_CURRENT_PACKAGE)['value']
 
     # noinspection PyProtectedMember
-    def _addCommands(self: T) -> None:
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.GET_CURRENT_PACKAGE] = \
             ('GET', '/session/$sessionId/appium/device/current_package')
         self.command_executor._commands[Command.END_TEST_COVERAGE] = \

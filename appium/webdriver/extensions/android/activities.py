@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Union, TypeVar
+from typing import Union, TypeVar, TYPE_CHECKING
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -20,7 +20,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=Union[webdriver.Remote, 'Activities'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'Activities'])
 
 
 class Activities(webdriver.Remote):
@@ -93,7 +97,7 @@ class Activities(webdriver.Remote):
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
-    def _addCommands(self: T) -> None:
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.GET_CURRENT_ACTIVITY] = \
             ('GET', '/session/$sessionId/appium/device/current_activity')
         self.command_executor._commands[Command.START_ACTIVITY] = \

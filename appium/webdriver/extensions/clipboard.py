@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import base64
-from typing import Optional, TypeVar, Union
+from typing import Optional, TypeVar, Union, TYPE_CHECKING
 
 from selenium import webdriver
 
@@ -21,8 +21,11 @@ from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 from ..mobilecommand import MobileCommand as Command
 
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['Clipboard', webdriver.Remote])
+T = TypeVar('T', bound=Union['WebDriver', 'Clipboard'])
 
 
 class Clipboard(webdriver.Remote):

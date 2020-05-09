@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List, Union, TypeVar
+from typing import Dict, List, Union, TypeVar, TYPE_CHECKING
 
 from selenium import webdriver
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=Union[webdriver.Remote, 'Performance'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'Performance'])
 
 
 class Performance(webdriver.Remote):
@@ -64,7 +68,7 @@ class Performance(webdriver.Remote):
     # pylint: disable=protected-access
 
     # noinspection PyProtectedMember
-    def _addCommands(self: T) -> None:
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.GET_PERFORMANCE_DATA] = \
             ('POST', '/session/$sessionId/appium/getPerformanceData')
         self.command_executor._commands[Command.GET_PERFORMANCE_DATA_TYPES] = \

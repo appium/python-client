@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Optional, Tuple, TypeVar, Union
+from typing import List, Optional, Tuple, TypeVar, Union, TYPE_CHECKING
 
 from selenium import webdriver
 
@@ -20,7 +20,11 @@ from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.webelement import WebElement
 
-T = TypeVar('T', bound=Union[webdriver.Remote, 'ActionHelpers'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'ActionHelpers'])
 
 
 class ActionHelpers(webdriver.Remote):

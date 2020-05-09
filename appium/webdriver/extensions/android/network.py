@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Union, TypeVar
+from typing import Union, TypeVar, TYPE_CHECKING
 
 from selenium import webdriver
 
@@ -20,7 +20,11 @@ from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=Union[webdriver.Remote, 'NetSpeed'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'NetSpeed'])
 
 
 class NetSpeed:
@@ -115,7 +119,7 @@ class Network(webdriver.Remote):
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
-    def _addCommands(self: T) -> None:
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.TOGGLE_WIFI] = \
             ('POST', '/session/$sessionId/appium/device/toggle_wifi')
         self.command_executor._commands[Command.GET_NETWORK_CONNECTION] = \

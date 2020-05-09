@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, Union, TypeVar
+from typing import Dict, Union, TypeVar, TYPE_CHECKING
 
 from selenium import webdriver
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=Union[webdriver.Remote, 'SystemBars'])
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'SystemBars'])
 
 
 class SystemBars(webdriver.Remote):
@@ -47,6 +51,6 @@ class SystemBars(webdriver.Remote):
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
-    def _addCommands(self: T) -> None:
+    def _addCommands(self) -> None:
         self.command_executor._commands[Command.GET_SYSTEM_BARS] = \
             ('GET', '/session/$sessionId/appium/device/system_bars')

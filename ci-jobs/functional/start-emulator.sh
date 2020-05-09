@@ -13,7 +13,7 @@ echo "y" | ${ANDROID_HOME}/tools/bin/sdkmanager --install "$emulator"
 ${ANDROID_HOME}/tools/bin/avdmanager list
 
 # Create emulator
-echo "no" | ${ANDROID_HOME}/tools/bin/avdmanager create avd -d "pixel_xl" -n testemulator -k "${emulator}" --force
+echo "no" | ${ANDROID_HOME}/tools/bin/avdmanager create avd -d "Pixel C" -n testemulator -k "${emulator}" --force
 
 echo ${ANDROID_HOME}/emulator/emulator -list-avds
 

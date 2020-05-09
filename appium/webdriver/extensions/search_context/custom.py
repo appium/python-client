@@ -14,7 +14,7 @@
 
 # pylint: disable=abstract-method
 
-from typing import TYPE_CHECKING, List, Union, TypeVar
+from typing import TYPE_CHECKING, List, TypeVar, Union
 
 from appium.webdriver.common.mobileby import MobileBy
 

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import base64
-from typing import Union, Optional, TypeVar, TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, TypeVar, Union
 
 from selenium import webdriver
 from selenium.common.exceptions import InvalidArgumentException

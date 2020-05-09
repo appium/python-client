@@ -15,7 +15,7 @@
 # pylint: disable=abstract-method
 
 import json
-from typing import TYPE_CHECKING, Any, List, Optional, Union, TypeVar
+from typing import TYPE_CHECKING, Any, List, Optional, TypeVar, Union
 
 from appium.webdriver.common.mobileby import MobileBy
 

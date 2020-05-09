@@ -31,7 +31,15 @@ def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
         'newCommandTimeout': 240,
         'automationName': 'UIAutomator2',
         'uiautomator2ServerInstallTimeout': 120000,
-        'adbExecTimeout': 120000
+        'adbExecTimeout': 120000,
+        'uiautomator2ServerLaunchTimeout': 60000,
+        'eventTimings': True,
+        'unicodeKeyboard': True,
+        'resetKeyboard': True,
+        'disableWindowAnimation': True,
+        'autoGrantPermissions': True,
+        'language': 'en',
+        'locale': 'US'
     }
 
     if app is not None:

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import base64
-from typing import TYPE_CHECKING, Optional, TypeVar
+from typing import TYPE_CHECKING, Optional, TypeVar, Union
 
 from selenium import webdriver
 from selenium.common.exceptions import InvalidArgumentException
@@ -21,13 +21,14 @@ from selenium.common.exceptions import InvalidArgumentException
 from ..mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound='WebDriver')
+T = TypeVar('T', bound=Union['WebDriver', 'RemoteFS'])
 
 
 class RemoteFS(webdriver.Remote):
-    def pull_file(self, path: str) -> str:
+    def pull_file(self: T, path: str) -> str:
         """Retrieves the file at `path`.
 
         Args:
@@ -41,7 +42,7 @@ class RemoteFS(webdriver.Remote):
         }
         return self.execute(Command.PULL_FILE, data)['value']
 
-    def pull_folder(self, path: str) -> str:
+    def pull_folder(self: T, path: str) -> str:
         """Retrieves a folder at `path`.
 
         Args:
@@ -55,7 +56,7 @@ class RemoteFS(webdriver.Remote):
         }
         return self.execute(Command.PULL_FOLDER, data)['value']
 
-    def push_file(self, destination_path: str,
+    def push_file(self: T, destination_path: str,
                   base64data: Optional[str] = None, source_path: Optional[str] = None) -> T:
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
@@ -63,7 +64,8 @@ class RemoteFS(webdriver.Remote):
 
         Args:
             destination_path (str): the location on the device/simulator where the local file contents should be saved
-            base64data (:obj:`str`, optional): file contents, encoded as Base64, to be written to the file on the device/simulator
+            base64data (:obj:`str`, optional): file contents, encoded as Base64, to be written
+            to the file on the device/simulator
             source_path (:obj:`str`, optional): local file path for the file to be loaded on device
 
         Returns:
@@ -89,7 +91,7 @@ class RemoteFS(webdriver.Remote):
         return self
 
     # pylint: disable=protected-access
-
+    # noinspection PyProtectedMember
     def _addCommands(self) -> None:
         self.command_executor._commands[Command.PULL_FILE] = \
             ('POST', '/session/$sessionId/appium/device/pull_file')

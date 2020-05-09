@@ -12,21 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Dict, Optional, TypeVar
+from typing import TYPE_CHECKING, Dict, Optional, TypeVar, Union
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound='WebDriver')
+T = TypeVar('T', bound=Union['WebDriver', 'Keyboard'])
 
 
 class Keyboard(webdriver.Remote):
 
-    def hide_keyboard(self, key_name: Optional[str] = None, key: Optional[str]
+    def hide_keyboard(self: T, key_name: Optional[str] = None, key: Optional[str]
                       = None, strategy: Optional[str] = None) -> T:
         """Hides the software keyboard on the device.
 
@@ -49,7 +50,7 @@ class Keyboard(webdriver.Remote):
         self.execute(Command.HIDE_KEYBOARD, data)
         return self
 
-    def is_keyboard_shown(self) -> bool:
+    def is_keyboard_shown(self: T) -> bool:
         """Attempts to detect whether a software keyboard is present
 
         Returns:
@@ -57,7 +58,7 @@ class Keyboard(webdriver.Remote):
         """
         return self.execute(Command.IS_KEYBOARD_SHOWN)['value']
 
-    def keyevent(self, keycode: int, metastate: Optional[int] = None) -> T:
+    def keyevent(self: T, keycode: int, metastate: Optional[int] = None) -> T:
         """Sends a keycode to the device.
 
         Android only.
@@ -78,10 +79,11 @@ class Keyboard(webdriver.Remote):
         self.execute(Command.KEY_EVENT, data)
         return self
 
-    def press_keycode(self, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> T:
+    def press_keycode(self: T, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> T:
         """Sends a keycode to the device.
 
-        Android only. Possible keycodes can be found in http://developer.android.com/reference/android/view/KeyEvent.html.
+        Android only. Possible keycodes can be found
+        in http://developer.android.com/reference/android/view/KeyEvent.html.
 
         Args:
             keycode (int): the keycode to be sent to the device
@@ -101,10 +103,11 @@ class Keyboard(webdriver.Remote):
         self.execute(Command.PRESS_KEYCODE, data)
         return self
 
-    def long_press_keycode(self, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> T:
+    def long_press_keycode(self: T, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> T:
         """Sends a long press of keycode to the device.
 
-        Android only. Possible keycodes can be found in http://developer.android.com/reference/android/view/KeyEvent.html.
+        Android only. Possible keycodes can be found in
+        http://developer.android.com/reference/android/view/KeyEvent.html.
 
         Args:
             keycode (int): the keycode to be sent to the device
@@ -125,7 +128,7 @@ class Keyboard(webdriver.Remote):
         return self
 
     # pylint: disable=protected-access
-
+    # noinspection PyProtectedMember
     def _addCommands(self) -> None:
         self.command_executor._commands[Command.HIDE_KEYBOARD] = \
             ('POST', '/session/$sessionId/appium/device/hide_keyboard')

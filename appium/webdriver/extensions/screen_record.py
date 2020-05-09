@@ -12,16 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Union
+from typing import TYPE_CHECKING, Any, TypeVar, Union
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'ScreenRecord'])
+
 
 class ScreenRecord(webdriver.Remote):
 
-    def start_recording_screen(self, **options: Any) -> Union[bytes, str]:
+    def start_recording_screen(self: T, **options: Any) -> Union[bytes, str]:
         """Start asynchronous screen recording process.
 
         Keyword Args:
@@ -45,24 +51,25 @@ class ScreenRecord(webdriver.Remote):
                 The maximum value for Android is 3 minutes.
                 The maximum value for iOS is 10 minutes.
             forcedRestart (bool): Whether to ignore the result of previous capture and start a new recording
-                immediately (`True` value). By default  (`False`) the endpoint will try to catch and return the result of
-                the previous capture if it's still available.
+                immediately (`True` value). By default  (`False`) the endpoint will try to catch and
+                return the result of the previous capture if it's still available.
             bugReport (str): Makes the recorder to display an additional information on the video overlay,
                 such as a timestamp, that is helpful in videos captured to illustrate bugs.
                 This option is only supported since API level 27 (Android P).
 
-            videoQuality (str): [iOS only] The video encoding quality: 'low', 'medium', 'high', 'photo'. Defaults to 'medium'.
+            videoQuality (str): [iOS only] The video encoding quality: 'low', 'medium', 'high', 'photo'. Defaults
+                to 'medium'.
             videoType (str): [iOS only] The format of the screen capture to be recorded.
                 Available formats: Execute `ffmpeg -codecs` in the terminal to see the list of supported video codecs.
                 'mjpeg' by default. (Since Appium 1.10.0)
-            videoFps (int): [iOS only] The Frames Per Second rate of the recorded video. Change this value if the resulting video
-                is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
+            videoFps (int): [iOS only] The Frames Per Second rate of the recorded video. Change this value if the
+                resulting video is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
             videoFilters (str): [iOS only] The FFMPEG video filters to apply. These filters allow to scale,
-                flip, rotate and do many other useful transformations on the source video stream. The format of the property
-                must comply with https://ffmpeg.org/ffmpeg-filters.html. (Since Appium 1.15)
-            videoScale (str): [iOS only] The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
-                No scale is applied by default. If videoFilters are set then the scale setting is effectively ignored.
-                (Since Appium 1.10.0)
+                flip, rotate and do many other useful transformations on the source video stream. The format of the
+                property must comply with https://ffmpeg.org/ffmpeg-filters.html. (Since Appium 1.15)
+            videoScale (str): [iOS only] The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for
+                possible values. No scale is applied by default. If videoFilters are set then the scale setting is
+                effectively ignored. (Since Appium 1.10.0)
             pixelFormat (str): [iOS only] Output pixel format. Run `ffmpeg -pix_fmts` to list possible values.
                 For Quicktime compatibility, set to "yuv420p" along with videoType: "libx264". (Since Appium 1.12.0)
 
@@ -84,7 +91,7 @@ class ScreenRecord(webdriver.Remote):
             del options['password']
         return self.execute(Command.START_RECORDING_SCREEN, {'options': options})['value']
 
-    def stop_recording_screen(self, **options: Any) -> bytes:
+    def stop_recording_screen(self: T, **options: Any) -> bytes:
         """Gather the output from the previously started screen recording to a media file.
 
         Keyword Args:
@@ -113,7 +120,7 @@ class ScreenRecord(webdriver.Remote):
         return self.execute(Command.STOP_RECORDING_SCREEN, {'options': options})['value']
 
     # pylint: disable=protected-access
-
+    # noinspection PyProtectedMember
     def _addCommands(self) -> None:
         self.command_executor._commands[Command.START_RECORDING_SCREEN] = \
             ('POST', '/session/$sessionId/appium/start_recording_screen')

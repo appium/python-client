@@ -33,8 +33,10 @@ setup(
     ],
     author='Isaac Murchie',
     author_email='isaac@saucelabs.com',
+    maintainer='Kazuaki Matsuo, Mykola Mokhnach, Mori Atsushi',
     url='http://appium.io/',
-    packages=find_packages(include=['appium*']),
+    package_data={'appium': ['webdriver/py.typed']},
+    packages=find_packages(include=['appium']),
     license='Apache 2.0',
     classifiers=[
         'Development Status :: 5 - Production/Stable',

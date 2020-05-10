@@ -42,7 +42,7 @@ class ActionHelpers(webdriver.Remote):
             driver.scroll(el1, el2)
 
         Returns:
-            `appium.webdriver.webelement.WebElement`: Self instance
+            Union['WebDriver', 'ActionHelpers']: Self instance
         """
 
         # XCUITest x W3C spec has no duration by default in server side
@@ -64,7 +64,7 @@ class ActionHelpers(webdriver.Remote):
             destination_el: the element to drag to
 
         Returns:
-            `appium.webdriver.webelement.WebElement`: Self instance
+            Union['WebDriver', 'ActionHelpers']: Self instance
         """
         action = TouchAction(self)
         action.long_press(origin_el).move_to(destination_el).release().perform()
@@ -83,7 +83,7 @@ class ActionHelpers(webdriver.Remote):
             driver.tap([(100, 20), (100, 60), (100, 100)], 500)
 
         Returns:
-            `appium.webdriver.webelement.WebElement`: Self instance
+            Union['WebDriver', 'ActionHelpers']: Self instance
         """
         if len(positions) == 1:
             action = TouchAction(self)
@@ -123,7 +123,7 @@ class ActionHelpers(webdriver.Remote):
             driver.swipe(100, 100, 100, 400)
 
         Returns:
-            `appium.webdriver.webelement.WebElement`: Self instance
+            Union['WebDriver', 'ActionHelpers']: Self instance
         """
         # `swipe` is something like press-wait-move_to-release, which the server
         # will translate into the correct action
@@ -149,7 +149,7 @@ class ActionHelpers(webdriver.Remote):
             driver.flick(100, 100, 100, 400)
 
         Returns:
-            `appium.webdriver.webelement.WebElement`: Self instance
+            Union['WebDriver', 'ActionHelpers']: Self instance
         """
         action = TouchAction(self)
         action \

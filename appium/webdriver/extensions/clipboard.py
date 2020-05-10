@@ -41,7 +41,7 @@ class Clipboard(webdriver.Remote):
             label: label argument, which only works for Android
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Clipboard']: Self instance
         """
         options = {
             'content': base64.b64encode(content).decode('UTF-8'),
@@ -60,7 +60,7 @@ class Clipboard(webdriver.Remote):
             label:label argument, which only works for Android
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Clipboard']: Self instance
         """
 
         self.set_clipboard(bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
@@ -84,7 +84,7 @@ class Clipboard(webdriver.Remote):
     def get_clipboard_text(self: T) -> str:
         """Receives the text of the system clipboard
 
-        Return:
+        Returns:
             str: The actual clipboard text or an empty string if the clipboard is empty
         """
         return self.get_clipboard(ClipboardContentType.PLAINTEXT).decode('UTF-8')

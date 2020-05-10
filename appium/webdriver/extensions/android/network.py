@@ -24,7 +24,7 @@ if TYPE_CHECKING:
     # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'NetSpeed'])
+T = TypeVar('T', bound=Union['WebDriver', 'Network'])
 
 
 class NetSpeed:
@@ -88,7 +88,7 @@ class Network(webdriver.Remote):
         """Toggle the wifi on the device, Android only.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Network']: Self instance
         """
         self.execute(Command.TOGGLE_WIFI, {})
         return self
@@ -106,7 +106,7 @@ class Network(webdriver.Remote):
             self.driver.set_network_speed(NetSpeed.LTE)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Network']: Self instance
         """
         constants = extract_const_attributes(NetSpeed)
         if speed_type not in constants.values():

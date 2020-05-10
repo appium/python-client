@@ -68,7 +68,7 @@ class Gsm(webdriver.Remote):
             self.driver.make_gsm_call('5551234567', GsmCallActions.CALL)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Gsm']: Self instance
         """
         constants = extract_const_attributes(GsmCallActions)
         if action not in constants.values():
@@ -91,7 +91,7 @@ class Gsm(webdriver.Remote):
             self.driver.set_gsm_signal(GsmSignalStrength.GOOD)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Gsm']: Self instance
         """
         constants = extract_const_attributes(GsmSignalStrength)
         if strength not in constants.values():
@@ -114,7 +114,7 @@ class Gsm(webdriver.Remote):
             self.driver.set_gsm_voice(GsmVoiceState.HOME)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Gsm']: Self instance
         """
         constants = extract_const_attributes(GsmVoiceState)
         if state not in constants.values():

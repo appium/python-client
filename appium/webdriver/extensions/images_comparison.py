@@ -134,7 +134,7 @@ class ImagesComparison(webdriver.Remote):
             The dictionary containing the following entries:
                 visualization: base64-encoded content of PNG visualization of the current comparison
                     operation. This entry is only present if `visualize` option is enabled
-                score (float): The similarity score as a float number in range [0.0, 1.0].
+                score: The similarity score as a float number in range [0.0, 1.0].
                     1.0 is the highest score (means both images are totally equal).
         """
         options = {

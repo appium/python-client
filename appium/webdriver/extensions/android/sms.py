@@ -40,7 +40,7 @@ class Sms(webdriver.Remote):
             self.driver.send_sms('555-123-4567', 'Hey lol')
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Sms']: Self instance
         """
         self.execute(Command.SEND_SMS, {'phoneNumber': phone_number, 'message': message})
         return self

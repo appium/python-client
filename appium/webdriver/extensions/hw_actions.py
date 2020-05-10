@@ -37,7 +37,7 @@ class HardwareActions(webdriver.Remote):
                 the timeout expires and unlocks the screen automatically.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'HardwareActions']: Self instance
         """
         if seconds is None:
             self.execute(Command.LOCK)
@@ -50,7 +50,7 @@ class HardwareActions(webdriver.Remote):
         """Unlock the device. No changes are made if the device is already locked.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.UNLOCK)
         return self
@@ -67,7 +67,7 @@ class HardwareActions(webdriver.Remote):
         """Shake the device.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.SHAKE)
         return self
@@ -79,7 +79,7 @@ class HardwareActions(webdriver.Remote):
             match: Simulates a successful touch (`True`) or a failed touch (`False`)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'HardwareActions']: Self instance
         """
         data = {
             'match': match
@@ -91,7 +91,7 @@ class HardwareActions(webdriver.Remote):
         """Toggle enroll touchId on iOS Simulator
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.TOGGLE_TOUCH_ID_ENROLLMENT)
         return self

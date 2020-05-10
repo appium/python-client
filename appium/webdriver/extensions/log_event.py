@@ -40,10 +40,10 @@ class LogEvent(webdriver.Remote):
 
         Returns:
             `dict`: A dictionary of events timing information containing the following entries
-                commands: (`list` of `dict`) List of dictionaries containing the following entries
-                    | cmd: The command name that has been sent to the appium server
-                    | startTime: Received time
-                    | endTime: Response time
+                | commands: (`list` of `dict`) List of dictionaries containing the following entries
+                | cmd: The command name that has been sent to the appium server
+                | startTime: Received time
+                | endTime: Response time
         """
         data = {}
         if type is not None:
@@ -62,7 +62,7 @@ class LogEvent(webdriver.Remote):
             driver.log_event('appium', 'funEvent')
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'LogEvent']: Self instance
         """
         data = {
             'vendor': vendor,

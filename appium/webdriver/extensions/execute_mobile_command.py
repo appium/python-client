@@ -36,7 +36,7 @@ class ExecuteMobileCommand(webdriver.Remote):
             button_name: the button name to be sent to the device
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'ExecuteMobileCommand']: Self instance
 
         """
         data = {

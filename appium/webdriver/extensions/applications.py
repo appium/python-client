@@ -33,7 +33,7 @@ class Applications(webdriver.Remote):
             seconds: the duration for the application to remain in the background
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Applications']: Self instance
         """
         data = {
             'seconds': seconds,
@@ -73,7 +73,7 @@ class Applications(webdriver.Remote):
                 on Android 6+ after the installation completes. False by default
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Applications']: Self instance
         """
         data: Dict[str, Any] = {
             'appPath': app_path,
@@ -96,7 +96,7 @@ class Applications(webdriver.Remote):
                 20000ms by default.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Applications']: Self instance
         """
         data: Dict[str, Any] = {
             'appId': app_id,
@@ -110,7 +110,7 @@ class Applications(webdriver.Remote):
         """Start on the device the application specified in the desired capabilities.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.LAUNCH_APP)
         return self
@@ -120,7 +120,7 @@ class Applications(webdriver.Remote):
         the device.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.CLOSE_APP)
         return self
@@ -153,7 +153,7 @@ class Applications(webdriver.Remote):
             app_id: the application id to be activated
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Applications']: Self instance
         """
         data = {
             'appId': app_id,
@@ -198,7 +198,7 @@ class Applications(webdriver.Remote):
         """Resets the current application on the device.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.RESET)
         return self

@@ -41,7 +41,7 @@ class Power(webdriver.Remote):
             self.driver.set_power_capacity(50)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Power']: Self instance
         """
         self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
         return self
@@ -59,7 +59,7 @@ class Power(webdriver.Remote):
             | self.driver.set_power_ac(Power.AC_ON)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
+            Union['WebDriver', 'Power']: Self instance
         """
         self.execute(Command.SET_POWER_AC, {'state': ac_state})
         return self

@@ -12,17 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict, Optional, Union
+from typing import TYPE_CHECKING, Any, Dict, Optional, TypeVar, Union
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'ExecuteDriver'])
+
 
 class ExecuteDriver(webdriver.Remote):
 
     # TODO Inner class case
-    def execute_driver(self, script: str, script_type: str = 'webdriverio', timeout_ms: Optional[int] = None) -> Any:
+    def execute_driver(self: T, script: str, script_type: str = 'webdriverio', timeout_ms: Optional[int] = None) -> Any:
         """Run a set of script against the current session, allowing execution of many commands in one Appium request.
         Please read http://appium.io/docs/en/commands/session/execute-driver for more details about the acceptable
         scripts and the output format.
@@ -30,7 +36,8 @@ class ExecuteDriver(webdriver.Remote):
         Args:
             script: The string consisting of the script itself
             script_type: The name of the script type. Defaults to 'webdriverio'.
-            timeout_ms: The number of `ms` Appium should wait for the script to finish before killing it due to timeout_ms.
+            timeout_ms: The number of `ms` Appium should wait for the script to finish before
+             killing it due to timeout_ms.
 
         Usage:
             | self.driver.execute_driver(script='return [];')
@@ -46,9 +53,9 @@ class ExecuteDriver(webdriver.Remote):
 
         class Result:
 
-            def __init__(self, response: Dict):
-                self.result = response['result']
-                self.logs = response['logs']
+            def __init__(self, res: Dict):
+                self.result = res['result']
+                self.logs = res['logs']
 
         option: Dict[str, Union[str, int]] = {'script': script, 'type': script_type}
         if timeout_ms is not None:
@@ -58,7 +65,7 @@ class ExecuteDriver(webdriver.Remote):
         return Result(response)
 
     # pylint: disable=protected-access
-
+    # noinspection PyProtectedMember
     def _addCommands(self) -> None:
         self.command_executor._commands[Command.EXECUTE_DRIVER] = \
             ('POST', '/session/$sessionId/appium/execute_driver')

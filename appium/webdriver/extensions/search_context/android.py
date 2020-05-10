@@ -15,7 +15,7 @@
 # pylint: disable=abstract-method
 
 import json
-from typing import TYPE_CHECKING, Any, List, Optional
+from typing import TYPE_CHECKING, Any, List, Optional, TypeVar, Union
 
 from appium.webdriver.common.mobileby import MobileBy
 
@@ -24,12 +24,14 @@ from .base_search_context import BaseSearchContext
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
 
+T = TypeVar('T', bound=Union[BaseSearchContext, 'AndroidSearchContext'])
+
 
 class AndroidSearchContext(BaseSearchContext):
     """Define search context for Android"""
 
-    def find_element_by_android_view_matcher(
-            self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None) -> 'WebElement':
+    def find_element_by_android_view_matcher(self: T, name: Optional[str] = None, args: Optional[Any] = None,
+                                             className: Optional[str] = None) -> 'WebElement':
         """Finds element by [onView](https://developer.android.com/training/testing/espresso/basics) in Android
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
@@ -59,9 +61,10 @@ class AndroidSearchContext(BaseSearchContext):
             value=self._build_data_matcher(name=name, args=args, className=className)
         )
 
-    def find_element_by_android_data_matcher(
-            self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None) -> 'WebElement':
-        """Finds element by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
+    def find_element_by_android_data_matcher(self: T, name: Optional[str] = None, args: Optional[Any] = None,
+                                             className: Optional[str] = None) -> 'WebElement':
+        """Finds element by
+        [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
@@ -70,7 +73,8 @@ class AndroidSearchContext(BaseSearchContext):
                 The method must return a Hamcrest
                 [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
             args: The args provided to the method
-            className: The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
+            className: The class name that the method is part of
+                (defaults to `org.hamcrest.Matchers`).
                 Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
 
@@ -89,9 +93,10 @@ class AndroidSearchContext(BaseSearchContext):
             value=self._build_data_matcher(name=name, args=args, className=className)
         )
 
-    def find_elements_by_android_data_matcher(
-            self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None) -> List['WebElement']:
-        """Finds elements by [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
+    def find_elements_by_android_data_matcher(self: T, name: Optional[str] = None, args: Optional[Any] = None,
+                                              className: Optional[str] = None) -> List['WebElement']:
+        """Finds elements by
+        [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         Args:
@@ -99,7 +104,8 @@ class AndroidSearchContext(BaseSearchContext):
                 The method must return a Hamcrest
                 [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
             args: The args provided to the method
-            className: The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
+            className: The class name that the method is part of
+                (defaults to `org.hamcrest.Matchers`).
                 Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
 
@@ -115,8 +121,8 @@ class AndroidSearchContext(BaseSearchContext):
             value=self._build_data_matcher(name=name, args=args, className=className)
         )
 
-    def _build_data_matcher(self, name: Optional[str] = None, args: Optional[Any]
-                            = None, className: Optional[str] = None) -> str:
+    def _build_data_matcher(self: T, name: Optional[str] = None, args: Optional[Any] = None,
+                            className: Optional[str] = None) -> str:
         result = {}
 
         for key, value in {'name': name, 'args': args, 'class': className}.items():
@@ -125,7 +131,7 @@ class AndroidSearchContext(BaseSearchContext):
 
         return json.dumps(result)
 
-    def find_element_by_android_uiautomator(self, uia_string: str) -> 'WebElement':
+    def find_element_by_android_uiautomator(self: T, uia_string: str) -> 'WebElement':
         """Finds element by uiautomator in Android.
 
         Args:
@@ -139,7 +145,7 @@ class AndroidSearchContext(BaseSearchContext):
         """
         return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
-    def find_elements_by_android_uiautomator(self, uia_string: str) -> List['WebElement']:
+    def find_elements_by_android_uiautomator(self: T, uia_string: str) -> List['WebElement']:
         """Finds elements by uiautomator in Android.
 
         Args:
@@ -153,7 +159,7 @@ class AndroidSearchContext(BaseSearchContext):
         """
         return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
-    def find_element_by_android_viewtag(self, tag: str) -> 'WebElement':
+    def find_element_by_android_viewtag(self: T, tag: str) -> 'WebElement':
         """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
@@ -169,7 +175,7 @@ class AndroidSearchContext(BaseSearchContext):
         """
         return self.find_element(by=MobileBy.ANDROID_VIEWTAG, value=tag)
 
-    def find_elements_by_android_viewtag(self, tag: str) -> List['WebElement']:
+    def find_elements_by_android_viewtag(self: T, tag: str) -> List['WebElement']:
         """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).

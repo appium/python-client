@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import base64
-from typing import TYPE_CHECKING, Optional, TypeVar
+from typing import TYPE_CHECKING, Optional, TypeVar, Union
 
 from selenium import webdriver
 
@@ -22,14 +22,15 @@ from appium.webdriver.clipboard_content_type import ClipboardContentType
 from ..mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound='WebDriver')
+T = TypeVar('T', bound=Union['WebDriver', 'Clipboard'])
 
 
 class Clipboard(webdriver.Remote):
 
-    def set_clipboard(self, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT,
+    def set_clipboard(self: T, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT,
                       label: Optional[str] = None) -> T:
         """Set the content of the system clipboard
 
@@ -51,7 +52,7 @@ class Clipboard(webdriver.Remote):
         self.execute(Command.SET_CLIPBOARD, options)
         return self
 
-    def set_clipboard_text(self, text: str, label: Optional[str] = None) -> T:
+    def set_clipboard_text(self: T, text: str, label: Optional[str] = None) -> T:
         """Copies the given text to the system clipboard
 
         Args:
@@ -65,7 +66,7 @@ class Clipboard(webdriver.Remote):
         self.set_clipboard(bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
         return self
 
-    def get_clipboard(self, content_type: str = ClipboardContentType.PLAINTEXT) -> bytes:
+    def get_clipboard(self: T, content_type: str = ClipboardContentType.PLAINTEXT) -> bytes:
         """Receives the content of the system clipboard
 
         Args:
@@ -80,7 +81,7 @@ class Clipboard(webdriver.Remote):
         })['value']
         return base64.b64decode(base64_str)
 
-    def get_clipboard_text(self) -> str:
+    def get_clipboard_text(self: T) -> str:
         """Receives the text of the system clipboard
 
         Return:
@@ -89,7 +90,7 @@ class Clipboard(webdriver.Remote):
         return self.get_clipboard(ClipboardContentType.PLAINTEXT).decode('UTF-8')
 
     # pylint: disable=protected-access
-
+    # noinspection PyProtectedMember
     def _addCommands(self) -> None:
         self.command_executor._commands[Command.SET_CLIPBOARD] = \
             ('POST', '/session/$sessionId/appium/device/set_clipboard')

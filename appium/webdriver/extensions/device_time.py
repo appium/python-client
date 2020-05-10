@@ -12,17 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional
+from typing import TYPE_CHECKING, Optional, TypeVar, Union
 
 from selenium import webdriver
 
 from ..mobilecommand import MobileCommand as Command
 
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'DeviceTime'])
+
 
 class DeviceTime(webdriver.Remote):
 
     @property
-    def device_time(self) -> str:
+    def device_time(self: T) -> str:
         """Returns the date and time from the device.
 
         Return:
@@ -30,7 +36,7 @@ class DeviceTime(webdriver.Remote):
         """
         return self.execute(Command.GET_DEVICE_TIME_GET, {})['value']
 
-    def get_device_time(self, format: Optional[str] = None) -> str:
+    def get_device_time(self: T, format: Optional[str] = None) -> str:
         """Returns the date and time from the device.
 
         Args:
@@ -51,7 +57,7 @@ class DeviceTime(webdriver.Remote):
         return self.execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
 
     # pylint: disable=protected-access
-
+    # noinspection PyProtectedMember
     def _addCommands(self) -> None:
         self.command_executor._commands[Command.GET_DEVICE_TIME_GET] = \
             ('GET', '/session/$sessionId/appium/device/system_time')

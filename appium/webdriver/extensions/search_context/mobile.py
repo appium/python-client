@@ -15,7 +15,7 @@
 # pylint: disable=abstract-method
 
 import base64
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING, List, TypeVar, Union
 
 from appium.webdriver.common.mobileby import MobileBy
 
@@ -24,11 +24,13 @@ from .base_search_context import BaseSearchContext
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
 
+T = TypeVar('T', bound=Union[BaseSearchContext, 'MobileSearchContext'])
+
 
 class MobileSearchContext(BaseSearchContext):
     """Define search context for Mobile(Android, iOS)"""
 
-    def find_element_by_accessibility_id(self, accessibility_id: str) -> 'WebElement':
+    def find_element_by_accessibility_id(self: T, accessibility_id: str) -> 'WebElement':
         """Finds an element by accessibility id.
 
         Args:
@@ -44,7 +46,7 @@ class MobileSearchContext(BaseSearchContext):
         """
         return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
-    def find_elements_by_accessibility_id(self, accessibility_id: str) -> List['WebElement']:
+    def find_elements_by_accessibility_id(self: T, accessibility_id: str) -> List['WebElement']:
         """Finds elements by accessibility id.
 
         Args:
@@ -60,7 +62,7 @@ class MobileSearchContext(BaseSearchContext):
         """
         return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
-    def find_element_by_image(self, img_path: str) -> 'WebElement':
+    def find_element_by_image(self: T, img_path: str) -> 'WebElement':
         """Finds a portion of a screenshot by an image.
 
         Uses driver.find_image_occurrence under the hood.
@@ -76,7 +78,7 @@ class MobileSearchContext(BaseSearchContext):
 
         return self.find_element(by=MobileBy.IMAGE, value=b64_data)
 
-    def find_elements_by_image(self, img_path: str) -> List['WebElement']:
+    def find_elements_by_image(self: T, img_path: str) -> List['WebElement']:
         """Finds a portion of a screenshot by an image.
 
         Uses driver.find_image_occurrence under the hood. Note that this will

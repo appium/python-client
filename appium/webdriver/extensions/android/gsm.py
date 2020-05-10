@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING, TypeVar, Union
 
 from selenium import webdriver
 
@@ -21,7 +21,10 @@ from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
+
+T = TypeVar('T', bound=Union['WebDriver', 'Gsm'])
 
 
 class GsmCallActions:
@@ -49,12 +52,9 @@ class GsmVoiceState:
     ON = 'on'
 
 
-T = TypeVar('T', bound='WebDriver')
-
-
 class Gsm(webdriver.Remote):
 
-    def make_gsm_call(self, phone_number: str, action: str) -> T:
+    def make_gsm_call(self: T, phone_number: str, action: str) -> T:
         """Make GSM call (Emulator only)
 
         Android only.
@@ -73,11 +73,12 @@ class Gsm(webdriver.Remote):
         constants = extract_const_attributes(GsmCallActions)
         if action not in constants.values():
             logger.warning(
-                f'{action} is unknown. Consider using one of {list(constants.keys())} constants. (e.g. {GsmCallActions.__name__}.CALL)')
+                f'{action} is unknown. Consider using one of {list(constants.keys())} constants. '
+                f'(e.g. {GsmCallActions.__name__}.CALL)')
         self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
         return self
 
-    def set_gsm_signal(self, strength: int) -> T:
+    def set_gsm_signal(self: T, strength: int) -> T:
         """Set GSM signal strength (Emulator only)
 
         Android only.
@@ -95,11 +96,12 @@ class Gsm(webdriver.Remote):
         constants = extract_const_attributes(GsmSignalStrength)
         if strength not in constants.values():
             logger.warning(
-                f'{strength} is out of range. Consider using one of {list(constants.keys())} constants. (e.g. {GsmSignalStrength.__name__}.GOOD)')
+                f'{strength} is out of range. Consider using one of {list(constants.keys())} constants. '
+                f'(e.g. {GsmSignalStrength.__name__}.GOOD)')
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
 
-    def set_gsm_voice(self, state: str) -> T:
+    def set_gsm_voice(self: T, state: str) -> T:
         """Set GSM voice state (Emulator only)
 
         Android only.
@@ -117,12 +119,13 @@ class Gsm(webdriver.Remote):
         constants = extract_const_attributes(GsmVoiceState)
         if state not in constants.values():
             logger.warning(
-                f'{state} is unknown. Consider using one of {list(constants.keys())} constants. (e.g. {GsmVoiceState.__name__}.HOME)')
+                f'{state} is unknown. Consider using one of {list(constants.keys())} constants. '
+                f'(e.g. {GsmVoiceState.__name__}.HOME)')
         self.execute(Command.SET_GSM_VOICE, {'state': state})
         return self
 
     # pylint: disable=protected-access
-
+    # noinspection PyProtectedMember
     def _addCommands(self) -> None:
         self.command_executor._commands[Command.MAKE_GSM_CALL] = \
             ('POST', '/session/$sessionId/appium/device/gsm_call')

@@ -12,21 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING, TypeVar, Union
 
 from selenium import webdriver
 
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound='WebDriver')
+T = TypeVar('T', bound=Union['WebDriver', 'Sms'])
 
 
 class Sms(webdriver.Remote):
 
-    def send_sms(self, phone_number: str, message: str) -> T:
+    def send_sms(self: T, phone_number: str, message: str) -> T:
         """Emulate send SMS event on the connected emulator.
 
         Android only.
@@ -45,7 +46,7 @@ class Sms(webdriver.Remote):
         return self
 
     # pylint: disable=protected-access
-
+    # noinspection PyProtectedMember
     def _addCommands(self) -> None:
         self.command_executor._commands[Command.SEND_SMS] = \
             ('POST', '/session/$sessionId/appium/device/send_sms')

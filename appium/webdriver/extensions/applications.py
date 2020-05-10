@@ -62,14 +62,14 @@ class Applications(webdriver.Remote):
             app_path: the local or remote path to the application to install
 
         Keyword Args:
-            replace: [Android only] whether to reinstall/upgrade the package if it is
+            replace (bool): [Android only] whether to reinstall/upgrade the package if it is
                 already present on the device under test. True by default
-            timeout: [Android only] how much time to wait for the installation to complete.
+            timeout (int): [Android only] how much time to wait for the installation to complete.
                 60000ms by default.
-            allowTestPackages: [Android only] whether to allow installation of packages marked
+            allowTestPackages (bool): [Android only] whether to allow installation of packages marked
                 as test in the manifest. False by default
-            useSdcard: [Android only] whether to use the SD card to install the app. False by default
-            grantPermissions: [Android only] whether to automatically grant application permissions
+            useSdcard (bool): [Android only] whether to use the SD card to install the app. False by default
+            grantPermissions (bool): [Android only] whether to automatically grant application permissions
                 on Android 6+ after the installation completes. False by default
 
         Returns:
@@ -90,9 +90,9 @@ class Applications(webdriver.Remote):
             app_id: the application id to be removed
 
         Keyword Args:
-            keepData: [Android only] whether to keep application data and caches after it is uninstalled.
+            keepData (bool): [Android only] whether to keep application data and caches after it is uninstalled.
                 False by default
-            timeout: [Android only] how much time to wait for the uninstall to complete.
+            timeout (int): [Android only] how much time to wait for the uninstall to complete.
                 20000ms by default.
 
         Returns:
@@ -132,7 +132,7 @@ class Applications(webdriver.Remote):
             app_id: the application id to be terminates
 
         Keyword Args:
-            `timeout`: [Android only] how much time to wait for the uninstall to complete.
+            `timeout` (int): [Android only] how much time to wait for the uninstall to complete.
                 500ms by default.
 
         Returns:

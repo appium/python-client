@@ -124,21 +124,21 @@ class AppiumService:
         The service will be forcefully restarted if it is already running.
 
         Keyword Args:
-            env: Environment variables mapping. The default system environment,
+            env (dict): Environment variables mapping. The default system environment,
                 which is inherited from the parent process is assigned by default.
-            node: The full path to the main NodeJS executable. The service will try
+            node (str): The full path to the main NodeJS executable. The service will try
                 to retrieve it automatically by default.
-            stdout: Check on the documentation for subprocess.Popen for more details.
+            stdout (int): Check on the documentation for subprocess.Popen for more details.
                 The default value is subprocess.PIPE.
-            stderr: Check on the documentation for subprocess.Popen for more details.
+            stderr (int): Check on the documentation for subprocess.Popen for more details.
                 The default value is subprocess.PIPE.
-            timeout_ms: The maximum time to wait until Appium process starts listening
+            timeout_ms (int): The maximum time to wait until Appium process starts listening
                 for HTTP connections. If set to zero or a negative number then no wait will be applied.
                 60000 ms by default
-            main_script: The full path to the main Appium executable
+            main_script (str): The full path to the main Appium executable
                 (usually located this is build/lib/main.js). If this is not set
                 then the service tries to detect the path automatically.
-            args: List of Appium arguments (all must be strings). Check on
+            args (str): List of Appium arguments (all must be strings). Check on
                 https://appium.io/docs/en/writing-running-appium/server-args/ for more details
                 about possible arguments and their values.
 

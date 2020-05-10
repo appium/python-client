@@ -49,7 +49,7 @@ class WebElement(AppiumWebElementSearchContext):
             is_active = "active" in target_element.get_attribute("class")
 
         Returns:
-            str: The given attribute or property of the element
+            The given attribute or property of the element
         """
 
         resp = self._execute(RemoteCommand.GET_ELEMENT_ATTRIBUTE, {'name': name})

@@ -50,7 +50,7 @@ def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout: int
         `selenium.common.exceptions.TimeoutException`
 
     Returns:
-        `appium.webdriver.webelement.WebElement`: Found WebElement
+        The found WebElement
     """
     return WebDriverWait(driver, timeout).until(
         EC.presence_of_element_located((locator, value))

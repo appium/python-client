@@ -24,7 +24,7 @@ def extract_const_attributes(cls: type) -> Dict[str, Any]:
         cls: Class to be extracted constants
 
     Returns:
-        dict: dict with constants attributes and values in the class
+        dict with constants attributes and values in the class
     """
     return dict([(attr, value) for attr, value in vars(cls).items()
                  if not callable(getattr(cls, attr)) and attr.isupper()])

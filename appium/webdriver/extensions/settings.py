@@ -33,7 +33,7 @@ class Settings(webdriver.Remote):
         separate concepts. See https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
 
         Returns:
-            dict: Current settings
+            Current settings
         """
         return self.execute(Command.GET_SETTINGS, {})['value']
 

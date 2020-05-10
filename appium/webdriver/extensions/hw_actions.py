@@ -59,7 +59,7 @@ class HardwareActions(webdriver.Remote):
         """Checks whether the device is locked.
 
         Returns:
-            bool: `True` if the device is locked
+            `True` if the device is locked
         """
         return self.execute(Command.IS_LOCKED)['value']
 

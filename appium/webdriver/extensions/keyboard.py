@@ -57,7 +57,7 @@ class Keyboard(webdriver.Remote):
         """Attempts to detect whether a software keyboard is present
 
         Returns:
-            bool: `True` if keyboard is shown
+            `True` if keyboard is shown
         """
         return self.execute(Command.IS_KEYBOARD_SHOWN)['value']
 

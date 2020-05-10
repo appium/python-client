@@ -143,7 +143,7 @@ class AppiumService:
                 about possible arguments and their values.
 
         Returns:
-            `sp.Popen`: You can use Popen.communicate interface or stderr/stdout properties
+            You can use Popen.communicate interface or stderr/stdout properties
             of the instance (stdout/stderr must not be set to None in such case) in order to retrieve the actual process output.
         """
         self.stop()
@@ -180,7 +180,7 @@ class AppiumService:
         or has been already stopped.
 
         Returns:
-            bool: `True` if the service was running before being stopped
+            `True` if the service was running before being stopped
         """
         is_terminated = False
         if self.is_running:

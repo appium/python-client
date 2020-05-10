@@ -85,7 +85,7 @@ class Clipboard(webdriver.Remote):
         """Receives the text of the system clipboard
 
         Returns:
-            str: The actual clipboard text or an empty string if the clipboard is empty
+            The actual clipboard text or an empty string if the clipboard is empty
         """
         return self.get_clipboard(ClipboardContentType.PLAINTEXT).decode('UTF-8')
 

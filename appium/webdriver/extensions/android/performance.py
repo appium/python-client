@@ -45,7 +45,7 @@ class Performance(webdriver.Remote):
             self.driver.get_performance_data('my.app.package', 'cpuinfo', 5)
 
         Returns:
-            list: The data along to `data_type`
+            The data along to `data_type`
         """
         data: Dict[str, Union[str, int]] = {'packageName': package_name, 'dataType': data_type}
         if data_read_timeout is not None:
@@ -61,7 +61,7 @@ class Performance(webdriver.Remote):
             self.driver.get_performance_data_types()
 
         Returns:
-            list: Available data types
+            Available data types
         """
         return self.execute(Command.GET_PERFORMANCE_DATA_TYPES)['value']
 

@@ -86,7 +86,7 @@ class Activities(webdriver.Remote):
             interval: sleep interval between retries, in seconds
 
         Returns:
-            bool: `True` if the target activity is shown
+            `True` if the target activity is shown
         """
         try:
             WebDriverWait(self, timeout, interval).until(

@@ -44,7 +44,7 @@ class IME(webdriver.Remote):
         Android only.
 
         Returns:
-            bool: `True` if IME service is active
+            `True` if IME service is active
         """
         return self.execute(Command.IS_IME_ACTIVE, {})['value']
 

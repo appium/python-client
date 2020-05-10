@@ -34,6 +34,6 @@ def is_ci() -> bool:
     """Returns if current execution is running on CI
 
     Returns:
-        bool: `True` if current executions is on CI
+        `True` if current executions is on CI
     """
     return os.getenv('CI', 'false') == 'true'

@@ -31,7 +31,7 @@ class Display(webdriver.Remote):
         """Get the display density, Android only
 
         Returns:
-            int: The display density of the Android device(dpi)
+            The display density of the Android device(dpi)
 
         Usage:
             self.driver.get_display_density()

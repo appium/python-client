@@ -48,7 +48,7 @@ class Applications(webdriver.Remote):
             bundle_id: the id of the application to query
 
         Returns:
-            bool: `True` if app is installed
+            `True` if app is installed
         """
         data = {
             'bundleId': bundle_id,
@@ -136,7 +136,7 @@ class Applications(webdriver.Remote):
                 500ms by default.
 
         Returns:
-            bool: True if the app has been successfully terminated
+            True if the app has been successfully terminated
         """
         data: Dict[str, Any] = {
             'appId': app_id,
@@ -185,7 +185,7 @@ class Applications(webdriver.Remote):
             string_file: the name of the string file to query
 
         Returns:
-            Dict[str, str]: The key is string id and the value is the content.
+            The key is string id and the value is the content.
         """
         data = {}
         if language is not None:

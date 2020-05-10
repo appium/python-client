@@ -39,7 +39,8 @@ def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
         'disableWindowAnimation': True,
         'autoGrantPermissions': True,
         'language': 'en',
-        'locale': 'US'
+        'locale': 'US',
+        'ignoreHiddenApiPolicyError': True
     }
 
     if app is not None:

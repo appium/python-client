@@ -13,29 +13,27 @@
 # limitations under the License.
 
 import base64
+from typing import Callable
 
 import pytest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
-from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from test.functional.android.helper import desired_capabilities
-from test.functional.android.helper.test_helper import wait_for_element
+from test.functional.android.helper.test_helper import (
+    BaseTestCase,
+    wait_for_element
+)
 
 
-class TestFindByImage(object):
+class TestFindByImage(BaseTestCase):
 
-    def setup_method(self) -> None:
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
+    def setup_method(self, method: Callable) -> None:
+        super().setup_method(method)
         # relax template matching
         self.driver.update_settings({"fixImageFindScreenshotDims": False,
                                      "fixImageTemplateSize": True,
                                      "autoUpdateImageElementPosition": True})
-
-    def teardown_method(self) -> None:
-        self.driver.quit()
 
     def test_find_based_on_image_template(self) -> None:
         image_path = desired_capabilities.PATH('file/find_by_image_success.png')

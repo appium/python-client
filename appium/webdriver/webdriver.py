@@ -206,12 +206,9 @@ class WebDriver(
         Override for Appium
 
         Args:
-            automation_name: The name of automation engine to use.
-            platform_name: The name of target platform.
-            platform_version: The kind of mobile device or emulator to use
-            app: The absolute local path or remote http URL to an .ipa or .apk file, or a .zip containing one of these.
-
-        Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
+            capabilities: Capabilities which have following keys like 'automation_name', 'platform_name', 'platform_version', 'app'.
+                          Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
+            browser_profile: Browser profile
         """
         if not isinstance(capabilities, dict):
             raise InvalidArgumentException('Capabilities must be a dictionary')
@@ -262,9 +259,8 @@ class WebDriver(
             Use the corresponding find_element_by_* instead of this.
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            `appium.webdriver.webelement.WebElement`: The found element
 
-        :rtype: `MobileWebElement`
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self.w3c:
@@ -294,9 +290,7 @@ class WebDriver(
             Use the corresponding find_elements_by_* instead of this.
 
         Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-
-        :rtype: list of `MobileWebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
         # TODO: If we need, we should enable below converter for Web context
         # if self.w3c:
@@ -326,8 +320,8 @@ class WebDriver(
         Appium WebElement
 
         Args:
-            element_id (int): The element id to create a web element
-            w3c (bool): Whether the element is W3C or MJSONWP
+            element_id: The element id to create a web element
+            w3c: Whether the element is W3C or MJSONWP
 
         Returns:
             `MobileWebElement`
@@ -338,11 +332,11 @@ class WebDriver(
         """Set the value on an element in the application.
 
         Args:
-            element (`appium.webdriver.webelement.WebElement`: the element whose value will be set
-            value (str): the value to set on the element
+            element: the element whose value will be set
+            value: the value to set on the element
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         data = {
             'id': element.id,

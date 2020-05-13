@@ -35,13 +35,13 @@ class Power(webdriver.Remote):
         Android only.
 
         Args:
-            percent (int): The power capacity to be set. Can be set from 0 to 100
+            percent: The power capacity to be set. Can be set from 0 to 100
 
         Usage:
             self.driver.set_power_capacity(50)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'Power']: Self instance
         """
         self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
         return self
@@ -52,15 +52,14 @@ class Power(webdriver.Remote):
         Android only.
 
         Args:
-            ac_state (str): The power ac state to be set. Use `.AC_OFF`, `.AC_ON`
+            ac_state: The power ac state to be set. Use `Power.AC_OFF`, `Power.AC_ON`
 
         Usage:
-            self.driver.set_power_ac(Power.AC_OFF)
-
-            self.driver.set_power_ac(Power.AC_ON)
+            | self.driver.set_power_ac(Power.AC_OFF)
+            | self.driver.set_power_ac(Power.AC_ON)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'Power']: Self instance
         """
         self.execute(Command.SET_POWER_AC, {'state': ac_state})
         return self

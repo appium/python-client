@@ -56,7 +56,6 @@ class ScreenRecord(webdriver.Remote):
             bugReport (str): Makes the recorder to display an additional information on the video overlay,
                 such as a timestamp, that is helpful in videos captured to illustrate bugs.
                 This option is only supported since API level 27 (Android P).
-
             videoQuality (str): [iOS only] The video encoding quality: 'low', 'medium', 'high', 'photo'. Defaults
                 to 'medium'.
             videoType (str): [iOS only] The format of the screen capture to be recorded.
@@ -72,7 +71,6 @@ class ScreenRecord(webdriver.Remote):
                 effectively ignored. (Since Appium 1.10.0)
             pixelFormat (str): [iOS only] Output pixel format. Run `ffmpeg -pix_fmts` to list possible values.
                 For Quicktime compatibility, set to "yuv420p" along with videoType: "libx264". (Since Appium 1.12.0)
-
             videoSize (str): [Android only] The video size of the generated media file. The format is WIDTHxHEIGHT.
                 The default value is the device's native display resolution (if supported),
                 1280x720 if not. For best results, use a size supported by your device's

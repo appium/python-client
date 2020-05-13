@@ -33,7 +33,7 @@ class CustomSearchContext(BaseSearchContext):
         """Finds an element in conjunction with a custom element finding plugin
 
         Args:
-            selector (str): a string of the form "module:selector", where "module" is
+            selector: a string of the form "module:selector", where "module" is
                 the shortcut name given in the customFindModules capability, and
                 "selector" is the string that will be passed to the custom element
                 finding plugin itself
@@ -42,10 +42,8 @@ class CustomSearchContext(BaseSearchContext):
             driver.find_element_by_custom("foo:bar")
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            `appium.webdriver.webelement.WebElement`: The found element
 
-        # To enable auto completion in PyCharm(IDE)
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.CUSTOM, value=selector)
 
@@ -62,8 +60,6 @@ class CustomSearchContext(BaseSearchContext):
             driver.find_elements_by_custom("foo:bar")
 
         Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-
-        :rtype: list of `appium.webdriver.webelement.WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
         return self.find_elements(by=MobileBy.CUSTOM, value=selector)

@@ -46,12 +46,12 @@ class TouchAction:
         """Perform a tap action on the element
 
         Args:
-            element (`appium.webdriver.webelement.WebElement`): the element to tap
-            x (:obj:`int`, optional): x coordinate to tap, relative to the top left corner of the element.
-            y (:obj:`int`, optional): y coordinate. If y is used, x must also be set, and vice versa
+            element: the element to tap
+            x : x coordinate to tap, relative to the top left corner of the element.
+            y : y coordinate. If y is used, x must also be set, and vice versa
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         opts = self._get_opts(element, x, y)
         opts['count'] = count
@@ -64,14 +64,14 @@ class TouchAction:
         """Begin a chain with a press down action at a particular element or point
 
         Args:
-            el (:obj:`appium.webdriver.webelement.WebElement`, optional): the element to press
-            x (:obj:`int`, optional): x coordiate to press. If y is used, x must also be set
-            y (:obj:`int`, optional): y coordiate to press. If x is used, y must also be set
-            pressure (:obj:`float`, optional): [iOS Only] press as force touch. Read the description of `force` property on Apple's UITouch class
+            el: the element to press
+            x: x coordiate to press. If y is used, x must also be set
+            y: y coordiate to press. If x is used, y must also be set
+            pressure: [iOS Only] press as force touch. Read the description of `force` property on Apple's UITouch class
                                 (https://developer.apple.com/documentation/uikit/uitouch?language=objc) for more details on possible value ranges.
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         self._add_action('press', self._get_opts(el, x, y, pressure=pressure))
 
@@ -82,13 +82,13 @@ class TouchAction:
         """Begin a chain with a press down that lasts `duration` milliseconds
 
         Args:
-            el (:obj:`appium.webdriver.webelement.WebElement`, optional): the element to press
-            x (:obj:`int`, optional): x coordiate to press. If y is used, x must also be set
-            y (:obj:`int`, optional): y coordiate to press. If x is used, y must also be set
-            duration (:obj:`int`, optional): Duration to press
+            el: the element to press
+            x: x coordiate to press. If y is used, x must also be set
+            y: y coordiate to press. If x is used, y must also be set
+            duration: Duration to press
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         self._add_action('longPress', self._get_opts(el, x, y, duration))
 
@@ -98,10 +98,10 @@ class TouchAction:
         """Pause for `ms` milliseconds.
 
         Args:
-            ms (int): The time to pause
+            ms: The time to pause
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         if ms is None:
             ms = 0
@@ -116,12 +116,12 @@ class TouchAction:
         """Move the pointer from the previous point to the element or point specified
 
         Args:
-            el (:obj:`appium.webdriver.webelement.WebElement`, optional): the element to be moved to
-            x (:obj:`int`, optional): x coordiate to be moved to. If y is used, x must also be set
-            y (:obj:`int`, optional): y coordiate to be moved to. If x is used, y must also be set
+            el: the element to be moved to
+            x: x coordiate to be moved to. If y is used, x must also be set
+            y: y coordiate to be moved to. If x is used, y must also be set
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         self._add_action('moveTo', self._get_opts(el, x, y))
 
@@ -131,7 +131,7 @@ class TouchAction:
         """End the action by lifting the pointer off the screen
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         self._add_action('release', {})
 
@@ -141,7 +141,7 @@ class TouchAction:
         """Perform the action by sending the commands to the server to be operated upon
 
         Returns:
-            `TouchAction`: self instance
+            `TouchAction`: Self instance
         """
         if self._driver is None:
             raise ValueError('Set driver to constructor as a argument when to create the instance.')

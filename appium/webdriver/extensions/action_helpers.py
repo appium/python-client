@@ -42,7 +42,7 @@ class ActionHelpers(webdriver.Remote):
             driver.scroll(el1, el2)
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            Union['WebDriver', 'ActionHelpers']: Self instance
         """
 
         # XCUITest x W3C spec has no duration by default in server side
@@ -64,7 +64,7 @@ class ActionHelpers(webdriver.Remote):
             destination_el: the element to drag to
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            Union['WebDriver', 'ActionHelpers']: Self instance
         """
         action = TouchAction(self)
         action.long_press(origin_el).move_to(destination_el).release().perform()
@@ -75,15 +75,15 @@ class ActionHelpers(webdriver.Remote):
         certain time
 
         Args:
-            positions (:obj:`list` of :obj:`tuple`): an array of tuples representing the x/y coordinates of
+            positions: an array of tuples representing the x/y coordinates of
                 the fingers to tap. Length can be up to five.
-            duration (:obj:`int`, optional): length of time to tap, in ms
+            duration: length of time to tap, in ms
 
         Usage:
             driver.tap([(100, 20), (100, 60), (100, 100)], 500)
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            Union['WebDriver', 'ActionHelpers']: Self instance
         """
         if len(positions) == 1:
             action = TouchAction(self)
@@ -113,17 +113,17 @@ class ActionHelpers(webdriver.Remote):
         """Swipe from one point to another point, for an optional duration.
 
         Args:
-            start_x (int): x-coordinate at which to start
-            start_y (int): y-coordinate at which to start
-            end_x (int): x-coordinate at which to stop
-            end_y (int): y-coordinate at which to stop
-            duration (:obj:`int`, optional): time to take the swipe, in ms.
+            start_x: x-coordinate at which to start
+            start_y: y-coordinate at which to start
+            end_x: x-coordinate at which to stop
+            end_y: y-coordinate at which to stop
+            duration: time to take the swipe, in ms.
 
         Usage:
             driver.swipe(100, 100, 100, 400)
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            Union['WebDriver', 'ActionHelpers']: Self instance
         """
         # `swipe` is something like press-wait-move_to-release, which the server
         # will translate into the correct action
@@ -140,16 +140,16 @@ class ActionHelpers(webdriver.Remote):
         """Flick from one point to another point.
 
         Args:
-            start_x (int): x-coordinate at which to start
-            start_y (int): y-coordinate at which to start
-            end_x (int): x-coordinate at which to stop
-            end_y (int): y-coordinate at which to stop
+            start_x: x-coordinate at which to start
+            start_y: y-coordinate at which to start
+            end_x: x-coordinate at which to stop
+            end_y: y-coordinate at which to stop
 
         Usage:
             driver.flick(100, 100, 100, 400)
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            Union['WebDriver', 'ActionHelpers']: Self instance
         """
         action = TouchAction(self)
         action \

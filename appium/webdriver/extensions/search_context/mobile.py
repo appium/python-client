@@ -34,17 +34,15 @@ class MobileSearchContext(BaseSearchContext):
         """Finds an element by accessibility id.
 
         Args:
-            accessibility_id (str): A string corresponding to a recursive element search using the
+            accessibility_id: A string corresponding to a recursive element search using the
                 Id/Name that the native Accessibility options utilize
 
         Usage:
             driver.find_element_by_accessibility_id()
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            `appium.webdriver.webelement.WebElement`: The found element
 
-        # To enable auto completion in PyCharm(IDE)
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
@@ -52,16 +50,15 @@ class MobileSearchContext(BaseSearchContext):
         """Finds elements by accessibility id.
 
         Args:
-            accessibility_id (str): a string corresponding to a recursive element search using the
+            accessibility_id: a string corresponding to a recursive element search using the
                 Id/Name that the native Accessibility options utilize
 
         Usage:
             driver.find_elements_by_accessibility_id()
 
         Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
 
-        :rtype: list of `appium.webdriver.webelement.WebElement`
         """
         return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
 
@@ -71,12 +68,10 @@ class MobileSearchContext(BaseSearchContext):
         Uses driver.find_image_occurrence under the hood.
 
         Args:
-            img_path (str): a string corresponding to the path of a image
+            img_path: a string corresponding to the path of a image
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
-
-        :rtype: `appium.webdriver.webelement.WebElement`
+            `appium.webdriver.webelement.WebElement`: The found element
         """
         with open(img_path, 'rb') as i_file:
             b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
@@ -90,12 +85,10 @@ class MobileSearchContext(BaseSearchContext):
         only ever return at most one element
 
         Args:
-            img_path (str): a string corresponding to the path of a image
+            img_path: a string corresponding to the path of a image
 
         Return:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-
-        :rtype: list of `appium.webdriver.webelement.WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
         with open(img_path, 'rb') as i_file:
             b64_data = base64.b64encode(i_file.read()).decode('UTF-8')

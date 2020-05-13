@@ -31,13 +31,13 @@ class HardwareActions(webdriver.Remote):
         """Lock the device. No changes are made if the device is already unlocked.
 
         Args:
-            seconds (:obj:`int`, optional): The duration to lock the device, in seconds.
+            seconds: The duration to lock the device, in seconds.
                 The device is going to be locked forever until `unlock` is called
                 if it equals or is less than zero, otherwise this call blocks until
                 the timeout expires and unlocks the screen automatically.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'HardwareActions']: Self instance
         """
         if seconds is None:
             self.execute(Command.LOCK)
@@ -50,7 +50,7 @@ class HardwareActions(webdriver.Remote):
         """Unlock the device. No changes are made if the device is already locked.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.UNLOCK)
         return self
@@ -59,7 +59,7 @@ class HardwareActions(webdriver.Remote):
         """Checks whether the device is locked.
 
         Returns:
-            bool: `True` if the device is locked
+            `True` if the device is locked
         """
         return self.execute(Command.IS_LOCKED)['value']
 
@@ -67,7 +67,7 @@ class HardwareActions(webdriver.Remote):
         """Shake the device.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.SHAKE)
         return self
@@ -76,10 +76,10 @@ class HardwareActions(webdriver.Remote):
         """Simulate touchId on iOS Simulator
 
         Args:
-            match (bool): Simulates a successful touch (`True`) or a failed touch (`False`)
+            match: Simulates a successful touch (`True`) or a failed touch (`False`)
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'HardwareActions']: Self instance
         """
         data = {
             'match': match
@@ -91,7 +91,7 @@ class HardwareActions(webdriver.Remote):
         """Toggle enroll touchId on iOS Simulator
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.TOGGLE_TOUCH_ID_ENROLLMENT)
         return self
@@ -100,7 +100,7 @@ class HardwareActions(webdriver.Remote):
         """Authenticate users by using their finger print scans on supported Android emulators.
 
         Args:
-            finger_id (int): Finger prints stored in Android Keystore system (from 1 to 10)
+            finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
 
         Returns:
             TODO

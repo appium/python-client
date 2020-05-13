@@ -60,12 +60,15 @@ class Gsm(webdriver.Remote):
         Android only.
 
         Args:
-            phone_number (str): The phone number to call to.
-            action (str): The call action.
+            phone_number: The phone number to call to.
+            action: The call action.
                 A member of the const `appium.webdriver.extensions.android.gsm.GsmCallActions`
 
-        :Usage:
+        Usage:
             self.driver.make_gsm_call('5551234567', GsmCallActions.CALL)
+
+        Returns:
+            Union['WebDriver', 'Gsm']: Self instance
         """
         constants = extract_const_attributes(GsmCallActions)
         if action not in constants.values():
@@ -81,11 +84,14 @@ class Gsm(webdriver.Remote):
         Android only.
 
         Args:
-            strength (int): Signal strength.
-                A member of the enum `appium.webdriver.extensions.android.gsm.GsmSignalStrength`
+            strength: Signal strength.
+                A member of the enum :obj:`appium.webdriver.extensions.android.gsm.GsmSignalStrength`
 
         Usage:
             self.driver.set_gsm_signal(GsmSignalStrength.GOOD)
+
+        Returns:
+            Union['WebDriver', 'Gsm']: Self instance
         """
         constants = extract_const_attributes(GsmSignalStrength)
         if strength not in constants.values():
@@ -101,11 +107,14 @@ class Gsm(webdriver.Remote):
         Android only.
 
         Args:
-            state (str): State of GSM voice.
+            state: State of GSM voice.
                 A member of the const `appium.webdriver.extensions.android.gsm.GsmVoiceState`
 
         Usage:
             self.driver.set_gsm_voice(GsmVoiceState.HOME)
+
+        Returns:
+            Union['WebDriver', 'Gsm']: Self instance
         """
         constants = extract_const_attributes(GsmVoiceState)
         if state not in constants.values():

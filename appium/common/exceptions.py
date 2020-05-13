@@ -21,7 +21,7 @@ class NoSuchContextException(InvalidSwitchToTargetException):
     To find the current set of active contexts, you can get a list
     of the active contexts in the following way:
 
-        print driver.contexts
+        print(driver.contexts)
 
     """
     pass

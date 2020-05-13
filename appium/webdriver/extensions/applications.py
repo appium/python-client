@@ -30,10 +30,10 @@ class Applications(webdriver.Remote):
         """Puts the application in the background on the device for a certain duration.
 
         Args:
-            seconds (int): the duration for the application to remain in the background
+            seconds: the duration for the application to remain in the background
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'Applications']: Self instance
         """
         data = {
             'seconds': seconds,
@@ -45,10 +45,10 @@ class Applications(webdriver.Remote):
         """Checks whether the application specified by `bundle_id` is installed on the device.
 
         Args:
-            bundle_id (str): the id of the application to query
+            bundle_id: the id of the application to query
 
         Returns:
-            bool: `True` if app is installed
+            `True` if app is installed
         """
         data = {
             'bundleId': bundle_id,
@@ -59,7 +59,7 @@ class Applications(webdriver.Remote):
         """Install the application found at `app_path` on the device.
 
         Args:
-            app_path (str): the local or remote path to the application to install
+            app_path: the local or remote path to the application to install
 
         Keyword Args:
             replace (bool): [Android only] whether to reinstall/upgrade the package if it is
@@ -73,7 +73,7 @@ class Applications(webdriver.Remote):
                 on Android 6+ after the installation completes. False by default
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'Applications']: Self instance
         """
         data: Dict[str, Any] = {
             'appPath': app_path,
@@ -87,7 +87,7 @@ class Applications(webdriver.Remote):
         """Remove the specified application from the device.
 
         Args:
-            app_id (str): the application id to be removed
+            app_id: the application id to be removed
 
         Keyword Args:
             keepData (bool): [Android only] whether to keep application data and caches after it is uninstalled.
@@ -96,7 +96,7 @@ class Applications(webdriver.Remote):
                 20000ms by default.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'Applications']: Self instance
         """
         data: Dict[str, Any] = {
             'appId': app_id,
@@ -110,7 +110,7 @@ class Applications(webdriver.Remote):
         """Start on the device the application specified in the desired capabilities.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.LAUNCH_APP)
         return self
@@ -120,7 +120,7 @@ class Applications(webdriver.Remote):
         the device.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.CLOSE_APP)
         return self
@@ -129,14 +129,14 @@ class Applications(webdriver.Remote):
         """Terminates the application if it is running.
 
         Args:
-            app_id (str): the application id to be terminates
+            app_id: the application id to be terminates
 
         Keyword Args:
             `timeout` (int): [Android only] how much time to wait for the uninstall to complete.
                 500ms by default.
 
         Returns:
-            bool: True if the app has been successfully terminated
+            True if the app has been successfully terminated
         """
         data: Dict[str, Any] = {
             'appId': app_id,
@@ -150,10 +150,10 @@ class Applications(webdriver.Remote):
         or is running in the background.
 
         Args:
-            app_id (str): the application id to be activated
+            app_id: the application id to be activated
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'Applications']: Self instance
         """
         data = {
             'appId': app_id,
@@ -165,7 +165,7 @@ class Applications(webdriver.Remote):
         """Queries the state of the application.
 
         Args:
-            app_id (str): the application id to be queried
+            app_id: the application id to be queried
 
         Returns:
             One of possible application state constants. See ApplicationState
@@ -181,11 +181,11 @@ class Applications(webdriver.Remote):
         language.
 
         Args:
-            language (str): strings language code
-            string_file (str): the name of the string file to query
+            language: strings language code
+            string_file: the name of the string file to query
 
         Returns:
-            Dict[str, str]: The key is string id and the value is the content.
+            The key is string id and the value is the content.
         """
         data = {}
         if language is not None:
@@ -196,6 +196,9 @@ class Applications(webdriver.Remote):
 
     def reset(self: T) -> T:
         """Resets the current application on the device.
+
+        Returns:
+            Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.RESET)
         return self

@@ -128,9 +128,9 @@ class AppiumService:
                 which is inherited from the parent process is assigned by default.
             node (str): The full path to the main NodeJS executable. The service will try
                 to retrieve it automatically by default.
-            stdout: Check on the documentation for subprocess.Popen for more details.
+            stdout (int): Check on the documentation for subprocess.Popen for more details.
                 The default value is subprocess.PIPE.
-            stderr: Check on the documentation for subprocess.Popen for more details.
+            stderr (int): Check on the documentation for subprocess.Popen for more details.
                 The default value is subprocess.PIPE.
             timeout_ms (int): The maximum time to wait until Appium process starts listening
                 for HTTP connections. If set to zero or a negative number then no wait will be applied.
@@ -143,10 +143,8 @@ class AppiumService:
                 about possible arguments and their values.
 
         Returns:
-            subprocess.Popen instance: You can use Popen.communicate interface
-                or stderr/stdout properties of the instance
-                (stdout/stderr must not be set to None in such case)
-                in order to retrieve the actual process output.
+            You can use Popen.communicate interface or stderr/stdout properties
+            of the instance (stdout/stderr must not be set to None in such case) in order to retrieve the actual process output.
         """
         self.stop()
 
@@ -182,7 +180,7 @@ class AppiumService:
         or has been already stopped.
 
         Returns:
-            bool: `True` if the service was running before being stopped
+            `True` if the service was running before being stopped
         """
         is_terminated = False
         if self.is_running:
@@ -197,7 +195,7 @@ class AppiumService:
         """Check if the service is running.
 
         Returns:
-            bool: `True` or `False`
+            bool: `True` if the service is running
         """
         return self._process is not None and self._process.poll() is None
 

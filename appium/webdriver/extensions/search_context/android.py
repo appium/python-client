@@ -37,12 +37,11 @@ class AndroidSearchContext(BaseSearchContext):
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         Args:
-            name (:obj:`str`, optional): The name of a method to invoke.
+            name: The name of a method to invoke.
                 The method must return a Hamcrest
                 [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
-            args (:obj:`Any`, optional): The args provided to the method
-            className (:obj:`str`, optional): The class name that the method is part of
-                (defaults to `org.hamcrest.Matchers`).
+            args: The args provided to the method
+            className: The class name that the method is part of (defaults to `org.hamcrest.Matchers`).
                 Can be fully qualified by having the androidx.test.espresso.matcher. prefix.
                 If the prefix is not provided then it is going to be added implicitly.
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
@@ -54,11 +53,7 @@ class AndroidSearchContext(BaseSearchContext):
             TypeError - Raises a TypeError if the arguments are not validated for JSON format
 
         Usage:
-            driver.find_element_by_android_view_matcher(name='withText', args=['Accessibility'],
-            className='ViewMatchers')
-
-        # To enable auto completion in PyCharm(IDE)
-        :rtype: `appium.webdriver.webelement.WebElement`
+            driver.find_element_by_android_view_matcher(name='withText', args=['Accessibility'], className='ViewMatchers')
         """
 
         return self.find_element(
@@ -74,11 +69,11 @@ class AndroidSearchContext(BaseSearchContext):
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         Args:
-            name (:obj:`str`, optional): The name of a method to invoke.
+            name: The name of a method to invoke.
                 The method must return a Hamcrest
                 [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
-            args (:obj:`Any`, optional): The args provided to the method
-            className (:obj:`str`, optional): The class name that the method is part of
+            args: The args provided to the method
+            className: The class name that the method is part of
                 (defaults to `org.hamcrest.Matchers`).
                 Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
@@ -91,9 +86,6 @@ class AndroidSearchContext(BaseSearchContext):
 
         Usage:
             driver.find_element_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
-
-        # To enable auto completion in PyCharm(IDE)
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
 
         return self.find_element(
@@ -108,11 +100,11 @@ class AndroidSearchContext(BaseSearchContext):
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         Args:
-            name (:obj:`str`, optional): The name of a method to invoke.
+            name: The name of a method to invoke.
                 The method must return a Hamcrest
                 [Matcher](http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html)
-            args (:obj:`Any`, optional): The args provided to the method
-            className (:obj:`str`, optional): The class name that the method is part of
+            args: The args provided to the method
+            className: The class name that the method is part of
                 (defaults to `org.hamcrest.Matchers`).
                 Can be fully qualified, or simple, and simple defaults to `androidx.test.espresso.matcher` package
                 (e.g.: `class=CursorMatchers` fully qualified is `class=androidx.test.espresso.matcher.CursorMatchers`
@@ -122,8 +114,6 @@ class AndroidSearchContext(BaseSearchContext):
 
         Usage:
             driver.find_elements_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
-
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
 
         return self.find_elements(
@@ -151,9 +141,7 @@ class AndroidSearchContext(BaseSearchContext):
             driver.find_element_by_android_uiautomator('.elements()[1].cells()[2]')
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
-
-        :rtype: `appium.webdriver.webelement.WebElement`
+            `appium.webdriver.webelement.WebElement`: The found element
         """
         return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -161,15 +149,13 @@ class AndroidSearchContext(BaseSearchContext):
         """Finds elements by uiautomator in Android.
 
         Args:
-            uia_string (str): The element name in the Android UIAutomator library
+            uia_string: The element name in the Android UIAutomator library
 
         Usage:
             driver.find_elements_by_android_uiautomator('.elements()[1].cells()[2]')
 
         Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-
-        :rtype: list of `appium.webdriver.webelement.WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
         return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
@@ -179,15 +165,13 @@ class AndroidSearchContext(BaseSearchContext):
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         Args:
-            tag (str): The tag name of the view to look for
+            tag: The tag name of the view to look for
 
         Usage:
             driver.find_element_by_android_viewtag('a tag name')
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
-
-        :rtype: `appium.webdriver.webelement.WebElement`
+            `appium.webdriver.webelement.WebElement`: The found element
         """
         return self.find_element(by=MobileBy.ANDROID_VIEWTAG, value=tag)
 
@@ -197,14 +181,12 @@ class AndroidSearchContext(BaseSearchContext):
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
         Args:
-            tag (str): The tag name of the view to look for
+            tag: The tag name of the view to look for
 
         Usage:
             driver.find_elements_by_android_viewtag('a tag name')
 
         Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-
-        :rtype: list of `appium.webdriver.webelement.WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
         return self.find_elements(by=MobileBy.ANDROID_VIEWTAG, value=tag)

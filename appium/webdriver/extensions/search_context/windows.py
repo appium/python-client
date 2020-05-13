@@ -33,16 +33,14 @@ class WindowsSearchContext(BaseSearchContext):
         """Finds an element by windows uiautomation
 
         Args:
-            win_uiautomation (str): The element name in the windows UIAutomation selector
+            win_uiautomation: The element name in the windows UIAutomation selector
 
         Usage:
             driver.find_element_by_windows_uiautomation()
 
         Returns:
-            `appium.webdriver.webelement.WebElement`
+            `appium.webdriver.webelement.WebElement`: The found element
 
-        # To enable auto completion in PyCharm(IDE)
-        :rtype: `appium.webdriver.webelement.WebElement`
         """
         return self.find_element(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)
 
@@ -50,14 +48,12 @@ class WindowsSearchContext(BaseSearchContext):
         """Finds elements by windows uiautomation
 
         Args:
-            win_uiautomation (str): The element name in the windows UIAutomation selector
+            win_uiautomation: The element name in the windows UIAutomation selector
 
         Usage:
             driver.find_elements_by_windows_uiautomation()
 
         Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-
-        :rtype: list of `appium.webdriver.webelement.WebElement`
+            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
         return self.find_elements(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)

@@ -44,7 +44,7 @@ class IME(webdriver.Remote):
         Android only.
 
         Returns:
-            bool: `True` if IME service is active
+            `True` if IME service is active
         """
         return self.execute(Command.IS_IME_ACTIVE, {})['value']
 
@@ -54,11 +54,11 @@ class IME(webdriver.Remote):
         Android only.
 
         Args:
-           engine (str): the package and activity of the IME engine to activate
+           engine: the package and activity of the IME engine to activate
                (e.g., 'com.android.inputmethod.latin/.LatinIME')
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'IME']: Self instance
         """
         data = {
             'engine': engine
@@ -72,7 +72,7 @@ class IME(webdriver.Remote):
         Android only.
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'IME']: Self instance
         """
         self.execute(Command.DEACTIVATE_IME_ENGINE, {})
         return self

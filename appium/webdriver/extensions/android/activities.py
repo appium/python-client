@@ -35,8 +35,8 @@ class Activities(webdriver.Remote):
         This is an Android-only method.
 
         Args:
-            app_package (str): The package containing the activity to start.
-            app_activity (str): The activity to start.
+            app_package: The package containing the activity to start.
+            app_activity: The activity to start.
 
         Keyword Args:
             app_wait_package (str): Begin automation after this package starts.
@@ -81,12 +81,12 @@ class Activities(webdriver.Remote):
         This is an Android-only method.
 
         Args:
-            activity (str): target activity
-            timeout (int): max wait time, in seconds
-            interval (int): sleep interval between retries, in seconds
+            activity: target activity
+            timeout: max wait time, in seconds
+            interval: sleep interval between retries, in seconds
 
         Returns:
-            bool: `True` if the target activity is shown
+            `True` if the target activity is shown
         """
         try:
             WebDriverWait(self, timeout, interval).until(

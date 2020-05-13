@@ -41,18 +41,17 @@ class MultiAction:
         """Add TouchAction objects to the MultiAction, to be performed later.
 
         Args:
-            touch_actions (`TouchAction`): one or more TouchAction objects describing a chain of actions to be performed by one finger
+            touch_actions: one or more TouchAction objects describing a chain of actions to be performed by one finger
 
         Usage:
-            a1 = TouchAction(driver)
+            | a1 = TouchAction(driver)
+            | a1.press(el1).move_to(el2).release()
+            | a2 = TouchAction(driver)
+            | a2.press(el2).move_to(el1).release()
+            | MultiAction(driver).add(a1, a2)
 
-            a1.press(el1).move_to(el2).release()
-
-            a2 = TouchAction(driver)
-
-            a2.press(el2).move_to(el1).release()
-
-            MultiAction(driver).add(a1, a2)
+        Returns:
+            `MultiAction`: Self instance
         """
         for touch_action in touch_actions:
             if self._touch_actions is None:
@@ -64,15 +63,14 @@ class MultiAction:
         """Perform the actions stored in the object.
 
         Usage:
-            a1 = TouchAction(driver)
+            | a1 = TouchAction(driver)
+            | a1.press(el1).move_to(el2).release()
+            | a2 = TouchAction(driver)
+            | a2.press(el2).move_to(el1).release()
+            | MultiAction(driver).add(a1, a2).perform()
 
-            a1.press(el1).move_to(el2).release()
-
-            a2 = TouchAction(driver)
-
-            a2.press(el2).move_to(el1).release()
-
-            MultiAction(driver).add(a1, a2).perform()
+        Returns:
+            `MultiAction`: Self instance
         """
         self._driver.execute(Command.MULTI_ACTION, self.json_wire_gestures)
 

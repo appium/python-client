@@ -35,13 +35,13 @@ class Clipboard(webdriver.Remote):
         """Set the content of the system clipboard
 
         Args:
-            content (bytes): The content to be set as bytearray string
-            content_type (str): One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
+            content: The content to be set as bytearray string
+            content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
                 is supported on Android
-            label (:obj:`str`, optional): label argument, which only works for Android
+            label: label argument, which only works for Android
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'Clipboard']: Self instance
         """
         options = {
             'content': base64.b64encode(content).decode('UTF-8'),
@@ -56,11 +56,11 @@ class Clipboard(webdriver.Remote):
         """Copies the given text to the system clipboard
 
         Args:
-            text (str): The text to be set
-            label (:obj:`str`, optional):label argument, which only works for Android
+            text: The text to be set
+            label:label argument, which only works for Android
 
         Returns:
-            `appium.webdriver.webdriver.WebDriver`
+            Union['WebDriver', 'Clipboard']: Self instance
         """
 
         self.set_clipboard(bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
@@ -70,7 +70,7 @@ class Clipboard(webdriver.Remote):
         """Receives the content of the system clipboard
 
         Args:
-            content_type (str): One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
+            content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
                 is supported on Android
 
         Returns:
@@ -84,8 +84,8 @@ class Clipboard(webdriver.Remote):
     def get_clipboard_text(self: T) -> str:
         """Receives the text of the system clipboard
 
-        Return:
-            str: The actual clipboard text or an empty string if the clipboard is empty
+        Returns:
+            The actual clipboard text or an empty string if the clipboard is empty
         """
         return self.get_clipboard(ClipboardContentType.PLAINTEXT).decode('UTF-8')
 

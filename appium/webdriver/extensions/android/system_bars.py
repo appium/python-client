@@ -34,18 +34,18 @@ class SystemBars(webdriver.Remote):
 
         Returns:
             A dictionary whose keys are
-             - statusBar
-               - visible
-               - x
-               - y
-               - width
-               - height
-             - navigationBar
-               - visible
-               - x
-               - y
-               - width
-               - height
+               - statusBar
+                   - visible
+                   - x
+                   - y
+                   - width
+                   - height
+               - navigationBar
+                   - visible
+                   - x
+                   - y
+                   - width
+                   - height
         """
         return self.execute(Command.GET_SYSTEM_BARS)['value']
 

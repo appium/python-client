@@ -40,17 +40,17 @@ def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout: int
     """Wait until the element located
 
     Args:
-        driver (`appium.webdriver.webdriver.WebDriver`): WebDriver instance
-        locator (str): Locator like WebDriver, Mobile JSON Wire Protocol
+        driver: WebDriver instance
+        locator: Locator like WebDriver, Mobile JSON Wire Protocol
             (e.g. `appium.webdriver.common.mobileby.MobileBy.ACCESSIBILITY_ID`)
-        value (str): Query value to locator
-        timeout (int): Maximum time to wait the element. If time is over, `TimeoutException` is thrown
+        value: Query value to locator
+        timeout: Maximum time to wait the element. If time is over, `TimeoutException` is thrown
 
     Raises:
         `selenium.common.exceptions.TimeoutException`
 
     Returns:
-        `appium.webdriver.webelement.WebElement`: Found WebElement
+        The found WebElement
     """
     return WebDriverWait(driver, timeout).until(
         EC.presence_of_element_located((locator, value))

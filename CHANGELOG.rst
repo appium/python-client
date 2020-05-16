@@ -2,9 +2,368 @@ Changelog
 =========
 
 
-(unreleased)
-------------
-- Chore: tweak changelog filter. [Kazuaki Matsuo]
+v1.0.0 (2020-05-16)
+-------------------
+
+New
+~~~
+- Feat: Added Makefile (#530) [Mori Atsushi]
+
+  * Created setup.cfg
+
+  * Updated lib ver for pre-commit
+
+  * Fix ci.sh to set failure even when one command failed
+
+  * Fix pylint error
+
+  * Add help to Makefile
+
+  * Update README
+
+  * Add check-all command
+- Feat: Merge python3 branch to master (#526) [Hannes Hauer, Hannes
+  Hauer <hanneshauer@beeware.at>    * chore: Update readme and
+  gitchangelog section role (#524) (#525)    * chore: tweak changelog
+  filter    * address stoping Python 2 support    * 2 instead of 2.0...
+  * tweak readme    * Revert some unexpected changes    * review
+  comments    * Changed bound for TypeVar    * Fix crashing ci    *
+  Remove beta    Co-authored-by: dependabot-preview[bot]
+  <27856297+dependabot-preview[bot]@users.noreply.github.com>, Kazuaki
+  Matsuo, Kazuaki Matsuo, Mori Atsushi, Mykola Mokhnach, Mykola
+  Mokhnach, Nrupesh Patel, Nrupesh Patel, Venkatesh, Venkatesh]
+
+  * Drop py2 support (#478)
+
+  * Drop py2 support
+
+  * Support 3.7+
+
+  * Add explicit type declarations (#482)
+
+  * Fixed mypy warning: touch_action.py
+
+  * Fixed mypy warning: multi_action.py
+
+  * Fixed mypy warning: extensions/android
+
+  * Fixed mypy warning: extensions/search_context
+
+  * Updated
+
+  * Revert some changes to run unit test
+
+  * Review comments
+
+  * Updates
+
+  * Updates
+
+  * Add mypy check to ci.sh
+
+  * Add mypy to Pipfile
+
+  * Updates
+
+  * Update README
+
+  * Revert unexpected changes
+
+  * Updates Dict
+
+  * Revert unexpected changes
+
+  * Updates
+
+  * Review comments
+
+  * Review comments
+
+  * tweak
+
+  * Restore and modify changes
+
+  * Fix wrong return type
+
+  * Add comments
+
+  * Revert unexpected changes
+
+  * Fix mypy error
+
+  * updates
+
+  * Add mypy to pre-commit (#485)
+
+  * chore: Applied some py3 formats (#486)
+
+  * Removed unused import
+
+  * Removed unnecessary codes
+
+  * Applied f'' format instead ''.format()
+
+  * Fixes
+
+  * tweak
+
+  * chore: Fix mypy errors under test folder (#487)
+
+  * Fix mypy errors under test folder
+
+  * Add mypy check for test folder to pre-commit
+
+  * Add mypy check to ci
+
+  * chore: Remove unittest dependency (#488)
+
+  * Removed unnecessary codes from calling super
+
+  * Removed unittest dependency
+
+  * Upgrade the dependencies to the latest
+
+  * Removed unused args
+
+  * Review comments
+
+  * Update mock requirement from ~=3.0 to ~=4.0 (#502)
+
+  Updates the requirements on [mock](https://github.com/testing-cabal/mock) to permit the latest version.
+  - [Release notes](https://github.com/testing-cabal/mock/releases)
+  - [Changelog](https://github.com/testing-cabal/mock/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/testing-cabal/mock/compare/3.0.0...4.0.0)
+
+  Signed-off-by: dependabot-preview[bot] <support@dependabot.com>
+
+  * Add 'from' to except (#503)
+
+  * Update pre-commit requirement from ~=1.21 to ~=2.1 (#506)
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v1.21.0...v2.1.0)
+
+  Signed-off-by: dependabot-preview[bot] <support@dependabot.com>
+
+  * doc: Add script to generate sphinx doc  (#508)
+
+  * Add quickstart template files
+
+  * Update conf file
+
+  * Update
+
+  * Update settings
+
+  * Change project name
+
+  * Add script to generate docs
+
+  * Changed header title
+
+  * Add new line to usage section
+
+  * Add py.typed file(PEP561)
+
+  * Replace \n with new line
+
+  * tweak
+
+  * Use sphinx format for tables
+
+  * Rebase python3 branch with master (#522)
+
+  * Update pytest-cov requirement from ~=2.6 to ~=2.8 (#489)
+
+  Updates the requirements on [pytest-cov](https://github.com/pytest-dev/pytest-cov) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest-cov/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest-cov/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest-cov/compare/v2.6.0...v2.8.1)
+
+  Signed-off-by: dependabot-preview[bot] <support@dependabot.com>
+
+  * Update autopep8 requirement from ~=1.4 to ~=1.5 (#490)
+
+  Updates the requirements on [autopep8](https://github.com/hhatto/autopep8) to permit the latest version.
+  - [Release notes](https://github.com/hhatto/autopep8/releases)
+  - [Commits](https://github.com/hhatto/autopep8/compare/v1.4...v1.5)
+
+  Signed-off-by: dependabot-preview[bot] <support@dependabot.com>
+
+  * Update tox-travis requirement from ~=0.11 to ~=0.12 (#491)
+
+  Updates the requirements on [tox-travis](https://github.com/tox-dev/tox-travis) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox-travis/releases)
+  - [Changelog](https://github.com/tox-dev/tox-travis/blob/master/HISTORY.rst)
+  - [Commits](https://github.com/tox-dev/tox-travis/compare/0.11...0.12)
+
+  Signed-off-by: dependabot-preview[bot] <support@dependabot.com>
+
+  * Update tox requirement from ~=3.6 to ~=3.14 (#494)
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.6.0...3.14.3)
+
+  Signed-off-by: dependabot-preview[bot] <support@dependabot.com>
+
+  * chore: Fix find_by_images_tests.py (#495)
+
+  * chore: Fix find_by_images_tests.py
+
+  * Add installation opencv4nodejs
+
+  * Fix typo
+
+  * Add taking screen record to find_by_image_test
+
+  * Fix errors on the emulator
+
+  * Remove unused imports
+
+  * feat: Add viewmatcher (#480)
+
+  * Add android view matcher as strategy locator
+
+  * Add docstring
+
+  * Add functional test
+
+  * Remove find_elements_by_android_data_matcher
+
+  * Fix docstring
+
+  * tweak docstring
+
+  * Bump 0.50
+
+  * Update changelog for 0.50
+
+  * Fix flaky functional tests (#473)
+
+  * Run all tests
+
+  * Fix apk file path
+
+  * Skip find_element_by_image test cases
+
+  * Skip context switching test
+
+  * Skip multi tap test on CI
+
+  * Change strategy for waiting element
+
+  * Add functions for same steps
+
+  * Restore unexpected changes
+
+  * Fix touch_action_tests
+
+  * Fix
+
+  * Fix
+  Fix test_driver_swipe
+
+  * fix
+
+  * Create _move_to_[target_view]
+
+  * [test_driver_swipe] Add wait
+
+  * feat: Add idempotency key header to create session requests (#514)
+
+  * feat: Override send_keys without file upload function (#515)
+
+  * add send_keys_direct
+
+  * override send_keys
+
+  * tune
+
+  * add unittest instead of functional test
+
+  * tweak syntax
+
+  * Bump 0.51
+
+  * Update changelog for 0.51
+
+  * test: Fix test_clear flaky functional test (#519)
+
+  * test: Add unit test for set_value (setImmediateValue) (#518)
+
+  * chore: Fix int - str comparison error in ios desired capabilities (#517)
+
+  if number >= PytestXdistWorker.COUNT:
+
+Fix
+~~~
+- Tune mixin types, so linters could recognize them better (#536)
+  [Mykola Mokhnach]
+
+Test
+~~~~
+- Test: Add appium_service functional test (#531) [Mori Atsushi]
+
+  * Add appium_service functional test
+
+  * Fix expressions
+
+Other
+~~~~~
+- Bump 1.0.0. [Kazuaki Matsuo]
+- Chore: Updates docstring (#533) [Mori Atsushi]
+
+  * Updates docstring
+
+  * Add description to Returns field
+
+  * Remove type from docstring
+
+  Since type hint already added to args
+
+  * Set default lang to en
+
+  * Change usage style in docstring
+
+  * Updates
+
+  * Remove rtype
+
+  unnecessary anymore since type hint works for auto completion
+
+  * tweak
+
+  * Update return type
+
+  * Restore types for keyword args
+
+  * Remove types from Return field
+
+  Except for property and TypeVar
+- Chore: Remove  saucetestcase from the client (#539) [Mykola Mokhnach]
+- Chore: add py.typed in package, add maintainers (#538) [Kazuaki
+  Matsuo]
+- Docs: Update documentation (#527) [Kazuaki Matsuo]
+
+  * Chore: correct license, update readme
+
+  * cleanup
+
+  * docs: update the url of documentation
+- Chore: Update readme and gitchangelog section role (#524) [Kazuaki
+  Matsuo]
+
+  * chore: tweak changelog filter
+
+  * address stoping Python 2 support
+
+  * 2 instead of 2.0...
+
+  * tweak readme
 - Update changelog for 0.52. [Kazuaki Matsuo]
 
 
@@ -1066,6 +1425,11 @@ New
 Other
 ~~~~~
 - Update changelog for 0.38. [Kazuaki Matsuo]
+- Bump 0.38. [Kazuaki Matsuo]
+
+
+v0.38 (2019-02-11)
+------------------
 - Bump 0.38. [Kazuaki Matsuo]
 - Remove io.open from getting version code (#334) [Kazuaki Matsuo]
 

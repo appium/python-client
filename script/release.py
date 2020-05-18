@@ -122,7 +122,12 @@ def compare_file_count():
 
     original_files = _get_py_files(APPIUM_DIR_PATH)
     built_files = _get_py_files(BUILT_APPIUM_DIR_PATH)
-    return len(original_files) - 1 == len(built_files)
+    if len(original_files) != len(built_files):
+        print("The count of files in 'build/lib/appium' and 'appium' were different. "
+              "'appium': {},\n 'build/lib/appium': {}".format(original_files, built_files))
+        return False
+
+    return True
 
 
 def main():

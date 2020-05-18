@@ -126,7 +126,7 @@ def has_same_file_count_original_built() -> bool:
     built_files = _get_py_files(BUILT_APPIUM_DIR_PATH)
     if len(original_files) != len(built_files):
         print("The count of files in 'build/lib/appium' and 'appium' were different. "
-              "'appium': {},\n 'build/lib/appium': {}".format(original_files, built_files))
+              f"'appium': {original_files},\n 'build/lib/appium': {built_files}")
         return False
 
     return True

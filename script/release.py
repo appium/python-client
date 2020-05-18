@@ -17,6 +17,7 @@ import io
 import os
 import shutil
 import sys
+from typing import List
 
 VERSION_FILE_PATH = os.path.join(os.path.dirname('__file__'), 'appium', 'version.py')
 CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.rst')
@@ -105,21 +106,22 @@ def validate_release_env():
         exit("Please get twine via 'pip install gitchangelog' or 'pip install git+git://github.com/vaab/gitchangelog.git' for Python 3.7")
 
 
-def build():
+def build() -> None:
     shutil.rmtree(BUILT_APPIUM_DIR_PATH, ignore_errors=True)
     os.system('{} setup.py install'.format(os.getenv('PYTHON_BIN_PATH')))
 
 
-def compare_file_count():
-    def _get_py_files(root_dir):
-        return_files = []
-        for (dir_path, _dirs, files) in os.walk(root_dir):
-            for file_name in files:
-                _, file_extension = os.path.splitext(file_name)
-                if file_extension in ['.py', '.typed']:
-                    return_files.append('{}/{}'.format(dir_path, file_name))
-        return return_files
+def _get_py_files(root_dir: str) -> List[str]:
+    _files = []
+    for (dir_path, _dirs, files) in os.walk(root_dir):
+        for file_name in files:
+            _, file_extension = os.path.splitext(file_name)
+            if file_extension in ['.py', '.typed']:
+                _files.append(os.path.join(dir_path, file_name))
+    return _files
 
+
+def has_same_file_count_original_built() -> bool:
     original_files = _get_py_files(APPIUM_DIR_PATH)
     built_files = _get_py_files(BUILT_APPIUM_DIR_PATH)
     if len(original_files) != len(built_files):
@@ -139,9 +141,9 @@ def main():
     update_version_file(new_version)
 
     build()
-    if not compare_file_count():
+    if not has_same_file_count_original_built():
         exit("Python files in 'build/lib/appium' directory may differ from 'appium'. "
-             "Please make sure setup.py package section is expected.")
+             "Please make sure setup.py is configured properly.")
 
     ensure_publication(new_version)
 

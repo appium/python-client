@@ -2,6 +2,23 @@ Changelog
 =========
 
 
+v1.0.1 (2020-05-18)
+-------------------
+
+Fix
+~~~
+- Broken package (#545) [Kazuaki Matsuo]
+
+  * add appium/webdriver/py.typed in find_packages
+
+  * fix
+
+Other
+~~~~~
+- Bump 1.0.1. [Kazuaki Matsuo]
+- Update changelog for 1.0.0. [Kazuaki Matsuo]
+
+
 v1.0.0 (2020-05-16)
 -------------------
 

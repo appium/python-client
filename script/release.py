@@ -15,10 +15,14 @@
 
 import io
 import os
+import shutil
 import sys
 
 VERSION_FILE_PATH = os.path.join(os.path.dirname('__file__'), 'appium', 'version.py')
 CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.rst')
+
+APPIUM_DIR_PATH = os.path.join(os.path.dirname('__file__'), 'appium')
+BUILT_APPIUM_DIR_PATH = os.path.join(os.path.dirname('__file__'), 'build', 'lib', 'appium')
 
 MESSAGE_RED = '\033[1;31m{}\033[0m'
 MESSAGE_GREEN = '\033[1;32m{}\033[0m'
@@ -101,6 +105,26 @@ def validate_release_env():
         exit("Please get twine via 'pip install gitchangelog' or 'pip install git+git://github.com/vaab/gitchangelog.git' for Python 3.7")
 
 
+def build():
+    shutil.rmtree(BUILT_APPIUM_DIR_PATH, ignore_errors=True)
+    os.system('{} setup.py install'.format(os.getenv('PYTHON_BIN_PATH')))
+
+
+def compare_file_count():
+    def _get_py_files(root_dir):
+        return_files = []
+        for (dir_path, _dirs, files) in os.walk(root_dir):
+            for file_name in files:
+                _, file_extension = os.path.splitext(file_name)
+                if file_extension in ['.py', '.typed']:
+                    return_files.append('{}/{}'.format(dir_path, file_name))
+        return return_files
+
+    original_files = _get_py_files(APPIUM_DIR_PATH)
+    built_files = _get_py_files(BUILT_APPIUM_DIR_PATH)
+    return len(original_files) - 1 == len(built_files)
+
+
 def main():
     validate_release_env()
 
@@ -108,6 +132,11 @@ def main():
     new_version = get_new_version()
 
     update_version_file(new_version)
+
+    build()
+    if not compare_file_count():
+        exit("Python files in 'build/lib/appium' directory may differ from 'appium'. "
+             "Please make sure setup.py package section is expected.")
 
     ensure_publication(new_version)
 

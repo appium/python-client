@@ -36,7 +36,7 @@ setup(
     maintainer='Kazuaki Matsuo, Mykola Mokhnach, Mori Atsushi',
     url='http://appium.io/',
     package_data={'appium': ['webdriver/py.typed']},
-    packages=find_packages(include=['appium']),
+    packages=find_packages(include=['appium*']),
     license='Apache 2.0',
     classifiers=[
         'Development Status :: 5 - Production/Stable',

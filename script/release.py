@@ -111,22 +111,29 @@ def build() -> None:
     os.system('{} setup.py install'.format(os.getenv('PYTHON_BIN_PATH')))
 
 
-def _get_py_files(root_dir: str) -> List[str]:
+def get_py_files_in_dir(root_dir: str) -> List[str]:
     _files = []
     for (dir_path, _dirs, files) in os.walk(root_dir):
         for file_name in files:
             _, file_extension = os.path.splitext(file_name)
             if file_extension in ['.py', '.typed']:
                 _files.append(os.path.join(dir_path, file_name))
-    return _files
+    base_dir_path_count = len(root_dir)
+    return [_file[base_dir_path_count:] for _file in _files]
 
 
 def has_same_file_count_original_built() -> bool:
-    original_files = _get_py_files(APPIUM_DIR_PATH)
-    built_files = _get_py_files(BUILT_APPIUM_DIR_PATH)
+    original_files = get_py_files_in_dir(APPIUM_DIR_PATH)
+    built_files = get_py_files_in_dir(BUILT_APPIUM_DIR_PATH)
     if len(original_files) != len(built_files):
-        print("The count of files in 'build/lib/appium' and 'appium' were different. "
-              f"'appium': {original_files},\n 'build/lib/appium': {built_files}")
+        print(f"The count of files in '{APPIUM_DIR_PATH}' and '{BUILT_APPIUM_DIR_PATH}' were different. ")
+
+        diff = set(original_files).difference(set(built_files))
+        if diff != set():
+            print(f"'{APPIUM_DIR_PATH}' has '{diff}' files than {BUILT_APPIUM_DIR_PATH}")
+        diff = set(built_files).difference(set(original_files))
+        if diff != set():
+            print(f"{BUILT_APPIUM_DIR_PATH} has {diff} files than {APPIUM_DIR_PATH}")
         return False
 
     return True
@@ -142,7 +149,7 @@ def main():
 
     build()
     if not has_same_file_count_original_built():
-        exit("Python files in 'build/lib/appium' directory may differ from 'appium'. "
+        exit(f"Python files in '{BUILT_APPIUM_DIR_PATH}' may differ from '{APPIUM_DIR_PATH}'. "
              "Please make sure setup.py is configured properly.")
 
     ensure_publication(new_version)

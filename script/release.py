@@ -13,6 +13,7 @@
 # limitations under the License.
 """Release script to publish release module to pipy."""
 
+import glob
 import io
 import os
 import shutil
@@ -115,27 +116,30 @@ def build() -> None:
 
 
 def get_py_files_in_dir(root_dir: str) -> List[str]:
-    _files = []
-    for (dir_path, _dirs, files) in os.walk(root_dir):
-        for file_name in files:
-            _, file_extension = os.path.splitext(file_name)
-            if file_extension in ['.py', '.typed']:
-                _files.append(os.path.join(dir_path, file_name))
-    base_dir_path_count = len(root_dir)
-    return [_file[base_dir_path_count:] for _file in _files]
+    return [
+        file_path[len(root_dir):]
+        for file_path in glob.glob(f"{root_dir}/**/*.py", recursive=True) + glob.glob(f"{root_dir}/**/*.typed", recursive=True)
+    ]
 
 
-def compare_file_count_in_package() -> None:
+def assert_files_count_in_package() -> None:
     original_files = get_py_files_in_dir(APPIUM_DIR_PATH)
     built_files = get_py_files_in_dir(BUILT_APPIUM_DIR_PATH)
+
+    print(len(original_files))
+    print(len(built_files))
+
     if len(original_files) != len(built_files):
         print(f"The count of files in '{APPIUM_DIR_PATH}' and '{BUILT_APPIUM_DIR_PATH}' were different.")
 
-        diff = set(original_files).difference(set(built_files))
-        if diff != set():
+        original_files_set = set(original_files)
+        built_files_set = set(built_files)
+
+        diff = original_files_set.difference(built_files_set)
+        if diff:
             print(f"'{APPIUM_DIR_PATH}' has '{diff}' files than {BUILT_APPIUM_DIR_PATH}")
-        diff = set(built_files).difference(set(original_files))
-        if diff != set():
+        diff = built_files_set.difference(original_files_set)
+        if diff:
             print(f"{BUILT_APPIUM_DIR_PATH} has {diff} files than {APPIUM_DIR_PATH}")
 
         exit(f"Python files in '{BUILT_APPIUM_DIR_PATH}' may differ from '{APPIUM_DIR_PATH}'. "
@@ -151,7 +155,7 @@ def main():
     update_version_file(new_version)
 
     build()
-    compare_file_count_in_package()
+    assert_files_count_in_package()
 
     ensure_publication(new_version)
 

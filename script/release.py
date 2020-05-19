@@ -126,9 +126,6 @@ def assert_files_count_in_package() -> None:
     original_files = get_py_files_in_dir(APPIUM_DIR_PATH)
     built_files = get_py_files_in_dir(BUILT_APPIUM_DIR_PATH)
 
-    print(len(original_files))
-    print(len(built_files))
-
     if len(original_files) != len(built_files):
         print(f"The count of files in '{APPIUM_DIR_PATH}' and '{BUILT_APPIUM_DIR_PATH}' were different.")
 

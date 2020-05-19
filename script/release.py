@@ -16,6 +16,7 @@
 import io
 import os
 import shutil
+import subprocess
 import sys
 from typing import List
 
@@ -108,7 +109,9 @@ def validate_release_env():
 
 def build() -> None:
     shutil.rmtree(BUILT_APPIUM_DIR_PATH, ignore_errors=True)
-    os.system('{} setup.py install'.format(os.getenv('PYTHON_BIN_PATH')))
+    status, output = subprocess.getstatusoutput('{} setup.py install'.format(os.getenv('PYTHON_BIN_PATH')))
+    if status != 0:
+        exit(f'Failed to build the package:\n{output}')
 
 
 def get_py_files_in_dir(root_dir: str) -> List[str]:
@@ -122,11 +125,11 @@ def get_py_files_in_dir(root_dir: str) -> List[str]:
     return [_file[base_dir_path_count:] for _file in _files]
 
 
-def has_same_file_count_original_built() -> bool:
+def compare_file_count_in_package() -> None:
     original_files = get_py_files_in_dir(APPIUM_DIR_PATH)
     built_files = get_py_files_in_dir(BUILT_APPIUM_DIR_PATH)
     if len(original_files) != len(built_files):
-        print(f"The count of files in '{APPIUM_DIR_PATH}' and '{BUILT_APPIUM_DIR_PATH}' were different. ")
+        print(f"The count of files in '{APPIUM_DIR_PATH}' and '{BUILT_APPIUM_DIR_PATH}' were different.")
 
         diff = set(original_files).difference(set(built_files))
         if diff != set():
@@ -134,9 +137,9 @@ def has_same_file_count_original_built() -> bool:
         diff = set(built_files).difference(set(original_files))
         if diff != set():
             print(f"{BUILT_APPIUM_DIR_PATH} has {diff} files than {APPIUM_DIR_PATH}")
-        return False
 
-    return True
+        exit(f"Python files in '{BUILT_APPIUM_DIR_PATH}' may differ from '{APPIUM_DIR_PATH}'. "
+             "Please make sure setup.py is configured properly.")
 
 
 def main():
@@ -148,9 +151,7 @@ def main():
     update_version_file(new_version)
 
     build()
-    if not has_same_file_count_original_built():
-        exit(f"Python files in '{BUILT_APPIUM_DIR_PATH}' may differ from '{APPIUM_DIR_PATH}'. "
-             "Please make sure setup.py is configured properly.")
+    compare_file_count_in_package()
 
     ensure_publication(new_version)
 

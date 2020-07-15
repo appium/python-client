@@ -16,7 +16,7 @@ import os
 import subprocess as sp
 import sys
 import time
-from typing import Any, List, Optional, TypeVar, Union
+from typing import Any, List, Optional, Union
 
 import urllib3
 
@@ -125,33 +125,36 @@ class AppiumService:
 
         Keyword Args:
             env (dict): Environment variables mapping. The default system environment,
-                which is inherited from the parent process is assigned by default.
+                which is inherited from the parent process, is assigned by default.
             node (str): The full path to the main NodeJS executable. The service will try
                 to retrieve it automatically by default.
-            stdout (int): Check on the documentation for subprocess.Popen for more details.
-                The default value is subprocess.PIPE.
-            stderr (int): Check on the documentation for subprocess.Popen for more details.
-                The default value is subprocess.PIPE.
+            stdout (int): Check the documentation for subprocess.Popen for more details.
+                The default value is subprocess.DEVNULL on Windows and subprocess.PIPE on other platforms.
+            stderr (int): Check the documentation for subprocess.Popen for more details.
+                The default value is subprocess.DEVNULL on Windows and subprocess.PIPE on other platforms.
             timeout_ms (int): The maximum time to wait until Appium process starts listening
                 for HTTP connections. If set to zero or a negative number then no wait will be applied.
-                60000 ms by default
+                60000 ms by default.
             main_script (str): The full path to the main Appium executable
-                (usually located this is build/lib/main.js). If this is not set
+                (usually located at build/lib/main.js). If this is not set
                 then the service tries to detect the path automatically.
-            args (str): List of Appium arguments (all must be strings). Check on
+            args (str): List of Appium arguments (all must be strings). Check
                 https://appium.io/docs/en/writing-running-appium/server-args/ for more details
                 about possible arguments and their values.
 
         Returns:
             You can use Popen.communicate interface or stderr/stdout properties
-            of the instance (stdout/stderr must not be set to None in such case) in order to retrieve the actual process output.
+            of the instance (stdout/stderr must not be set to None in such case) in order to retrieve the actual process
+            output.
         """
         self.stop()
 
         env = kwargs['env'] if 'env' in kwargs else None
         node = kwargs['node'] if 'node' in kwargs else self._get_node()
-        stdout = kwargs['stdout'] if 'stdout' in kwargs else sp.PIPE
-        stderr = kwargs['stderr'] if 'stderr' in kwargs else sp.PIPE
+        # A workaround for https://github.com/appium/python-client/issues/534
+        default_std = sp.DEVNULL if sys.platform == 'win32' else sp.PIPE
+        stdout = kwargs['stdout'] if 'stdout' in kwargs else default_std
+        stderr = kwargs['stderr'] if 'stderr' in kwargs else default_std
         timeout_ms = int(kwargs['timeout_ms']) if 'timeout_ms' in kwargs else STARTUP_TIMEOUT_MS
         main_script = kwargs['main_script'] if 'main_script' in kwargs else self._get_main_script()
         args = [node, main_script]
@@ -223,8 +226,8 @@ if __name__ == '__main__':
     service = AppiumService()
     service.start(args=['--address', '127.0.0.1', '-p', str(DEFAULT_PORT)])
     # service.start(args=['--address', '127.0.0.1', '-p', '80'], timeout_ms=2000)
-    assert(service.is_running)
-    assert(service.is_listening)
+    assert service.is_running
+    assert service.is_listening
     service.stop()
     assert(not service.is_running)
     assert(not service.is_listening)

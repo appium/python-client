@@ -2,6 +2,22 @@ Changelog
 =========
 
 
+v1.0.2 (2020-07-15)
+-------------------
+- Bump 1.0.2. [Kazuaki Matsuo]
+- Chore: Add the workaround to avoid service freezes on Windows (#552)
+  [Mykola Mokhnach]
+- Chore: add checking package file count comparison in release script
+  (#547) [Kazuaki Matsuo]
+
+  * chore: Add file count in release script
+
+  * use f string for Python 3 :P
+
+  * handle exit in method
+- Update changelog for 1.0.1. [Kazuaki Matsuo]
+
+
 v1.0.1 (2020-05-18)
 -------------------
 

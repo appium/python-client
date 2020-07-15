@@ -16,7 +16,7 @@ import os
 import subprocess as sp
 import sys
 import time
-from typing import Any, List, Optional, TypeVar, Union
+from typing import Any, List, Optional, Union
 
 import urllib3
 
@@ -144,7 +144,8 @@ class AppiumService:
 
         Returns:
             You can use Popen.communicate interface or stderr/stdout properties
-            of the instance (stdout/stderr must not be set to None in such case) in order to retrieve the actual process output.
+            of the instance (stdout/stderr must not be set to None in such case) in order to retrieve the actual process
+            output.
         """
         self.stop()
 
@@ -225,8 +226,8 @@ if __name__ == '__main__':
     service = AppiumService()
     service.start(args=['--address', '127.0.0.1', '-p', str(DEFAULT_PORT)])
     # service.start(args=['--address', '127.0.0.1', '-p', '80'], timeout_ms=2000)
-    assert(service.is_running)
-    assert(service.is_listening)
+    assert service.is_running
+    assert service.is_listening
     service.stop()
     assert(not service.is_running)
     assert(not service.is_listening)

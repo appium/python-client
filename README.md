@@ -72,10 +72,10 @@ import unittest
 from appium import webdriver
 
 desired_caps = dict(
-    platformName='Android'
-    platformVersion='10'
-    automationName='uiautomator2'
-    deviceName='Android Emulator'
+    platformName='Android',
+    platformVersion='10',
+    automationName='uiautomator2',
+    deviceName='Android Emulator',
     app=PATH('../../../apps/selendroid-test-app.apk')
 )
 self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
@@ -89,10 +89,10 @@ import unittest
 from appium import webdriver
 
 desired_caps = dict(
-    platformName='iOS'
-    platformVersion='13.4'
-    automationName='xcuitest'
-    deviceName='iPhone Simulator'
+    platformName='iOS',
+    platformVersion='13.4',
+    automationName='xcuitest',
+    deviceName='iPhone Simulator',
     app=PATH('../../apps/UICatalog.app.zip')
 )
 
@@ -117,10 +117,10 @@ import unittest
 from appium import webdriver
 
 desired_caps = dict(
-    platformName='iOS'
-    platformVersion='13.4'
-    automationName='xcuitest'
-    deviceName='iPhone Simulator'
+    platformName='iOS',
+    platformVersion='13.4',
+    automationName='xcuitest',
+    deviceName='iPhone Simulator',
     app=PATH('../../apps/UICatalog.app.zip')
 )
 

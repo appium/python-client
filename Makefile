@@ -15,7 +15,8 @@ autopep8: ## Run autopep8
 
 .PHONY: pylint
 pylint: ## Run pylint
-	python -m pylint $(ARGS) --rcfile .pylintrc appium test
+    # TODO Remove --disable=E1136 when no errors in py39
+	python -m pylint $(ARGS) --rcfile .pylintrc appium test --disable=E1136
 
 .PHONY: mypy
 mypy:  ## Run mypy

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -xv
 
 EXIT_STATUS=0
 

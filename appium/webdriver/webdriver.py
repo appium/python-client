@@ -345,6 +345,50 @@ class WebDriver(
         self.execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
 
+    def flick_element(self, element: Optional[MobileWebElement] = None,
+                      xspeed: int = 0, yspeed: int = 0,
+                      xoffset: int = 0, yoffset: int = 0,
+                      speed: int = 0) -> T:
+        """Flick the element
+
+        Args:
+            element: the element to be flicked
+            xoffset: used for the flick endpoint (endpoint: element x pos + xoffset)
+            yoffset: used for the flick endpoint (endpoint: element y pos + yoffset)
+            speed: flick speed
+
+            xspeed: (Used when element is not set) flick speed for vertical direction
+            yspeed: (Used when element is not set) flick speed for horizontal direction
+
+        Usage:
+            # When element is set
+            el = driver.find_element_by_accessibility_id('Grid')
+            driver.flick_element(el, xoffset=0, yoffset=-1000, speed=1000)
+
+            # When element is not set
+            driver.flick_element(xspeed=100, yspeed=-100)
+
+        Returns:
+            `appium.webdriver.webdriver.WebDriver`: Self instance
+        """
+
+        data = {}
+        if element is None:
+            data = {
+                'xspeed': xspeed,
+                'yspeed': yspeed,
+            }
+        else:
+            data = {
+                'element': element.id,
+                'xoffset': xoffset,
+                'yoffset': yoffset,
+                'speed': speed
+            }
+
+        self.execute(Command.FLICK_ELEMENT, data)
+        return self
+
     # pylint: disable=protected-access
 
     def _addCommands(self) -> None:
@@ -359,6 +403,8 @@ class WebDriver(
             ('POST', '/session/$sessionId/touch/perform')
         self.command_executor._commands[Command.MULTI_ACTION] = \
             ('POST', '/session/$sessionId/touch/multi/perform')
+        self.command_executor._commands[Command.FLICK_ELEMENT] = \
+            ('POST', '/session/$sessionId/touch/flick')
         self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
             ('POST', '/session/$sessionId/appium/element/$id/value')
 

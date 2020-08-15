@@ -36,6 +36,7 @@ class MobileCommand:
 
     TOUCH_ACTION = 'touchAction'
     MULTI_ACTION = 'multiAction'
+    FLICK_ELEMENT = 'flickElement'
 
     SET_IMMEDIATE_VALUE = 'setImmediateValue'
     REPLACE_KEYS = 'replaceKeys'

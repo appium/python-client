@@ -36,7 +36,7 @@ jobs:
       name: 'func_test_android2'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'ime_tests.py keyboard_tests.py location_tests.py'
+      testFiles: 'ime_tests.py keyboard_tests.py location_tests.py uia2_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}
   - template: ./functional/run_android_test.yml
@@ -44,7 +44,7 @@ jobs:
       name: 'func_test_android3'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'appium_service_tests.py uia2_tests.py'
+      testFiles: 'appium_service_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}
       DONT_RUN_APPIUM: true

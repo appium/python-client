@@ -56,6 +56,12 @@ class ScreenRecord(webdriver.Remote):
             bugReport (str): Makes the recorder to display an additional information on the video overlay,
                 such as a timestamp, that is helpful in videos captured to illustrate bugs.
                 This option is only supported since API level 27 (Android P).
+            fileFieldName (str): [multipart/form-data requests] The name of the form field
+                containing the binary payload. "file" by default. (Since Appium 1.18.0)
+            formFields (dict): [multipart/form-data requests] Additional form fields mapping. If any entry has
+                the same key as `fileFieldName` then it is going to be ignored. (Since Appium 1.18.0)
+            headers (dict): [multipart/form-data requests] Headers mapping (Since Appium 1.18.0)
+
             videoQuality (str): [iOS only] The video encoding quality: 'low', 'medium', 'high', 'photo'. Defaults
                 to 'medium'.
             videoType (str): [iOS only] The format of the screen capture to be recorded.

@@ -36,7 +36,6 @@ class MobileCommand:
 
     TOUCH_ACTION = 'touchAction'
     MULTI_ACTION = 'multiAction'
-    FLICK_ELEMENT = 'flickElement'
 
     SET_IMMEDIATE_VALUE = 'setImmediateValue'
     REPLACE_KEYS = 'replaceKeys'
@@ -95,6 +94,9 @@ class MobileCommand:
     GET_PERFORMANCE_DATA = 'getPerformanceData'
     GET_NETWORK_CONNECTION = 'getNetworkConnection'
     SET_NETWORK_CONNECTION = 'setNetworkConnection'
+
+    # Android UIA2
+    FLICK_ELEMENT = 'flickElement'
 
     # Android Emulator
     SEND_SMS = 'sendSms'

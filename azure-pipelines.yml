@@ -5,6 +5,24 @@
 jobs:
   - template: ./ci-jobs/functional_test.yml
 
+  - job: 'unitTests'
+    pool:
+      vmImage: 'ubuntu-latest'
+      strategy:
+        matrix:
+          Python37:
+            python.version: '3.7'
+          Python38:
+            python.version: '3.8'
+          Python39:
+            python.version: '3.9-dev'
+    steps:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '$(python.version)'
+      - script: pip install tox-travis
+      - script: tox
+
 # Runs tests nightly to make sure they works against appium@beta
 schedules:
   - cron: "0 0 * * *"

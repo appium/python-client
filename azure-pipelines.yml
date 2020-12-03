@@ -7,15 +7,15 @@ jobs:
 
   - job: 'unitTests'
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-18.04'
       strategy:
         matrix:
           Python37:
-            python.version: '3.7.9'
+            python.version: '3.7.x'
           Python38:
-            python.version: '3.8.6'
+            python.version: '3.8.x'
           Python39:
-            python.version: '3.9.0'
+            python.version: '3.9.x'
     steps:
       - task: UsePythonVersion@0
         inputs:

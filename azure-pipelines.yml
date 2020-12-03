@@ -11,11 +11,11 @@ jobs:
       strategy:
         matrix:
           Python37:
-            python.version: '3.7.x'
+            python.version: '3.7.9'
           Python38:
-            python.version: '3.8.x'
+            python.version: '3.8.6'
           Python39:
-            python.version: '3.9.x'
+            python.version: '3.9.0'
     steps:
       - task: UsePythonVersion@0
         inputs:

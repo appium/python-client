@@ -7,19 +7,19 @@ jobs:
 
   - job: 'unitTests'
     pool:
-      vmImage: 'ubuntu-16.04'
-      strategy:
-        matrix:
-          Python37:
-            python.version: '3.7'
-          Python38:
-            python.version: '3.8'
-          Python39:
-            python.version: '3.9'
+      vmImage: 'ubuntu-18.04'
+#       strategy:
+#         matrix:
+#           Python37:
+#             python.version: '3.7'
+#           Python38:
+#             python.version: '3.8'
+#           Python39:
+#             python.version: '3.9'
     steps:
       - task: UsePythonVersion@0
         inputs:
-          versionSpec: '$(python.version)'
+          versionSpec: '3.9.0'
       - script: pip install tox-travis
       - script: tox
 

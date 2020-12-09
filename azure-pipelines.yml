@@ -4,11 +4,11 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 resources:
   repositories:
-    - repository: tox
-      type: github
-      endpoint: github
-      name: tox-dev/azure-pipelines-template
-      ref: refs/tags/0.2
+  - repository: tox
+    type: github
+    endpoint: toxdevorg
+    name: tox-dev/azure-pipelines-template
+    ref: refs/tags/0.2
 
 jobs:
   - template: ./ci-jobs/functional_test.yml

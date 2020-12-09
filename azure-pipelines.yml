@@ -8,20 +8,28 @@ jobs:
   - job: 'unitTests'
     pool:
       vmImage: 'ubuntu-18.04'
-      strategy:
-        matrix:
+#       strategy:
+#         matrix:
 #           Python37:
 #             python.version: '3.7'
 #           Python38:
 #             python.version: '3.8'
-          Python39:
-            python.version: '3.9.0'
+#           Python39:
+#             python.version: '3.9.0'
     steps:
       - task: UsePythonVersion@0
         inputs:
-          versionSpec: $(python.version)
-      - script: pip install tox-travis
-      - script: tox
+          versionSpec: '3.7.x'
+      - script: ./ci.sh
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.8.x'
+      - script: ./ci.sh
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.9.x'
+      - script: ./ci.sh
+
 
 # Runs tests nightly to make sure they works against appium@beta
 schedules:

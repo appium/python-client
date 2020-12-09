@@ -2,31 +2,34 @@
 # Build, test, and archive an Xcode workspace on macOS.
 # Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
-
-name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
-resources:
-  repositories:
-  - repository: tox
-    type: github
-    endpoint: toxdevorg
-    name: tox-dev/azure-pipelines-template
-    ref: refs/tags/0.2
-
 jobs:
   - template: ./ci-jobs/functional_test.yml
 
-  - template: run-tox-env.yml@tox
-    parameters:
-      tox_version: ""
-      jobs:
-        fix_lint: null
-        docs: null
-        py37:
-          image: [linux]
-        py38:
-          image: [linux]
-        py39:
-          image: [linux]
+  - job: 'unitTests'
+    pool:
+       vmImage: 'ubuntu-18.04'
+    steps:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.7.x'
+      - script: |
+        pipenv lock --clear
+        pipenv install
+        ./ci.sh
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.8.x'
+      - script: |
+        pipenv lock --clear
+        pipenv install
+        ./ci.sh
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.9.x'
+      - script: |
+        pipenv lock --clear
+        pipenv install
+        ./ci.sh
 
 
 # Runs tests nightly to make sure they works against appium@beta

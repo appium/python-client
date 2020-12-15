@@ -24,9 +24,9 @@ from typing import TYPE_CHECKING, Dict, List, Optional, TypeVar, Union
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
+    from appium.webdriver.common.touch_action import TouchAction
     from appium.webdriver.webdriver import WebDriver
     from appium.webdriver.webelement import WebElement
-    from appium.webdriver.common.touch_action import TouchAction
 
 T = TypeVar('T', bound='MultiAction')
 

@@ -23,8 +23,9 @@ from appium import webdriver
 SERVER_URL_BASE = 'http://localhost:4723/wd/hub'
 
 if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
     from httpretty.core import HTTPrettyRequestEmpty
+
+    from appium.webdriver.webdriver import WebDriver
 
 
 def appium_command(command: str) -> str:

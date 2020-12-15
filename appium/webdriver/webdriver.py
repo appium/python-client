@@ -146,7 +146,18 @@ class WebDriver(
 ):
 
     def __init__(self, command_executor: str = 'http://127.0.0.1:4444/wd/hub',
-                 desired_capabilities: Optional[Dict] = None, browser_profile: str = None, proxy: str = None, keep_alive: bool = True, direct_connection: bool = False):
+                 desired_capabilities: Optional[Dict] = None,
+                 browser_profile: str = None,
+                 proxy: str = None,
+                 keep_alive: bool = True,
+                 direct_connection: bool = True,
+                 strict_ssl: bool = True):
+
+        if strict_ssl is False:
+            # pylint: disable=E1101
+            import urllib3
+            AppiumConnection.set_certificate_bundle_path(None)
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
         super().__init__(
             AppiumConnection(command_executor, keep_alive=keep_alive),
@@ -182,17 +193,17 @@ class WebDriver(
         direct_port = 'directConnectPort'
         direct_path = 'directConnectPath'
 
-        if (not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.capabilities))):
+        if (not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps))):
             message = 'Direct connect capabilities from server were:\n'
             for key in [direct_protocol, direct_host, direct_port, direct_path]:
-                message += '{}: \'{}\'\n'.format(key, self.capabilities.get(key, ''))
+                message += '{}: \'{}\'\n'.format(key, self.caps.get(key, ''))
             logger.warning(message)
             return
 
-        protocol = self.capabilities[direct_protocol]
-        hostname = self.capabilities[direct_host]
-        port = self.capabilities[direct_port]
-        path = self.capabilities[direct_path]
+        protocol = self.caps[direct_protocol]
+        hostname = self.caps[direct_host]
+        port = self.caps[direct_port]
+        path = self.caps[direct_path]
         executor = f'{protocol}://{hostname}:{port}{path}'
 
         logger.info('Updated request endpoint to %s', executor)
@@ -200,6 +211,7 @@ class WebDriver(
         self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
         self._addCommands()
 
+    # https://github.com/SeleniumHQ/selenium/blob/06fdf2966df6bca47c0ae45e8201cd30db9b9a49/py/selenium/webdriver/remote/webdriver.py#L277
     def start_session(self, capabilities: Dict, browser_profile: Optional[str] = None) -> None:
         """Creates a new session with the desired capabilities.
 
@@ -226,12 +238,12 @@ class WebDriver(
         if 'sessionId' not in response:
             response = response['value']
         self.session_id = response['sessionId']
-        self.capabilities = response.get('value')
+        self.caps = response.get('value')
 
         # if capabilities is none we are probably speaking to
         # a W3C endpoint
-        if self.capabilities is None:
-            self.capabilities = response.get('capabilities')
+        if self.caps is None:
+            self.caps = response.get('capabilities')
 
         # Double check to see if we have a W3C Compliant browser
         self.w3c = response.get('status') is None
@@ -240,13 +252,6 @@ class WebDriver(
     def _merge_capabilities(self, capabilities: Dict) -> Dict[str, Any]:
         """Manage capabilities whether W3C format or MJSONWP format
         """
-        if _FORCE_MJSONWP in capabilities:
-            force_mjsonwp = capabilities[_FORCE_MJSONWP]
-            del capabilities[_FORCE_MJSONWP]
-
-            if force_mjsonwp != False:
-                return {'desiredCapabilities': capabilities}
-
         w3c_caps = _make_w3c_caps(capabilities)
         return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 
@@ -263,7 +268,6 @@ class WebDriver(
 
         """
         # TODO: If we need, we should enable below converter for Web context
-        # if self.w3c:
         #     if by == By.ID:
         #         by = By.CSS_SELECTOR
         #         value = '[id="%s"]' % value
@@ -293,7 +297,6 @@ class WebDriver(
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
         # TODO: If we need, we should enable below converter for Web context
-        # if self.w3c:
         #     if by == By.ID:
         #         by = By.CSS_SELECTOR
         #         value = '[id="%s"]' % value
@@ -313,7 +316,7 @@ class WebDriver(
             'using': by,
             'value': value})['value'] or []
 
-    def create_web_element(self, element_id: Union[int, str], w3c: bool = False) -> MobileWebElement:
+    def create_web_element(self, element_id: Union[int, str], w3c: bool = True) -> MobileWebElement:
         """Creates a web element with the specified element_id.
 
         Overrides method in Selenium WebDriver in order to always give them

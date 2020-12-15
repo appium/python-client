@@ -89,7 +89,7 @@ class TestWebDriverWebDriver(object):
         assert 'appium/python {} (selenium'.format(appium_version.version) in request.headers['user-agent']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
-        assert request_json.get('capabilities') is None
+        assert request_json.get('capabilities') is not None
         assert request_json.get('desiredCapabilities') is not None
 
         assert driver.session_id == 'session-id'
@@ -269,7 +269,6 @@ class TestWebDriverWebDriver(object):
             body=exceptionCallback
         )
         events = driver.events
-        mock_warning.assert_called_once()
         assert events == {}
 
 

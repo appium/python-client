@@ -13,8 +13,9 @@
 # limitations under the License.
 
 import uuid
-from typing import TYPE_CHECKING, Any, Dict
+from typing import TYPE_CHECKING, Any, Dict, Union
 
+import urllib3
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.helper import library_version
@@ -24,6 +25,22 @@ if TYPE_CHECKING:
 
 
 class AppiumConnection(RemoteConnection):
+
+    def _get_connection_manager(self) -> Union[urllib3.PoolManager, urllib3.ProxyManager]:
+        # https://github.com/SeleniumHQ/selenium/blob/0e0194b0e52a34e7df4b841f1ed74506beea5c3e/py/selenium/webdriver/remote/remote_connection.py#L134
+        pool_manager_init_args = {
+            'timeout': self._timeout
+        }
+        # pylint: disable=E1101
+        if self._ca_certs:
+            pool_manager_init_args['cert_reqs'] = 'CERT_REQUIRED'
+            pool_manager_init_args['ca_certs'] = self._ca_certs
+        else:
+            # This line is necessary to disable certificate verification
+            pool_manager_init_args['cert_reqs'] = 'CERT_NONE'
+
+        return urllib3.PoolManager(**pool_manager_init_args) if self._proxy_url is None else \
+            urllib3.ProxyManager(self._proxy_url, **pool_manager_init_args)
 
     @classmethod
     def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> Dict[str, Any]:

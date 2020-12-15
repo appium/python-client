@@ -46,7 +46,7 @@ class ActionHelpers(webdriver.Remote):
         """
 
         # XCUITest x W3C spec has no duration by default in server side
-        if self.w3c and duration is None:
+        if duration is None:
             duration = 600
 
         action = TouchAction(self)

@@ -7,7 +7,7 @@ verify_ssl = true
 pre-commit = "~=2.6"
 
 [packages]
-selenium = "==4.0.0.a7"
+selenium = "4.0.0.a7"
 
 autopep8 = "~=1.5"
 

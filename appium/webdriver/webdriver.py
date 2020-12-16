@@ -200,6 +200,7 @@ class WebDriver(
         self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
         self._addCommands()
 
+    # https://github.com/SeleniumHQ/selenium/blob/06fdf2966df6bca47c0ae45e8201cd30db9b9a49/py/selenium/webdriver/remote/webdriver.py#L277
     def start_session(self, capabilities: Dict, browser_profile: Optional[str] = None) -> None:
         """Creates a new session with the desired capabilities.
 

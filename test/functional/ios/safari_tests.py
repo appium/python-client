@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
+
 from appium import webdriver
 
 from .helper.desired_capabilities import get_desired_capabilities
@@ -38,4 +40,11 @@ class TestSafari(object):
 
     def test_get(self) -> None:
         self.driver.get("http://google.com")
-        assert 'Google' == self.driver.title
+        for _ in range(5):
+            time.sleep(0.5)
+            try:
+                assert 'Google' == self.driver.title
+                return
+            except Exception as e:
+
+        assert False, 'The title was wrong'

@@ -127,6 +127,25 @@ desired_caps = dict(
 self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, direct_connection=True)
 ```
 
+## Relax SSL validation
+
+`strict_ssl` option allows you to send commands to an invalid certificate host like self-certificated SSL.
+
+```python
+import unittest
+from appium import webdriver
+
+desired_caps = dict(
+    platformName='iOS',
+    platformVersion='13.4',
+    automationName='xcuitest',
+    deviceName='iPhone Simulator',
+    app=PATH('../../apps/UICatalog.app.zip')
+)
+
+self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, strict_ssl=False)
+```
+
 ## Documentation
 
 https://appium.github.io/python-client-sphinx/ is detailed documentation

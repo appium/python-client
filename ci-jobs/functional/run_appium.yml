@@ -10,7 +10,7 @@ steps:
   displayName: Install opencv4nodejs
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.8'
+    versionSpec: '3.x'
 - script: brew install ffmpeg
   displayName: Resolve dependencies (Appium server)
 - script: python setup.py install

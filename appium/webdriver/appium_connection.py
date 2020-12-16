@@ -37,7 +37,6 @@ class AppiumConnection(RemoteConnection):
         else:
             # This line is necessary to disable certificate verification
             pool_manager_init_args['cert_reqs'] = 'CERT_NONE'
-            pool_manager_init_args['ca_certs'] = None
 
         return urllib3.PoolManager(**pool_manager_init_args) if self._proxy_url is None else \
             urllib3.ProxyManager(self._proxy_url, **pool_manager_init_args)

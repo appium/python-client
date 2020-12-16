@@ -146,7 +146,17 @@ class WebDriver(
 ):
 
     def __init__(self, command_executor: str = 'http://127.0.0.1:4444/wd/hub',
-                 desired_capabilities: Optional[Dict] = None, browser_profile: str = None, proxy: str = None, keep_alive: bool = True, direct_connection: bool = False):
+                 desired_capabilities: Optional[Dict] = None,
+                 browser_profile: str = None,
+                 proxy: str = None,
+                 keep_alive: bool = True,
+                 direct_connection: bool = True,
+                 strict_ssl: bool = True):
+
+        if strict_ssl is False:
+            import urllib3
+            AppiumConnection.set_certificate_bundle_path(None)
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
         super().__init__(
             AppiumConnection(command_executor, keep_alive=keep_alive),
@@ -154,10 +164,6 @@ class WebDriver(
             browser_profile,
             proxy
         )
-
-        # TODO: make
-        import urllib3
-        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
         if hasattr(self, 'command_executor'):
             self._addCommands()

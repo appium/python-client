@@ -155,6 +155,10 @@ class WebDriver(
             proxy
         )
 
+        # TODO: make
+        import urllib3
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
         if hasattr(self, 'command_executor'):
             self._addCommands()
 

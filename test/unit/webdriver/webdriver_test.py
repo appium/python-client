@@ -89,12 +89,12 @@ class TestWebDriverWebDriver(object):
         assert 'appium/python {} (selenium'.format(appium_version.version) in request.headers['user-agent']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
-        assert request_json.get('capabilities') is None
+        assert request_json.get('capabilities') is not None
         assert request_json.get('desiredCapabilities') is not None
 
         assert driver.session_id == 'session-id'
-        assert driver.w3c is False
-        assert driver.command_executor.w3c is False
+        assert driver.w3c is True
+        assert driver.command_executor.w3c is True
 
     @httpretty.activate
     def test_create_session_change_session_id(self):

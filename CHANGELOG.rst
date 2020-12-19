@@ -2,6 +2,53 @@ Changelog
 =========
 
 
+(unreleased)
+------------
+
+New
+~~~
+- Feat: Added descriptions for newly added screenrecord opts (#540)
+  [Mori Atsushi]
+
+  * Add description for newly added opts for screen record
+
+  * Updates
+
+Fix
+~~~
+- Fix lint, CI and tests. [Kazuaki Matsuo]
+
+Test
+~~~~
+- Ci: move azure project to Appium CI, update readme (#564) [Kazuaki
+  Matsuo]
+- Ci: Added py39-dev for travis (#557) [Mori Atsushi]
+
+  * ci: Added py39-dev
+
+  * Add xv option for debug
+
+  * [debug] pip list
+
+  * Avoid error in py39
+
+  * Updated modules in pre-commit
+- Ci: upgrade xcode and macos (#556) [Mori Atsushi]
+
+  * ci: upgrade xcode ver and macos
+
+  * Upgrade iOS ver for functional tests
+
+  * Changed xcode to 11.6
+
+Other
+~~~~~
+- Chore: address selenium-4 branch in readme (#566) [Kazuaki Matsuo]
+- Bump selenium. [Kazuaki Matsuo]
+- Docs: fix wrong code example in README.md (#555) [sanlengjingvv]
+- Update changelog for 1.0.2. [Kazuaki Matsuo]
+
+
 v1.0.2 (2020-07-15)
 -------------------
 - Bump 1.0.2. [Kazuaki Matsuo]

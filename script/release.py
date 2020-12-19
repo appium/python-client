@@ -62,13 +62,13 @@ def call_bash_script(cmd):
 
 
 def commit_version_code(new_version_num):
-    call_bash_script('git commit {} -m "Bump {}"'.format(VERSION_FILE_PATH, new_version_num))
+    call_bash_script('git commit -n {} -m "Bump {}"'.format(VERSION_FILE_PATH, new_version_num))
 
 
 def tag_and_generate_changelog(new_version_num):
     call_bash_script('git tag "v{}"'.format(new_version_num))
     call_bash_script('gitchangelog > {}'.format(CHANGELOG_PATH))
-    call_bash_script('git commit {} -m "Update changelog for {}"'.format(CHANGELOG_PATH, new_version_num))
+    call_bash_script('git commit -n {} -m "Update changelog for {}"'.format(CHANGELOG_PATH, new_version_num))
 
 
 def upload_sdist(new_version_num):

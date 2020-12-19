@@ -19,6 +19,8 @@ Since **v1.0.0**, only Python 3 is supported
 
 Main differences since current v1 is the v2 can connect to invalid SSL environment like self-certificated server. Please take a look at the branch's README for more details.
 
+Please install lower version of `trio` like `pip install trio==0.17.0` if your environment failed to install `trio` dependency.
+
 ## Getting the Appium Python client
 
 There are three ways to install and use the Appium Python client.

@@ -14,6 +14,11 @@ framework [Appium](https://appium.io).
 
 Since **v1.0.0**, only Python 3 is supported
 
+### developing version
+[selenium-4](https://github.com/appium/python-client/tree/selenium-4) branch is a developing branch to switch base selenium client version from v3 to v4. The branch is available as pre-release versioning like `2.0.0.a0` via pypi.
+
+Main differences since current v1 is the v2 can connect to invalid SSL environment like self-certificated server. Please take a look at the branch's README for more details.
+
 ## Getting the Appium Python client
 
 There are three ways to install and use the Appium Python client.

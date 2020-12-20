@@ -67,7 +67,7 @@ class TestWebDriverWebDriver(object):
         httpretty.register_uri(
             httpretty.POST,
             'http://localhost:4723/wd/hub/session',
-            body='{ "capabilities": {"deviceName": "Android Emulator"}, "status": 0, "sessionId": "session-id"}'
+            body='{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}'
         )
 
         desired_caps = {

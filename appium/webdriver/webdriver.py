@@ -241,8 +241,12 @@ class WebDriver(
         """Manage capabilities whether W3C format or MJSONWP format
         """
         if _FORCE_MJSONWP in capabilities:
-            logger.warning("'forceMjsonwp' capability no longer works. Sending both W3C and MJSONWP capabilities")
+            logger.warning("[Deprecated] 'forceMjsonwp' capability will be dropped")
+            force_mjsonwp = capabilities[_FORCE_MJSONWP]
             del capabilities[_FORCE_MJSONWP]
+
+            if force_mjsonwp != False:
+                return {'desiredCapabilities': capabilities}
 
         w3c_caps = _make_w3c_caps(capabilities)
         return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}

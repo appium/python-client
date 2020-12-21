@@ -241,7 +241,8 @@ class WebDriver(
         """Manage capabilities whether W3C format or MJSONWP format
         """
         if _FORCE_MJSONWP in capabilities:
-            logger.warning("[Deprecated] 'forceMjsonwp' capability will be dropped")
+            logger.warning("[Deprecated] 'forceMjsonwp' capability will be dropped after switching base selenium client from v3 to v4 "\
+                          "to follow W3C spec capabilities. Appium 2.0 will also support only W3C session creation capabilities.")
             force_mjsonwp = capabilities[_FORCE_MJSONWP]
             del capabilities[_FORCE_MJSONWP]
 

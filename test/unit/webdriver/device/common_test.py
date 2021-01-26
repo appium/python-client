@@ -19,14 +19,10 @@ from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
 class TestWebDriverCommon(object):
-
     @httpretty.activate
     def test_open_notifications(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/device/open_notifications')
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/device/open_notifications'))
         assert isinstance(driver.open_notifications(), WebDriver)
 
     @httpretty.activate
@@ -35,6 +31,6 @@ class TestWebDriverCommon(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890/appium/device/current_package'),
-            body='{"value": ".ExamplePackage"}'
+            body='{"value": ".ExamplePackage"}',
         )
         assert driver.current_package == '.ExamplePackage'

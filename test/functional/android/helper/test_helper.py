@@ -52,13 +52,10 @@ def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout: int
     Returns:
         The found WebElement
     """
-    return WebDriverWait(driver, timeout).until(
-        EC.presence_of_element_located((locator, value))
-    )
+    return WebDriverWait(driver, timeout).until(EC.presence_of_element_located((locator, value)))
 
 
-class BaseTestCase():
-
+class BaseTestCase:
     def setup_method(self, method) -> None:  # type: ignore
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)

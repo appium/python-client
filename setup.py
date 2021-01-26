@@ -24,13 +24,7 @@ setup(
     description='Python client for Appium',
     long_description=io.open(os.path.join(os.path.dirname('__file__'), 'README.md'), encoding='utf-8').read(),
     long_description_content_type='text/markdown',
-    keywords=[
-        'appium',
-        'selenium',
-        'selenium 3',
-        'python client',
-        'mobile automation'
-    ],
+    keywords=['appium', 'selenium', 'selenium 3', 'python client', 'mobile automation'],
     author='Isaac Murchie',
     author_email='isaac@saucelabs.com',
     maintainer='Kazuaki Matsuo, Mykola Mokhnach, Mori Atsushi',
@@ -51,7 +45,7 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Quality Assurance',
-        'Topic :: Software Development :: Testing'
+        'Topic :: Software Development :: Testing',
     ],
-    install_requires=['selenium >= 3.14.1, < 4']
+    install_requires=['selenium >= 3.14.1, < 4'],
 )

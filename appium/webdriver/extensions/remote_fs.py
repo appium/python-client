@@ -56,8 +56,9 @@ class RemoteFS(webdriver.Remote):
         }
         return self.execute(Command.PULL_FOLDER, data)['value']
 
-    def push_file(self: T, destination_path: str,
-                  base64data: Optional[str] = None, source_path: Optional[str] = None) -> T:
+    def push_file(
+        self: T, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None
+    ) -> T:
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
         Specify either `base64data` or `source_path`, if both specified default to `source_path`
@@ -93,9 +94,6 @@ class RemoteFS(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.PULL_FILE] = \
-            ('POST', '/session/$sessionId/appium/device/pull_file')
-        self.command_executor._commands[Command.PULL_FOLDER] = \
-            ('POST', '/session/$sessionId/appium/device/pull_folder')
-        self.command_executor._commands[Command.PUSH_FILE] = \
-            ('POST', '/session/$sessionId/appium/device/push_file')
+        self.command_executor._commands[Command.PULL_FILE] = ('POST', '/session/$sessionId/appium/device/pull_file')
+        self.command_executor._commands[Command.PULL_FOLDER] = ('POST', '/session/$sessionId/appium/device/pull_folder')
+        self.command_executor._commands[Command.PUSH_FILE] = ('POST', '/session/$sessionId/appium/device/push_file')

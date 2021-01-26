@@ -15,11 +15,7 @@
 
 from appium.webdriver.common.mobileby import MobileBy
 
-from .helper.test_helper import (
-    APIDEMO_PKG_NAME,
-    BaseTestCase,
-    wait_for_element
-)
+from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase, wait_for_element
 
 
 class TestWebelement(BaseTestCase):
@@ -31,7 +27,8 @@ class TestWebelement(BaseTestCase):
 
     def test_set_text(self) -> None:
         self.driver.find_element_by_android_uiautomator(
-            'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));').click()
+            'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));'
+        ).click()
 
         wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Controls').click()
         wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Light Theme').click()
@@ -44,8 +41,7 @@ class TestWebelement(BaseTestCase):
 
     def test_send_keys(self) -> None:
         for text in ['App', 'Activity', 'Custom Title']:
-            wait_for_element(self.driver, MobileBy.XPATH,
-                             f"//android.widget.TextView[@text='{text}']").click()
+            wait_for_element(self.driver, MobileBy.XPATH, f"//android.widget.TextView[@text='{text}']").click()
 
         el = wait_for_element(self.driver, MobileBy.ID, '{}:id/left_text_edit'.format(APIDEMO_PKG_NAME))
         el.send_keys(' text')

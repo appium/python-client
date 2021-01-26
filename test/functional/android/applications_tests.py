@@ -25,7 +25,6 @@ from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 
 
 class TestApplications(BaseTestCase):
-
     def test_background_app(self) -> None:
         self.driver.background_app(1)
         sleep(3)

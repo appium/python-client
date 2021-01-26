@@ -72,16 +72,18 @@ class AppiumService:
         if not hasattr(self, '_node_executable'):
             self._node_executable = find_executable('node')
         if self._node_executable is None:
-            raise AppiumServiceError('NodeJS main executable cannot be found. ' +
-                                     'Make sure it is installed and present in PATH')
+            raise AppiumServiceError(
+                'NodeJS main executable cannot be found. ' + 'Make sure it is installed and present in PATH'
+            )
         return self._node_executable
 
     def _get_npm(self) -> str:
         if not hasattr(self, '_npm_executable'):
             self._npm_executable = find_executable('npm.cmd' if sys.platform == 'win32' else 'npm')
         if self._npm_executable is None:
-            raise AppiumServiceError('Node Package Manager executable cannot be found. ' +
-                                     'Make sure it is installed and present in PATH')
+            raise AppiumServiceError(
+                'Node Package Manager executable cannot be found. ' + 'Make sure it is installed and present in PATH'
+            )
         return self._npm_executable
 
     def _get_main_script(self) -> Union[str, bytes]:
@@ -97,9 +99,8 @@ class AppiumService:
             if not hasattr(self, '_main_script'):
                 try:
                     self._main_script = sp.check_output(
-                        [self._get_node(),
-                         '-e',
-                         'console.log(require.resolve("{}"))'.format(MAIN_SCRIPT_PATH)]).strip()
+                        [self._get_node(), '-e', 'console.log(require.resolve("{}"))'.format(MAIN_SCRIPT_PATH)]
+                    ).strip()
                 except sp.CalledProcessError as e:
                     raise AppiumServiceError(e.output) from e
         return self._main_script
@@ -221,13 +222,13 @@ class AppiumService:
 
 
 if __name__ == '__main__':
-    assert(find_executable('node') is not None)
-    assert(find_executable('npm') is not None)
+    assert find_executable('node') is not None
+    assert find_executable('npm') is not None
     service = AppiumService()
     service.start(args=['--address', '127.0.0.1', '-p', str(DEFAULT_PORT)])
     # service.start(args=['--address', '127.0.0.1', '-p', '80'], timeout_ms=2000)
     assert service.is_running
     assert service.is_listening
     service.stop()
-    assert(not service.is_running)
-    assert(not service.is_listening)
+    assert not service.is_running
+    assert not service.is_listening

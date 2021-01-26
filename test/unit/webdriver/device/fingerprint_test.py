@@ -14,15 +14,10 @@
 
 import httpretty
 
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
+from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
 class TestWebDriverFingerprint(object):
-
     @httpretty.activate
     def test_finger_print(self):
         driver = android_w3c_driver()

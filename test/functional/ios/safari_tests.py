@@ -20,11 +20,7 @@ from .helper.desired_capabilities import get_desired_capabilities
 class TestSafari(object):
     def setup_method(self) -> None:
         desired_caps = get_desired_capabilities()
-        desired_caps.update({
-            'browserName': 'safari',
-            'nativeWebTap': True,
-            'safariIgnoreFraudWarning': True
-        })
+        desired_caps.update({'browserName': 'safari', 'nativeWebTap': True, 'safariIgnoreFraudWarning': True})
 
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 

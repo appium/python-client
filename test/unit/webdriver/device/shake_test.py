@@ -20,7 +20,6 @@ from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
 class TestWebDriverShake(object):
-
     @httpretty.activate
     def test_shake(self):
         driver = android_w3c_driver()

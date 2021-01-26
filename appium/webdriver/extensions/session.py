@@ -30,7 +30,7 @@ T = TypeVar('T', bound=Union['WebDriver', 'Session'])
 class Session(webdriver.Remote):
     @property
     def session(self: T) -> Dict[str, Any]:
-        """ Retrieves session information from the current session
+        """Retrieves session information from the current session
 
         Usage:
             session = driver.session
@@ -42,7 +42,7 @@ class Session(webdriver.Remote):
 
     @property
     def all_sessions(self: T) -> List[Dict[str, Any]]:
-        """ Retrieves all sessions that are open
+        """Retrieves all sessions that are open
 
         Usage:
             sessions = driver.all_sessions
@@ -54,7 +54,7 @@ class Session(webdriver.Remote):
 
     @property
     def events(self: T) -> Dict:
-        """ Retrieves events information from the current session
+        """Retrieves events information from the current session
 
         Usage:
             events = driver.events
@@ -72,7 +72,5 @@ class Session(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_SESSION] = \
-            ('GET', '/session/$sessionId')
-        self.command_executor._commands[Command.GET_ALL_SESSIONS] = \
-            ('GET', '/sessions')
+        self.command_executor._commands[Command.GET_SESSION] = ('GET', '/session/$sessionId')
+        self.command_executor._commands[Command.GET_ALL_SESSIONS] = ('GET', '/sessions')

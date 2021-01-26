@@ -24,7 +24,6 @@ if TYPE_CHECKING:
 
 
 class AppiumConnection(RemoteConnection):
-
     @classmethod
     def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> Dict[str, Any]:
         """Override get_remote_connection_headers in RemoteConnection"""

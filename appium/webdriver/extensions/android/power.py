@@ -67,7 +67,8 @@ class Power(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.SET_POWER_CAPACITY] = \
-            ('POST', '/session/$sessionId/appium/device/power_capacity')
-        self.command_executor._commands[Command.SET_POWER_AC] = \
-            ('POST', '/session/$sessionId/appium/device/power_ac')
+        self.command_executor._commands[Command.SET_POWER_CAPACITY] = (
+            'POST',
+            '/session/$sessionId/appium/device/power_capacity',
+        )
+        self.command_executor._commands[Command.SET_POWER_AC] = ('POST', '/session/$sessionId/appium/device/power_ac')

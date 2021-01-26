@@ -24,7 +24,6 @@ T = TypeVar('T', bound=Union['WebDriver', 'ExecuteMobileCommand'])
 
 
 class ExecuteMobileCommand(webdriver.Remote):
-
     def press_button(self: T, button_name: str) -> T:
         """Sends a physical button name to the device to simulate the user pressing.
 
@@ -39,9 +38,7 @@ class ExecuteMobileCommand(webdriver.Remote):
             Union['WebDriver', 'ExecuteMobileCommand']: Self instance
 
         """
-        data = {
-            'name': button_name
-        }
+        data = {'name': button_name}
         self.execute_script('mobile: pressButton', data)
         return self
 

@@ -26,7 +26,6 @@ T = TypeVar('T', bound=Union['WebDriver', 'HardwareActions'])
 
 
 class HardwareActions(webdriver.Remote):
-
     def lock(self: T, seconds: Optional[int] = None) -> T:
         """Lock the device. No changes are made if the device is already unlocked.
 
@@ -81,9 +80,7 @@ class HardwareActions(webdriver.Remote):
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
-        data = {
-            'match': match
-        }
+        data = {'match': match}
         self.execute(Command.TOUCH_ID, data)
         return self
 
@@ -110,17 +107,16 @@ class HardwareActions(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.LOCK] = \
-            ('POST', '/session/$sessionId/appium/device/lock')
-        self.command_executor._commands[Command.UNLOCK] = \
-            ('POST', '/session/$sessionId/appium/device/unlock')
-        self.command_executor._commands[Command.IS_LOCKED] = \
-            ('POST', '/session/$sessionId/appium/device/is_locked')
-        self.command_executor._commands[Command.SHAKE] = \
-            ('POST', '/session/$sessionId/appium/device/shake')
-        self.command_executor._commands[Command.TOUCH_ID] = \
-            ('POST', '/session/$sessionId/appium/simulator/touch_id')
-        self.command_executor._commands[Command.TOGGLE_TOUCH_ID_ENROLLMENT] = \
-            ('POST', '/session/$sessionId/appium/simulator/toggle_touch_id_enrollment')
-        self.command_executor._commands[Command.FINGER_PRINT] = \
-            ('POST', '/session/$sessionId/appium/device/finger_print')
+        self.command_executor._commands[Command.LOCK] = ('POST', '/session/$sessionId/appium/device/lock')
+        self.command_executor._commands[Command.UNLOCK] = ('POST', '/session/$sessionId/appium/device/unlock')
+        self.command_executor._commands[Command.IS_LOCKED] = ('POST', '/session/$sessionId/appium/device/is_locked')
+        self.command_executor._commands[Command.SHAKE] = ('POST', '/session/$sessionId/appium/device/shake')
+        self.command_executor._commands[Command.TOUCH_ID] = ('POST', '/session/$sessionId/appium/simulator/touch_id')
+        self.command_executor._commands[Command.TOGGLE_TOUCH_ID_ENROLLMENT] = (
+            'POST',
+            '/session/$sessionId/appium/simulator/toggle_touch_id_enrollment',
+        )
+        self.command_executor._commands[Command.FINGER_PRINT] = (
+            'POST',
+            '/session/$sessionId/appium/device/finger_print',
+        )

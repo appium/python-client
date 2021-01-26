@@ -24,15 +24,14 @@ from test.functional.android.helper.test_helper import wait_for_element
 
 
 class TestFindByImage(object):
-
     def setup_method(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
         # relax template matching
-        self.driver.update_settings({"fixImageFindScreenshotDims": False,
-                                     "fixImageTemplateSize": True,
-                                     "autoUpdateImageElementPosition": True})
+        self.driver.update_settings(
+            {"fixImageFindScreenshotDims": False, "fixImageTemplateSize": True, "autoUpdateImageElementPosition": True}
+        )
 
     def teardown_method(self) -> None:
         self.driver.quit()

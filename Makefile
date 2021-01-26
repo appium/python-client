@@ -9,9 +9,9 @@ check-all: ## Run all lint checks and unittest
 isort: ## Run isort
 	python -m isort $(ARGS) -rc .
 
-.PHONY: autopep8
-autopep8: ## Run autopep8
-	python -m autopep8 $(ARGS) -a -r -i .
+.PHONY: black
+black: ## Run black
+	python -m black $(ARGS) . -l 120 -S
 
 .PHONY: pylint
 pylint: ## Run pylint

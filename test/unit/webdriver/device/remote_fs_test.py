@@ -19,15 +19,10 @@ import pytest
 from selenium.common.exceptions import InvalidArgumentException
 
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
+from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
 class TestWebDriverRemoteFs(object):
-
     @httpretty.activate
     def test_push_file(self):
         driver = android_w3c_driver()
@@ -75,7 +70,7 @@ class TestWebDriverRemoteFs(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/pull_file'),
-            body='{"value": "SGVsbG9Xb3JsZA=="}'
+            body='{"value": "SGVsbG9Xb3JsZA=="}',
         )
         dest_path = '/path/to/file.txt'
 
@@ -90,7 +85,7 @@ class TestWebDriverRemoteFs(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/pull_folder'),
-            body='{"value": "base64EncodedZippedFolderData"}'
+            body='{"value": "base64EncodedZippedFolderData"}',
         )
         dest_path = '/path/to/file.txt'
 

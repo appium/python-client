@@ -17,22 +17,17 @@ import json
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import (
-    appium_command,
-    get_httpretty_request_body,
-    ios_w3c_driver
-)
+from test.unit.helper.test_helper import appium_command, get_httpretty_request_body, ios_w3c_driver
 
 
 class TestWebDriverLogEvents(object):
-
     @httpretty.activate
     def test_get_events(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/events'),
-            body=json.dumps({'value': {'appium:funEvent': [12347]}})
+            body=json.dumps({'value': {'appium:funEvent': [12347]}}),
         )
         events = driver.get_events()
         assert events['appium:funEvent'] == [12347]
@@ -46,7 +41,7 @@ class TestWebDriverLogEvents(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/events'),
-            body=json.dumps({'value': {'appium:funEvent': [12347]}})
+            body=json.dumps({'value': {'appium:funEvent': [12347]}}),
         )
         events_to_filter = ['appium:funEvent']
         events = driver.get_events(events_to_filter)
@@ -58,11 +53,7 @@ class TestWebDriverLogEvents(object):
     @httpretty.activate
     def test_log_event(self):
         driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/log_event'),
-            body=""
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/log_event'), body="")
         vendor_name = 'appium'
         event_name = 'funEvent'
         assert isinstance(driver.log_event(vendor_name, event_name), WebDriver)

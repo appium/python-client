@@ -37,10 +37,9 @@ class Location(webdriver.Remote):
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
         return self
 
-    def set_location(self: T,
-                     latitude: Union[float, str],
-                     longitude: Union[float, str],
-                     altitude: Union[float, str] = None) -> T:
+    def set_location(
+        self: T, latitude: Union[float, str], longitude: Union[float, str], altitude: Union[float, str] = None
+    ) -> T:
         """Set the location of the device
 
         Args:
@@ -77,9 +76,9 @@ class Location(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = \
-            ('POST', '/session/$sessionId/appium/device/toggle_location_services')
-        self.command_executor._commands[Command.GET_LOCATION] = \
-            ('GET', '/session/$sessionId/location')
-        self.command_executor._commands[Command.SET_LOCATION] = \
-            ('POST', '/session/$sessionId/location')
+        self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = (
+            'POST',
+            '/session/$sessionId/appium/device/toggle_location_services',
+        )
+        self.command_executor._commands[Command.GET_LOCATION] = ('GET', '/session/$sessionId/location')
+        self.command_executor._commands[Command.SET_LOCATION] = ('POST', '/session/$sessionId/location')

@@ -26,7 +26,6 @@ T = TypeVar('T', bound=Union['WebDriver', 'SystemBars'])
 
 
 class SystemBars(webdriver.Remote):
-
     def get_system_bars(self: T) -> Dict[str, Dict[str, Union[int, bool]]]:
         """Retrieve visibility and bounds information of the status and navigation bars.
 
@@ -52,5 +51,7 @@ class SystemBars(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_SYSTEM_BARS] = \
-            ('GET', '/session/$sessionId/appium/device/system_bars')
+        self.command_executor._commands[Command.GET_SYSTEM_BARS] = (
+            'GET',
+            '/session/$sessionId/appium/device/system_bars',
+        )

@@ -29,13 +29,13 @@ class TestMultiAction(object):
                 [
                     {'action': 'press', 'options': {'element': 1}},
                     {'action': 'moveTo', 'options': {'x': 10, 'y': 20}},
-                    {'action': 'release', 'options': {}}
+                    {'action': 'release', 'options': {}},
                 ],
                 [
                     {'action': 'press', 'options': {'x': 11, 'y': 30, 'element': 5}},
                     {'action': 'moveTo', 'options': {'x': 12, 'y': -300}},
-                    {'action': 'release', 'options': {}}
-                ]
+                    {'action': 'release', 'options': {}},
+                ],
             ]
         }
         t1 = TouchAction(DriverStub()).press(ElementStub(1)).move_to(x=10, y=20).release()

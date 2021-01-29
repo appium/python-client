@@ -52,7 +52,6 @@ class ExecuteDriver(webdriver.Remote):
         """
 
         class Result:
-
             def __init__(self, res: Dict):
                 self.result = res['result']
                 self.logs = res['logs']
@@ -67,5 +66,4 @@ class ExecuteDriver(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.EXECUTE_DRIVER] = \
-            ('POST', '/session/$sessionId/appium/execute_driver')
+        self.command_executor._commands[Command.EXECUTE_DRIVER] = ('POST', '/session/$sessionId/appium/execute_driver')

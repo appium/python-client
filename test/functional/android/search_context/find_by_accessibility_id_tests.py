@@ -15,18 +15,15 @@
 import pytest
 
 from appium.webdriver.common.mobileby import MobileBy
-from test.functional.android.helper.test_helper import (
-    BaseTestCase,
-    is_ci,
-    wait_for_element
-)
+from test.functional.android.helper.test_helper import BaseTestCase, is_ci, wait_for_element
 
 
 class TestFindByAccessibilityID(BaseTestCase):
     def test_find_single_element(self) -> None:
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
-        wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
-                         'new UiSelector().text("Accessibility Node Querying")').click()
+        wait_for_element(
+            self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility Node Querying")'
+        ).click()
         el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Task Take out Trash')
         assert el is not None
 
@@ -37,8 +34,9 @@ class TestFindByAccessibilityID(BaseTestCase):
     @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI')
     def test_element_find_single_element(self) -> None:
         wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
-        wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
-                         'new UiSelector().text("Accessibility Node Querying")').click()
+        wait_for_element(
+            self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility Node Querying")'
+        ).click()
         el = wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView')
 
         sub_el = el.find_element_by_accessibility_id('Task Take out Trash')

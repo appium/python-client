@@ -40,7 +40,6 @@ class NetSpeed:
 
 
 class Network(webdriver.Remote):
-
     @property
     def network_connection(self: T) -> int:
         """Returns an integer bitmask specifying the network connection type.
@@ -77,11 +76,7 @@ class Network(webdriver.Remote):
         Return:
             int: Set network connection type
         """
-        data = {
-            'parameters': {
-                'type': connection_type
-            }
-        }
+        data = {'parameters': {'type': connection_type}}
         return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
 
     def toggle_wifi(self: T) -> T:
@@ -112,7 +107,8 @@ class Network(webdriver.Remote):
         if speed_type not in constants.values():
             logger.warning(
                 f'{speed_type} is unknown. Consider using one of {list(constants.keys())} constants. '
-                f'(e.g. {NetSpeed.__name__}.LTE)')
+                f'(e.g. {NetSpeed.__name__}.LTE)'
+            )
 
         self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
         return self
@@ -120,11 +116,16 @@ class Network(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.TOGGLE_WIFI] = \
-            ('POST', '/session/$sessionId/appium/device/toggle_wifi')
-        self.command_executor._commands[Command.GET_NETWORK_CONNECTION] = \
-            ('GET', '/session/$sessionId/network_connection')
-        self.command_executor._commands[Command.SET_NETWORK_CONNECTION] = \
-            ('POST', '/session/$sessionId/network_connection')
-        self.command_executor._commands[Command.SET_NETWORK_SPEED] = \
-            ('POST', '/session/$sessionId/appium/device/network_speed')
+        self.command_executor._commands[Command.TOGGLE_WIFI] = ('POST', '/session/$sessionId/appium/device/toggle_wifi')
+        self.command_executor._commands[Command.GET_NETWORK_CONNECTION] = (
+            'GET',
+            '/session/$sessionId/network_connection',
+        )
+        self.command_executor._commands[Command.SET_NETWORK_CONNECTION] = (
+            'POST',
+            '/session/$sessionId/network_connection',
+        )
+        self.command_executor._commands[Command.SET_NETWORK_SPEED] = (
+            'POST',
+            '/session/$sessionId/appium/device/network_speed',
+        )

@@ -29,9 +29,9 @@ T = TypeVar('T', bound=Union['WebDriver', 'Clipboard'])
 
 
 class Clipboard(webdriver.Remote):
-
-    def set_clipboard(self: T, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT,
-                      label: Optional[str] = None) -> T:
+    def set_clipboard(
+        self: T, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
+    ) -> T:
         """Set the content of the system clipboard
 
         Args:
@@ -76,9 +76,7 @@ class Clipboard(webdriver.Remote):
         Returns:
             base64-encoded string: Clipboard content. Or return an empty string if the clipboard is empty
         """
-        base64_str = self.execute(Command.GET_CLIPBOARD, {
-            'contentType': content_type
-        })['value']
+        base64_str = self.execute(Command.GET_CLIPBOARD, {'contentType': content_type})['value']
         return base64.b64decode(base64_str)
 
     def get_clipboard_text(self: T) -> str:
@@ -92,7 +90,11 @@ class Clipboard(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.SET_CLIPBOARD] = \
-            ('POST', '/session/$sessionId/appium/device/set_clipboard')
-        self.command_executor._commands[Command.GET_CLIPBOARD] = \
-            ('POST', '/session/$sessionId/appium/device/get_clipboard')
+        self.command_executor._commands[Command.SET_CLIPBOARD] = (
+            'POST',
+            '/session/$sessionId/appium/device/set_clipboard',
+        )
+        self.command_executor._commands[Command.GET_CLIPBOARD] = (
+            'POST',
+            '/session/$sessionId/appium/device/get_clipboard',
+        )

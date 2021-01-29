@@ -19,9 +19,7 @@ from typing import Any, Dict, Optional
 
 
 def PATH(p: str) -> str:
-    return os.path.abspath(
-        os.path.join(os.path.dirname(__file__), '..', p)
-    )
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', p))
 
 
 def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
@@ -31,7 +29,7 @@ def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
         'newCommandTimeout': 240,
         'automationName': 'UIAutomator2',
         'uiautomator2ServerInstallTimeout': 120000,
-        'adbExecTimeout': 120000
+        'adbExecTimeout': 120000,
     }
 
     if app is not None:

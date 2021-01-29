@@ -108,8 +108,7 @@ class WebElement(AppiumWebElementSearchContext):
         #         by = By.CSS_SELECTOR
         #         value = '[name="%s"]' % value
 
-        return self._execute(RemoteCommand.FIND_CHILD_ELEMENT,
-                             {"using": by, "value": value})['value']
+        return self._execute(RemoteCommand.FIND_CHILD_ELEMENT, {"using": by, "value": value})['value']
 
     def find_elements(self, by: str = By.ID, value: Union[str, Dict] = None) -> List[T]:
         """Find elements given a By strategy and locator
@@ -142,8 +141,7 @@ class WebElement(AppiumWebElementSearchContext):
         #         by = By.CSS_SELECTOR
         #         value = '[name="%s"]' % value
 
-        return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS,
-                             {"using": by, "value": value})['value']
+        return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS, {"using": by, "value": value})['value']
 
     def clear(self) -> T:
         """Clears text.
@@ -172,10 +170,7 @@ class WebElement(AppiumWebElementSearchContext):
         Returns:
             `appium.webdriver.webelement.WebElement`
         """
-        data = {
-            'id': self._id,
-            'value': [keys]
-        }
+        data = {'id': self._id, 'value': [keys]}
         self._execute(Command.REPLACE_KEYS, data)
         return self
 
@@ -220,6 +215,5 @@ class WebElement(AppiumWebElementSearchContext):
             `appium.webdriver.webelement.WebElement`
         """
         keys = keys_to_typing(value)
-        self._execute(RemoteCommand.SEND_KEYS_TO_ELEMENT,
-                      {'text': ''.join(keys), 'value': keys})
+        self._execute(RemoteCommand.SEND_KEYS_TO_ELEMENT, {'text': ''.join(keys), 'value': keys})
         return self

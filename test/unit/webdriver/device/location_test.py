@@ -15,33 +15,24 @@
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
+from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 FLT_EPSILON = 1e-9
 
 
 class TestWebDriverLocation(object):
-
     @httpretty.activate
     def test_toggle_location_services(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/device/toggle_location_services')
+            httpretty.POST, appium_command('/session/1234567890/appium/device/toggle_location_services')
         )
         assert isinstance(driver.toggle_location_services(), WebDriver)
 
     @httpretty.activate
     def test_set_location_float(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/location')
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/location'))
         assert isinstance(driver.set_location(11.1, 22.2, 33.3), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
@@ -52,10 +43,7 @@ class TestWebDriverLocation(object):
     @httpretty.activate
     def test_set_location_str(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/location')
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/location'))
         assert isinstance(driver.set_location('11.1', '22.2', '33.3'), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
@@ -66,10 +54,7 @@ class TestWebDriverLocation(object):
     @httpretty.activate
     def test_set_location_without_altitude(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/location')
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/location'))
         assert isinstance(driver.set_location(11.1, 22.2), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
@@ -83,7 +68,7 @@ class TestWebDriverLocation(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890/location'),
-            body='{"value": {"latitude": 11.1, "longitude": 22.2, "altitude": 33.3}}'
+            body='{"value": {"latitude": 11.1, "longitude": 22.2, "altitude": 33.3}}',
         )
         val = driver.location
         assert abs(val['latitude'] - 11.1) <= FLT_EPSILON

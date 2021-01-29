@@ -17,9 +17,8 @@ from typing import Any, Dict, Optional
 # Returns abs path relative to this file and not cwd
 
 
-def PATH(p: str) -> str: return os.path.abspath(
-    os.path.join(os.path.dirname(__file__), p)
-)
+def PATH(p: str) -> str:
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), p))
 
 
 BUNDLE_ID = 'com.example.apple-samplecode.UICatalog'
@@ -33,7 +32,7 @@ def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
         'automationName': 'XCUITest',
         'allowTouchIdEnroll': True,
         'wdaLocalPort': wda_port(),
-        'simpleIsVisibleCheck': True
+        'simpleIsVisibleCheck': True,
     }
 
     if app is not None:
@@ -55,6 +54,7 @@ class PytestXdistWorker:
             return 'gw0'
 
         return f'gw{number}'
+
 
 # If you run tests with pytest-xdist, you can run tests in parallel.
 

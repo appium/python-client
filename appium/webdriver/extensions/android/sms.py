@@ -26,7 +26,6 @@ T = TypeVar('T', bound=Union['WebDriver', 'Sms'])
 
 
 class Sms(webdriver.Remote):
-
     def send_sms(self: T, phone_number: str, message: str) -> T:
         """Emulate send SMS event on the connected emulator.
 
@@ -48,5 +47,4 @@ class Sms(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.SEND_SMS] = \
-            ('POST', '/session/$sessionId/appium/device/send_sms')
+        self.command_executor._commands[Command.SEND_SMS] = ('POST', '/session/$sessionId/appium/device/send_sms')

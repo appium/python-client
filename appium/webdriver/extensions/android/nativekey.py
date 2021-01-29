@@ -1010,14 +1010,39 @@ class AndroidKey:
     # Key code constant: Copy key.
     COPY = 278
 
-    gamepad_buttons = [BUTTON_A, BUTTON_B, BUTTON_C, BUTTON_X,
-                       BUTTON_Y, BUTTON_Z, BUTTON_L1, BUTTON_R1,
-                       BUTTON_L2, BUTTON_R2, BUTTON_THUMBL, BUTTON_THUMBR,
-                       BUTTON_START, BUTTON_SELECT, BUTTON_MODE, BUTTON_1,
-                       BUTTON_2, BUTTON_3, BUTTON_4, BUTTON_5, BUTTON_6,
-                       BUTTON_7, BUTTON_8, BUTTON_9, BUTTON_10,
-                       BUTTON_11, BUTTON_12, BUTTON_13, BUTTON_14,
-                       BUTTON_15, BUTTON_16]
+    gamepad_buttons = [
+        BUTTON_A,
+        BUTTON_B,
+        BUTTON_C,
+        BUTTON_X,
+        BUTTON_Y,
+        BUTTON_Z,
+        BUTTON_L1,
+        BUTTON_R1,
+        BUTTON_L2,
+        BUTTON_R2,
+        BUTTON_THUMBL,
+        BUTTON_THUMBR,
+        BUTTON_START,
+        BUTTON_SELECT,
+        BUTTON_MODE,
+        BUTTON_1,
+        BUTTON_2,
+        BUTTON_3,
+        BUTTON_4,
+        BUTTON_5,
+        BUTTON_6,
+        BUTTON_7,
+        BUTTON_8,
+        BUTTON_9,
+        BUTTON_10,
+        BUTTON_11,
+        BUTTON_12,
+        BUTTON_13,
+        BUTTON_14,
+        BUTTON_15,
+        BUTTON_16,
+    ]
 
     @staticmethod
     def is_gamepad_button(code: int) -> bool:
@@ -1031,9 +1056,19 @@ class AndroidKey:
         """Returns true if the key will, by default, trigger a click on the focused view."""
         return code in AndroidKey.confirm_buttons
 
-    media_buttons = [MEDIA_PLAY, MEDIA_PAUSE, MEDIA_PLAY_PAUSE,
-                     MUTE, HEADSETHOOK, MEDIA_STOP, MEDIA_NEXT, MEDIA_PREVIOUS,
-                     MEDIA_REWIND, MEDIA_RECORD, MEDIA_FAST_FORWARD]
+    media_buttons = [
+        MEDIA_PLAY,
+        MEDIA_PAUSE,
+        MEDIA_PLAY_PAUSE,
+        MUTE,
+        HEADSETHOOK,
+        MEDIA_STOP,
+        MEDIA_NEXT,
+        MEDIA_PREVIOUS,
+        MEDIA_REWIND,
+        MEDIA_RECORD,
+        MEDIA_FAST_FORWARD,
+    ]
 
     @staticmethod
     def is_media_key(code: int) -> bool:
@@ -1041,13 +1076,35 @@ class AndroidKey:
         interested in media key events."""
         return code in AndroidKey.media_buttons
 
-    system_buttons = [MENU, SOFT_RIGHT, HOME, BACK, CALL,
-                      ENDCALL, VOLUME_UP, VOLUME_DOWN, VOLUME_MUTE, MUTE,
-                      POWER, HEADSETHOOK, MEDIA_PLAY, MEDIA_PAUSE,
-                      MEDIA_PLAY_PAUSE, MEDIA_STOP, MEDIA_NEXT,
-                      MEDIA_PREVIOUS, MEDIA_REWIND, MEDIA_RECORD,
-                      MEDIA_FAST_FORWARD, CAMERA, FOCUS, SEARCH,
-                      BRIGHTNESS_DOWN, BRIGHTNESS_UP, MEDIA_AUDIO_TRACK]
+    system_buttons = [
+        MENU,
+        SOFT_RIGHT,
+        HOME,
+        BACK,
+        CALL,
+        ENDCALL,
+        VOLUME_UP,
+        VOLUME_DOWN,
+        VOLUME_MUTE,
+        MUTE,
+        POWER,
+        HEADSETHOOK,
+        MEDIA_PLAY,
+        MEDIA_PAUSE,
+        MEDIA_PLAY_PAUSE,
+        MEDIA_STOP,
+        MEDIA_NEXT,
+        MEDIA_PREVIOUS,
+        MEDIA_REWIND,
+        MEDIA_RECORD,
+        MEDIA_FAST_FORWARD,
+        CAMERA,
+        FOCUS,
+        SEARCH,
+        BRIGHTNESS_DOWN,
+        BRIGHTNESS_UP,
+        MEDIA_AUDIO_TRACK,
+    ]
 
     @staticmethod
     def is_system_key(code: int) -> bool:

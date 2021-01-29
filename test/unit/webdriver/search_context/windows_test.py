@@ -15,15 +15,10 @@
 import httpretty
 
 from appium.webdriver.webelement import WebElement as MobileWebElement
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
+from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
 class TestWebDriverWindowsSearchContext(object):
-
     @httpretty.activate
     def test_find_element_by_windows_uiautomation(self):
         driver = android_w3c_driver()
@@ -31,7 +26,7 @@ class TestWebDriverWindowsSearchContext(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/element/element_id/element'),
-            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "win-element-id"}}'
+            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "win-element-id"}}',
         )
         el = element.find_element_by_windows_uiautomation('win_element')
 

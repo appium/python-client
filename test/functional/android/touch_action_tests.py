@@ -18,12 +18,7 @@ from selenium.common.exceptions import NoSuchElementException
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 
-from .helper.test_helper import (
-    APIDEMO_PKG_NAME,
-    BaseTestCase,
-    is_ci,
-    wait_for_element
-)
+from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase, is_ci, wait_for_element
 
 
 class TestTouchAction(BaseTestCase):
@@ -77,13 +72,11 @@ class TestTouchAction(BaseTestCase):
         self._move_to_custom_adapter()
         action = TouchAction(self.driver)
 
-        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
-                              'new UiSelector().text("People Names")')
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("People Names")')
         action.press(el).wait(2000).perform()
 
         # 'Sample menu' only comes up with a long press, not a press
-        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
-                              'new UiSelector().text("Sample menu")')
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Sample menu")')
         assert el is not None
 
     def test_press_and_moveto(self) -> None:
@@ -110,13 +103,11 @@ class TestTouchAction(BaseTestCase):
         self._move_to_custom_adapter()
         action = TouchAction(self.driver)
 
-        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
-                              'new UiSelector().text("People Names")')
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("People Names")')
         action.long_press(el).perform()
 
         # 'Sample menu' only comes up with a long press, not a tap
-        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
-                              'new UiSelector().text("Sample menu")')
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Sample menu")')
         assert el is not None
 
     @pytest.mark.skipif(condition=is_ci(), reason='Skip since this check is low robust due to hard-coded position.')
@@ -129,8 +120,7 @@ class TestTouchAction(BaseTestCase):
         action.long_press(x=430, y=310).perform()
 
         # 'Sample menu' only comes up with a long press, not a tap
-        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR,
-                              'new UiSelector().text("Sample menu")')
+        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Sample menu")')
         assert el is not None
 
     def test_drag_and_drop(self) -> None:

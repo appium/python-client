@@ -15,10 +15,7 @@
 
 from appium.webdriver.appium_service import AppiumService
 from appium.webdriver.common.mobileby import MobileBy
-from test.functional.android.helper.test_helper import (
-    BaseTestCase,
-    wait_for_element
-)
+from test.functional.android.helper.test_helper import BaseTestCase, wait_for_element
 
 DEFAULT_PORT = 4723
 

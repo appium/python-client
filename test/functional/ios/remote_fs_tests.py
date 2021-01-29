@@ -18,7 +18,6 @@ from test.functional.ios.helper.test_helper import BaseTestCase
 
 
 class TestRemoteFs(BaseTestCase):
-
     def test_push_file(self) -> None:
         file_name = 'test_image.jpg'
         source_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'file', file_name)

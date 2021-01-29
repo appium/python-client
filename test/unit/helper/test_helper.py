@@ -65,29 +65,22 @@ def android_w3c_driver() -> 'WebDriver':
                     'appPackage': 'io.appium.android.apis',
                     'appWaitPackage': 'io.appium.android.apis',
                     'appActivity': 'io.appium.android.apis.ApiDemos',
-                    'appWaitActivity': 'io.appium.android.apis.ApiDemos'
-                }
+                    'appWaitActivity': 'io.appium.android.apis.ApiDemos',
+                },
             }
         }
     )
 
-    httpretty.register_uri(
-        httpretty.POST,
-        appium_command('/session'),
-        body=response_body_json
-    )
+    httpretty.register_uri(httpretty.POST, appium_command('/session'), body=response_body_json)
 
     desired_caps = {
         'platformName': 'Android',
         'deviceName': 'Android Emulator',
         'app': 'path/to/app',
-        'automationName': 'UIAutomator2'
+        'automationName': 'UIAutomator2',
     }
 
-    driver = webdriver.Remote(
-        SERVER_URL_BASE,
-        desired_caps
-    )
+    driver = webdriver.Remote(SERVER_URL_BASE, desired_caps)
     return driver
 
 
@@ -106,29 +99,22 @@ def ios_w3c_driver() -> 'WebDriver':
                     'device': 'iphone',
                     'browserName': 'UICatalog',
                     'sdkVersion': '11.4',
-                    'CFBundleIdentifier': 'com.example.apple-samplecode.UICatalog'
-                }
+                    'CFBundleIdentifier': 'com.example.apple-samplecode.UICatalog',
+                },
             }
         }
     )
 
-    httpretty.register_uri(
-        httpretty.POST,
-        appium_command('/session'),
-        body=response_body_json
-    )
+    httpretty.register_uri(httpretty.POST, appium_command('/session'), body=response_body_json)
 
     desired_caps = {
         'platformName': 'iOS',
         'deviceName': 'iPhone Simulator',
         'app': 'path/to/app',
-        'automationName': 'XCUITest'
+        'automationName': 'XCUITest',
     }
 
-    driver = webdriver.Remote(
-        SERVER_URL_BASE,
-        desired_caps
-    )
+    driver = webdriver.Remote(SERVER_URL_BASE, desired_caps)
     return driver
 
 

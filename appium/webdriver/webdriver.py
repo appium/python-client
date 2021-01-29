@@ -59,24 +59,22 @@ from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
 # From remote/webdriver.py
-_W3C_CAPABILITY_NAMES = frozenset([
-    'acceptInsecureCerts',
-    'browserName',
-    'browserVersion',
-    'platformName',
-    'pageLoadStrategy',
-    'proxy',
-    'setWindowRect',
-    'timeouts',
-    'unhandledPromptBehavior',
-])
+_W3C_CAPABILITY_NAMES = frozenset(
+    [
+        'acceptInsecureCerts',
+        'browserName',
+        'browserVersion',
+        'platformName',
+        'pageLoadStrategy',
+        'proxy',
+        'setWindowRect',
+        'timeouts',
+        'unhandledPromptBehavior',
+    ]
+)
 
 # From remote/webdriver.py
-_OSS_W3C_CONVERSION = {
-    'acceptSslCerts': 'acceptInsecureCerts',
-    'version': 'browserVersion',
-    'platform': 'platformName'
-}
+_OSS_W3C_CONVERSION = {'acceptSslCerts': 'acceptInsecureCerts', 'version': 'browserVersion', 'platform': 'platformName'}
 
 _EXTENSION_CAPABILITY = ':'
 _FORCE_MJSONWP = 'forceMjsonwp'
@@ -142,17 +140,20 @@ class WebDriver(
     Session,
     Settings,
     Sms,
-    SystemBars
+    SystemBars,
 ):
-
-    def __init__(self, command_executor: str = 'http://127.0.0.1:4444/wd/hub',
-                 desired_capabilities: Optional[Dict] = None, browser_profile: str = None, proxy: str = None, keep_alive: bool = True, direct_connection: bool = False):
+    def __init__(
+        self,
+        command_executor: str = 'http://127.0.0.1:4444/wd/hub',
+        desired_capabilities: Optional[Dict] = None,
+        browser_profile: str = None,
+        proxy: str = None,
+        keep_alive: bool = True,
+        direct_connection: bool = False,
+    ):
 
         super().__init__(
-            AppiumConnection(command_executor, keep_alive=keep_alive),
-            desired_capabilities,
-            browser_profile,
-            proxy
+            AppiumConnection(command_executor, keep_alive=keep_alive), desired_capabilities, browser_profile, proxy
         )
 
         if hasattr(self, 'command_executor'):
@@ -182,7 +183,7 @@ class WebDriver(
         direct_port = 'directConnectPort'
         direct_path = 'directConnectPath'
 
-        if (not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.capabilities))):
+        if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.capabilities)):
             message = 'Direct connect capabilities from server were:\n'
             for key in [direct_protocol, direct_host, direct_port, direct_path]:
                 message += '{}: \'{}\'\n'.format(key, self.capabilities.get(key, ''))
@@ -238,11 +239,12 @@ class WebDriver(
         self.command_executor.w3c = self.w3c
 
     def _merge_capabilities(self, capabilities: Dict) -> Dict[str, Any]:
-        """Manage capabilities whether W3C format or MJSONWP format
-        """
+        """Manage capabilities whether W3C format or MJSONWP format"""
         if _FORCE_MJSONWP in capabilities:
-            logger.warning("[Deprecated] 'forceMjsonwp' capability will be dropped after switching base selenium client from v3 to v4 "
-                           "to follow W3C spec capabilities. Appium 2.0 will also support only W3C session creation capabilities.")
+            logger.warning(
+                "[Deprecated] 'forceMjsonwp' capability will be dropped after switching base selenium client from v3 to v4 "
+                "to follow W3C spec capabilities. Appium 2.0 will also support only W3C session creation capabilities."
+            )
             force_mjsonwp = capabilities[_FORCE_MJSONWP]
             del capabilities[_FORCE_MJSONWP]
 
@@ -278,12 +280,9 @@ class WebDriver(
         #         by = By.CSS_SELECTOR
         #         value = '[name="%s"]' % value
 
-        return self.execute(RemoteCommand.FIND_ELEMENT, {
-            'using': by,
-            'value': value})['value']
+        return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
 
-    def find_elements(self, by: str = By.ID, value: Union[str, Dict]
-                      = None) -> Union[List[MobileWebElement], List]:
+    def find_elements(self, by: str = By.ID, value: Union[str, Dict] = None) -> Union[List[MobileWebElement], List]:
         """'Private' method used by the find_elements_by_* methods.
 
         Override for Appium
@@ -311,9 +310,7 @@ class WebDriver(
         # Return empty list if driver returns null
         # See https://github.com/SeleniumHQ/selenium/issues/4555
 
-        return self.execute(RemoteCommand.FIND_ELEMENTS, {
-            'using': by,
-            'value': value})['value'] or []
+        return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
 
     def create_web_element(self, element_id: Union[int, str], w3c: bool = False) -> MobileWebElement:
         """Creates a web element with the specified element_id.
@@ -357,17 +354,20 @@ class WebDriver(
             if hasattr(mixin_class, self._addCommands.__name__):
                 getattr(mixin_class, self._addCommands.__name__, None)(self)
 
-        self.command_executor._commands[Command.TOUCH_ACTION] = \
-            ('POST', '/session/$sessionId/touch/perform')
-        self.command_executor._commands[Command.MULTI_ACTION] = \
-            ('POST', '/session/$sessionId/touch/multi/perform')
-        self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
-            ('POST', '/session/$sessionId/appium/element/$id/value')
+        self.command_executor._commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
+        self.command_executor._commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
+        self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = (
+            'POST',
+            '/session/$sessionId/appium/element/$id/value',
+        )
 
         # TODO Move commands for element to webelement
-        self.command_executor._commands[Command.REPLACE_KEYS] = \
-            ('POST', '/session/$sessionId/appium/element/$id/replace_value')
-        self.command_executor._commands[Command.CLEAR] = \
-            ('POST', '/session/$sessionId/element/$id/clear')
-        self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
-            ('GET', '/session/$sessionId/element/$id/location_in_view')
+        self.command_executor._commands[Command.REPLACE_KEYS] = (
+            'POST',
+            '/session/$sessionId/appium/element/$id/replace_value',
+        )
+        self.command_executor._commands[Command.CLEAR] = ('POST', '/session/$sessionId/element/$id/clear')
+        self.command_executor._commands[Command.LOCATION_IN_VIEW] = (
+            'GET',
+            '/session/$sessionId/element/$id/location_in_view',
+        )

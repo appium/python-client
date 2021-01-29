@@ -26,7 +26,6 @@ T = TypeVar('T', bound=Union['WebDriver', 'ScreenRecord'])
 
 
 class ScreenRecord(webdriver.Remote):
-
     def start_recording_screen(self: T, **options: Any) -> Union[bytes, str]:
         """Start asynchronous screen recording process.
 
@@ -126,7 +125,11 @@ class ScreenRecord(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.START_RECORDING_SCREEN] = \
-            ('POST', '/session/$sessionId/appium/start_recording_screen')
-        self.command_executor._commands[Command.STOP_RECORDING_SCREEN] = \
-            ('POST', '/session/$sessionId/appium/stop_recording_screen')
+        self.command_executor._commands[Command.START_RECORDING_SCREEN] = (
+            'POST',
+            '/session/$sessionId/appium/start_recording_screen',
+        )
+        self.command_executor._commands[Command.STOP_RECORDING_SCREEN] = (
+            'POST',
+            '/session/$sessionId/appium/stop_recording_screen',
+        )

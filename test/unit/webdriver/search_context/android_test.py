@@ -17,25 +17,21 @@ import json
 import httpretty
 
 from appium.webdriver.webelement import WebElement as MobileWebElement
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
+from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
 class TestWebDriverAndroidSearchContext(object):
-
     @httpretty.activate
     def test_find_element_by_android_data_matcher(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/element'),
-            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "element-id"}}'
+            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "element-id"}}',
         )
         el = driver.find_element_by_android_data_matcher(
-            name='title', args=['title', 'Animation'], className='class name')
+            name='title', args=['title', 'Animation'], className='class name'
+        )
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['using'] == '-android datamatcher'
@@ -51,7 +47,7 @@ class TestWebDriverAndroidSearchContext(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/elements'),
-            body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "element-id1"}, {"element-6066-11e4-a52e-4f735466cecf": "element-id2"}]}'
+            body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "element-id1"}, {"element-6066-11e4-a52e-4f735466cecf": "element-id2"}]}',
         )
         els = driver.find_elements_by_android_data_matcher(name='title', args=['title', 'Animation'])
 
@@ -66,11 +62,7 @@ class TestWebDriverAndroidSearchContext(object):
     @httpretty.activate
     def test_find_elements_by_android_data_matcher_no_value(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/elements'),
-            body='{"value": []}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/elements'), body='{"value": []}')
         els = driver.find_elements_by_android_data_matcher()
 
         d = get_httpretty_request_body(httpretty.last_request())
@@ -85,10 +77,11 @@ class TestWebDriverAndroidSearchContext(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/element/element_id/element'),
-            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "child-element-id"}}'
+            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "child-element-id"}}',
         )
         el = element.find_element_by_android_data_matcher(
-            name='title', args=['title', 'Animation'], className='class name')
+            name='title', args=['title', 'Animation'], className='class name'
+        )
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['using'] == '-android datamatcher'
@@ -105,7 +98,7 @@ class TestWebDriverAndroidSearchContext(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/element/element_id/elements'),
-            body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "child-element-id1"}, {"element-6066-11e4-a52e-4f735466cecf": "child-element-id2"}]}'
+            body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "child-element-id1"}, {"element-6066-11e4-a52e-4f735466cecf": "child-element-id2"}]}',
         )
         els = element.find_elements_by_android_data_matcher(name='title', args=['title', 'Animation'])
 
@@ -122,9 +115,7 @@ class TestWebDriverAndroidSearchContext(object):
         driver = android_w3c_driver()
         element = MobileWebElement(driver, 'element_id', w3c=True)
         httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/element/element_id/elements'),
-            body='{"value": []}'
+            httpretty.POST, appium_command('/session/1234567890/element/element_id/elements'), body='{"value": []}'
         )
         els = element.find_elements_by_android_data_matcher()
 

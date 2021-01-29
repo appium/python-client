@@ -26,7 +26,6 @@ T = TypeVar('T', bound=Union['WebDriver', 'ImagesComparison'])
 
 
 class ImagesComparison(webdriver.Remote):
-
     def match_images_features(self: T, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> Dict[str, Any]:
         """Performs images matching by features.
 
@@ -73,16 +72,12 @@ class ImagesComparison(webdriver.Remote):
             rect2 (dict): The bounding rect for the `points2` array or a zero rect if not enough matching points
                 were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
         """
-        options = {
-            'mode': 'matchFeatures',
-            'firstImage': base64_image1,
-            'secondImage': base64_image2,
-            'options': opts
-        }
+        options = {'mode': 'matchFeatures', 'firstImage': base64_image1, 'secondImage': base64_image2, 'options': opts}
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
-    def find_image_occurrence(self: T, base64_full_image: bytes, base64_partial_image: bytes,
-                              **opts: Any) -> Dict[str, Union[bytes, Dict]]:
+    def find_image_occurrence(
+        self: T, base64_full_image: bytes, base64_partial_image: bytes, **opts: Any
+    ) -> Dict[str, Union[bytes, Dict]]:
         """Performs images matching by template to find possible occurrence of the partial image
         in the full image.
 
@@ -110,12 +105,13 @@ class ImagesComparison(webdriver.Remote):
             'mode': 'matchTemplate',
             'firstImage': base64_full_image,
             'secondImage': base64_partial_image,
-            'options': opts
+            'options': opts,
         }
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
-    def get_images_similarity(self: T, base64_image1: bytes, base64_image2: bytes,
-                              **opts: Any) -> Dict[str, Union[bytes, Dict]]:
+    def get_images_similarity(
+        self: T, base64_image1: bytes, base64_image2: bytes, **opts: Any
+    ) -> Dict[str, Union[bytes, Dict]]:
         """Performs images matching to calculate the similarity score between them.
 
         The flow there is similar to the one used in
@@ -137,16 +133,10 @@ class ImagesComparison(webdriver.Remote):
                 score (float): The similarity score as a float number in range [0.0, 1.0].
                     1.0 is the highest score (means both images are totally equal).
         """
-        options = {
-            'mode': 'getSimilarity',
-            'firstImage': base64_image1,
-            'secondImage': base64_image2,
-            'options': opts
-        }
+        options = {'mode': 'getSimilarity', 'firstImage': base64_image1, 'secondImage': base64_image2, 'options': opts}
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.COMPARE_IMAGES] = \
-            ('POST', '/session/$sessionId/appium/compare_images')
+        self.command_executor._commands[Command.COMPARE_IMAGES] = ('POST', '/session/$sessionId/appium/compare_images')

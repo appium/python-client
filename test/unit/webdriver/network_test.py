@@ -17,22 +17,15 @@ import httpretty
 
 from appium.webdriver.extensions.android.network import NetSpeed
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
+from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
 class TestWebDriverNetwork(object):
-
     @httpretty.activate
     def test_network_connection(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.GET,
-            appium_command('/session/1234567890/network_connection'),
-            body='{"value": 2}'
+            httpretty.GET, appium_command('/session/1234567890/network_connection'), body='{"value": 2}'
         )
         assert driver.network_connection == 2
 
@@ -40,9 +33,7 @@ class TestWebDriverNetwork(object):
     def test_set_network_connection(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/network_connection'),
-            body='{"value": ""}'
+            httpretty.POST, appium_command('/session/1234567890/network_connection'), body='{"value": ""}'
         )
         driver.set_network_connection(2)
 

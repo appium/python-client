@@ -53,7 +53,5 @@ class Settings(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_SETTINGS] = \
-            ('GET', '/session/$sessionId/appium/settings')
-        self.command_executor._commands[Command.UPDATE_SETTINGS] = \
-            ('POST', '/session/$sessionId/appium/settings')
+        self.command_executor._commands[Command.GET_SETTINGS] = ('GET', '/session/$sessionId/appium/settings')
+        self.command_executor._commands[Command.UPDATE_SETTINGS] = ('POST', '/session/$sessionId/appium/settings')

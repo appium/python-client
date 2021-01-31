@@ -76,7 +76,7 @@ class TestKeyboard(BaseTestCase):
         assert self.driver.is_keyboard_shown()
 
     def _get_keyboard_el(self) -> 'WebElement':
-        return self.driver.find_element_by_class_name('UIAKeyboard')
+        return self.driver.find_element_by_class_name('XCUIElementTypeKeyboard')
 
     def _move_to_textbox(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Sliders')

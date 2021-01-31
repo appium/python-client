@@ -55,6 +55,7 @@ class TestApplications(BaseTestCase):
         app_id = self.driver.current_package
         assert self.driver.query_app_state(app_id) == ApplicationState.RUNNING_IN_FOREGROUND
         self.driver.background_app(-1)
+        sleep(1)  # to wait the app has gone
         assert self.driver.query_app_state(app_id) < ApplicationState.RUNNING_IN_FOREGROUND
         self.driver.activate_app(app_id)
         assert self.driver.query_app_state(app_id) == ApplicationState.RUNNING_IN_FOREGROUND

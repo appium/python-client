@@ -13,8 +13,15 @@
 # limitations under the License.
 
 from time import sleep
+from typing import TYPE_CHECKING
+
+import pytest
+from selenium.common.exceptions import NoSuchElementException
 
 from test.functional.ios.helper.test_helper import BaseTestCase
+
+if TYPE_CHECKING:
+    from appium.webdriver.webelement import WebElement
 
 
 class TestKeyboard(BaseTestCase):
@@ -25,12 +32,12 @@ class TestKeyboard(BaseTestCase):
         el.click()
         el.set_value('Testing')
 
-        el = self.driver.find_element_by_class_name('UIAKeyboard')
-        assert el.is_displayed()
+        assert self._get_keyboard_el().is_displayed()
 
         self.driver.hide_keyboard(key_name='Done')
 
-        assert not el.is_displayed()
+        with pytest.raises(NoSuchElementException):
+            self._get_keyboard_el()
 
     def test_hide_keyboard_presskey_strategy(self) -> None:
         self._move_to_textbox()
@@ -39,12 +46,12 @@ class TestKeyboard(BaseTestCase):
         el.click()
         el.set_value('Testing')
 
-        el = self.driver.find_element_by_class_name('UIAKeyboard')
-        assert el.is_displayed()
+        assert self._get_keyboard_el().is_displayed()
 
         self.driver.hide_keyboard(strategy='pressKey', key='Done')
 
-        assert not el.is_displayed()
+        with pytest.raises(NoSuchElementException):
+            self._get_keyboard_el()
 
     def test_hide_keyboard_no_key_name(self) -> None:
         self._move_to_textbox()
@@ -53,14 +60,12 @@ class TestKeyboard(BaseTestCase):
         el.click()
         el.set_value('Testing')
 
-        el = self.driver.find_element_by_class_name('UIAKeyboard')
-        assert el.is_displayed()
+        assert self._get_keyboard_el().is_displayed()
 
         self.driver.hide_keyboard()
-        sleep(10)
 
-        # currently fails.
-        assert not el.is_displayed()
+        with pytest.raises(NoSuchElementException):
+            self._get_keyboard_el()
 
     def test_is_keyboard_shown(self) -> None:
         self._move_to_textbox()
@@ -69,6 +74,9 @@ class TestKeyboard(BaseTestCase):
         el.click()
         el.set_value('Testing')
         assert self.driver.is_keyboard_shown()
+
+    def _get_keyboard_el(self) -> 'WebElement':
+        return self.driver.find_element_by_class_name('XCUIElementTypeKeyboard')
 
     def _move_to_textbox(self) -> None:
         el1 = self.driver.find_element_by_accessibility_id('Sliders')

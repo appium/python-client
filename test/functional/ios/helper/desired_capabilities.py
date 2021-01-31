@@ -28,7 +28,7 @@ def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
     desired_caps: Dict[str, Any] = {
         'deviceName': iphone_device_name(),
         'platformName': 'iOS',
-        'platformVersion': '13.6',
+        'platformVersion': '14.3',
         'automationName': 'XCUITest',
         'allowTouchIdEnroll': True,
         'wdaLocalPort': wda_port(),

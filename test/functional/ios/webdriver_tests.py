@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from time import sleep
 from typing import TYPE_CHECKING
 
 import pytest
@@ -21,7 +20,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
 from test.functional.ios.helper.test_helper import BaseTestCase
-from test.functional.test_helper import get_available_from_port_range
+from test.functional.test_helper import get_available_from_port_range, wait_for
 
 from ..test_helper import is_ci
 from .helper import desired_capabilities
@@ -61,13 +60,12 @@ class TestWebDriver(BaseTestCase):
             return
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND
         self.driver.background_app(-1)
-        timeout = 5
-        for i in range(timeout):  # It takes a few seconds for app_state changed
-            if self.driver.query_app_state(desired_capabilities.BUNDLE_ID) < ApplicationState.RUNNING_IN_FOREGROUND:
-                break
-            if i == timeout - 1:
-                assert False, "The app didn't go to background."
-            sleep(1)
+        print(self.driver.query_app_state(desired_capabilities.BUNDLE_ID) < ApplicationState.RUNNING_IN_FOREGROUND)
+        assert wait_for(
+            lambda: self.driver.query_app_state(desired_capabilities.BUNDLE_ID)
+            < ApplicationState.RUNNING_IN_FOREGROUND,
+            timeout=5,
+        ), "The app didn't go to background."
         self.driver.activate_app(desired_capabilities.BUNDLE_ID)
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND
 

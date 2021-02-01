@@ -1,5 +1,7 @@
 import os
 import socket
+from time import sleep
+from typing import Callable
 
 
 class NoAvailablePortError(Exception):
@@ -37,3 +39,23 @@ def is_ci() -> bool:
         `True` if current executions is on CI
     """
     return os.getenv('CI', 'false') == 'true'
+
+
+def wait_for(method: Callable, timeout: int) -> bool:
+    """Wait for `method` True
+
+    Args:
+        method: The target method to be waited. Need to return `bool`
+        timeout: The timeout to be waited (sec.)
+
+    Returns:
+        bool: True if `method` returns True
+
+    """
+    for i in range(timeout + 1):
+        if method():
+            break
+        if i == timeout:
+            return False
+        sleep(1)
+    return True

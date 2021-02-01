@@ -16,6 +16,7 @@ from time import sleep
 
 from appium.webdriver.applicationstate import ApplicationState
 from test.functional.ios.helper.test_helper import BaseTestCase
+from test.functional.test_helper import wait_for
 
 from .helper import desired_capabilities
 
@@ -27,12 +28,10 @@ class TestWebDriver(BaseTestCase):
             return
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND
         self.driver.background_app(-1)
-        timeout = 5
-        for i in range(timeout):  # It takes a few seconds for app_state changed
-            if self.driver.query_app_state(desired_capabilities.BUNDLE_ID) < ApplicationState.RUNNING_IN_FOREGROUND:
-                break
-            if i == timeout - 1:
-                assert False, "The app didn't go to background."
-            sleep(1)
+        assert wait_for(
+            lambda: self.driver.query_app_state(desired_capabilities.BUNDLE_ID)
+            < ApplicationState.RUNNING_IN_FOREGROUND,
+            timeout=5,
+        ), "The app didn't go to background."
         self.driver.activate_app(desired_capabilities.BUNDLE_ID)
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND

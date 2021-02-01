@@ -54,8 +54,6 @@ def wait_for(method: Callable, timeout: int) -> bool:
     """
     for i in range(timeout + 1):
         if method():
-            break
-        if i == timeout:
-            return False
+            return True
         sleep(1)
-    return True
+    return False

@@ -64,7 +64,6 @@ class TestWebDriver(BaseTestCase):
         assert wait_for(
             lambda: self.driver.query_app_state(desired_capabilities.BUNDLE_ID)
             < ApplicationState.RUNNING_IN_FOREGROUND,
-            timeout=5,
         ), "The app didn't go to background."
         self.driver.activate_app(desired_capabilities.BUNDLE_ID)
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND

@@ -41,19 +41,20 @@ def is_ci() -> bool:
     return os.getenv('CI', 'false') == 'true'
 
 
-def wait_for(method: Callable, timeout: int) -> bool:
+def wait_for(method: Callable, timeout_sec: float = 5, interval: float = 1) -> bool:
     """Wait for `method` True
 
     Args:
         method: The target method to be waited. Need to return `bool`
         timeout: The timeout to be waited (sec.)
+        interval: The interval for wait (sec.)
 
     Returns:
         bool: True if `method` returns True
 
     """
-    for i in range(timeout + 1):
+    for _ in range(int(timeout_sec / interval)):
         if method():
             return True
-        sleep(1)
+        sleep(interval)
     return False

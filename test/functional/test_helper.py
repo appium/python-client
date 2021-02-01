@@ -41,7 +41,7 @@ def is_ci() -> bool:
     return os.getenv('CI', 'false') == 'true'
 
 
-def wait_for(method: Callable, timeout_sec: float = 5, interval: float = 1) -> bool:
+def wait_for_condition(method: Callable, timeout_sec: float = 5, interval: float = 1) -> bool:
     """Wait for `method` True
 
     Args:

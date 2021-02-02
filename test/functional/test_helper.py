@@ -62,7 +62,6 @@ def wait_for_condition(method: Callable, timeout_sec: float = 5, interval: float
     if interval <= 0:
         raise ValueError('interval needs to be more than 0')
 
-    result = method()
     started = time.time()
     while time.time() - started <= timeout_sec:
         result = method()

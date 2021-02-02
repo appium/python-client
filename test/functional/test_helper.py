@@ -1,7 +1,7 @@
 import os
 import socket
 from time import sleep
-from typing import Callable
+from typing import Any, Callable
 
 
 class NoAvailablePortError(Exception):
@@ -41,20 +41,25 @@ def is_ci() -> bool:
     return os.getenv('CI', 'false') == 'true'
 
 
-def wait_for_condition(method: Callable, timeout_sec: float = 5, interval: float = 1) -> bool:
-    """Wait for `method` True
+def wait_for_condition(method: Callable, timeout_sec: float = 5, interval: float = 1) -> Any:
+    """Wait while `method` returns the built-in objects considered false
+
+    https://docs.python.org/3/library/stdtypes.html#truth-value-testing
 
     Args:
-        method: The target method to be waited. Need to return `bool`
+        method: The target method to be waited
         timeout: The timeout to be waited (sec.)
         interval: The interval for wait (sec.)
 
     Returns:
-        bool: True if `method` returns True
+        Any: value which `method` returns
 
     """
-    for _ in range(int(timeout_sec / interval)):
-        if method():
-            return True
+    result = method()
+    for i in range(int(timeout_sec / interval)):
+        if i != 0:
+            result = method
+        if result:
+            break
         sleep(interval)
-    return False
+    return result

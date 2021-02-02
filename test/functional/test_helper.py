@@ -58,7 +58,7 @@ def wait_for_condition(method: Callable, timeout_sec: float = 5, interval: float
     result = method()
     for i in range(int(timeout_sec / interval)):
         if i != 0:
-            result = method
+            result = method()
         if result:
             break
         sleep(interval)

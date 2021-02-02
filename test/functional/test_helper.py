@@ -1,5 +1,6 @@
 import os
 import socket
+import time
 from time import sleep
 from typing import Any, Callable
 
@@ -54,11 +55,17 @@ def wait_for_condition(method: Callable, timeout_sec: float = 5, interval: float
     Returns:
         Any: value which `method` returns
 
+    Raises:
+        ValueError: When interval isn't more than 0
+
     """
+    if interval <= 0:
+        raise ValueError('interval needs to be more than 0')
+
     result = method()
-    for i in range(int(timeout_sec / interval)):
-        if i != 0:
-            result = method()
+    started = time.time()
+    while time.time() - started <= timeout_sec:
+        result = method()
         if result:
             break
         sleep(interval)

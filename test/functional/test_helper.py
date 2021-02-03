@@ -60,7 +60,7 @@ def wait_for_condition(method: Callable, timeout_sec: float = 5, interval_sec: f
 
     """
     if interval_sec < 0:
-        raise ValueError('interval_not needs to be not less than 0')
+        raise ValueError('interval_sec needs to be not less than 0')
 
     started = time.time()
     while time.time() - started <= timeout_sec:

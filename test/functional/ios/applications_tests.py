@@ -14,6 +14,7 @@
 
 from appium.webdriver.applicationstate import ApplicationState
 from test.functional.ios.helper.test_helper import BaseTestCase
+from test.functional.test_helper import wait_for_condition
 
 from .helper import desired_capabilities
 
@@ -25,6 +26,8 @@ class TestWebDriver(BaseTestCase):
             return
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND
         self.driver.background_app(-1)
-        assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) < ApplicationState.RUNNING_IN_FOREGROUND
+        assert wait_for_condition(
+            lambda: self.driver.query_app_state(desired_capabilities.BUNDLE_ID) < ApplicationState.RUNNING_IN_FOREGROUND
+        ), "The app didn't go to background."
         self.driver.activate_app(desired_capabilities.BUNDLE_ID)
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND

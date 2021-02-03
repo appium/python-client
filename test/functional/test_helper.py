@@ -42,7 +42,7 @@ def is_ci() -> bool:
     return os.getenv('CI', 'false') == 'true'
 
 
-def wait_for_condition(method: Callable, timeout_sec: float = 5, interval: float = 1) -> Any:
+def wait_for_condition(method: Callable, timeout_sec: float = 5, interval_sec: float = 1) -> Any:
     """Wait while `method` returns the built-in objects considered false
 
     https://docs.python.org/3/library/stdtypes.html#truth-value-testing
@@ -50,7 +50,7 @@ def wait_for_condition(method: Callable, timeout_sec: float = 5, interval: float
     Args:
         method: The target method to be waited
         timeout: The timeout to be waited (sec.)
-        interval: The interval for wait (sec.)
+        interval_sec: The interval for wait (sec.)
 
     Returns:
         Any: value which `method` returns
@@ -59,13 +59,13 @@ def wait_for_condition(method: Callable, timeout_sec: float = 5, interval: float
         ValueError: When interval isn't more than 0
 
     """
-    if interval <= 0:
-        raise ValueError('interval needs to be more than 0')
+    if interval_sec < 0:
+        raise ValueError('interval_not needs to be not less than 0')
 
     started = time.time()
     while time.time() - started <= timeout_sec:
         result = method()
         if result:
             break
-        sleep(interval)
+        sleep(interval_sec)
     return result

@@ -23,6 +23,6 @@ mock = "~=4.0"
 
 pylint = "~=2.6"
 astroid = "~=2.4"
-isort = "~=5.0"
+isort = "~=5.7"
 
 mypy = "~=0.800"

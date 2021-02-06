@@ -7,7 +7,7 @@ check-all: ## Run all lint checks and unittest
 
 .PHONY: isort
 isort: ## Run isort
-	python -m isort $(ARGS) -rc .
+	python -m isort $(ARGS) .
 
 .PHONY: black
 black: ## Run black
@@ -20,7 +20,7 @@ pylint: ## Run pylint
 
 .PHONY: mypy
 mypy:  ## Run mypy
-	python -m mypy appium test
+	python -m mypy appium test/functional
 
 .PHONY: unittest
 unittest: ## Run unittest

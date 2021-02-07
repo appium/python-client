@@ -78,7 +78,7 @@ def wait_for_condition(method: Callable, timeout_sec: float = 5, interval_sec: f
     return result
 
 
-def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout: int = 10) -> 'WebElement':
+def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout_sec: float = 10) -> 'WebElement':
     """Wait until the element located
 
     Args:
@@ -86,7 +86,7 @@ def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout: int
         locator: Locator like WebDriver, Mobile JSON Wire Protocol
             (e.g. `appium.webdriver.common.mobileby.MobileBy.ACCESSIBILITY_ID`)
         value: Query value to locator
-        timeout: Maximum time to wait the element. If time is over, `TimeoutException` is thrown
+        timeout_sec: Maximum time to wait the element. If time is over, `TimeoutException` is thrown
 
     Raises:
         `selenium.common.exceptions.TimeoutException`
@@ -94,4 +94,4 @@ def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout: int
     Returns:
         The found WebElement
     """
-    return WebDriverWait(driver, timeout).until(EC.presence_of_element_located((locator, value)))
+    return WebDriverWait(driver, timeout_sec).until(EC.presence_of_element_located((locator, value)))

@@ -70,7 +70,7 @@ class TestFindByImage(object):
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
 
         with pytest.raises(TimeoutException):
-            wait_for_element(self.driver, MobileBy.IMAGE, b64_data, timeout=3)
+            wait_for_element(self.driver, MobileBy.IMAGE, b64_data, timeout_sec=3)
 
         with pytest.raises(NoSuchElementException):
             self.driver.find_element_by_image(image_path)

@@ -19,9 +19,10 @@ import pytest
 from selenium.common.exceptions import NoSuchElementException
 
 from appium.webdriver.common.mobileby import MobileBy
+from test.functional.test_helper import wait_for_element
 
 from ..test_helper import is_ci
-from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase, wait_for_element
+from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 
 
 class TestCommon(BaseTestCase):

@@ -102,8 +102,8 @@ class ScreenRecord(webdriver.Remote):
                 (compression is quality per filesize). This means that, for example, if you target a certain file size
                 or constant bit rate, you will achieve better quality with a slower preset.
                 Read https://trac.ffmpeg.org/wiki/Encode/H.264 for more details.
-                One of the supported encoding presets. Possible values are 'ultrafast', 'superfast',
-                'veryfast'(default), 'faster', 'fast', 'medium', 'slow', 'slower', 'veryslow'
+                Possible values are 'ultrafast', 'superfast', 'veryfast'(default), 'faster', 'fast', 'medium', 'slow',
+                'slower', 'veryslow'
 
         Returns:
             bytes: Base-64 encoded content of the recorded media

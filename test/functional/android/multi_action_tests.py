@@ -19,8 +19,9 @@ import pytest
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
+from test.functional.test_helper import wait_for_element
 
-from .helper.test_helper import BaseTestCase, is_ci, wait_for_element
+from .helper.test_helper import BaseTestCase, is_ci
 
 
 class TestMultiAction(BaseTestCase):

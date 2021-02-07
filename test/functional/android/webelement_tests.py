@@ -14,8 +14,9 @@
 # limitations under the License.
 
 from appium.webdriver.common.mobileby import MobileBy
+from test.functional.test_helper import wait_for_element
 
-from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase, wait_for_element
+from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 
 
 class TestWebelement(BaseTestCase):

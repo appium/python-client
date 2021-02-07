@@ -15,7 +15,8 @@
 import pytest
 
 from appium.webdriver.common.mobileby import MobileBy
-from test.functional.android.helper.test_helper import BaseTestCase, is_ci, wait_for_element
+from test.functional.android.helper.test_helper import BaseTestCase, is_ci
+from test.functional.test_helper import wait_for_element
 
 
 class TestFindByAccessibilityID(BaseTestCase):

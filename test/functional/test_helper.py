@@ -2,7 +2,14 @@ import os
 import socket
 import time
 from time import sleep
-from typing import Any, Callable
+from typing import TYPE_CHECKING, Any, Callable
+
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
+    from appium.webdriver.webelement import WebElement
 
 
 class NoAvailablePortError(Exception):
@@ -69,3 +76,22 @@ def wait_for_condition(method: Callable, timeout_sec: float = 5, interval_sec: f
             break
         sleep(interval_sec)
     return result
+
+
+def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout: int = 10) -> 'WebElement':
+    """Wait until the element located
+
+    Args:
+        driver: WebDriver instance
+        locator: Locator like WebDriver, Mobile JSON Wire Protocol
+            (e.g. `appium.webdriver.common.mobileby.MobileBy.ACCESSIBILITY_ID`)
+        value: Query value to locator
+        timeout: Maximum time to wait the element. If time is over, `TimeoutException` is thrown
+
+    Raises:
+        `selenium.common.exceptions.TimeoutException`
+
+    Returns:
+        The found WebElement
+    """
+    return WebDriverWait(driver, timeout).until(EC.presence_of_element_located((locator, value)))

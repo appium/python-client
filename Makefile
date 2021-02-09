@@ -24,7 +24,7 @@ mypy:  ## Run mypy
 
 .PHONY: unittest
 unittest: ## Run unittest
-	python -m pytest test/unit/
+	python -m pytest $(ARGS) test/unit/
 
 .PHONY: help
 help: ## Display this help screen

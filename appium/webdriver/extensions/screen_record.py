@@ -29,6 +29,58 @@ class ScreenRecord(webdriver.Remote):
     def start_recording_screen(self: T, **options: Any) -> Union[bytes, str]:
         """Start asynchronous screen recording process.
 
+        +--------------+-----+---------+-----+-------+
+        | Keyword Args | iOS | Android | Win | macOS |
+        +==============+=====+=========+=====+=======+
+        | remotePath   | O   | O       | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | user         | O   | O       | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | password     | O   | O       | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | method       | O   | O       | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | timeLimit    | O   | O       | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | forceRestart | O   | O       | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | fileFieldName| O   | O       | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | formFields   | O   | O       | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | headers      | O   | O       | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | videoQuality | O   |         |     |       |
+        +--------------+-----+---------+-----+-------+
+        | videoType    | O   |         |     |       |
+        +--------------+-----+---------+-----+-------+
+        | videoFps     | O   |         |     |       |
+        +--------------+-----+---------+-----+-------+
+        | videoFilter  | O   |         | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | videoScale   | O   |         |     |       |
+        +--------------+-----+---------+-----+-------+
+        | pixelFormat  | O   |         |     |       |
+        +--------------+-----+---------+-----+-------+
+        | videoSize    |     | O       |     |       |
+        +--------------+-----+---------+-----+-------+
+        | bitRate      |     | O       |     |       |
+        +--------------+-----+---------+-----+-------+
+        | bugReport    |     | O       |     |       |
+        +--------------+-----+---------+-----+-------+
+        | fps          |     |         | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | captureCursor|     |         | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | captureClicks|     |         | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | deviceId     |     |         |     | O     |
+        +--------------+-----+---------+-----+-------+
+        | preset       |     |         | O   | O     |
+        +--------------+-----+---------+-----+-------+
+        | audioInput   |     |         | O   |       |
+        +--------------+-----+---------+-----+-------+
+
         Keyword Args:
             remotePath (str): The remotePath upload option is the path to the remote location,
                 where the resulting video from the previous screen recording should be uploaded.
@@ -54,50 +106,50 @@ class ScreenRecord(webdriver.Remote):
             forcedRestart (bool): Whether to ignore the result of previous capture and start a new recording
                 immediately (`True` value). By default  (`False`) the endpoint will try to catch and
                 return the result of the previous capture if it's still available.
-            bugReport (str): Makes the recorder to display an additional information on the video overlay,
-                such as a timestamp, that is helpful in videos captured to illustrate bugs.
-                This option is only supported since API level 27 (Android P).
             fileFieldName (str): [multipart/form-data requests] The name of the form field
                 containing the binary payload. "file" by default. (Since Appium 1.18.0)
             formFields (dict): [multipart/form-data requests] Additional form fields mapping. If any entry has
                 the same key as `fileFieldName` then it is going to be ignored. (Since Appium 1.18.0)
             headers (dict): [multipart/form-data requests] Headers mapping (Since Appium 1.18.0)
 
-            videoQuality (str): [iOS only] The video encoding quality: 'low', 'medium', 'high', 'photo'. Defaults
+            videoQuality (str): [iOS] The video encoding quality: 'low', 'medium', 'high', 'photo'. Defaults
                 to 'medium'.
-            videoType (str): [iOS only] The format of the screen capture to be recorded.
+            videoType (str): [iOS] The format of the screen capture to be recorded.
                 Available formats: Execute `ffmpeg -codecs` in the terminal to see the list of supported video codecs.
                 'mjpeg' by default. (Since Appium 1.10.0)
-            videoFps (int): [iOS only] The Frames Per Second rate of the recorded video. Change this value if the
+            videoFps (int): [iOS] The Frames Per Second rate of the recorded video. Change this value if the
                 resulting video is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
-            videoFilters (str): [iOS, macOS only] The FFMPEG video filters to apply. These filters allow to scale,
+            videoFilters (str): [iOS, Win, macOS] The FFMPEG video filters to apply. These filters allow to scale,
                 flip, rotate and do many other useful transformations on the source video stream. The format of the
                 property must comply with https://ffmpeg.org/ffmpeg-filters.html. (Since Appium 1.15)
-            videoScale (str): [iOS only] The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for
+            videoScale (str): [iOS] The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for
                 possible values. No scale is applied by default. If videoFilters are set then the scale setting is
                 effectively ignored. (Since Appium 1.10.0)
-            pixelFormat (str): [iOS only] Output pixel format. Run `ffmpeg -pix_fmts` to list possible values.
+            pixelFormat (str): [iOS] Output pixel format. Run `ffmpeg -pix_fmts` to list possible values.
                 For Quicktime compatibility, set to "yuv420p" along with videoType: "libx264". (Since Appium 1.12.0)
-            videoSize (str): [Android only] The video size of the generated media file. The format is WIDTHxHEIGHT.
+
+            videoSize (str): [Android] The video size of the generated media file. The format is WIDTHxHEIGHT.
                 The default value is the device's native display resolution (if supported),
                 1280x720 if not. For best results, use a size supported by your device's
                 Advanced Video Coding (AVC) encoder.
-
-            bitRate (int): [Android only] The video bit rate for the video, in megabits per second.
+            bitRate (int): [Android] The video bit rate for the video, in megabits per second.
                 The default value is 4. You can increase the bit rate to improve video quality,
                 but doing so results in larger movie files.
+            bugReport (str): [Android] Makes the recorder to display an additional information on the video overlay,
+                such as a timestamp, that is helpful in videos captured to illustrate bugs.
+                This option is only supported since API level 27 (Android P).
 
-            fps (int): [macOS only] The count of frames per second in the resulting video.
+            fps (int): [Win, macOS] The count of frames per second in the resulting video.
                 Increasing fps value also increases the size of the resulting video file and the CPU usage.
-            captureCursor (bool): [macOS only] Whether to capture the mouse cursor while recording the screen.
+            captureCursor (bool): [Win, macOS] Whether to capture the mouse cursor while recording the screen.
                 Disabled by default.
-            captureClick (bool): [macOS only] Whether to capture the click gestures while recording the screen.
+            captureClick (bool): [Win, macOS] Whether to capture the click gestures while recording the screen.
                 Disabled by default.
-            deviceId (int): [macOS only] Screen device index to use for the recording.
+            deviceId (int): [macOS] Screen device index to use for the recording.
                 The list of available devices could be retrieved using
                 `ffmpeg -f avfoundation -list_devices true -i` command.
                 This option is mandatory and must be always provided.
-            preset (str): [macOS only] A preset is a collection of options that will provide a certain encoding
+            preset (str): [Win, macOS] A preset is a collection of options that will provide a certain encoding
                 speed to compression ratio. A slower preset will provide better compression
                 (compression is quality per filesize). This means that, for example, if you target a certain file size
                 or constant bit rate, you will achieve better quality with a slower preset.
@@ -132,6 +184,11 @@ class ScreenRecord(webdriver.Remote):
                 Only has an effect if both `remotePath` and `user` are set.
             method (str): The HTTP method name ('PUT'/'POST'). PUT method is used by default.
                 Only has an effect if `remotePath` is set.
+            fileFieldName (str): [multipart/form-data requests] The name of the form field
+                containing the binary payload. "file" by default. (Since Appium 1.18.0)
+            formFields (dict): [multipart/form-data requests] Additional form fields mapping. If any entry has
+                the same key as `fileFieldName` then it is going to be ignored. (Since Appium 1.18.0)
+            headers (dict): [multipart/form-data requests] Headers mapping (Since Appium 1.18.0)
 
         Returns:
             bytes: Base-64 encoded content of the recorded media file or an empty string

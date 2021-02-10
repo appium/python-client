@@ -149,7 +149,6 @@ webdriver.extensions.settings module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

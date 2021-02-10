@@ -84,7 +84,6 @@ webdriver.extensions.android.system\_bars module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

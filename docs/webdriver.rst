@@ -93,7 +93,6 @@ webdriver.webelement module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

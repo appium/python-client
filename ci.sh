@@ -16,7 +16,7 @@ if ! make pylint ARGS=--errors-only ; then
   EXIT_STATUS=1
 fi
 
-if ! make unittest ; then
+if ! make unittest ARGS=--junitxml=./test/unit/junit.xml ; then
   EXIT_STATUS=1
 fi
 

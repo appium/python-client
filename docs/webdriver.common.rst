@@ -28,7 +28,6 @@ webdriver.common.touch\_action module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

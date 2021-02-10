@@ -186,6 +186,11 @@ class ScreenRecord(webdriver.Remote):
                 Only has an effect if both `remotePath` and `user` are set.
             method (str): The HTTP method name ('PUT'/'POST'). PUT method is used by default.
                 Only has an effect if `remotePath` is set.
+            fileFieldName (str): [multipart/form-data requests] The name of the form field
+                containing the binary payload. "file" by default. (Since Appium 1.18.0)
+            formFields (dict): [multipart/form-data requests] Additional form fields mapping. If any entry has
+                the same key as `fileFieldName` then it is going to be ignored. (Since Appium 1.18.0)
+            headers (dict): [multipart/form-data requests] Headers mapping (Since Appium 1.18.0)
 
         Returns:
             bytes: Base-64 encoded content of the recorded media file or an empty string

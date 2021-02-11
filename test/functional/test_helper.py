@@ -78,7 +78,7 @@ def wait_for_condition(method: Callable, timeout_sec: float = 5, interval_sec: f
     return result
 
 
-def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout_sec: float = 10) -> 'WebElement':
+def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout_sec: float = 30) -> 'WebElement':
     """Wait until the element located
 
     Args:

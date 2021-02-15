@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath('../appium'))
 # -- Project information -----------------------------------------------------
 
 project = 'Python client 1.0'
-copyright = '2020, Appium'
+copyright = '2021, Appium'
 author = 'Appium'
 
 # The full version, including alpha/beta/rc tags

@@ -1,8 +1,8 @@
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '11.x'
-  displayName: Install Node 11.x
+    versionSpec: '12.x'
+  displayName: Install Node 12.x
 - script: npm install -g appium@beta --chromedriver_version='2.44'
   displayName: Install appium
 - script: npm install -g opencv4nodejs

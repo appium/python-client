@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TypeVar
+from typing import Optional, TypeVar
 
 from selenium.webdriver.remote.switch_to import SwitchTo
 
@@ -22,7 +22,7 @@ T = TypeVar('T', bound='MobileSwitchTo')
 
 
 class MobileSwitchTo(SwitchTo):
-    def context(self, context_name: str) -> T:
+    def context(self, context_name: Optional[str]) -> T:
         """Sets the context for the current session.
 
         Args:

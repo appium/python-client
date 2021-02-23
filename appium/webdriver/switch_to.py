@@ -24,6 +24,7 @@ T = TypeVar('T', bound='MobileSwitchTo')
 class MobileSwitchTo(SwitchTo):
     def context(self, context_name: Optional[str]) -> T:
         """Sets the context for the current session.
+        Passing `None` is equal to switching to native context.
 
         Args:
             context_name: The name of the context to switch to.

@@ -160,7 +160,6 @@ class WebDriver(
             self._addCommands()
 
         self.error_handler = MobileErrorHandler()
-        self._switch_to = MobileSwitchTo(self)
 
         if direct_connection:
             self._update_command_executor(keep_alive=keep_alive)
@@ -343,6 +342,19 @@ class WebDriver(
         }
         self.execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
+
+    @property
+    def switch_to(self) -> MobileSwitchTo:
+        """Returns an object containing all options to switch focus into
+
+        Override for appium
+
+        Returns:
+            `appium.webdriver.switch_to.MobileSwitchTo`
+
+        """
+
+        return MobileSwitchTo(self)
 
     # pylint: disable=protected-access
 

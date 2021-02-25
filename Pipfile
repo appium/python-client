@@ -21,7 +21,7 @@ python-dateutil = "~=2.8"
 mock = "~=4.0"
 
 pylint = "~=2.7"
-astroid = "~=2.4"
+astroid = "~=2.5"
 isort = "~=5.7"
 
-mypy = "~=0.800"
+mypy = "~=0.812"

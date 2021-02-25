@@ -42,8 +42,6 @@ class TestCommon(BaseTestCase):
 
         self.driver.open_notifications()
         sleep(1)
-        with pytest.raises(NoSuchElementException):
-            self.driver.find_element_by_android_uiautomator, 'new UiSelector().text(":-|")'
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
         # sometimes numbers shift

@@ -20,6 +20,7 @@ echo ${ANDROID_HOME}/emulator/emulator -list-avds
 echo "Starting emulator"
 
 # Start emulator in background
+echo "hw.ramSize=1536" >> ~/.android/avd/testemulator.ini
 nohup ${ANDROID_HOME}/emulator/emulator -avd testemulator -accel auto -no-boot-anim -gpu auto -no-snapshot > /dev/null 2>&1 &
 
 ${ANDROID_HOME}/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'

@@ -6,11 +6,85 @@ parameters:
   CI: true
 
 jobs:
+  - template: ./functional/run_ios_test.yml
+    parameters:
+      name: 'func_test_ios1'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'search_context/find_by_*.py remote_fs_tests.py safari_tests.py execute_driver_tests.py'
+      CI: ${{ parameters.ci }}
+      xcodeForIOS: ${{ parameters.xcodeForIOS }}
+  - template: ./functional/run_ios_test.yml
+    parameters:
+      name: 'func_test_ios2'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py'
+      CI: ${{ parameters.ci }}
+      xcodeForIOS: ${{ parameters.xcodeForIOS }}
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android1'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'device_time_tests.py search_context/find_by_*.py'
+      sdkVer: ${{ parameters.androidSdkVer }}
+      CI: ${{ parameters.ci }}
+      OPENCV: true
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android2'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'ime_tests.py keyboard_tests.py location_tests.py'
+      sdkVer: ${{ parameters.androidSdkVer }}
+      CI: ${{ parameters.ci }}
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android3'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'appium_service_tests.py'
+      sdkVer: ${{ parameters.androidSdkVer }}
+      CI: ${{ parameters.ci }}
+      DONT_RUN_APPIUM: true
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android4'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'finger_print_tests.py screen_record_tests.py settings_tests.py chrome_tests.py'
+      sdkVer: ${{ parameters.androidSdkVer }}
+      CI: ${{ parameters.ci }}
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android5'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'context_switching_tests.py remote_fs_tests.py'
+      sdkVer: ${{ parameters.androidSdkVer }}
+      CI: ${{ parameters.ci }}
   - template: ./functional/run_android_test.yml
     parameters:
       name: 'func_test_android6'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}
       testFiles: 'common_tests.py multi_action_tests.py webelement_tests.py'
+      sdkVer: ${{ parameters.androidSdkVer }}
+      CI: ${{ parameters.ci }}
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android7'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'applications_tests.py'
+      sdkVer: ${{ parameters.androidSdkVer }}
+      CI: ${{ parameters.ci }}
+  - template: ./functional/run_android_test.yml
+    parameters:
+      name: 'func_test_android8'
+      vmImage: ${{ parameters.vmImage }}
+      pytestOpt: ${{ parameters.pytestOpt }}
+      testFiles: 'network_connection_tests.py log_event_tests.py activities_tests.py hw_actions_tests.py touch_action_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}

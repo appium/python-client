@@ -33,34 +33,49 @@ class TestWebDriverLocation(object):
     def test_set_location_float(self):
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/location'))
+        assert isinstance(driver.set_location(11.1, 22.2, 33.3, 23.2), WebDriver)
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert abs(d['location']['latitude'] - 11.1) <= FLT_EPSILON
+        assert abs(d['location']['longitude'] - 22.2) <= FLT_EPSILON
+        assert abs(d['location']['altitude'] - 33.3) <= FLT_EPSILON
+        assert abs(d['location']['speed'] - 23.2) <= FLT_EPSILON
+
+    @httpretty.activate
+    def test_set_location_str(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/location'))
+        assert isinstance(driver.set_location('11.1', '22.2', '33.3', '23.2'), WebDriver)
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['location']['latitude'] == '11.1'
+        assert d['location']['longitude'] == '22.2'
+        assert d['location']['altitude'] == '33.3'
+        assert d['location']['speed'] == '23.2'
+
+    @httpretty.activate
+    def test_set_location_without_altitude(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/location'))
+        assert isinstance(driver.set_location(11.1, 22.2, speed=23.2), WebDriver)
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert abs(d['location']['latitude'] - 11.1) <= FLT_EPSILON
+        assert abs(d['location']['longitude'] - 22.2) <= FLT_EPSILON
+        assert abs(d['location']['speed'] - 23.2) <= FLT_EPSILON
+        assert d['location'].get('altitude') is None
+
+    @httpretty.activate
+    def test_set_location_without_speed(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/location'))
         assert isinstance(driver.set_location(11.1, 22.2, 33.3), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert abs(d['location']['latitude'] - 11.1) <= FLT_EPSILON
         assert abs(d['location']['longitude'] - 22.2) <= FLT_EPSILON
         assert abs(d['location']['altitude'] - 33.3) <= FLT_EPSILON
-
-    @httpretty.activate
-    def test_set_location_str(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/location'))
-        assert isinstance(driver.set_location('11.1', '22.2', '33.3'), WebDriver)
-
-        d = get_httpretty_request_body(httpretty.last_request())
-        assert d['location']['latitude'] == '11.1'
-        assert d['location']['longitude'] == '22.2'
-        assert d['location']['altitude'] == '33.3'
-
-    @httpretty.activate
-    def test_set_location_without_altitude(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/location'))
-        assert isinstance(driver.set_location(11.1, 22.2), WebDriver)
-
-        d = get_httpretty_request_body(httpretty.last_request())
-        assert abs(d['location']['latitude'] - 11.1) <= FLT_EPSILON
-        assert abs(d['location']['longitude'] - 22.2) <= FLT_EPSILON
-        assert d['location'].get('altitude') is None
+        assert d['location'].get('speed') is None
 
     @httpretty.activate
     def test_location(self):

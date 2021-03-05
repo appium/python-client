@@ -38,8 +38,11 @@ class Location(webdriver.Remote):
         return self
 
     def set_location(
-        self: T, latitude: Union[float, str], longitude: Union[float, str],
-            altitude: Union[float, str] = None, speed: Union[float, str] = None
+        self: T,
+        latitude: Union[float, str],
+        longitude: Union[float, str],
+        altitude: Union[float, str] = None,
+        speed: Union[float, str] = None,
     ) -> T:
         """Set the location of the device
 

@@ -50,7 +50,7 @@ class Location(webdriver.Remote):
             latitude: String or numeric value between -90.0 and 90.00
             longitude: String or numeric value between -180.0 and 180.0
             altitude: String or numeric value (Android real device only)
-            speed: String or numeric value larger then 0.0 (Android real devices only)
+            speed: String or numeric value larger than 0.0 (Android real devices only)
 
         Returns:
             Union['WebDriver', 'Location']: Self instance

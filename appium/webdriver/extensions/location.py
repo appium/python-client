@@ -38,7 +38,11 @@ class Location(webdriver.Remote):
         return self
 
     def set_location(
-        self: T, latitude: Union[float, str], longitude: Union[float, str], altitude: Union[float, str] = None
+        self: T,
+        latitude: Union[float, str],
+        longitude: Union[float, str],
+        altitude: Union[float, str] = None,
+        speed: Union[float, str] = None,
     ) -> T:
         """Set the location of the device
 
@@ -46,6 +50,7 @@ class Location(webdriver.Remote):
             latitude: String or numeric value between -90.0 and 90.00
             longitude: String or numeric value between -180.0 and 180.0
             altitude: String or numeric value (Android real device only)
+            speed: String or numeric value larger than 0.0 (Android real devices only)
 
         Returns:
             Union['WebDriver', 'Location']: Self instance
@@ -58,6 +63,8 @@ class Location(webdriver.Remote):
         }
         if altitude is not None:
             data['location']['altitude'] = altitude
+        if speed is not None:
+            data['location']['speed'] = speed
         self.execute(Command.SET_LOCATION, data)
         return self
 

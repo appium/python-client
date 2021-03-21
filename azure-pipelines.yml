@@ -4,6 +4,35 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 jobs:
   - template: ./ci-jobs/functional_test.yml
+  - job: 'unitTests'
+    pool:
+      vmImage: 'ubuntu-18.04'
+    strategy:
+      matrix:
+        Python37:
+          python.version: '3.7'
+        Python38:
+          python.version: '3.8'
+        Python39:
+          python.version: '3.9'
+
+    steps:
+      - task: UsePythonVersion@0
+        displayName: 'Use Python $(python.version)'
+        inputs:
+          versionSpec: '$(python.version)'
+
+      - script: pip install tox
+        displayName: 'Install Tox'
+
+      - script: tox -e py
+        displayName: 'Run Tox'
+
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testResultsFiles: '**/junit.xml'
+          testRunTitle: 'Publish test results for Python $(python.version)'
 
 # Runs tests nightly to make sure they works against appium@beta
 schedules:

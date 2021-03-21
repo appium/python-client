@@ -12,14 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import httpretty
-
-from test.unit.helper.test_helper import android_w3c_driver, appium_command
+from typing import Any, Dict
 
 
-class TestWebDriverContext(object):
-    @httpretty.activate
-    def test_get_contexts(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890/context'), body='{"value": "NATIVE"}')
-        assert driver.current_context == 'NATIVE'
+def get_desired_capabilities() -> Dict[str, Any]:
+    desired_caps: Dict[str, Any] = {'platformName': 'mac', 'automationName': 'Mac2', 'bundleId': 'com.apple.TextEdit'}
+
+    return desired_caps

@@ -26,9 +26,8 @@ T = TypeVar('T', bound=Union['WebDriver', 'LogEvent'])
 
 
 class LogEvent(webdriver.Remote):
-
     def get_events(self: T, type: List[str] = None) -> Dict[str, Union[str, int]]:
-        """ Retrieves events information from the current session
+        """Retrieves events information from the current session
         (Since Appium 1.16.0)
 
         Args:
@@ -64,17 +63,12 @@ class LogEvent(webdriver.Remote):
         Returns:
             Union['WebDriver', 'LogEvent']: Self instance
         """
-        data = {
-            'vendor': vendor,
-            'event': event
-        }
+        data = {'vendor': vendor, 'event': event}
         self.execute(Command.LOG_EVENT, data)
         return self
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_EVENTS] = \
-            ('POST', '/session/$sessionId/appium/events')
-        self.command_executor._commands[Command.LOG_EVENT] = \
-            ('POST', '/session/$sessionId/appium/log_event')
+        self.command_executor._commands[Command.GET_EVENTS] = ('POST', '/session/$sessionId/appium/events')
+        self.command_executor._commands[Command.LOG_EVENT] = ('POST', '/session/$sessionId/appium/log_event')

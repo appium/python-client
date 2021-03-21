@@ -26,7 +26,6 @@ T = TypeVar('T', bound=Union['WebDriver', 'Common'])
 
 
 class Common(webdriver.Remote):
-
     def end_test_coverage(self: T, intent: str, path: str) -> Any:  # TODO Check return type
         """Ends the coverage collection and pull the coverage.ec file from the device.
 
@@ -57,15 +56,20 @@ class Common(webdriver.Remote):
 
     @property
     def current_package(self: T) -> str:
-        """Retrieves the current package running on the device.
-        """
+        """Retrieves the current package running on the device."""
         return self.execute(Command.GET_CURRENT_PACKAGE)['value']
 
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_CURRENT_PACKAGE] = \
-            ('GET', '/session/$sessionId/appium/device/current_package')
-        self.command_executor._commands[Command.END_TEST_COVERAGE] = \
-            ('POST', '/session/$sessionId/appium/app/end_test_coverage')
-        self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = \
-            ('POST', '/session/$sessionId/appium/device/open_notifications')
+        self.command_executor._commands[Command.GET_CURRENT_PACKAGE] = (
+            'GET',
+            '/session/$sessionId/appium/device/current_package',
+        )
+        self.command_executor._commands[Command.END_TEST_COVERAGE] = (
+            'POST',
+            '/session/$sessionId/appium/app/end_test_coverage',
+        )
+        self.command_executor._commands[Command.OPEN_NOTIFICATIONS] = (
+            'POST',
+            '/session/$sessionId/appium/device/open_notifications',
+        )

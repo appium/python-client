@@ -3,8 +3,9 @@
 [![PyPI version](https://badge.fury.io/py/Appium-Python-Client.svg)](https://badge.fury.io/py/Appium-Python-Client)
 [![Downloads](https://pepy.tech/badge/appium-python-client)](https://pepy.tech/project/appium-python-client)
 
-[![Build Status](https://travis-ci.org/appium/python-client.svg?branch=master)](https://travis-ci.org/appium/python-client)
 [![Build Status](https://dev.azure.com/AppiumCI/Appium%20CI/_apis/build/status/appium.python-client?branchName=master)](https://dev.azure.com/AppiumCI/Appium%20CI/_build/latest?definitionId=56&branchName=master)
+
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 An extension library for adding [Selenium 3.0 draft](https://dvcs.w3.org/hg/webdriver/raw-file/tip/webdriver-spec.html) and [Mobile JSON Wire Protocol Specification draft](https://github.com/SeleniumHQ/mobile-spec/blob/master/spec-draft.md)
 functionality to the Python language bindings, for use with the mobile testing
@@ -160,7 +161,7 @@ https://appium.github.io/python-client-sphinx/ is detailed documentation
 ## Development
 
 - Code Style: [PEP-0008](https://www.python.org/dev/peps/pep-0008/)
-  - Apply `autopep8`, `isort` and `mypy` as pre commit hook
+  - Apply `black`, `isort` and `mypy` as pre commit hook
   - Run `make` command for development. See `make help` output for details
 - Docstring style: [Google Style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
 - `gitchangelog` generates `CHANGELOG.rst`

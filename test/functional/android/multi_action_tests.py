@@ -19,8 +19,9 @@ import pytest
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
+from test.functional.test_helper import wait_for_element
 
-from .helper.test_helper import BaseTestCase, is_ci, wait_for_element
+from .helper.test_helper import BaseTestCase, is_ci
 
 
 class TestMultiAction(BaseTestCase):
@@ -29,12 +30,10 @@ class TestMultiAction(BaseTestCase):
 
         els = self.driver.find_elements_by_class_name('android.widget.ListView')
         a1 = TouchAction()
-        a1.press(els[0]) \
-            .move_to(x=10, y=0).move_to(x=10, y=-75).move_to(x=10, y=-600).release()
+        a1.press(els[0]).move_to(x=10, y=0).move_to(x=10, y=-75).move_to(x=10, y=-600).release()
 
         a2 = TouchAction()
-        a2.press(els[1]) \
-            .move_to(x=10, y=10).move_to(x=10, y=-300).move_to(x=10, y=-600).release()
+        a2.press(els[1]).move_to(x=10, y=10).move_to(x=10, y=-300).move_to(x=10, y=-600).release()
 
         ma = MultiAction(self.driver, els[0])
         ma.add(a1, a2)
@@ -45,20 +44,10 @@ class TestMultiAction(BaseTestCase):
 
         els = self.driver.find_elements_by_class_name('android.widget.ListView')
         a1 = TouchAction()
-        a1.press(els[0]) \
-            .move_to(x=10, y=0) \
-            .move_to(x=10, y=-75) \
-            .wait(1000) \
-            .move_to(x=10, y=-600) \
-            .release()
+        a1.press(els[0]).move_to(x=10, y=0).move_to(x=10, y=-75).wait(1000).move_to(x=10, y=-600).release()
 
         a2 = TouchAction()
-        a2.press(els[1]) \
-            .move_to(x=10, y=10) \
-            .move_to(x=10, y=-300) \
-            .wait(500) \
-            .move_to(x=10, y=-600) \
-            .release()
+        a2.press(els[1]).move_to(x=10, y=10).move_to(x=10, y=-300).wait(500).move_to(x=10, y=-600).release()
 
         ma = MultiAction(self.driver, els[0])
         ma.add(a1, a2)

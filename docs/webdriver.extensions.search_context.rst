@@ -52,7 +52,6 @@ webdriver.extensions.search\_context.windows module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

@@ -26,7 +26,6 @@ T = TypeVar('T', bound=Union['WebDriver', 'Display'])
 
 
 class Display(webdriver.Remote):
-
     def get_display_density(self: T) -> int:
         """Get the display density, Android only
 
@@ -44,5 +43,7 @@ class Display(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_DISPLAY_DENSITY] = \
-            ('GET', '/session/$sessionId/appium/device/display_density')
+        self.command_executor._commands[Command.GET_DISPLAY_DENSITY] = (
+            'GET',
+            '/session/$sessionId/appium/device/display_density',
+        )

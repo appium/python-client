@@ -18,7 +18,6 @@ from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
 class TestWebDriverSystemBars(object):
-
     @httpretty.activate
     def test_get_system_bars(self):
         driver = android_w3c_driver()
@@ -29,7 +28,7 @@ class TestWebDriverSystemBars(object):
                      {"statusBar":
                      {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 1920},
                      "navigationBar":
-                     {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 126}}}'''
+                     {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 126}}}''',
         )
         d = driver.get_system_bars()
 

@@ -33,8 +33,9 @@ MESSAGE_YELLOW = '\033[1;33m{}\033[0m'
 
 
 def get_current_version():
-    current = io.open(os.path.join(os.path.dirname('__file__'), 'appium',
-                                   'version.py'), encoding='utf-8').read().rstrip()
+    current = (
+        io.open(os.path.join(os.path.dirname('__file__'), 'appium', 'version.py'), encoding='utf-8').read().rstrip()
+    )
     print('The current version is {}, type a new one'.format(MESSAGE_YELLOW.format(current)))
     return current
 
@@ -76,9 +77,10 @@ def upload_sdist(new_version_num):
     try:
         call_bash_script('twine upload "{}"'.format(push_file))
     except Exception as e:
-        print('Failed to upload {} to pypi. '
-              'Please fix the original error and push it again later. Original error: {}'.format(
-                  push_file, e))
+        print(
+            'Failed to upload {} to pypi. '
+            'Please fix the original error and push it again later. Original error: {}'.format(push_file, e)
+        )
 
 
 def push_changes_to_master(new_version_num):
@@ -105,7 +107,9 @@ def validate_release_env():
     if os.system('which twine') != 0:
         exit("Please get twine via 'pip install twine'")
     if os.system('which gitchangelog') != 0:
-        exit("Please get twine via 'pip install gitchangelog' or 'pip install git+git://github.com/vaab/gitchangelog.git' for Python 3.7")
+        exit(
+            "Please get twine via 'pip install gitchangelog' or 'pip install git+git://github.com/vaab/gitchangelog.git' for Python 3.7"
+        )
 
 
 def build() -> None:
@@ -117,8 +121,9 @@ def build() -> None:
 
 def get_py_files_in_dir(root_dir: str) -> List[str]:
     return [
-        file_path[len(root_dir):]
-        for file_path in glob.glob(f"{root_dir}/**/*.py", recursive=True) + glob.glob(f"{root_dir}/**/*.typed", recursive=True)
+        file_path[len(root_dir) :]
+        for file_path in glob.glob(f"{root_dir}/**/*.py", recursive=True)
+        + glob.glob(f"{root_dir}/**/*.typed", recursive=True)
     ]
 
 
@@ -139,8 +144,10 @@ def assert_files_count_in_package() -> None:
         if diff:
             print(f"{BUILT_APPIUM_DIR_PATH} has {diff} files than {APPIUM_DIR_PATH}")
 
-        exit(f"Python files in '{BUILT_APPIUM_DIR_PATH}' may differ from '{APPIUM_DIR_PATH}'. "
-             "Please make sure setup.py is configured properly.")
+        exit(
+            f"Python files in '{BUILT_APPIUM_DIR_PATH}' may differ from '{APPIUM_DIR_PATH}'. "
+            "Please make sure setup.py is configured properly."
+        )
 
 
 def main():

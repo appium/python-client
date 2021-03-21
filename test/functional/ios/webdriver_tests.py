@@ -20,7 +20,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
 from test.functional.ios.helper.test_helper import BaseTestCase
-from test.functional.test_helper import get_available_from_port_range
+from test.functional.test_helper import get_available_from_port_range, wait_for_condition
 
 from ..test_helper import is_ci
 from .helper import desired_capabilities
@@ -48,8 +48,7 @@ class TestWebDriver(BaseTestCase):
         driver2 = None
         try:
             driver2 = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-            WebDriverWait(
-                driver2, session_counts_is_two.TIMEOUT).until(session_counts_is_two())
+            WebDriverWait(driver2, session_counts_is_two.TIMEOUT).until(session_counts_is_two())
             assert len(self.driver.all_sessions) == 2
         finally:
             if driver2 is not None:
@@ -57,12 +56,15 @@ class TestWebDriver(BaseTestCase):
 
     def test_app_management(self) -> None:
         # this only works in Xcode9+
-        if float(desired_capabilities.get_desired_capabilities(
-                desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:
+        if float(desired_capabilities.get_desired_capabilities(desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:
             return
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND
         self.driver.background_app(-1)
-        assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) < ApplicationState.RUNNING_IN_FOREGROUND
+        print(self.driver.query_app_state(desired_capabilities.BUNDLE_ID) < ApplicationState.RUNNING_IN_FOREGROUND)
+        assert wait_for_condition(
+            lambda: self.driver.query_app_state(desired_capabilities.BUNDLE_ID)
+            < ApplicationState.RUNNING_IN_FOREGROUND,
+        ), "The app didn't go to background."
         self.driver.activate_app(desired_capabilities.BUNDLE_ID)
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND
 
@@ -94,8 +96,7 @@ class TestWebDriver(BaseTestCase):
 
     def test_press_button(self) -> None:
         self.driver.press_button("Home")
-        if float(desired_capabilities.get_desired_capabilities(
-                desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:
+        if float(desired_capabilities.get_desired_capabilities(desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:
             return
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND
 

@@ -7,11 +7,11 @@ check-all: ## Run all lint checks and unittest
 
 .PHONY: isort
 isort: ## Run isort
-	python -m isort $(ARGS) -rc .
+	python -m isort $(ARGS) .
 
-.PHONY: autopep8
-autopep8: ## Run autopep8
-	python -m autopep8 $(ARGS) -a -r -i .
+.PHONY: black
+black: ## Run black
+	python -m black $(ARGS) . -l 120 -S
 
 .PHONY: pylint
 pylint: ## Run pylint
@@ -20,11 +20,11 @@ pylint: ## Run pylint
 
 .PHONY: mypy
 mypy:  ## Run mypy
-	python -m mypy appium test
+	python -m mypy appium test/functional
 
 .PHONY: unittest
 unittest: ## Run unittest
-	python -m pytest test/unit/
+	python -m pytest $(ARGS) test/unit/
 
 .PHONY: help
 help: ## Display this help screen

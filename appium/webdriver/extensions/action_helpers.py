@@ -28,7 +28,6 @@ T = TypeVar('T', bound=Union['WebDriver', 'ActionHelpers'])
 
 
 class ActionHelpers(webdriver.Remote):
-
     def scroll(self: T, origin_el: WebElement, destination_el: WebElement, duration: Optional[int] = None) -> T:
         """Scrolls from one element to another
 
@@ -128,11 +127,7 @@ class ActionHelpers(webdriver.Remote):
         # `swipe` is something like press-wait-move_to-release, which the server
         # will translate into the correct action
         action = TouchAction(self)
-        action \
-            .press(x=start_x, y=start_y) \
-            .wait(ms=duration) \
-            .move_to(x=end_x, y=end_y) \
-            .release()
+        action.press(x=start_x, y=start_y).wait(ms=duration).move_to(x=end_x, y=end_y).release()
         action.perform()
         return self
 
@@ -152,9 +147,6 @@ class ActionHelpers(webdriver.Remote):
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
         action = TouchAction(self)
-        action \
-            .press(x=start_x, y=start_y) \
-            .move_to(x=end_x, y=end_y) \
-            .release()
+        action.press(x=start_x, y=start_y).move_to(x=end_x, y=end_y).release()
         action.perform()
         return self

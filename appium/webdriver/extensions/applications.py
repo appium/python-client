@@ -206,25 +206,26 @@ class Applications(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.BACKGROUND] = \
-            ('POST', '/session/$sessionId/appium/app/background')
-        self.command_executor._commands[Command.IS_APP_INSTALLED] = \
-            ('POST', '/session/$sessionId/appium/device/app_installed')
-        self.command_executor._commands[Command.INSTALL_APP] = \
-            ('POST', '/session/$sessionId/appium/device/install_app')
-        self.command_executor._commands[Command.REMOVE_APP] = \
-            ('POST', '/session/$sessionId/appium/device/remove_app')
-        self.command_executor._commands[Command.TERMINATE_APP] = \
-            ('POST', '/session/$sessionId/appium/device/terminate_app')
-        self.command_executor._commands[Command.ACTIVATE_APP] = \
-            ('POST', '/session/$sessionId/appium/device/activate_app')
-        self.command_executor._commands[Command.QUERY_APP_STATE] = \
-            ('POST', '/session/$sessionId/appium/device/app_state')
-        self.command_executor._commands[Command.GET_APP_STRINGS] = \
-            ('POST', '/session/$sessionId/appium/app/strings')
-        self.command_executor._commands[Command.RESET] = \
-            ('POST', '/session/$sessionId/appium/app/reset')
-        self.command_executor._commands[Command.LAUNCH_APP] = \
-            ('POST', '/session/$sessionId/appium/app/launch')
-        self.command_executor._commands[Command.CLOSE_APP] = \
-            ('POST', '/session/$sessionId/appium/app/close')
+        self.command_executor._commands[Command.BACKGROUND] = ('POST', '/session/$sessionId/appium/app/background')
+        self.command_executor._commands[Command.IS_APP_INSTALLED] = (
+            'POST',
+            '/session/$sessionId/appium/device/app_installed',
+        )
+        self.command_executor._commands[Command.INSTALL_APP] = ('POST', '/session/$sessionId/appium/device/install_app')
+        self.command_executor._commands[Command.REMOVE_APP] = ('POST', '/session/$sessionId/appium/device/remove_app')
+        self.command_executor._commands[Command.TERMINATE_APP] = (
+            'POST',
+            '/session/$sessionId/appium/device/terminate_app',
+        )
+        self.command_executor._commands[Command.ACTIVATE_APP] = (
+            'POST',
+            '/session/$sessionId/appium/device/activate_app',
+        )
+        self.command_executor._commands[Command.QUERY_APP_STATE] = (
+            'POST',
+            '/session/$sessionId/appium/device/app_state',
+        )
+        self.command_executor._commands[Command.GET_APP_STRINGS] = ('POST', '/session/$sessionId/appium/app/strings')
+        self.command_executor._commands[Command.RESET] = ('POST', '/session/$sessionId/appium/app/reset')
+        self.command_executor._commands[Command.LAUNCH_APP] = ('POST', '/session/$sessionId/appium/app/launch')
+        self.command_executor._commands[Command.CLOSE_APP] = ('POST', '/session/$sessionId/appium/app/close')

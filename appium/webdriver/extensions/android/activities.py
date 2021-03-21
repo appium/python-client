@@ -47,10 +47,7 @@ class Activities(webdriver.Remote):
             optional_intent_arguments (str): Optional arguments to the intent.
             dont_stop_app_on_reset (str): Should the app be stopped on reset?
         """
-        data = {
-            'appPackage': app_package,
-            'appActivity': app_activity
-        }
+        data = {'appPackage': app_package, 'appActivity': app_activity}
         arguments = {
             'app_wait_package': 'appWaitPackage',
             'app_wait_activity': 'appWaitActivity',
@@ -58,7 +55,7 @@ class Activities(webdriver.Remote):
             'intent_category': 'intentCategory',
             'intent_flags': 'intentFlags',
             'optional_intent_arguments': 'optionalIntentArguments',
-            'dont_stop_app_on_reset': 'dontStopAppOnReset'
+            'dont_stop_app_on_reset': 'dontStopAppOnReset',
         }
         for key, value in arguments.items():
             if key in opts:
@@ -89,8 +86,7 @@ class Activities(webdriver.Remote):
             `True` if the target activity is shown
         """
         try:
-            WebDriverWait(self, timeout, interval).until(
-                lambda d: d.current_activity == activity)
+            WebDriverWait(self, timeout, interval).until(lambda d: d.current_activity == activity)
             return True
         except TimeoutException:
             return False
@@ -98,7 +94,11 @@ class Activities(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_CURRENT_ACTIVITY] = \
-            ('GET', '/session/$sessionId/appium/device/current_activity')
-        self.command_executor._commands[Command.START_ACTIVITY] = \
-            ('POST', '/session/$sessionId/appium/device/start_activity')
+        self.command_executor._commands[Command.GET_CURRENT_ACTIVITY] = (
+            'GET',
+            '/session/$sessionId/appium/device/current_activity',
+        )
+        self.command_executor._commands[Command.START_ACTIVITY] = (
+            'POST',
+            '/session/$sessionId/appium/device/start_activity',
+        )

@@ -12,14 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import httpretty
+from appium.webdriver.common.mobileby import MobileBy
+from test.functional.mac.helper.test_helper import BaseTestCase
+from test.functional.test_helper import wait_for_element
 
-from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
-
-class TestWebDriverContext(object):
-    @httpretty.activate
-    def test_get_contexts(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890/context'), body='{"value": "NATIVE"}')
-        assert driver.current_context == 'NATIVE'
+class TestWebElement(BaseTestCase):
+    def test_clear_text_field(self) -> None:
+        edit_field = wait_for_element(self.driver, MobileBy.CLASS_NAME, 'XCUIElementTypeTextView')
+        edit_field.send_keys('helloworld')
+        assert edit_field.text == 'helloworld'
+        edit_field.clear()
+        assert edit_field.text == ''

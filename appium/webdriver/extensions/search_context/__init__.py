@@ -15,8 +15,7 @@
 # pylint: disable=abstract-method
 
 from selenium import webdriver
-from selenium.webdriver.remote.webelement import \
-    WebElement as SeleniumWebElement
+from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
 
 from .android import AndroidSearchContext
 from .custom import CustomSearchContext
@@ -25,19 +24,23 @@ from .mobile import MobileSearchContext
 from .windows import WindowsSearchContext
 
 
-class AppiumSearchContext(webdriver.Remote,
-                          AndroidSearchContext,
-                          CustomSearchContext,
-                          iOSSearchContext,
-                          MobileSearchContext,
-                          WindowsSearchContext):
+class AppiumSearchContext(
+    webdriver.Remote,
+    AndroidSearchContext,
+    CustomSearchContext,
+    iOSSearchContext,
+    MobileSearchContext,
+    WindowsSearchContext,
+):
     """Returns appium driver search conext"""
 
 
-class AppiumWebElementSearchContext(SeleniumWebElement,
-                                    AndroidSearchContext,
-                                    CustomSearchContext,
-                                    iOSSearchContext,
-                                    MobileSearchContext,
-                                    WindowsSearchContext):
+class AppiumWebElementSearchContext(
+    SeleniumWebElement,
+    AndroidSearchContext,
+    CustomSearchContext,
+    iOSSearchContext,
+    MobileSearchContext,
+    WindowsSearchContext,
+):
     """Returns appium web element search context"""

@@ -53,7 +53,6 @@ class GsmVoiceState:
 
 
 class Gsm(webdriver.Remote):
-
     def make_gsm_call(self: T, phone_number: str, action: str) -> T:
         """Make GSM call (Emulator only)
 
@@ -74,7 +73,8 @@ class Gsm(webdriver.Remote):
         if action not in constants.values():
             logger.warning(
                 f'{action} is unknown. Consider using one of {list(constants.keys())} constants. '
-                f'(e.g. {GsmCallActions.__name__}.CALL)')
+                f'(e.g. {GsmCallActions.__name__}.CALL)'
+            )
         self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
         return self
 
@@ -97,7 +97,8 @@ class Gsm(webdriver.Remote):
         if strength not in constants.values():
             logger.warning(
                 f'{strength} is out of range. Consider using one of {list(constants.keys())} constants. '
-                f'(e.g. {GsmSignalStrength.__name__}.GOOD)')
+                f'(e.g. {GsmSignalStrength.__name__}.GOOD)'
+            )
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
         return self
 
@@ -120,16 +121,17 @@ class Gsm(webdriver.Remote):
         if state not in constants.values():
             logger.warning(
                 f'{state} is unknown. Consider using one of {list(constants.keys())} constants. '
-                f'(e.g. {GsmVoiceState.__name__}.HOME)')
+                f'(e.g. {GsmVoiceState.__name__}.HOME)'
+            )
         self.execute(Command.SET_GSM_VOICE, {'state': state})
         return self
 
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.MAKE_GSM_CALL] = \
-            ('POST', '/session/$sessionId/appium/device/gsm_call')
-        self.command_executor._commands[Command.SET_GSM_SIGNAL] = \
-            ('POST', '/session/$sessionId/appium/device/gsm_signal')
-        self.command_executor._commands[Command.SET_GSM_VOICE] = \
-            ('POST', '/session/$sessionId/appium/device/gsm_voice')
+        self.command_executor._commands[Command.MAKE_GSM_CALL] = ('POST', '/session/$sessionId/appium/device/gsm_call')
+        self.command_executor._commands[Command.SET_GSM_SIGNAL] = (
+            'POST',
+            '/session/$sessionId/appium/device/gsm_signal',
+        )
+        self.command_executor._commands[Command.SET_GSM_VOICE] = ('POST', '/session/$sessionId/appium/device/gsm_voice')

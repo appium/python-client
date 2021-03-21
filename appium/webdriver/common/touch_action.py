@@ -36,13 +36,17 @@ T = TypeVar('T', bound='TouchAction')
 
 
 class TouchAction:
-
     def __init__(self, driver: Optional['WebDriver'] = None):
         self._driver = driver
         self._actions: List = []
 
-    def tap(self: T, element: Optional['WebElement'] = None, x: Optional[int]
-            = None, y: Optional[int] = None, count: int = 1) -> T:
+    def tap(
+        self: T,
+        element: Optional['WebElement'] = None,
+        x: Optional[int] = None,
+        y: Optional[int] = None,
+        count: int = 1,
+    ) -> T:
         """Perform a tap action on the element
 
         Args:
@@ -59,8 +63,13 @@ class TouchAction:
 
         return self
 
-    def press(self: T, el: Optional['WebElement'] = None, x: Optional[int] = None,
-              y: Optional[int] = None, pressure: Optional[float] = None) -> T:
+    def press(
+        self: T,
+        el: Optional['WebElement'] = None,
+        x: Optional[int] = None,
+        y: Optional[int] = None,
+        pressure: Optional[float] = None,
+    ) -> T:
         """Begin a chain with a press down action at a particular element or point
 
         Args:
@@ -77,8 +86,13 @@ class TouchAction:
 
         return self
 
-    def long_press(self: T, el: Optional['WebElement'] = None, x: Optional[int]
-                   = None, y: Optional[int] = None, duration: int = 1000) -> T:
+    def long_press(
+        self: T,
+        el: Optional['WebElement'] = None,
+        x: Optional[int] = None,
+        y: Optional[int] = None,
+        duration: int = 1000,
+    ) -> T:
         """Begin a chain with a press down that lasts `duration` milliseconds
 
         Args:
@@ -167,8 +181,14 @@ class TouchAction:
         }
         self._actions.append(gesture)
 
-    def _get_opts(self, el: Optional['WebElement'] = None, x: Optional[int] = None, y: Optional[int] = None,
-                  duration: Optional[int] = None, pressure: Optional[float] = None) -> Dict[str, Union[int, float]]:
+    def _get_opts(
+        self,
+        el: Optional['WebElement'] = None,
+        x: Optional[int] = None,
+        y: Optional[int] = None,
+        duration: Optional[int] = None,
+        pressure: Optional[float] = None,
+    ) -> Dict[str, Union[int, float]]:
         opts = {}
         if el is not None:
             opts['element'] = el.id

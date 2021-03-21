@@ -9,15 +9,10 @@
 
 import httpretty
 
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
+from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
 class TestWebDriverScreenRecord(object):
-
     @httpretty.activate
     def test_start_recording_screen(self):
         driver = android_w3c_driver()
@@ -38,7 +33,7 @@ class TestWebDriverScreenRecord(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/stop_recording_screen'),
-            body='{"value": "b64_video_data"}'
+            body='{"value": "b64_video_data"}',
         )
         assert driver.stop_recording_screen(user='userA', password='12345') == 'b64_video_data'
 

@@ -32,8 +32,8 @@ class TestActivities(BaseTestCase):
         self.driver.start_activity(APIDEMO_PKG_NAME, ".ApiDemos")
         self._assert_activity_contains('Demos')
 
-        self.driver.start_activity("com.android.calculator2", ".Calculator")
-        self._assert_activity_contains('Calculator')
+        self.driver.start_activity("com.google.android.deskclock", "com.android.deskclock.DeskClock")
+        self._assert_activity_contains('Clock')
 
     def _assert_activity_contains(self, activity: str) -> None:
         current = self.driver.current_activity

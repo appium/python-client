@@ -26,7 +26,6 @@ T = TypeVar('T', bound=Union['WebDriver', 'IME'])
 
 
 class IME(webdriver.Remote):
-
     @property
     def available_ime_engines(self: T) -> List[str]:
         """Get the available input methods for an Android device.
@@ -60,9 +59,7 @@ class IME(webdriver.Remote):
         Returns:
             Union['WebDriver', 'IME']: Self instance
         """
-        data = {
-            'engine': engine
-        }
+        data = {'engine': engine}
         self.execute(Command.ACTIVATE_IME_ENGINE, data)
         return self
 
@@ -92,13 +89,14 @@ class IME(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_AVAILABLE_IME_ENGINES] = \
-            ('GET', '/session/$sessionId/ime/available_engines')
-        self.command_executor._commands[Command.IS_IME_ACTIVE] = \
-            ('GET', '/session/$sessionId/ime/activated')
-        self.command_executor._commands[Command.ACTIVATE_IME_ENGINE] = \
-            ('POST', '/session/$sessionId/ime/activate')
-        self.command_executor._commands[Command.DEACTIVATE_IME_ENGINE] = \
-            ('POST', '/session/$sessionId/ime/deactivate')
-        self.command_executor._commands[Command.GET_ACTIVE_IME_ENGINE] = \
-            ('GET', '/session/$sessionId/ime/active_engine')
+        self.command_executor._commands[Command.GET_AVAILABLE_IME_ENGINES] = (
+            'GET',
+            '/session/$sessionId/ime/available_engines',
+        )
+        self.command_executor._commands[Command.IS_IME_ACTIVE] = ('GET', '/session/$sessionId/ime/activated')
+        self.command_executor._commands[Command.ACTIVATE_IME_ENGINE] = ('POST', '/session/$sessionId/ime/activate')
+        self.command_executor._commands[Command.DEACTIVATE_IME_ENGINE] = ('POST', '/session/$sessionId/ime/deactivate')
+        self.command_executor._commands[Command.GET_ACTIVE_IME_ENGINE] = (
+            'GET',
+            '/session/$sessionId/ime/active_engine',
+        )

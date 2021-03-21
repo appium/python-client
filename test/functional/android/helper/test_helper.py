@@ -17,9 +17,6 @@ import base64
 import os
 from typing import TYPE_CHECKING
 
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-
 from appium import webdriver
 from test.functional.test_helper import is_ci
 
@@ -36,29 +33,7 @@ SLEEPY_TIME = 10
 APIDEMO_PKG_NAME = 'io.appium.android.apis'
 
 
-def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout: int = SLEEPY_TIME) -> 'WebElement':
-    """Wait until the element located
-
-    Args:
-        driver: WebDriver instance
-        locator: Locator like WebDriver, Mobile JSON Wire Protocol
-            (e.g. `appium.webdriver.common.mobileby.MobileBy.ACCESSIBILITY_ID`)
-        value: Query value to locator
-        timeout: Maximum time to wait the element. If time is over, `TimeoutException` is thrown
-
-    Raises:
-        `selenium.common.exceptions.TimeoutException`
-
-    Returns:
-        The found WebElement
-    """
-    return WebDriverWait(driver, timeout).until(
-        EC.presence_of_element_located((locator, value))
-    )
-
-
-class BaseTestCase():
-
+class BaseTestCase:
     def setup_method(self, method) -> None:  # type: ignore
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)

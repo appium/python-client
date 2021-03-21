@@ -16,15 +16,10 @@ import textwrap
 
 import httpretty
 
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
+from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
 class TestWebDriverExecuteDriver(object):
-
     @httpretty.activate
     def test_batch(self):
         driver = android_w3c_driver()
@@ -35,7 +30,7 @@ class TestWebDriverExecuteDriver(object):
             '{"element-6066-11e4-a52e-4f735466cecf":"39000000-0000-0000-D39A-000000000000",'
             '"ELEMENT":"39000000-0000-0000-D39A-000000000000"},'
             '{"y":237,"x":18,"width":67,"height":24}],"logs":{'
-            '"error":[],"warn":["warning message"],"log":[]}}}'
+            '"error":[],"warn":["warning message"],"log":[]}}}',
         )
 
         script = """
@@ -65,7 +60,7 @@ class TestWebDriverExecuteDriver(object):
             '{"element-6066-11e4-a52e-4f735466cecf":"39000000-0000-0000-D39A-000000000000",'
             '"ELEMENT":"39000000-0000-0000-D39A-000000000000"},'
             '{"y":237,"x":18,"width":67,"height":24}],"logs":{'
-            '"error":[],"warn":["warning message"],"log":[]}}}'
+            '"error":[],"warn":["warning message"],"log":[]}}}',
         )
 
         script = """

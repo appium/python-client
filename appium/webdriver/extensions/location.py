@@ -37,16 +37,20 @@ class Location(webdriver.Remote):
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
         return self
 
-    def set_location(self: T,
-                     latitude: Union[float, str],
-                     longitude: Union[float, str],
-                     altitude: Union[float, str] = None) -> T:
+    def set_location(
+        self: T,
+        latitude: Union[float, str],
+        longitude: Union[float, str],
+        altitude: Union[float, str] = None,
+        speed: Union[float, str] = None,
+    ) -> T:
         """Set the location of the device
 
         Args:
             latitude: String or numeric value between -90.0 and 90.00
             longitude: String or numeric value between -180.0 and 180.0
             altitude: String or numeric value (Android real device only)
+            speed: String or numeric value larger than 0.0 (Android real devices only)
 
         Returns:
             Union['WebDriver', 'Location']: Self instance
@@ -59,6 +63,8 @@ class Location(webdriver.Remote):
         }
         if altitude is not None:
             data['location']['altitude'] = altitude
+        if speed is not None:
+            data['location']['speed'] = speed
         self.execute(Command.SET_LOCATION, data)
         return self
 
@@ -77,9 +83,9 @@ class Location(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = \
-            ('POST', '/session/$sessionId/appium/device/toggle_location_services')
-        self.command_executor._commands[Command.GET_LOCATION] = \
-            ('GET', '/session/$sessionId/location')
-        self.command_executor._commands[Command.SET_LOCATION] = \
-            ('POST', '/session/$sessionId/location')
+        self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = (
+            'POST',
+            '/session/$sessionId/appium/device/toggle_location_services',
+        )
+        self.command_executor._commands[Command.GET_LOCATION] = ('GET', '/session/$sessionId/location')
+        self.command_executor._commands[Command.SET_LOCATION] = ('POST', '/session/$sessionId/location')

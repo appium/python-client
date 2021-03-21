@@ -14,22 +14,15 @@
 
 import httpretty
 
-from test.unit.helper.test_helper import (
-    android_w3c_driver,
-    appium_command,
-    get_httpretty_request_body
-)
+from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
 class TestWebDriverActivities(object):
-
     @httpretty.activate
     def test_start_activity(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/device/start_activity'),
-            body='{"value": ""}'
+            httpretty.POST, appium_command('/session/1234567890/appium/device/start_activity'), body='{"value": ""}'
         )
         driver.start_activity('com.example.myapp', '.ExampleActivity')
 
@@ -41,9 +34,7 @@ class TestWebDriverActivities(object):
     def test_start_activity_with_opts(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/device/start_activity'),
-            body='{"value": ""}'
+            httpretty.POST, appium_command('/session/1234567890/appium/device/start_activity'), body='{"value": ""}'
         )
         driver.start_activity(
             app_package='com.example.myapp',
@@ -53,7 +44,7 @@ class TestWebDriverActivities(object):
             intent_category='android.intent.category.LAUNCHER',
             intent_flags='0x10200000',
             optional_intent_arguments='--es "activity" ".ExampleActivity"',
-            dont_stop_app_on_reset=True
+            dont_stop_app_on_reset=True,
         )
 
         d = get_httpretty_request_body(httpretty.last_request())
@@ -72,7 +63,7 @@ class TestWebDriverActivities(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890/appium/device/current_activity'),
-            body='{"value": ".ExampleActivity"}'
+            body='{"value": ".ExampleActivity"}',
         )
         assert driver.current_activity == '.ExampleActivity'
 
@@ -82,6 +73,6 @@ class TestWebDriverActivities(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890/appium/device/current_activity'),
-            body='{"value": ".ExampleActivity"}'
+            body='{"value": ".ExampleActivity"}',
         )
         assert driver.wait_activity('.ExampleActivity', 1) is True

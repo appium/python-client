@@ -26,7 +26,6 @@ T = TypeVar('T', bound=Union['WebDriver', 'DeviceTime'])
 
 
 class DeviceTime(webdriver.Remote):
-
     @property
     def device_time(self: T) -> str:
         """Returns the date and time from the device.
@@ -59,7 +58,11 @@ class DeviceTime(webdriver.Remote):
     # pylint: disable=protected-access
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_DEVICE_TIME_GET] = \
-            ('GET', '/session/$sessionId/appium/device/system_time')
-        self.command_executor._commands[Command.GET_DEVICE_TIME_POST] = \
-            ('POST', '/session/$sessionId/appium/device/system_time')
+        self.command_executor._commands[Command.GET_DEVICE_TIME_GET] = (
+            'GET',
+            '/session/$sessionId/appium/device/system_time',
+        )
+        self.command_executor._commands[Command.GET_DEVICE_TIME_POST] = (
+            'POST',
+            '/session/$sessionId/appium/device/system_time',
+        )

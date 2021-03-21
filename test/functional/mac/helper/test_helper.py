@@ -12,14 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import httpretty
 
-from test.unit.helper.test_helper import android_w3c_driver, appium_command
+from appium import webdriver
+
+from .desired_capabilities import get_desired_capabilities
 
 
-class TestWebDriverContext(object):
-    @httpretty.activate
-    def test_get_contexts(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890/context'), body='{"value": "NATIVE"}')
-        assert driver.current_context == 'NATIVE'
+class BaseTestCase(object):
+    def setup_method(self) -> None:
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', get_desired_capabilities())
+
+    def teardown_method(self, method) -> None:  # type: ignore
+        self.driver.quit()

@@ -59,24 +59,22 @@ from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
 # From remote/webdriver.py
-_W3C_CAPABILITY_NAMES = frozenset([
-    'acceptInsecureCerts',
-    'browserName',
-    'browserVersion',
-    'platformName',
-    'pageLoadStrategy',
-    'proxy',
-    'setWindowRect',
-    'timeouts',
-    'unhandledPromptBehavior',
-])
+_W3C_CAPABILITY_NAMES = frozenset(
+    [
+        'acceptInsecureCerts',
+        'browserName',
+        'browserVersion',
+        'platformName',
+        'pageLoadStrategy',
+        'proxy',
+        'setWindowRect',
+        'timeouts',
+        'unhandledPromptBehavior',
+    ]
+)
 
 # From remote/webdriver.py
-_OSS_W3C_CONVERSION = {
-    'acceptSslCerts': 'acceptInsecureCerts',
-    'version': 'browserVersion',
-    'platform': 'platformName'
-}
+_OSS_W3C_CONVERSION = {'acceptSslCerts': 'acceptInsecureCerts', 'version': 'browserVersion', 'platform': 'platformName'}
 
 _EXTENSION_CAPABILITY = ':'
 _FORCE_MJSONWP = 'forceMjsonwp'
@@ -142,7 +140,7 @@ class WebDriver(
     Session,
     Settings,
     Sms,
-    SystemBars
+    SystemBars,
 ):
 
     def __init__(self, command_executor: str = 'http://127.0.0.1:4444/wd/hub',
@@ -160,17 +158,13 @@ class WebDriver(
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
         super().__init__(
-            AppiumConnection(command_executor, keep_alive=keep_alive),
-            desired_capabilities,
-            browser_profile,
-            proxy
+            AppiumConnection(command_executor, keep_alive=keep_alive), desired_capabilities, browser_profile, proxy
         )
 
         if hasattr(self, 'command_executor'):
             self._addCommands()
 
         self.error_handler = MobileErrorHandler()
-        self._switch_to = MobileSwitchTo(self)
 
         if direct_connection:
             self._update_command_executor(keep_alive=keep_alive)
@@ -280,12 +274,9 @@ class WebDriver(
         #         by = By.CSS_SELECTOR
         #         value = '[name="%s"]' % value
 
-        return self.execute(RemoteCommand.FIND_ELEMENT, {
-            'using': by,
-            'value': value})['value']
+        return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
 
-    def find_elements(self, by: str = By.ID, value: Union[str, Dict]
-                      = None) -> Union[List[MobileWebElement], List]:
+    def find_elements(self, by: str = By.ID, value: Union[str, Dict] = None) -> Union[List[MobileWebElement], List]:
         """'Private' method used by the find_elements_by_* methods.
 
         Override for Appium
@@ -312,9 +303,7 @@ class WebDriver(
         # Return empty list if driver returns null
         # See https://github.com/SeleniumHQ/selenium/issues/4555
 
-        return self.execute(RemoteCommand.FIND_ELEMENTS, {
-            'using': by,
-            'value': value})['value'] or []
+        return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
 
     def create_web_element(self, element_id: Union[int, str], w3c: bool = True) -> MobileWebElement:
         """Creates a web element with the specified element_id.
@@ -348,6 +337,19 @@ class WebDriver(
         self.execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
 
+    @property
+    def switch_to(self) -> MobileSwitchTo:
+        """Returns an object containing all options to switch focus into
+
+        Override for appium
+
+        Returns:
+            `appium.webdriver.switch_to.MobileSwitchTo`
+
+        """
+
+        return MobileSwitchTo(self)
+
     # pylint: disable=protected-access
 
     def _addCommands(self) -> None:
@@ -358,17 +360,20 @@ class WebDriver(
             if hasattr(mixin_class, self._addCommands.__name__):
                 getattr(mixin_class, self._addCommands.__name__, None)(self)
 
-        self.command_executor._commands[Command.TOUCH_ACTION] = \
-            ('POST', '/session/$sessionId/touch/perform')
-        self.command_executor._commands[Command.MULTI_ACTION] = \
-            ('POST', '/session/$sessionId/touch/multi/perform')
-        self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = \
-            ('POST', '/session/$sessionId/appium/element/$id/value')
+        self.command_executor._commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
+        self.command_executor._commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
+        self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = (
+            'POST',
+            '/session/$sessionId/appium/element/$id/value',
+        )
 
         # TODO Move commands for element to webelement
-        self.command_executor._commands[Command.REPLACE_KEYS] = \
-            ('POST', '/session/$sessionId/appium/element/$id/replace_value')
-        self.command_executor._commands[Command.CLEAR] = \
-            ('POST', '/session/$sessionId/element/$id/clear')
-        self.command_executor._commands[Command.LOCATION_IN_VIEW] = \
-            ('GET', '/session/$sessionId/element/$id/location_in_view')
+        self.command_executor._commands[Command.REPLACE_KEYS] = (
+            'POST',
+            '/session/$sessionId/appium/element/$id/replace_value',
+        )
+        self.command_executor._commands[Command.CLEAR] = ('POST', '/session/$sessionId/element/$id/clear')
+        self.command_executor._commands[Command.LOCATION_IN_VIEW] = (
+            'GET',
+            '/session/$sessionId/element/$id/location_in_view',
+        )

@@ -26,9 +26,9 @@ T = TypeVar('T', bound=Union['WebDriver', 'Performance'])
 
 
 class Performance(webdriver.Remote):
-
-    def get_performance_data(self: T, package_name: str, data_type: str,
-                             data_read_timeout: int = None) -> List[List[str]]:
+    def get_performance_data(
+        self: T, package_name: str, data_type: str, data_read_timeout: int = None
+    ) -> List[List[str]]:
         """Returns the information of the system state
         which is supported to read as like cpu, memory, network traffic, and battery.
 
@@ -69,7 +69,11 @@ class Performance(webdriver.Remote):
 
     # noinspection PyProtectedMember
     def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_PERFORMANCE_DATA] = \
-            ('POST', '/session/$sessionId/appium/getPerformanceData')
-        self.command_executor._commands[Command.GET_PERFORMANCE_DATA_TYPES] = \
-            ('POST', '/session/$sessionId/appium/performanceData/types')
+        self.command_executor._commands[Command.GET_PERFORMANCE_DATA] = (
+            'POST',
+            '/session/$sessionId/appium/getPerformanceData',
+        )
+        self.command_executor._commands[Command.GET_PERFORMANCE_DATA_TYPES] = (
+            'POST',
+            '/session/$sessionId/appium/performanceData/types',
+        )

@@ -142,18 +142,21 @@ class WebDriver(
     Sms,
     SystemBars,
 ):
-
-    def __init__(self, command_executor: str = 'http://127.0.0.1:4444/wd/hub',
-                 desired_capabilities: Optional[Dict] = None,
-                 browser_profile: str = None,
-                 proxy: str = None,
-                 keep_alive: bool = True,
-                 direct_connection: bool = True,
-                 strict_ssl: bool = True):
+    def __init__(
+        self,
+        command_executor: str = 'http://127.0.0.1:4444/wd/hub',
+        desired_capabilities: Optional[Dict] = None,
+        browser_profile: str = None,
+        proxy: str = None,
+        keep_alive: bool = True,
+        direct_connection: bool = True,
+        strict_ssl: bool = True,
+    ):
 
         if strict_ssl is False:
             # pylint: disable=E1101
             import urllib3
+
             AppiumConnection.set_certificate_bundle_path(None)
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -187,7 +190,7 @@ class WebDriver(
         direct_port = 'directConnectPort'
         direct_path = 'directConnectPath'
 
-        if (not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps))):
+        if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps)):
             message = 'Direct connect capabilities from server were:\n'
             for key in [direct_protocol, direct_host, direct_port, direct_path]:
                 message += '{}: \'{}\'\n'.format(key, self.caps.get(key, ''))
@@ -244,8 +247,7 @@ class WebDriver(
         self.command_executor.w3c = self.w3c
 
     def _merge_capabilities(self, capabilities: Dict) -> Dict[str, Any]:
-        """Manage capabilities whether W3C format or MJSONWP format
-        """
+        """Manage capabilities whether W3C format or MJSONWP format"""
         w3c_caps = _make_w3c_caps(capabilities)
         return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 

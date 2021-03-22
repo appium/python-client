@@ -5,8 +5,48 @@ Changelog
 (unreleased)
 ------------
 
+Fix
+~~~
+- Fix format with black. [Kazuaki Matsuo]
+- Fix lint, CI and tests. [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 2.0.0.b1. [Kazuaki Matsuo]
+- Bump base selenium version to 4.0.0.b2. [Kazuaki Matsuo]
+- Bump v2.0.0.a0. [Kazuaki Matsuo]
+- Update changelog for v2.0.0.a0. [Kazuaki Matsuo]
+- Bump selenium. [Kazuaki Matsuo]
+
+
+v1.1.0 (2021-03-10)
+-------------------
+
 New
 ~~~
+- Feat: Add optional location speed attribute for android devices (#594)
+  [salabogdan]
+- Feat: Added docstring for macOS screenrecord option (#580) [Mori
+  Atsushi]
+
+  * Added docstring for macOS screenrecord option
+
+  * tweak
+
+  * review comment
+- Feat: add warning to drop forceMjsonwp for W3C (#567) [Kazuaki Matsuo]
+
+  * tweak
+
+  * fix test
+
+  * print warning
+
+  * revert test
+
+  * Update webdriver.py
+
+  * fix autopep8
 - Feat: Added descriptions for newly added screenrecord opts (#540)
   [Mori Atsushi]
 
@@ -14,12 +54,32 @@ New
 
   * Updates
 
-Fix
-~~~
-- Fix lint, CI and tests. [Kazuaki Matsuo]
-
 Test
 ~~~~
+- Ci: Use node v12 (#585) [Mori Atsushi]
+
+  * Use node 12 on ci
+
+  * Update copyright
+
+  * Update README for doc
+
+  * tweak
+
+  * fix copyright
+
+  * try py310
+
+  * remove py310
+- Ci: remove travis (#581) [Mori Atsushi]
+
+  * Removed travis and run unit test on azure
+
+  * review comment
+
+  * run tox on azure pipelines
+
+  * removed tox-travis from pipfile
 - Ci: move azure project to Appium CI, update readme (#564) [Kazuaki
   Matsuo]
 - Ci: Added py39-dev for travis (#557) [Mori Atsushi]
@@ -43,8 +103,127 @@ Test
 
 Other
 ~~~~~
+- Chore(deps-dev): update pre-commit requirement from ~=2.10 to ~=2.11
+  (#595) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.10.0...v2.11.0)
+- Chore(deps): update tox requirement from ~=3.22 to ~=3.23 (#593)
+  [dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/3.23.0/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.22.0...3.23.0)
+- Chore(deps): update pylint requirement from ~=2.6 to ~=2.7 (#588)
+  [Mori Atsushi, dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Changelog](https://github.com/PyCQA/pylint/blob/master/ChangeLog)
+  - [Commits](https://github.com/PyCQA/pylint/compare/pylint-2.6.0...pylint-2.7.0)
+- Chore(deps): update astroid requirement from ~=2.4 to ~=2.5 (#587)
+  [dependabot[bot]]
+
+  Updates the requirements on [astroid](https://github.com/PyCQA/astroid) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/astroid/releases)
+  - [Changelog](https://github.com/PyCQA/astroid/blob/master/ChangeLog)
+  - [Commits](https://github.com/PyCQA/astroid/compare/astroid-2.4.0...astroid-2.5)
+- Chore(deps): update mypy requirement from ~=0.800 to ~=0.812 (#589)
+  [Mori Atsushi, dependabot[bot]]
+
+  * chore(deps): update mypy requirement from ~=0.800 to ~=0.812
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.800...v0.812)
+
+  Signed-off-by: dependabot[bot] <support@github.com>
+
+  * Fix mypy error with mypy v0.812 (#590)
+
+  * chore(deps): update mypy requirement from ~=0.800 to ~=0.812
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.800...v0.812)
+- Chore(deps): update tox requirement from ~=3.21 to ~=3.22 (#586)
+  [dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.21.0...3.22.0)
+- Chore: Add table for screen_record kwarg (#582) [Mori Atsushi]
+
+  * Add table for kwarg
+
+  * update
+
+  * Add missing doc to stop_recording
+
+  * Push auto-generated changes by sphinx
+
+  * delete duplicated entry [skip ci]
+- Chore(deps): update isort requirement from ~=5.0 to ~=5.7 (#578)
+  [dependabot-preview[bot]]
+
+  Updates the requirements on [isort](https://github.com/pycqa/isort) to permit the latest version.
+  - [Release notes](https://github.com/pycqa/isort/releases)
+  - [Changelog](https://github.com/PyCQA/isort/blob/develop/CHANGELOG.md)
+  - [Commits](https://github.com/pycqa/isort/compare/5.0.0...5.7.0)
+- Create Dependabot config file (#579) [dependabot-preview[bot],
+  dependabot-preview[bot]]
+- Chore: Update pipfile to respect isort v5 (#577) [Mori Atsushi]
+- Chore: Fix iOS app management functional tests (#575) [Mori Atsushi]
+
+  * Added sleep to wait the app has gone
+
+  * Upgrade AndroidSDK to 30 from 27
+
+  * Added sleep to ios tc
+
+  * Fix android activities test
+
+  * Revert android sdk ver
+
+  * Used timer instead of fixed wait time
+
+  * Created wait_for
+
+  * Update test/functional/test_helper.py
+
+  * review comments
+
+  * review comments
+
+  * Extend callable type
+
+  * fix
+
+  * review comment
+
+  * review comment
+
+  * review comment
+
+  * fix comment
+- Chore: Fix functional keyboard tests with appium v1.21.0-beta.0 (#574)
+  [Mori Atsushi]
+
+  * Fix function keyboard tests
+
+  * Updated class name for keyboard
+- Chore: Apply Black code formatter (#571) [Mori Atsushi]
+
+  * Applied black (length: 120, String skipped)
+
+  * Updated related to ci
+
+  * Update README
 - Chore: address selenium-4 branch in readme (#566) [Kazuaki Matsuo]
-- Bump selenium. [Kazuaki Matsuo]
 - Docs: fix wrong code example in README.md (#555) [sanlengjingvv]
 - Update changelog for 1.0.2. [Kazuaki Matsuo]
 

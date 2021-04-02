@@ -307,7 +307,7 @@ class WebDriver(
 
         return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
 
-    def create_web_element(self, element_id: Union[int, str], w3c: bool = True) -> MobileWebElement:
+    def create_web_element(self, element_id: Union[int, str]) -> MobileWebElement:
         """Creates a web element with the specified element_id.
 
         Overrides method in Selenium WebDriver in order to always give them
@@ -315,12 +315,11 @@ class WebDriver(
 
         Args:
             element_id: The element id to create a web element
-            w3c: Whether the element is W3C or MJSONWP
 
         Returns:
             `MobileWebElement`
         """
-        return MobileWebElement(self, element_id, w3c)
+        return MobileWebElement(self, element_id)
 
     def set_value(self, element: MobileWebElement, value: str) -> T:
         """Set the value on an element in the application.

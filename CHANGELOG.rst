@@ -7,12 +7,19 @@ Changelog
 
 Fix
 ~~~
+- Remove w3c argument in MobileWebElement (#598) [Kazuaki Matsuo]
+
+  * Bump 2.0.0.b1
+
+  * Update changelog for 2.0.0.b1
+
+  * remove w3c
 - Fix format with black. [Kazuaki Matsuo]
 - Fix lint, CI and tests. [Kazuaki Matsuo]
 
 Other
 ~~~~~
-- Bump 2.0.0.b1. [Kazuaki Matsuo]
+- Bump 2.0.0.b2. [Kazuaki Matsuo]
 - Bump base selenium version to 4.0.0.b2. [Kazuaki Matsuo]
 - Bump v2.0.0.a0. [Kazuaki Matsuo]
 - Update changelog for v2.0.0.a0. [Kazuaki Matsuo]

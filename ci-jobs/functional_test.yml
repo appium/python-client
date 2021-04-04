@@ -1,7 +1,7 @@
 parameters:
   vmImage: 'macOS-10.15'
   pytestOpt: '--doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html'
-  androidSdkVer: 30
+  androidSdkVer: S
   xcodeForIOS: 12.3
   CI: true
 

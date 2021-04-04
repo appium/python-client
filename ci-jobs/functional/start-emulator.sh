@@ -6,7 +6,7 @@
 # with some changes
 
 # Install AVD files
-declare -r emulator="system-images;android-${ANDROID_SDK_VERSION};google_apis;x86"
+declare -r emulator="system-images;android-${ANDROID_SDK_VERSION};google_apis;arm64-v8a"
 echo "y" | ${ANDROID_HOME}/tools/bin/sdkmanager --install "$emulator"
 
 # Show a list of emulators

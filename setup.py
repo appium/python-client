@@ -47,5 +47,5 @@ setup(
         'Topic :: Software Development :: Quality Assurance',
         'Topic :: Software Development :: Testing',
     ],
-    install_requires=['selenium == 4.0.0.b2.post1'],
+    install_requires=['selenium == 4.0.0.b3'],
 )

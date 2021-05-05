@@ -19,6 +19,19 @@ Fix
 
 Other
 ~~~~~
+- Bump 2.0.0.b3. [Kazuaki Matsuo]
+- Tweak some lines. [Kazuaki Matsuo]
+- Update selenium in pipfile. [Kazuaki Matsuo]
+- Chore(deps): update isort requirement from ~=5.7 to ~=5.8 (#596)
+  [dependabot[bot]]
+
+  Updates the requirements on [isort](https://github.com/pycqa/isort) to permit the latest version.
+  - [Release notes](https://github.com/pycqa/isort/releases)
+  - [Changelog](https://github.com/PyCQA/isort/blob/develop/CHANGELOG.md)
+  - [Commits](https://github.com/pycqa/isort/compare/5.7.0...5.8.0)
+- Bump selenium 4.0.0.b3. [Kazuaki Matsuo]
+- Update pipfile. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.b2. [Kazuaki Matsuo]
 - Bump 2.0.0.b2. [Kazuaki Matsuo]
 - Bump base selenium version to 4.0.0.b2. [Kazuaki Matsuo]
 - Bump v2.0.0.a0. [Kazuaki Matsuo]

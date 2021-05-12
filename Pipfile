@@ -20,7 +20,7 @@ httpretty = "~=1.0"
 python-dateutil = "~=2.8"
 mock = "~=4.0"
 
-pylint = "~=2.7"
+pylint = "~=2.8"
 astroid = "~=2.5"
 isort = "~=5.8"
 

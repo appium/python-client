@@ -16,7 +16,7 @@ pytest-cov = "~=2.11"
 
 tox = "~=3.23"
 
-httpretty = "~=1.0"
+httpretty = "~=1.1"
 python-dateutil = "~=2.8"
 mock = "~=4.0"
 

@@ -12,7 +12,7 @@ selenium = "~=3.141"
 black = "==20.8b1"
 
 pytest = "~=6.2"
-pytest-cov = "~=2.11"
+pytest-cov = "~=2.12"
 
 tox = "~=3.23"
 

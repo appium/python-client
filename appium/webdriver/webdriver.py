@@ -363,10 +363,12 @@ class WebDriver(
 
         Args:
             method: The method of HTTP request. Available methods are AVAILABLE_METHOD.
-            url: The url to URL template as https://www.w3.org/TR/webdriver/#endpoints.
-                '$sessionId' is a placeholder of current session id.
-                '$id' is a placeholder of an element.
-            name: The name of command to call in `execute_custom_command`.
+            url: The url is URL template as https://www.w3.org/TR/webdriver/#endpoints.
+                 `$sessionId` is a placeholder of current session id.
+                 Other placeholders can be specified with `$` prefix like `$id`.
+                 Then, `{'id': 'some id'}` argument in `execute_custom_command` replaces
+                 the `$id` with the value, `some id`, in the request.
+            name: The name of a command to call in `execute_custom_command`.
 
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance

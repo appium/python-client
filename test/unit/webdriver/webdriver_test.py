@@ -279,6 +279,18 @@ class TestWebDriverWebDriver(object):
         assert d['dummy'] == 'test argument'
 
     @httpretty.activate
+    def test_add_command_with_element_id(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('session/1234567890/path/to/custom/element_id/url'),
+            body=json.dumps({'value': {}}),
+        )
+        driver.add_command(method='GET', url='session/$sessionId/path/to/custom/$id/url', name='test_command')
+        result = driver.execute_custom_command('test_command', {'id': 'element_id'})
+        assert result == {}
+
+    @httpretty.activate
     def test_add_command_already_defined(self):
         driver = ios_w3c_driver()
         driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')

@@ -356,14 +356,10 @@ class WebDriver(
 
         return MobileSwitchTo(self)
 
-    def add_command(self, method: str, url: str, name: str) -> Callable:
+    def registar_command(self, method: str, url: str, name: str) -> Callable:
         """"""
         self.command_executor._commands[name] = (method, url)
-
-        def function() -> Any:
-            return self.execute(name, {})
-
-        return function
+        return self
 
     # pylint: disable=protected-access
 

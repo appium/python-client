@@ -356,10 +356,16 @@ class WebDriver(
 
         return MobileSwitchTo(self)
 
-    def registar_command(self, method: str, url: str, name: str) -> Callable:
-        """"""
+    def add_command(self, method: str, url: str, name: str) -> Callable:
+        if name in self.command_executor._commands:
+            raise ValueError("{} is already defined".format(name))
         self.command_executor._commands[name] = (method, url)
         return self
+
+    def execute_custom_command(self, name: str, args: Dict) -> Any:
+        if name not in self.command_executor._commands:
+            raise ValueError("No {} custom command. Please add it with 'add_command'".format(name))
+        return self.execute(name, args)['value']
 
     # pylint: disable=protected-access
 

@@ -258,7 +258,7 @@ class TestWebDriverWebDriver(object):
             appium_command('session/1234567890/path/to/custom/url'),
             body=json.dumps({'value': {}}),
         )
-        driver.registar_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
+        driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
         result = driver.execute('test_command', {})
 
         assert result == {'value': {}}
@@ -271,12 +271,32 @@ class TestWebDriverWebDriver(object):
             appium_command('session/1234567890/path/to/custom/url'),
             body=json.dumps({'value': {}}),
         )
-        driver.registar_command(method='POST', url='session/$sessionId/path/to/custom/url', name='test_command')
-        result = driver.execute('test_command', {'dummy': 'test argument'})
-        assert result == {'value': {}}
+        driver.add_command(method='POST', url='session/$sessionId/path/to/custom/url', name='test_command')
+        result = driver.execute_custom_command('test_command', {'dummy': 'test argument'})
+        assert result == {}
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['dummy'] == 'test argument'
+
+    @httpretty.activate
+    def test_add_command_already_defined(self):
+        driver = ios_w3c_driver()
+        driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
+        try:
+            driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
+            assert False, 'Should raise InvalidArgumentException'
+        except ValueError:
+            assert True
+
+    @httpretty.activate
+    def test_execute_custom_command(self):
+        driver = ios_w3c_driver()
+        driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
+        try:
+            driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
+            assert False, 'Should raise InvalidArgumentException'
+        except ValueError:
+            assert True
 
 
 class SubWebDriver(WebDriver):

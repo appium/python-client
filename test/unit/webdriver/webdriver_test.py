@@ -259,9 +259,9 @@ class TestWebDriverWebDriver(object):
             body=json.dumps({'value': {}}),
         )
         driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
-        result = driver.execute('test_command', {})
+        result = driver.execute_custom_command('test_command')
 
-        assert result == {'value': {}}
+        assert result == {}
 
     @httpretty.activate
     def test_add_command_body(self):
@@ -284,7 +284,7 @@ class TestWebDriverWebDriver(object):
         driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
         try:
             driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
-            assert False, 'Should raise InvalidArgumentException'
+            assert False, 'Should raise ValueError'
         except ValueError:
             assert True
 
@@ -294,7 +294,16 @@ class TestWebDriverWebDriver(object):
         driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
         try:
             driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
-            assert False, 'Should raise InvalidArgumentException'
+            assert False, 'Should raise ValueError'
+        except ValueError:
+            assert True
+
+    @httpretty.activate
+    def test_invalid_method(self):
+        driver = ios_w3c_driver()
+        try:
+            driver.add_command(method='error', url='session/$sessionId/path/to/custom/url', name='test_command')
+            assert False, 'Should raise ValueError'
         except ValueError:
             assert True
 

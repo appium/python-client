@@ -58,6 +58,8 @@ from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
+AVAILABLE_METHOD = frozenset(['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH'])
+
 # From remote/webdriver.py
 _W3C_CAPABILITY_NAMES = frozenset(
     [
@@ -357,14 +359,42 @@ class WebDriver(
         return MobileSwitchTo(self)
 
     def add_command(self, method: str, url: str, name: str) -> Callable:
+        """Add a custom command as 'name'
+
+        Args:
+            method: The method of HTTP request. Available methods are AVAILABLE_METHOD.
+            url: The url to URL template as https://www.w3.org/TR/webdriver/#endpoints.
+                '$sessionId' is a placeholder of current session id.
+                '$id' is a placeholder of an element.
+            name: The name of command to call in `execute_custom_command`.
+
+        Returns:
+            `appium.webdriver.webdriver.WebDriver`: Self instance
+
+        """
         if name in self.command_executor._commands:
             raise ValueError("{} is already defined".format(name))
+
+        method = method.upper()
+        if method not in AVAILABLE_METHOD:
+            raise ValueError("'{}' is invalid. Valid method is {}.".format(method, AVAILABLE_METHOD))
+
         self.command_executor._commands[name] = (method, url)
         return self
 
-    def execute_custom_command(self, name: str, args: Dict) -> Any:
+    def execute_custom_command(self, name: str, args: Dict = {}) -> Any:
+        """Execute a custom command defined as 'name' with args command.
+
+        Args:
+            name: The name of command defined by `add_command`.
+            args: The argument as this command body
+
+        Returns:
+            'value' JSON object field in the response body.
+
+        """
         if name not in self.command_executor._commands:
-            raise ValueError("No {} custom command. Please add it with 'add_command'".format(name))
+            raise ValueError("No {} custom command. Please add it by 'add_command'".format(name))
         return self.execute(name, args)['value']
 
     # pylint: disable=protected-access

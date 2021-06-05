@@ -250,6 +250,22 @@ class TestWebDriverWebDriver(object):
         mock_warning.assert_called_once()
         assert events == {}
 
+    @httpretty.activate
+    def test_add_command(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('session/1234567890/path/to/custom/url'),
+            body=json.dumps({'value': {}}),
+        )
+        driver.test_command = driver.add_command(
+            method='GET', url='session/$sessionId/path/to/custom/url', name='test_command'
+        )
+
+        result = driver.test_command()
+
+        assert result == {'value': {}}
+
 
 class SubWebDriver(WebDriver):
     def __init__(self, command_executor, desired_capabilities, direct_connection=False):

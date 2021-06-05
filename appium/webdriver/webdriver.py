@@ -15,7 +15,7 @@
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
 import copy
-from typing import Any, Dict, List, Optional, TypeVar, Union
+from typing import Any, Callable, Dict, List, Optional, TypeVar, Union
 
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
@@ -355,6 +355,15 @@ class WebDriver(
         """
 
         return MobileSwitchTo(self)
+
+    def add_command(self, method: str, url: str, name: str) -> Callable:
+        """"""
+        self.command_executor._commands[name] = (method, url)
+
+        def function() -> Any:
+            return self.execute(name, {})
+
+        return function
 
     # pylint: disable=protected-access
 

@@ -23,6 +23,7 @@ from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.logger import logger
+from appium.webdriver.command_method import CommandMethod
 from appium.webdriver.common.mobileby import MobileBy
 
 from .appium_connection import AppiumConnection
@@ -57,8 +58,6 @@ from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
-
-AVAILABLE_METHOD = frozenset(['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH'])
 
 # From remote/webdriver.py
 _W3C_CAPABILITY_NAMES = frozenset(
@@ -358,11 +357,11 @@ class WebDriver(
 
         return MobileSwitchTo(self)
 
-    def add_command(self, method: str, url: str, name: str) -> T:
+    def add_command(self, method: CommandMethod, url: str, name: str) -> T:
         """Add a custom command as 'name'
 
         Args:
-            method: The method of HTTP request. Available methods are AVAILABLE_METHOD.
+            method: The method of HTTP request. Available methods are CommandMethod.
             url: The url is URL template as https://www.w3.org/TR/webdriver/#endpoints.
                  `$sessionId` is a placeholder of current session id.
                  Other placeholders can be specified with `$` prefix like `$id`.
@@ -373,15 +372,27 @@ class WebDriver(
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance
 
+        Raises:
+            ValueError
+
+        Examples:
+            Define 'test_command' as GET and 'session/$sessionId/path/to/custom/url'
+
+            >>> from appium.webdriver.command_method import CommandMethod
+            >>> driver.add_command(
+                    method=CommandMethod.GET,
+                    url='session/$sessionId/path/to/custom/url',
+                    name='test_command'
+                )
+
         """
         if name in self.command_executor._commands:
             raise ValueError("{} is already defined".format(name))
 
-        method = method.upper()
-        if method not in AVAILABLE_METHOD:
-            raise ValueError("'{}' is invalid. Valid method is {}.".format(method, AVAILABLE_METHOD))
+        if not isinstance(method, CommandMethod):
+            raise ValueError("'{}' is invalid. Valid method is 'CommandMethod'.".format(method))
 
-        self.command_executor._commands[name] = (method, url)
+        self.command_executor._commands[name] = (method.value, url)
         return self
 
     def execute_custom_command(self, name: str, args: Dict = {}) -> Any:
@@ -393,6 +404,18 @@ class WebDriver(
 
         Returns:
             'value' JSON object field in the response body.
+
+        Raises:
+            ValueError, selenium.common.exceptions.WebDriverException
+
+        Examples:
+            Calls 'test_command' command without arguments.
+
+            >>> result = driver.execute_custom_command('test_command')
+
+            Calls 'test_command' command with arguments.
+
+            >>> result = driver.execute_custom_command('test_command', {'dummy': 'test argument'})
 
         """
         if name not in self.command_executor._commands:

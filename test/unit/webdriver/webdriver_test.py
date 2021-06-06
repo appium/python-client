@@ -20,6 +20,7 @@ from mock import patch
 
 from appium import version as appium_version
 from appium import webdriver
+from appium.webdriver.command_method import CommandMethod
 from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body, ios_w3c_driver
 
@@ -259,7 +260,7 @@ class TestWebDriverWebDriver(object):
             appium_command('session/1234567890/path/to/custom/url'),
             body=json.dumps({'value': {}}),
         )
-        driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
+        driver.add_command(method=CommandMethod.GET, url='session/$sessionId/path/to/custom/url', name='test_command')
         result = driver.execute_custom_command('test_command')
 
         assert result == {}
@@ -272,7 +273,7 @@ class TestWebDriverWebDriver(object):
             appium_command('session/1234567890/path/to/custom/url'),
             body=json.dumps({'value': {}}),
         )
-        driver.add_command(method='POST', url='session/$sessionId/path/to/custom/url', name='test_command')
+        driver.add_command(method=CommandMethod.POST, url='session/$sessionId/path/to/custom/url', name='test_command')
         result = driver.execute_custom_command('test_command', {'dummy': 'test argument'})
         assert result == {}
 
@@ -287,23 +288,29 @@ class TestWebDriverWebDriver(object):
             appium_command('session/1234567890/path/to/custom/element_id/url'),
             body=json.dumps({'value': {}}),
         )
-        driver.add_command(method='GET', url='session/$sessionId/path/to/custom/$id/url', name='test_command')
+        driver.add_command(
+            method=CommandMethod.GET, url='session/$sessionId/path/to/custom/$id/url', name='test_command'
+        )
         result = driver.execute_custom_command('test_command', {'id': 'element_id'})
         assert result == {}
 
     @httpretty.activate
     def test_add_command_already_defined(self):
         driver = ios_w3c_driver()
-        driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
+        driver.add_command(method=CommandMethod.GET, url='session/$sessionId/path/to/custom/url', name='test_command')
         with pytest.raises(ValueError):
-            driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
+            driver.add_command(
+                method=CommandMethod.GET, url='session/$sessionId/path/to/custom/url', name='test_command'
+            )
 
     @httpretty.activate
     def test_execute_custom_command(self):
         driver = ios_w3c_driver()
-        driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
+        driver.add_command(method=CommandMethod.GET, url='session/$sessionId/path/to/custom/url', name='test_command')
         with pytest.raises(ValueError):
-            driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
+            driver.add_command(
+                method=CommandMethod.GET, url='session/$sessionId/path/to/custom/url', name='test_command'
+            )
 
     @httpretty.activate
     def test_invalid_method(self):

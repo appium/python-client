@@ -390,7 +390,9 @@ class WebDriver(
             raise ValueError("{} is already defined".format(name))
 
         if not isinstance(method, CommandMethod):
-            raise ValueError("'{}' is invalid. Valid method is in '{}'.".format(method, CommandMethod.__name__))
+            raise ValueError(
+                "'{}' is invalid. Valid method should be one of '{}'.".format(method, CommandMethod.__name__)
+            )
 
         self.command_executor._commands[name] = (method.value, url)
         return self

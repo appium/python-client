@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pre-commit = "~=2.11"
+pre-commit = "~=2.13"
 
 [packages]
 selenium = "4.0.0.b3"
@@ -12,7 +12,7 @@ selenium = "4.0.0.b3"
 black = "==20.8b1"
 
 pytest = "~=6.2"
-pytest-cov = "~=2.11"
+pytest-cov = "~=2.12"
 
 tox = "~=3.23"
 
@@ -20,7 +20,7 @@ httpretty = "~=1.0"
 python-dateutil = "~=2.8"
 mock = "~=4.0"
 
-pylint = "~=2.7"
+pylint = "~=2.8"
 astroid = "~=2.5"
 isort = "~=5.8"
 

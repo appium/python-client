@@ -411,11 +411,34 @@ class WebDriver(
         Examples:
             Calls 'test_command' command without arguments.
 
+            >>> from appium.webdriver.command_method import CommandMethod
+            >>> driver.add_command(
+                    method=CommandMethod.GET,
+                    url='session/$sessionId/path/to/custom/url',
+                    name='test_command'
+                )
             >>> result = driver.execute_custom_command('test_command')
 
             Calls 'test_command' command with arguments.
 
+            >>> from appium.webdriver.command_method import CommandMethod
+            >>> driver.add_command(
+                    method=CommandMethod.POST,
+                    url='session/$sessionId/path/to/custom/url',
+                    name='test_command'
+                )
             >>> result = driver.execute_custom_command('test_command', {'dummy': 'test argument'})
+
+            Calls 'test_command' command with arguments, and the path has 'element id'.
+            The '$id' will be 'element id' by 'id' key in the given argument.
+
+            >>> from appium.webdriver.command_method import CommandMethod
+            >>> driver.add_command(
+                    method=CommandMethod.POST,
+                    url='session/$sessionId/path/to/$id/url',
+                    name='test_command'
+                )
+            >>> result = driver.execute_custom_command('test_command', {'id': 'element id', 'dummy': 'test argument'})
 
         """
         if name not in self.command_executor._commands:

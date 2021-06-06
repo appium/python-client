@@ -15,7 +15,7 @@
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
 import copy
-from typing import Any, Callable, Dict, List, Optional, TypeVar, Union
+from typing import Any, Dict, List, Optional, TypeVar, Union
 
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
@@ -358,7 +358,7 @@ class WebDriver(
 
         return MobileSwitchTo(self)
 
-    def add_command(self, method: str, url: str, name: str) -> Callable:
+    def add_command(self, method: str, url: str, name: str) -> T:
         """Add a custom command as 'name'
 
         Args:

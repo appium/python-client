@@ -15,6 +15,7 @@
 import json
 
 import httpretty
+import pytest
 from mock import patch
 
 from appium import version as appium_version
@@ -294,30 +295,21 @@ class TestWebDriverWebDriver(object):
     def test_add_command_already_defined(self):
         driver = ios_w3c_driver()
         driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
-        try:
+        with pytest.raises(ValueError):
             driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
-            assert False, 'Should raise ValueError'
-        except ValueError:
-            assert True
 
     @httpretty.activate
     def test_execute_custom_command(self):
         driver = ios_w3c_driver()
         driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
-        try:
+        with pytest.raises(ValueError):
             driver.add_command(method='GET', url='session/$sessionId/path/to/custom/url', name='test_command')
-            assert False, 'Should raise ValueError'
-        except ValueError:
-            assert True
 
     @httpretty.activate
     def test_invalid_method(self):
         driver = ios_w3c_driver()
-        try:
+        with pytest.raises(ValueError):
             driver.add_command(method='error', url='session/$sessionId/path/to/custom/url', name='test_command')
-            assert False, 'Should raise ValueError'
-        except ValueError:
-            assert True
 
 
 class SubWebDriver(WebDriver):

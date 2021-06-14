@@ -19,16 +19,12 @@ Fix
 
 Other
 ~~~~~
+- Bump 2.0.0.b4. [Kazuaki Matsuo]
+- Use python selenium client v4.0.0.b4. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.b3. [Kazuaki Matsuo]
 - Bump 2.0.0.b3. [Kazuaki Matsuo]
 - Tweak some lines. [Kazuaki Matsuo]
 - Update selenium in pipfile. [Kazuaki Matsuo]
-- Chore(deps): update isort requirement from ~=5.7 to ~=5.8 (#596)
-  [dependabot[bot]]
-
-  Updates the requirements on [isort](https://github.com/pycqa/isort) to permit the latest version.
-  - [Release notes](https://github.com/pycqa/isort/releases)
-  - [Changelog](https://github.com/PyCQA/isort/blob/develop/CHANGELOG.md)
-  - [Commits](https://github.com/pycqa/isort/compare/5.7.0...5.8.0)
 - Bump selenium 4.0.0.b3. [Kazuaki Matsuo]
 - Update pipfile. [Kazuaki Matsuo]
 - Update changelog for 2.0.0.b2. [Kazuaki Matsuo]
@@ -37,6 +33,69 @@ Other
 - Bump v2.0.0.a0. [Kazuaki Matsuo]
 - Update changelog for v2.0.0.a0. [Kazuaki Matsuo]
 - Bump selenium. [Kazuaki Matsuo]
+
+
+v1.2.0 (2021-06-07)
+-------------------
+
+New
+~~~
+- Feat: allow to add a command dynamically (#608) [Kazuaki Matsuo]
+
+  * add add_commmand in python
+
+  * add test
+
+  * add exceptions, tweak method
+
+  * append docstring
+
+  * add $id example
+
+  * use pytest.raises
+
+  * add examples as docstring
+
+Other
+~~~~~
+- Bump 1.2.0. [Kazuaki Matsuo]
+- Chore(deps-dev): update pre-commit requirement from ~=2.12 to ~=2.13
+  (#607) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.12.0...v2.13.0)
+- Chore(deps): update pytest-cov requirement from ~=2.11 to ~=2.12
+  (#606) [Kazuaki Matsuo, dependabot[bot]]
+
+  * chore(deps): update pytest-cov requirement from ~=2.11 to ~=2.12
+
+  Updates the requirements on [pytest-cov](https://github.com/pytest-dev/pytest-cov) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest-cov/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest-cov/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest-cov/compare/v2.11.0...v2.12.0)
+- Chore(deps): update pylint requirement from ~=2.7 to ~=2.8 (#600)
+  [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Changelog](https://github.com/PyCQA/pylint/blob/master/ChangeLog)
+  - [Commits](https://github.com/PyCQA/pylint/compare/pylint-2.7.0...pylint-2.8.1)
+- Chore(deps-dev): update pre-commit requirement from ~=2.11 to ~=2.12
+  (#599) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.11.0...v2.12.0)
+- Chore(deps): update isort requirement from ~=5.7 to ~=5.8 (#596)
+  [dependabot[bot]]
+
+  Updates the requirements on [isort](https://github.com/pycqa/isort) to permit the latest version.
+  - [Release notes](https://github.com/pycqa/isort/releases)
+  - [Changelog](https://github.com/PyCQA/isort/blob/develop/CHANGELOG.md)
+  - [Commits](https://github.com/pycqa/isort/compare/5.7.0...5.8.0)
 
 
 v1.1.0 (2021-03-10)

@@ -151,6 +151,7 @@ class WebDriver(
         proxy: str = None,
         keep_alive: bool = True,
         direct_connection: bool = False,
+        extensions: List[str] = [],
     ):
 
         super().__init__(
@@ -175,6 +176,10 @@ class WebDriver(
         By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
         By.IMAGE = MobileBy.IMAGE
         By.CUSTOM = MobileBy.CUSTOM
+
+        for extention in extensions:
+            # TODO: add new methods
+            pass
 
     def _update_command_executor(self, keep_alive: bool) -> None:
         """Update command executor following directConnect feature"""

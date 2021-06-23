@@ -115,6 +115,13 @@ T = TypeVar('T', bound='WebDriver')
 
 
 class ExtensionBase:
+    """
+    Used to define an extension command.
+
+    TODO:
+    add examples
+    """
+
     def __init__(self, execute: Callable):
         self._execute = execute
 
@@ -122,13 +129,26 @@ class ExtensionBase:
         return self._execute(self.method_name(), parameters)
 
     def method_name(self) -> str:
-        raise NotImplementedError('Please define a method name')
+        """
+        Expected to return a method name.
+        This name will be able to call as a driver method.
 
-    def command_wrapper(self) -> None:
-        raise NotImplementedError('Please define exact call')
+        Returns:
+            'str' The method name.
+        """
+        raise NotImplementedError()
+
+    def command_wrapper(self) -> Any:
+        """
+        Expected to do the actual command as `method_name`.
+        """
+        raise NotImplementedError()
 
     def custom_command(self) -> Tuple[str, str]:
-        raise NotImplementedError('Please define exact call')
+        """
+        Expected to define the pair of HTTP method and its URL.
+        """
+        raise NotImplementedError()
 
 
 class WebDriver(

@@ -15,7 +15,7 @@
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
 import copy
-from typing import Any, Dict, List, Optional, TypeVar, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
@@ -114,6 +114,23 @@ def _make_w3c_caps(caps: Dict) -> Dict[str, List[Dict[str, Any]]]:
 T = TypeVar('T', bound='WebDriver')
 
 
+class ExtensionBase:
+    def __init__(self, execute: Callable):
+        self._execute = execute
+
+    def execute(self, parameters: Any) -> Any:
+        return self._execute(self.method_name(), parameters)
+
+    def method_name(self) -> str:
+        raise NotImplementedError('Please define a method name')
+
+    def command_wrapper(self) -> None:
+        raise NotImplementedError('Please define exact call')
+
+    def custom_command(self) -> Tuple[str, str]:
+        raise NotImplementedError('Please define exact call')
+
+
 class WebDriver(
     AppiumSearchContext,
     ActionHelpers,
@@ -151,7 +168,7 @@ class WebDriver(
         proxy: str = None,
         keep_alive: bool = True,
         direct_connection: bool = False,
-        extensions: List[str] = [],
+        extensions: List[T] = [],
     ):
 
         super().__init__(
@@ -177,9 +194,15 @@ class WebDriver(
         By.IMAGE = MobileBy.IMAGE
         By.CUSTOM = MobileBy.CUSTOM
 
-        for extention in extensions:
-            # TODO: add new methods
-            pass
+        for extension in extensions:
+            instance = extension(self.execute)
+            if hasattr(WebDriver, instance.method_name()):
+                logger.warn(
+                    '{} is alreadt defined. The new one is overriding the old one.'.format(instance.method_name())
+                )
+            setattr(WebDriver, instance.method_name(), instance.command_wrapper)
+            method, url_cmd = instance.custom_command()
+            self.command_executor._commands[instance.method_name()] = (method.upper(), url_cmd)  # type: ignore
 
     def _update_command_executor(self, keep_alive: bool) -> None:
         """Update command executor following directConnect feature"""
@@ -361,96 +384,6 @@ class WebDriver(
         """
 
         return MobileSwitchTo(self)
-
-    def add_command(self, method: CommandMethod, url: str, name: str) -> T:
-        """Add a custom command as 'name'
-
-        Args:
-            method: The method of HTTP request. Available methods are CommandMethod.
-            url: The url is URL template as https://www.w3.org/TR/webdriver/#endpoints.
-                 `$sessionId` is a placeholder of current session id.
-                 Other placeholders can be specified with `$` prefix like `$id`.
-                 Then, `{'id': 'some id'}` argument in `execute_custom_command` replaces
-                 the `$id` with the value, `some id`, in the request.
-            name: The name of a command to call in `execute_custom_command`.
-
-        Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
-
-        Raises:
-            ValueError
-
-        Examples:
-            Define 'test_command' as GET and 'session/$sessionId/path/to/custom/url'
-
-            >>> from appium.webdriver.command_method import CommandMethod
-            >>> driver.add_command(
-                    method=CommandMethod.GET,
-                    url='session/$sessionId/path/to/custom/url',
-                    name='test_command'
-                )
-
-        """
-        if name in self.command_executor._commands:
-            raise ValueError("{} is already defined".format(name))
-
-        if not isinstance(method, CommandMethod):
-            raise ValueError(
-                "'{}' is invalid. Valid method should be one of '{}'.".format(method, CommandMethod.__name__)
-            )
-
-        self.command_executor._commands[name] = (method.value, url)
-        return self
-
-    def execute_custom_command(self, name: str, args: Dict = {}) -> Any:
-        """Execute a custom command defined as 'name' with args command.
-
-        Args:
-            name: The name of command defined by `add_command`.
-            args: The argument as this command body
-
-        Returns:
-            'value' JSON object field in the response body.
-
-        Raises:
-            ValueError, selenium.common.exceptions.WebDriverException
-
-        Examples:
-            Calls 'test_command' command without arguments.
-
-            >>> from appium.webdriver.command_method import CommandMethod
-            >>> driver.add_command(
-                    method=CommandMethod.GET,
-                    url='session/$sessionId/path/to/custom/url',
-                    name='test_command'
-                )
-            >>> result = driver.execute_custom_command('test_command')
-
-            Calls 'test_command' command with arguments.
-
-            >>> from appium.webdriver.command_method import CommandMethod
-            >>> driver.add_command(
-                    method=CommandMethod.POST,
-                    url='session/$sessionId/path/to/custom/url',
-                    name='test_command'
-                )
-            >>> result = driver.execute_custom_command('test_command', {'dummy': 'test argument'})
-
-            Calls 'test_command' command with arguments, and the path has 'element id'.
-            The '$id' will be 'element id' by 'id' key in the given argument.
-
-            >>> from appium.webdriver.command_method import CommandMethod
-            >>> driver.add_command(
-                    method=CommandMethod.POST,
-                    url='session/$sessionId/path/to/$id/url',
-                    name='test_command'
-                )
-            >>> result = driver.execute_custom_command('test_command', {'id': 'element id', 'dummy': 'test argument'})
-
-        """
-        if name not in self.command_executor._commands:
-            raise ValueError("No {} custom command. Please add it by 'add_command'".format(name))
-        return self.execute(name, args)['value']
 
     # pylint: disable=protected-access
 

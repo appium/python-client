@@ -15,7 +15,6 @@
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
 import copy
-import types
 from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 from selenium.common.exceptions import InvalidArgumentException

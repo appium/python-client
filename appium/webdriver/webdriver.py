@@ -15,6 +15,7 @@
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
 import copy
+import types
 from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 from selenium.common.exceptions import InvalidArgumentException
@@ -125,22 +126,16 @@ class ExtensionBase:
     def __init__(self, execute: Callable):
         self._execute = execute
 
-    def execute(self, parameters: Any) -> Any:
+    def execute(self, parameters: Any = {}) -> Any:
         return self._execute(self.method_name(), parameters)
 
     def method_name(self) -> str:
         """
         Expected to return a method name.
-        This name will be able to call as a driver method.
+        This name will be available as a driver method.
 
         Returns:
             'str' The method name.
-        """
-        raise NotImplementedError()
-
-    def command_wrapper(self) -> Any:
-        """
-        Expected to do the actual command as `method_name`.
         """
         raise NotImplementedError()
 
@@ -214,15 +209,23 @@ class WebDriver(
         By.IMAGE = MobileBy.IMAGE
         By.CUSTOM = MobileBy.CUSTOM
 
-        for extension in extensions:
+        self._extensions = extensions
+        for extension in self._extensions:
             instance = extension(self.execute)
             if hasattr(WebDriver, instance.method_name()):
-                logger.warn(
-                    '{} is alreadt defined. The new one is overriding the old one.'.format(instance.method_name())
-                )
-            setattr(WebDriver, instance.method_name(), instance.command_wrapper)
+                raise ValueError(f'{instance.method_name()} is already defined.')
+
+            # add a new method named 'instance.method_name()' and call it
+            setattr(WebDriver, instance.method_name(), getattr(instance, instance.method_name()))
             method, url_cmd = instance.custom_command()
             self.command_executor._commands[instance.method_name()] = (method.upper(), url_cmd)  # type: ignore
+
+    def delete_extensions(self) -> None:
+        """Delete extensions added in the class with 'setattr'"""
+        for extension in self._extensions:
+            instance = extension(self.execute)
+            if hasattr(WebDriver, instance.method_name()):
+                delattr(WebDriver, instance.method_name())
 
     def _update_command_executor(self, keep_alive: bool) -> None:
         """Update command executor following directConnect feature"""

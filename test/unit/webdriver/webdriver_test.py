@@ -264,8 +264,8 @@ class TestWebDriverWebDriver(object):
             def method_name(self):
                 return 'test_command'
 
-            def command_wrapper(self):
-                return self.execute({})['value']
+            def test_command(self):
+                return self.execute()['value']
 
             def custom_command(self):
                 return ('get', 'session/$sessionId/path/to/custom/url')
@@ -279,6 +279,7 @@ class TestWebDriverWebDriver(object):
         result = driver.test_command()
 
         assert result == {}
+        driver.delete_extensions()
 
     @httpretty.activate
     def test_add_command_body(self):
@@ -286,7 +287,7 @@ class TestWebDriverWebDriver(object):
             def method_name(self):
                 return 'test_command'
 
-            def command_wrapper(self, argument):
+            def test_command(self, argument):
                 return self.execute(argument)['value']
 
             def custom_command(self):
@@ -301,10 +302,10 @@ class TestWebDriverWebDriver(object):
         result = driver.test_command({'dummy': 'test argument'})
         assert result == {}
 
-        print(httpretty.last_request())
         d = get_httpretty_request_body(httpretty.last_request())
 
         assert d['dummy'] == 'test argument'
+        driver.delete_extensions()
 
     @httpretty.activate
     def test_add_command_with_element_id(self):
@@ -312,7 +313,7 @@ class TestWebDriverWebDriver(object):
             def method_name(self):
                 return 'test_command'
 
-            def command_wrapper(self, element_id):
+            def test_command(self, element_id):
                 return self.execute({'id': element_id})['value']
 
             def custom_command(self):
@@ -326,6 +327,7 @@ class TestWebDriverWebDriver(object):
         )
         result = driver.test_command('element_id')
         assert result == {}
+        driver.delete_extensions()
 
 
 class SubWebDriver(WebDriver):

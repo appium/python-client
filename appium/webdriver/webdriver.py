@@ -138,7 +138,7 @@ class ExtensionBase:
         """
         raise NotImplementedError()
 
-    def custom_command(self) -> Tuple[str, str]:
+    def add_command(self) -> Tuple[str, str]:
         """
         Expected to define the pair of HTTP method and its URL.
         """
@@ -216,7 +216,7 @@ class WebDriver(
 
             # add a new method named 'instance.method_name()' and call it
             setattr(WebDriver, instance.method_name(), getattr(instance, instance.method_name()))
-            method, url_cmd = instance.custom_command()
+            method, url_cmd = instance.add_command()
             self.command_executor._commands[instance.method_name()] = (method.upper(), url_cmd)  # type: ignore
 
     def delete_extensions(self) -> None:

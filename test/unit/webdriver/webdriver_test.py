@@ -267,7 +267,7 @@ class TestWebDriverWebDriver(object):
             def test_command(self):
                 return self.execute()['value']
 
-            def custom_command(self):
+            def add_command(self):
                 return ('get', 'session/$sessionId/path/to/custom/url')
 
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])
@@ -290,7 +290,7 @@ class TestWebDriverWebDriver(object):
             def test_command(self, argument):
                 return self.execute(argument)['value']
 
-            def custom_command(self):
+            def add_command(self):
                 return ('post', 'session/$sessionId/path/to/custom/url')
 
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])
@@ -316,7 +316,7 @@ class TestWebDriverWebDriver(object):
             def test_command(self, element_id):
                 return self.execute({'id': element_id})['value']
 
-            def custom_command(self):
+            def add_command(self):
                 return ('GET', 'session/$sessionId/path/to/custom/$id/url')
 
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])

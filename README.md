@@ -135,7 +135,8 @@ self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, dir
 
 ## Documentation
 
-https://appium.github.io/python-client-sphinx/ is detailed documentation
+- https://appium.github.io/python-client-sphinx/ is detailed documentation
+- [functional tests](test/functional) also may help to see concrete examples.
 
 ## Development
 

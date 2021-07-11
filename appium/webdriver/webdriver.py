@@ -150,6 +150,12 @@ class ExtensionBase:
             # the `value` part of the response.
             driver.custom_method_name()
 
+        4. Remove added commands (if needed)
+            # New commands are added by `setattr`. They remain in the module,
+            # so you should explicitly delete them to define the same name method
+            # with different arguments or process in the method.
+            driver.delete_extensions()
+
 
         You can give arbitrary arguments for the command like the below.
 

@@ -123,7 +123,7 @@ class ExtensionBase:
         `session/$sessionId/path/to/your/custom/url`.
 
         1. Defines an extension as a subclass of `ExtensionBase`
-            class CustomYourCommand(ExtensionBase):
+            class YourCustomCommand(ExtensionBase):
                 def method_name(self):
                     return 'custom_method_name'
 
@@ -141,7 +141,7 @@ class ExtensionBase:
             # Appium capabilities
             desired_caps = { ... }
             driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps,
-                extensions=[CustomYourCommand])
+                extensions=[YourCustomCommand])
 
         3. Calls the custom command
             # Then, the driver calls a get request against
@@ -159,7 +159,7 @@ class ExtensionBase:
 
         You can give arbitrary arguments for the command like the below.
 
-            class CustomYourCommand(ExtensionBase):
+            class YourCustomCommand(ExtensionBase):
                 def method_name(self):
                     return 'custom_method_name'
 
@@ -170,7 +170,7 @@ class ExtensionBase:
                     return ('post', 'session/$sessionId/path/to/your/custom/url')
 
             driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps,
-                extensions=[CustomYourCommand])
+                extensions=[YourCustomCommand])
 
             # Then, the driver sends a post request to `session/$sessionId/path/to/your/custom/url`
             # with `{'dummy_arg': 'as a value'}` JSON body.
@@ -190,7 +190,7 @@ class ExtensionBase:
                     return ('GET', 'session/$sessionId/path/to/your/custom/$id/url')
 
             driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps,
-                extensions=[CustomYourCommand])
+                extensions=[YourCustomCommand])
             element = driver.find_element_by_accessibility_id('id')
 
             # Then, the driver calls a get request to `session/$sessionId/path/to/your/custom/$id/url`
@@ -287,20 +287,22 @@ class WebDriver(
         self._extensions = extensions
         for extension in self._extensions:
             instance = extension(self.execute)
-            if hasattr(WebDriver, instance.method_name()):
-                raise ValueError(f'{instance.method_name()} is already defined.')
+            method_name = instance.method_name()
+            if hasattr(WebDriver, method_name):
+                raise ValueError(f'{method_name} is already defined.')
 
             # add a new method named 'instance.method_name()' and call it
-            setattr(WebDriver, instance.method_name(), getattr(instance, instance.method_name()))
+            setattr(WebDriver, method_name, getattr(instance, method_name))
             method, url_cmd = instance.add_command()
-            self.command_executor._commands[instance.method_name()] = (method.upper(), url_cmd)  # type: ignore
+            self.command_executor._commands[method_name] = (method.upper(), url_cmd)  # type: ignore
 
     def delete_extensions(self) -> None:
         """Delete extensions added in the class with 'setattr'"""
         for extension in self._extensions:
             instance = extension(self.execute)
-            if hasattr(WebDriver, instance.method_name()):
-                delattr(WebDriver, instance.method_name())
+            method_name = instance.method_name()
+            if hasattr(WebDriver, method_name):
+                delattr(WebDriver, method_name)
 
     def _update_command_executor(self, keep_alive: bool) -> None:
         """Update command executor following directConnect feature"""

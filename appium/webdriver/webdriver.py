@@ -201,8 +201,11 @@ class ExtensionBase:
     def __init__(self, execute: Callable[[str, Dict], Dict[str, Any]]):
         self._execute = execute
 
-    def execute(self, parameters: Any = {}) -> Any:
-        return self._execute(self.method_name(), parameters)
+    def execute(self, parameters: Dict[str, Any] = None) -> Any:
+        param = {}
+        if parameters:
+            param = parameters
+        return self._execute(self.method_name(), param)
 
     def method_name(self) -> str:
         """

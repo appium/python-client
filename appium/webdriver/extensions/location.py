@@ -43,6 +43,7 @@ class Location(webdriver.Remote):
         longitude: Union[float, str],
         altitude: Union[float, str] = None,
         speed: Union[float, str] = None,
+        satellites: Union[float, str] = None,
     ) -> T:
         """Set the location of the device
 
@@ -51,6 +52,7 @@ class Location(webdriver.Remote):
             longitude: String or numeric value between -180.0 and 180.0
             altitude: String or numeric value (Android real device only)
             speed: String or numeric value larger than 0.0 (Android real devices only)
+            satellites: String or numeric value of active GPS satellites in range 1..12. (Android emulators only)
 
         Returns:
             Union['WebDriver', 'Location']: Self instance
@@ -65,6 +67,8 @@ class Location(webdriver.Remote):
             data['location']['altitude'] = altitude
         if speed is not None:
             data['location']['speed'] = speed
+        if satellites is not None:
+            data['location']['satellites'] = satellites
         self.execute(Command.SET_LOCATION, data)
         return self
 

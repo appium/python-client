@@ -21,7 +21,7 @@ python-dateutil = "~=2.8"
 types-python-dateutil = "~=0.1"
 mock = "~=4.0"
 
-pylint = "~=2.8"
+pylint = "~=2.10"
 astroid = "~=2.5"
 isort = "~=5.8"
 

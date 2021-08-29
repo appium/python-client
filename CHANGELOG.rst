@@ -5,6 +5,41 @@ Changelog
 (unreleased)
 ------------
 
+New
+~~~
+- Feat: add satellites in set_location (#620) [Kazuaki Matsuo]
+
+  * feat: add satellites in set_location
+
+  * fix review
+- Feat: Add command with `setattr` (#615) [Kazuaki Matsuo]
+
+  * chore: add placeholder
+
+  * move to extention way
+
+  * revert pytest
+
+  * add todo
+
+  * call method_name instead of wrapper
+
+  * remove types
+
+  * rename a method
+
+  * add examples
+
+  * add types-python-dateutil as error message
+
+  * add example more
+
+  * tweak naming
+
+  * Explicit Dict
+- Add types-python-dateutil in 4 branch. [Kazuaki Matsuo]
+- Add test to check log path. [Kazuaki Matsuo]
+
 Fix
 ~~~
 - Remove w3c argument in MobileWebElement (#598) [Kazuaki Matsuo]
@@ -19,6 +54,36 @@ Fix
 
 Other
 ~~~~~
+- Bump 2.0.0.b5. [Kazuaki Matsuo]
+- Chore(deps): update pylint requirement from ~=2.8 to ~=2.10 (#628)
+  [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Changelog](https://github.com/PyCQA/pylint/blob/main/ChangeLog)
+  - [Commits](https://github.com/PyCQA/pylint/compare/pylint-2.8.0...v2.10.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Chore(deps): update tox requirement from ~=3.23 to ~=3.24 (#619)
+  [dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.23.0...3.24.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:production
+  ...
+- Override log. [Kazuaki Matsuo]
+- Bump selenium version in tox. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.b4. [Kazuaki Matsuo]
 - Bump 2.0.0.b4. [Kazuaki Matsuo]
 - Use python selenium client v4.0.0.b4. [Kazuaki Matsuo]
 - Update changelog for 2.0.0.b3. [Kazuaki Matsuo]

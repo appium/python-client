@@ -26,7 +26,7 @@ class TestWebDriverLog(object):
         driver = ios_w3c_driver()
         httpretty.register_uri(
             httpretty.GET,
-            appium_command('/session/1234567890/se/log/types'),
+            appium_command('/session/1234567890/log/types'),
             body=json.dumps({'value': ['syslog']}),
         )
         log_types = driver.log_types
@@ -37,7 +37,7 @@ class TestWebDriverLog(object):
         driver = ios_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/se/log'),
+            appium_command('/session/1234567890/log'),
             body=json.dumps({'value': ['logs as array']}),
         )
         log_types = driver.get_log('syslog')

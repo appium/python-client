@@ -469,3 +469,8 @@ class WebDriver(
             'GET',
             '/session/$sessionId/element/$id/location_in_view',
         )
+
+        # override for Appium 1.x
+        # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`
+        self.command_executor._commands[Command.GET_LOG] = ('POST', '/session/$sessionId/log')
+        self.command_executor._commands[Command.GET_AVAILABLE_LOG_TYPES] = ('GET', '/session/$sessionId/log/types')

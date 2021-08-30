@@ -292,7 +292,7 @@ class WebDriver(
             instance = extension(self.execute)
             method_name = instance.method_name()
             if hasattr(WebDriver, method_name):
-                raise ValueError(f'{method_name} is already defined.')
+                logger.debug(f"Overriding the method '{method_name}'")
 
             # add a new method named 'instance.method_name()' and call it
             setattr(WebDriver, method_name, getattr(instance, method_name))

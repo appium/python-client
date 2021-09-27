@@ -2,6 +2,126 @@ Changelog
 =========
 
 
+v1.3.0 (2021-09-27)
+-------------------
+
+New
+~~~
+- Feat: do not raise an error in case method is already defined (#632)
+  [Kazuaki Matsuo]
+- Feat: add satellites in set_location (#620) [Kazuaki Matsuo]
+
+  * feat: add satellites in set_location
+
+  * fix review
+- Feat: Add command with `setattr` (#615) [Kazuaki Matsuo]
+
+  * chore: add placeholder
+
+  * move to extention way
+
+  * revert pytest
+
+  * add todo
+
+  * call method_name instead of wrapper
+
+  * remove types
+
+  * rename a method
+
+  * add examples
+
+  * add types-python-dateutil as error message
+
+  * add example more
+
+  * tweak naming
+
+  * Explicit Dict
+
+Other
+~~~~~
+- Bump 1.3.0. [Kazuaki Matsuo]
+- Chore(deps): update types-python-dateutil requirement (#633)
+  [dependabot[bot]]
+
+  Updates the requirements on [types-python-dateutil](https://github.com/python/typeshed) to permit the latest version.
+  - [Release notes](https://github.com/python/typeshed/releases)
+  - [Commits](https://github.com/python/typeshed/commits)
+
+  ---
+  updated-dependencies:
+  - dependency-name: types-python-dateutil
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pre-commit requirement from ~=2.13 to ~=2.15
+  (#634) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.13.0...v2.15.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pre-commit
+    dependency-type: direct:development
+  ...
+- Chore(deps): update mypy requirement from ~=0.812 to ~=0.910 (#616)
+  [dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.812...v0.910)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:production
+  ...
+- Chore(deps): update astroid requirement from ~=2.5 to ~=2.7 (#629)
+  [dependabot[bot]]
+
+  Updates the requirements on [astroid](https://github.com/PyCQA/astroid) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/astroid/releases)
+  - [Changelog](https://github.com/PyCQA/astroid/blob/main/ChangeLog)
+  - [Commits](https://github.com/PyCQA/astroid/compare/astroid-2.5...v2.7.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: astroid
+    dependency-type: direct:production
+  ...
+- Chore(deps): update pylint requirement from ~=2.8 to ~=2.10 (#628)
+  [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Changelog](https://github.com/PyCQA/pylint/blob/main/ChangeLog)
+  - [Commits](https://github.com/PyCQA/pylint/compare/pylint-2.8.0...v2.10.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Chore(deps): update tox requirement from ~=3.23 to ~=3.24 (#619)
+  [dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.23.0...3.24.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:production
+  ...
+- Update changelog for 1.2.0. [Kazuaki Matsuo]
+
+
 v1.2.0 (2021-06-07)
 -------------------
 

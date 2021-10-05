@@ -12,7 +12,7 @@ selenium = "~=3.141"
 black = "==20.8b1"
 
 pytest = "~=6.2"
-pytest-cov = "~=2.12"
+pytest-cov = "~=3.0"
 
 tox = "~=3.24"
 
@@ -21,8 +21,9 @@ python-dateutil = "~=2.8"
 types-python-dateutil = "~=2.8"
 mock = "~=4.0"
 
-pylint = "~=2.10"
+pylint = "~=2.11"
 astroid = "~=2.8"
+
 isort = "~=5.8"
 
 mypy = "~=0.910"

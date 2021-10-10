@@ -56,6 +56,9 @@ Fix
 
 Other
 ~~~~~
+- Bump 2.0.0.rc3. [Kazuaki Matsuo]
+- Use 4.0.0.rc3. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.rc2. [Kazuaki Matsuo]
 - Bump 2.0.0.rc2. [Kazuaki Matsuo]
 - Try rc2. [Kazuaki Matsuo]
 - Update changelog for 2.0.0.rc1. [Kazuaki Matsuo]

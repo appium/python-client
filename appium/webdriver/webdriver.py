@@ -78,7 +78,6 @@ _W3C_CAPABILITY_NAMES = frozenset(
 _OSS_W3C_CONVERSION = {'acceptSslCerts': 'acceptInsecureCerts', 'version': 'browserVersion', 'platform': 'platformName'}
 
 _EXTENSION_CAPABILITY = ':'
-_FORCE_MJSONWP = 'forceMjsonwp'
 
 # override
 # Add appium prefix for the non-W3C capabilities

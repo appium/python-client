@@ -7,7 +7,7 @@ verify_ssl = true
 pre-commit = "~=2.13"
 
 [packages]
-selenium = "4.0.0.rc3"
+selenium = "~=4.0.0"
 
 black = "==20.8b1"
 

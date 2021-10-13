@@ -375,8 +375,7 @@ class WebDriver(
             self.caps = response.get('capabilities')
 
         # Double check to see if we have a W3C Compliant browser
-        self.w3c = response.get('status') is None
-        self.command_executor.w3c = self.w3c
+        self.command_executor.w3c = True
 
     def _merge_capabilities(self, capabilities: Dict) -> Dict[str, Any]:
         """Manage capabilities whether W3C format or MJSONWP format"""

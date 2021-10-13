@@ -73,7 +73,7 @@ class TestWebDriverAndroidSearchContext(object):
     @httpretty.activate
     def test_find_element_by_android_data_matcher(self):
         driver = android_w3c_driver()
-        element = MobileWebElement(driver, 'element_id', w3c=True)
+        element = MobileWebElement(driver, 'element_id')
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/element/element_id/element'),
@@ -94,7 +94,7 @@ class TestWebDriverAndroidSearchContext(object):
     @httpretty.activate
     def test_find_elements_by_android_data_matcher(self):
         driver = android_w3c_driver()
-        element = MobileWebElement(driver, 'element_id', w3c=True)
+        element = MobileWebElement(driver, 'element_id')
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/element/element_id/elements'),
@@ -113,7 +113,7 @@ class TestWebDriverAndroidSearchContext(object):
     @httpretty.activate
     def test_find_elements_by_android_data_matcher_no_value(self):
         driver = android_w3c_driver()
-        element = MobileWebElement(driver, 'element_id', w3c=True)
+        element = MobileWebElement(driver, 'element_id')
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/element/element_id/elements'), body='{"value": []}'
         )

@@ -38,10 +38,7 @@ class TestSafari(object):
         self.driver.get("http://google.com")
         for _ in range(5):
             time.sleep(0.5)
-            try:
-                assert 'Google' == self.driver.title
+            if 'Google' == self.driver.title:
                 return
-            except Exception:
-                pass
 
         assert False, 'The title was wrong'

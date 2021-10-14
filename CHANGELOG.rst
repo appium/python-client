@@ -44,6 +44,7 @@ New
 
 Fix
 ~~~
+- Fix tests. [Kazuaki Matsuo]
 - Remove w3c argument in MobileWebElement (#598) [Kazuaki Matsuo]
 
   * Bump 2.0.0.b1
@@ -56,6 +57,12 @@ Fix
 
 Other
 ~~~~~
+- Bump 2.0.0.rc4. [Kazuaki Matsuo]
+- Tweak tests. [Kazuaki Matsuo]
+- Remove w3c flag. [Kazuaki Matsuo]
+- Remove w3c=True from MobileWebElement argument. [Kazuaki Matsuo]
+- Bump selenium version. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.rc3. [Kazuaki Matsuo]
 - Bump 2.0.0.rc3. [Kazuaki Matsuo]
 - Use 4.0.0.rc3. [Kazuaki Matsuo]
 - Update changelog for 2.0.0.rc2. [Kazuaki Matsuo]

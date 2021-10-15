@@ -11,11 +11,11 @@ An extension library for adding [WebDriver Protocol](https://www.w3.org/TR/webdr
 
 ## Notice
 
-Since **v1.0.0**, only Python 3 is supported.
+Since **v1.0.0**, only Python 3.7+ is supported.
 
-Since **v2.0.0**, base selenium client version is v4.
-The version only works W3C WebDriver protocol format.
-If you would like to use old protocol (MJSONWP), please use v1 Appium Python cleint.
+Since **v2.0.0**, the base selenium client version is v4.
+The version only works in W3C WebDriver protocol format.
+If you would like to use the old protocol (MJSONWP), please use v1 Appium Python client.
 
 ## Getting the Appium Python client
 
@@ -50,7 +50,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 ## Usage
 
 The Appium Python Client is fully compliant with the WebDriver Protocol
-with some helpers to make mobile testing in Python easier.
+including several helpers to make mobile testing in Python easier.
 
 To use the new functionality now, and to use the superset of functions, instead of
 including the Selenium `webdriver` module in your test code, use that from
@@ -128,7 +128,7 @@ self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, dir
 
 ## Relax SSL validation
 
-`strict_ssl` option allows you to send commands to an invalid certificate host like self-certificated SSL.
+`strict_ssl` option allows you to send commands to an invalid certificate host like a self-signed one.
 
 ```python
 import unittest

@@ -61,41 +61,7 @@ class TestWebDriverWebDriver(object):
         assert request_json.get('desiredCapabilities') is not None
 
         assert driver.session_id == 'session-id'
-        assert driver.w3c
         assert driver.command_executor.w3c
-
-    @httpretty.activate
-    def test_create_session_forceMjsonwp(self):
-        httpretty.register_uri(
-            httpretty.POST,
-            'http://localhost:4723/wd/hub/session',
-            body='{ "capabilities": {"deviceName": "Android Emulator"}, "status": 0, "sessionId": "session-id"}',
-        )
-
-        desired_caps = {
-            'platformName': 'Android',
-            'deviceName': 'Android Emulator',
-            'app': 'path/to/app',
-            'automationName': 'UIAutomator2',
-            'forceMjsonwp': True,
-        }
-        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-
-        # This tests counts the same request twice on Azure only for now (around 20th May, 2021). Local running works.
-        # Should investigate the cause.
-        # assert len(httpretty.HTTPretty.latest_requests) == 1
-
-        request = httpretty.HTTPretty.latest_requests[0]
-        assert request.headers['content-type'] == 'application/json;charset=UTF-8'
-        assert 'appium/python {} (selenium'.format(appium_version.version) in request.headers['user-agent']
-
-        request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
-        assert request_json.get('capabilities') is None
-        assert request_json.get('desiredCapabilities') is not None
-
-        assert driver.session_id == 'session-id'
-        assert driver.w3c is False
-        assert driver.command_executor.w3c is False
 
     @httpretty.activate
     def test_create_session_change_session_id(self):
@@ -255,7 +221,6 @@ class TestWebDriverWebDriver(object):
         driver = ios_w3c_driver()
         httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890'), body=exceptionCallback)
         events = driver.events
-        mock_warning.assert_called_once()
         assert events == {}
 
     @httpretty.activate

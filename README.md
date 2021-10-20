@@ -7,18 +7,15 @@
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-An extension library for adding [Selenium 3.0 draft](https://dvcs.w3.org/hg/webdriver/raw-file/tip/webdriver-spec.html) and [Mobile JSON Wire Protocol Specification draft](https://github.com/SeleniumHQ/mobile-spec/blob/master/spec-draft.md)
-functionality to the Python language bindings, for use with the mobile testing
-framework [Appium](https://appium.io).
+An extension library for adding [WebDriver Protocol](https://www.w3.org/TR/webdriver/) and Appium commands to the Selenium Python language binding for use with the mobile testing framework [Appium](https://appium.io).
 
 ## Notice
 
-Since **v1.0.0**, only Python 3 is supported
+Since **v1.0.0**, only Python 3.7+ is supported.
 
-### developing version
-[selenium-4](https://github.com/appium/python-client/tree/selenium-4) branch is a developing branch to switch base selenium client version from v3 to v4. The branch is available as pre-release versioning like `2.0.0.a0` via pypi.
-
-Main differences since current v1 is the v2 can connect to invalid SSL environment like self-certificated server. Please take a look at the branch's README for more details.
+Since **v2.0.0**, the base selenium client version is v4.
+The version only works in W3C WebDriver protocol format.
+If you would like to use the old protocol (MJSONWP), please use v1 Appium Python client.
 
 ## Getting the Appium Python client
 
@@ -52,12 +49,8 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 
 ## Usage
 
-The Appium Python Client is fully compliant with the Selenium 3.0 specification
-draft, with some helpers to make mobile testing in Python easier. The majority of
-the usage remains as it has been for Selenium 2 (WebDriver), and as the [official
-Selenium Python bindings](https://pypi.org/project/selenium/) begins to
-implement the new specification that implementation will be used underneath, so
-test code can be written that is utilizable with both bindings.
+The Appium Python Client is fully compliant with the WebDriver Protocol
+including several helpers to make mobile testing in Python easier.
 
 To use the new functionality now, and to use the superset of functions, instead of
 including the Selenium `webdriver` module in your test code, use that from
@@ -131,6 +124,25 @@ desired_caps = dict(
 )
 
 self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, direct_connection=True)
+```
+
+## Relax SSL validation
+
+`strict_ssl` option allows you to send commands to an invalid certificate host like a self-signed one.
+
+```python
+import unittest
+from appium import webdriver
+
+desired_caps = dict(
+    platformName='iOS',
+    platformVersion='13.4',
+    automationName='xcuitest',
+    deviceName='iPhone Simulator',
+    app=PATH('../../apps/UICatalog.app.zip')
+)
+
+self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, strict_ssl=False)
 ```
 
 ## Documentation

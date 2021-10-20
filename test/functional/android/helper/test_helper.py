@@ -22,6 +22,13 @@ from test.functional.test_helper import is_ci
 
 from . import desired_capabilities
 
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
+    from appium.webdriver.webelement import WebElement
+
+# the emulator is sometimes slow and needs time to think
+SLEEPY_TIME = 10
+
 # The package name of ApiDemos-debug.apk.zip
 APIDEMO_PKG_NAME = 'io.appium.android.apis'
 

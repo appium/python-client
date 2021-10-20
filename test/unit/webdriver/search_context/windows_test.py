@@ -22,7 +22,7 @@ class TestWebDriverWindowsSearchContext(object):
     @httpretty.activate
     def test_find_element_by_windows_uiautomation(self):
         driver = android_w3c_driver()
-        element = MobileWebElement(driver, 'element_id', w3c=True)
+        element = MobileWebElement(driver, 'element_id')
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/element/element_id/element'),

@@ -28,7 +28,7 @@ class TestWebElement(object):
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/element/element_id/value'))
 
-        element = MobileWebElement(driver, 'element_id', w3c=True)
+        element = MobileWebElement(driver, 'element_id')
         value = 'happy testing'
         element.set_value(value)
 
@@ -40,7 +40,7 @@ class TestWebElement(object):
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/element/element_id/value'))
 
-        element = MobileWebElement(driver, 'element_id', w3c=True)
+        element = MobileWebElement(driver, 'element_id')
         element.send_keys('happy testing')
 
         d = get_httpretty_request_body(httpretty.last_request())
@@ -54,7 +54,7 @@ class TestWebElement(object):
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/element/element_id/value'))
 
         try:
-            element = MobileWebElement(driver, 'element_id', w3c=True)
+            element = MobileWebElement(driver, 'element_id')
             element.send_keys(tmp_f.name)
         finally:
             tmp_f.close()
@@ -72,7 +72,7 @@ class TestWebElement(object):
             body=json.dumps({"value": rect_dict}),
         )
 
-        element = MobileWebElement(driver, 'element_id', w3c=True)
+        element = MobileWebElement(driver, 'element_id')
         ef = element.get_attribute('rect')
 
         d = httpretty.last_request()

@@ -2,6 +2,514 @@ Changelog
 =========
 
 
+(unreleased)
+------------
+
+New
+~~~
+- Feat: do not raise an error in case method is already defined (#632)
+  [Kazuaki Matsuo]
+- Feat: add satellites in set_location (#620) [Kazuaki Matsuo]
+
+  * feat: add satellites in set_location
+
+  * fix review
+- Feat: Add command with `setattr` (#615) [Kazuaki Matsuo]
+
+  * chore: add placeholder
+
+  * move to extention way
+
+  * revert pytest
+
+  * add todo
+
+  * call method_name instead of wrapper
+
+  * remove types
+
+  * rename a method
+
+  * add examples
+
+  * add types-python-dateutil as error message
+
+  * add example more
+
+  * tweak naming
+
+  * Explicit Dict
+- Add types-python-dateutil in 4 branch. [Kazuaki Matsuo]
+- Add test to check log path. [Kazuaki Matsuo]
+
+Fix
+~~~
+- Fix tests. [Kazuaki Matsuo]
+- Remove w3c argument in MobileWebElement (#598) [Kazuaki Matsuo]
+
+  * Bump 2.0.0.b1
+
+  * Update changelog for 2.0.0.b1
+
+  * remove w3c
+- Fix format with black. [Kazuaki Matsuo]
+- Fix lint, CI and tests. [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 2.0.0.rc4. [Kazuaki Matsuo]
+- Tweak tests. [Kazuaki Matsuo]
+- Remove w3c flag. [Kazuaki Matsuo]
+- Remove w3c=True from MobileWebElement argument. [Kazuaki Matsuo]
+- Bump selenium version. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.rc3. [Kazuaki Matsuo]
+- Bump 2.0.0.rc3. [Kazuaki Matsuo]
+- Use 4.0.0.rc3. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.rc2. [Kazuaki Matsuo]
+- Bump 2.0.0.rc2. [Kazuaki Matsuo]
+- Try rc2. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.rc1. [Kazuaki Matsuo]
+- Bump 2.0.0.rc1. [Kazuaki Matsuo]
+- Try rc1. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.b5. [Kazuaki Matsuo]
+- Bump 2.0.0.b5. [Kazuaki Matsuo]
+- Chore(deps): update pylint requirement from ~=2.8 to ~=2.10 (#628)
+  [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Changelog](https://github.com/PyCQA/pylint/blob/main/ChangeLog)
+  - [Commits](https://github.com/PyCQA/pylint/compare/pylint-2.8.0...v2.10.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Chore(deps): update tox requirement from ~=3.23 to ~=3.24 (#619)
+  [dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.23.0...3.24.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:production
+  ...
+- Override log. [Kazuaki Matsuo]
+- Bump selenium version in tox. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.b4. [Kazuaki Matsuo]
+- Bump 2.0.0.b4. [Kazuaki Matsuo]
+- Use python selenium client v4.0.0.b4. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.b3. [Kazuaki Matsuo]
+- Bump 2.0.0.b3. [Kazuaki Matsuo]
+- Tweak some lines. [Kazuaki Matsuo]
+- Update selenium in pipfile. [Kazuaki Matsuo]
+- Bump selenium 4.0.0.b3. [Kazuaki Matsuo]
+- Update pipfile. [Kazuaki Matsuo]
+- Update changelog for 2.0.0.b2. [Kazuaki Matsuo]
+- Bump 2.0.0.b2. [Kazuaki Matsuo]
+- Bump base selenium version to 4.0.0.b2. [Kazuaki Matsuo]
+- Bump v2.0.0.a0. [Kazuaki Matsuo]
+- Update changelog for v2.0.0.a0. [Kazuaki Matsuo]
+- Bump selenium. [Kazuaki Matsuo]
+
+
+v1.3.0 (2021-09-27)
+-------------------
+
+New
+~~~
+- Feat: do not raise an error in case method is already defined (#632)
+  [Kazuaki Matsuo]
+- Feat: add satellites in set_location (#620) [Kazuaki Matsuo]
+
+  * feat: add satellites in set_location
+
+  * fix review
+- Feat: Add command with `setattr` (#615) [Kazuaki Matsuo]
+
+  * chore: add placeholder
+
+  * move to extention way
+
+  * revert pytest
+
+  * add todo
+
+  * call method_name instead of wrapper
+
+  * remove types
+
+  * rename a method
+
+  * add examples
+
+  * add types-python-dateutil as error message
+
+  * add example more
+
+  * tweak naming
+
+  * Explicit Dict
+
+Other
+~~~~~
+- Bump 1.3.0. [Kazuaki Matsuo]
+- Chore(deps): update types-python-dateutil requirement (#633)
+  [dependabot[bot]]
+
+  Updates the requirements on [types-python-dateutil](https://github.com/python/typeshed) to permit the latest version.
+  - [Release notes](https://github.com/python/typeshed/releases)
+  - [Commits](https://github.com/python/typeshed/commits)
+
+  ---
+  updated-dependencies:
+  - dependency-name: types-python-dateutil
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pre-commit requirement from ~=2.13 to ~=2.15
+  (#634) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.13.0...v2.15.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pre-commit
+    dependency-type: direct:development
+  ...
+- Chore(deps): update mypy requirement from ~=0.812 to ~=0.910 (#616)
+  [dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.812...v0.910)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:production
+  ...
+- Chore(deps): update astroid requirement from ~=2.5 to ~=2.7 (#629)
+  [dependabot[bot]]
+
+  Updates the requirements on [astroid](https://github.com/PyCQA/astroid) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/astroid/releases)
+  - [Changelog](https://github.com/PyCQA/astroid/blob/main/ChangeLog)
+  - [Commits](https://github.com/PyCQA/astroid/compare/astroid-2.5...v2.7.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: astroid
+    dependency-type: direct:production
+  ...
+- Chore(deps): update pylint requirement from ~=2.8 to ~=2.10 (#628)
+  [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Changelog](https://github.com/PyCQA/pylint/blob/main/ChangeLog)
+  - [Commits](https://github.com/PyCQA/pylint/compare/pylint-2.8.0...v2.10.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Chore(deps): update tox requirement from ~=3.23 to ~=3.24 (#619)
+  [dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.23.0...3.24.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:production
+  ...
+- Update changelog for 1.2.0. [Kazuaki Matsuo]
+
+
+v1.2.0 (2021-06-07)
+-------------------
+
+New
+~~~
+- Feat: allow to add a command dynamically (#608) [Kazuaki Matsuo]
+
+  * add add_commmand in python
+
+  * add test
+
+  * add exceptions, tweak method
+
+  * append docstring
+
+  * add $id example
+
+  * use pytest.raises
+
+  * add examples as docstring
+
+Other
+~~~~~
+- Bump 1.2.0. [Kazuaki Matsuo]
+- Chore(deps-dev): update pre-commit requirement from ~=2.12 to ~=2.13
+  (#607) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.12.0...v2.13.0)
+- Chore(deps): update pytest-cov requirement from ~=2.11 to ~=2.12
+  (#606) [Kazuaki Matsuo, dependabot[bot]]
+
+  * chore(deps): update pytest-cov requirement from ~=2.11 to ~=2.12
+
+  Updates the requirements on [pytest-cov](https://github.com/pytest-dev/pytest-cov) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest-cov/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest-cov/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest-cov/compare/v2.11.0...v2.12.0)
+- Chore(deps): update pylint requirement from ~=2.7 to ~=2.8 (#600)
+  [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Changelog](https://github.com/PyCQA/pylint/blob/master/ChangeLog)
+  - [Commits](https://github.com/PyCQA/pylint/compare/pylint-2.7.0...pylint-2.8.1)
+- Chore(deps-dev): update pre-commit requirement from ~=2.11 to ~=2.12
+  (#599) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.11.0...v2.12.0)
+- Chore(deps): update isort requirement from ~=5.7 to ~=5.8 (#596)
+  [dependabot[bot]]
+
+  Updates the requirements on [isort](https://github.com/pycqa/isort) to permit the latest version.
+  - [Release notes](https://github.com/pycqa/isort/releases)
+  - [Changelog](https://github.com/PyCQA/isort/blob/develop/CHANGELOG.md)
+  - [Commits](https://github.com/pycqa/isort/compare/5.7.0...5.8.0)
+
+
+v1.1.0 (2021-03-10)
+-------------------
+
+New
+~~~
+- Feat: Add optional location speed attribute for android devices (#594)
+  [salabogdan]
+- Feat: Added docstring for macOS screenrecord option (#580) [Mori
+  Atsushi]
+
+  * Added docstring for macOS screenrecord option
+
+  * tweak
+
+  * review comment
+- Feat: add warning to drop forceMjsonwp for W3C (#567) [Kazuaki Matsuo]
+
+  * tweak
+
+  * fix test
+
+  * print warning
+
+  * revert test
+
+  * Update webdriver.py
+
+  * fix autopep8
+- Feat: Added descriptions for newly added screenrecord opts (#540)
+  [Mori Atsushi]
+
+  * Add description for newly added opts for screen record
+
+  * Updates
+
+Test
+~~~~
+- Ci: Use node v12 (#585) [Mori Atsushi]
+
+  * Use node 12 on ci
+
+  * Update copyright
+
+  * Update README for doc
+
+  * tweak
+
+  * fix copyright
+
+  * try py310
+
+  * remove py310
+- Ci: remove travis (#581) [Mori Atsushi]
+
+  * Removed travis and run unit test on azure
+
+  * review comment
+
+  * run tox on azure pipelines
+
+  * removed tox-travis from pipfile
+- Ci: move azure project to Appium CI, update readme (#564) [Kazuaki
+  Matsuo]
+- Ci: Added py39-dev for travis (#557) [Mori Atsushi]
+
+  * ci: Added py39-dev
+
+  * Add xv option for debug
+
+  * [debug] pip list
+
+  * Avoid error in py39
+
+  * Updated modules in pre-commit
+- Ci: upgrade xcode and macos (#556) [Mori Atsushi]
+
+  * ci: upgrade xcode ver and macos
+
+  * Upgrade iOS ver for functional tests
+
+  * Changed xcode to 11.6
+
+Other
+~~~~~
+- Chore(deps-dev): update pre-commit requirement from ~=2.10 to ~=2.11
+  (#595) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.10.0...v2.11.0)
+- Chore(deps): update tox requirement from ~=3.22 to ~=3.23 (#593)
+  [dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/3.23.0/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.22.0...3.23.0)
+- Chore(deps): update pylint requirement from ~=2.6 to ~=2.7 (#588)
+  [Mori Atsushi, dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Changelog](https://github.com/PyCQA/pylint/blob/master/ChangeLog)
+  - [Commits](https://github.com/PyCQA/pylint/compare/pylint-2.6.0...pylint-2.7.0)
+- Chore(deps): update astroid requirement from ~=2.4 to ~=2.5 (#587)
+  [dependabot[bot]]
+
+  Updates the requirements on [astroid](https://github.com/PyCQA/astroid) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/astroid/releases)
+  - [Changelog](https://github.com/PyCQA/astroid/blob/master/ChangeLog)
+  - [Commits](https://github.com/PyCQA/astroid/compare/astroid-2.4.0...astroid-2.5)
+- Chore(deps): update mypy requirement from ~=0.800 to ~=0.812 (#589)
+  [Mori Atsushi, dependabot[bot]]
+
+  * chore(deps): update mypy requirement from ~=0.800 to ~=0.812
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.800...v0.812)
+
+  Signed-off-by: dependabot[bot] <support@github.com>
+
+  * Fix mypy error with mypy v0.812 (#590)
+
+  * chore(deps): update mypy requirement from ~=0.800 to ~=0.812
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.800...v0.812)
+- Chore(deps): update tox requirement from ~=3.21 to ~=3.22 (#586)
+  [dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.21.0...3.22.0)
+- Chore: Add table for screen_record kwarg (#582) [Mori Atsushi]
+
+  * Add table for kwarg
+
+  * update
+
+  * Add missing doc to stop_recording
+
+  * Push auto-generated changes by sphinx
+
+  * delete duplicated entry [skip ci]
+- Chore(deps): update isort requirement from ~=5.0 to ~=5.7 (#578)
+  [dependabot-preview[bot]]
+
+  Updates the requirements on [isort](https://github.com/pycqa/isort) to permit the latest version.
+  - [Release notes](https://github.com/pycqa/isort/releases)
+  - [Changelog](https://github.com/PyCQA/isort/blob/develop/CHANGELOG.md)
+  - [Commits](https://github.com/pycqa/isort/compare/5.0.0...5.7.0)
+- Create Dependabot config file (#579) [dependabot-preview[bot],
+  dependabot-preview[bot]]
+- Chore: Update pipfile to respect isort v5 (#577) [Mori Atsushi]
+- Chore: Fix iOS app management functional tests (#575) [Mori Atsushi]
+
+  * Added sleep to wait the app has gone
+
+  * Upgrade AndroidSDK to 30 from 27
+
+  * Added sleep to ios tc
+
+  * Fix android activities test
+
+  * Revert android sdk ver
+
+  * Used timer instead of fixed wait time
+
+  * Created wait_for
+
+  * Update test/functional/test_helper.py
+
+  * review comments
+
+  * review comments
+
+  * Extend callable type
+
+  * fix
+
+  * review comment
+
+  * review comment
+
+  * review comment
+
+  * fix comment
+- Chore: Fix functional keyboard tests with appium v1.21.0-beta.0 (#574)
+  [Mori Atsushi]
+
+  * Fix function keyboard tests
+
+  * Updated class name for keyboard
+- Chore: Apply Black code formatter (#571) [Mori Atsushi]
+
+  * Applied black (length: 120, String skipped)
+
+  * Updated related to ci
+
+  * Update README
+- Chore: address selenium-4 branch in readme (#566) [Kazuaki Matsuo]
+- Docs: fix wrong code example in README.md (#555) [sanlengjingvv]
+- Update changelog for 1.0.2. [Kazuaki Matsuo]
+
+
 v1.0.2 (2020-07-15)
 -------------------
 - Bump 1.0.2. [Kazuaki Matsuo]

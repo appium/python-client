@@ -15,7 +15,7 @@
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
 import copy
-from typing import Any, Dict, List, Optional, TypeVar, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
@@ -77,40 +77,149 @@ _W3C_CAPABILITY_NAMES = frozenset(
 _OSS_W3C_CONVERSION = {'acceptSslCerts': 'acceptInsecureCerts', 'version': 'browserVersion', 'platform': 'platformName'}
 
 _EXTENSION_CAPABILITY = ':'
-_FORCE_MJSONWP = 'forceMjsonwp'
 
 # override
 # Add appium prefix for the non-W3C capabilities
 
 
-def _make_w3c_caps(caps: Dict) -> Dict[str, List[Dict[str, Any]]]:
+def _make_w3c_caps(caps: Dict) -> Dict[str, Union[Dict[str, Any], List[Dict[str, Any]]]]:
     appium_prefix = 'appium:'
 
     caps = copy.deepcopy(caps)
     profile = caps.get('firefox_profile')
-    first_match = {}
+    always_match = {}
     if caps.get('proxy') and caps['proxy'].get('proxyType'):
         caps['proxy']['proxyType'] = caps['proxy']['proxyType'].lower()
     for k, v in caps.items():
         if v and k in _OSS_W3C_CONVERSION:
-            first_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
+            always_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
         if k in _W3C_CAPABILITY_NAMES or _EXTENSION_CAPABILITY in k:
-            first_match[k] = v
+            always_match[k] = v
         else:
             if not k.startswith(appium_prefix):
-                first_match[appium_prefix + k] = v
+                always_match[appium_prefix + k] = v
     if profile:
-        moz_opts = first_match.get('moz:firefoxOptions', {})
+        moz_opts = always_match.get('moz:firefoxOptions', {})
         # If it's already present, assume the caller did that intentionally.
         if 'profile' not in moz_opts:
             # Don't mutate the original capabilities.
             new_opts = copy.deepcopy(moz_opts)
             new_opts['profile'] = profile
-            first_match['moz:firefoxOptions'] = new_opts
-    return {'firstMatch': [first_match]}
+            always_match['moz:firefoxOptions'] = new_opts
+    return {'alwaysMatch': always_match, 'firstMatch': [{}]}
 
 
 T = TypeVar('T', bound='WebDriver')
+
+
+class ExtensionBase:
+    """
+    Used to define an extension command as driver's methods.
+
+    Example:
+        When you want to add `example_command` which calls a get request to
+        `session/$sessionId/path/to/your/custom/url`.
+
+        1. Defines an extension as a subclass of `ExtensionBase`
+            class YourCustomCommand(ExtensionBase):
+                def method_name(self):
+                    return 'custom_method_name'
+
+                # Define a method with the name of `method_name`
+                def custom_method_name(self):
+                    # Generally the response of Appium follows `{ 'value': { data } }`
+                    # format.
+                    return self.execute()['value']
+
+                # Used to register the command pair as "Appium command" in this driver.
+                def add_command(self):
+                    return ('GET', 'session/$sessionId/path/to/your/custom/url')
+
+        2. Creates a session with the extension.
+            # Appium capabilities
+            desired_caps = { ... }
+            driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps,
+                extensions=[YourCustomCommand])
+
+        3. Calls the custom command
+            # Then, the driver calls a get request against
+            # `session/$sessionId/path/to/your/custom/url`. `$sessionId` will be
+            # replaced properly in the driver. Then, the method returns
+            # the `value` part of the response.
+            driver.custom_method_name()
+
+        4. Remove added commands (if needed)
+            # New commands are added by `setattr`. They remain in the module,
+            # so you should explicitly delete them to define the same name method
+            # with different arguments or process in the method.
+            driver.delete_extensions()
+
+
+        You can give arbitrary arguments for the command like the below.
+
+            class YourCustomCommand(ExtensionBase):
+                def method_name(self):
+                    return 'custom_method_name'
+
+                def test_command(self, argument):
+                    return self.execute(argument)['value']
+
+                def add_command(self):
+                    return ('post', 'session/$sessionId/path/to/your/custom/url')
+
+            driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps,
+                extensions=[YourCustomCommand])
+
+            # Then, the driver sends a post request to `session/$sessionId/path/to/your/custom/url`
+            # with `{'dummy_arg': 'as a value'}` JSON body.
+            driver.custom_method_name({'dummy_arg': 'as a value'})
+
+
+        When you customize the URL dinamically with element id.
+
+            class CustomURLCommand(ExtensionBase):
+                def method_name(self):
+                    return 'custom_method_name'
+
+                def custom_method_name(self, element_id):
+                    return self.execute({'id': element_id})['value']
+
+                def add_command(self):
+                    return ('GET', 'session/$sessionId/path/to/your/custom/$id/url')
+
+            driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps,
+                extensions=[YourCustomCommand])
+            element = driver.find_element_by_accessibility_id('id')
+
+            # Then, the driver calls a get request to `session/$sessionId/path/to/your/custom/$id/url`
+            # with replacing the `$id` with the given `element.id`
+            driver.custom_method_name(element.id)
+    """
+
+    def __init__(self, execute: Callable[[str, Dict], Dict[str, Any]]):
+        self._execute = execute
+
+    def execute(self, parameters: Dict[str, Any] = None) -> Any:
+        param = {}
+        if parameters:
+            param = parameters
+        return self._execute(self.method_name(), param)
+
+    def method_name(self) -> str:
+        """
+        Expected to return a method name.
+        This name will be available as a driver method.
+
+        Returns:
+            'str' The method name.
+        """
+        raise NotImplementedError()
+
+    def add_command(self) -> Tuple[str, str]:
+        """
+        Expected to define the pair of HTTP method and its URL.
+        """
+        raise NotImplementedError()
 
 
 class WebDriver(
@@ -149,8 +258,17 @@ class WebDriver(
         browser_profile: str = None,
         proxy: str = None,
         keep_alive: bool = True,
-        direct_connection: bool = False,
+        direct_connection: bool = True,
+        extensions: List[T] = [],
+        strict_ssl: bool = True,
     ):
+
+        if strict_ssl is False:
+            # pylint: disable=E1101
+            import urllib3
+
+            AppiumConnection.set_certificate_bundle_path(None)
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
         super().__init__(
             AppiumConnection(command_executor, keep_alive=keep_alive), desired_capabilities, browser_profile, proxy
@@ -175,6 +293,26 @@ class WebDriver(
         By.IMAGE = MobileBy.IMAGE
         By.CUSTOM = MobileBy.CUSTOM
 
+        self._extensions = extensions
+        for extension in self._extensions:
+            instance = extension(self.execute)
+            method_name = instance.method_name()
+            if hasattr(WebDriver, method_name):
+                logger.debug(f"Overriding the method '{method_name}'")
+
+            # add a new method named 'instance.method_name()' and call it
+            setattr(WebDriver, method_name, getattr(instance, method_name))
+            method, url_cmd = instance.add_command()
+            self.command_executor._commands[method_name] = (method.upper(), url_cmd)  # type: ignore
+
+    def delete_extensions(self) -> None:
+        """Delete extensions added in the class with 'setattr'"""
+        for extension in self._extensions:
+            instance = extension(self.execute)
+            method_name = instance.method_name()
+            if hasattr(WebDriver, method_name):
+                delattr(WebDriver, method_name)
+
     def _update_command_executor(self, keep_alive: bool) -> None:
         """Update command executor following directConnect feature"""
         direct_protocol = 'directConnectProtocol'
@@ -182,24 +320,25 @@ class WebDriver(
         direct_port = 'directConnectPort'
         direct_path = 'directConnectPath'
 
-        if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.capabilities)):
+        if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps)):
             message = 'Direct connect capabilities from server were:\n'
             for key in [direct_protocol, direct_host, direct_port, direct_path]:
-                message += '{}: \'{}\'\n'.format(key, self.capabilities.get(key, ''))
+                message += '{}: \'{}\'\n'.format(key, self.caps.get(key, ''))
             logger.warning(message)
             return
 
-        protocol = self.capabilities[direct_protocol]
-        hostname = self.capabilities[direct_host]
-        port = self.capabilities[direct_port]
-        path = self.capabilities[direct_path]
+        protocol = self.caps[direct_protocol]
+        hostname = self.caps[direct_host]
+        port = self.caps[direct_port]
+        path = self.caps[direct_path]
         executor = f'{protocol}://{hostname}:{port}{path}'
 
-        logger.info('Updated request endpoint to %s', executor)
+        logger.debug('Updated request endpoint to %s', executor)
         # Override command executor
         self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
         self._addCommands()
 
+    # https://github.com/SeleniumHQ/selenium/blob/06fdf2966df6bca47c0ae45e8201cd30db9b9a49/py/selenium/webdriver/remote/webdriver.py#L277
     def start_session(self, capabilities: Dict, browser_profile: Optional[str] = None) -> None:
         """Creates a new session with the desired capabilities.
 
@@ -226,30 +365,15 @@ class WebDriver(
         if 'sessionId' not in response:
             response = response['value']
         self.session_id = response['sessionId']
-        self.capabilities = response.get('value')
+        self.caps = response.get('value')
 
         # if capabilities is none we are probably speaking to
         # a W3C endpoint
-        if self.capabilities is None:
-            self.capabilities = response.get('capabilities')
-
-        # Double check to see if we have a W3C Compliant browser
-        self.w3c = response.get('status') is None
-        self.command_executor.w3c = self.w3c
+        if self.caps is None:
+            self.caps = response.get('capabilities')
 
     def _merge_capabilities(self, capabilities: Dict) -> Dict[str, Any]:
         """Manage capabilities whether W3C format or MJSONWP format"""
-        if _FORCE_MJSONWP in capabilities:
-            logger.warning(
-                "[Deprecated] 'forceMjsonwp' capability will be dropped after switching base selenium client from v3 to v4 "
-                "to follow W3C spec capabilities. Appium 2.0 will also support only W3C session creation capabilities."
-            )
-            force_mjsonwp = capabilities[_FORCE_MJSONWP]
-            del capabilities[_FORCE_MJSONWP]
-
-            if force_mjsonwp != False:
-                return {'desiredCapabilities': capabilities}
-
         w3c_caps = _make_w3c_caps(capabilities)
         return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 
@@ -266,18 +390,17 @@ class WebDriver(
 
         """
         # TODO: If we need, we should enable below converter for Web context
-        # if self.w3c:
-        #     if by == By.ID:
-        #         by = By.CSS_SELECTOR
-        #         value = '[id="%s"]' % value
-        #     elif by == By.TAG_NAME:
-        #         by = By.CSS_SELECTOR
-        #     elif by == By.CLASS_NAME:
-        #         by = By.CSS_SELECTOR
-        #         value = ".%s" % value
-        #     elif by == By.NAME:
-        #         by = By.CSS_SELECTOR
-        #         value = '[name="%s"]' % value
+        # if by == By.ID:
+        #     by = By.CSS_SELECTOR
+        #     value = '[id="%s"]' % value
+        # elif by == By.TAG_NAME:
+        #     by = By.CSS_SELECTOR
+        # elif by == By.CLASS_NAME:
+        #     by = By.CSS_SELECTOR
+        #     value = ".%s" % value
+        # elif by == By.NAME:
+        #     by = By.CSS_SELECTOR
+        #     value = '[name="%s"]' % value
 
         return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
 
@@ -293,25 +416,24 @@ class WebDriver(
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
         # TODO: If we need, we should enable below converter for Web context
-        # if self.w3c:
-        #     if by == By.ID:
-        #         by = By.CSS_SELECTOR
-        #         value = '[id="%s"]' % value
-        #     elif by == By.TAG_NAME:
-        #         by = By.CSS_SELECTOR
-        #     elif by == By.CLASS_NAME:
-        #         by = By.CSS_SELECTOR
-        #         value = ".%s" % value
-        #     elif by == By.NAME:
-        #         by = By.CSS_SELECTOR
-        #         value = '[name="%s"]' % value
+        # if by == By.ID:
+        #     by = By.CSS_SELECTOR
+        #     value = '[id="%s"]' % value
+        # elif by == By.TAG_NAME:
+        #     by = By.CSS_SELECTOR
+        # elif by == By.CLASS_NAME:
+        #     by = By.CSS_SELECTOR
+        #     value = ".%s" % value
+        # elif by == By.NAME:
+        #     by = By.CSS_SELECTOR
+        #     value = '[name="%s"]' % value
 
         # Return empty list if driver returns null
         # See https://github.com/SeleniumHQ/selenium/issues/4555
 
         return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
 
-    def create_web_element(self, element_id: Union[int, str], w3c: bool = False) -> MobileWebElement:
+    def create_web_element(self, element_id: Union[int, str]) -> MobileWebElement:
         """Creates a web element with the specified element_id.
 
         Overrides method in Selenium WebDriver in order to always give them
@@ -319,12 +441,11 @@ class WebDriver(
 
         Args:
             element_id: The element id to create a web element
-            w3c: Whether the element is W3C or MJSONWP
 
         Returns:
             `MobileWebElement`
         """
-        return MobileWebElement(self, element_id, w3c)
+        return MobileWebElement(self, element_id)
 
     def set_value(self, element: MobileWebElement, value: str) -> T:
         """Set the value on an element in the application.
@@ -383,3 +504,8 @@ class WebDriver(
             'GET',
             '/session/$sessionId/element/$id/location_in_view',
         )
+
+        # override for Appium 1.x
+        # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`
+        self.command_executor._commands[Command.GET_LOG] = ('POST', '/session/$sessionId/log')
+        self.command_executor._commands[Command.GET_AVAILABLE_LOG_TYPES] = ('GET', '/session/$sessionId/log/types')

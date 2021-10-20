@@ -107,3 +107,7 @@ class MobileCommand:
     # iOS
     TOUCH_ID = 'touchId'
     TOGGLE_TOUCH_ID_ENROLLMENT = 'toggleTouchIdEnrollment'
+
+    # To override selenium commands
+    GET_LOG = 'getLog'
+    GET_AVAILABLE_LOG_TYPES = 'getAvailableLogTypes'

@@ -23,7 +23,6 @@ from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.logger import logger
-from appium.webdriver.command_method import CommandMethod
 from appium.webdriver.common.mobileby import MobileBy
 
 from .appium_connection import AppiumConnection
@@ -83,31 +82,31 @@ _EXTENSION_CAPABILITY = ':'
 # Add appium prefix for the non-W3C capabilities
 
 
-def _make_w3c_caps(caps: Dict) -> Dict[str, List[Dict[str, Any]]]:
+def _make_w3c_caps(caps: Dict) -> Dict[str, Union[Dict[str, Any], List[Dict[str, Any]]]]:
     appium_prefix = 'appium:'
 
     caps = copy.deepcopy(caps)
     profile = caps.get('firefox_profile')
-    first_match = {}
+    always_match = {}
     if caps.get('proxy') and caps['proxy'].get('proxyType'):
         caps['proxy']['proxyType'] = caps['proxy']['proxyType'].lower()
     for k, v in caps.items():
         if v and k in _OSS_W3C_CONVERSION:
-            first_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
+            always_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
         if k in _W3C_CAPABILITY_NAMES or _EXTENSION_CAPABILITY in k:
-            first_match[k] = v
+            always_match[k] = v
         else:
             if not k.startswith(appium_prefix):
-                first_match[appium_prefix + k] = v
+                always_match[appium_prefix + k] = v
     if profile:
-        moz_opts = first_match.get('moz:firefoxOptions', {})
+        moz_opts = always_match.get('moz:firefoxOptions', {})
         # If it's already present, assume the caller did that intentionally.
         if 'profile' not in moz_opts:
             # Don't mutate the original capabilities.
             new_opts = copy.deepcopy(moz_opts)
             new_opts['profile'] = profile
-            first_match['moz:firefoxOptions'] = new_opts
-    return {'firstMatch': [first_match]}
+            always_match['moz:firefoxOptions'] = new_opts
+    return {'alwaysMatch': always_match, 'firstMatch': [{}]}
 
 
 T = TypeVar('T', bound='WebDriver')
@@ -259,7 +258,7 @@ class WebDriver(
         browser_profile: str = None,
         proxy: str = None,
         keep_alive: bool = True,
-        direct_connection: bool = False,
+        direct_connection: bool = True,
         extensions: List[T] = [],
         strict_ssl: bool = True,
     ):
@@ -334,7 +333,7 @@ class WebDriver(
         path = self.caps[direct_path]
         executor = f'{protocol}://{hostname}:{port}{path}'
 
-        logger.info('Updated request endpoint to %s', executor)
+        logger.debug('Updated request endpoint to %s', executor)
         # Override command executor
         self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
         self._addCommands()
@@ -372,9 +371,6 @@ class WebDriver(
         # a W3C endpoint
         if self.caps is None:
             self.caps = response.get('capabilities')
-
-        # Double check to see if we have a W3C Compliant browser
-        self.command_executor.w3c = True
 
     def _merge_capabilities(self, capabilities: Dict) -> Dict[str, Any]:
         """Manage capabilities whether W3C format or MJSONWP format"""

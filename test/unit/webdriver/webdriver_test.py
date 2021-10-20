@@ -20,7 +20,6 @@ from mock import patch
 
 from appium import version as appium_version
 from appium import webdriver
-from appium.webdriver.command_method import CommandMethod
 from appium.webdriver.webdriver import ExtensionBase, WebDriver
 from test.unit.helper.test_helper import (
     android_w3c_driver,
@@ -61,7 +60,6 @@ class TestWebDriverWebDriver(object):
         assert request_json.get('desiredCapabilities') is not None
 
         assert driver.session_id == 'session-id'
-        assert driver.command_executor.w3c
 
     @httpretty.activate
     def test_create_session_change_session_id(self):

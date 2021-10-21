@@ -7,115 +7,59 @@ Changelog
 
 New
 ~~~
-- Feat: do not raise an error in case method is already defined (#632)
+- Feat: Change base selenium client version to selenium 4 (#636)
   [Kazuaki Matsuo]
-- Feat: add satellites in set_location (#620) [Kazuaki Matsuo]
 
-  * feat: add satellites in set_location
-
-  * fix review
-- Feat: Add command with `setattr` (#615) [Kazuaki Matsuo]
-
-  * chore: add placeholder
-
-  * move to extention way
-
-  * revert pytest
-
-  * add todo
-
-  * call method_name instead of wrapper
-
-  * remove types
-
-  * rename a method
-
-  * add examples
-
-  * add types-python-dateutil as error message
-
-  * add example more
-
-  * tweak naming
-
-  * Explicit Dict
-- Add types-python-dateutil in 4 branch. [Kazuaki Matsuo]
-- Add test to check log path. [Kazuaki Matsuo]
-
-Fix
-~~~
-- Fix tests. [Kazuaki Matsuo]
-- Remove w3c argument in MobileWebElement (#598) [Kazuaki Matsuo]
-
-  * Bump 2.0.0.b1
-
-  * Update changelog for 2.0.0.b1
-
-  * remove w3c
-- Fix format with black. [Kazuaki Matsuo]
-- Fix lint, CI and tests. [Kazuaki Matsuo]
+  - Changed base selenium client version to v4
+  - No longer forceMjsonwp works
+  - Add strict_ssl option in webdriver.Remote
 
 Other
 ~~~~~
-- Bump 2.0.0.rc4. [Kazuaki Matsuo]
-- Tweak tests. [Kazuaki Matsuo]
-- Remove w3c flag. [Kazuaki Matsuo]
-- Remove w3c=True from MobileWebElement argument. [Kazuaki Matsuo]
-- Bump selenium version. [Kazuaki Matsuo]
-- Update changelog for 2.0.0.rc3. [Kazuaki Matsuo]
-- Bump 2.0.0.rc3. [Kazuaki Matsuo]
-- Use 4.0.0.rc3. [Kazuaki Matsuo]
-- Update changelog for 2.0.0.rc2. [Kazuaki Matsuo]
-- Bump 2.0.0.rc2. [Kazuaki Matsuo]
-- Try rc2. [Kazuaki Matsuo]
-- Update changelog for 2.0.0.rc1. [Kazuaki Matsuo]
-- Bump 2.0.0.rc1. [Kazuaki Matsuo]
-- Try rc1. [Kazuaki Matsuo]
-- Update changelog for 2.0.0.b5. [Kazuaki Matsuo]
-- Bump 2.0.0.b5. [Kazuaki Matsuo]
-- Chore(deps): update pylint requirement from ~=2.8 to ~=2.10 (#628)
+- Chore(deps): update sphinx-rtd-theme requirement from <1.0 to <2.0
+  (#637) [Kazuaki Matsuo, dependabot[bot]]
+
+  Updates the requirements on [sphinx-rtd-theme](https://github.com/readthedocs/sphinx_rtd_theme) to permit the latest version.
+  - [Release notes](https://github.com/readthedocs/sphinx_rtd_theme/releases)
+  - [Changelog](https://github.com/readthedocs/sphinx_rtd_theme/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/readthedocs/sphinx_rtd_theme/compare/0.1.8...1.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: sphinx-rtd-theme
+    dependency-type: direct:production
+  ...
+- Chore: cleanup no longer needed code in w3c, bump dev Pipfile (#646)
+  [Kazuaki Matsuo]
+
+  chore: cleanup no longer needed code in w3c, bump dev Pipfile
+- Chore(deps): update pylint requirement from ~=2.10 to ~=2.11 (#638)
   [dependabot[bot]]
 
   Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
   - [Release notes](https://github.com/PyCQA/pylint/releases)
   - [Changelog](https://github.com/PyCQA/pylint/blob/main/ChangeLog)
-  - [Commits](https://github.com/PyCQA/pylint/compare/pylint-2.8.0...v2.10.2)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.10.0...v2.11.1)
 
   ---
   updated-dependencies:
   - dependency-name: pylint
     dependency-type: direct:production
   ...
-- Chore(deps): update tox requirement from ~=3.23 to ~=3.24 (#619)
+- Chore(deps): update pytest-cov requirement from ~=2.12 to ~=3.0 (#641)
   [dependabot[bot]]
 
-  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
-  - [Release notes](https://github.com/tox-dev/tox/releases)
-  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
-  - [Commits](https://github.com/tox-dev/tox/compare/3.23.0...3.24.0)
+  Updates the requirements on [pytest-cov](https://github.com/pytest-dev/pytest-cov) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest-cov/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest-cov/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest-cov/compare/v2.12.0...v3.0.0)
 
   ---
   updated-dependencies:
-  - dependency-name: tox
+  - dependency-name: pytest-cov
     dependency-type: direct:production
   ...
-- Override log. [Kazuaki Matsuo]
-- Bump selenium version in tox. [Kazuaki Matsuo]
-- Update changelog for 2.0.0.b4. [Kazuaki Matsuo]
-- Bump 2.0.0.b4. [Kazuaki Matsuo]
-- Use python selenium client v4.0.0.b4. [Kazuaki Matsuo]
-- Update changelog for 2.0.0.b3. [Kazuaki Matsuo]
-- Bump 2.0.0.b3. [Kazuaki Matsuo]
-- Tweak some lines. [Kazuaki Matsuo]
-- Update selenium in pipfile. [Kazuaki Matsuo]
-- Bump selenium 4.0.0.b3. [Kazuaki Matsuo]
-- Update pipfile. [Kazuaki Matsuo]
-- Update changelog for 2.0.0.b2. [Kazuaki Matsuo]
-- Bump 2.0.0.b2. [Kazuaki Matsuo]
-- Bump base selenium version to 4.0.0.b2. [Kazuaki Matsuo]
-- Bump v2.0.0.a0. [Kazuaki Matsuo]
-- Update changelog for v2.0.0.a0. [Kazuaki Matsuo]
-- Bump selenium. [Kazuaki Matsuo]
+- Update changelog for 1.3.0. [Kazuaki Matsuo]
 
 
 v1.3.0 (2021-09-27)

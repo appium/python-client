@@ -16,6 +16,15 @@ New
 
 Other
 ~~~~~
+- Bump 2.0.0.rc5. [Kazuaki Matsuo]
+- Chore(deps): update sphinx requirement from <4.0,>=3.0 to >=3.0,<5.0
+  (#603) [Kazuaki Matsuo, dependabot[bot]]
+
+  Updates the requirements on [sphinx](https://github.com/sphinx-doc/sphinx) to permit the latest version.
+  - [Release notes](https://github.com/sphinx-doc/sphinx/releases)
+  - [Changelog](https://github.com/sphinx-doc/sphinx/blob/4.x/CHANGES)
+  - [Commits](https://github.com/sphinx-doc/sphinx/compare/v3.0.0...v4.0.0)
+- Update gitchangelog once. [Kazuaki Matsuo]
 - Chore(deps): update sphinx-rtd-theme requirement from <1.0 to <2.0
   (#637) [Kazuaki Matsuo, dependabot[bot]]
 

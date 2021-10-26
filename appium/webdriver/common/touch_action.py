@@ -44,6 +44,7 @@ class TouchAction:
 
     def __init__(self, driver: Optional['WebDriver'] = None):
         logger.warning("[Deprecated] 'TouchAction' action is deprecated. Please use W3C actions instead.")
+
         self._driver = driver
         self._actions: List = []
 

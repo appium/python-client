@@ -21,6 +21,7 @@
 import copy
 from typing import TYPE_CHECKING, Dict, List, Optional, TypeVar, Union
 
+from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
@@ -33,6 +34,8 @@ T = TypeVar('T', bound='MultiAction')
 
 class MultiAction:
     def __init__(self, driver: 'WebDriver', element: Optional['WebElement'] = None) -> None:
+        logger.warning("[Deprecated] 'TouchAction' action is deprecated. Please use W3C actions instead.")
+
         self._driver = driver
         self._element = element
         self._touch_actions: List['TouchAction'] = []

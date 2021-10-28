@@ -15,6 +15,7 @@
 from typing import TYPE_CHECKING, List, Optional, Tuple, TypeVar, Union
 
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
@@ -48,11 +49,11 @@ class ActionHelpers(webdriver.Remote):
         if duration is None:
             duration = 600
 
-        action = TouchAction(self)
+        actions = ActionChains(self)
         if duration is None:
-            action.press(origin_el).move_to(destination_el).release().perform()
+            actions.click_and_hold(origin_el).move_to_element(destination_el).release().perform()
         else:
-            action.press(origin_el).wait(duration).move_to(destination_el).release().perform()
+            actions.click_and_hold(origin_el).pause(duration).move_to_element(destination_el).release().perform()
         return self
 
     def drag_and_drop(self: T, origin_el: WebElement, destination_el: WebElement) -> T:
@@ -65,8 +66,8 @@ class ActionHelpers(webdriver.Remote):
         Returns:
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
-        action = TouchAction(self)
-        action.long_press(origin_el).move_to(destination_el).release().perform()
+        actions = ActionChains(self)
+        actions.drag_and_drop(origin_el, destination_el).perform()
         return self
 
     def tap(self: T, positions: List[Tuple[int, int]], duration: Optional[int] = None) -> T:

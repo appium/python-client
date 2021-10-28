@@ -30,7 +30,7 @@ class WindowsSearchContext(BaseSearchContext):
     """Define search context for Windows"""
 
     def find_element_by_windows_uiautomation(self: T, win_uiautomation: str) -> 'WebElement':
-        """Finds an element by windows uiautomation
+        """[Deprecated] Finds an element by windows uiautomation
 
         Args:
             win_uiautomation: The element name in the windows UIAutomation selector
@@ -45,7 +45,7 @@ class WindowsSearchContext(BaseSearchContext):
         return self.find_element(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)
 
     def find_elements_by_windows_uiautomation(self: T, win_uiautomation: str) -> List['WebElement']:
-        """Finds elements by windows uiautomation
+        """[Deprecated] Finds elements by windows uiautomation
 
         Args:
             win_uiautomation: The element name in the windows UIAutomation selector

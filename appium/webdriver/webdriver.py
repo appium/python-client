@@ -323,7 +323,7 @@ class WebDriver(
         if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps)):
             message = 'Direct connect capabilities from server were:\n'
             for key in [direct_protocol, direct_host, direct_port, direct_path]:
-                message += '{}: \'{}\'\n'.format(key, self.caps.get(key, ''))
+                message += '{}: \'{}\' '.format(key, self.caps.get(key, ''))
             logger.warning(message)
             return
 
@@ -476,6 +476,21 @@ class WebDriver(
         """
 
         return MobileSwitchTo(self)
+
+    def perform_actions(self, multi_actions=[]) -> None:
+        """Perform multiple W3C actions
+
+        Returns:
+            None
+        """
+        enc = {'actions': []}
+        for action in multi_actions:
+            for device in action.w3c_actions.devices:
+                encoded = device.encode()
+                if encoded['actions']:
+                    enc['actions'].append(encoded)
+                    device.actions = []
+        self.execute(RemoteCommand.W3C_ACTIONS, enc)
 
     # pylint: disable=protected-access
 

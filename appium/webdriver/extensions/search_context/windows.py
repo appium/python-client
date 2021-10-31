@@ -16,6 +16,7 @@
 
 from typing import TYPE_CHECKING, List, TypeVar, Union
 
+from appium.common.logger import logger
 from appium.webdriver.common.mobileby import MobileBy
 
 from .base_search_context import BaseSearchContext
@@ -30,7 +31,7 @@ class WindowsSearchContext(BaseSearchContext):
     """Define search context for Windows"""
 
     def find_element_by_windows_uiautomation(self: T, win_uiautomation: str) -> 'WebElement':
-        """Finds an element by windows uiautomation
+        """[Deprecated] Finds an element by windows uiautomation
 
         Args:
             win_uiautomation: The element name in the windows UIAutomation selector
@@ -42,10 +43,13 @@ class WindowsSearchContext(BaseSearchContext):
             `appium.webdriver.webelement.WebElement`: The found element
 
         """
+        logger.warning(
+            "[Deprecated] '-windows uiautomation' selector is deprecated. Please use other locators like id."
+        )
         return self.find_element(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)
 
     def find_elements_by_windows_uiautomation(self: T, win_uiautomation: str) -> List['WebElement']:
-        """Finds elements by windows uiautomation
+        """[Deprecated] Finds elements by windows uiautomation
 
         Args:
             win_uiautomation: The element name in the windows UIAutomation selector
@@ -56,4 +60,7 @@ class WindowsSearchContext(BaseSearchContext):
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
+        logger.warning(
+            "[Deprecated] '-windows uiautomation' selector is deprecated. Please use other locators like id."
+        )
         return self.find_elements(by=MobileBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)

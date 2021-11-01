@@ -477,21 +477,6 @@ class WebDriver(
 
         return MobileSwitchTo(self)
 
-    def perform_actions(self, multi_actions=[]) -> None:
-        """Perform multiple W3C actions
-
-        Returns:
-            None
-        """
-        enc = {'actions': []}
-        for action in multi_actions:
-            for device in action.w3c_actions.devices:
-                encoded = device.encode()
-                if encoded['actions']:
-                    enc['actions'].append(encoded)
-                    device.actions = []
-        self.execute(RemoteCommand.W3C_ACTIONS, enc)
-
     # pylint: disable=protected-access
 
     def _addCommands(self) -> None:

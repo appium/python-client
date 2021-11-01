@@ -50,14 +50,14 @@ class ActionHelpers(webdriver.Remote):
         if duration is None:
             duration = 600
 
-        # w3c action requires ms
-        duration = duration / 1000
+        # w3c action requires seconds
+        duration_sec = duration / 1000
 
         actions = ActionChains(self)
         dest_el_rect = destination_el.rect
 
         # https://github.com/SeleniumHQ/selenium/blob/3c82c868d4f2a7600223a1b3817301d0b04d28e4/py/selenium/webdriver/common/actions/pointer_actions.py#L83
-        if duration is None:
+        if duration_sec is None:
             actions.w3c_actions.pointer_action.move_to(origin_el)
             actions.w3c_actions.pointer_action.pointer_down()
             actions.w3c_actions.pointer_action.move_to_location(dest_el_rect['x'], dest_el_rect['y'])
@@ -66,7 +66,7 @@ class ActionHelpers(webdriver.Remote):
         else:
             actions.w3c_actions.pointer_action.move_to(origin_el)
             actions.w3c_actions.pointer_action.pointer_down()
-            actions.w3c_actions.pointer_action.pause(duration)
+            actions.w3c_actions.pointer_action.pause(duration_sec)
             actions.w3c_actions.pointer_action.move_to_location(dest_el_rect['x'], dest_el_rect['y'])
             actions.w3c_actions.pointer_action.release()
             actions.perform()
@@ -111,14 +111,12 @@ class ActionHelpers(webdriver.Remote):
             actions.w3c_actions.pointer_action.move_to_location(x, y)
             actions.w3c_actions.pointer_action.pointer_down()
             if duration:
-                actions.w3c_actions.pointer_action.pause(duration)
+                actions.w3c_actions.pointer_action.pause(duration / 1000)
             else:
                 actions.w3c_actions.pointer_action.pause(100)
             actions.w3c_actions.pointer_action.release()
             actions.perform()
         else:
-            ma = []
-
             finger = 0
             actions = ActionChains(self)
             actions.w3c_actions.devices = []
@@ -131,7 +129,6 @@ class ActionHelpers(webdriver.Remote):
                 # https://github.com/SeleniumHQ/selenium/blob/64447d4b03f6986337d1ca8d8b6476653570bcc1/py/selenium/webdriver/common/actions/pointer_input.py#L24
                 new_input = actions.w3c_actions.add_pointer_input('touch', f'finger{finger}')
                 new_input.create_pointer_move(x=x, y=y)
-                # TODO
                 new_input.create_pointer_down(MouseButton.LEFT)
                 if duration:
                     new_input.create_pause(duration / 1000)
@@ -161,7 +158,7 @@ class ActionHelpers(webdriver.Remote):
         actions = ActionChains(self)
         actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
         actions.w3c_actions.pointer_action.pointer_down()
-        actions.w3c_actions.pointer_action.pause(duration)
+        actions.w3c_actions.pointer_action.pause(duration / 1000)
         actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
         actions.w3c_actions.pointer_action.release()
         actions.perform()

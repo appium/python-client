@@ -16,6 +16,7 @@ from typing import TYPE_CHECKING, List, Optional, Tuple, TypeVar, Union
 
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.actions.mouse_button import MouseButton
 
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
@@ -117,25 +118,27 @@ class ActionHelpers(webdriver.Remote):
             actions.perform()
         else:
             ma = []
+
             finger = 0
+            actions = ActionChains(self)
+            actions.w3c_actions.devices = []
+
             for position in positions:
                 finger += 1
                 x = position[0]
                 y = position[1]
 
-                # TODO: still does not work well...
-                actions = ActionChains(self)
-                actions.w3c_actions.devices = []
-                actions.w3c_actions.add_pointer_input('touch', f'finger{finger}')
-                actions.w3c_actions.pointer_action.move_to_location(x, y)
-                actions.w3c_actions.pointer_action.pointer_down()
+                # https://github.com/SeleniumHQ/selenium/blob/64447d4b03f6986337d1ca8d8b6476653570bcc1/py/selenium/webdriver/common/actions/pointer_input.py#L24
+                new_input = actions.w3c_actions.add_pointer_input('touch', f'finger{finger}')
+                new_input.create_pointer_move(x=x, y=y)
+                # TODO
+                new_input.create_pointer_down(MouseButton.LEFT)
                 if duration:
-                    actions.w3c_actions.pointer_action.pause(duration)
+                    new_input.create_pause(duration / 1000)
                 else:
-                    actions.w3c_actions.pointer_action.pause(100)
-                actions.w3c_actions.pointer_action.release()
-                ma.append(actions)
-            self.perform_actions(ma)
+                    new_input.create_pause(0.1)
+                new_input.create_pointer_up(MouseButton.LEFT)
+            actions.perform()
 
         return self
 

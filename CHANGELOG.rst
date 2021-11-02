@@ -16,6 +16,22 @@ New
 
 Other
 ~~~~~
+- Bump 2.0.0.rc6. [Kazuaki Matsuo]
+- Docs: update readme. [Kazuaki Matsuo]
+- Chore: adding deprecation mark in touch actions and multi touch (#648)
+  [Kazuaki Matsuo]
+
+  * chore: add deprecation mark in touch actions and multi touch
+
+  * chore: add deprecated mark in MultiAction class
+
+  * docs: update readme
+- Chore: deprecate -windows uiautomation (#649) [Kazuaki Matsuo]
+
+  * chore: add Deprecated for -windows uiautomation
+
+  * chore: add logger
+- Update changelog for 2.0.0.rc5. [Kazuaki Matsuo]
 - Bump 2.0.0.rc5. [Kazuaki Matsuo]
 - Chore(deps): update sphinx requirement from <4.0,>=3.0 to >=3.0,<5.0
   (#603) [Kazuaki Matsuo, dependabot[bot]]

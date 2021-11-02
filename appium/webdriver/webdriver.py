@@ -323,8 +323,8 @@ class WebDriver(
         if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps)):
             message = 'Direct connect capabilities from server were:\n'
             for key in [direct_protocol, direct_host, direct_port, direct_path]:
-                message += '{}: \'{}\'\n'.format(key, self.caps.get(key, ''))
-            logger.warning(message)
+                message += '{}: \'{}\' '.format(key, self.caps.get(key, ''))
+            logger.debug(message)
             return
 
         protocol = self.caps[direct_protocol]

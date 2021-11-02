@@ -15,6 +15,8 @@
 from typing import TYPE_CHECKING, List, Optional, Tuple, TypeVar, Union
 
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.actions.mouse_button import MouseButton
 
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
@@ -35,7 +37,7 @@ class ActionHelpers(webdriver.Remote):
             origin_el: the element from which to being scrolling
             destination_el: the element to scroll to
             duration: a duration after pressing originalEl and move the element to destinationEl.
-                Default is 600 ms for W3C spec. Zero for MJSONWP.
+                Default is 600 ms for W3C spec.
 
         Usage:
             driver.scroll(el1, el2)
@@ -48,11 +50,26 @@ class ActionHelpers(webdriver.Remote):
         if duration is None:
             duration = 600
 
-        action = TouchAction(self)
-        if duration is None:
-            action.press(origin_el).move_to(destination_el).release().perform()
+        # w3c action requires seconds
+        duration_sec = duration / 1000
+
+        actions = ActionChains(self)
+        dest_el_rect = destination_el.rect
+
+        # https://github.com/SeleniumHQ/selenium/blob/3c82c868d4f2a7600223a1b3817301d0b04d28e4/py/selenium/webdriver/common/actions/pointer_actions.py#L83
+        if duration_sec is None:
+            actions.w3c_actions.pointer_action.move_to(origin_el)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.move_to_location(dest_el_rect['x'], dest_el_rect['y'])
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
         else:
-            action.press(origin_el).wait(duration).move_to(destination_el).release().perform()
+            actions.w3c_actions.pointer_action.move_to(origin_el)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.pause(duration_sec)
+            actions.w3c_actions.pointer_action.move_to_location(dest_el_rect['x'], dest_el_rect['y'])
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
         return self
 
     def drag_and_drop(self: T, origin_el: WebElement, destination_el: WebElement) -> T:
@@ -65,8 +82,11 @@ class ActionHelpers(webdriver.Remote):
         Returns:
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
-        action = TouchAction(self)
-        action.long_press(origin_el).move_to(destination_el).release().perform()
+        actions = ActionChains(self)
+        actions.w3c_actions.pointer_action.click_and_hold(origin_el)
+        actions.w3c_actions.pointer_action.move_to(destination_el)
+        actions.w3c_actions.pointer_action.release()
+        actions.perform()
         return self
 
     def tap(self: T, positions: List[Tuple[int, int]], duration: Optional[int] = None) -> T:
@@ -85,27 +105,38 @@ class ActionHelpers(webdriver.Remote):
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
         if len(positions) == 1:
-            action = TouchAction(self)
+            actions = ActionChains(self)
             x = positions[0][0]
             y = positions[0][1]
+            actions.w3c_actions.pointer_action.move_to_location(x, y)
+            actions.w3c_actions.pointer_action.pointer_down()
             if duration:
-                action.long_press(x=x, y=y, duration=duration).release()
+                actions.w3c_actions.pointer_action.pause(duration / 1000)
             else:
-                action.tap(x=x, y=y)
-            action.perform()
+                actions.w3c_actions.pointer_action.pause(100)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
         else:
-            ma = MultiAction(self)
+            finger = 0
+            actions = ActionChains(self)
+            actions.w3c_actions.devices = []
+
             for position in positions:
+                finger += 1
                 x = position[0]
                 y = position[1]
-                action = TouchAction(self)
-                if duration:
-                    action.long_press(x=x, y=y, duration=duration).release()
-                else:
-                    action.press(x=x, y=y).release()
-                ma.add(action)
 
-            ma.perform()
+                # https://github.com/SeleniumHQ/selenium/blob/64447d4b03f6986337d1ca8d8b6476653570bcc1/py/selenium/webdriver/common/actions/pointer_input.py#L24
+                new_input = actions.w3c_actions.add_pointer_input('touch', f'finger{finger}')
+                new_input.create_pointer_move(x=x, y=y)
+                new_input.create_pointer_down(MouseButton.LEFT)
+                if duration:
+                    new_input.create_pause(duration / 1000)
+                else:
+                    new_input.create_pause(0.1)
+                new_input.create_pointer_up(MouseButton.LEFT)
+            actions.perform()
+
         return self
 
     def swipe(self: T, start_x: int, start_y: int, end_x: int, end_y: int, duration: int = 0) -> T:
@@ -124,11 +155,13 @@ class ActionHelpers(webdriver.Remote):
         Returns:
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
-        # `swipe` is something like press-wait-move_to-release, which the server
-        # will translate into the correct action
-        action = TouchAction(self)
-        action.press(x=start_x, y=start_y).wait(ms=duration).move_to(x=end_x, y=end_y).release()
-        action.perform()
+        actions = ActionChains(self)
+        actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.pause(duration / 1000)
+        actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+        actions.w3c_actions.pointer_action.release()
+        actions.perform()
         return self
 
     def flick(self: T, start_x: int, start_y: int, end_x: int, end_y: int) -> T:
@@ -146,7 +179,10 @@ class ActionHelpers(webdriver.Remote):
         Returns:
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
-        action = TouchAction(self)
-        action.press(x=start_x, y=start_y).move_to(x=end_x, y=end_y).release()
-        action.perform()
+        actions = ActionChains(self)
+        actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+        actions.w3c_actions.pointer_action.release()
+        actions.perform()
         return self

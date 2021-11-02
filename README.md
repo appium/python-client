@@ -18,10 +18,10 @@ The version only works in W3C WebDriver protocol format.
 If you would like to use the old protocol (MJSONWP), please use v1 Appium Python client.
 
 ### Quick migration guide from v1 to v2
-- Update base Selenium Python binding version to v4
-- Removed `forceMjsonwp` since Selenium v4/this vlient v2 expect only W3C WebDriver protocol
+- Updated base Selenium Python binding version to v4
+- Removed `forceMjsonwp` since Selenium v4 abd Appium Python client v2 expect only W3C WebDriver protocol
 - Methods `ActionHelpers#scroll`, `ActionHelpers#drag_and_drop`, `ActionHelpers#tap`, `ActionHelpers#swipe` and `ActionHelpers#flick` now call W3C actions as its backend
-- Adds `strict_ssl` to relax SSL error such as self-signed ones
+- Added `strict_ssl` to relax SSL error such as self-signed ones
 - Deprecated
     - `MultiAction` and `TouchAction` are deprecated. Please use W3C WebDriver actions.
         - e.g.
@@ -30,6 +30,7 @@ If you would like to use the old protocol (MJSONWP), please use v1 Appium Python
             - https://www.youtube.com/watch?v=oAJ7jwMNFVU
             - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
             - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
+    - `launch_app`, `close_app` and `reset` are deprecated. Please read [issues#15807](https://github.com/appium/appium/issues/15807) for more details
 
 ## Getting the Appium Python client
 

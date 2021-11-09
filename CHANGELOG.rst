@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-(unreleased)
-------------
+v2.0.0 (2021-11-09)
+-------------------
 
 New
 ~~~
@@ -14,8 +14,36 @@ New
   - No longer forceMjsonwp works
   - Add strict_ssl option in webdriver.Remote
 
+Test
+~~~~
+- Ci: set pipenv==2021.5.29 to prevent dependencies error (#651)
+  [Kazuaki Matsuo]
+
+  * ci: add --pre
+
+  * specify pipenv as same as the previous ok case
+
+  * set 2021.5.29 in tox as well
+
 Other
 ~~~~~
+- Bump 2.0.0. [Kazuaki Matsuo]
+- Docs: update readme. [Kazuaki Matsuo]
+- Chore: add Python 3.9 as metadata. [Kazuaki Matsuo]
+- Chore(deps): update isort requirement from ~=5.9 to ~=5.10 (#650)
+  [dependabot[bot]]
+
+  Updates the requirements on [isort](https://github.com/pycqa/isort) to permit the latest version.
+  - [Release notes](https://github.com/pycqa/isort/releases)
+  - [Changelog](https://github.com/PyCQA/isort/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/pycqa/isort/compare/5.9.0...5.10.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: isort
+    dependency-type: direct:production
+  ...
+- Update changelog for 2.0.0.rc6. [Kazuaki Matsuo]
 - Bump 2.0.0.rc6. [Kazuaki Matsuo]
 - Docs: update readme. [Kazuaki Matsuo]
 - Chore: adding deprecation mark in touch actions and multi touch (#648)

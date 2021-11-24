@@ -377,13 +377,16 @@ class WebDriver(
         w3c_caps = _make_w3c_caps(capabilities)
         return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 
-    def find_element(self, by: str = By.ID, value: Union[str, Dict] = None) -> MobileWebElement:
-        """'Private' method used by the find_element_by_* methods.
+    def find_element(self, by: str = MobileBy.ID, value: Union[str, Dict] = None) -> MobileWebElement:
+        """
+        Find an element given a MobileBy strategy and locator
 
-        Override for Appium
+        Args:
+            by: The strategy
+            value: The locator
 
         Usage:
-            Use the corresponding find_element_by_* instead of this.
+            driver.find_element(by=MobileBy.ACCESSIBILITY_ID, value='accessibility_id')
 
         Returns:
             `appium.webdriver.webelement.WebElement`: The found element
@@ -404,13 +407,18 @@ class WebDriver(
 
         return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
 
-    def find_elements(self, by: str = By.ID, value: Union[str, Dict] = None) -> Union[List[MobileWebElement], List]:
-        """'Private' method used by the find_elements_by_* methods.
+    def find_elements(
+        self, by: str = MobileBy.ID, value: Union[str, Dict] = None
+    ) -> Union[List[MobileWebElement], List]:
+        """
+        Find elements given a MobileBy strategy and locator
 
-        Override for Appium
+        Args:
+            by: The strategy
+            value: The locator
 
         Usage:
-            Use the corresponding find_elements_by_* instead of this.
+            driver.find_elements(by=MobileBy.ACCESSIBILITY_ID, value='accessibility_id')
 
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements

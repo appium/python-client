@@ -34,8 +34,8 @@ T = TypeVar('T', bound='MultiAction')
 
 class MultiAction:
     """
-    Deprecated.
-    Please use W3C actions instead: http://appium.io/docs/en/commands/interactions/actions/
+    deprecated:: 2.0.0
+        Please use W3C actions instead: http://appium.io/docs/en/commands/interactions/actions/
     """
 
     def __init__(self, driver: 'WebDriver', element: Optional['WebElement'] = None) -> None:

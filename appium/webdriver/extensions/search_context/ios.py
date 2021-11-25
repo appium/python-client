@@ -32,7 +32,8 @@ class iOSSearchContext(BaseSearchContext):
 
     def find_element_by_ios_uiautomation(self: T, uia_string: str) -> 'WebElement':
         """
-        [Deprecated] Please use 'find_element' with 'AppiumBy.IOS_UIAUTOMATION' instead.
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.IOS_UIAUTOMATION' instead.
 
         Finds an element by uiautomation in iOS.
 
@@ -53,7 +54,8 @@ class iOSSearchContext(BaseSearchContext):
 
     def find_elements_by_ios_uiautomation(self: T, uia_string: str) -> List['WebElement']:
         """
-        [Deprecated] Please use 'find_elements' with 'AppiumBy.IOS_UIAUTOMATION' instead.
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.IOS_UIAUTOMATION' instead.
 
         Finds elements by uiautomation in iOS.
 
@@ -74,7 +76,8 @@ class iOSSearchContext(BaseSearchContext):
 
     def find_element_by_ios_predicate(self: T, predicate_string: str) -> 'WebElement':
         """
-        [Deprecated] Please use 'find_element' with 'AppiumBy.IOS_PREDICATE' instead.
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.IOS_PREDICATE' instead.
 
         Find an element by ios predicate string.
 
@@ -95,7 +98,8 @@ class iOSSearchContext(BaseSearchContext):
 
     def find_elements_by_ios_predicate(self: T, predicate_string: str) -> List['WebElement']:
         """
-        [Deprecated] Please use 'find_elements' with 'AppiumBy.IOS_PREDICATE' instead.
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.IOS_PREDICATE' instead.
 
         Finds elements by ios predicate string.
 
@@ -115,7 +119,8 @@ class iOSSearchContext(BaseSearchContext):
 
     def find_element_by_ios_class_chain(self: T, class_chain_string: str) -> 'WebElement':
         """
-        [Deprecated] Please use 'find_element' with 'AppiumBy.IOS_CLASS_CHAIN' instead.
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.IOS_CLASS_CHAIN' instead.
 
         Find an element by ios class chain string.
 
@@ -135,7 +140,8 @@ class iOSSearchContext(BaseSearchContext):
 
     def find_elements_by_ios_class_chain(self: T, class_chain_string: str) -> List['WebElement']:
         """
-        [Deprecated] Please use 'find_elements' with 'AppiumBy.IOS_CLASS_CHAIN' instead.
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.IOS_CLASS_CHAIN' instead.
 
         Finds elements by ios class chain string.
 

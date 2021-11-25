@@ -32,7 +32,8 @@ class CustomSearchContext(BaseSearchContext):
 
     def find_element_by_custom(self: T, selector: str) -> 'WebElement':
         """
-        [Deprecated] Please use 'find_element' with 'AppiumBy.CUSTOM' instead.
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.CUSTOM' instead.
 
         Finds an element in conjunction with a custom element finding plugin
 
@@ -56,7 +57,8 @@ class CustomSearchContext(BaseSearchContext):
 
     def find_elements_by_custom(self: T, selector: str) -> List['WebElement']:
         """
-        [Deprecated] Please use 'find_elements' with 'AppiumBy.CUSTOM' instead.
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.CUSTOM' instead.
 
         Finds elements in conjunction with a custom element finding plugin
 

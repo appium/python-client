@@ -33,7 +33,8 @@ class MobileSearchContext(BaseSearchContext):
 
     def find_element_by_accessibility_id(self: T, accessibility_id: str) -> 'WebElement':
         """
-        [Deprecated] Please use 'find_element' with 'AppiumBy.ACCESSIBILITY_ID' instead.
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.ACCESSIBILITY_ID' instead.
 
         Finds an element by accessibility id.
 
@@ -55,7 +56,8 @@ class MobileSearchContext(BaseSearchContext):
 
     def find_elements_by_accessibility_id(self: T, accessibility_id: str) -> List['WebElement']:
         """
-        [Deprecated] Please use 'find_elements' with 'AppiumBy.ACCESSIBILITY_ID' instead.
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.ACCESSIBILITY_ID' instead.
 
         Finds elements by accessibility id.
 

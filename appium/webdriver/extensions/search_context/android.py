@@ -35,7 +35,8 @@ class AndroidSearchContext(BaseSearchContext):
         self: T, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
     ) -> 'WebElement':
         """
-        [Deprecated] Please use 'find_element' with 'AppiumBy.ANDROID_VIEW_MATCHER' instead.
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.ANDROID_VIEW_MATCHER' instead.
 
         Finds element by [onView](https://developer.android.com/training/testing/espresso/basics) in Android
 
@@ -71,7 +72,8 @@ class AndroidSearchContext(BaseSearchContext):
         self: T, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
     ) -> 'WebElement':
         """
-        [Deprecated] Please use 'find_element' with 'AppiumBy.ANDROID_DATA_MATCHER' instead.
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.ANDROID_DATA_MATCHER' instead.
 
         Finds element by
         [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
@@ -108,7 +110,8 @@ class AndroidSearchContext(BaseSearchContext):
         self: T, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
     ) -> List['WebElement']:
         """
-        [Deprecated] Please use 'find_elements' with 'AppiumBy.ANDROID_DATA_MATCHER' instead.
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.ANDROID_DATA_MATCHER' instead.
 
         Finds elements by
         [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
@@ -150,7 +153,8 @@ class AndroidSearchContext(BaseSearchContext):
 
     def find_element_by_android_uiautomator(self: T, uia_string: str) -> 'WebElement':
         """
-        [Deprecated] Please use 'find_element' with 'AppiumBy.ANDROID_UIAUTOMATOR' instead.
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.ANDROID_UIAUTOMATOR' instead.
 
         Finds element by uiautomator in Android.
 
@@ -190,7 +194,8 @@ class AndroidSearchContext(BaseSearchContext):
 
     def find_element_by_android_viewtag(self: T, tag: str) -> 'WebElement':
         """
-        [Deprecated] Please use 'find_element' with 'AppiumBy.ANDROID_VIEWTAG' instead.
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.ANDROID_VIEWTAG' instead.
 
         Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
 
@@ -212,7 +217,8 @@ class AndroidSearchContext(BaseSearchContext):
 
     def find_elements_by_android_viewtag(self: T, tag: str) -> List['WebElement']:
         """
-        [Deprecated] Please use 'find_elements' with 'AppiumBy.ANDROID_VIEWTAG' instead.
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.ANDROID_VIEWTAG' instead.
 
         Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
 

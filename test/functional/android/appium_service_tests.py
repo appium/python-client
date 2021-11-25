@@ -14,7 +14,7 @@
 # limitations under the License.
 
 from appium.webdriver.appium_service import AppiumService
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.android.helper.test_helper import BaseTestCase
 from test.functional.test_helper import wait_for_element
 
@@ -33,7 +33,7 @@ class TestAppiumService(BaseTestCase):
     def test_appium_service(self) -> None:
         assert self.service.is_running
         assert self.service.is_listening
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Accessibility')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Accessibility')
         assert el is not None
 
     @classmethod

@@ -16,7 +16,7 @@ from time import sleep
 
 import pytest
 
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 from test.functional.test_helper import wait_for_element
@@ -63,7 +63,7 @@ class TestMultiAction(BaseTestCase):
         action.tap(el).perform()
 
         # simulate a swipe/scroll
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Expandable Lists')
         action.press(el).move_to(x=100, y=-1000).release().perform()
         el = self.driver.find_element_by_accessibility_id('Layouts')
         action.press(el).move_to(x=100, y=-1000).release().perform()
@@ -71,7 +71,7 @@ class TestMultiAction(BaseTestCase):
         el = self.driver.find_element_by_accessibility_id('Splitting Touches across Views')
         action.tap(el).perform()
 
-        wait_for_element(self.driver, MobileBy.ID, 'io.appium.android.apis:id/list1')
+        wait_for_element(self.driver, AppiumBy.ID, 'io.appium.android.apis:id/list1')
 
     @pytest.mark.skipif(condition=is_ci(), reason='Skip since the test must be watched to check if it works')
     def test_driver_multi_tap(self) -> None:
@@ -79,7 +79,7 @@ class TestMultiAction(BaseTestCase):
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
-        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.TextView')
+        wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'android.widget.TextView')
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
         self.driver.scroll(els[len(els) - 1], els[0])
 

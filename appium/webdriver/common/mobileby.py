@@ -16,4 +16,8 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 
 class MobileBy(AppiumBy):
+    """
+    [Deprecated] Please use 'from appium.webdriver.common.appiumby import AppiumBy' instead of 'MobileBy'.
+    """
+
     pass

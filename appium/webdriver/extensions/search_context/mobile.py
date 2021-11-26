@@ -18,7 +18,7 @@ import base64
 from typing import TYPE_CHECKING, List, TypeVar, Union
 
 from appium.common.logger import logger
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 
 from .base_search_context import BaseSearchContext
 
@@ -33,7 +33,8 @@ class MobileSearchContext(BaseSearchContext):
 
     def find_element_by_accessibility_id(self: T, accessibility_id: str) -> 'WebElement':
         """
-        [Deprecated] Please use 'find_element' with 'MobileBy.ACCESSIBILITY_ID' instead.
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.ACCESSIBILITY_ID' instead.
 
         Finds an element by accessibility id.
 
@@ -49,13 +50,14 @@ class MobileSearchContext(BaseSearchContext):
 
         """
 
-        logger.warning("[Deprecated] Please use 'find_element' with 'MobileBy.ACCESSIBILITY_ID' instead.")
+        logger.warning("[Deprecated] Please use 'find_element' with 'AppiumBy.ACCESSIBILITY_ID' instead.")
 
-        return self.find_element(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
+        return self.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=accessibility_id)
 
     def find_elements_by_accessibility_id(self: T, accessibility_id: str) -> List['WebElement']:
         """
-        [Deprecated] Please use 'find_elements' with 'MobileBy.ACCESSIBILITY_ID' instead.
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.ACCESSIBILITY_ID' instead.
 
         Finds elements by accessibility id.
 
@@ -71,9 +73,9 @@ class MobileSearchContext(BaseSearchContext):
 
         """
 
-        logger.warning("[Deprecated] Please use 'find_elements' with 'MobileBy.ACCESSIBILITY_ID' instead.")
+        logger.warning("[Deprecated] Please use 'find_elements' with 'AppiumBy.ACCESSIBILITY_ID' instead.")
 
-        return self.find_elements(by=MobileBy.ACCESSIBILITY_ID, value=accessibility_id)
+        return self.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value=accessibility_id)
 
     def find_element_by_image(self: T, img_path: str) -> 'WebElement':
         """Finds a portion of a screenshot by an image.
@@ -90,7 +92,7 @@ class MobileSearchContext(BaseSearchContext):
         with open(img_path, 'rb') as i_file:
             b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
 
-        return self.find_element(by=MobileBy.IMAGE, value=b64_data)
+        return self.find_element(by=AppiumBy.IMAGE, value=b64_data)
 
     def find_elements_by_image(self: T, img_path: str) -> List['WebElement']:
         """Finds a portion of a screenshot by an image.
@@ -107,4 +109,4 @@ class MobileSearchContext(BaseSearchContext):
         with open(img_path, 'rb') as i_file:
             b64_data = base64.b64encode(i_file.read()).decode('UTF-8')
 
-        return self.find_elements(by=MobileBy.IMAGE, value=b64_data)
+        return self.find_elements(by=AppiumBy.IMAGE, value=b64_data)

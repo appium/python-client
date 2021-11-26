@@ -18,7 +18,7 @@ from time import sleep
 import pytest
 from selenium.common.exceptions import NoSuchElementException
 
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.test_helper import wait_for_element
 
 from ..test_helper import is_ci
@@ -38,7 +38,7 @@ class TestCommon(BaseTestCase):
     @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI.')
     def test_open_notifications(self) -> None:
         for word in ['App', 'Notification', 'Status Bar', ':-|']:
-            wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{word}")').click()
+            wait_for_element(self.driver, AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{word}")').click()
 
         self.driver.open_notifications()
         sleep(1)

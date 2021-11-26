@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.test_helper import wait_for_element
 
 from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
@@ -31,10 +31,10 @@ class TestWebelement(BaseTestCase):
             'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));'
         ).click()
 
-        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Controls').click()
-        wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Light Theme').click()
+        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Controls').click()
+        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, '1. Light Theme').click()
 
-        el = wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.EditText')
+        el = wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'android.widget.EditText')
         el.send_keys('original text')
         el.set_text('new text')
 
@@ -42,9 +42,9 @@ class TestWebelement(BaseTestCase):
 
     def test_send_keys(self) -> None:
         for text in ['App', 'Activity', 'Custom Title']:
-            wait_for_element(self.driver, MobileBy.XPATH, f"//android.widget.TextView[@text='{text}']").click()
+            wait_for_element(self.driver, AppiumBy.XPATH, f"//android.widget.TextView[@text='{text}']").click()
 
-        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/left_text_edit'.format(APIDEMO_PKG_NAME))
+        el = wait_for_element(self.driver, AppiumBy.ID, '{}:id/left_text_edit'.format(APIDEMO_PKG_NAME))
         el.send_keys(' text')
 
         assert 'Left is best text' == el.text

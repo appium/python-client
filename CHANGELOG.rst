@@ -2,6 +2,29 @@ Changelog
 =========
 
 
+v2.1.0 (2021-11-27)
+-------------------
+
+New
+~~~
+- Feat: add AppiumBy instead of MobileBy (#659) [Kazuaki Matsuo]
+
+  * feat: add AppiumBy instead of MobileBy
+
+  * add class description
+
+  * use deprecated::
+
+Other
+~~~~~
+- Bump 2.1.0. [Kazuaki Matsuo]
+- Chore: add deprecated mark for find_element_by* (#657) [Kazuaki
+  Matsuo]
+- Chore: relax selenium version control (#656) [Kazuaki Matsuo]
+- Chore: tweak keyword in metadata. [Kazuaki Matsuo]
+- Update changelog for 2.0.0. [Kazuaki Matsuo]
+
+
 v2.0.0 (2021-11-09)
 -------------------
 

@@ -16,7 +16,8 @@
 
 from typing import TYPE_CHECKING, List, TypeVar, Union
 
-from appium.webdriver.common.mobileby import MobileBy
+from appium.common.logger import logger
+from appium.webdriver.common.appiumby import AppiumBy
 
 from .base_search_context import BaseSearchContext
 
@@ -30,7 +31,11 @@ class iOSSearchContext(BaseSearchContext):
     """Define search context for iOS"""
 
     def find_element_by_ios_uiautomation(self: T, uia_string: str) -> 'WebElement':
-        """Finds an element by uiautomation in iOS.
+        """
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.IOS_UIAUTOMATION' instead.
+
+        Finds an element by uiautomation in iOS.
 
         Args:
             uia_string: The element name in the iOS UIAutomation library
@@ -42,10 +47,17 @@ class iOSSearchContext(BaseSearchContext):
             `appium.webdriver.webelement.WebElement`: The found element
 
         """
-        return self.find_element(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
+
+        logger.warning("[Deprecated] Please use 'find_element' with 'AppiumBy.IOS_UIAUTOMATION' instead.")
+
+        return self.find_element(by=AppiumBy.IOS_UIAUTOMATION, value=uia_string)
 
     def find_elements_by_ios_uiautomation(self: T, uia_string: str) -> List['WebElement']:
-        """Finds elements by uiautomation in iOS.
+        """
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.IOS_UIAUTOMATION' instead.
+
+        Finds elements by uiautomation in iOS.
 
         Args:
             uia_string: The element name in the iOS UIAutomation library
@@ -57,10 +69,17 @@ class iOSSearchContext(BaseSearchContext):
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
 
         """
-        return self.find_elements(by=MobileBy.IOS_UIAUTOMATION, value=uia_string)
+
+        logger.warning("[Deprecated] Please use 'find_elements' with 'AppiumBy.IOS_UIAUTOMATION' instead.")
+
+        return self.find_elements(by=AppiumBy.IOS_UIAUTOMATION, value=uia_string)
 
     def find_element_by_ios_predicate(self: T, predicate_string: str) -> 'WebElement':
-        """Find an element by ios predicate string.
+        """
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.IOS_PREDICATE' instead.
+
+        Find an element by ios predicate string.
 
         Args:
             predicate_string: The predicate string
@@ -72,10 +91,17 @@ class iOSSearchContext(BaseSearchContext):
             `appium.webdriver.webelement.WebElement`: The found element
 
         """
-        return self.find_element(by=MobileBy.IOS_PREDICATE, value=predicate_string)
+
+        logger.warning("[Deprecated] Please use 'find_element' with 'AppiumBy.IOS_PREDICATE' instead.")
+
+        return self.find_element(by=AppiumBy.IOS_PREDICATE, value=predicate_string)
 
     def find_elements_by_ios_predicate(self: T, predicate_string: str) -> List['WebElement']:
-        """Finds elements by ios predicate string.
+        """
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.IOS_PREDICATE' instead.
+
+        Finds elements by ios predicate string.
 
         Args:
             predicate_string: The predicate string
@@ -86,10 +112,17 @@ class iOSSearchContext(BaseSearchContext):
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
-        return self.find_elements(by=MobileBy.IOS_PREDICATE, value=predicate_string)
+
+        logger.warning("[Deprecated] Please use 'find_elements' with 'AppiumBy.IOS_PREDICATE' instead.")
+
+        return self.find_elements(by=AppiumBy.IOS_PREDICATE, value=predicate_string)
 
     def find_element_by_ios_class_chain(self: T, class_chain_string: str) -> 'WebElement':
-        """Find an element by ios class chain string.
+        """
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.IOS_CLASS_CHAIN' instead.
+
+        Find an element by ios class chain string.
 
         Args:
             class_chain_string: The class chain string
@@ -100,10 +133,17 @@ class iOSSearchContext(BaseSearchContext):
         Returns:
             `appium.webdriver.webelement.WebElement`: The found element
         """
-        return self.find_element(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
+
+        logger.warning("[Deprecated] Please use 'find_element' with 'AppiumBy.IOS_CLASS_CHAIN' instead.")
+
+        return self.find_element(by=AppiumBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
     def find_elements_by_ios_class_chain(self: T, class_chain_string: str) -> List['WebElement']:
-        """Finds elements by ios class chain string.
+        """
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.IOS_CLASS_CHAIN' instead.
+
+        Finds elements by ios class chain string.
 
         Args:
             class_chain_string: The class chain string
@@ -114,4 +154,7 @@ class iOSSearchContext(BaseSearchContext):
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
-        return self.find_elements(by=MobileBy.IOS_CLASS_CHAIN, value=class_chain_string)
+
+        logger.warning("[Deprecated] Please use 'find_elements' with 'AppiumBy.IOS_CLASS_CHAIN' instead.")
+
+        return self.find_elements(by=AppiumBy.IOS_CLASS_CHAIN, value=class_chain_string)

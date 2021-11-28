@@ -17,7 +17,8 @@
 import json
 from typing import TYPE_CHECKING, Any, List, Optional, TypeVar, Union
 
-from appium.webdriver.common.mobileby import MobileBy
+from appium.common.logger import logger
+from appium.webdriver.common.appiumby import AppiumBy
 
 from .base_search_context import BaseSearchContext
 
@@ -33,7 +34,11 @@ class AndroidSearchContext(BaseSearchContext):
     def find_element_by_android_view_matcher(
         self: T, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
     ) -> 'WebElement':
-        """Finds element by [onView](https://developer.android.com/training/testing/espresso/basics) in Android
+        """
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.ANDROID_VIEW_MATCHER' instead.
+
+        Finds element by [onView](https://developer.android.com/training/testing/espresso/basics) in Android
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
@@ -57,14 +62,20 @@ class AndroidSearchContext(BaseSearchContext):
             driver.find_element_by_android_view_matcher(name='withText', args=['Accessibility'], className='ViewMatchers')
         """
 
+        logger.warning("[Deprecated] Please use 'find_element' with 'AppiumBy.ANDROID_VIEW_MATCHER' instead.")
+
         return self.find_element(
-            by=MobileBy.ANDROID_VIEW_MATCHER, value=self._build_data_matcher(name=name, args=args, className=className)
+            by=AppiumBy.ANDROID_VIEW_MATCHER, value=self._build_data_matcher(name=name, args=args, className=className)
         )
 
     def find_element_by_android_data_matcher(
         self: T, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
     ) -> 'WebElement':
-        """Finds element by
+        """
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.ANDROID_DATA_MATCHER' instead.
+
+        Finds element by
         [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
@@ -89,14 +100,20 @@ class AndroidSearchContext(BaseSearchContext):
             driver.find_element_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
         """
 
+        logger.warning("[Deprecated] Please use 'find_element' with 'AppiumBy.ANDROID_DATA_MATCHER' instead.")
+
         return self.find_element(
-            by=MobileBy.ANDROID_DATA_MATCHER, value=self._build_data_matcher(name=name, args=args, className=className)
+            by=AppiumBy.ANDROID_DATA_MATCHER, value=self._build_data_matcher(name=name, args=args, className=className)
         )
 
     def find_elements_by_android_data_matcher(
         self: T, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
     ) -> List['WebElement']:
-        """Finds elements by
+        """
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.ANDROID_DATA_MATCHER' instead.
+
+        Finds elements by
         [onData](https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf) in Android
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
@@ -117,8 +134,10 @@ class AndroidSearchContext(BaseSearchContext):
             driver.find_elements_by_android_data_matcher(name='hasEntry', args=['title', 'Animation'])
         """
 
+        logger.warning("[Deprecated] Please use 'find_elements' with 'AppiumBy.ANDROID_DATA_MATCHER' instead.")
+
         return self.find_elements(
-            by=MobileBy.ANDROID_DATA_MATCHER, value=self._build_data_matcher(name=name, args=args, className=className)
+            by=AppiumBy.ANDROID_DATA_MATCHER, value=self._build_data_matcher(name=name, args=args, className=className)
         )
 
     def _build_data_matcher(
@@ -133,7 +152,11 @@ class AndroidSearchContext(BaseSearchContext):
         return json.dumps(result)
 
     def find_element_by_android_uiautomator(self: T, uia_string: str) -> 'WebElement':
-        """Finds element by uiautomator in Android.
+        """
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.ANDROID_UIAUTOMATOR' instead.
+
+        Finds element by uiautomator in Android.
 
         Args:
             uia_string: The element name in the Android UIAutomator library
@@ -144,10 +167,16 @@ class AndroidSearchContext(BaseSearchContext):
         Returns:
             `appium.webdriver.webelement.WebElement`: The found element
         """
-        return self.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
+
+        logger.warning("[Deprecated] Please use 'find_element' with 'AppiumBy.ANDROID_UIAUTOMATOR' instead.")
+
+        return self.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
     def find_elements_by_android_uiautomator(self: T, uia_string: str) -> List['WebElement']:
-        """Finds elements by uiautomator in Android.
+        """
+        [Deprecated] Please use 'find_elements' with 'AppiumBy.ANDROID_UIAUTOMATOR' instead.
+
+        Finds elements by uiautomator in Android.
 
         Args:
             uia_string: The element name in the Android UIAutomator library
@@ -158,10 +187,17 @@ class AndroidSearchContext(BaseSearchContext):
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
-        return self.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, value=uia_string)
+
+        logger.warning("[Deprecated] Please use 'find_elements' with 'AppiumBy.ANDROID_UIAUTOMATOR' instead.")
+
+        return self.find_elements(by=AppiumBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
     def find_element_by_android_viewtag(self: T, tag: str) -> 'WebElement':
-        """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
+        """
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.ANDROID_VIEWTAG' instead.
+
+        Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
@@ -174,10 +210,17 @@ class AndroidSearchContext(BaseSearchContext):
         Returns:
             `appium.webdriver.webelement.WebElement`: The found element
         """
-        return self.find_element(by=MobileBy.ANDROID_VIEWTAG, value=tag)
+
+        logger.warning("[Deprecated] Please use 'find_element' with 'AppiumBy.ANDROID_VIEWTAG' instead.")
+
+        return self.find_element(by=AppiumBy.ANDROID_VIEWTAG, value=tag)
 
     def find_elements_by_android_viewtag(self: T, tag: str) -> List['WebElement']:
-        """Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
+        """
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.ANDROID_VIEWTAG' instead.
+
+        Finds element by [View#tags](https://developer.android.com/reference/android/view/View#tags) in Android.
 
         It works with [Espresso Driver](https://github.com/appium/appium-espresso-driver).
 
@@ -190,4 +233,7 @@ class AndroidSearchContext(BaseSearchContext):
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
-        return self.find_elements(by=MobileBy.ANDROID_VIEWTAG, value=tag)
+
+        logger.warning("[Deprecated] Please use 'find_element' with 'AppiumBy.ANDROID_VIEWTAG' instead.")
+
+        return self.find_elements(by=AppiumBy.ANDROID_VIEWTAG, value=tag)

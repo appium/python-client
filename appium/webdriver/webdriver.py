@@ -23,7 +23,7 @@ from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.logger import logger
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 
 from .appium_connection import AppiumConnection
 from .errorhandler import MobileErrorHandler
@@ -283,15 +283,15 @@ class WebDriver(
             self._update_command_executor(keep_alive=keep_alive)
 
         # add new method to the `find_by_*` pantheon
-        By.IOS_UIAUTOMATION = MobileBy.IOS_UIAUTOMATION
-        By.IOS_PREDICATE = MobileBy.IOS_PREDICATE
-        By.IOS_CLASS_CHAIN = MobileBy.IOS_CLASS_CHAIN
-        By.ANDROID_UIAUTOMATOR = MobileBy.ANDROID_UIAUTOMATOR
-        By.ANDROID_VIEWTAG = MobileBy.ANDROID_VIEWTAG
-        By.WINDOWS_UI_AUTOMATION = MobileBy.WINDOWS_UI_AUTOMATION
-        By.ACCESSIBILITY_ID = MobileBy.ACCESSIBILITY_ID
-        By.IMAGE = MobileBy.IMAGE
-        By.CUSTOM = MobileBy.CUSTOM
+        By.IOS_UIAUTOMATION = AppiumBy.IOS_UIAUTOMATION
+        By.IOS_PREDICATE = AppiumBy.IOS_PREDICATE
+        By.IOS_CLASS_CHAIN = AppiumBy.IOS_CLASS_CHAIN
+        By.ANDROID_UIAUTOMATOR = AppiumBy.ANDROID_UIAUTOMATOR
+        By.ANDROID_VIEWTAG = AppiumBy.ANDROID_VIEWTAG
+        By.WINDOWS_UI_AUTOMATION = AppiumBy.WINDOWS_UI_AUTOMATION
+        By.ACCESSIBILITY_ID = AppiumBy.ACCESSIBILITY_ID
+        By.IMAGE = AppiumBy.IMAGE
+        By.CUSTOM = AppiumBy.CUSTOM
 
         self._extensions = extensions
         for extension in self._extensions:
@@ -377,13 +377,16 @@ class WebDriver(
         w3c_caps = _make_w3c_caps(capabilities)
         return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
 
-    def find_element(self, by: str = By.ID, value: Union[str, Dict] = None) -> MobileWebElement:
-        """'Private' method used by the find_element_by_* methods.
+    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> MobileWebElement:
+        """
+        Find an element given a AppiumBy strategy and locator
 
-        Override for Appium
+        Args:
+            by: The strategy
+            value: The locator
 
         Usage:
-            Use the corresponding find_element_by_* instead of this.
+            driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
 
         Returns:
             `appium.webdriver.webelement.WebElement`: The found element
@@ -404,13 +407,18 @@ class WebDriver(
 
         return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
 
-    def find_elements(self, by: str = By.ID, value: Union[str, Dict] = None) -> Union[List[MobileWebElement], List]:
-        """'Private' method used by the find_elements_by_* methods.
+    def find_elements(
+        self, by: str = AppiumBy.ID, value: Union[str, Dict] = None
+    ) -> Union[List[MobileWebElement], List]:
+        """
+        Find elements given a AppiumBy strategy and locator
 
-        Override for Appium
+        Args:
+            by: The strategy
+            value: The locator
 
         Usage:
-            Use the corresponding find_elements_by_* instead of this.
+            driver.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
 
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements

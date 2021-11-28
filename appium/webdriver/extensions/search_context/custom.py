@@ -16,7 +16,8 @@
 
 from typing import TYPE_CHECKING, List, TypeVar, Union
 
-from appium.webdriver.common.mobileby import MobileBy
+from appium.common.logger import logger
+from appium.webdriver.common.appiumby import AppiumBy
 
 from .base_search_context import BaseSearchContext
 
@@ -30,7 +31,11 @@ class CustomSearchContext(BaseSearchContext):
     """Define search context for custom plugin"""
 
     def find_element_by_custom(self: T, selector: str) -> 'WebElement':
-        """Finds an element in conjunction with a custom element finding plugin
+        """
+        deprecated:: 2.1.0
+            Please use 'find_element' with 'AppiumBy.CUSTOM' instead.
+
+        Finds an element in conjunction with a custom element finding plugin
 
         Args:
             selector: a string of the form "module:selector", where "module" is
@@ -45,10 +50,17 @@ class CustomSearchContext(BaseSearchContext):
             `appium.webdriver.webelement.WebElement`: The found element
 
         """
-        return self.find_element(by=MobileBy.CUSTOM, value=selector)
+
+        logger.warning("[Deprecated] Please use 'find_element' with 'AppiumBy.CUSTOM' instead.")
+
+        return self.find_element(by=AppiumBy.CUSTOM, value=selector)
 
     def find_elements_by_custom(self: T, selector: str) -> List['WebElement']:
-        """Finds elements in conjunction with a custom element finding plugin
+        """
+        deprecated:: 2.1.0
+            Please use 'find_elements' with 'AppiumBy.CUSTOM' instead.
+
+        Finds elements in conjunction with a custom element finding plugin
 
         Args:
             selector: a string of the form "module:selector", where "module" is
@@ -62,4 +74,7 @@ class CustomSearchContext(BaseSearchContext):
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
-        return self.find_elements(by=MobileBy.CUSTOM, value=selector)
+
+        logger.warning("[Deprecated] Please use 'find_elements' with 'AppiumBy.CUSTOM' instead.")
+
+        return self.find_elements(by=AppiumBy.CUSTOM, value=selector)

@@ -38,8 +38,8 @@ T = TypeVar('T', bound='TouchAction')
 
 class TouchAction:
     """
-    Deprecated.
-    Please use W3C actions instead: http://appium.io/docs/en/commands/interactions/actions/
+    deprecated:: 2.0.0
+        Please use W3C actions instead: http://appium.io/docs/en/commands/interactions/actions/
     """
 
     def __init__(self, driver: Optional['WebDriver'] = None):

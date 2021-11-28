@@ -19,7 +19,7 @@ import pytest
 from selenium.common.exceptions import WebDriverException
 
 from appium import webdriver
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.extensions.search_context.android import AndroidSearchContext
 from test.functional.android.helper.test_helper import BaseTestCase, desired_capabilities, is_ci
 
@@ -61,4 +61,4 @@ class TestFindByViewMatcher(BaseTestCase):
             name='withSubstring', args=['Access'], className='ViewMatchers'
         )
         with pytest.raises(WebDriverException):
-            self.driver.find_elements(by=MobileBy.ANDROID_VIEW_MATCHER, value=value)
+            self.driver.find_elements(by=AppiumBy.ANDROID_VIEW_MATCHER, value=value)

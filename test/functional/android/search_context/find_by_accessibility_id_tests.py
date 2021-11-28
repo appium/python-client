@@ -14,18 +14,18 @@
 
 import pytest
 
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.android.helper.test_helper import BaseTestCase, is_ci
 from test.functional.test_helper import wait_for_element
 
 
 class TestFindByAccessibilityID(BaseTestCase):
     def test_find_single_element(self) -> None:
-        wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
+        wait_for_element(self.driver, AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
         wait_for_element(
-            self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility Node Querying")'
+            self.driver, AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility Node Querying")'
         ).click()
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Task Take out Trash')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Task Take out Trash')
         assert el is not None
 
     def test_find_multiple_elements(self) -> None:
@@ -34,17 +34,17 @@ class TestFindByAccessibilityID(BaseTestCase):
 
     @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI')
     def test_element_find_single_element(self) -> None:
-        wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
+        wait_for_element(self.driver, AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility")').click()
         wait_for_element(
-            self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility Node Querying")'
+            self.driver, AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Accessibility Node Querying")'
         ).click()
-        el = wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView')
+        el = wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'android.widget.ListView')
 
         sub_el = el.find_element_by_accessibility_id('Task Take out Trash')
         assert sub_el is not None
 
     def test_element_find_multiple_elements(self) -> None:
-        wait_for_element(self.driver, MobileBy.CLASS_NAME, 'android.widget.ListView')
+        wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'android.widget.ListView')
         el = self.driver.find_element_by_class_name('android.widget.ListView')
 
         sub_els = el.find_elements_by_accessibility_id('Animation')

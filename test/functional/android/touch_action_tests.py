@@ -15,7 +15,7 @@
 import pytest
 from selenium.common.exceptions import NoSuchElementException
 
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.common.touch_action import TouchAction
 from test.functional.test_helper import wait_for_element
 
@@ -27,7 +27,7 @@ class TestTouchAction(BaseTestCase):
         el = self.driver.find_element_by_accessibility_id('Animation')
         action = TouchAction(self.driver)
         action.tap(el).perform()
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Bouncing Balls')
         assert el is not None
 
     def test_tap_x_y(self) -> None:
@@ -35,7 +35,7 @@ class TestTouchAction(BaseTestCase):
         action = TouchAction(self.driver)
         action.tap(el, 100, 10).perform()
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Bouncing Balls')
         assert el is not None
 
     @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI.')
@@ -44,10 +44,10 @@ class TestTouchAction(BaseTestCase):
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'LogTextBox')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'LogTextBox')
         action.tap(el).perform()
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Add')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Add')
         action.tap(el, count=2).perform()
 
         els = self.driver.find_elements_by_class_name('android.widget.TextView')
@@ -58,7 +58,7 @@ class TestTouchAction(BaseTestCase):
         action = TouchAction(self.driver)
         action.press(el).release().perform()
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Bouncing Balls')
         assert el is not None
 
     def test_press_and_immediately_release_x_y(self) -> None:
@@ -66,18 +66,18 @@ class TestTouchAction(BaseTestCase):
         action = TouchAction(self.driver)
         action.press(el, 100, 10).release().perform()
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Bouncing Balls')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Bouncing Balls')
         assert el is not None
 
     def test_press_and_wait(self) -> None:
         self._move_to_custom_adapter()
         action = TouchAction(self.driver)
 
-        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("People Names")')
+        el = wait_for_element(self.driver, AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("People Names")')
         action.press(el).wait(2000).perform()
 
         # 'Sample menu' only comes up with a long press, not a press
-        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Sample menu")')
+        el = wait_for_element(self.driver, AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Sample menu")')
         assert el is not None
 
     def test_press_and_moveto(self) -> None:
@@ -87,7 +87,7 @@ class TestTouchAction(BaseTestCase):
         action = TouchAction(self.driver)
         action.press(el1).move_to(el2).release().perform()
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Views')
         assert el is not None
 
     def test_press_and_moveto_x_y(self) -> None:
@@ -97,18 +97,18 @@ class TestTouchAction(BaseTestCase):
         action = TouchAction(self.driver)
         action.press(el1).move_to(el2, 100, 100).release().perform()
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Views')
         assert el is not None
 
     def test_long_press(self) -> None:
         self._move_to_custom_adapter()
         action = TouchAction(self.driver)
 
-        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("People Names")')
+        el = wait_for_element(self.driver, AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("People Names")')
         action.long_press(el).perform()
 
         # 'Sample menu' only comes up with a long press, not a tap
-        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Sample menu")')
+        el = wait_for_element(self.driver, AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Sample menu")')
         assert el is not None
 
     @pytest.mark.skipif(condition=is_ci(), reason='Skip since this check is low robust due to hard-coded position.')
@@ -121,38 +121,38 @@ class TestTouchAction(BaseTestCase):
         action.long_press(x=430, y=310).perform()
 
         # 'Sample menu' only comes up with a long press, not a tap
-        el = wait_for_element(self.driver, MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Sample menu")')
+        el = wait_for_element(self.driver, AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Sample menu")')
         assert el is not None
 
     def test_drag_and_drop(self) -> None:
         self._move_to_views()
         action = TouchAction(self.driver)
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Drag and Drop')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Drag and Drop')
         action.tap(el).perform()
 
-        dd3 = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_dot_3'.format(APIDEMO_PKG_NAME))
+        dd3 = wait_for_element(self.driver, AppiumBy.ID, '{}:id/drag_dot_3'.format(APIDEMO_PKG_NAME))
         dd2 = self.driver.find_element_by_id('{}:id/drag_dot_2'.format(APIDEMO_PKG_NAME))
 
         # dnd is stimulated by longpress-move_to-release
         action.long_press(dd3).move_to(dd2).release().perform()
 
-        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
+        el = wait_for_element(self.driver, AppiumBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
         assert 'Dropped!' in el.text
 
     def test_driver_drag_and_drop(self) -> None:
         self._move_to_views()
         action = TouchAction(self.driver)
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Drag and Drop')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Drag and Drop')
         action.tap(el).perform()
 
-        dd3 = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_dot_3'.format(APIDEMO_PKG_NAME))
+        dd3 = wait_for_element(self.driver, AppiumBy.ID, '{}:id/drag_dot_3'.format(APIDEMO_PKG_NAME))
         dd2 = self.driver.find_element_by_id('{}:id/drag_dot_2'.format(APIDEMO_PKG_NAME))
 
         self.driver.drag_and_drop(dd3, dd2)
 
-        el = wait_for_element(self.driver, MobileBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
+        el = wait_for_element(self.driver, AppiumBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
         assert 'Dropped!' in el.text
 
     def test_driver_swipe(self) -> None:
@@ -164,7 +164,7 @@ class TestTouchAction(BaseTestCase):
             self.driver.find_element_by_accessibility_id('ImageView')
 
         self.driver.swipe(100, 1000, 100, 100, 800)
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'ImageView')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'ImageView')
         assert el is not None
 
     def _move_to_views(self) -> None:
@@ -172,7 +172,7 @@ class TestTouchAction(BaseTestCase):
         el2 = self.driver.find_element_by_accessibility_id('Animation')
         self.driver.scroll(el1, el2)
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Views')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Views')
         action = TouchAction(self.driver)
         action.tap(el).perform()
 
@@ -180,8 +180,8 @@ class TestTouchAction(BaseTestCase):
         self._move_to_views()
         action = TouchAction(self.driver)
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, 'Expandable Lists')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Expandable Lists')
         action.tap(el).perform()
 
-        el = wait_for_element(self.driver, MobileBy.ACCESSIBILITY_ID, '1. Custom Adapter')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, '1. Custom Adapter')
         action.tap(el).perform()

@@ -84,7 +84,7 @@ def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout_sec:
     Args:
         driver: WebDriver instance
         locator: Locator like WebDriver, Mobile JSON Wire Protocol
-            (e.g. `appium.webdriver.common.mobileby.MobileBy.ACCESSIBILITY_ID`)
+            (e.g. `appium.webdriver.common.appiumby.AppiumBy.ACCESSIBILITY_ID`)
         value: Query value to locator
         timeout_sec: Maximum time to wait the element. If time is over, `TimeoutException` is thrown
 

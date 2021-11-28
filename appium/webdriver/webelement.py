@@ -14,9 +14,10 @@
 
 from typing import Dict, List, Optional, TypeVar, Union
 
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.remote.command import Command as RemoteCommand
+
+from appium.webdriver.common.appiumby import AppiumBy
 
 from .extensions.search_context import AppiumWebElementSearchContext
 from .mobilecommand import MobileCommand as Command
@@ -77,8 +78,8 @@ class WebElement(AppiumWebElementSearchContext):
         """
         return self._execute(RemoteCommand.IS_ELEMENT_DISPLAYED)['value']
 
-    def find_element(self, by: str = By.ID, value: Union[str, Dict] = None) -> T:
-        """Find an element given a By strategy and locator
+    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> T:
+        """Find an element given a AppiumBy strategy and locator
 
         Override for Appium
 
@@ -89,7 +90,7 @@ class WebElement(AppiumWebElementSearchContext):
             value: The locator
 
         Usage:
-            element = element.find_element(By.ID, 'foo')
+            element = element.find_element(AppiumBy.ID, 'foo')
 
         Returns:
             `appium.webdriver.webelement.WebElement`
@@ -109,19 +110,15 @@ class WebElement(AppiumWebElementSearchContext):
 
         return self._execute(RemoteCommand.FIND_CHILD_ELEMENT, {"using": by, "value": value})['value']
 
-    def find_elements(self, by: str = By.ID, value: Union[str, Dict] = None) -> List[T]:
-        """Find elements given a By strategy and locator
-
-        Override for Appium
-
-        Prefer the find_elements_by_* methods when possible.
+    def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> List[T]:
+        """Find elements given a AppiumBy strategy and locator
 
         Args:
             by: The strategy
             value: The locator
 
         Usage:
-            element = element.find_elements(By.CLASS_NAME, 'foo')
+            element = element.find_elements(AppiumBy.CLASS_NAME, 'foo')
 
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`

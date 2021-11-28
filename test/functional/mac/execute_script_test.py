@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.mac.helper.test_helper import BaseTestCase
 from test.functional.test_helper import wait_for_element
 
 
 class TestExecuteScript(BaseTestCase):
     def test_sending_custom_keys(self) -> None:
-        edit_field = wait_for_element(self.driver, MobileBy.CLASS_NAME, 'XCUIElementTypeTextView')
+        edit_field = wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'XCUIElementTypeTextView')
         flagsShift = 1 << 1
         self.driver.execute_script(
             'macos: keys',

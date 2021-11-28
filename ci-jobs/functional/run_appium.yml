@@ -19,6 +19,7 @@ steps:
   displayName: Install python language bindings for Appium
 - script: |
     pip install pipenv
+    pipenv graph
     pipenv lock --clear
     pipenv install --system
   displayName: Resolve dependencies (Python)

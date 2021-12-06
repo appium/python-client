@@ -9,7 +9,7 @@ pre-commit = "~=2.16"
 [packages]
 selenium = "~=4.0"
 
-black = "==21.11b1"
+black = "==21.12b0"
 
 pytest = "~=6.2"
 pytest-cov = "~=3.0"

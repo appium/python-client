@@ -16,10 +16,11 @@ from typing import TYPE_CHECKING, List, Optional, Tuple, TypeVar, Union
 
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.mouse_button import MouseButton
+from selenium.webdriver.common.actions.pointer_input import PointerInput
 
-from appium.webdriver.common.multi_action import MultiAction
-from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.webelement import WebElement
 
 if TYPE_CHECKING:
@@ -54,6 +55,7 @@ class ActionHelpers(webdriver.Remote):
         duration_sec = duration / 1000
 
         actions = ActionChains(self)
+        actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
         dest_el_rect = destination_el.rect
 
         # https://github.com/SeleniumHQ/selenium/blob/3c82c868d4f2a7600223a1b3817301d0b04d28e4/py/selenium/webdriver/common/actions/pointer_actions.py#L83
@@ -83,6 +85,7 @@ class ActionHelpers(webdriver.Remote):
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
         actions = ActionChains(self)
+        # 'mouse' pointer action
         actions.w3c_actions.pointer_action.click_and_hold(origin_el)
         actions.w3c_actions.pointer_action.move_to(destination_el)
         actions.w3c_actions.pointer_action.release()
@@ -106,6 +109,7 @@ class ActionHelpers(webdriver.Remote):
         """
         if len(positions) == 1:
             actions = ActionChains(self)
+            actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
             x = positions[0][0]
             y = positions[0][1]
             actions.w3c_actions.pointer_action.move_to_location(x, y)
@@ -156,6 +160,7 @@ class ActionHelpers(webdriver.Remote):
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
         actions = ActionChains(self)
+        actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
         actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
         actions.w3c_actions.pointer_action.pointer_down()
         actions.w3c_actions.pointer_action.pause(duration / 1000)
@@ -180,6 +185,7 @@ class ActionHelpers(webdriver.Remote):
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
         actions = ActionChains(self)
+        actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
         actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
         actions.w3c_actions.pointer_action.pointer_down()
         actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)

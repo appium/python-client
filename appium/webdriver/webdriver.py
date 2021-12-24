@@ -493,7 +493,9 @@ class WebDriver(
         # https://github.com/appium/python-client/issues/342
         for mixin_class in filter(lambda x: not issubclass(x, WebDriver), self.__class__.__mro__):
             if hasattr(mixin_class, self._addCommands.__name__):
-                getattr(mixin_class, self._addCommands.__name__, None)(self)
+                get_atter = getattr(mixin_class, self._addCommands.__name__, None)
+                if get_atter:
+                    get_atter(self)
 
         self.command_executor._commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
         self.command_executor._commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')

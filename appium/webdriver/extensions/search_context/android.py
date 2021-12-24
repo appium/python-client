@@ -25,7 +25,7 @@ from .base_search_context import BaseSearchContext
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
 
-T = TypeVar('T', bound=Union[BaseSearchContext, 'AndroidSearchContext'])
+T = TypeVar('T', bound='AndroidSearchContext')
 
 
 class AndroidSearchContext(BaseSearchContext):

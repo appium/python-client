@@ -2,6 +2,87 @@ Changelog
 =========
 
 
+v2.1.1 (2021-12-24)
+-------------------
+
+New
+~~~
+- Feat: use 'touch' pointer action (#670) [Kazuaki Matsuo]
+
+  * chore: specify touch
+
+  * comment out touch in drag_and_drop
+
+  * fix mypy
+
+  * add desctiption of touch action
+
+Test
+~~~~
+- Ci: remove ==2021.5.29 (#653) [Kazuaki Matsuo]
+
+  * ci: remove ==2021.5.29
+
+  * bump black
+
+Other
+~~~~~
+- Bump 2.1.1. [Kazuaki Matsuo]
+- Chore(deps): bump black from 21.11b1 to 21.12b0 (#664)
+  [dependabot[bot]]
+
+  Bumps [black](https://github.com/psf/black) from 21.11b1 to 21.12b0.
+  - [Release notes](https://github.com/psf/black/releases)
+  - [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+  - [Commits](https://github.com/psf/black/commits)
+
+  ---
+  updated-dependencies:
+  - dependency-name: black
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pre-commit requirement from ~=2.15 to ~=2.16
+  (#663) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.15.0...v2.16.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pre-commit
+    dependency-type: direct:development
+  ...
+- Chore(deps): update pylint requirement from ~=2.11 to ~=2.12 (#662)
+  [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Changelog](https://github.com/PyCQA/pylint/blob/main/ChangeLog)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.11.0...v2.12.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Chore(deps): update astroid requirement from ~=2.8 to ~=2.9 (#661)
+  [dependabot[bot]]
+
+  Updates the requirements on [astroid](https://github.com/PyCQA/astroid) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/astroid/releases)
+  - [Changelog](https://github.com/PyCQA/astroid/blob/main/ChangeLog)
+  - [Commits](https://github.com/PyCQA/astroid/compare/v2.8.0...v2.9.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: astroid
+    dependency-type: direct:production
+  ...
+- Update changelog for 2.1.0. [Kazuaki Matsuo]
+
+
 v2.1.0 (2021-11-27)
 -------------------
 

@@ -85,7 +85,7 @@ class ActionHelpers(webdriver.Remote):
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
         actions = ActionChains(self)
-        actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+        # actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
         actions.w3c_actions.pointer_action.click_and_hold(origin_el)
         actions.w3c_actions.pointer_action.move_to(destination_el)
         actions.w3c_actions.pointer_action.release()

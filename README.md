@@ -34,6 +34,26 @@ If you would like to use the old protocol (MJSONWP), please use v1 Appium Python
             - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
     - `launch_app`, `close_app` and `reset` are deprecated. Please read [issues#15807](https://github.com/appium/appium/issues/15807) for more details
 
+#### MultiAction/TouchAction to W3C actions
+
+On UIA2, some elements can be handled with `touch` pointer action insead of the default `mouse` pointer action in the Selenium Python cleint.
+For example, the below action builder is to replace the default one with the `touch` pointer action.
+
+```python
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+
+actions = ActionChains(driver)
+# override as 'touch' pointer action
+actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+actions.w3c_actions.pointer_action.pointer_down()
+actions.w3c_actions.pointer_action.pause(2)
+actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+actions.w3c_actions.pointer_action.release()
+actions.perform()
+```
+
 ## Getting the Appium Python client
 
 There are three ways to install and use the Appium Python client.

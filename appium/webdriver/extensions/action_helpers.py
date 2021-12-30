@@ -117,7 +117,7 @@ class ActionHelpers(webdriver.Remote):
             if duration:
                 actions.w3c_actions.pointer_action.pause(duration / 1000)
             else:
-                actions.w3c_actions.pointer_action.pause(100)
+                actions.w3c_actions.pointer_action.pause(0.1)
             actions.w3c_actions.pointer_action.release()
             actions.perform()
         else:

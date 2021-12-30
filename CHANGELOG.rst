@@ -2,6 +2,19 @@ Changelog
 =========
 
 
+v2.1.2 (2021-12-30)
+-------------------
+
+Fix
+~~~
+- Default duration in tap (#673) [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 2.1.2. [Kazuaki Matsuo]
+- Update changelog for 2.1.1. [Kazuaki Matsuo]
+
+
 v2.1.1 (2021-12-24)
 -------------------
 

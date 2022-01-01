@@ -47,5 +47,5 @@ class TestFindByAccessibilityID(BaseTestCase):
     def test_element_find_multiple_elements(self) -> None:
         wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'android.widget.ListView')
         el = self.driver.find_element(by=AppiumBy.CLASS_NAME, value='android.widget.ListView')
-        sub_els = el.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Animation')  # type: list
+        sub_els = el.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='Animation')  # type: list
         assert isinstance(sub_els, list)

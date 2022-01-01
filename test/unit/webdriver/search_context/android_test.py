@@ -67,7 +67,7 @@ class TestWebDriverAndroidSearchContext(object):
     def test_find_elements_by_android_data_matcher_no_value(self):
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/elements'), body='{"value": []}')
-        els = driver.find_elements(by=AppiumBy.ANDROID_DATA_MATCHER)
+        els = driver.find_elements(by=AppiumBy.ANDROID_DATA_MATCHER, value='{}')
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['using'] == '-android datamatcher'
@@ -124,7 +124,7 @@ class TestWebDriverAndroidSearchContext(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/element/element_id/elements'), body='{"value": []}'
         )
-        els = element.find_elements(by=AppiumBy.ANDROID_DATA_MATCHER)
+        els = element.find_elements(by=AppiumBy.ANDROID_DATA_MATCHER, value='{}')
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['using'] == '-android datamatcher'

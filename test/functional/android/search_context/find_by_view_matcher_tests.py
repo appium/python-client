@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
 import os
 import unittest
 
@@ -35,22 +36,31 @@ class TestFindByViewMatcher(BaseTestCase):
             self.driver.start_recording_screen()
 
     def test_find_single_element(self) -> None:
-        el = self.driver.find_element_by_android_view_matcher(
-            name='withText', args=['Accessibility'], className='ViewMatchers'
+        el = self.driver.find_element(
+            by=AppiumBy.ANDROID_VIEW_MATCHER,
+            value=json.dumps(dict(name='withText', args=['Accessibility'], className='ViewMatchers')),
         )
         assert el.text == 'Accessibility'
 
     def test_find_single_element_ful_class_name(self) -> None:
-        el = self.driver.find_element_by_android_view_matcher(
-            name='withText', args=['Accessibility'], className='androidx.test.espresso.matcher.ViewMatchers'
+        el = self.driver.find_element(
+            by=AppiumBy.ANDROID_VIEW_MATCHER,
+            value=json.dumps(
+                dict(name='withText', args=['Accessibility'], className='androidx.test.espresso.matcher.ViewMatchers')
+            ),
         )
         assert el.text == 'Accessibility'
 
     def test_find_single_element_using_hamcrest_matcher(self) -> None:
-        el = self.driver.find_element_by_android_view_matcher(
-            name='withText',
-            args={'name': 'containsString', 'args': 'Animati', 'class': 'org.hamcrest.Matchers'},
-            className='ViewMatchers',
+        el = self.driver.find_element(
+            by=AppiumBy.ANDROID_VIEW_MATCHER,
+            value=json.dumps(
+                dict(
+                    name='withText',
+                    args={'name': 'containsString', 'args': 'Animati', 'class': 'org.hamcrest.Matchers'},
+                    className='ViewMatchers',
+                )
+            ),
         )
         assert el.text == 'Animation'
 

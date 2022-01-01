@@ -15,6 +15,7 @@
 import pytest
 
 from appium.webdriver.common.appiumby import AppiumBy
+from appium.webdriver.webelement import WebElement
 from test.functional.android.helper.test_helper import BaseTestCase, is_ci
 from test.functional.test_helper import wait_for_element
 
@@ -29,7 +30,7 @@ class TestFindByAccessibilityID(BaseTestCase):
         assert el is not None
 
     def test_find_multiple_elements(self) -> None:
-        els = self.driver.find_elements_by_accessibility_id('Accessibility')
+        els = self.driver.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='Accessibility')
         assert isinstance(els, list)
 
     @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI')
@@ -40,12 +41,11 @@ class TestFindByAccessibilityID(BaseTestCase):
         ).click()
         el = wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'android.widget.ListView')
 
-        sub_el = el.find_element_by_accessibility_id('Task Take out Trash')
+        sub_el = el.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Task Take out Trash')  # type: WebElement
         assert sub_el is not None
 
     def test_element_find_multiple_elements(self) -> None:
         wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'android.widget.ListView')
-        el = self.driver.find_element_by_class_name('android.widget.ListView')
-
-        sub_els = el.find_elements_by_accessibility_id('Animation')
+        el = self.driver.find_element(by=AppiumBy.CLASS_NAME, value='android.widget.ListView')
+        sub_els = el.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Animation')  # type: list
         assert isinstance(sub_els, list)

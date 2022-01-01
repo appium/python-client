@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from appium import webdriver
+from appium.webdriver.common.appiumby import AppiumBy
 
 from .helper.desired_capabilities import get_desired_capabilities
 
@@ -28,6 +29,6 @@ class TestChrome(object):
 
     def test_find_single_element(self) -> None:
         self.driver.get('http://10.0.2.2:4723/test/guinea-pig')
-        self.driver.find_element_by_link_text('i am a link').click()
+        self.driver.find_element(by=AppiumBy.LINK_TEXT, value='i am a link').click()
 
         assert 'I am some other page content' in self.driver.page_source

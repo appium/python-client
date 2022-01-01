@@ -16,6 +16,7 @@ import pytest
 
 from appium import webdriver
 from appium.common.exceptions import NoSuchContextException
+from appium.webdriver.common.appiumby import AppiumBy
 
 from .helper import desired_capabilities
 
@@ -40,8 +41,8 @@ class TestContextSwitching(object):
 
     def test_actually_in_webview(self) -> None:
         self._enter_webview()
-        self.driver.find_element_by_css_selector('input[type=submit]').click()
-        el = self.driver.find_element_by_xpath("//h1[contains(., 'This is my way')]")
+        self.driver.find_element(by=AppiumBy.CSS_SELECTOR, value='input[type=submit]').click()
+        el = self.driver.find_element(by=AppiumBy.XPATH, value="//h1[contains(., 'This is my way')]")
         assert el is not None
 
     def test_move_back_to_native_context(self) -> None:
@@ -54,6 +55,6 @@ class TestContextSwitching(object):
             self.driver.switch_to.context('invalid name')
 
     def _enter_webview(self) -> None:
-        btn = self.driver.find_element_by_name('buttonStartWebviewCD')
+        btn = self.driver.find_element(by=AppiumBy.NAME, value='buttonStartWebviewCD')
         btn.click()
         self.driver.switch_to.context('WEBVIEW')

@@ -12,19 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.ios.helper.test_helper import BaseTestCase
 
 
 class TestFindByElementWebelement(BaseTestCase):
     def test_find_element_by_path(self) -> None:
-        el = self.driver.find_element_by_ios_predicate('wdName == "UICatalog"')
+        el = self.driver.find_element(by=AppiumBy.IOS_PREDICATE, value='wdName == "UICatalog"')
         assert 'UICatalog' == el.get_attribute('name')
 
-        c_el = el.find_elements_by_ios_predicate('label == "Action Sheets"')
+        c_el = el.find_elements(by=AppiumBy.IOS_PREDICATE, value='label == "Action Sheets"')  # type: list
         assert 'Action Sheets' == c_el[0].get_attribute('name')
 
-        c_el = el.find_elements_by_ios_class_chain('**/XCUIElementTypeStaticText')
+        c_el = el.find_elements(by=AppiumBy.IOS_CLASS_CHAIN, value='**/XCUIElementTypeStaticText')
         assert 'UICatalog' == c_el[0].get_attribute('name')
 
-        c_el = el.find_elements_by_accessibility_id('UICatalog')
+        c_el = el.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='UICatalog')
         assert 'UICatalog' == c_el[0].get_attribute('name')

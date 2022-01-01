@@ -19,6 +19,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from appium import webdriver
 from appium.webdriver.applicationstate import ApplicationState
+from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.ios.helper.test_helper import BaseTestCase
 from test.functional.test_helper import get_available_from_port_range, wait_for_condition
 
@@ -71,7 +72,7 @@ class TestWebDriver(BaseTestCase):
     def test_clear(self) -> None:
         self._move_to_textbox()
 
-        el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
+        el = self.driver.find_elements(by=AppiumBy.CLASS_NAME, value='XCUIElementTypeTextField')[0]
 
         # Verify default text
         def_text = 'Placeholder text'
@@ -85,7 +86,7 @@ class TestWebDriver(BaseTestCase):
         self.driver.hide_keyboard()
 
         # TODO Needs to get the element again to update value in the element. Remove below one line when it's fixed.
-        el = self.driver.find_elements_by_class_name('XCUIElementTypeTextField')[0]
+        el = self.driver.find_elements(by=AppiumBy.CLASS_NAME, value='XCUIElementTypeTextField')[0]
         text = el.get_attribute('value')
         assert text == input_text
 
@@ -101,9 +102,9 @@ class TestWebDriver(BaseTestCase):
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND
 
     def _move_to_textbox(self) -> None:
-        el1 = self.driver.find_element_by_accessibility_id('Sliders')
-        el2 = self.driver.find_element_by_accessibility_id('Buttons')
+        el1 = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Sliders')
+        el2 = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Buttons')
         self.driver.scroll(el1, el2)
 
         # Click text fields
-        self.driver.find_element_by_accessibility_id('Text Fields').click()
+        self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Text Fields').click()

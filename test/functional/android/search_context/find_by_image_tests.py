@@ -60,7 +60,7 @@ class TestFindByImage(object):
     def test_find_multiple_elements_by_image_just_returns_one(self) -> None:
         wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, "App")
         image_path = desired_capabilities.PATH('file/find_by_image_success.png')
-        els = self.driver.find_elements_by_image(image_path)
+        els = self.driver.find_elements(by=AppiumBy.IMAGE, value=image_path)
         els[0].click()
         wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, "Alarm")
 
@@ -73,4 +73,4 @@ class TestFindByImage(object):
             wait_for_element(self.driver, AppiumBy.IMAGE, b64_data, timeout_sec=3)
 
         with pytest.raises(NoSuchElementException):
-            self.driver.find_element_by_image(image_path)
+            self.driver.find_element(by=AppiumBy.IMAGE, value=image_path)

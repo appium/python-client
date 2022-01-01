@@ -189,7 +189,7 @@ class ExtensionBase:
 
             driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps,
                 extensions=[YourCustomCommand])
-            element = driver.find_element_by_accessibility_id('id')
+            element = driver.find_elemeent(by=AppiumBy.ACCESSIBILITY_ID, value='id')
 
             # Then, the driver calls a get request to `session/$sessionId/path/to/your/custom/$id/url`
             # with replacing the `$id` with the given `element.id`

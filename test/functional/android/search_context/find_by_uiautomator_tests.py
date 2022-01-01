@@ -14,34 +14,41 @@
 
 import pytest
 
+from appium.webdriver.common.appiumby import AppiumBy
+from appium.webdriver.webelement import WebElement
 from test.functional.android.helper.test_helper import BaseTestCase
 
 
 @pytest.mark.skip(reason="Need to fix flaky test")
 class TestFindByUIAutomator(BaseTestCase):
     def test_find_single_element(self) -> None:
-        el = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Animation")')
+        el = self.driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("Animation")')
         assert el is not None
 
     def test_find_multiple_elements(self) -> None:
-        els = self.driver.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
+        els = self.driver.find_elements(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().clickable(true)')
         assert isinstance(els, list)
 
     def test_element_find_single_element(self) -> None:
-        el = self.driver.find_element_by_class_name('android.widget.ListView')
+        el = self.driver.find_element(by=AppiumBy.CLASS_NAME, value='android.widget.ListView')
 
-        sub_el = el.find_element_by_android_uiautomator('new UiSelector().description("Animation")')
+        sub_el = el.find_element(
+            by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().description("Animation")'
+        )  # type: WebElement
         assert sub_el is not None
 
     def test_element_find_multiple_elements(self) -> None:
-        el = self.driver.find_element_by_class_name('android.widget.ListView')
+        el = self.driver.find_element(by=AppiumBy.CLASS_NAME, value='android.widget.ListView')
 
-        sub_els = el.find_elements_by_android_uiautomator('new UiSelector().clickable(true)')
+        sub_els = el.find_elements(
+            by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().clickable(true)'
+        )  # type: list
         assert isinstance(sub_els, list)
 
     def test_scroll_into_view(self) -> None:
-        el = self.driver.find_element_by_android_uiautomator(
-            'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));'
+        el = self.driver.find_element(
+            by=AppiumBy.ANDROID_UIAUTOMATOR,
+            value='new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));',
         )
         el.click()
         # TODO Add assert

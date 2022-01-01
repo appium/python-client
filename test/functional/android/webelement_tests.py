@@ -21,14 +21,15 @@ from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 
 class TestWebelement(BaseTestCase):
     def test_element_location_in_view(self) -> None:
-        el = self.driver.find_element_by_accessibility_id('Content')
+        el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Content')
         loc = el.location_in_view
         assert loc['x'] is not None
         assert loc['y'] is not None
 
     def test_set_text(self) -> None:
-        self.driver.find_element_by_android_uiautomator(
-            'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));'
+        self.driver.find_element(
+            by=AppiumBy.ANDROID_UIAUTOMATOR,
+            value='new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));',
         ).click()
 
         wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Controls').click()

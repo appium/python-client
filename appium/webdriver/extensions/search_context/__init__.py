@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from selenium import webdriver
-from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
-
 from .android import AndroidSearchContext
 from .custom import CustomSearchContext
 from .ios import iOSSearchContext
@@ -23,18 +20,16 @@ from .windows import WindowsSearchContext
 
 
 class AppiumSearchContext(
-    webdriver.Remote,
     AndroidSearchContext,
     CustomSearchContext,
     iOSSearchContext,
     MobileSearchContext,
     WindowsSearchContext,
 ):
-    """Returns appium driver search conext"""
+    """Returns appium driver search context"""
 
 
 class AppiumWebElementSearchContext(
-    SeleniumWebElement,
     AndroidSearchContext,
     CustomSearchContext,
     iOSSearchContext,

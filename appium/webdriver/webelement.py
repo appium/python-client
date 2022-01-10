@@ -16,6 +16,7 @@ from typing import Callable, Dict, List, Optional, Union
 
 from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.remote.command import Command as RemoteCommand
+from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
 
 from appium.webdriver.common.appiumby import AppiumBy
 
@@ -23,7 +24,7 @@ from .extensions.search_context import AppiumWebElementSearchContext
 from .mobilecommand import MobileCommand as Command
 
 
-class WebElement(AppiumWebElementSearchContext):
+class WebElement(SeleniumWebElement, AppiumWebElementSearchContext):
     _execute: Callable
     _id: str
 

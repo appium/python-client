@@ -55,7 +55,9 @@ class AndroidSearchContext(CanFindElements):
             TypeError - Raises a TypeError if the arguments are not validated for JSON format
 
         Usage:
-            driver.find_element_by_android_view_matcher(name='withText', args=['Accessibility'], className='ViewMatchers')
+            driver.find_element_by_android_view_matcher(
+              name='withText', args=['Accessibility'], className='ViewMatchers'
+            )
         """
 
         logger.warning("[Deprecated] Please use 'find_element' with 'AppiumBy.ANDROID_VIEW_MATCHER' instead.")

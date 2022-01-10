@@ -27,9 +27,7 @@ if TYPE_CHECKING:
 
 
 class ActionHelpers:
-    def scroll(
-        self, origin_el: WebElement, destination_el: WebElement, duration: Optional[int] = None
-    ) -> 'WebDriver':
+    def scroll(self, origin_el: WebElement, destination_el: WebElement, duration: Optional[int] = None) -> 'WebDriver':
         """Scrolls from one element to another
 
         Args:

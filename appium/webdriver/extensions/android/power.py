@@ -40,8 +40,7 @@ class Power(CanExecuteCommands):
             Union['WebDriver', 'Power']: Self instance
         """
         self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def set_power_ac(self, ac_state: str) -> 'WebDriver':
         """Emulate power state change on the connected emulator.
@@ -59,8 +58,7 @@ class Power(CanExecuteCommands):
             Union['WebDriver', 'Power']: Self instance
         """
         self.execute(Command.SET_POWER_AC, {'state': ac_state})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

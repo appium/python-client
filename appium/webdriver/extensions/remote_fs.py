@@ -87,8 +87,7 @@ class RemoteFS(CanExecuteCommands):
             'data': base64data,
         }
         self.execute(Command.PUSH_FILE, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

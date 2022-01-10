@@ -47,8 +47,7 @@ class Clipboard(CanExecuteCommands):
         if label:
             options['label'] = label
         self.execute(Command.SET_CLIPBOARD, options)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def set_clipboard_text(self, text: str, label: Optional[str] = None) -> 'WebDriver':
         """Copies the given text to the system clipboard
@@ -62,8 +61,7 @@ class Clipboard(CanExecuteCommands):
         """
 
         self.set_clipboard(bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def get_clipboard(self, content_type: str = ClipboardContentType.PLAINTEXT) -> bytes:
         """Receives the content of the system clipboard

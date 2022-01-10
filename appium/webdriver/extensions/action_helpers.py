@@ -68,8 +68,7 @@ class ActionHelpers:
             actions.w3c_actions.pointer_action.move_to_location(dest_el_rect['x'], dest_el_rect['y'])
             actions.w3c_actions.pointer_action.release()
             actions.perform()
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def drag_and_drop(self, origin_el: WebElement, destination_el: WebElement) -> 'WebDriver':
         """Drag the origin element to the destination element
@@ -87,8 +86,7 @@ class ActionHelpers:
         actions.w3c_actions.pointer_action.move_to(destination_el)
         actions.w3c_actions.pointer_action.release()
         actions.perform()
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def tap(self, positions: List[Tuple[int, int]], duration: Optional[int] = None) -> 'WebDriver':
         """Taps on an particular place with up to five fingers, holding for a
@@ -138,8 +136,7 @@ class ActionHelpers:
                     new_input.create_pause(0.1)
                 new_input.create_pointer_up(MouseButton.LEFT)
             actions.perform()
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def swipe(self, start_x: int, start_y: int, end_x: int, end_y: int, duration: int = 0) -> 'WebDriver':
         """Swipe from one point to another point, for an optional duration.
@@ -165,8 +162,7 @@ class ActionHelpers:
         actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
         actions.w3c_actions.pointer_action.release()
         actions.perform()
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def flick(self, start_x: int, start_y: int, end_x: int, end_y: int) -> 'WebDriver':
         """Flick from one point to another point.
@@ -190,5 +186,4 @@ class ActionHelpers:
         actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
         actions.w3c_actions.pointer_action.release()
         actions.perform()
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore

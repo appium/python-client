@@ -38,8 +38,7 @@ class Sms(CanExecuteCommands):
             Union['WebDriver', 'Sms']: Self instance
         """
         self.execute(Command.SEND_SMS, {'phoneNumber': phone_number, 'message': message})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

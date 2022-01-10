@@ -37,8 +37,7 @@ class Applications(CanExecuteCommands):
             'seconds': seconds,
         }
         self.execute(Command.BACKGROUND, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def is_app_installed(self, bundle_id: str) -> bool:
         """Checks whether the application specified by `bundle_id` is installed on the device.
@@ -80,8 +79,7 @@ class Applications(CanExecuteCommands):
         if options:
             data.update({'options': options})
         self.execute(Command.INSTALL_APP, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def remove_app(self, app_id: str, **options: Any) -> 'WebDriver':
         """Remove the specified application from the device.
@@ -104,8 +102,7 @@ class Applications(CanExecuteCommands):
         if options:
             data.update({'options': options})
         self.execute(Command.REMOVE_APP, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def launch_app(self) -> 'WebDriver':
         """Start on the device the application specified in the desired capabilities.
@@ -114,8 +111,7 @@ class Applications(CanExecuteCommands):
             Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.LAUNCH_APP)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def close_app(self) -> 'WebDriver':
         """Stop the running application, specified in the desired capabilities, on
@@ -125,8 +121,7 @@ class Applications(CanExecuteCommands):
             Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.CLOSE_APP)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def terminate_app(self, app_id: str, **options: Any) -> bool:
         """Terminates the application if it is running.
@@ -162,8 +157,7 @@ class Applications(CanExecuteCommands):
             'appId': app_id,
         }
         self.execute(Command.ACTIVATE_APP, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def query_app_state(self, app_id: str) -> int:
         """Queries the state of the application.
@@ -205,8 +199,7 @@ class Applications(CanExecuteCommands):
             Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.RESET)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

@@ -322,6 +322,7 @@ class WebDriver(
         direct_port = 'directConnectPort'
         direct_path = 'directConnectPath'
 
+        assert self.caps, 'Driver capabilities must be defined'
         if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps)):
             message = 'Direct connect capabilities from server were:\n'
             for key in [direct_protocol, direct_host, direct_port, direct_path]:

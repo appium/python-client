@@ -59,8 +59,7 @@ class IME(CanExecuteCommands):
         """
         data = {'engine': engine}
         self.execute(Command.ACTIVATE_IME_ENGINE, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def deactivate_ime_engine(self) -> 'WebDriver':
         """Deactivates the currently active IME engine on the device.
@@ -71,8 +70,7 @@ class IME(CanExecuteCommands):
             Union['WebDriver', 'IME']: Self instance
         """
         self.execute(Command.DEACTIVATE_IME_ENGINE, {})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     @property
     def active_ime_engine(self) -> str:

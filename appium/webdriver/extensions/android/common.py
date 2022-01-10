@@ -48,8 +48,7 @@ class Common(CanExecuteCommands):
             Union['WebDriver', 'Common']: Self instance
         """
         self.execute(Command.OPEN_NOTIFICATIONS, {})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     @property
     def current_package(self) -> str:

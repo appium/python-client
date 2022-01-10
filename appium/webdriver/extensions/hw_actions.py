@@ -39,8 +39,7 @@ class HardwareActions(CanExecuteCommands):
             self.execute(Command.LOCK)
         else:
             self.execute(Command.LOCK, {'seconds': seconds})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def unlock(self) -> 'WebDriver':
         """Unlock the device. No changes are made if the device is already locked.
@@ -49,8 +48,7 @@ class HardwareActions(CanExecuteCommands):
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.UNLOCK)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def is_locked(self) -> bool:
         """Checks whether the device is locked.
@@ -67,8 +65,7 @@ class HardwareActions(CanExecuteCommands):
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.SHAKE)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def touch_id(self, match: bool) -> 'WebDriver':
         """Simulate touchId on iOS Simulator
@@ -81,8 +78,7 @@ class HardwareActions(CanExecuteCommands):
         """
         data = {'match': match}
         self.execute(Command.TOUCH_ID, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def toggle_touch_id_enrollment(self) -> 'WebDriver':
         """Toggle enroll touchId on iOS Simulator
@@ -91,8 +87,7 @@ class HardwareActions(CanExecuteCommands):
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.TOGGLE_TOUCH_ID_ENROLLMENT)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def finger_print(self, finger_id: int) -> Any:
         """Authenticate users by using their finger print scans on supported Android emulators.

@@ -33,8 +33,7 @@ class Location(CanExecuteCommands):
             Union['WebDriver', 'Location']: Self instance
         """
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def set_location(
         self,
@@ -69,8 +68,7 @@ class Location(CanExecuteCommands):
         if satellites is not None:
             data['location']['satellites'] = satellites
         self.execute(Command.SET_LOCATION, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     @property
     def location(self) -> Dict[str, float]:

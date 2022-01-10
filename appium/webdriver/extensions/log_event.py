@@ -62,8 +62,7 @@ class LogEvent(CanExecuteCommands):
         """
         data = {'vendor': vendor, 'event': event}
         self.execute(Command.LOG_EVENT, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

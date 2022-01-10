@@ -45,8 +45,7 @@ class Settings(CanExecuteCommands):
         data = {"settings": settings}
 
         self.execute(Command.UPDATE_SETTINGS, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

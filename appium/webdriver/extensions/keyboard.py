@@ -48,8 +48,7 @@ class Keyboard(CanExecuteCommands):
             strategy = 'tapOutside'
         data['strategy'] = strategy
         self.execute(Command.HIDE_KEYBOARD, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def is_keyboard_shown(self) -> bool:
         """Attempts to detect whether a software keyboard is present
@@ -78,8 +77,7 @@ class Keyboard(CanExecuteCommands):
         if metastate is not None:
             data['metastate'] = metastate
         self.execute(Command.KEY_EVENT, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def press_keycode(self, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> 'WebDriver':
         """Sends a keycode to the device.
@@ -103,8 +101,7 @@ class Keyboard(CanExecuteCommands):
         if flags is not None:
             data['flags'] = flags
         self.execute(Command.PRESS_KEYCODE, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def long_press_keycode(
         self, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None
@@ -128,8 +125,7 @@ class Keyboard(CanExecuteCommands):
         if flags is not None:
             data['flags'] = flags
         self.execute(Command.LONG_PRESS_KEYCODE, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

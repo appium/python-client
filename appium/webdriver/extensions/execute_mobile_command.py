@@ -37,8 +37,7 @@ class ExecuteMobileCommand(CanExecuteScripts):
         """
         data = {'name': button_name}
         self.execute_script('mobile: pressButton', data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     @property
     def battery_info(self) -> Dict[str, Any]:

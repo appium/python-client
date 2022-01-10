@@ -82,8 +82,7 @@ class Network(CanExecuteCommands):
             Union['WebDriver', 'Network']: Self instance
         """
         self.execute(Command.TOGGLE_WIFI, {})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def set_network_speed(self, speed_type: str) -> 'WebDriver':
         """Set the network speed emulation.
@@ -108,8 +107,7 @@ class Network(CanExecuteCommands):
             )
 
         self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

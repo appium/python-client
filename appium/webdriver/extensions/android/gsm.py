@@ -72,8 +72,7 @@ class Gsm(CanExecuteCommands):
                 f'(e.g. {GsmCallActions.__name__}.CALL)'
             )
         self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def set_gsm_signal(self, strength: int) -> 'WebDriver':
         """Set GSM signal strength (Emulator only)
@@ -97,8 +96,7 @@ class Gsm(CanExecuteCommands):
                 f'(e.g. {GsmSignalStrength.__name__}.GOOD)'
             )
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def set_gsm_voice(self, state: str) -> 'WebDriver':
         """Set GSM voice state (Emulator only)
@@ -122,8 +120,7 @@ class Gsm(CanExecuteCommands):
                 f'(e.g. {GsmVoiceState.__name__}.HOME)'
             )
         self.execute(Command.SET_GSM_VOICE, {'state': state})
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

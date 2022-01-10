@@ -58,8 +58,7 @@ class Activities(CanExecuteCommands):
             if key in opts:
                 data[value] = opts[key]
         self.execute(Command.START_ACTIVITY, data)
-        # noinspection PyTypeChecker
-        return self
+        return self  # type: ignore
 
     @property
     def current_activity(self) -> str:

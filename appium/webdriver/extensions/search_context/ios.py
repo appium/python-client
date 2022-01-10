@@ -12,25 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=abstract-method
-
-from typing import TYPE_CHECKING, List, TypeVar, Union
+from typing import TYPE_CHECKING, List
 
 from appium.common.logger import logger
+from appium.protocols.webdriver.can_find_elements import CanFindElements
 from appium.webdriver.common.appiumby import AppiumBy
-
-from .base_search_context import BaseSearchContext
 
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
 
-T = TypeVar('T', bound=Union[BaseSearchContext, 'iOSSearchContext'])
 
-
-class iOSSearchContext(BaseSearchContext):
+class iOSSearchContext(CanFindElements):
     """Define search context for iOS"""
 
-    def find_element_by_ios_uiautomation(self: T, uia_string: str) -> 'WebElement':
+    def find_element_by_ios_uiautomation(self, uia_string: str) -> 'WebElement':
         """
         deprecated:: 2.1.0
             Please use 'find_element' with 'AppiumBy.IOS_UIAUTOMATION' instead.
@@ -52,7 +47,7 @@ class iOSSearchContext(BaseSearchContext):
 
         return self.find_element(by=AppiumBy.IOS_UIAUTOMATION, value=uia_string)
 
-    def find_elements_by_ios_uiautomation(self: T, uia_string: str) -> List['WebElement']:
+    def find_elements_by_ios_uiautomation(self, uia_string: str) -> List['WebElement']:
         """
         deprecated:: 2.1.0
             Please use 'find_elements' with 'AppiumBy.IOS_UIAUTOMATION' instead.
@@ -74,7 +69,7 @@ class iOSSearchContext(BaseSearchContext):
 
         return self.find_elements(by=AppiumBy.IOS_UIAUTOMATION, value=uia_string)
 
-    def find_element_by_ios_predicate(self: T, predicate_string: str) -> 'WebElement':
+    def find_element_by_ios_predicate(self, predicate_string: str) -> 'WebElement':
         """
         deprecated:: 2.1.0
             Please use 'find_element' with 'AppiumBy.IOS_PREDICATE' instead.
@@ -96,7 +91,7 @@ class iOSSearchContext(BaseSearchContext):
 
         return self.find_element(by=AppiumBy.IOS_PREDICATE, value=predicate_string)
 
-    def find_elements_by_ios_predicate(self: T, predicate_string: str) -> List['WebElement']:
+    def find_elements_by_ios_predicate(self, predicate_string: str) -> List['WebElement']:
         """
         deprecated:: 2.1.0
             Please use 'find_elements' with 'AppiumBy.IOS_PREDICATE' instead.
@@ -117,7 +112,7 @@ class iOSSearchContext(BaseSearchContext):
 
         return self.find_elements(by=AppiumBy.IOS_PREDICATE, value=predicate_string)
 
-    def find_element_by_ios_class_chain(self: T, class_chain_string: str) -> 'WebElement':
+    def find_element_by_ios_class_chain(self, class_chain_string: str) -> 'WebElement':
         """
         deprecated:: 2.1.0
             Please use 'find_element' with 'AppiumBy.IOS_CLASS_CHAIN' instead.
@@ -138,7 +133,7 @@ class iOSSearchContext(BaseSearchContext):
 
         return self.find_element(by=AppiumBy.IOS_CLASS_CHAIN, value=class_chain_string)
 
-    def find_elements_by_ios_class_chain(self: T, class_chain_string: str) -> List['WebElement']:
+    def find_elements_by_ios_class_chain(self, class_chain_string: str) -> List['WebElement']:
         """
         deprecated:: 2.1.0
             Please use 'find_elements' with 'AppiumBy.IOS_CLASS_CHAIN' instead.

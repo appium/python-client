@@ -12,27 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=abstract-method
-
 import json
-from typing import TYPE_CHECKING, Any, List, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Any, List, Optional
 
 from appium.common.logger import logger
+from appium.protocols.webdriver.can_find_elements import CanFindElements
 from appium.webdriver.common.appiumby import AppiumBy
-
-from .base_search_context import BaseSearchContext
 
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
 
-T = TypeVar('T', bound='AndroidSearchContext')
 
-
-class AndroidSearchContext(BaseSearchContext):
+# noinspection PyPep8Naming
+class AndroidSearchContext(CanFindElements):
     """Define search context for Android"""
 
     def find_element_by_android_view_matcher(
-        self: T, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
+        self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
     ) -> 'WebElement':
         """
         deprecated:: 2.1.0
@@ -69,7 +65,7 @@ class AndroidSearchContext(BaseSearchContext):
         )
 
     def find_element_by_android_data_matcher(
-        self: T, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
+        self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
     ) -> 'WebElement':
         """
         deprecated:: 2.1.0
@@ -107,7 +103,7 @@ class AndroidSearchContext(BaseSearchContext):
         )
 
     def find_elements_by_android_data_matcher(
-        self: T, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
+        self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
     ) -> List['WebElement']:
         """
         deprecated:: 2.1.0
@@ -141,7 +137,7 @@ class AndroidSearchContext(BaseSearchContext):
         )
 
     def _build_data_matcher(
-        self: T, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
+        self, name: Optional[str] = None, args: Optional[Any] = None, className: Optional[str] = None
     ) -> str:
         result = {}
 
@@ -151,7 +147,7 @@ class AndroidSearchContext(BaseSearchContext):
 
         return json.dumps(result)
 
-    def find_element_by_android_uiautomator(self: T, uia_string: str) -> 'WebElement':
+    def find_element_by_android_uiautomator(self, uia_string: str) -> 'WebElement':
         """
         deprecated:: 2.1.0
             Please use 'find_element' with 'AppiumBy.ANDROID_UIAUTOMATOR' instead.
@@ -172,7 +168,7 @@ class AndroidSearchContext(BaseSearchContext):
 
         return self.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
-    def find_elements_by_android_uiautomator(self: T, uia_string: str) -> List['WebElement']:
+    def find_elements_by_android_uiautomator(self, uia_string: str) -> List['WebElement']:
         """
         [Deprecated] Please use 'find_elements' with 'AppiumBy.ANDROID_UIAUTOMATOR' instead.
 
@@ -192,7 +188,7 @@ class AndroidSearchContext(BaseSearchContext):
 
         return self.find_elements(by=AppiumBy.ANDROID_UIAUTOMATOR, value=uia_string)
 
-    def find_element_by_android_viewtag(self: T, tag: str) -> 'WebElement':
+    def find_element_by_android_viewtag(self, tag: str) -> 'WebElement':
         """
         deprecated:: 2.1.0
             Please use 'find_element' with 'AppiumBy.ANDROID_VIEWTAG' instead.
@@ -215,7 +211,7 @@ class AndroidSearchContext(BaseSearchContext):
 
         return self.find_element(by=AppiumBy.ANDROID_VIEWTAG, value=tag)
 
-    def find_elements_by_android_viewtag(self: T, tag: str) -> List['WebElement']:
+    def find_elements_by_android_viewtag(self, tag: str) -> List['WebElement']:
         """
         deprecated:: 2.1.0
             Please use 'find_elements' with 'AppiumBy.ANDROID_VIEWTAG' instead.

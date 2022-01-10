@@ -12,23 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, TypeVar, Union
+from typing import TYPE_CHECKING
 
-from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'Activities'])
 
-
-class Activities(webdriver.Remote):
-    def start_activity(self: T, app_package: str, app_activity: str, **opts: str) -> T:
+class Activities(CanExecuteCommands):
+    def start_activity(self, app_package: str, app_activity: str, **opts: str) -> 'WebDriver':
         """Opens an arbitrary activity during a test. If the activity belongs to
         another application, that application is started and the activity is opened.
 
@@ -61,10 +58,11 @@ class Activities(webdriver.Remote):
             if key in opts:
                 data[value] = opts[key]
         self.execute(Command.START_ACTIVITY, data)
+        # noinspection PyTypeChecker
         return self
 
     @property
-    def current_activity(self: T) -> str:
+    def current_activity(self) -> str:
         """Retrieves the current activity running on the device.
 
         Returns:
@@ -72,7 +70,7 @@ class Activities(webdriver.Remote):
         """
         return self.execute(Command.GET_CURRENT_ACTIVITY)['value']
 
-    def wait_activity(self: T, activity: str, timeout: int, interval: int = 1) -> bool:
+    def wait_activity(self, activity: str, timeout: int, interval: int = 1) -> bool:
         """Wait for an activity: block until target activity presents or time out.
 
         This is an Android-only method.
@@ -91,14 +89,14 @@ class Activities(webdriver.Remote):
         except TimeoutException:
             return False
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_CURRENT_ACTIVITY] = (
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.GET_CURRENT_ACTIVITY] = (
             'GET',
             '/session/$sessionId/appium/device/current_activity',
         )
-        self.command_executor._commands[Command.START_ACTIVITY] = (
+        commands[Command.START_ACTIVITY] = (
             'POST',
             '/session/$sessionId/appium/device/start_activity',
         )

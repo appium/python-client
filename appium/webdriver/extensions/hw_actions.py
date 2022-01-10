@@ -12,21 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Optional
 
-from selenium import webdriver
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'HardwareActions'])
 
-
-class HardwareActions(webdriver.Remote):
-    def lock(self: T, seconds: Optional[int] = None) -> T:
+class HardwareActions(CanExecuteCommands):
+    def lock(self, seconds: Optional[int] = None) -> 'WebDriver':
         """Lock the device. No changes are made if the device is already unlocked.
 
         Args:
@@ -42,19 +39,20 @@ class HardwareActions(webdriver.Remote):
             self.execute(Command.LOCK)
         else:
             self.execute(Command.LOCK, {'seconds': seconds})
-
+        # noinspection PyTypeChecker
         return self
 
-    def unlock(self: T) -> T:
+    def unlock(self) -> 'WebDriver':
         """Unlock the device. No changes are made if the device is already locked.
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.UNLOCK)
+        # noinspection PyTypeChecker
         return self
 
-    def is_locked(self: T) -> bool:
+    def is_locked(self) -> bool:
         """Checks whether the device is locked.
 
         Returns:
@@ -62,16 +60,17 @@ class HardwareActions(webdriver.Remote):
         """
         return self.execute(Command.IS_LOCKED)['value']
 
-    def shake(self: T) -> T:
+    def shake(self) -> 'WebDriver':
         """Shake the device.
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.SHAKE)
+        # noinspection PyTypeChecker
         return self
 
-    def touch_id(self: T, match: bool) -> T:
+    def touch_id(self, match: bool) -> 'WebDriver':
         """Simulate touchId on iOS Simulator
 
         Args:
@@ -82,18 +81,20 @@ class HardwareActions(webdriver.Remote):
         """
         data = {'match': match}
         self.execute(Command.TOUCH_ID, data)
+        # noinspection PyTypeChecker
         return self
 
-    def toggle_touch_id_enrollment(self: T) -> T:
+    def toggle_touch_id_enrollment(self) -> 'WebDriver':
         """Toggle enroll touchId on iOS Simulator
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.TOGGLE_TOUCH_ID_ENROLLMENT)
+        # noinspection PyTypeChecker
         return self
 
-    def finger_print(self: T, finger_id: int) -> Any:
+    def finger_print(self, finger_id: int) -> Any:
         """Authenticate users by using their finger print scans on supported Android emulators.
 
         Args:
@@ -104,19 +105,19 @@ class HardwareActions(webdriver.Remote):
         """
         return self.execute(Command.FINGER_PRINT, {'fingerprintId': finger_id})['value']
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.LOCK] = ('POST', '/session/$sessionId/appium/device/lock')
-        self.command_executor._commands[Command.UNLOCK] = ('POST', '/session/$sessionId/appium/device/unlock')
-        self.command_executor._commands[Command.IS_LOCKED] = ('POST', '/session/$sessionId/appium/device/is_locked')
-        self.command_executor._commands[Command.SHAKE] = ('POST', '/session/$sessionId/appium/device/shake')
-        self.command_executor._commands[Command.TOUCH_ID] = ('POST', '/session/$sessionId/appium/simulator/touch_id')
-        self.command_executor._commands[Command.TOGGLE_TOUCH_ID_ENROLLMENT] = (
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.LOCK] = ('POST', '/session/$sessionId/appium/device/lock')
+        commands[Command.UNLOCK] = ('POST', '/session/$sessionId/appium/device/unlock')
+        commands[Command.IS_LOCKED] = ('POST', '/session/$sessionId/appium/device/is_locked')
+        commands[Command.SHAKE] = ('POST', '/session/$sessionId/appium/device/shake')
+        commands[Command.TOUCH_ID] = ('POST', '/session/$sessionId/appium/simulator/touch_id')
+        commands[Command.TOGGLE_TOUCH_ID_ENROLLMENT] = (
             'POST',
             '/session/$sessionId/appium/simulator/toggle_touch_id_enrollment',
         )
-        self.command_executor._commands[Command.FINGER_PRINT] = (
+        commands[Command.FINGER_PRINT] = (
             'POST',
             '/session/$sessionId/appium/device/finger_print',
         )

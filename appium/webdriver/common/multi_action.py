@@ -19,7 +19,7 @@
 # chaining as the spec requires.
 
 import copy
-from typing import TYPE_CHECKING, Dict, List, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
@@ -28,8 +28,6 @@ if TYPE_CHECKING:
     from appium.webdriver.common.touch_action import TouchAction
     from appium.webdriver.webdriver import WebDriver
     from appium.webdriver.webelement import WebElement
-
-T = TypeVar('T', bound='MultiAction')
 
 
 class MultiAction:
@@ -67,7 +65,7 @@ class MultiAction:
 
             self._touch_actions.append(copy.copy(touch_action))
 
-    def perform(self: T) -> T:
+    def perform(self) -> 'MultiAction':
         """Perform the actions stored in the object.
 
         Usage:

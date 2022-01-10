@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, Dict, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict
 
-from selenium import webdriver
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
@@ -22,11 +22,9 @@ if TYPE_CHECKING:
     # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'Applications'])
 
-
-class Applications(webdriver.Remote):
-    def background_app(self: T, seconds: int) -> T:
+class Applications(CanExecuteCommands):
+    def background_app(self, seconds: int) -> 'WebDriver':
         """Puts the application in the background on the device for a certain duration.
 
         Args:
@@ -39,9 +37,10 @@ class Applications(webdriver.Remote):
             'seconds': seconds,
         }
         self.execute(Command.BACKGROUND, data)
+        # noinspection PyTypeChecker
         return self
 
-    def is_app_installed(self: T, bundle_id: str) -> bool:
+    def is_app_installed(self, bundle_id: str) -> bool:
         """Checks whether the application specified by `bundle_id` is installed on the device.
 
         Args:
@@ -55,7 +54,7 @@ class Applications(webdriver.Remote):
         }
         return self.execute(Command.IS_APP_INSTALLED, data)['value']
 
-    def install_app(self: T, app_path: str, **options: Any) -> T:
+    def install_app(self, app_path: str, **options: Any) -> 'WebDriver':
         """Install the application found at `app_path` on the device.
 
         Args:
@@ -81,9 +80,10 @@ class Applications(webdriver.Remote):
         if options:
             data.update({'options': options})
         self.execute(Command.INSTALL_APP, data)
+        # noinspection PyTypeChecker
         return self
 
-    def remove_app(self: T, app_id: str, **options: Any) -> T:
+    def remove_app(self, app_id: str, **options: Any) -> 'WebDriver':
         """Remove the specified application from the device.
 
         Args:
@@ -104,18 +104,20 @@ class Applications(webdriver.Remote):
         if options:
             data.update({'options': options})
         self.execute(Command.REMOVE_APP, data)
+        # noinspection PyTypeChecker
         return self
 
-    def launch_app(self: T) -> T:
+    def launch_app(self) -> 'WebDriver':
         """Start on the device the application specified in the desired capabilities.
 
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.LAUNCH_APP)
+        # noinspection PyTypeChecker
         return self
 
-    def close_app(self: T) -> T:
+    def close_app(self) -> 'WebDriver':
         """Stop the running application, specified in the desired capabilities, on
         the device.
 
@@ -123,9 +125,10 @@ class Applications(webdriver.Remote):
             Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.CLOSE_APP)
+        # noinspection PyTypeChecker
         return self
 
-    def terminate_app(self: T, app_id: str, **options: Any) -> bool:
+    def terminate_app(self, app_id: str, **options: Any) -> bool:
         """Terminates the application if it is running.
 
         Args:
@@ -145,7 +148,7 @@ class Applications(webdriver.Remote):
             data.update({'options': options})
         return self.execute(Command.TERMINATE_APP, data)['value']
 
-    def activate_app(self: T, app_id: str) -> T:
+    def activate_app(self, app_id: str) -> 'WebDriver':
         """Activates the application if it is not running
         or is running in the background.
 
@@ -159,9 +162,10 @@ class Applications(webdriver.Remote):
             'appId': app_id,
         }
         self.execute(Command.ACTIVATE_APP, data)
+        # noinspection PyTypeChecker
         return self
 
-    def query_app_state(self: T, app_id: str) -> int:
+    def query_app_state(self, app_id: str) -> int:
         """Queries the state of the application.
 
         Args:
@@ -176,7 +180,7 @@ class Applications(webdriver.Remote):
         }
         return self.execute(Command.QUERY_APP_STATE, data)['value']
 
-    def app_strings(self: T, language: str = None, string_file: str = None) -> Dict[str, str]:
+    def app_strings(self, language: str = None, string_file: str = None) -> Dict[str, str]:
         """Returns the application strings from the device for the specified
         language.
 
@@ -194,38 +198,39 @@ class Applications(webdriver.Remote):
             data['stringFile'] = string_file
         return self.execute(Command.GET_APP_STRINGS, data)['value']
 
-    def reset(self: T) -> T:
+    def reset(self) -> 'WebDriver':
         """Resets the current application on the device.
 
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
         self.execute(Command.RESET)
+        # noinspection PyTypeChecker
         return self
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.BACKGROUND] = ('POST', '/session/$sessionId/appium/app/background')
-        self.command_executor._commands[Command.IS_APP_INSTALLED] = (
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.BACKGROUND] = ('POST', '/session/$sessionId/appium/app/background')
+        commands[Command.IS_APP_INSTALLED] = (
             'POST',
             '/session/$sessionId/appium/device/app_installed',
         )
-        self.command_executor._commands[Command.INSTALL_APP] = ('POST', '/session/$sessionId/appium/device/install_app')
-        self.command_executor._commands[Command.REMOVE_APP] = ('POST', '/session/$sessionId/appium/device/remove_app')
-        self.command_executor._commands[Command.TERMINATE_APP] = (
+        commands[Command.INSTALL_APP] = ('POST', '/session/$sessionId/appium/device/install_app')
+        commands[Command.REMOVE_APP] = ('POST', '/session/$sessionId/appium/device/remove_app')
+        commands[Command.TERMINATE_APP] = (
             'POST',
             '/session/$sessionId/appium/device/terminate_app',
         )
-        self.command_executor._commands[Command.ACTIVATE_APP] = (
+        commands[Command.ACTIVATE_APP] = (
             'POST',
             '/session/$sessionId/appium/device/activate_app',
         )
-        self.command_executor._commands[Command.QUERY_APP_STATE] = (
+        commands[Command.QUERY_APP_STATE] = (
             'POST',
             '/session/$sessionId/appium/device/app_state',
         )
-        self.command_executor._commands[Command.GET_APP_STRINGS] = ('POST', '/session/$sessionId/appium/app/strings')
-        self.command_executor._commands[Command.RESET] = ('POST', '/session/$sessionId/appium/app/reset')
-        self.command_executor._commands[Command.LAUNCH_APP] = ('POST', '/session/$sessionId/appium/app/launch')
-        self.command_executor._commands[Command.CLOSE_APP] = ('POST', '/session/$sessionId/appium/app/close')
+        commands[Command.GET_APP_STRINGS] = ('POST', '/session/$sessionId/appium/app/strings')
+        commands[Command.RESET] = ('POST', '/session/$sessionId/appium/app/reset')
+        commands[Command.LAUNCH_APP] = ('POST', '/session/$sessionId/appium/app/launch')
+        commands[Command.CLOSE_APP] = ('POST', '/session/$sessionId/appium/app/close')

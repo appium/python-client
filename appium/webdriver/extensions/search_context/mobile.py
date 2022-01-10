@@ -12,26 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=abstract-method
-
 import base64
-from typing import TYPE_CHECKING, List, TypeVar, Union
+from typing import TYPE_CHECKING, List
 
 from appium.common.logger import logger
+from appium.protocols.webdriver.can_find_elements import CanFindElements
 from appium.webdriver.common.appiumby import AppiumBy
-
-from .base_search_context import BaseSearchContext
 
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
 
-T = TypeVar('T', bound=Union[BaseSearchContext, 'MobileSearchContext'])
 
-
-class MobileSearchContext(BaseSearchContext):
+class MobileSearchContext(CanFindElements):
     """Define search context for Mobile(Android, iOS)"""
 
-    def find_element_by_accessibility_id(self: T, accessibility_id: str) -> 'WebElement':
+    def find_element_by_accessibility_id(self, accessibility_id: str) -> 'WebElement':
         """
         deprecated:: 2.1.0
             Please use 'find_element' with 'AppiumBy.ACCESSIBILITY_ID' instead.
@@ -54,7 +49,7 @@ class MobileSearchContext(BaseSearchContext):
 
         return self.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=accessibility_id)
 
-    def find_elements_by_accessibility_id(self: T, accessibility_id: str) -> List['WebElement']:
+    def find_elements_by_accessibility_id(self, accessibility_id: str) -> List['WebElement']:
         """
         deprecated:: 2.1.0
             Please use 'find_elements' with 'AppiumBy.ACCESSIBILITY_ID' instead.
@@ -77,7 +72,7 @@ class MobileSearchContext(BaseSearchContext):
 
         return self.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value=accessibility_id)
 
-    def find_element_by_image(self: T, img_path: str) -> 'WebElement':
+    def find_element_by_image(self, img_path: str) -> 'WebElement':
         """Finds a portion of a screenshot by an image.
 
         Uses driver.find_image_occurrence under the hood.
@@ -94,7 +89,7 @@ class MobileSearchContext(BaseSearchContext):
 
         return self.find_element(by=AppiumBy.IMAGE, value=b64_data)
 
-    def find_elements_by_image(self: T, img_path: str) -> List['WebElement']:
+    def find_elements_by_image(self, img_path: str) -> List['WebElement']:
         """Finds a portion of a screenshot by an image.
 
         Uses driver.find_image_occurrence under the hood. Note that this will

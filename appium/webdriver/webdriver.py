@@ -15,8 +15,9 @@
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
 import copy
-from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
+from selenium import webdriver
 from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
@@ -107,9 +108,6 @@ def _make_w3c_caps(caps: Dict) -> Dict[str, Union[Dict[str, Any], List[Dict[str,
             new_opts['profile'] = profile
             always_match['moz:firefoxOptions'] = new_opts
     return {'alwaysMatch': always_match, 'firstMatch': [{}]}
-
-
-T = TypeVar('T', bound='WebDriver')
 
 
 class ExtensionBase:
@@ -223,6 +221,7 @@ class ExtensionBase:
 
 
 class WebDriver(
+    webdriver.Remote,
     AppiumSearchContext,
     ActionHelpers,
     Activities,
@@ -259,14 +258,16 @@ class WebDriver(
         proxy: str = None,
         keep_alive: bool = True,
         direct_connection: bool = True,
-        extensions: List[T] = [],
+        extensions: Optional[List['WebDriver']] = None,
         strict_ssl: bool = True,
     ):
 
         if strict_ssl is False:
             # pylint: disable=E1101
+            # noinspection PyPackageRequirements
             import urllib3
 
+            # noinspection PyUnresolvedReferences
             AppiumConnection.set_certificate_bundle_path(None)
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -275,7 +276,7 @@ class WebDriver(
         )
 
         if hasattr(self, 'command_executor'):
-            self._addCommands()
+            self._add_commands()
 
         self.error_handler = MobileErrorHandler()
 
@@ -293,7 +294,7 @@ class WebDriver(
         By.IMAGE = AppiumBy.IMAGE
         By.CUSTOM = AppiumBy.CUSTOM
 
-        self._extensions = extensions
+        self._extensions = extensions or []
         for extension in self._extensions:
             instance = extension(self.execute)
             method_name = instance.method_name()
@@ -303,6 +304,7 @@ class WebDriver(
             # add a new method named 'instance.method_name()' and call it
             setattr(WebDriver, method_name, getattr(instance, method_name))
             method, url_cmd = instance.add_command()
+            # noinspection PyProtectedMember
             self.command_executor._commands[method_name] = (method.upper(), url_cmd)  # type: ignore
 
     def delete_extensions(self) -> None:
@@ -323,7 +325,7 @@ class WebDriver(
         if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps)):
             message = 'Direct connect capabilities from server were:\n'
             for key in [direct_protocol, direct_host, direct_port, direct_path]:
-                message += '{}: \'{}\' '.format(key, self.caps.get(key, ''))
+                message += f'{key}: \'{self.caps.get(key, "")}\' '
             logger.debug(message)
             return
 
@@ -336,17 +338,19 @@ class WebDriver(
         logger.debug('Updated request endpoint to %s', executor)
         # Override command executor
         self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
-        self._addCommands()
+        self._add_commands()
 
     # https://github.com/SeleniumHQ/selenium/blob/06fdf2966df6bca47c0ae45e8201cd30db9b9a49/py/selenium/webdriver/remote/webdriver.py#L277
+    # noinspection PyAttributeOutsideInit
     def start_session(self, capabilities: Dict, browser_profile: Optional[str] = None) -> None:
         """Creates a new session with the desired capabilities.
 
         Override for Appium
 
         Args:
-            capabilities: Capabilities which have following keys like 'automation_name', 'platform_name', 'platform_version', 'app'.
-                          Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
+            capabilities: Capabilities which have following keys like 'automation_name', 'platform_name',
+            'platform_version', 'app'.
+            Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
             browser_profile: Browser profile
         """
         if not isinstance(capabilities, dict):
@@ -372,6 +376,7 @@ class WebDriver(
         if self.caps is None:
             self.caps = response.get('capabilities')
 
+    # noinspection PyMethodMayBeStatic
     def _merge_capabilities(self, capabilities: Dict) -> Dict[str, Any]:
         """Manage capabilities whether W3C format or MJSONWP format"""
         w3c_caps = _make_w3c_caps(capabilities)
@@ -455,7 +460,7 @@ class WebDriver(
         """
         return MobileWebElement(self, element_id)
 
-    def set_value(self, element: MobileWebElement, value: str) -> T:
+    def set_value(self, element: MobileWebElement, value: str) -> 'WebDriver':
         """Set the value on an element in the application.
 
         Args:
@@ -485,37 +490,38 @@ class WebDriver(
 
         return MobileSwitchTo(self)
 
-    # pylint: disable=protected-access
-
-    def _addCommands(self) -> None:
+    def _add_commands(self) -> None:
         # call the overridden command binders from all mixin classes except for
         # appium.webdriver.webdriver.WebDriver and its sub-classes
         # https://github.com/appium/python-client/issues/342
         for mixin_class in filter(lambda x: not issubclass(x, WebDriver), self.__class__.__mro__):
-            if hasattr(mixin_class, self._addCommands.__name__):
-                get_atter = getattr(mixin_class, self._addCommands.__name__, None)
+            if hasattr(mixin_class, self._add_commands.__name__):
+                get_atter = getattr(mixin_class, self._add_commands.__name__, None)
                 if get_atter:
                     get_atter(self)
 
-        self.command_executor._commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
-        self.command_executor._commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
-        self.command_executor._commands[Command.SET_IMMEDIATE_VALUE] = (
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+
+        commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
+        commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
+        commands[Command.SET_IMMEDIATE_VALUE] = (
             'POST',
             '/session/$sessionId/appium/element/$id/value',
         )
 
         # TODO Move commands for element to webelement
-        self.command_executor._commands[Command.REPLACE_KEYS] = (
+        commands[Command.REPLACE_KEYS] = (
             'POST',
             '/session/$sessionId/appium/element/$id/replace_value',
         )
-        self.command_executor._commands[Command.CLEAR] = ('POST', '/session/$sessionId/element/$id/clear')
-        self.command_executor._commands[Command.LOCATION_IN_VIEW] = (
+        commands[Command.CLEAR] = ('POST', '/session/$sessionId/element/$id/clear')
+        commands[Command.LOCATION_IN_VIEW] = (
             'GET',
             '/session/$sessionId/element/$id/location_in_view',
         )
 
         # override for Appium 1.x
         # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`
-        self.command_executor._commands[Command.GET_LOG] = ('POST', '/session/$sessionId/log')
-        self.command_executor._commands[Command.GET_AVAILABLE_LOG_TYPES] = ('GET', '/session/$sessionId/log/types')
+        commands[Command.GET_LOG] = ('POST', '/session/$sessionId/log')
+        commands[Command.GET_AVAILABLE_LOG_TYPES] = ('GET', '/session/$sessionId/log/types')

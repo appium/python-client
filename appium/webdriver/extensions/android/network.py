@@ -12,19 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, TypeVar, Union
-
-from selenium import webdriver
+from typing import TYPE_CHECKING
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
-
-T = TypeVar('T', bound=Union['WebDriver', 'Network'])
 
 
 class NetSpeed:
@@ -39,9 +35,9 @@ class NetSpeed:
     FULL = 'full'  # No limit, the default (up: 0.0, down: 0.0)
 
 
-class Network(webdriver.Remote):
+class Network(CanExecuteCommands):
     @property
-    def network_connection(self: T) -> int:
+    def network_connection(self) -> int:
         """Returns an integer bitmask specifying the network connection type.
 
         Android only.
@@ -49,7 +45,7 @@ class Network(webdriver.Remote):
         """
         return self.execute(Command.GET_NETWORK_CONNECTION, {})['value']
 
-    def set_network_connection(self: T, connection_type: int) -> int:
+    def set_network_connection(self, connection_type: int) -> int:
         """Sets the network connection type. Android only.
 
         Possible values:
@@ -79,16 +75,17 @@ class Network(webdriver.Remote):
         data = {'parameters': {'type': connection_type}}
         return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
 
-    def toggle_wifi(self: T) -> T:
+    def toggle_wifi(self) -> 'WebDriver':
         """Toggle the wifi on the device, Android only.
 
         Returns:
             Union['WebDriver', 'Network']: Self instance
         """
         self.execute(Command.TOGGLE_WIFI, {})
+        # noinspection PyTypeChecker
         return self
 
-    def set_network_speed(self: T, speed_type: str) -> T:
+    def set_network_speed(self, speed_type: str) -> 'WebDriver':
         """Set the network speed emulation.
 
         Android Emulator only.
@@ -111,21 +108,22 @@ class Network(webdriver.Remote):
             )
 
         self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
+        # noinspection PyTypeChecker
         return self
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.TOGGLE_WIFI] = ('POST', '/session/$sessionId/appium/device/toggle_wifi')
-        self.command_executor._commands[Command.GET_NETWORK_CONNECTION] = (
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.TOGGLE_WIFI] = ('POST', '/session/$sessionId/appium/device/toggle_wifi')
+        commands[Command.GET_NETWORK_CONNECTION] = (
             'GET',
             '/session/$sessionId/network_connection',
         )
-        self.command_executor._commands[Command.SET_NETWORK_CONNECTION] = (
+        commands[Command.SET_NETWORK_CONNECTION] = (
             'POST',
             '/session/$sessionId/network_connection',
         )
-        self.command_executor._commands[Command.SET_NETWORK_SPEED] = (
+        commands[Command.SET_NETWORK_SPEED] = (
             'POST',
             '/session/$sessionId/appium/device/network_speed',
         )

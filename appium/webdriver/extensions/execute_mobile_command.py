@@ -12,19 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, Dict, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict
 
-from selenium import webdriver
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'ExecuteMobileCommand'])
 
-
-class ExecuteMobileCommand(webdriver.Remote):
-    def press_button(self: T, button_name: str) -> T:
+class ExecuteMobileCommand(CanExecuteScripts):
+    def press_button(self, button_name: str) -> 'WebDriver':
         """Sends a physical button name to the device to simulate the user pressing.
 
         iOS only.
@@ -40,10 +37,11 @@ class ExecuteMobileCommand(webdriver.Remote):
         """
         data = {'name': button_name}
         self.execute_script('mobile: pressButton', data)
+        # noinspection PyTypeChecker
         return self
 
     @property
-    def battery_info(self: T) -> Dict[str, Any]:
+    def battery_info(self) -> Dict[str, Any]:
         """Retrieves battery information for the device under test.
 
         Returns:

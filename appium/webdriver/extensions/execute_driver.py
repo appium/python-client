@@ -12,23 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, Dict, Optional, TypeVar, Union
+from typing import Any, Dict, Optional, Union
 
-from selenium import webdriver
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
-    from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'ExecuteDriver'])
-
-
-class ExecuteDriver(webdriver.Remote):
+class ExecuteDriver(CanExecuteCommands):
 
     # TODO Inner class case
-    def execute_driver(self: T, script: str, script_type: str = 'webdriverio', timeout_ms: Optional[int] = None) -> Any:
+    def execute_driver(self, script: str, script_type: str = 'webdriverio', timeout_ms: Optional[int] = None) -> Any:
         """Run a set of script against the current session, allowing execution of many commands in one Appium request.
         Please read http://appium.io/docs/en/commands/session/execute-driver for more details about the acceptable
         scripts and the output format.
@@ -63,7 +57,7 @@ class ExecuteDriver(webdriver.Remote):
         response = self.execute(Command.EXECUTE_DRIVER, option)['value']
         return Result(response)
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.EXECUTE_DRIVER] = ('POST', '/session/$sessionId/appium/execute_driver')
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.EXECUTE_DRIVER] = ('POST', '/session/$sessionId/appium/execute_driver')

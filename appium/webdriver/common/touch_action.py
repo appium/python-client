@@ -24,7 +24,7 @@
 # pylint: disable=no-self-use
 
 import copy
-from typing import TYPE_CHECKING, Dict, List, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
@@ -32,8 +32,6 @@ from appium.webdriver.mobilecommand import MobileCommand as Command
 if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
     from appium.webdriver.webelement import WebElement
-
-T = TypeVar('T', bound='TouchAction')
 
 
 class TouchAction:
@@ -49,12 +47,12 @@ class TouchAction:
         self._actions: List = []
 
     def tap(
-        self: T,
+        self,
         element: Optional['WebElement'] = None,
         x: Optional[int] = None,
         y: Optional[int] = None,
         count: int = 1,
-    ) -> T:
+    ) -> 'TouchAction':
         """Perform a tap action on the element
 
         Args:
@@ -72,12 +70,12 @@ class TouchAction:
         return self
 
     def press(
-        self: T,
+        self,
         el: Optional['WebElement'] = None,
         x: Optional[int] = None,
         y: Optional[int] = None,
         pressure: Optional[float] = None,
-    ) -> T:
+    ) -> 'TouchAction':
         """Begin a chain with a press down action at a particular element or point
 
         Args:
@@ -85,7 +83,8 @@ class TouchAction:
             x: x coordiate to press. If y is used, x must also be set
             y: y coordiate to press. If x is used, y must also be set
             pressure: [iOS Only] press as force touch. Read the description of `force` property on Apple's UITouch class
-                                (https://developer.apple.com/documentation/uikit/uitouch?language=objc) for more details on possible value ranges.
+                                (https://developer.apple.com/documentation/uikit/uitouch?language=objc) for
+                                more details on possible value ranges.
 
         Returns:
             `TouchAction`: Self instance
@@ -95,12 +94,12 @@ class TouchAction:
         return self
 
     def long_press(
-        self: T,
+        self,
         el: Optional['WebElement'] = None,
         x: Optional[int] = None,
         y: Optional[int] = None,
         duration: int = 1000,
-    ) -> T:
+    ) -> 'TouchAction':
         """Begin a chain with a press down that lasts `duration` milliseconds
 
         Args:
@@ -116,7 +115,7 @@ class TouchAction:
 
         return self
 
-    def wait(self: T, ms: int = 0) -> T:
+    def wait(self, ms: int = 0) -> 'TouchAction':
         """Pause for `ms` milliseconds.
 
         Args:
@@ -134,7 +133,9 @@ class TouchAction:
 
         return self
 
-    def move_to(self: T, el: Optional['WebElement'] = None, x: Optional[int] = None, y: Optional[int] = None) -> T:
+    def move_to(
+        self, el: Optional['WebElement'] = None, x: Optional[int] = None, y: Optional[int] = None
+    ) -> 'TouchAction':
         """Move the pointer from the previous point to the element or point specified
 
         Args:
@@ -149,7 +150,7 @@ class TouchAction:
 
         return self
 
-    def release(self: T) -> T:
+    def release(self) -> 'TouchAction':
         """End the action by lifting the pointer off the screen
 
         Returns:
@@ -159,7 +160,7 @@ class TouchAction:
 
         return self
 
-    def perform(self: T) -> T:
+    def perform(self) -> 'TouchAction':
         """Perform the action by sending the commands to the server to be operated upon
 
         Returns:

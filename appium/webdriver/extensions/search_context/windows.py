@@ -12,25 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=abstract-method
-
-from typing import TYPE_CHECKING, List, TypeVar, Union
+from typing import TYPE_CHECKING, List
 
 from appium.common.logger import logger
+from appium.protocols.webdriver.can_find_elements import CanFindElements
 from appium.webdriver.common.appiumby import AppiumBy
-
-from .base_search_context import BaseSearchContext
 
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
 
-T = TypeVar('T', bound=Union[BaseSearchContext, 'WindowsSearchContext'])
 
-
-class WindowsSearchContext(BaseSearchContext):
+class WindowsSearchContext(CanFindElements):
     """Define search context for Windows"""
 
-    def find_element_by_windows_uiautomation(self: T, win_uiautomation: str) -> 'WebElement':
+    def find_element_by_windows_uiautomation(self, win_uiautomation: str) -> 'WebElement':
         """[Deprecated] Finds an element by windows uiautomation
 
         Args:
@@ -48,7 +43,7 @@ class WindowsSearchContext(BaseSearchContext):
         )
         return self.find_element(by=AppiumBy.WINDOWS_UI_AUTOMATION, value=win_uiautomation)
 
-    def find_elements_by_windows_uiautomation(self: T, win_uiautomation: str) -> List['WebElement']:
+    def find_elements_by_windows_uiautomation(self, win_uiautomation: str) -> List['WebElement']:
         """[Deprecated] Finds elements by windows uiautomation
 
         Args:

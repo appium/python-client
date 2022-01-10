@@ -12,21 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, TypeVar, Union
-
-from selenium import webdriver
-
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
-    from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'Display'])
-
-
-class Display(webdriver.Remote):
-    def get_display_density(self: T) -> int:
+class Display(CanExecuteCommands):
+    def get_display_density(self) -> int:
         """Get the display density, Android only
 
         Returns:
@@ -40,10 +31,10 @@ class Display(webdriver.Remote):
         """
         return self.execute(Command.GET_DISPLAY_DENSITY)['value']
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_DISPLAY_DENSITY] = (
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.GET_DISPLAY_DENSITY] = (
             'GET',
             '/session/$sessionId/appium/device/display_density',
         )

@@ -13,22 +13,20 @@
 # limitations under the License.
 
 import base64
-from typing import TYPE_CHECKING, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Optional
 
-from selenium import webdriver
 from selenium.common.exceptions import InvalidArgumentException
+
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'RemoteFS'])
 
-
-class RemoteFS(webdriver.Remote):
-    def pull_file(self: T, path: str) -> str:
+class RemoteFS(CanExecuteCommands):
+    def pull_file(self, path: str) -> str:
         """Retrieves the file at `path`.
 
         Args:
@@ -42,7 +40,7 @@ class RemoteFS(webdriver.Remote):
         }
         return self.execute(Command.PULL_FILE, data)['value']
 
-    def pull_folder(self: T, path: str) -> str:
+    def pull_folder(self, path: str) -> str:
         """Retrieves a folder at `path`.
 
         Args:
@@ -57,8 +55,8 @@ class RemoteFS(webdriver.Remote):
         return self.execute(Command.PULL_FOLDER, data)['value']
 
     def push_file(
-        self: T, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None
-    ) -> T:
+        self, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None
+    ) -> 'WebDriver':
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
         Specify either `base64data` or `source_path`, if both specified default to `source_path`
@@ -89,11 +87,12 @@ class RemoteFS(webdriver.Remote):
             'data': base64data,
         }
         self.execute(Command.PUSH_FILE, data)
+        # noinspection PyTypeChecker
         return self
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.PULL_FILE] = ('POST', '/session/$sessionId/appium/device/pull_file')
-        self.command_executor._commands[Command.PULL_FOLDER] = ('POST', '/session/$sessionId/appium/device/pull_folder')
-        self.command_executor._commands[Command.PUSH_FILE] = ('POST', '/session/$sessionId/appium/device/push_file')
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.PULL_FILE] = ('POST', '/session/$sessionId/appium/device/pull_file')
+        commands[Command.PULL_FOLDER] = ('POST', '/session/$sessionId/appium/device/pull_folder')
+        commands[Command.PUSH_FILE] = ('POST', '/session/$sessionId/appium/device/push_file')

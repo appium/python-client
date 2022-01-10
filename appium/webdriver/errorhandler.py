@@ -27,5 +27,4 @@ class MobileErrorHandler(errorhandler.ErrorHandler):
         except WebDriverException as wde:
             if wde.msg == 'No such context found.':
                 raise NoSuchContextException(wde.msg, wde.screen, wde.stacktrace) from wde
-            else:
-                raise wde
+            raise wde

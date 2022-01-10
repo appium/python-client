@@ -12,21 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import Any, Union
 
-from selenium import webdriver
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
-    from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'ScreenRecord'])
-
-
-class ScreenRecord(webdriver.Remote):
-    def start_recording_screen(self: T, **options: Any) -> Union[bytes, str]:
+class ScreenRecord(CanExecuteCommands):
+    def start_recording_screen(self, **options: Any) -> Union[bytes, str]:
         """Start asynchronous screen recording process.
 
         +--------------+-----+---------+-----+-------+
@@ -167,7 +161,7 @@ class ScreenRecord(webdriver.Remote):
             del options['password']
         return self.execute(Command.START_RECORDING_SCREEN, {'options': options})['value']
 
-    def stop_recording_screen(self: T, **options: Any) -> bytes:
+    def stop_recording_screen(self, **options: Any) -> bytes:
         """Gather the output from the previously started screen recording to a media file.
 
         Keyword Args:
@@ -200,14 +194,14 @@ class ScreenRecord(webdriver.Remote):
             del options['password']
         return self.execute(Command.STOP_RECORDING_SCREEN, {'options': options})['value']
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.START_RECORDING_SCREEN] = (
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember
+        commands = self.command_executor._commands
+        commands[Command.START_RECORDING_SCREEN] = (
             'POST',
             '/session/$sessionId/appium/start_recording_screen',
         )
-        self.command_executor._commands[Command.STOP_RECORDING_SCREEN] = (
+        commands[Command.STOP_RECORDING_SCREEN] = (
             'POST',
             '/session/$sessionId/appium/stop_recording_screen',
         )

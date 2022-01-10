@@ -12,21 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Dict, List, TypeVar, Union
+from typing import TYPE_CHECKING, Dict, List, Union
 
-from selenium import webdriver
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'LogEvent'])
 
-
-class LogEvent(webdriver.Remote):
-    def get_events(self: T, type: List[str] = None) -> Dict[str, Union[str, int]]:
+class LogEvent(CanExecuteCommands):
+    def get_events(self, type: List[str] = None) -> Dict[str, Union[str, int]]:
         """Retrieves events information from the current session
         (Since Appium 1.16.0)
 
@@ -49,7 +46,7 @@ class LogEvent(webdriver.Remote):
             data['type'] = type
         return self.execute(Command.GET_EVENTS, data)['value']
 
-    def log_event(self: T, vendor: str, event: str) -> T:
+    def log_event(self, vendor: str, event: str) -> 'WebDriver':
         """Log a custom event on the Appium server.
         (Since Appium 1.16.0)
 
@@ -65,10 +62,11 @@ class LogEvent(webdriver.Remote):
         """
         data = {'vendor': vendor, 'event': event}
         self.execute(Command.LOG_EVENT, data)
+        # noinspection PyTypeChecker
         return self
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_EVENTS] = ('POST', '/session/$sessionId/appium/events')
-        self.command_executor._commands[Command.LOG_EVENT] = ('POST', '/session/$sessionId/appium/log_event')
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.GET_EVENTS] = ('POST', '/session/$sessionId/appium/events')
+        commands[Command.LOG_EVENT] = ('POST', '/session/$sessionId/appium/log_event')

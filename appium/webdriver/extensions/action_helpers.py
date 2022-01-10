@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, List, Optional, Tuple, TypeVar, Union
+from typing import TYPE_CHECKING, List, Optional, Tuple
 
-from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
@@ -27,11 +26,11 @@ if TYPE_CHECKING:
     # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'ActionHelpers'])
 
-
-class ActionHelpers(webdriver.Remote):
-    def scroll(self: T, origin_el: WebElement, destination_el: WebElement, duration: Optional[int] = None) -> T:
+class ActionHelpers:
+    def scroll(
+        self, origin_el: WebElement, destination_el: WebElement, duration: Optional[int] = None
+    ) -> 'ActionHelpers':
         """Scrolls from one element to another
 
         Args:
@@ -74,7 +73,7 @@ class ActionHelpers(webdriver.Remote):
             actions.perform()
         return self
 
-    def drag_and_drop(self: T, origin_el: WebElement, destination_el: WebElement) -> T:
+    def drag_and_drop(self, origin_el: WebElement, destination_el: WebElement) -> 'ActionHelpers':
         """Drag the origin element to the destination element
 
         Args:
@@ -92,7 +91,7 @@ class ActionHelpers(webdriver.Remote):
         actions.perform()
         return self
 
-    def tap(self: T, positions: List[Tuple[int, int]], duration: Optional[int] = None) -> T:
+    def tap(self, positions: List[Tuple[int, int]], duration: Optional[int] = None) -> 'ActionHelpers':
         """Taps on an particular place with up to five fingers, holding for a
         certain time
 
@@ -143,7 +142,7 @@ class ActionHelpers(webdriver.Remote):
 
         return self
 
-    def swipe(self: T, start_x: int, start_y: int, end_x: int, end_y: int, duration: int = 0) -> T:
+    def swipe(self, start_x: int, start_y: int, end_x: int, end_y: int, duration: int = 0) -> 'ActionHelpers':
         """Swipe from one point to another point, for an optional duration.
 
         Args:
@@ -169,7 +168,7 @@ class ActionHelpers(webdriver.Remote):
         actions.perform()
         return self
 
-    def flick(self: T, start_x: int, start_y: int, end_x: int, end_y: int) -> T:
+    def flick(self, start_x: int, start_y: int, end_x: int, end_y: int) -> 'ActionHelpers':
         """Flick from one point to another point.
 
         Args:

@@ -12,24 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, Dict, List, TypeVar, Union
-
-from selenium import webdriver
+from typing import Any, Dict, List
 
 from appium.common.logger import logger
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
-    from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'Session'])
-
-
-class Session(webdriver.Remote):
+class Session(CanExecuteCommands):
     @property
-    def session(self: T) -> Dict[str, Any]:
+    def session(self) -> Dict[str, Any]:
         """Retrieves session information from the current session
 
         Usage:
@@ -41,7 +34,7 @@ class Session(webdriver.Remote):
         return self.execute(Command.GET_SESSION)['value']
 
     @property
-    def all_sessions(self: T) -> List[Dict[str, Any]]:
+    def all_sessions(self) -> List[Dict[str, Any]]:
         """Retrieves all sessions that are open
 
         Usage:
@@ -53,7 +46,7 @@ class Session(webdriver.Remote):
         return self.execute(Command.GET_ALL_SESSIONS)['value']
 
     @property
-    def events(self: T) -> Dict:
+    def events(self) -> Dict:
         """Retrieves events information from the current session
 
         Usage:
@@ -69,8 +62,8 @@ class Session(webdriver.Remote):
             logger.warning('Could not find events information in the session. Error: %s', e)
             return {}
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.GET_SESSION] = ('GET', '/session/$sessionId')
-        self.command_executor._commands[Command.GET_ALL_SESSIONS] = ('GET', '/sessions')
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.GET_SESSION] = ('GET', '/session/$sessionId')
+        commands[Command.GET_ALL_SESSIONS] = ('GET', '/sessions')

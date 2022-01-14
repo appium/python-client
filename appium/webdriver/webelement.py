@@ -12,20 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List, Optional, TypeVar, Union
+from typing import Callable, Dict, List, Optional, Union
 
 from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.remote.command import Command as RemoteCommand
+from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
 
 from appium.webdriver.common.appiumby import AppiumBy
 
 from .extensions.search_context import AppiumWebElementSearchContext
 from .mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound='WebElement')
 
+class WebElement(SeleniumWebElement, AppiumWebElementSearchContext):
+    _execute: Callable
+    _id: str
 
-class WebElement(AppiumWebElementSearchContext):
     def get_attribute(self, name: str) -> Optional[Union[str, Dict]]:
         """Gets the given attribute or property of the element.
 
@@ -54,22 +56,22 @@ class WebElement(AppiumWebElementSearchContext):
         """
 
         resp = self._execute(RemoteCommand.GET_ELEMENT_ATTRIBUTE, {'name': name})
-        attributeValue = resp.get('value')
+        attribute_value = resp.get('value')
 
-        if attributeValue is None:
+        if attribute_value is None:
             return None
 
-        if isinstance(attributeValue, dict):
-            return attributeValue
+        if isinstance(attribute_value, dict):
+            return attribute_value
 
         # Convert to str along to the spec
-        if not isinstance(attributeValue, str):
-            attributeValue = str(attributeValue)
+        if not isinstance(attribute_value, str):
+            attribute_value = str(attribute_value)
 
-        if name != 'value' and attributeValue.lower() in ('true', 'false'):
-            return attributeValue.lower()
+        if name != 'value' and attribute_value.lower() in ('true', 'false'):
+            return attribute_value.lower()
 
-        return attributeValue
+        return attribute_value
 
     def is_displayed(self) -> bool:
         """Whether the element is visible to a user.
@@ -78,7 +80,7 @@ class WebElement(AppiumWebElementSearchContext):
         """
         return self._execute(RemoteCommand.IS_ELEMENT_DISPLAYED)['value']
 
-    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> T:
+    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> 'WebElement':
         """Find an element given a AppiumBy strategy and locator
 
         Override for Appium
@@ -110,7 +112,7 @@ class WebElement(AppiumWebElementSearchContext):
 
         return self._execute(RemoteCommand.FIND_CHILD_ELEMENT, {"using": by, "value": value})['value']
 
-    def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> List[T]:
+    def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> List['WebElement']:
         """Find elements given a AppiumBy strategy and locator
 
         Args:
@@ -138,7 +140,7 @@ class WebElement(AppiumWebElementSearchContext):
 
         return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS, {"using": by, "value": value})['value']
 
-    def clear(self) -> T:
+    def clear(self) -> 'WebElement':
         """Clears text.
 
         Override for Appium
@@ -150,7 +152,7 @@ class WebElement(AppiumWebElementSearchContext):
         self._execute(Command.CLEAR, data)
         return self
 
-    def set_text(self, keys: str = '') -> T:
+    def set_text(self, keys: str = '') -> 'WebElement':
         """Sends text to the element.
 
         Previous text is removed.
@@ -183,7 +185,7 @@ class WebElement(AppiumWebElementSearchContext):
         """
         return self._execute(Command.LOCATION_IN_VIEW)['value']
 
-    def set_value(self, value: str) -> T:
+    def set_value(self, value: str) -> 'WebElement':
         """Set the value on this element in the application
 
         Args:
@@ -200,7 +202,7 @@ class WebElement(AppiumWebElementSearchContext):
         return self
 
     # Override
-    def send_keys(self, *value: str) -> T:
+    def send_keys(self, *value: str) -> 'WebElement':
         """Simulates typing into the element.
 
         Args:

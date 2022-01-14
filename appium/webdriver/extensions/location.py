@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Dict, TypeVar, Union
+from typing import TYPE_CHECKING, Dict, Union
 
-from selenium import webdriver
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
@@ -22,11 +22,9 @@ if TYPE_CHECKING:
     # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'Location'])
 
-
-class Location(webdriver.Remote):
-    def toggle_location_services(self: T) -> T:
+class Location(CanExecuteCommands):
+    def toggle_location_services(self) -> 'WebDriver':
         """Toggle the location services on the device.
 
         Android only.
@@ -35,16 +33,16 @@ class Location(webdriver.Remote):
             Union['WebDriver', 'Location']: Self instance
         """
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
-        return self
+        return self  # type: ignore
 
     def set_location(
-        self: T,
+        self,
         latitude: Union[float, str],
         longitude: Union[float, str],
         altitude: Union[float, str] = None,
         speed: Union[float, str] = None,
         satellites: Union[float, str] = None,
-    ) -> T:
+    ) -> 'WebDriver':
         """Set the location of the device
 
         Args:
@@ -70,10 +68,10 @@ class Location(webdriver.Remote):
         if satellites is not None:
             data['location']['satellites'] = satellites
         self.execute(Command.SET_LOCATION, data)
-        return self
+        return self  # type: ignore
 
     @property
-    def location(self: T) -> Dict[str, float]:
+    def location(self) -> Dict[str, float]:
         """Retrieves the current location
 
         Returns:
@@ -84,12 +82,12 @@ class Location(webdriver.Remote):
         """
         return self.execute(Command.GET_LOCATION)['value']
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.TOGGLE_LOCATION_SERVICES] = (
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.TOGGLE_LOCATION_SERVICES] = (
             'POST',
             '/session/$sessionId/appium/device/toggle_location_services',
         )
-        self.command_executor._commands[Command.GET_LOCATION] = ('GET', '/session/$sessionId/location')
-        self.command_executor._commands[Command.SET_LOCATION] = ('POST', '/session/$sessionId/location')
+        commands[Command.GET_LOCATION] = ('GET', '/session/$sessionId/location')
+        commands[Command.SET_LOCATION] = ('POST', '/session/$sessionId/location')

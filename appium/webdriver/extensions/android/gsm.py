@@ -12,19 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, TypeVar, Union
-
-from selenium import webdriver
+from typing import TYPE_CHECKING
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
-
-T = TypeVar('T', bound=Union['WebDriver', 'Gsm'])
 
 
 class GsmCallActions:
@@ -52,8 +48,8 @@ class GsmVoiceState:
     ON = 'on'
 
 
-class Gsm(webdriver.Remote):
-    def make_gsm_call(self: T, phone_number: str, action: str) -> T:
+class Gsm(CanExecuteCommands):
+    def make_gsm_call(self, phone_number: str, action: str) -> 'WebDriver':
         """Make GSM call (Emulator only)
 
         Android only.
@@ -76,9 +72,9 @@ class Gsm(webdriver.Remote):
                 f'(e.g. {GsmCallActions.__name__}.CALL)'
             )
         self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
-        return self
+        return self  # type: ignore
 
-    def set_gsm_signal(self: T, strength: int) -> T:
+    def set_gsm_signal(self, strength: int) -> 'WebDriver':
         """Set GSM signal strength (Emulator only)
 
         Android only.
@@ -100,9 +96,9 @@ class Gsm(webdriver.Remote):
                 f'(e.g. {GsmSignalStrength.__name__}.GOOD)'
             )
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
-        return self
+        return self  # type: ignore
 
-    def set_gsm_voice(self: T, state: str) -> T:
+    def set_gsm_voice(self, state: str) -> 'WebDriver':
         """Set GSM voice state (Emulator only)
 
         Android only.
@@ -124,14 +120,14 @@ class Gsm(webdriver.Remote):
                 f'(e.g. {GsmVoiceState.__name__}.HOME)'
             )
         self.execute(Command.SET_GSM_VOICE, {'state': state})
-        return self
+        return self  # type: ignore
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.MAKE_GSM_CALL] = ('POST', '/session/$sessionId/appium/device/gsm_call')
-        self.command_executor._commands[Command.SET_GSM_SIGNAL] = (
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.MAKE_GSM_CALL] = ('POST', '/session/$sessionId/appium/device/gsm_call')
+        commands[Command.SET_GSM_SIGNAL] = (
             'POST',
             '/session/$sessionId/appium/device/gsm_signal',
         )
-        self.command_executor._commands[Command.SET_GSM_VOICE] = ('POST', '/session/$sessionId/appium/device/gsm_voice')
+        commands[Command.SET_GSM_VOICE] = ('POST', '/session/$sessionId/appium/device/gsm_voice')

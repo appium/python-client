@@ -12,25 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=abstract-method
-
-from typing import TYPE_CHECKING, List, TypeVar, Union
+from typing import TYPE_CHECKING, List
 
 from appium.common.logger import logger
+from appium.protocols.webdriver.can_find_elements import CanFindElements
 from appium.webdriver.common.appiumby import AppiumBy
-
-from .base_search_context import BaseSearchContext
 
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
 
-T = TypeVar('T', bound=Union[BaseSearchContext, 'CustomSearchContext'])
 
-
-class CustomSearchContext(BaseSearchContext):
+class CustomSearchContext(CanFindElements):
     """Define search context for custom plugin"""
 
-    def find_element_by_custom(self: T, selector: str) -> 'WebElement':
+    def find_element_by_custom(self, selector: str) -> 'WebElement':
         """
         deprecated:: 2.1.0
             Please use 'find_element' with 'AppiumBy.CUSTOM' instead.
@@ -55,7 +50,7 @@ class CustomSearchContext(BaseSearchContext):
 
         return self.find_element(by=AppiumBy.CUSTOM, value=selector)
 
-    def find_elements_by_custom(self: T, selector: str) -> List['WebElement']:
+    def find_elements_by_custom(self, selector: str) -> List['WebElement']:
         """
         deprecated:: 2.1.0
             Please use 'find_elements' with 'AppiumBy.CUSTOM' instead.

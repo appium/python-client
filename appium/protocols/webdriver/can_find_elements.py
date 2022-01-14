@@ -12,15 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from selenium.common.exceptions import InvalidSwitchToTargetException
+from typing import TYPE_CHECKING, Dict, List, Union
+
+from ..protocol import Protocol
+
+if TYPE_CHECKING:
+    from appium.webdriver.webelement import WebElement
 
 
-class NoSuchContextException(InvalidSwitchToTargetException):
-    """Thrown when context target to be switched doesn't exist.
+class CanFindElements(Protocol):
+    def find_element(self, by: str, value: Union[str, Dict] = None) -> 'WebElement':
+        ...
 
-    To find the current set of active contexts, you can get a list
-    of the active contexts in the following way:
-
-        print(driver.contexts)
-
-    """
+    def find_elements(self, by: str, value: Union[str, Dict] = None) -> List['WebElement']:
+        ...

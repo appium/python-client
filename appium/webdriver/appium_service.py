@@ -30,7 +30,7 @@ STATUS_URL = '/wd/hub/status'
 def find_executable(executable: str) -> Optional[str]:
     path = os.environ['PATH']
     paths = path.split(os.pathsep)
-    base, ext = os.path.splitext(executable)
+    _, ext = os.path.splitext(executable)
     if sys.platform == 'win32' and not ext:
         executable = executable + '.exe'
 
@@ -53,7 +53,7 @@ def poll_url(host: str, port: int, path: str, timeout_ms: int) -> bool:
             resp = conn.request('HEAD', f'http://{host}:{port}{path}')
             if resp.status < 400:
                 return True
-        except Exception:
+        except urllib3.exceptions.HTTPError:
             pass
         time.sleep(1.0)
     return False
@@ -99,7 +99,7 @@ class AppiumService:
             if not hasattr(self, '_main_script'):
                 try:
                     self._main_script = sp.check_output(
-                        [self._get_node(), '-e', 'console.log(require.resolve("{}"))'.format(MAIN_SCRIPT_PATH)]
+                        [self._get_node(), '-e', f'console.log(require.resolve("{MAIN_SCRIPT_PATH}"))']
                     ).strip()
                 except sp.CalledProcessError as e:
                     raise AppiumServiceError(e.output) from e

@@ -19,7 +19,7 @@ from appium import webdriver
 from .helper.desired_capabilities import get_desired_capabilities
 
 
-class TestSafari(object):
+class TestSafari:
     def setup_method(self) -> None:
         desired_caps = get_desired_capabilities()
         desired_caps.update({'browserName': 'safari', 'nativeWebTap': True, 'safariIgnoreFraudWarning': True})

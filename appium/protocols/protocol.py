@@ -12,19 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=abstract-method
+import sys
 
-from typing import TYPE_CHECKING, Dict, List, Union
-
-if TYPE_CHECKING:
-    from appium.webdriver.webelement import WebElement
-
-
-class BaseSearchContext:
-    """Used by each search context. Dummy find_element/s are for preventing pylint error"""
-
-    def find_element(self, by: str, value: Union[str, Dict] = None) -> 'WebElement':
-        raise NotImplementedError
-
-    def find_elements(self, by: str, value: Union[str, Dict] = None) -> List['WebElement']:
-        raise NotImplementedError
+if sys.version_info >= (3, 8):
+    # noinspection PyUnresolvedReferences
+    from typing import Protocol
+else:
+    # noinspection PyUnresolvedReferences
+    from typing_extensions import Protocol

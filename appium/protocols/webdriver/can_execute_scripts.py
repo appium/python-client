@@ -12,15 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from selenium.common.exceptions import InvalidSwitchToTargetException
+from typing import Any, List, Optional
+
+from ..protocol import Protocol
 
 
-class NoSuchContextException(InvalidSwitchToTargetException):
-    """Thrown when context target to be switched doesn't exist.
+class CanExecuteScripts(Protocol):
+    def pin_script(self, script: str, script_key: Optional[Any] = None) -> Any:
+        ...
 
-    To find the current set of active contexts, you can get a list
-    of the active contexts in the following way:
+    def unpin(self, script_key: Any) -> None:
+        ...
 
-        print(driver.contexts)
+    def get_pinned_scripts(self) -> List[str]:
+        ...
 
-    """
+    def execute_script(self, script: str, *args: Any) -> Any:
+        ...
+
+    def execute_async_script(self, script: str, *args: Any) -> Any:
+        ...

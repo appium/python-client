@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from selenium.common.exceptions import InvalidSwitchToTargetException
+from typing import Dict
+
+from selenium.webdriver.remote.remote_connection import RemoteConnection
+
+from ..protocol import Protocol
 
 
-class NoSuchContextException(InvalidSwitchToTargetException):
-    """Thrown when context target to be switched doesn't exist.
+class CanExecuteCommands(Protocol):
+    command_executor: RemoteConnection
 
-    To find the current set of active contexts, you can get a list
-    of the active contexts in the following way:
-
-        print(driver.contexts)
-
-    """
+    def execute(self, driver_command: str, params: Dict = None) -> Dict:
+        ...

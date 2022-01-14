@@ -12,24 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, TypeVar, Union
+from typing import TYPE_CHECKING
 
-from selenium import webdriver
-
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
     from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'Power'])
 
-
-class Power(webdriver.Remote):
+class Power(CanExecuteCommands):
 
     AC_OFF, AC_ON = 'off', 'on'
 
-    def set_power_capacity(self: T, percent: int) -> T:
+    def set_power_capacity(self, percent: int) -> 'WebDriver':
         """Emulate power capacity change on the connected emulator.
 
         Android only.
@@ -44,9 +40,9 @@ class Power(webdriver.Remote):
             Union['WebDriver', 'Power']: Self instance
         """
         self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
-        return self
+        return self  # type: ignore
 
-    def set_power_ac(self: T, ac_state: str) -> T:
+    def set_power_ac(self, ac_state: str) -> 'WebDriver':
         """Emulate power state change on the connected emulator.
 
         Android only.
@@ -62,13 +58,13 @@ class Power(webdriver.Remote):
             Union['WebDriver', 'Power']: Self instance
         """
         self.execute(Command.SET_POWER_AC, {'state': ac_state})
-        return self
+        return self  # type: ignore
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.SET_POWER_CAPACITY] = (
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.SET_POWER_CAPACITY] = (
             'POST',
             '/session/$sessionId/appium/device/power_capacity',
         )
-        self.command_executor._commands[Command.SET_POWER_AC] = ('POST', '/session/$sessionId/appium/device/power_ac')
+        commands[Command.SET_POWER_AC] = ('POST', '/session/$sessionId/appium/device/power_ac')

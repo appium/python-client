@@ -12,22 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, List, TypeVar, Union
+from typing import List
 
-from selenium import webdriver
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
-    from appium.webdriver.webdriver import WebDriver
 
-T = TypeVar('T', bound=Union['WebDriver', 'Context'])
-
-
-class Context(webdriver.Remote):
+class Context(CanExecuteCommands):
     @property
-    def contexts(self: T) -> List[str]:
+    def contexts(self) -> List[str]:
         """Returns the contexts within the current session.
 
         Usage:
@@ -40,7 +34,7 @@ class Context(webdriver.Remote):
         return self.execute(Command.CONTEXTS)['value']
 
     @property
-    def current_context(self: T) -> str:
+    def current_context(self) -> str:
         """Returns the current context of the current session.
 
         Usage:
@@ -52,7 +46,7 @@ class Context(webdriver.Remote):
         return self.execute(Command.GET_CURRENT_CONTEXT)['value']
 
     @property
-    def context(self: T) -> str:
+    def context(self) -> str:
         """Returns the current context of the current session.
 
         Usage:
@@ -63,9 +57,9 @@ class Context(webdriver.Remote):
         """
         return self.current_context
 
-    # pylint: disable=protected-access
-    # noinspection PyProtectedMember
-    def _addCommands(self) -> None:
-        self.command_executor._commands[Command.CONTEXTS] = ('GET', '/session/$sessionId/contexts')
-        self.command_executor._commands[Command.GET_CURRENT_CONTEXT] = ('GET', '/session/$sessionId/context')
-        self.command_executor._commands[Command.SWITCH_TO_CONTEXT] = ('POST', '/session/$sessionId/context')
+    def _add_commands(self) -> None:
+        # noinspection PyProtectedMember,PyUnresolvedReferences
+        commands = self.command_executor._commands
+        commands[Command.CONTEXTS] = ('GET', '/session/$sessionId/contexts')
+        commands[Command.GET_CURRENT_CONTEXT] = ('GET', '/session/$sessionId/context')
+        commands[Command.SWITCH_TO_CONTEXT] = ('POST', '/session/$sessionId/context')

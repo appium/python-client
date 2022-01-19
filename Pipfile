@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pre-commit = "~=2.16"
+pre-commit = "~=2.17"
 
 [packages]
 selenium = "~=4.0"

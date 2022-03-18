@@ -129,7 +129,7 @@ class ActionHelpers:
                 # https://github.com/SeleniumHQ/selenium/blob/64447d4b03f6986337d1ca8d8b6476653570bcc1/py/selenium/webdriver/common/actions/pointer_input.py#L24
                 new_input = actions.w3c_actions.add_pointer_input('touch', f'finger{finger}')
                 new_input.create_pointer_move(x=x, y=y)
-                new_input.create_pointer_down(MouseButton.LEFT)
+                new_input.create_pointer_down(button=MouseButton.LEFT)
                 if duration:
                     new_input.create_pause(duration / 1000)
                 else:

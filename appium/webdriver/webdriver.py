@@ -525,9 +525,7 @@ class WebDriver(
             'GET',
             '/session/$sessionId/element/$id/location_in_view',
         )
-        commands[Command.IS_ELEMENT_DISPLAYED] = (
-            'GET', '/session/$sessionId/element/$id/displayed'
-        )
+        commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', '/session/$sessionId/element/$id/displayed')
 
         # override for Appium 1.x
         # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`

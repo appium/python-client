@@ -17,6 +17,7 @@ class MobileCommand:
     # Common
     GET_SESSION = 'getSession'
     GET_ALL_SESSIONS = 'getAllSessions'
+    IS_ELEMENT_DISPLAYED = 'isElementDisplayed'
 
     GET_LOCATION = 'getLocation'
     SET_LOCATION = 'setLocation'

@@ -497,21 +497,25 @@ class WebDriver(
         # https://github.com/appium/python-client/issues/342
         for mixin_class in filter(lambda x: not issubclass(x, WebDriver), self.__class__.__mro__):
             if hasattr(mixin_class, self._add_commands.__name__):
-                get_atter = getattr(mixin_class, self._add_commands.__name__, None)
-                if get_atter:
-                    get_atter(self)
+                additional_commands_setter = getattr(mixin_class, self._add_commands.__name__, None)
+                if additional_commands_setter:
+                    additional_commands_setter(self)
+
+        # Perhaps, we'd need to "restore" some more stuff below
+        # https://github.com/SeleniumHQ/selenium/commit/7a6bf7e30d8bd834b6982b1d28f002bb4b26f380
 
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
 
+        # TODO: Remove these old JWP commands for good in favour if W3C actions
         commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
         commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
+
+        # Element commands
         commands[Command.SET_IMMEDIATE_VALUE] = (
             'POST',
             '/session/$sessionId/appium/element/$id/value',
         )
-
-        # TODO Move commands for element to webelement
         commands[Command.REPLACE_KEYS] = (
             'POST',
             '/session/$sessionId/appium/element/$id/replace_value',
@@ -520,6 +524,9 @@ class WebDriver(
         commands[Command.LOCATION_IN_VIEW] = (
             'GET',
             '/session/$sessionId/element/$id/location_in_view',
+        )
+        commands[Command.IS_ELEMENT_DISPLAYED] = (
+            'GET', '/session/$sessionId/element/$id/displayed'
         )
 
         # override for Appium 1.x

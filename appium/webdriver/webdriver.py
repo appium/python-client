@@ -18,7 +18,7 @@ import copy
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from selenium import webdriver
-from selenium.common.exceptions import InvalidArgumentException
+from selenium.common.exceptions import InvalidArgumentException, WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
@@ -491,6 +491,35 @@ class WebDriver(
 
         return MobileSwitchTo(self)
 
+    # Non-W3C
+    @property
+    def orientation(self) -> str:
+        """
+        Gets the current orientation of the device
+        :Usage:
+            ::
+                orientation = driver.orientation
+        """
+        return self.execute(Command.GET_SCREEN_ORIENTATION)['value']
+
+    # Non-W3C
+    @orientation.setter
+    def orientation(self, value: str) -> None:
+        """
+        Sets the current orientation of the device
+        :Args:
+         - value: orientation to set it to.
+        :Usage:
+            ::
+                driver.orientation = 'landscape'
+        """
+        allowed_values = ['LANDSCAPE', 'PORTRAIT']
+        if value.upper() in allowed_values:
+            self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value})
+        else:
+
+            raise WebDriverException("You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'")
+
     def _add_commands(self) -> None:
         # call the overridden command binders from all mixin classes except for
         # appium.webdriver.webdriver.WebDriver and its sub-classes
@@ -525,7 +554,6 @@ class WebDriver(
 
         ## No-W3C - JSONWP in Selenium
         commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', 'session/$sessionId/element/:id/displayed')
-        commands[Command.GET_TIMEOUTS] = ('GET', 'session/$sessionId/timeouts')
         commands[Command.GET_CAPABILITIES] = ('GET', 'session/$sessionId')
 
         commands[Command.GET_SCREEN_ORIENTATION] = ('GET', 'session/$sessionId/orientation')
@@ -534,11 +562,11 @@ class WebDriver(
         commands[Command.GET_LOCATION] = ('GET', 'session/$sessionId/location')
         commands[Command.SET_LOCATION] = ('POST', 'session/$sessionId/location')
 
-        commands[Command.IME_GET_AVAILABLE_ENGINES] = ('GET', 'session/$sessionId/ime/available_engines')
-        commands[Command.IME_GET_ACTIVE_ENGINE] = ('GET', 'session/$sessionId/ime/active_engine')
-        commands[Command.IME_IS_ACTIVATED] = ('GET', 'session/$sessionId/ime/activated')
-        commands[Command.IME_DEACTIVATE] = ('GET', 'session/$sessionId/ime/deactivate')
-        commands[Command.IME_ACTIVATE_ENGINE] = ('POST', 'session/$sessionId/ime/activate')
+        commands[Command.GET_AVAILABLE_IME_ENGINES] = ('GET', 'session/$sessionId/ime/available_engines')
+        commands[Command.GET_ACTIVE_IME_ENGINE] = ('GET', 'session/$sessionId/ime/active_engine')
+        commands[Command.IS_IME_ACTIVE] = ('GET', 'session/$sessionId/ime/activated')
+        commands[Command.DEACTIVATE_IME_ENGINE] = ('GET', 'session/$sessionId/ime/deactivate')
+        commands[Command.ACTIVATE_IME_ENGINE] = ('POST', 'session/$sessionId/ime/activate')
 
         # override for Appium 1.x
         # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`

@@ -78,7 +78,7 @@ class WebElement(SeleniumWebElement, AppiumWebElementSearchContext):
 
         Override for Appium
         """
-        return self._execute(RemoteCommand.IS_ELEMENT_DISPLAYED)['value']
+        return self._execute(Command.IS_ELEMENT_DISPLAYED)['value']
 
     def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> 'WebElement':
         """Find an element given a AppiumBy strategy and locator

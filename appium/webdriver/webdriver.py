@@ -504,6 +504,7 @@ class WebDriver(
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
 
+        # FIXME: remove after a while as non-W3C
         commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
         commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
         commands[Command.SET_IMMEDIATE_VALUE] = (

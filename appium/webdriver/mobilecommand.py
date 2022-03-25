@@ -80,6 +80,23 @@ class MobileCommand:
     GET_EVENTS = 'getLogEvents'
     LOG_EVENT = 'logCustomEvent'
 
+    ## No-W3C - JSONWP in Selenium
+    IS_ELEMENT_DISPLAYED = 'isElementDisplayed'
+    GET_TIMEOUTS = 'getTiemouts'
+    GET_CAPABILITIES = 'getCapabilities'
+    GET_SCREEN_ORIENTATION = 'getScreenOrientation'
+    SET_SCREEN_ORIENTATION = 'setScreenOrientation'
+    GET_LOCATION = 'getLocation'
+    SET_LOCATION = 'setLocation'
+    IME_GET_AVAILABLE_ENGINES = 'imeGetAvailableEngines'
+    IME_GET_ACTIVE_ENGINE = 'imeGetActiveEngine'
+    IME_IS_ACTIVATED = 'imeIsActivated'
+    IME_DEACTIVATE = 'imeDeactivate'
+    IME_ACTIVATE_ENGINE = 'imeActivateEngine'
+    # To override selenium commands
+    GET_LOG = 'getLog'
+    GET_AVAILABLE_LOG_TYPES = 'getAvailableLogTypes'
+
     # Android
     OPEN_NOTIFICATIONS = 'openNotifications'
     START_ACTIVITY = 'startActivity'
@@ -107,7 +124,3 @@ class MobileCommand:
     # iOS
     TOUCH_ID = 'touchId'
     TOGGLE_TOUCH_ID_ENROLLMENT = 'toggleTouchIdEnrollment'
-
-    # To override selenium commands
-    GET_LOG = 'getLog'
-    GET_AVAILABLE_LOG_TYPES = 'getAvailableLogTypes'

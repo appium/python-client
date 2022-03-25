@@ -522,7 +522,25 @@ class WebDriver(
             '/session/$sessionId/element/$id/location_in_view',
         )
 
+        ## No-W3C - JSONWP in Selenium
+        commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', 'session/$sessionId/element/:id/displayed')
+        commands[Command.GET_TIMEOUTS] = ('GET', 'session/$sessionId/timeouts')
+        commands[Command.GET_CAPABILITIES] = ('GET', 'session/$sessionId')
+
+        commands[Command.GET_SCREEN_ORIENTATION] = ('GET', 'session/$sessionId/orientation')
+        commands[Command.SET_SCREEN_ORIENTATION] = ('POST', 'session/$sessionId/orientation')
+
+        commands[Command.GET_LOCATION] = ('GET', 'session/$sessionId/location')
+        commands[Command.SET_LOCATION] = ('POST', 'session/$sessionId/location')
+
+        commands[Command.IME_GET_AVAILABLE_ENGINES] = ('GET', 'session/$sessionId/ime/available_engines')
+        commands[Command.IME_GET_ACTIVE_ENGINE] = ('GET', 'session/$sessionId/ime/active_engine')
+        commands[Command.IME_IS_ACTIVATED] = ('GET', 'session/$sessionId/ime/activated')
+        commands[Command.IME_DEACTIVATE] = ('GET', 'session/$sessionId/ime/deactivate')
+        commands[Command.IME_ACTIVATE_ENGINE] = ('POST', 'session/$sessionId/ime/activate')
+
         # override for Appium 1.x
         # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`
+        # FIXME: remove after a while
         commands[Command.GET_LOG] = ('POST', '/session/$sessionId/log')
         commands[Command.GET_AVAILABLE_LOG_TYPES] = ('GET', '/session/$sessionId/log/types')

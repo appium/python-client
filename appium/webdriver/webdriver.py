@@ -562,12 +562,6 @@ class WebDriver(
         commands[Command.GET_LOCATION] = ('GET', 'session/$sessionId/location')
         commands[Command.SET_LOCATION] = ('POST', 'session/$sessionId/location')
 
-        commands[Command.GET_AVAILABLE_IME_ENGINES] = ('GET', 'session/$sessionId/ime/available_engines')
-        commands[Command.GET_ACTIVE_IME_ENGINE] = ('GET', 'session/$sessionId/ime/active_engine')
-        commands[Command.IS_IME_ACTIVE] = ('GET', 'session/$sessionId/ime/activated')
-        commands[Command.DEACTIVATE_IME_ENGINE] = ('GET', 'session/$sessionId/ime/deactivate')
-        commands[Command.ACTIVATE_IME_ENGINE] = ('POST', 'session/$sessionId/ime/activate')
-
         # override for Appium 1.x
         # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`
         # FIXME: remove after a while

@@ -39,9 +39,9 @@ class Location(CanExecuteCommands):
         self,
         latitude: Union[float, str],
         longitude: Union[float, str],
-        altitude: Union[float, str] = None,
-        speed: Union[float, str] = None,
-        satellites: Union[float, str] = None,
+        altitude: Union[float, str, None] = None,
+        speed: Union[float, str, None] = None,
+        satellites: Union[float, str, None] = None,
     ) -> 'WebDriver':
         """Set the location of the device
 
@@ -80,9 +80,10 @@ class Location(CanExecuteCommands):
                 - longitude (float)
                 - altitude (float)
         """
-        return self.execute(Command.GET_LOCATION)['value']
+        return self.execute(Command.GET_LOCATION).get('value', {})
 
     def _add_commands(self) -> None:
+        """Add location endpoints. They are not int w3c spec."""
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
         commands[Command.TOGGLE_LOCATION_SERVICES] = (

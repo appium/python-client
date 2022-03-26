@@ -553,14 +553,11 @@ class WebDriver(
         )
 
         ## No-W3C - JSONWP in Selenium
-        commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', 'session/$sessionId/element/:id/displayed')
-        commands[Command.GET_CAPABILITIES] = ('GET', 'session/$sessionId')
+        commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', '/session/$sessionId/element/:id/displayed')
+        commands[Command.GET_CAPABILITIES] = ('GET', '/session/$sessionId')
 
-        commands[Command.GET_SCREEN_ORIENTATION] = ('GET', 'session/$sessionId/orientation')
-        commands[Command.SET_SCREEN_ORIENTATION] = ('POST', 'session/$sessionId/orientation')
-
-        commands[Command.GET_LOCATION] = ('GET', 'session/$sessionId/location')
-        commands[Command.SET_LOCATION] = ('POST', 'session/$sessionId/location')
+        commands[Command.GET_SCREEN_ORIENTATION] = ('GET', '/session/$sessionId/orientation')
+        commands[Command.SET_SCREEN_ORIENTATION] = ('POST', '/session/$sessionId/orientation')
 
         # override for Appium 1.x
         # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`

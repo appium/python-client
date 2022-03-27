@@ -80,7 +80,7 @@ _OSS_W3C_CONVERSION = {'acceptSslCerts': 'acceptInsecureCerts', 'version': 'brow
 _EXTENSION_CAPABILITY = ':'
 
 # override
-# Add appium prefix for the non-W3C capabilities
+# Add appium prefix for the MJSONWP capabilities
 
 
 def _make_w3c_caps(caps: Dict) -> Dict[str, Union[Dict[str, Any], List[Dict[str, Any]]]]:
@@ -491,7 +491,7 @@ class WebDriver(
 
         return MobileSwitchTo(self)
 
-    # Non-W3C
+    # MJSONWP
     @property
     def orientation(self) -> str:
         """
@@ -502,7 +502,7 @@ class WebDriver(
         """
         return self.execute(Command.GET_SCREEN_ORIENTATION)['value']
 
-    # Non-W3C
+    # MJSONWP
     @orientation.setter
     def orientation(self, value: str) -> None:
         """
@@ -533,7 +533,7 @@ class WebDriver(
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
 
-        # FIXME: remove after a while as non-W3C
+        # FIXME: remove after a while as MJSONWP
         commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
         commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
         commands[Command.SET_IMMEDIATE_VALUE] = (
@@ -552,7 +552,7 @@ class WebDriver(
             '/session/$sessionId/element/$id/location_in_view',
         )
 
-        ## No-W3C - JSONWP in Selenium
+        ## MJSONWP in Selenium
         commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', '/session/$sessionId/element/$id/displayed')
         commands[Command.GET_CAPABILITIES] = ('GET', '/session/$sessionId')
 

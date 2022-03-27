@@ -553,7 +553,7 @@ class WebDriver(
         )
 
         ## No-W3C - JSONWP in Selenium
-        commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', '/session/$sessionId/element/displayed')
+        commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', '/session/$sessionId/element/$id/displayed')
         commands[Command.GET_CAPABILITIES] = ('GET', '/session/$sessionId')
 
         commands[Command.GET_SCREEN_ORIENTATION] = ('GET', '/session/$sessionId/orientation')

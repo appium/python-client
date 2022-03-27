@@ -18,11 +18,11 @@ class MobileCommand:
     GET_SESSION = 'getSession'
     GET_ALL_SESSIONS = 'getAllSessions'
 
-    ## No-W3C - JSONWP in Selenium
+    ## MJSONWP for Selenium v4
     GET_LOCATION = 'getLocation'
     SET_LOCATION = 'setLocation'
 
-    ## No-W3C - JSONWP in Selenium
+    ## MJSONWP for Selenium v4
     GET_AVAILABLE_IME_ENGINES = 'getAvailableIMEEngines'
     IS_IME_ACTIVE = 'isIMEActive'
     ACTIVATE_IME_ENGINE = 'activateIMEEngine'
@@ -82,7 +82,7 @@ class MobileCommand:
     GET_EVENTS = 'getLogEvents'
     LOG_EVENT = 'logCustomEvent'
 
-    ## No-W3C - JSONWP in Selenium
+    ## MJSONWP for Selenium v4
     IS_ELEMENT_DISPLAYED = 'isElementDisplayed'
     GET_CAPABILITIES = 'getCapabilities'
     GET_SCREEN_ORIENTATION = 'getScreenOrientation'

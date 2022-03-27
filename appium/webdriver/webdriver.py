@@ -491,7 +491,7 @@ class WebDriver(
 
         return MobileSwitchTo(self)
 
-    # MJSONWP
+    # MJSONWP for Selenium v4
     @property
     def orientation(self) -> str:
         """
@@ -502,7 +502,7 @@ class WebDriver(
         """
         return self.execute(Command.GET_SCREEN_ORIENTATION)['value']
 
-    # MJSONWP
+    # MJSONWP for Selenium v4
     @orientation.setter
     def orientation(self, value: str) -> None:
         """
@@ -552,7 +552,7 @@ class WebDriver(
             '/session/$sessionId/element/$id/location_in_view',
         )
 
-        ## MJSONWP in Selenium
+        ## MJSONWP for Selenium v4
         commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', '/session/$sessionId/element/$id/displayed')
         commands[Command.GET_CAPABILITIES] = ('GET', '/session/$sessionId')
 

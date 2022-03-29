@@ -18,9 +18,11 @@ class MobileCommand:
     GET_SESSION = 'getSession'
     GET_ALL_SESSIONS = 'getAllSessions'
 
+    ## MJSONWP for Selenium v4
     GET_LOCATION = 'getLocation'
     SET_LOCATION = 'setLocation'
 
+    ## MJSONWP for Selenium v4
     GET_AVAILABLE_IME_ENGINES = 'getAvailableIMEEngines'
     IS_IME_ACTIVE = 'isIMEActive'
     ACTIVATE_IME_ENGINE = 'activateIMEEngine'
@@ -80,6 +82,16 @@ class MobileCommand:
     GET_EVENTS = 'getLogEvents'
     LOG_EVENT = 'logCustomEvent'
 
+    ## MJSONWP for Selenium v4
+    IS_ELEMENT_DISPLAYED = 'isElementDisplayed'
+    GET_CAPABILITIES = 'getCapabilities'
+    GET_SCREEN_ORIENTATION = 'getScreenOrientation'
+    SET_SCREEN_ORIENTATION = 'setScreenOrientation'
+
+    # To override selenium commands
+    GET_LOG = 'getLog'
+    GET_AVAILABLE_LOG_TYPES = 'getAvailableLogTypes'
+
     # Android
     OPEN_NOTIFICATIONS = 'openNotifications'
     START_ACTIVITY = 'startActivity'
@@ -107,7 +119,3 @@ class MobileCommand:
     # iOS
     TOUCH_ID = 'touchId'
     TOGGLE_TOUCH_ID_ENROLLMENT = 'toggleTouchIdEnrollment'
-
-    # To override selenium commands
-    GET_LOG = 'getLog'
-    GET_AVAILABLE_LOG_TYPES = 'getAvailableLogTypes'

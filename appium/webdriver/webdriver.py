@@ -18,7 +18,7 @@ import copy
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from selenium import webdriver
-from selenium.common.exceptions import InvalidArgumentException
+from selenium.common.exceptions import InvalidArgumentException, WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
@@ -80,7 +80,7 @@ _OSS_W3C_CONVERSION = {'acceptSslCerts': 'acceptInsecureCerts', 'version': 'brow
 _EXTENSION_CAPABILITY = ':'
 
 # override
-# Add appium prefix for the non-W3C capabilities
+# Add appium prefix for the MJSONWP capabilities
 
 
 def _make_w3c_caps(caps: Dict) -> Dict[str, Union[Dict[str, Any], List[Dict[str, Any]]]]:
@@ -491,6 +491,35 @@ class WebDriver(
 
         return MobileSwitchTo(self)
 
+    # MJSONWP for Selenium v4
+    @property
+    def orientation(self) -> str:
+        """
+        Gets the current orientation of the device
+        :Usage:
+            ::
+                orientation = driver.orientation
+        """
+        return self.execute(Command.GET_SCREEN_ORIENTATION)['value']
+
+    # MJSONWP for Selenium v4
+    @orientation.setter
+    def orientation(self, value: str) -> None:
+        """
+        Sets the current orientation of the device
+        :Args:
+         - value: orientation to set it to.
+        :Usage:
+            ::
+                driver.orientation = 'landscape'
+        """
+        allowed_values = ['LANDSCAPE', 'PORTRAIT']
+        if value.upper() in allowed_values:
+            self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value})
+        else:
+
+            raise WebDriverException("You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'")
+
     def _add_commands(self) -> None:
         # call the overridden command binders from all mixin classes except for
         # appium.webdriver.webdriver.WebDriver and its sub-classes
@@ -504,6 +533,7 @@ class WebDriver(
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
 
+        # FIXME: remove after a while as MJSONWP
         commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
         commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
         commands[Command.SET_IMMEDIATE_VALUE] = (
@@ -522,7 +552,15 @@ class WebDriver(
             '/session/$sessionId/element/$id/location_in_view',
         )
 
+        ## MJSONWP for Selenium v4
+        commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', '/session/$sessionId/element/$id/displayed')
+        commands[Command.GET_CAPABILITIES] = ('GET', '/session/$sessionId')
+
+        commands[Command.GET_SCREEN_ORIENTATION] = ('GET', '/session/$sessionId/orientation')
+        commands[Command.SET_SCREEN_ORIENTATION] = ('POST', '/session/$sessionId/orientation')
+
         # override for Appium 1.x
         # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`
+        # FIXME: remove after a while
         commands[Command.GET_LOG] = ('POST', '/session/$sessionId/log')
         commands[Command.GET_AVAILABLE_LOG_TYPES] = ('GET', '/session/$sessionId/log/types')

@@ -34,7 +34,7 @@ class IME(CanExecuteCommands):
         Returns:
             :obj:`list` of :obj:`str`: The available input methods for an Android device
         """
-        return self.execute(Command.GET_AVAILABLE_IME_ENGINES, {}).get('value', [])
+        return self.execute(Command.GET_AVAILABLE_IME_ENGINES, {})['value']  # pylint: disable=unsubscriptable-object
 
     def is_ime_active(self) -> bool:
         """Checks whether the device has IME service active.
@@ -43,7 +43,7 @@ class IME(CanExecuteCommands):
         Returns:
             `True` if IME service is active
         """
-        return self.execute(Command.IS_IME_ACTIVE, {}).get('value', False)
+        return self.execute(Command.IS_IME_ACTIVE, {})['value']  # pylint: disable=unsubscriptable-object
 
     def activate_ime_engine(self, engine: str) -> 'WebDriver':
         """Activates the given IME engine on the device.
@@ -82,7 +82,7 @@ class IME(CanExecuteCommands):
         Returns:
             str: The activity and package of the currently active IME engine
         """
-        return self.execute(Command.GET_ACTIVE_IME_ENGINE, {}).get('value', '')
+        return self.execute(Command.GET_ACTIVE_IME_ENGINE, {})['value']  # pylint: disable=unsubscriptable-object
 
     def _add_commands(self) -> None:
         """Add IME commands. They are not in W3C spec."""

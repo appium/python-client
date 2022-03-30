@@ -2,6 +2,101 @@ Changelog
 =========
 
 
+v2.2.0 (2022-03-30)
+-------------------
+
+New
+~~~
+- Feat: add non-w3c but still need commands (#701) [Kazuaki Matsuo]
+
+  * add non-w3c but still need commands
+
+  * fix id as $
+
+Other
+~~~~~
+- Bump 2.2.0. [Kazuaki Matsuo]
+- Chore(deps): bump black from 22.1.0 to 22.3.0 (#705) [dependabot[bot]]
+
+  Bumps [black](https://github.com/psf/black) from 22.1.0 to 22.3.0.
+  - [Release notes](https://github.com/psf/black/releases)
+  - [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+  - [Commits](https://github.com/psf/black/compare/22.1.0...22.3.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: black
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+- Revert: pylint (#706) [Kazuaki Matsuo]
+- Chore: relax selenium version as same as before. [Kazuaki Matsuo]
+- Chore(deps): update mypy requirement from ~=0.941 to ~=0.942 (#703)
+  [dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.941...v0.942)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:production
+  ...
+- Chore(deps): update pylint requirement from ~=2.12 to ~=2.13 (#702)
+  [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Changelog](https://github.com/PyCQA/pylint/blob/main/ChangeLog)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.12.0...v2.13.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Chore(deps): update mypy requirement from ~=0.930 to ~=0.941 (#696)
+  [dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.930...v0.941)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:production
+  ...
+- Chore(deps): update typing-extensions requirement from ~=4.0 to ~=4.1
+  (#684) [dependabot[bot]]
+
+  Updates the requirements on [typing-extensions](https://github.com/python/typing) to permit the latest version.
+  - [Release notes](https://github.com/python/typing/releases)
+  - [Changelog](https://github.com/python/typing/blob/master/typing_extensions/CHANGELOG)
+  - [Commits](https://github.com/python/typing/compare/4.0.0...4.1.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: typing-extensions
+    dependency-type: direct:production
+  ...
+- Chore(deps): update pytest requirement from ~=7.0 to ~=7.1 (#694)
+  [dependabot[bot]]
+
+  Updates the requirements on [pytest](https://github.com/pytest-dev/pytest) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest/blob/main/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest/compare/7.0.0...7.1.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest
+    dependency-type: direct:production
+  ...
+- Docs: update missing changelog. [Kazuaki Matsuo]
+
+
 v2.1.4 (2022-02-28)
 -------------------
 - Bump 2.1.4. [Kazuaki Matsuo]

@@ -20,15 +20,17 @@ from ..webelement import WebElement
 
 class ActiveElement(CanExecuteCommands):
 
-    @property
-    def active_element(self) -> WebElement:
-        """Retrieves session information from the current session
+    def get_active_element(self) -> 'WebElement':
+        """
 
-        Usage:
-            session = driver.session
+        get the active element.
+
+        It usually used after tapping a point and active the element.
+        And use the element.
 
         Returns:
-            `dict`: containing information from the current session
+
+            `WebElement`: web element
         """
         try:
             return self.execute(W3C_Command.W3C_GET_ACTIVE_ELEMENT)['value']
@@ -36,7 +38,6 @@ class ActiveElement(CanExecuteCommands):
             return None
 
     def send_keys_to_active_element(self, value: str):
-        return self.active_element.send_keys(value)
-
-    def click_active_element(self):
-        return self.active_element.click()
+        element = self.get_active_element()
+        if element:
+            return element.clear().send_keys(value)

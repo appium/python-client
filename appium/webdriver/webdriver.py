@@ -58,6 +58,7 @@ from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
+from .extensions.active_element import ActiveElement
 
 # From remote/webdriver.py
 _W3C_CAPABILITY_NAMES = frozenset(
@@ -249,6 +250,7 @@ class WebDriver(
     Settings,
     Sms,
     SystemBars,
+    ActiveElement
 ):
     def __init__(
         self,

@@ -32,12 +32,11 @@ class ActiveElement(CanExecuteCommands):
 
             `WebElement`: web element
         """
-        try:
-            return self.execute(W3C_Command.W3C_GET_ACTIVE_ELEMENT)['value']
-        except NoSuchElementException:
-            return None
+        return self.execute(W3C_Command.W3C_GET_ACTIVE_ELEMENT)['value']
 
     def send_keys_to_active_element(self, value: str):
-        element = self.get_active_element()
-        if element:
+        try:
+            element = self.get_active_element()
             return element.clear().send_keys(value)
+        except NoSuchElementException:
+            return None

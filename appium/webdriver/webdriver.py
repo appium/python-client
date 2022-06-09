@@ -14,7 +14,6 @@
 
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
-import copy
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from selenium import webdriver
@@ -24,6 +23,7 @@ from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.logger import logger
+from appium.options.common.base import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
 
 from .appium_connection import AppiumConnection
@@ -59,55 +59,7 @@ from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
-# From remote/webdriver.py
-_W3C_CAPABILITY_NAMES = frozenset(
-    [
-        'acceptInsecureCerts',
-        'browserName',
-        'browserVersion',
-        'platformName',
-        'pageLoadStrategy',
-        'proxy',
-        'setWindowRect',
-        'timeouts',
-        'unhandledPromptBehavior',
-    ]
-)
-
-# From remote/webdriver.py
-_OSS_W3C_CONVERSION = {'acceptSslCerts': 'acceptInsecureCerts', 'version': 'browserVersion', 'platform': 'platformName'}
-
 _EXTENSION_CAPABILITY = ':'
-
-# override
-# Add appium prefix for the MJSONWP capabilities
-
-
-def _make_w3c_caps(caps: Dict) -> Dict[str, Union[Dict[str, Any], List[Dict[str, Any]]]]:
-    appium_prefix = 'appium:'
-
-    caps = copy.deepcopy(caps)
-    profile = caps.get('firefox_profile')
-    always_match = {}
-    if caps.get('proxy') and caps['proxy'].get('proxyType'):
-        caps['proxy']['proxyType'] = caps['proxy']['proxyType'].lower()
-    for k, v in caps.items():
-        if v and k in _OSS_W3C_CONVERSION:
-            always_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
-        if k in _W3C_CAPABILITY_NAMES or _EXTENSION_CAPABILITY in k:
-            always_match[k] = v
-        else:
-            if not k.startswith(appium_prefix):
-                always_match[appium_prefix + k] = v
-    if profile:
-        moz_opts = always_match.get('moz:firefoxOptions', {})
-        # If it's already present, assume the caller did that intentionally.
-        if 'profile' not in moz_opts:
-            # Don't mutate the original capabilities.
-            new_opts = copy.deepcopy(moz_opts)
-            new_opts['profile'] = profile
-            always_match['moz:firefoxOptions'] = new_opts
-    return {'alwaysMatch': always_match, 'firstMatch': [{}]}
 
 
 class ExtensionBase:
@@ -260,6 +212,7 @@ class WebDriver(
         direct_connection: bool = True,
         extensions: Optional[List['WebDriver']] = None,
         strict_ssl: bool = True,
+        options: Union[AppiumOptions, List[AppiumOptions]] = None,
     ):
 
         if strict_ssl is False:
@@ -272,7 +225,11 @@ class WebDriver(
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
         super().__init__(
-            AppiumConnection(command_executor, keep_alive=keep_alive), desired_capabilities, browser_profile, proxy
+            command_executor=AppiumConnection(command_executor, keep_alive=keep_alive),
+            desired_capabilities=desired_capabilities,
+            browser_profile=browser_profile,
+            proxy=proxy,
+            options=options
         )
 
         if hasattr(self, 'command_executor'):
@@ -343,45 +300,27 @@ class WebDriver(
 
     # https://github.com/SeleniumHQ/selenium/blob/06fdf2966df6bca47c0ae45e8201cd30db9b9a49/py/selenium/webdriver/remote/webdriver.py#L277
     # noinspection PyAttributeOutsideInit
-    def start_session(self, capabilities: Dict, browser_profile: Optional[str] = None) -> None:
+    def start_session(self, capabilities: Union[Dict, AppiumOptions], browser_profile: Optional[str] = None) -> None:
         """Creates a new session with the desired capabilities.
 
         Override for Appium
 
         Args:
-            capabilities: Capabilities which have following keys like 'automation_name', 'platform_name',
-            'platform_version', 'app'.
-            Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md for more details.
+            capabilities: Read https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md
+             for more details.
             browser_profile: Browser profile
         """
-        if not isinstance(capabilities, dict):
-            raise InvalidArgumentException('Capabilities must be a dictionary')
-        if browser_profile:
-            if 'moz:firefoxOptions' in capabilities:
-                # encoded is defined in selenium's original codes
-                capabilities['moz:firefoxOptions']['profile'] = browser_profile.encoded  # type: ignore
-            else:
-                # encoded is defined in selenium's original codes
-                capabilities.update({'firefox_profile': browser_profile.encoded})  # type: ignore
+        if not isinstance(capabilities, (dict, AppiumOptions)):
+            raise InvalidArgumentException('Capabilities must be a dictionary or AppiumOptions instance')
 
-        parameters = self._merge_capabilities(capabilities)
-
-        response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+        w3c_caps = AppiumOptions.as_w3c(capabilities) \
+            if isinstance(capabilities, dict) \
+            else capabilities.to_w3c()
+        response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
         if 'sessionId' not in response:
             response = response['value']
         self.session_id = response['sessionId']
-        self.caps = response.get('value')
-
-        # if capabilities is none we are probably speaking to
-        # a W3C endpoint
-        if self.caps is None:
-            self.caps = response.get('capabilities')
-
-    # noinspection PyMethodMayBeStatic
-    def _merge_capabilities(self, capabilities: Dict) -> Dict[str, Any]:
-        """Manage capabilities whether W3C format or MJSONWP format"""
-        w3c_caps = _make_w3c_caps(capabilities)
-        return {'capabilities': w3c_caps, 'desiredCapabilities': capabilities}
+        self.caps = response.get('value') or response.get('capabilities')
 
     def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> MobileWebElement:
         """
@@ -552,7 +491,7 @@ class WebDriver(
             '/session/$sessionId/element/$id/location_in_view',
         )
 
-        ## MJSONWP for Selenium v4
+        # MJSONWP for Selenium v4
         commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', '/session/$sessionId/element/$id/displayed')
         commands[Command.GET_CAPABILITIES] = ('GET', '/session/$sessionId')
 

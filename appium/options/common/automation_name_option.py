@@ -15,11 +15,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional
+from typing import Optional
+
+from .supports_capabilities import SupportsCapabilities
 
 
-class AutomationNameOption:
-    _caps: Dict
+class AutomationNameOption(SupportsCapabilities):
     AUTOMATION_NAME = 'automationName'
 
     @property
@@ -27,10 +28,10 @@ class AutomationNameOption:
         """
         :Returns: String representing the name of the automation engine
         """
-        return self._caps.get(self.AUTOMATION_NAME)
+        return self.get_capability(self.AUTOMATION_NAME)
 
     @automation_name.setter
-    def automation_name(self, value: str):
+    def automation_name(self, value: str) -> None:
         """
         Set the automation driver to use.
 
@@ -38,4 +39,4 @@ class AutomationNameOption:
          - value: One of supported automation names
 
         """
-        self._caps[self.AUTOMATION_NAME] = value
+        self.set_capability(self.AUTOMATION_NAME, value)

@@ -17,13 +17,12 @@
 
 from typing import Dict
 
-from options.common.base import AppiumOptions
+from appium.options.common.base import AppiumOptions
 
 
 class XCUITestOptions(
     AppiumOptions,
 ):
-
     @property
     def default_capabilities(self) -> Dict:
         return {

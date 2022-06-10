@@ -15,27 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional
+from typing import Any, TypeVar
+
+from appium.protocols.protocol import Protocol
+
+T = TypeVar('T')
 
 
-class PlatformNameOption:
-    _caps: Dict
-    PLATFORM_NAME = 'platformName'
+class SupportsCapabilities(Protocol):
+    def set_capability(self: T, name: str, value: Any) -> T:
+        ...
 
-    @property
-    def platform_name(self) -> Optional[str]:
-        """
-        :Returns: The platform name the driver is running on
-        """
-        return self._caps.get(self.PLATFORM_NAME)
-
-    @platform_name.setter
-    def platform_name(self, value: str):
-        """
-        Sets the platform name for the particular driver
-
-        :Args:
-         - value: One of supported platform names
-
-        """
-        self._caps[self.PLATFORM_NAME] = value
+    def get_capability(self: T, name: str) -> Any:
+        ...

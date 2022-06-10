@@ -17,11 +17,10 @@ import base64
 import os
 
 from appium import webdriver
+from appium.options.android import UiAutomator2Options
 from test.functional.test_helper import is_ci
-from options.android.uiautomator2 import UiAutomator2Options
 
 from . import desired_capabilities
-
 
 # the emulator is sometimes slow and needs time to think
 SLEEPY_TIME = 10
@@ -34,8 +33,7 @@ class BaseTestCase:
     def setup_method(self, method) -> None:  # type: ignore
         desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub',
-            options=UiAutomator2Options().load_capabilities(desired_caps)
+            'http://localhost:4723/wd/hub', options=UiAutomator2Options().load_capabilities(desired_caps)
         )
         if is_ci():
             self.driver.start_recording_screen()

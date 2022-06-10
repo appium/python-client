@@ -59,8 +59,6 @@ from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
-_EXTENSION_CAPABILITY = ':'
-
 
 class ExtensionBase:
     """
@@ -220,6 +218,10 @@ class WebDriver(
             # noinspection PyPackageRequirements
             import urllib3
 
+            # pylint: disable=E1101
+            # noinspection PyPackageRequirements
+            import urllib3.exceptions
+
             # noinspection PyUnresolvedReferences
             AppiumConnection.set_certificate_bundle_path(None)
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -229,7 +231,7 @@ class WebDriver(
             desired_capabilities=desired_capabilities,
             browser_profile=browser_profile,
             proxy=proxy,
-            options=options
+            options=options,
         )
 
         if hasattr(self, 'command_executor'):
@@ -313,9 +315,7 @@ class WebDriver(
         if not isinstance(capabilities, (dict, AppiumOptions)):
             raise InvalidArgumentException('Capabilities must be a dictionary or AppiumOptions instance')
 
-        w3c_caps = AppiumOptions.as_w3c(capabilities) \
-            if isinstance(capabilities, dict) \
-            else capabilities.to_w3c()
+        w3c_caps = AppiumOptions.as_w3c(capabilities) if isinstance(capabilities, dict) else capabilities.to_w3c()
         response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
         if 'sessionId' not in response:
             response = response['value']

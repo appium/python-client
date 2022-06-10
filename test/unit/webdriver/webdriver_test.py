@@ -40,12 +40,12 @@ class TestWebDriverWebDriver(object):
         )
 
         desired_caps = {
-            'platformName': 'Android',
             'deviceName': 'Android Emulator',
             'app': 'path/to/app',
-            'automationName': 'UIAutomator2',
         }
-        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        driver = webdriver.Remote(
+            'http://localhost:4723/wd/hub', options=UiAutomator2Options().load_capabilities(desired_caps)
+        )
 
         # This tests counts the same request twice on Azure only for now (around 20th May, 2021). Local running works.
         # Should investigate the cause.

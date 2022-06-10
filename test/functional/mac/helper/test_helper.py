@@ -14,13 +14,19 @@
 
 
 from appium import webdriver
+from appium.options.mac import Mac2Options
 
 from .desired_capabilities import get_desired_capabilities
 
 
 class BaseTestCase(object):
     def setup_method(self) -> None:
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', get_desired_capabilities())
+        self.driver = webdriver.Remote(
+            'http://localhost:4723/wd/hub', options=Mac2Options().load_capabilities(get_desired_capabilities())
+        )
 
     def teardown_method(self, method) -> None:  # type: ignore
+        if not hasattr(self, 'driver'):
+            return
+
         self.driver.quit()

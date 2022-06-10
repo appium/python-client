@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 import base64
 import os
 
 from appium import webdriver
+from appium.options.ios import XCUITestOptions
 from test.functional.test_helper import is_ci
 
 from . import desired_capabilities
@@ -25,11 +25,16 @@ from . import desired_capabilities
 class BaseTestCase(object):
     def setup_method(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        self.driver = webdriver.Remote(
+            'http://localhost:4723/wd/hub', options=XCUITestOptions().load_capabilities(desired_caps)
+        )
         if is_ci():
             self.driver.start_recording_screen()
 
     def teardown_method(self, method) -> None:  # type: ignore
+        if not hasattr(self, 'driver'):
+            return
+
         if is_ci():
             payload = self.driver.stop_recording_screen()
             video_path = os.path.join(os.getcwd(), method.__name__ + '.mp4')

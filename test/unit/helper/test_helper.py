@@ -18,6 +18,8 @@ from typing import TYPE_CHECKING, Any, Dict
 import httpretty
 
 from appium import webdriver
+from appium.options.android import UiAutomator2Options
+from appium.options.ios import XCUITestOptions
 
 # :return: A string of test URL
 SERVER_URL_BASE = 'http://localhost:4723/wd/hub'
@@ -81,7 +83,7 @@ def android_w3c_driver() -> 'WebDriver':
         'automationName': 'UIAutomator2',
     }
 
-    driver = webdriver.Remote(SERVER_URL_BASE, desired_caps)
+    driver = webdriver.Remote(SERVER_URL_BASE, options=UiAutomator2Options().load_capabilities(desired_caps))
     return driver
 
 
@@ -115,7 +117,7 @@ def ios_w3c_driver() -> 'WebDriver':
         'automationName': 'XCUITest',
     }
 
-    driver = webdriver.Remote(SERVER_URL_BASE, desired_caps)
+    driver = webdriver.Remote(SERVER_URL_BASE, options=XCUITestOptions().load_capabilities(desired_caps))
     return driver
 
 
@@ -149,7 +151,9 @@ def ios_w3c_driver_with_extensions(extensions) -> 'WebDriver':
         'automationName': 'XCUITest',
     }
 
-    driver = webdriver.Remote(SERVER_URL_BASE, desired_caps, extensions=extensions)
+    driver = webdriver.Remote(
+        SERVER_URL_BASE, options=XCUITestOptions().load_capabilities(desired_caps), extensions=extensions
+    )
     return driver
 
 

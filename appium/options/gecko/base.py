@@ -26,6 +26,5 @@ class GeckoOptions(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AppiumOptions.PLATFORM_NAME: 'Android',
             AppiumOptions.AUTOMATION_NAME: 'Gecko',
         }

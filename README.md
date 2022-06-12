@@ -104,37 +104,30 @@ environment:
 
 ```python
 # Android environment
-import unittest
 from appium import webdriver
+from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 
-desired_caps = dict(
-    platformName='Android',
-    platformVersion='10',
-    automationName='uiautomator2',
-    deviceName='Android Emulator',
-    app=PATH('../../../apps/selendroid-test-app.apk')
-)
-self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+options = UiAutomator2Options().\
+    set_capability('platformVersion', '10').\
+    set_capability('deviceName', 'Android Emulator').\
+    set_capability('app', PATH('../../../apps/selendroid-test-app.apk'))
+self.driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options)
 el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
 el.click()
 ```
 
 ```python
 # iOS environment
-import unittest
 from appium import webdriver
+from appium.options.ios import XCUITestOptions
 from appium.webdriver.common.appiumby import AppiumBy
 
-desired_caps = dict(
-    platformName='iOS',
-    platformVersion='13.4',
-    automationName='xcuitest',
-    deviceName='iPhone Simulator',
-    app=PATH('../../apps/UICatalog.app.zip')
-)
-
-self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+options = XCUITestOptions().\
+    set_capability('platformVersion', '13.4').\
+    set_capability('deviceName', 'iPhone Simulator').\
+    set_capability('app', PATH('../../apps/UICatalog.app.zip'))
+self.driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options)
 el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
 el.click()
 ```
@@ -151,18 +144,20 @@ If your Selenium/Appium server decorates the new session capabilities response w
 Then python client will switch its endpoint to the one specified by the values of those keys.
 
 ```python
-import unittest
 from appium import webdriver
+from appium.options.ios import XCUITestOptions
 
-desired_caps = dict(
-    platformName='iOS',
-    platformVersion='13.4',
-    automationName='xcuitest',
-    deviceName='iPhone Simulator',
-    app=PATH('../../apps/UICatalog.app.zip')
+options = XCUITestOptions().load_capabilities({
+    'platformVersion': '13.4',
+    'deviceName': 'iPhone Simulator',
+    'app': PATH('../../apps/UICatalog.app.zip'),
+})
+
+self.driver = webdriver.Remote(
+    'http://localhost:4723/wd/hub', 
+    options=options, 
+    direct_connection=True
 )
-
-self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, direct_connection=True)
 ```
 
 ## Relax SSL validation
@@ -170,18 +165,15 @@ self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, dir
 `strict_ssl` option allows you to send commands to an invalid certificate host like a self-signed one.
 
 ```python
-import unittest
 from appium import webdriver
+from appium.options.common import AppiumOptions
 
-desired_caps = dict(
-    platformName='iOS',
-    platformVersion='13.4',
-    automationName='xcuitest',
-    deviceName='iPhone Simulator',
-    app=PATH('../../apps/UICatalog.app.zip')
-)
+options = AppiumOptions()
+options.platform_name = 'mac'
+options.automation_name = 'safari'
+options.set_capability('browser_name', 'safari')
 
-self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps, strict_ssl=False)
+self.driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options, strict_ssl=False)
 ```
 
 ## Documentation

@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 from appium import webdriver
 from appium.options.mac import Mac2Options
+from test.helpers.constants import SERVER_URL_BASE
 
 from .desired_capabilities import get_desired_capabilities
 
@@ -22,7 +22,7 @@ from .desired_capabilities import get_desired_capabilities
 class BaseTestCase(object):
     def setup_method(self) -> None:
         self.driver = webdriver.Remote(
-            'http://127.0.0.1:4723/', options=Mac2Options().load_capabilities(get_desired_capabilities())
+            SERVER_URL_BASE, options=Mac2Options().load_capabilities(get_desired_capabilities())
         )
 
     def teardown_method(self, method) -> None:  # type: ignore

@@ -11,10 +11,10 @@ jobs:
           xcodeVersion: ${{ parameters.xcodeForIOS }}
       - script: appium driver install xcuitest
         displayName: Install XCUITest driver
-      - script: nohup appium --relaxed-security > appium_log.txt &
-        condition: ne('${{ parameters.dontRunAppium }}', true)
-        displayName: Run Appium in background
       - script: |
+          if [[ '${{ parameters.dontRunAppium }}' != true ]]; then
+            appium --relaxed-security > appium_log.txt 2>&1 &
+          fi
           cd test/functional/ios
           python -m pytest ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
         displayName: Run iOS functional tests

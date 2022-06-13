@@ -23,6 +23,7 @@ from appium.webdriver.applicationstate import ApplicationState
 from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.ios.helper.test_helper import BaseTestCase
 from test.functional.test_helper import get_available_from_port_range, wait_for_condition
+from test.helpers.constants import SERVER_URL_BASE
 
 from ..test_helper import is_ci
 from .helper import desired_capabilities
@@ -49,7 +50,7 @@ class TestWebDriver(BaseTestCase):
 
         driver2 = None
         try:
-            driver2 = webdriver.Remote('http://127.0.0.1:4723/', options=AppiumOptions().load_capabilities(caps))
+            driver2 = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
             WebDriverWait(driver2, session_counts_is_two.TIMEOUT).until(session_counts_is_two())
             assert len(self.driver.all_sessions) == 2
         finally:

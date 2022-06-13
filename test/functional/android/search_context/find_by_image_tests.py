@@ -22,12 +22,13 @@ from appium.options.common import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.android.helper import desired_capabilities
 from test.functional.test_helper import wait_for_element
+from test.helpers.constants import SERVER_URL_BASE
 
 
 class TestFindByImage(object):
     def setup_method(self) -> None:
         caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
-        self.driver = webdriver.Remote('http://127.0.0.1:4723/', options=AppiumOptions().load_capabilities(caps))
+        self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
 
         # relax template matching
         self.driver.update_settings(

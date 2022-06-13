@@ -21,9 +21,6 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.options.ios import XCUITestOptions
 
-# :return: A string of test URL
-SERVER_URL_BASE = 'http://localhost:4723/wd/hub'
-
 if TYPE_CHECKING:
     from httpretty.core import HTTPrettyRequestEmpty
 

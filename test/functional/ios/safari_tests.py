@@ -16,6 +16,7 @@ import time
 
 from appium import webdriver
 from appium.options.common import AppiumOptions
+from test.helpers.constants import SERVER_URL_BASE
 
 from .helper.desired_capabilities import get_desired_capabilities
 
@@ -24,7 +25,7 @@ class TestSafari:
     def setup_method(self) -> None:
         caps = get_desired_capabilities()
         caps.update({'browserName': 'safari', 'nativeWebTap': True, 'safariIgnoreFraudWarning': True})
-        self.driver = webdriver.Remote('http://127.0.0.1:4723/', options=AppiumOptions().load_capabilities(caps))
+        self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
 
     def teardown_method(self) -> None:
         self.driver.quit()

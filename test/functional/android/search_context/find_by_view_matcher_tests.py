@@ -18,17 +18,18 @@ import pytest
 from selenium.common.exceptions import WebDriverException
 
 from appium import webdriver
+from appium.options.common import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
-from appium.webdriver.extensions.search_context.android import AndroidSearchContext
 from test.functional.android.helper.test_helper import BaseTestCase, desired_capabilities, is_ci
+from test.helpers.constants import SERVER_URL_BASE
 
 
 class TestFindByViewMatcher(BaseTestCase):
     # Override
     def setup_method(self, method) -> None:  # type: ignore
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
-        desired_caps['automationName'] = 'Espresso'
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
+        caps['automationName'] = 'Espresso'
+        self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
         if is_ci():
             self.driver.start_recording_screen()
 

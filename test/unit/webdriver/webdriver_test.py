@@ -21,6 +21,7 @@ from appium import version as appium_version
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.webdriver import ExtensionBase, WebDriver
+from test.helpers.constants import SERVER_URL_BASE
 from test.unit.helper.test_helper import (
     android_w3c_driver,
     appium_command,
@@ -35,7 +36,7 @@ class TestWebDriverWebDriver(object):
     def test_create_session(self):
         httpretty.register_uri(
             httpretty.POST,
-            'http://localhost:4723/wd/hub/session',
+            f'{SERVER_URL_BASE}/session',
             body='{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}',
         )
 
@@ -43,9 +44,7 @@ class TestWebDriverWebDriver(object):
             'deviceName': 'Android Emulator',
             'app': 'path/to/app',
         }
-        driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub', options=UiAutomator2Options().load_capabilities(desired_caps)
-        )
+        driver = webdriver.Remote(SERVER_URL_BASE, options=UiAutomator2Options().load_capabilities(desired_caps))
 
         # This tests counts the same request twice on Azure only for now (around 20th May, 2021). Local running works.
         # Should investigate the cause.
@@ -71,20 +70,20 @@ class TestWebDriverWebDriver(object):
     def test_create_session_change_session_id(self):
         httpretty.register_uri(
             httpretty.POST,
-            'http://localhost:4723/wd/hub/session',
+            f'{SERVER_URL_BASE}/session',
             body='{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}',
         )
 
         httpretty.register_uri(
             httpretty.GET,
-            'http://localhost:4723/wd/hub/session/another-session-id/title',
+            f'{SERVER_URL_BASE}/session/another-session-id/title',
             body='{ "value": "title on another session id"}',
         )
 
         options = (
             UiAutomator2Options().set_capability('deviceName', 'Android Emulator').set_capability('app', 'path/to/app')
         )
-        driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options)
+        driver = webdriver.Remote(SERVER_URL_BASE, options=options)
 
         # current session
         assert driver.session_id == 'session-id'
@@ -98,7 +97,7 @@ class TestWebDriverWebDriver(object):
     def test_create_session_register_uridirect(self):
         httpretty.register_uri(
             httpretty.POST,
-            'http://localhost:4723/wd/hub/session',
+            f'{SERVER_URL_BASE}/session',
             body=json.dumps(
                 {
                     'value': {
@@ -128,7 +127,7 @@ class TestWebDriverWebDriver(object):
             'automationName': 'UIAutomator2',
         }
         driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub',
+            SERVER_URL_BASE,
             options=UiAutomator2Options().load_capabilities(desired_caps),
             direct_connection=True,
         )
@@ -140,7 +139,7 @@ class TestWebDriverWebDriver(object):
     def test_create_session_register_uridirect_no_direct_connect_path(self):
         httpretty.register_uri(
             httpretty.POST,
-            'http://localhost:4723/wd/hub/session',
+            f'{SERVER_URL_BASE}/session',
             body=json.dumps(
                 {
                     'value': {
@@ -158,7 +157,7 @@ class TestWebDriverWebDriver(object):
 
         httpretty.register_uri(
             httpretty.GET,
-            'http://localhost:4723/wd/hub/session/session-id/contexts',
+            f'{SERVER_URL_BASE}/session/session-id/contexts',
             body=json.dumps({'value': ['NATIVE_APP', 'CHROMIUM']}),
         )
 
@@ -169,12 +168,12 @@ class TestWebDriverWebDriver(object):
             'automationName': 'UIAutomator2',
         }
         driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub',
+            SERVER_URL_BASE,
             options=UiAutomator2Options().load_capabilities(desired_caps),
             direct_connection=True,
         )
 
-        assert 'http://localhost:4723/wd/hub' == driver.command_executor._url
+        assert SERVER_URL_BASE == driver.command_executor._url
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
 
     @httpretty.activate
@@ -242,12 +241,12 @@ class TestWebDriverWebDriver(object):
                 return self.execute()['value']
 
             def add_command(self):
-                return 'get', 'session/$sessionId/path/to/custom/url'
+                return 'get', '/session/$sessionId/path/to/custom/url'
 
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])
         httpretty.register_uri(
             httpretty.GET,
-            appium_command('session/1234567890/path/to/custom/url'),
+            appium_command('/session/1234567890/path/to/custom/url'),
             body=json.dumps({'value': {}}),
         )
         result = driver.test_command()
@@ -265,12 +264,12 @@ class TestWebDriverWebDriver(object):
                 return self.execute(argument)['value']
 
             def add_command(self):
-                return 'post', 'session/$sessionId/path/to/custom/url'
+                return 'post', '/session/$sessionId/path/to/custom/url'
 
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('session/1234567890/path/to/custom/url'),
+            appium_command('/session/1234567890/path/to/custom/url'),
             body=json.dumps({'value': {}}),
         )
         result = driver.test_command({'dummy': 'test argument'})
@@ -291,12 +290,12 @@ class TestWebDriverWebDriver(object):
                 return self.execute({'id': element_id})['value']
 
             def add_command(self):
-                return 'GET', 'session/$sessionId/path/to/custom/$id/url'
+                return 'GET', '/session/$sessionId/path/to/custom/$id/url'
 
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])
         httpretty.register_uri(
             httpretty.GET,
-            appium_command('session/1234567890/path/to/custom/element_id/url'),
+            appium_command('/session/1234567890/path/to/custom/element_id/url'),
             body=json.dumps({'value': {}}),
         )
         result = driver.test_command('element_id')
@@ -363,9 +362,7 @@ class TestSubModuleWebDriver(object):
             'automationName': 'UIAutomator2',
         }
 
-        driver = driver_class(
-            'http://localhost:4723/wd/hub', options=UiAutomator2Options().load_capabilities(desired_caps)
-        )
+        driver = driver_class(SERVER_URL_BASE, options=UiAutomator2Options().load_capabilities(desired_caps))
         return driver
 
     @httpretty.activate

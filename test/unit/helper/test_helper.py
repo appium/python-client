@@ -20,9 +20,7 @@ import httpretty
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.options.ios import XCUITestOptions
-
-# :return: A string of test URL
-SERVER_URL_BASE = 'http://localhost:4723/wd/hub'
+from test.helpers.constants import SERVER_URL_BASE
 
 if TYPE_CHECKING:
     from httpretty.core import HTTPrettyRequestEmpty
@@ -36,7 +34,11 @@ def appium_command(command: str) -> str:
     Returns:
         str: A string of command URL
     """
-    return f'{SERVER_URL_BASE}{command}'
+    return (
+        f'{SERVER_URL_BASE}{command}'
+        if SERVER_URL_BASE.endswith('/') or command.startswith('/')
+        else f'{SERVER_URL_BASE}/{command}'
+    )
 
 
 def android_w3c_driver() -> 'WebDriver':

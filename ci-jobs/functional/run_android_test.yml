@@ -4,17 +4,23 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       ANDROID_SDK_VERSION: ${{ parameters.sdkVer }}
+      ANDROID_AVD: testemulator
       CI: ${{ parameters.ci }}
     steps:
-      - template: ./run_appium.yml
-        parameters:
-          OPENCV: ${{ parameters.opencv }}
-          DONT_RUN_APPIUM: ${{ parameters.dont_run_appium }}
+      - template: ./setup_appium.yml
+      - script: appium driver install uiautomator2
+        displayName: Install UIAutomator2 driver
       - script: bash ci-jobs/functional/start-emulator.sh
         displayName: Create and run Emulator
       - script: |
+          if [[ '${{ parameters.dontRunAppium }}' != true ]]; then
+            appium --relaxed-security > appium_log.txt 2>&1 &
+            sleep 2
+          fi
+          pushd "$(pwd)"
           cd test/functional/android
           python -m pytest ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
+          popd
         displayName: Run Android functional tests
       - template: ./publish_test_result.yml
       - template: ./save_appium_log.yml

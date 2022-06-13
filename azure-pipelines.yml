@@ -33,12 +33,3 @@ jobs:
         inputs:
           testResultsFiles: '**/junit.xml'
           testRunTitle: 'Publish test results for Python $(python.version)'
-
-# Runs tests nightly to make sure they works against appium@beta
-schedules:
-  - cron: "0 0 * * *"
-    displayName: Daily Nightly build (UTC)
-    branches:
-      include:
-        - master
-    always: true

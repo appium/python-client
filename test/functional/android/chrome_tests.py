@@ -13,7 +13,9 @@
 # limitations under the License.
 
 from appium import webdriver
+from appium.options.common import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
+from test.helpers.constants import SERVER_URL_BASE
 
 from .helper.desired_capabilities import get_desired_capabilities
 
@@ -22,13 +24,13 @@ class TestChrome(object):
     def setup_method(self) -> None:
         caps = get_desired_capabilities()
         caps['browserName'] = 'Chrome'
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', caps)
+        self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
 
     def teardown_method(self) -> None:
         self.driver.quit()
 
     def test_find_single_element(self) -> None:
-        self.driver.get('http://10.0.2.2:4723/test/guinea-pig')
+        self.driver.get(f'{SERVER_URL_BASE}/test/guinea-pig')
         self.driver.find_element(by=AppiumBy.LINK_TEXT, value='i am a link').click()
 
         assert 'I am some other page content' in self.driver.page_source

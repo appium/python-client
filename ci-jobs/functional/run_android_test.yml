@@ -4,6 +4,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       ANDROID_SDK_VERSION: ${{ parameters.sdkVer }}
+      ANDROID_AVD: testemulator
       CI: ${{ parameters.ci }}
     steps:
       - template: ./setup_appium.yml

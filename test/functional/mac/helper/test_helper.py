@@ -22,7 +22,7 @@ from .desired_capabilities import get_desired_capabilities
 class BaseTestCase(object):
     def setup_method(self) -> None:
         self.driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub', options=Mac2Options().load_capabilities(get_desired_capabilities())
+            'http://127.0.0.1:4723/', options=Mac2Options().load_capabilities(get_desired_capabilities())
         )
 
     def teardown_method(self, method) -> None:  # type: ignore

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from appium import webdriver
+from appium.options.common import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
 
 from .helper.desired_capabilities import get_desired_capabilities
@@ -22,7 +23,7 @@ class TestChrome(object):
     def setup_method(self) -> None:
         caps = get_desired_capabilities()
         caps['browserName'] = 'Chrome'
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', caps)
+        self.driver = webdriver.Remote('http://127.0.0.1:4723/', options=AppiumOptions.load_capabilities(caps))
 
     def teardown_method(self) -> None:
         self.driver.quit()

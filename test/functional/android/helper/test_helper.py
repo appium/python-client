@@ -31,10 +31,8 @@ APIDEMO_PKG_NAME = 'io.appium.android.apis'
 
 class BaseTestCase:
     def setup_method(self, method) -> None:  # type: ignore
-        desired_caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
-        self.driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub', options=UiAutomator2Options().load_capabilities(desired_caps)
-        )
+        caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
+        self.driver = webdriver.Remote('http://127.0.0.1:4723/', options=UiAutomator2Options().load_capabilities(caps))
         if is_ci():
             self.driver.start_recording_screen()
 

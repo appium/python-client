@@ -16,6 +16,7 @@ import pytest
 
 from appium import webdriver
 from appium.common.exceptions import NoSuchContextException
+from appium.options.common import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
 
 from .helper import desired_capabilities
@@ -24,8 +25,8 @@ from .helper import desired_capabilities
 @pytest.mark.skip(reason="Need to fix broken test")
 class TestContextSwitching(object):
     def setup_method(self) -> None:
-        desired_caps = desired_capabilities.get_desired_capabilities('selendroid-test-app.apk')
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        caps = desired_capabilities.get_desired_capabilities('selendroid-test-app.apk')
+        self.driver = webdriver.Remote('http://127.0.0.1:4723/', options=AppiumOptions().load_capabilities(caps))
 
     def teardown_method(self) -> None:
         self.driver.quit()

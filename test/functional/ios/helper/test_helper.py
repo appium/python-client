@@ -26,7 +26,7 @@ class BaseTestCase(object):
     def setup_method(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         self.driver = webdriver.Remote(
-            'http://localhost:4723/wd/hub', options=XCUITestOptions().load_capabilities(desired_caps)
+            'http://127.0.0.1:4723/', options=XCUITestOptions().load_capabilities(desired_caps)
         )
         if is_ci():
             self.driver.start_recording_screen()

@@ -20,6 +20,7 @@ import httpretty
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.options.ios import XCUITestOptions
+from test.helpers.constants import SERVER_URL_BASE
 
 if TYPE_CHECKING:
     from httpretty.core import HTTPrettyRequestEmpty

@@ -28,7 +28,7 @@ def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
     desired_caps: Dict[str, Any] = {
         'deviceName': iphone_device_name(),
         'platformName': 'iOS',
-        'platformVersion': '15.4',
+        'platformVersion': '15.5',
         'automationName': 'XCUITest',
         'allowTouchIdEnroll': True,
         'wdaLocalPort': wda_port(),
@@ -66,13 +66,14 @@ def wda_port() -> int:
     return 8100
 
 
-# Before running tests, you must have iOS simulators named 'iPhone X - 8100' and 'iPhone X - 8101'
+# Before running tests, you must have iOS simulators named 'iPhone 12 - 8100' and 'iPhone 12 - 8101'
 
 
 def iphone_device_name() -> str:
+    prefix = 'iPhone 12'
     if PytestXdistWorker.NUMBER == PytestXdistWorker.gw(0):
-        return 'iPhone X - 8100'
+        return f'{prefix} - 8100'
     elif PytestXdistWorker.NUMBER == PytestXdistWorker.gw(1):
-        return 'iPhone X - 8101'
+        return f'{prefix} - 8101'
 
-    return 'iPhone X'
+    return prefix

@@ -11,12 +11,14 @@ jobs:
         displayName: Install UIAutomator2 driver
       - script: bash ci-jobs/functional/start-emulator.sh
         displayName: Create and run Emulator
-      - script:
+      - script: |
           if [[ '${{ parameters.dontRunAppium }}' != true ]]; then
-            appium --relaxed-security > appium_log.txt &
+            appium --relaxed-security > appium_log.txt 2>&1 &
           fi
+          pushd "$(pwd)"
           cd test/functional/android
           python -m pytest ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}
+          popd
         displayName: Run Android functional tests
       - template: ./publish_test_result.yml
       - template: ./save_appium_log.yml

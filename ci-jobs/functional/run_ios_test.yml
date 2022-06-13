@@ -14,6 +14,7 @@ jobs:
       - script: |
           if [[ '${{ parameters.dontRunAppium }}' != true ]]; then
             appium --relaxed-security > appium_log.txt 2>&1 &
+            sleep 2
           fi
           pushd "$(pwd)"
           cd test/functional/ios

@@ -246,7 +246,7 @@ class TestWebDriverWebDriver(object):
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])
         httpretty.register_uri(
             httpretty.GET,
-            appium_command('session/1234567890/path/to/custom/url'),
+            appium_command('/session/1234567890/path/to/custom/url'),
             body=json.dumps({'value': {}}),
         )
         result = driver.test_command()
@@ -269,7 +269,7 @@ class TestWebDriverWebDriver(object):
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('session/1234567890/path/to/custom/url'),
+            appium_command('/session/1234567890/path/to/custom/url'),
             body=json.dumps({'value': {}}),
         )
         result = driver.test_command({'dummy': 'test argument'})
@@ -295,7 +295,7 @@ class TestWebDriverWebDriver(object):
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])
         httpretty.register_uri(
             httpretty.GET,
-            appium_command('session/1234567890/path/to/custom/element_id/url'),
+            appium_command('/session/1234567890/path/to/custom/element_id/url'),
             body=json.dumps({'value': {}}),
         )
         result = driver.test_command('element_id')

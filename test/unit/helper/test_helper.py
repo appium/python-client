@@ -34,7 +34,11 @@ def appium_command(command: str) -> str:
     Returns:
         str: A string of command URL
     """
-    return f'{SERVER_URL_BASE}{command}' if SERVER_URL_BASE.endswith('/') else f'{SERVER_URL_BASE}/{command}'
+    return (
+        f'{SERVER_URL_BASE}{command}'
+        if SERVER_URL_BASE.endswith('/') or command.startswith('/')
+        else f'{SERVER_URL_BASE}/{command}'
+    )
 
 
 def android_w3c_driver() -> 'WebDriver':

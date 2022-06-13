@@ -241,7 +241,7 @@ class TestWebDriverWebDriver(object):
                 return self.execute()['value']
 
             def add_command(self):
-                return 'get', 'session/$sessionId/path/to/custom/url'
+                return 'get', '/session/$sessionId/path/to/custom/url'
 
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])
         httpretty.register_uri(
@@ -264,7 +264,7 @@ class TestWebDriverWebDriver(object):
                 return self.execute(argument)['value']
 
             def add_command(self):
-                return 'post', 'session/$sessionId/path/to/custom/url'
+                return 'post', '/session/$sessionId/path/to/custom/url'
 
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])
         httpretty.register_uri(
@@ -290,7 +290,7 @@ class TestWebDriverWebDriver(object):
                 return self.execute({'id': element_id})['value']
 
             def add_command(self):
-                return 'GET', 'session/$sessionId/path/to/custom/$id/url'
+                return 'GET', '/session/$sessionId/path/to/custom/$id/url'
 
         driver = ios_w3c_driver_with_extensions([CustomURLCommand])
         httpretty.register_uri(

@@ -1,13 +1,10 @@
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '12.x'
-  displayName: Install Node 12.x
-- script: npm install -g appium@beta --chromedriver_version='2.44'
+    versionSpec: '16.x'
+  displayName: Install Node 16.x
+- script: npm install -g appium@next --chromedriver_version='2.44'
   displayName: Install appium
-- script: npm install -g opencv4nodejs
-  condition: eq('${{ parameters.opencv }}', true)
-  displayName: Install opencv4nodejs
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.x'
@@ -29,6 +26,3 @@ steps:
     appium --version
     node --version
   displayName: Check versions
-- script: nohup appium --relaxed-security > appium_log.txt &
-  condition: ne('${{ parameters.dont_run_appium }}', true)
-  displayName: Run Appium in background

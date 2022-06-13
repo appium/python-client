@@ -5,10 +5,15 @@ jobs:
     variables:
       CI: ${{ parameters.ci }}
     steps:
-      - template: ./run_appium.yml
+      - template: ./setup_appium.yml
       - template: ./ios_setup.yml
         parameters:
           xcodeVersion: ${{ parameters.xcodeForIOS }}
+      - script: appium driver install xcuitest
+        displayName: Install XCUITest driver
+      - script: nohup appium --relaxed-security > appium_log.txt &
+        condition: ne('${{ parameters.dont_run_appium }}', true)
+        displayName: Run Appium in background
       - script: |
           cd test/functional/ios
           python -m pytest ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}

@@ -6,10 +6,14 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.sdkVer }}
       CI: ${{ parameters.ci }}
     steps:
-      - template: ./run_appium.yml
+      - template: ./setup_appium.yml
         parameters:
-          OPENCV: ${{ parameters.opencv }}
           DONT_RUN_APPIUM: ${{ parameters.dont_run_appium }}
+      - script: appium driver install uiautomator2
+        displayName: Install UIAutomator2 driver
+      - script: nohup appium --relaxed-security > appium_log.txt &
+        condition: ne('${{ parameters.dont_run_appium }}', true)
+        displayName: Run Appium in background
       - script: bash ci-jobs/functional/start-emulator.sh
         displayName: Create and run Emulator
       - script: |

@@ -12,7 +12,7 @@ jobs:
       - script: appium driver install xcuitest
         displayName: Install XCUITest driver
       - script: nohup appium --relaxed-security > appium_log.txt &
-        condition: ne('${{ parameters.dont_run_appium }}', true)
+        condition: ne('${{ parameters.dontRunAppium }}', true)
         displayName: Run Appium in background
       - script: |
           cd test/functional/ios

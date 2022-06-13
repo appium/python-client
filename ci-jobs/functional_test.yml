@@ -46,7 +46,7 @@ jobs:
       testFiles: 'appium_service_tests.py'
       sdkVer: ${{ parameters.androidSdkVer }}
       CI: ${{ parameters.ci }}
-      DONT_RUN_APPIUM: true
+      dontRunAppium: true
   - template: ./functional/run_android_test.yml
     parameters:
       name: 'func_test_android4'

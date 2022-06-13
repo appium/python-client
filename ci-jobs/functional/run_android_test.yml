@@ -7,12 +7,10 @@ jobs:
       CI: ${{ parameters.ci }}
     steps:
       - template: ./setup_appium.yml
-        parameters:
-          DONT_RUN_APPIUM: ${{ parameters.dont_run_appium }}
       - script: appium driver install uiautomator2
         displayName: Install UIAutomator2 driver
       - script: nohup appium --relaxed-security > appium_log.txt &
-        condition: ne('${{ parameters.dont_run_appium }}', true)
+        condition: ne('${{ parameters.dontRunAppium }}', true)
         displayName: Run Appium in background
       - script: bash ci-jobs/functional/start-emulator.sh
         displayName: Create and run Emulator

@@ -115,7 +115,8 @@ options = UiAutomator2Options().\
     set_capability('platformVersion', '10').\
     set_capability('deviceName', 'Android Emulator').\
     set_capability('app', PATH('../../../apps/selendroid-test-app.apk'))
-self.driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options)
+# Appium1 points to http://127.0.0.1:4723/wd/hub by default 
+self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options)
 el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
 el.click()
 ```
@@ -133,7 +134,8 @@ options = XCUITestOptions().\
     set_capability('platformVersion', '13.4').\
     set_capability('deviceName', 'iPhone Simulator').\
     set_capability('app', PATH('../../apps/UICatalog.app.zip'))
-self.driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options)
+# Appium1 points to http://127.0.0.1:4723/wd/hub by default 
+self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options)
 el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
 el.click()
 ```
@@ -163,7 +165,8 @@ options = XCUITestOptions().load_capabilities({
 })
 
 self.driver = webdriver.Remote(
-    'http://localhost:4723/wd/hub', 
+    # Appium1 points to http://127.0.0.1:4723/wd/hub by default 
+    'http://127.0.0.1:4723', 
     options=options, 
     direct_connection=True
 )
@@ -185,7 +188,8 @@ options.platform_name = 'mac'
 options.automation_name = 'safari'
 options.set_capability('browser_name', 'safari')
 
-self.driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options, strict_ssl=False)
+# Appium1 points to http://127.0.0.1:4723/wd/hub by default 
+self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options, strict_ssl=False)
 ```
 
 ## Documentation

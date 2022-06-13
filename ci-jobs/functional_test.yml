@@ -1,8 +1,8 @@
 parameters:
-  vmImage: 'macOS-10.15'
+  vmImage: 'macOS-12'
   pytestOpt: '--doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html'
   androidSdkVer: 27
-  xcodeForIOS: 12.3
+  xcodeForIOS: 15.4
   CI: true
 
 jobs:

@@ -105,6 +105,9 @@ environment:
 ```python
 # Android environment
 from appium import webdriver
+# Options are only available since client version 2.3.0
+# If you use an older client then switch to desired_capabilities
+# instead: https://github.com/appium/python-client/pull/720
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 
@@ -120,6 +123,9 @@ el.click()
 ```python
 # iOS environment
 from appium import webdriver
+# Options are only available since client version 2.3.0
+# If you use an older client then switch to desired_capabilities
+# instead: https://github.com/appium/python-client/pull/720
 from appium.options.ios import XCUITestOptions
 from appium.webdriver.common.appiumby import AppiumBy
 
@@ -145,6 +151,9 @@ Then python client will switch its endpoint to the one specified by the values o
 
 ```python
 from appium import webdriver
+# Options are only available since client version 2.3.0
+# If you use an older client then switch to desired_capabilities
+# instead: https://github.com/appium/python-client/pull/720
 from appium.options.ios import XCUITestOptions
 
 options = XCUITestOptions().load_capabilities({
@@ -166,6 +175,9 @@ self.driver = webdriver.Remote(
 
 ```python
 from appium import webdriver
+# Options are only available since client version 2.3.0
+# If you use an older client then switch to desired_capabilities
+# instead: https://github.com/appium/python-client/pull/720
 from appium.options.common import AppiumOptions
 
 options = AppiumOptions()

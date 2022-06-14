@@ -337,7 +337,8 @@ class WebDriver(
             `appium.webdriver.webelement.WebElement`: The found element
 
         """
-        # Let's keep it for future support of the selenium workaround
+        # We prefer to patch locators in the client code
+        # Checking current context every time a locator is accessed could significantly slow down tests
         # Check https://github.com/appium/python-client/pull/724 before submitting any issue
         # if by == By.ID:
         #     by = By.CSS_SELECTOR
@@ -369,7 +370,8 @@ class WebDriver(
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
         """
-        # Let's keep it for future support of the selenium workaround
+        # We prefer to patch locators in the client code
+        # Checking current context every time a locator is accessed could significantly slow down tests
         # Check https://github.com/appium/python-client/pull/724 before submitting any issue
         # if by == By.ID:
         #     by = By.CSS_SELECTOR

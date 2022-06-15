@@ -15,21 +15,26 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
+from typing import Optional
 
-from appium.options.common.base import AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
+from .supports_capabilities import SupportsCapabilities
 
 
-class Mac2Options(
-    AppiumOptions,
-    PrerunOption,
-    PostrunOption,
-):
+class OrientationOption(SupportsCapabilities):
+    ORIENTATION = 'orientation'
+
     @property
-    def default_capabilities(self) -> Dict:
-        return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
-        }
+    def orientation(self) -> Optional[str]:
+        """
+        :Returns: The orientation of the device's screen.
+        Usually this is either 'PORTRAIT' or 'LANDSCAPE'.
+        """
+        return self.get_capability(self.ORIENTATION)
+
+    @orientation.setter
+    def orientation(self, value: str) -> None:
+        """
+        Set the orientation of the device's screen.
+        Usually this is either 'PORTRAIT' or 'LANDSCAPE'.
+        """
+        self.set_capability(self.ORIENTATION, value)

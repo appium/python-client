@@ -15,21 +15,25 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
+from typing import Optional
 
-from appium.options.common.base import AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
+from .supports_capabilities import SupportsCapabilities
 
 
-class Mac2Options(
-    AppiumOptions,
-    PrerunOption,
-    PostrunOption,
-):
+class IsHeadlessOption(SupportsCapabilities):
+    IS_HEADLESS = 'isHeadless'
+
     @property
-    def default_capabilities(self) -> Dict:
-        return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
-        }
+    def is_headless(self) -> Optional[bool]:
+        """
+        :Returns: Whether the driver should start emulator/simulator in headless mode.
+        """
+        return self.get_capability(self.IS_HEADLESS)
+
+    @is_headless.setter
+    def is_headless(self, value: bool) -> None:
+        """
+        Set emulator/simulator to start in headless mode (e.g. no UI is shown).
+        It is only applied if the emulator is not running before the test starts.
+        """
+        self.set_capability(self.IS_HEADLESS, value)

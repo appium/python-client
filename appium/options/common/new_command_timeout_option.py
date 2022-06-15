@@ -15,24 +15,27 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
+from datetime import timedelta
+from typing import Optional, Union
 
 from .supports_capabilities import SupportsCapabilities
 
 
-class AutomationNameOption(SupportsCapabilities):
-    AUTOMATION_NAME = 'automationName'
+class NewCommandTimeoutOption(SupportsCapabilities):
+    NEW_COMMAND_TIMEOUT = 'newCommandTimeout'
 
     @property
-    def automation_name(self) -> Optional[str]:
+    def new_command_timeout(self) -> Optional[timedelta]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: The allowed time before seeing a new server command.
         """
-        return self.get_capability(self.AUTOMATION_NAME)
+        value = self.get_capability(self.NEW_COMMAND_TIMEOUT)
+        return None if value is None else timedelta(seconds=value)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @new_command_timeout.setter
+    def new_command_timeout(self, value: Union[timedelta, int]) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set the allowed time before seeing a new server command.
+        The value could either be provided as timedelta instance or an integer number of seconds.
         """
-        self.set_capability(self.AUTOMATION_NAME, value)
+        self.set_capability(self.NEW_COMMAND_TIMEOUT, value.seconds if isinstance(value, timedelta) else value)

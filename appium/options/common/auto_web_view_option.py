@@ -15,21 +15,26 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
+from typing import Optional
 
-from appium.options.common.base import AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
+from .supports_capabilities import SupportsCapabilities
 
 
-class Mac2Options(
-    AppiumOptions,
-    PrerunOption,
-    PostrunOption,
-):
+class AutoWebViewOption(SupportsCapabilities):
+    AUTO_WEB_VIEW = 'autoWebView'
+
     @property
-    def default_capabilities(self) -> Dict:
-        return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
-        }
+    def auto_web_view(self) -> Optional[bool]:
+        """
+        :Returns: Whether the driver should try to automatically switch
+        to a web view context after the session is started.
+        """
+        return self.get_capability(self.AUTO_WEB_VIEW)
+
+    @auto_web_view.setter
+    def auto_web_view(self, value: bool) -> None:
+        """
+        Set whether the driver should try to automatically switch
+        a web view context after the session is started.
+        """
+        self.set_capability(self.AUTO_WEB_VIEW, value)

@@ -15,21 +15,27 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
+from typing import Optional
 
-from appium.options.common.base import AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
+from .supports_capabilities import SupportsCapabilities
 
 
-class Mac2Options(
-    AppiumOptions,
-    PrerunOption,
-    PostrunOption,
-):
+class AppOption(SupportsCapabilities):
+    APP = 'app'
+
     @property
-    def default_capabilities(self) -> Dict:
-        return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
-        }
+    def app(self) -> Optional[str]:
+        """
+        :Returns: String representing app location.
+        """
+        return self.get_capability(self.APP)
+
+    @app.setter
+    def app(self, value: str) -> None:
+        """
+        Set the absolute local path for the location of the App.
+        The app must be located on the same machine where Appium
+        server is running.
+        Could also be a valid URL.
+        """
+        self.set_capability(self.APP, value)

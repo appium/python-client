@@ -15,21 +15,26 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
+from typing import Optional
 
-from appium.options.common.base import AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
+from .supports_capabilities import SupportsCapabilities
 
 
-class Mac2Options(
-    AppiumOptions,
-    PrerunOption,
-    PostrunOption,
-):
+class EventTimingsOption(SupportsCapabilities):
+    EVENT_TIMINGS = 'eventTimings'
+
     @property
-    def default_capabilities(self) -> Dict:
-        return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
-        }
+    def event_timings(self) -> Optional[bool]:
+        """
+        :Returns: Whether the driver should to report the timings
+        for various Appium-internal events.
+        """
+        return self.get_capability(self.EVENT_TIMINGS)
+
+    @event_timings.setter
+    def event_timings(self, value: bool) -> None:
+        """
+        Set whether the driver should to report the timings
+        for various Appium-internal events.
+        """
+        self.set_capability(self.EVENT_TIMINGS, value)

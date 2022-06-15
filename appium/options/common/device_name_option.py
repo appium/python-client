@@ -15,21 +15,24 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
+from typing import Optional
 
-from appium.options.common.base import AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
+from .supports_capabilities import SupportsCapabilities
 
 
-class Mac2Options(
-    AppiumOptions,
-    PrerunOption,
-    PostrunOption,
-):
+class DeviceNameOption(SupportsCapabilities):
+    DEVICE_NAME = 'deviceName'
+
     @property
-    def default_capabilities(self) -> Dict:
-        return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
-        }
+    def device_name(self) -> Optional[str]:
+        """
+        :Returns: The name of the device.
+        """
+        return self.get_capability(self.DEVICE_NAME)
+
+    @device_name.setter
+    def device_name(self, value: str) -> None:
+        """
+        Set the name of the device to be used in the test.
+        """
+        self.set_capability(self.DEVICE_NAME, value)

@@ -15,21 +15,24 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
+from typing import Optional
 
-from appium.options.common.base import AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
+from .supports_capabilities import SupportsCapabilities
 
 
-class Mac2Options(
-    AppiumOptions,
-    PrerunOption,
-    PostrunOption,
-):
+class SkipLogCaptureOption(SupportsCapabilities):
+    SKIP_LOG_CAPTURE = 'skipLogCapture'
+
     @property
-    def default_capabilities(self) -> Dict:
-        return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
-        }
+    def skip_log_capture(self) -> Optional[bool]:
+        """
+        :Returns: Whether the driver should not record device logs.
+        """
+        return self.get_capability(self.SKIP_LOG_CAPTURE)
+
+    @skip_log_capture.setter
+    def skip_log_capture(self, value: bool) -> None:
+        """
+        Set whether the driver should not record device logs.
+        """
+        self.set_capability(self.SKIP_LOG_CAPTURE, value)

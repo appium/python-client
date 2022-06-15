@@ -21,6 +21,11 @@ from typing import Any, Dict, TypeVar
 from selenium.webdriver.common.options import BaseOptions
 
 from .automation_name_option import AutomationNameOption
+from .event_timings_option import EventTimingsOption
+from .full_reset_option import FullResetOption
+from .new_command_timeout_option import NewCommandTimeoutOption
+from .no_reset_option import NoResetOption
+from .print_page_source_on_find_failure_option import PrintPageSourceOnFindFailureOption
 
 APPIUM_PREFIX = 'appium:'
 T = TypeVar('T', bound='AppiumOptions')
@@ -29,6 +34,11 @@ T = TypeVar('T', bound='AppiumOptions')
 class AppiumOptions(
     BaseOptions,
     AutomationNameOption,
+    EventTimingsOption,
+    PrintPageSourceOnFindFailureOption,
+    NoResetOption,
+    FullResetOption,
+    NewCommandTimeoutOption,
 ):
     _caps: Dict
     PLATFORM_NAME = 'platformName'

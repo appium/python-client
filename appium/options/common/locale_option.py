@@ -15,21 +15,24 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
+from typing import Optional
 
-from appium.options.common.base import AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
+from .supports_capabilities import SupportsCapabilities
 
 
-class Mac2Options(
-    AppiumOptions,
-    PrerunOption,
-    PostrunOption,
-):
+class LocaleOption(SupportsCapabilities):
+    LOCALE = 'locale'
+
     @property
-    def default_capabilities(self) -> Dict:
-        return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
-        }
+    def locale(self) -> Optional[str]:
+        """
+        :Returns: Locale abbreviation to use in a test session.
+        """
+        return self.get_capability(self.LOCALE)
+
+    @locale.setter
+    def locale(self, value: str) -> None:
+        """
+        Set locale abbreviation to use in a test session.
+        """
+        self.set_capability(self.LOCALE, value)

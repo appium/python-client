@@ -18,10 +18,14 @@
 from typing import Dict
 
 from appium.options.common.base import AppiumOptions
+from appium.options.common.postrun_option import PostrunOption
+from appium.options.common.prerun_option import PrerunOption
 
 
 class WindowsOptions(
     AppiumOptions,
+    PrerunOption,
+    PostrunOption,
 ):
     @property
     def default_capabilities(self) -> Dict:

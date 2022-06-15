@@ -15,21 +15,24 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
+from typing import Optional
 
-from appium.options.common.base import AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
+from .supports_capabilities import SupportsCapabilities
 
 
-class Mac2Options(
-    AppiumOptions,
-    PrerunOption,
-    PostrunOption,
-):
+class FullResetOption(SupportsCapabilities):
+    FULL_RESET = 'fullReset'
+
     @property
-    def default_capabilities(self) -> Dict:
-        return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
-        }
+    def full_reset(self) -> Optional[bool]:
+        """
+        :Returns: Whether the driver should perform a full reset.
+        """
+        return self.get_capability(self.FULL_RESET)
+
+    @full_reset.setter
+    def full_reset(self, value: bool) -> None:
+        """
+        Set whether the driver should perform a full reset.
+        """
+        self.set_capability(self.FULL_RESET, value)

@@ -15,21 +15,24 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
+from typing import Optional
 
-from appium.options.common.base import AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
+from .supports_capabilities import SupportsCapabilities
 
 
-class Mac2Options(
-    AppiumOptions,
-    PrerunOption,
-    PostrunOption,
-):
+class UdidOption(SupportsCapabilities):
+    UDID = 'udid'
+
     @property
-    def default_capabilities(self) -> Dict:
-        return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
-        }
+    def udid(self) -> Optional[str]:
+        """
+        :Returns: The id of the device under test.
+        """
+        return self.get_capability(self.UDID)
+
+    @udid.setter
+    def udid(self, value: str) -> None:
+        """
+        Set the id of the device under test.
+        """
+        self.set_capability(self.UDID, value)

@@ -15,21 +15,24 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
+from typing import Optional
 
-from appium.options.common.base import AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
+from .supports_capabilities import SupportsCapabilities
 
 
-class Mac2Options(
-    AppiumOptions,
-    PrerunOption,
-    PostrunOption,
-):
+class ClearSystemFilesOption(SupportsCapabilities):
+    CLEAR_SYSTEM_FILES = 'clearSystemFiles'
+
     @property
-    def default_capabilities(self) -> Dict:
-        return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
-        }
+    def clear_system_files(self) -> Optional[bool]:
+        """
+        :Returns: Whether the driver should delete generated files at the end of a session.
+        """
+        return self.get_capability(self.CLEAR_SYSTEM_FILES)
+
+    @clear_system_files.setter
+    def clear_system_files(self, value: bool) -> None:
+        """
+        Set whether the driver should delete generated files at the end of a session.
+        """
+        self.set_capability(self.CLEAR_SYSTEM_FILES, value)

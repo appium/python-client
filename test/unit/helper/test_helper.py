@@ -50,29 +50,27 @@ def android_w3c_driver() -> 'WebDriver':
 
     response_body_json = json.dumps(
         {
-            'value': {
-                'sessionId': '1234567890',
-                'capabilities': {
-                    'platform': 'LINUX',
-                    'desired': {
-                        'platformName': 'Android',
-                        'automationName': 'uiautomator2',
-                        'platformVersion': '7.1.1',
-                        'deviceName': 'Android Emulator',
-                        'app': '/test/apps/ApiDemos-debug.apk',
-                    },
+            'sessionId': '1234567890',
+            'capabilities': {
+                'platform': 'LINUX',
+                'desired': {
                     'platformName': 'Android',
                     'automationName': 'uiautomator2',
                     'platformVersion': '7.1.1',
-                    'deviceName': 'emulator-5554',
+                    'deviceName': 'Android Emulator',
                     'app': '/test/apps/ApiDemos-debug.apk',
-                    'deviceUDID': 'emulator-5554',
-                    'appPackage': 'io.appium.android.apis',
-                    'appWaitPackage': 'io.appium.android.apis',
-                    'appActivity': 'io.appium.android.apis.ApiDemos',
-                    'appWaitActivity': 'io.appium.android.apis.ApiDemos',
                 },
-            }
+                'platformName': 'Android',
+                'automationName': 'uiautomator2',
+                'platformVersion': '7.1.1',
+                'deviceName': 'emulator-5554',
+                'app': '/test/apps/ApiDemos-debug.apk',
+                'deviceUDID': 'emulator-5554',
+                'appPackage': 'io.appium.android.apis',
+                'appWaitPackage': 'io.appium.android.apis',
+                'appActivity': 'io.appium.android.apis.ApiDemos',
+                'appWaitActivity': 'io.appium.android.apis.ApiDemos',
+            },
         }
     )
 
@@ -95,18 +93,15 @@ def ios_w3c_driver() -> 'WebDriver':
     Returns:
         `webdriver.webdriver.WebDriver`: An instance of WebDriver
     """
-
     response_body_json = json.dumps(
         {
-            'value': {
-                'sessionId': '1234567890',
-                'capabilities': {
-                    'device': 'iphone',
-                    'browserName': 'UICatalog',
-                    'sdkVersion': '11.4',
-                    'CFBundleIdentifier': 'com.example.apple-samplecode.UICatalog',
-                },
-            }
+            'sessionId': '1234567890',
+            'capabilities': {
+                'device': 'iphone',
+                'browserName': 'UICatalog',
+                'sdkVersion': '11.4',
+                'CFBundleIdentifier': 'com.example.apple-samplecode.UICatalog',
+            },
         }
     )
 
@@ -132,15 +127,13 @@ def ios_w3c_driver_with_extensions(extensions) -> 'WebDriver':
 
     response_body_json = json.dumps(
         {
-            'value': {
-                'sessionId': '1234567890',
-                'capabilities': {
-                    'device': 'iphone',
-                    'browserName': 'UICatalog',
-                    'sdkVersion': '11.4',
-                    'CFBundleIdentifier': 'com.example.apple-samplecode.UICatalog',
-                },
-            }
+            'sessionId': '1234567890',
+            'capabilities': {
+                'device': 'iphone',
+                'browserName': 'UICatalog',
+                'sdkVersion': '11.4',
+                'CFBundleIdentifier': 'com.example.apple-samplecode.UICatalog',
+            },
         }
     )
 

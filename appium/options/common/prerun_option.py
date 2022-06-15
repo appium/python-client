@@ -25,8 +25,16 @@ PRERUN = 'prerun'
 class PrerunOption(SupportsCapabilities):
     @property
     def prerun(self) -> Optional[str]:
+        """
+        :return: System script which is supposed to be executed before
+        a driver session is initialised.
+        """
         return self.get_capability(PRERUN)
 
     @prerun.setter
     def prerun(self, value: str) -> None:
+        """
+        Set a system script which is supposed to be executed before
+        a driver session is initialised.
+        """
         self.set_capability(PRERUN, value)

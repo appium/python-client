@@ -25,8 +25,15 @@ POSTRUN = 'postrun'
 class PostrunOption(SupportsCapabilities):
     @property
     def postrun(self) -> Optional[str]:
+        """
+        :return: System script which is supposed to be executed upon
+        driver session quit.
+        """
         return self.get_capability(POSTRUN)
 
     @postrun.setter
     def postrun(self, value: str) -> None:
+        """
+        Set a system script to execute upon driver session quit.
+        """
         self.set_capability(POSTRUN, value)

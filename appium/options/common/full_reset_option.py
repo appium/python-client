@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+FULL_RESET = 'fullReset'
+
 
 class FullResetOption(SupportsCapabilities):
-    FULL_RESET = 'fullReset'
-
     @property
     def full_reset(self) -> Optional[bool]:
         """
         :Returns: Whether the driver should perform a full reset.
         """
-        return self.get_capability(self.FULL_RESET)
+        return self.get_capability(FULL_RESET)
 
     @full_reset.setter
     def full_reset(self, value: bool) -> None:
         """
         Set whether the driver should perform a full reset.
         """
-        self.set_capability(self.FULL_RESET, value)
+        self.set_capability(FULL_RESET, value)

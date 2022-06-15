@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+DEVICE_NAME = 'deviceName'
+
 
 class DeviceNameOption(SupportsCapabilities):
-    DEVICE_NAME = 'deviceName'
-
     @property
     def device_name(self) -> Optional[str]:
         """
         :Returns: The name of the device.
         """
-        return self.get_capability(self.DEVICE_NAME)
+        return self.get_capability(DEVICE_NAME)
 
     @device_name.setter
     def device_name(self, value: str) -> None:
         """
         Set the name of the device to be used in the test.
         """
-        self.set_capability(self.DEVICE_NAME, value)
+        self.set_capability(DEVICE_NAME, value)

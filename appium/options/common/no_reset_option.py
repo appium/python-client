@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+NO_RESET = 'noReset'
+
 
 class NoResetOption(SupportsCapabilities):
-    NO_RESET = 'noReset'
-
     @property
     def full_reset(self) -> Optional[bool]:
         """
         :Returns: Whether the driver should not perform a reset.
         """
-        return self.get_capability(self.NO_RESET)
+        return self.get_capability(NO_RESET)
 
     @full_reset.setter
     def full_reset(self, value: bool) -> None:
         """
         Set whether the driver should not perform a reset.
         """
-        self.set_capability(self.NO_RESET, value)
+        self.set_capability(NO_RESET, value)

@@ -19,16 +19,16 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+IS_HEADLESS = 'isHeadless'
+
 
 class IsHeadlessOption(SupportsCapabilities):
-    IS_HEADLESS = 'isHeadless'
-
     @property
     def is_headless(self) -> Optional[bool]:
         """
         :Returns: Whether the driver should start emulator/simulator in headless mode.
         """
-        return self.get_capability(self.IS_HEADLESS)
+        return self.get_capability(IS_HEADLESS)
 
     @is_headless.setter
     def is_headless(self, value: bool) -> None:
@@ -36,4 +36,4 @@ class IsHeadlessOption(SupportsCapabilities):
         Set emulator/simulator to start in headless mode (e.g. no UI is shown).
         It is only applied if the emulator is not running before the test starts.
         """
-        self.set_capability(self.IS_HEADLESS, value)
+        self.set_capability(IS_HEADLESS, value)

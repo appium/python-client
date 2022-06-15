@@ -20,16 +20,16 @@ from typing import Optional, Union
 
 from .supports_capabilities import SupportsCapabilities
 
+NEW_COMMAND_TIMEOUT = 'newCommandTimeout'
+
 
 class NewCommandTimeoutOption(SupportsCapabilities):
-    NEW_COMMAND_TIMEOUT = 'newCommandTimeout'
-
     @property
     def new_command_timeout(self) -> Optional[timedelta]:
         """
         :Returns: The allowed time before seeing a new server command.
         """
-        value = self.get_capability(self.NEW_COMMAND_TIMEOUT)
+        value = self.get_capability(NEW_COMMAND_TIMEOUT)
         return None if value is None else timedelta(seconds=value)
 
     @new_command_timeout.setter
@@ -38,4 +38,4 @@ class NewCommandTimeoutOption(SupportsCapabilities):
         Set the allowed time before seeing a new server command.
         The value could either be provided as timedelta instance or an integer number of seconds.
         """
-        self.set_capability(self.NEW_COMMAND_TIMEOUT, value.seconds if isinstance(value, timedelta) else value)
+        self.set_capability(NEW_COMMAND_TIMEOUT, value.seconds if isinstance(value, timedelta) else value)

@@ -19,14 +19,14 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+PRERUN = 'prerun'
+
 
 class PrerunOption(SupportsCapabilities):
-    PRERUN = 'prerun'
-
     @property
     def prerun(self) -> Optional[str]:
-        return self.get_capability(self.PRERUN)
+        return self.get_capability(PRERUN)
 
     @prerun.setter
     def prerun(self, value: str) -> None:
-        self.set_capability(self.PRERUN, value)
+        self.set_capability(PRERUN, value)

@@ -29,6 +29,7 @@ from .print_page_source_on_find_failure_option import PrintPageSourceOnFindFailu
 
 APPIUM_PREFIX = 'appium:'
 T = TypeVar('T', bound='AppiumOptions')
+PLATFORM_NAME = 'platformName'
 
 
 class AppiumOptions(
@@ -41,7 +42,6 @@ class AppiumOptions(
     NewCommandTimeoutOption,
 ):
     _caps: Dict
-    PLATFORM_NAME = 'platformName'
     W3C_CAPABILITY_NAMES = frozenset(
         [
             'acceptInsecureCerts',

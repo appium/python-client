@@ -19,17 +19,17 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+PRINT_PAGE_SOURCE_ON_FIND_FAILURE = 'printPageSourceOnFindFailure'
+
 
 class PrintPageSourceOnFindFailureOption(SupportsCapabilities):
-    PRINT_PAGE_SOURCE_ON_FIND_FAILURE = 'printPageSourceOnFindFailure'
-
     @property
     def print_page_source_on_find_failure(self) -> Optional[bool]:
         """
         :Returns: Whether the driver should print the page source to the log
         if a find failure occurs.
         """
-        return self.get_capability(self.PRINT_PAGE_SOURCE_ON_FIND_FAILURE)
+        return self.get_capability(PRINT_PAGE_SOURCE_ON_FIND_FAILURE)
 
     @print_page_source_on_find_failure.setter
     def print_page_source_on_find_failure(self, value: bool) -> None:
@@ -37,4 +37,4 @@ class PrintPageSourceOnFindFailureOption(SupportsCapabilities):
         Set whether the driver should print the page source to the log
         if a find failure occurs.
         """
-        self.set_capability(self.PRINT_PAGE_SOURCE_ON_FIND_FAILURE, value)
+        self.set_capability(PRINT_PAGE_SOURCE_ON_FIND_FAILURE, value)

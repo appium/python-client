@@ -19,16 +19,16 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+APP = 'app'
+
 
 class AppOption(SupportsCapabilities):
-    APP = 'app'
-
     @property
     def app(self) -> Optional[str]:
         """
         :Returns: String representing app location.
         """
-        return self.get_capability(self.APP)
+        return self.get_capability(APP)
 
     @app.setter
     def app(self, value: str) -> None:
@@ -38,4 +38,4 @@ class AppOption(SupportsCapabilities):
         server is running.
         Could also be a valid URL.
         """
-        self.set_capability(self.APP, value)
+        self.set_capability(APP, value)

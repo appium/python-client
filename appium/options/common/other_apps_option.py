@@ -19,16 +19,16 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+OTHER_APPS = 'otherApps'
+
 
 class OtherAppsOption(SupportsCapabilities):
-    OTHER_APPS = 'otherApps'
-
     @property
     def other_apps(self) -> Optional[str]:
         """
         :Returns: Locations of apps to install before running a test.
         """
-        return self.get_capability(self.OTHER_APPS)
+        return self.get_capability(OTHER_APPS)
 
     @other_apps.setter
     def other_apps(self, value: str) -> None:
@@ -36,4 +36,4 @@ class OtherAppsOption(SupportsCapabilities):
         Set locations of apps to install before running a test.
         Each item could be separated with a single comma.
         """
-        self.set_capability(self.OTHER_APPS, value)
+        self.set_capability(OTHER_APPS, value)

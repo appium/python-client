@@ -19,7 +19,8 @@ from typing import Dict
 
 from appium.options.common.app_option import AppOption
 from appium.options.common.auto_web_view_option import AutoWebViewOption
-from appium.options.common.base import AppiumOptions
+from appium.options.common.automation_name_option import AUTOMATION_NAME
+from appium.options.common.base import PLATFORM_NAME, AppiumOptions
 from appium.options.common.clear_system_files_option import ClearSystemFilesOption
 from appium.options.common.device_name_option import DeviceNameOption
 from appium.options.common.enable_performance_logging_option import EnablePerformanceLoggingOption
@@ -50,6 +51,6 @@ class XCUITestOptions(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AppiumOptions.AUTOMATION_NAME: 'XCUITest',
-            AppiumOptions.PLATFORM_NAME: 'iOS',
+            AUTOMATION_NAME: 'XCUITest',
+            PLATFORM_NAME: 'iOS',
         }

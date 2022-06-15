@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+LANGUAGE = 'language'
+
 
 class LanguageOption(SupportsCapabilities):
-    LANGUAGE = 'language'
-
     @property
     def language(self) -> Optional[str]:
         """
         :Returns: Language abbreviation to use in a test session.
         """
-        return self.get_capability(self.LANGUAGE)
+        return self.get_capability(LANGUAGE)
 
     @language.setter
     def language(self, value: str) -> None:
         """
         Set language abbreviation to use in a test session.
         """
-        self.set_capability(self.LANGUAGE, value)
+        self.set_capability(LANGUAGE, value)

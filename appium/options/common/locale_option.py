@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+LOCALE = 'locale'
+
 
 class LocaleOption(SupportsCapabilities):
-    LOCALE = 'locale'
-
     @property
     def locale(self) -> Optional[str]:
         """
         :Returns: Locale abbreviation to use in a test session.
         """
-        return self.get_capability(self.LOCALE)
+        return self.get_capability(LOCALE)
 
     @locale.setter
     def locale(self, value: str) -> None:
         """
         Set locale abbreviation to use in a test session.
         """
-        self.set_capability(self.LOCALE, value)
+        self.set_capability(LOCALE, value)

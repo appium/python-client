@@ -19,17 +19,17 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+AUTO_WEB_VIEW = 'autoWebView'
+
 
 class AutoWebViewOption(SupportsCapabilities):
-    AUTO_WEB_VIEW = 'autoWebView'
-
     @property
     def auto_web_view(self) -> Optional[bool]:
         """
         :Returns: Whether the driver should try to automatically switch
         to a web view context after the session is started.
         """
-        return self.get_capability(self.AUTO_WEB_VIEW)
+        return self.get_capability(AUTO_WEB_VIEW)
 
     @auto_web_view.setter
     def auto_web_view(self, value: bool) -> None:
@@ -37,4 +37,4 @@ class AutoWebViewOption(SupportsCapabilities):
         Set whether the driver should try to automatically switch
         a web view context after the session is started.
         """
-        self.set_capability(self.AUTO_WEB_VIEW, value)
+        self.set_capability(AUTO_WEB_VIEW, value)

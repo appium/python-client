@@ -19,17 +19,17 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+ORIENTATION = 'orientation'
+
 
 class OrientationOption(SupportsCapabilities):
-    ORIENTATION = 'orientation'
-
     @property
     def orientation(self) -> Optional[str]:
         """
         :Returns: The orientation of the device's screen.
         Usually this is either 'PORTRAIT' or 'LANDSCAPE'.
         """
-        return self.get_capability(self.ORIENTATION)
+        return self.get_capability(ORIENTATION)
 
     @orientation.setter
     def orientation(self, value: str) -> None:
@@ -37,4 +37,4 @@ class OrientationOption(SupportsCapabilities):
         Set the orientation of the device's screen.
         Usually this is either 'PORTRAIT' or 'LANDSCAPE'.
         """
-        self.set_capability(self.ORIENTATION, value)
+        self.set_capability(ORIENTATION, value)

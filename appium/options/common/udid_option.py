@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+UDID = 'udid'
+
 
 class UdidOption(SupportsCapabilities):
-    UDID = 'udid'
-
     @property
     def udid(self) -> Optional[str]:
         """
-        :Returns: The id of the device under test.
+        :Returns: The unique identifier of the device under test.
         """
-        return self.get_capability(self.UDID)
+        return self.get_capability(UDID)
 
     @udid.setter
     def udid(self, value: str) -> None:
         """
-        Set the id of the device under test.
+        Set the unique identifier of the device under test.
         """
-        self.set_capability(self.UDID, value)
+        self.set_capability(UDID, value)

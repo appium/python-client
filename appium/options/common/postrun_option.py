@@ -19,14 +19,14 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+POSTRUN = 'postrun'
+
 
 class PostrunOption(SupportsCapabilities):
-    POSTRUN = 'postrun'
-
     @property
     def postrun(self) -> Optional[str]:
-        return self.get_capability(self.POSTRUN)
+        return self.get_capability(POSTRUN)
 
     @postrun.setter
     def postrun(self, value: str) -> None:
-        self.set_capability(self.POSTRUN, value)
+        self.set_capability(POSTRUN, value)

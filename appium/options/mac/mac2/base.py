@@ -17,7 +17,8 @@
 
 from typing import Dict
 
-from appium.options.common.base import AppiumOptions
+from appium.options.common.automation_name_option import AUTOMATION_NAME
+from appium.options.common.base import PLATFORM_NAME, AppiumOptions
 from appium.options.common.postrun_option import PostrunOption
 from appium.options.common.prerun_option import PrerunOption
 
@@ -30,6 +31,6 @@ class Mac2Options(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AppiumOptions.AUTOMATION_NAME: 'Mac2',
-            AppiumOptions.PLATFORM_NAME: 'Mac',
+            AUTOMATION_NAME: 'Mac2',
+            PLATFORM_NAME: 'Mac',
         }

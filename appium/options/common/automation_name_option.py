@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+AUTOMATION_NAME = 'automationName'
+
 
 class AutomationNameOption(SupportsCapabilities):
-    AUTOMATION_NAME = 'automationName'
-
     @property
     def automation_name(self) -> Optional[str]:
         """
         :Returns: String representing the name of the automation engine name.
         """
-        return self.get_capability(self.AUTOMATION_NAME)
+        return self.get_capability(AUTOMATION_NAME)
 
     @automation_name.setter
     def automation_name(self, value: str) -> None:
         """
         Set the automation driver name to use for the given platform.
         """
-        self.set_capability(self.AUTOMATION_NAME, value)
+        self.set_capability(AUTOMATION_NAME, value)

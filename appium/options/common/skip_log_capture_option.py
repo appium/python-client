@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+SKIP_LOG_CAPTURE = 'skipLogCapture'
+
 
 class SkipLogCaptureOption(SupportsCapabilities):
-    SKIP_LOG_CAPTURE = 'skipLogCapture'
-
     @property
     def skip_log_capture(self) -> Optional[bool]:
         """
         :Returns: Whether the driver should not record device logs.
         """
-        return self.get_capability(self.SKIP_LOG_CAPTURE)
+        return self.get_capability(SKIP_LOG_CAPTURE)
 
     @skip_log_capture.setter
     def skip_log_capture(self, value: bool) -> None:
         """
         Set whether the driver should not record device logs.
         """
-        self.set_capability(self.SKIP_LOG_CAPTURE, value)
+        self.set_capability(SKIP_LOG_CAPTURE, value)

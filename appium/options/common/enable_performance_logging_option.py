@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+ENABLE_PERFORMANCE_LOGGING = 'enablePerformanceLogging'
+
 
 class EnablePerformanceLoggingOption(SupportsCapabilities):
-    ENABLE_PERFORMANCE_LOGGING = 'enablePerformanceLogging'
-
     @property
     def enable_performance_logging(self) -> Optional[bool]:
         """
         :Returns: Whether to enable additional performance logging.
         """
-        return self.get_capability(self.ENABLE_PERFORMANCE_LOGGING)
+        return self.get_capability(ENABLE_PERFORMANCE_LOGGING)
 
     @enable_performance_logging.setter
     def enable_performance_logging(self, value: bool) -> None:
         """
         Set whether to enable additional performance logging.
         """
-        self.set_capability(self.ENABLE_PERFORMANCE_LOGGING, value)
+        self.set_capability(ENABLE_PERFORMANCE_LOGGING, value)

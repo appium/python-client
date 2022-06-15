@@ -19,17 +19,17 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+EVENT_TIMINGS = 'eventTimings'
+
 
 class EventTimingsOption(SupportsCapabilities):
-    EVENT_TIMINGS = 'eventTimings'
-
     @property
     def event_timings(self) -> Optional[bool]:
         """
         :Returns: Whether the driver should to report the timings
         for various Appium-internal events.
         """
-        return self.get_capability(self.EVENT_TIMINGS)
+        return self.get_capability(EVENT_TIMINGS)
 
     @event_timings.setter
     def event_timings(self, value: bool) -> None:
@@ -37,4 +37,4 @@ class EventTimingsOption(SupportsCapabilities):
         Set whether the driver should to report the timings
         for various Appium-internal events.
         """
-        self.set_capability(self.EVENT_TIMINGS, value)
+        self.set_capability(EVENT_TIMINGS, value)

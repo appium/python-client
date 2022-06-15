@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
+CLEAR_SYSTEM_FILES = 'clearSystemFiles'
+
 
 class ClearSystemFilesOption(SupportsCapabilities):
-    CLEAR_SYSTEM_FILES = 'clearSystemFiles'
-
     @property
     def clear_system_files(self) -> Optional[bool]:
         """
         :Returns: Whether the driver should delete generated files at the end of a session.
         """
-        return self.get_capability(self.CLEAR_SYSTEM_FILES)
+        return self.get_capability(CLEAR_SYSTEM_FILES)
 
     @clear_system_files.setter
     def clear_system_files(self, value: bool) -> None:
         """
         Set whether the driver should delete generated files at the end of a session.
         """
-        self.set_capability(self.CLEAR_SYSTEM_FILES, value)
+        self.set_capability(CLEAR_SYSTEM_FILES, value)

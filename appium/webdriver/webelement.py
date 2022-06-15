@@ -97,7 +97,9 @@ class WebElement(SeleniumWebElement, AppiumWebElementSearchContext):
         Returns:
             `appium.webdriver.webelement.WebElement`
         """
-        # TODO: If we need, we should enable below converter for Web context
+        # We prefer to patch locators in the client code
+        # Checking current context every time a locator is accessed could significantly slow down tests
+        # Check https://github.com/appium/python-client/pull/724 before submitting any issue
         # if by == By.ID:
         #     by = By.CSS_SELECTOR
         #     value = '[id="%s"]' % value
@@ -125,7 +127,9 @@ class WebElement(SeleniumWebElement, AppiumWebElementSearchContext):
         Returns:
             :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
         """
-        # TODO: If we need, we should enable below converter for Web context
+        # We prefer to patch locators in the client code
+        # Checking current context every time a locator is accessed could significantly slow down tests
+        # Check https://github.com/appium/python-client/pull/724 before submitting any issue
         # if by == By.ID:
         #     by = By.CSS_SELECTOR
         #     value = '[id="%s"]' % value
@@ -135,8 +139,8 @@ class WebElement(SeleniumWebElement, AppiumWebElementSearchContext):
         #     by = By.CSS_SELECTOR
         #     value = ".%s" % value
         # elif by == By.NAME:
-        #    by = By.CSS_SELECTOR
-        #    value = '[name="%s"]' % value
+        #     by = By.CSS_SELECTOR
+        #     value = '[name="%s"]' % value
 
         return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS, {"using": by, "value": value})['value']
 

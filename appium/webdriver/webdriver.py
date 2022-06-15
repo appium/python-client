@@ -17,7 +17,7 @@
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from selenium import webdriver
-from selenium.common.exceptions import InvalidArgumentException, WebDriverException
+from selenium.common.exceptions import InvalidArgumentException, SessionNotCreatedException, WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
@@ -317,10 +317,18 @@ class WebDriver(
 
         w3c_caps = AppiumOptions.as_w3c(capabilities) if isinstance(capabilities, dict) else capabilities.to_w3c()
         response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
-        if 'sessionId' not in response:
-            response = response['value']
+        # https://w3c.github.io/webdriver/#new-session
+        if not isinstance(response, dict):
+            raise SessionNotCreatedException(
+                f'A valid W3C session creation response must be a dictionary. Got "{response}" instead'
+            )
+        if not response.get('sessionId'):
+            raise SessionNotCreatedException(
+                f'A valid W3C session creation response must contain a non-empty "sessionId" entry. '
+                f'Got "{response}" instead'
+            )
         self.session_id = response['sessionId']
-        self.caps = response.get('value') or response.get('capabilities')
+        self.caps = response.get('capabilities') or {}
 
     def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> MobileWebElement:
         """

@@ -322,17 +322,19 @@ class WebDriver(
             raise SessionNotCreatedException(
                 f'A valid W3C session creation response must be a dictionary. Got "{response}" instead'
             )
-        # some browsers pack the createSession response stuff into 'value' dictionary
+        # Due to a W3C spec parsing misconception some servers
+        # pack the createSession response stuff into 'value' dictionary and
+        # some other put it to the top level of the response JSON nesting hierarchy
         get_response_value: Callable[[str], Optional[Any]] = lambda key: response.get(key) or (
             response['value'].get(key) if isinstance(response.get('value'), dict) else None
         )
-        sessionId = get_response_value('sessionId')
-        if not sessionId:
+        session_id = get_response_value('sessionId')
+        if not session_id:
             raise SessionNotCreatedException(
                 f'A valid W3C session creation response must contain a non-empty "sessionId" entry. '
                 f'Got "{response}" instead'
             )
-        self.session_id = sessionId
+        self.session_id = session_id
         self.caps = get_response_value('capabilities') or {}
 
     def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> MobileWebElement:

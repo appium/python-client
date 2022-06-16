@@ -2,6 +2,140 @@ Changelog
 =========
 
 
+v2.3.0 (2022-06-13)
+-------------------
+
+New
+~~~
+- Feat: Add base options for all supported automation names (#721)
+  [Mykola Mokhnach]
+- Feat: Add support for w3c options (#720) [Mykola Mokhnach]
+
+Test
+~~~~
+- Test: Use Appium2 to run functional tests (#723) [Mykola Mokhnach]
+
+Other
+~~~~~
+- Docs: Update README with the new options format (#722) [Mykola
+  Mokhnach]
+- Chore(deps): update mypy requirement from ~=0.960 to ~=0.961 (#718)
+  [dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.960...v0.961)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:production
+  ...
+- Chore: Disable pylint checks fail CI (#719) [Mykola Mokhnach]
+- Chore(deps): update selenium requirement from ~=4.1 to ~=4.2 (#715)
+  [dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.1.0...selenium-4.2.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps): update sphinx requirement from <5.0,>=4.0 to >=4.0,<6.0
+  (#716) [dependabot[bot]]
+
+  Updates the requirements on [sphinx](https://github.com/sphinx-doc/sphinx) to permit the latest version.
+  - [Release notes](https://github.com/sphinx-doc/sphinx/releases)
+  - [Changelog](https://github.com/sphinx-doc/sphinx/blob/5.x/CHANGES)
+  - [Commits](https://github.com/sphinx-doc/sphinx/compare/v4.0.0...v5.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: sphinx
+    dependency-type: direct:production
+  ...
+- Chore(deps): update mypy requirement from ~=0.950 to ~=0.960 (#714)
+  [dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.950...v0.960)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pre-commit requirement from ~=2.18 to ~=2.19
+  (#713) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.18.0...v2.19.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pre-commit
+    dependency-type: direct:development
+  ...
+- Chore(deps): update mypy requirement from ~=0.942 to ~=0.950 (#712)
+  [dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.942...v0.950)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:production
+  ...
+- Chore(deps): update typing-extensions requirement from ~=4.1 to ~=4.2
+  (#711) [dependabot[bot]]
+
+  Updates the requirements on [typing-extensions](https://github.com/python/typing) to permit the latest version.
+  - [Release notes](https://github.com/python/typing/releases)
+  - [Changelog](https://github.com/python/typing/blob/master/typing_extensions/CHANGELOG)
+  - [Commits](https://github.com/python/typing/compare/4.1.0...4.2.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: typing-extensions
+    dependency-type: direct:production
+  ...
+- Chore(deps): update tox requirement from ~=3.24 to ~=3.25 (#709)
+  [dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.24.0...3.25.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pre-commit requirement from ~=2.17 to ~=2.18
+  (#708) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.17.0...v2.18.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pre-commit
+    dependency-type: direct:development
+  ...
+- Update changelog for 2.2.0. [Kazuaki Matsuo]
+
+
 v2.2.0 (2022-03-30)
 -------------------
 

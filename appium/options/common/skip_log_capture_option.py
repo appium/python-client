@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+SKIP_LOG_CAPTURE = 'skipLogCapture'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class SkipLogCaptureOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def skip_log_capture(self) -> Optional[bool]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: Whether the driver should not record device logs.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(SKIP_LOG_CAPTURE)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @skip_log_capture.setter
+    def skip_log_capture(self, value: bool) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set whether the driver should not record device logs.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(SKIP_LOG_CAPTURE, value)

@@ -19,20 +19,23 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+APP = 'app'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class AppOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def app(self) -> Optional[str]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: String representing app location.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(APP)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @app.setter
+    def app(self, value: str) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set the absolute local path for the location of the App.
+        The app must be located on the same machine where Appium
+        server is running.
+        Could also be a valid URL.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(APP, value)

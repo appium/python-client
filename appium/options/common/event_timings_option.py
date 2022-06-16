@@ -19,20 +19,22 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+EVENT_TIMINGS = 'eventTimings'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class EventTimingsOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def event_timings(self) -> Optional[bool]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: Whether the driver should to report the timings
+        for various Appium-internal events.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(EVENT_TIMINGS)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @event_timings.setter
+    def event_timings(self, value: bool) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set whether the driver should to report the timings
+        for various Appium-internal events.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(EVENT_TIMINGS, value)

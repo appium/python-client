@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+UDID = 'udid'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class UdidOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def udid(self) -> Optional[str]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: The unique identifier of the device under test.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(UDID)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @udid.setter
+    def udid(self, value: str) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set the unique identifier of the device under test.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(UDID, value)

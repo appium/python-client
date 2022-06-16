@@ -17,6 +17,7 @@
 
 from typing import Dict
 
+from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import AppiumOptions
 
 
@@ -27,5 +28,5 @@ class SafariOptions(
     def default_capabilities(self) -> Dict:
         return {
             AppiumOptions.PLATFORM_NAME: 'iOS',
-            AppiumOptions.AUTOMATION_NAME: 'Safari',
+            AUTOMATION_NAME: 'Safari',
         }

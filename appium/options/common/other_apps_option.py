@@ -19,20 +19,21 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+OTHER_APPS = 'otherApps'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class OtherAppsOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def other_apps(self) -> Optional[str]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: Locations of apps to install before running a test.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(OTHER_APPS)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @other_apps.setter
+    def other_apps(self, value: str) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set locations of apps to install before running a test.
+        Each item could be separated with a single comma.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(OTHER_APPS, value)

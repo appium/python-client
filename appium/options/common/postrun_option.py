@@ -19,20 +19,21 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+POSTRUN = 'postrun'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class PostrunOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def postrun(self) -> Optional[str]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :return: System script which is supposed to be executed upon
+        driver session quit.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(POSTRUN)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @postrun.setter
+    def postrun(self, value: str) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set a system script to execute upon driver session quit.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(POSTRUN, value)

@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+DEVICE_NAME = 'deviceName'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class DeviceNameOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def device_name(self) -> Optional[str]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: The name of the device.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(DEVICE_NAME)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @device_name.setter
+    def device_name(self, value: str) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set the name of the device to be used in the test.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(DEVICE_NAME, value)

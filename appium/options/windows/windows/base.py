@@ -17,15 +17,20 @@
 
 from typing import Dict
 
-from appium.options.common.base import AppiumOptions
+from appium.options.common.automation_name_option import AUTOMATION_NAME
+from appium.options.common.base import PLATFORM_NAME, AppiumOptions
+from appium.options.common.postrun_option import PostrunOption
+from appium.options.common.prerun_option import PrerunOption
 
 
 class WindowsOptions(
     AppiumOptions,
+    PrerunOption,
+    PostrunOption,
 ):
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AppiumOptions.AUTOMATION_NAME: 'Windows',
-            AppiumOptions.PLATFORM_NAME: 'Windows',
+            AUTOMATION_NAME: 'Windows',
+            PLATFORM_NAME: 'Windows',
         }

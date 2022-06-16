@@ -19,20 +19,22 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+PRINT_PAGE_SOURCE_ON_FIND_FAILURE = 'printPageSourceOnFindFailure'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class PrintPageSourceOnFindFailureOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def print_page_source_on_find_failure(self) -> Optional[bool]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: Whether the driver should print the page source to the log
+        if a find failure occurs.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(PRINT_PAGE_SOURCE_ON_FIND_FAILURE)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @print_page_source_on_find_failure.setter
+    def print_page_source_on_find_failure(self, value: bool) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set whether the driver should print the page source to the log
+        if a find failure occurs.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(PRINT_PAGE_SOURCE_ON_FIND_FAILURE, value)

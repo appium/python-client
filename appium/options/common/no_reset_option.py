@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+NO_RESET = 'noReset'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class NoResetOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def full_reset(self) -> Optional[bool]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: Whether the driver should not perform a reset.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(NO_RESET)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @full_reset.setter
+    def full_reset(self, value: bool) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set whether the driver should not perform a reset.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(NO_RESET, value)

@@ -19,20 +19,22 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+PRERUN = 'prerun'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class PrerunOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def prerun(self) -> Optional[str]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :return: System script which is supposed to be executed before
+        a driver session is initialised.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(PRERUN)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @prerun.setter
+    def prerun(self, value: str) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set a system script which is supposed to be executed before
+        a driver session is initialised.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(PRERUN, value)

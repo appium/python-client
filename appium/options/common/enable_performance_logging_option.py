@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+ENABLE_PERFORMANCE_LOGGING = 'enablePerformanceLogging'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class EnablePerformanceLoggingOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def enable_performance_logging(self) -> Optional[bool]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: Whether to enable additional performance logging.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(ENABLE_PERFORMANCE_LOGGING)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @enable_performance_logging.setter
+    def enable_performance_logging(self, value: bool) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set whether to enable additional performance logging.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(ENABLE_PERFORMANCE_LOGGING, value)

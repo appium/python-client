@@ -19,20 +19,21 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+IS_HEADLESS = 'isHeadless'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class IsHeadlessOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def is_headless(self) -> Optional[bool]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: Whether the driver should start emulator/simulator in headless mode.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(IS_HEADLESS)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @is_headless.setter
+    def is_headless(self, value: bool) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set emulator/simulator to start in headless mode (e.g. no UI is shown).
+        It is only applied if the emulator is not running before the test starts.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(IS_HEADLESS, value)

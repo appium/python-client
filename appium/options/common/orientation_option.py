@@ -19,20 +19,22 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+ORIENTATION = 'orientation'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class OrientationOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def orientation(self) -> Optional[str]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: The orientation of the device's screen.
+        Usually this is either 'PORTRAIT' or 'LANDSCAPE'.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(ORIENTATION)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @orientation.setter
+    def orientation(self, value: str) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set the orientation of the device's screen.
+        Usually this is either 'PORTRAIT' or 'LANDSCAPE'.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(ORIENTATION, value)

@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+LANGUAGE = 'language'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class LanguageOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def language(self) -> Optional[str]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: Language abbreviation to use in a test session.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(LANGUAGE)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @language.setter
+    def language(self, value: str) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set language abbreviation to use in a test session.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(LANGUAGE, value)

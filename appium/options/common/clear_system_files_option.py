@@ -19,20 +19,20 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+CLEAR_SYSTEM_FILES = 'clearSystemFiles'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class ClearSystemFilesOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def clear_system_files(self) -> Optional[bool]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: Whether the driver should delete generated files at the end of a session.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(CLEAR_SYSTEM_FILES)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @clear_system_files.setter
+    def clear_system_files(self, value: bool) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set whether the driver should delete generated files at the end of a session.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(CLEAR_SYSTEM_FILES, value)

@@ -17,15 +17,40 @@
 
 from typing import Dict
 
-from appium.options.common.base import AppiumOptions
+from appium.options.common.app_option import AppOption
+from appium.options.common.auto_web_view_option import AutoWebViewOption
+from appium.options.common.automation_name_option import AUTOMATION_NAME
+from appium.options.common.base import PLATFORM_NAME, AppiumOptions
+from appium.options.common.clear_system_files_option import ClearSystemFilesOption
+from appium.options.common.device_name_option import DeviceNameOption
+from appium.options.common.enable_performance_logging_option import EnablePerformanceLoggingOption
+from appium.options.common.is_headless_option import IsHeadlessOption
+from appium.options.common.language_option import LanguageOption
+from appium.options.common.locale_option import LocaleOption
+from appium.options.common.orientation_option import OrientationOption
+from appium.options.common.other_apps_option import OtherAppsOption
+from appium.options.common.skip_log_capture_option import SkipLogCaptureOption
+from appium.options.common.udid_option import UdidOption
 
 
 class XCUITestOptions(
     AppiumOptions,
+    AppOption,
+    ClearSystemFilesOption,
+    OrientationOption,
+    UdidOption,
+    LanguageOption,
+    LocaleOption,
+    IsHeadlessOption,
+    SkipLogCaptureOption,
+    AutoWebViewOption,
+    EnablePerformanceLoggingOption,
+    OtherAppsOption,
+    DeviceNameOption,
 ):
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AppiumOptions.AUTOMATION_NAME: 'XCUITest',
-            AppiumOptions.PLATFORM_NAME: 'iOS',
+            AUTOMATION_NAME: 'XCUITest',
+            PLATFORM_NAME: 'iOS',
         }

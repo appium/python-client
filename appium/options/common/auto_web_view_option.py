@@ -19,20 +19,22 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+AUTO_WEB_VIEW = 'autoWebView'
 
 
-class AutomationNameOption(SupportsCapabilities):
+class AutoWebViewOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def auto_web_view(self) -> Optional[bool]:
         """
-        :Returns: String representing the name of the automation engine name.
+        :Returns: Whether the driver should try to automatically switch
+        to a web view context after the session is started.
         """
-        return self.get_capability(AUTOMATION_NAME)
+        return self.get_capability(AUTO_WEB_VIEW)
 
-    @automation_name.setter
-    def automation_name(self, value: str) -> None:
+    @auto_web_view.setter
+    def auto_web_view(self, value: bool) -> None:
         """
-        Set the automation driver name to use for the given platform.
+        Set whether the driver should try to automatically switch
+        a web view context after the session is started.
         """
-        self.set_capability(AUTOMATION_NAME, value)
+        self.set_capability(AUTO_WEB_VIEW, value)

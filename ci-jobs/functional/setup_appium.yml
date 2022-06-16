@@ -16,6 +16,7 @@ steps:
   displayName: Install python language bindings for Appium
 - script: |
     pip install --upgrade pip
+    pip install setuptools-rust
     pip install pipenv
     pipenv lock --clear
     pipenv install --system

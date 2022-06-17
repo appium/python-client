@@ -10,15 +10,14 @@ steps:
     versionSpec: '3.x'
 - script: brew install ffmpeg
   displayName: Resolve dependencies (Appium server)
-# - script: pip install trio==0.17.0
-#   displayName: Install trio
-- script: python setup.py install
-  displayName: Install python language bindings for Appium
 - script: |
+    pip install --upgrade pip
     pip install pipenv
     pipenv lock --clear
     pipenv install --system
   displayName: Resolve dependencies (Python)
+- script: python setup.py install
+  displayName: Install python language bindings for Appium
 - script: |
     git --no-pager log -n1
     python --version

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import os
+import re
 import subprocess as sp
 import sys
 import time
@@ -24,7 +25,8 @@ DEFAULT_HOST = '127.0.0.1'
 DEFAULT_PORT = 4723
 STARTUP_TIMEOUT_MS = 60000
 MAIN_SCRIPT_PATH = 'appium/build/lib/main.js'
-STATUS_URL = '/wd/hub/status'
+STATUS_URL = '/status'
+DEFAULT_BASE_PATH = '/'
 
 
 def find_executable(executable: str) -> Optional[str]:
@@ -47,9 +49,9 @@ def find_executable(executable: str) -> Optional[str]:
 
 def poll_url(host: str, port: int, path: str, timeout_ms: int) -> bool:
     time_started_sec = time.time()
+    conn = urllib3.PoolManager(timeout=1.0)
     while time.time() < time_started_sec + timeout_ms / 1000.0:
         try:
-            conn = urllib3.PoolManager(timeout=1.0)
             resp = conn.request('HEAD', f'http://{host}:{port}{path}')
             if resp.status < 400:
                 return True
@@ -113,6 +115,13 @@ class AppiumService:
         return DEFAULT_PORT
 
     @staticmethod
+    def _parse_base_path(args: List[str]) -> str:
+        for idx, arg in enumerate(args or []):
+            if arg in ('--base-path', '-pa') and idx < len(args) - 1:
+                return args[idx + 1]
+        return DEFAULT_BASE_PATH
+
+    @staticmethod
     def _parse_host(args: List[str]) -> str:
         for idx, arg in enumerate(args or []):
             if arg in ('--address', '-a') and idx < len(args) - 1:
@@ -166,7 +175,11 @@ class AppiumService:
         host = self._parse_host(args)
         port = self._parse_port(args)
         error_msg: Optional[str] = None
-        if not self.is_running or (timeout_ms > 0 and not poll_url(host, port, STATUS_URL, timeout_ms)):
+        base_path = self._parse_base_path(args)
+        status_url_path = (
+            STATUS_URL if base_path == DEFAULT_BASE_PATH else f'{re.sub(r"[/]+$", "", base_path)}{STATUS_URL}'
+        )
+        if not self.is_running or (timeout_ms > 0 and not poll_url(host, port, status_url_path, timeout_ms)):
             error_msg = f'Appium has failed to start on {host}:{port} within {timeout_ms}ms timeout'
         if error_msg is not None:
             if stderr == sp.PIPE and self._process.stderr is not None:
@@ -218,7 +231,11 @@ class AppiumService:
             return False
         host = self._parse_host(self._cmd)
         port = self._parse_port(self._cmd)
-        return self.is_running and poll_url(host, port, STATUS_URL, 1000)
+        base_path = self._parse_base_path(self._cmd)
+        status_url_path = (
+            STATUS_URL if base_path == DEFAULT_BASE_PATH else f'{re.sub(r"[/]+$", "", base_path)}{STATUS_URL}'
+        )
+        return self.is_running and poll_url(host, port, status_url_path, 1000)
 
 
 if __name__ == '__main__':

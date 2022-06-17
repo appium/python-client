@@ -37,7 +37,7 @@ class TestWebDriverWebDriver(object):
         httpretty.register_uri(
             httpretty.POST,
             f'{SERVER_URL_BASE}/session',
-            body='{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}',
+            body='{ "value": {"sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}} }',
         )
 
         desired_caps = {
@@ -71,7 +71,7 @@ class TestWebDriverWebDriver(object):
         httpretty.register_uri(
             httpretty.POST,
             f'{SERVER_URL_BASE}/session',
-            body='{ "value": { "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}}}',
+            body='{ "sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"} }',
         )
 
         httpretty.register_uri(
@@ -100,16 +100,14 @@ class TestWebDriverWebDriver(object):
             f'{SERVER_URL_BASE}/session',
             body=json.dumps(
                 {
-                    'value': {
-                        'sessionId': 'session-id',
-                        'capabilities': {
-                            'deviceName': 'Android Emulator',
-                            'directConnectProtocol': 'http',
-                            'directConnectHost': 'localhost2',
-                            'directConnectPort': 4800,
-                            'directConnectPath': '/special/path/wd/hub',
-                        },
-                    }
+                    'sessionId': 'session-id',
+                    'capabilities': {
+                        'deviceName': 'Android Emulator',
+                        'directConnectProtocol': 'http',
+                        'directConnectHost': 'localhost2',
+                        'directConnectPort': 4800,
+                        'directConnectPath': '/special/path/wd/hub',
+                    },
                 }
             ),
         )
@@ -142,15 +140,13 @@ class TestWebDriverWebDriver(object):
             f'{SERVER_URL_BASE}/session',
             body=json.dumps(
                 {
-                    'value': {
-                        'sessionId': 'session-id',
-                        'capabilities': {
-                            'deviceName': 'Android Emulator',
-                            'directConnectProtocol': 'http',
-                            'directConnectHost': 'localhost2',
-                            'directConnectPort': 4800,
-                        },
-                    }
+                    'sessionId': 'session-id',
+                    'capabilities': {
+                        'deviceName': 'Android Emulator',
+                        'directConnectProtocol': 'http',
+                        'directConnectHost': 'localhost2',
+                        'directConnectPort': 4800,
+                    },
                 }
             ),
         )
@@ -327,29 +323,27 @@ class TestSubModuleWebDriver(object):
     def android_w3c_driver(self, driver_class):
         response_body_json = json.dumps(
             {
-                'value': {
-                    'sessionId': '1234567890',
-                    'capabilities': {
-                        'platform': 'LINUX',
-                        'desired': {
-                            'platformName': 'Android',
-                            'automationName': 'uiautomator2',
-                            'platformVersion': '7.1.1',
-                            'deviceName': 'Android Emulator',
-                            'app': '/test/apps/ApiDemos-debug.apk',
-                        },
+                'sessionId': '1234567890',
+                'capabilities': {
+                    'platform': 'LINUX',
+                    'desired': {
                         'platformName': 'Android',
                         'automationName': 'uiautomator2',
                         'platformVersion': '7.1.1',
-                        'deviceName': 'emulator-5554',
+                        'deviceName': 'Android Emulator',
                         'app': '/test/apps/ApiDemos-debug.apk',
-                        'deviceUDID': 'emulator-5554',
-                        'appPackage': 'io.appium.android.apis',
-                        'appWaitPackage': 'io.appium.android.apis',
-                        'appActivity': 'io.appium.android.apis.ApiDemos',
-                        'appWaitActivity': 'io.appium.android.apis.ApiDemos',
                     },
-                }
+                    'platformName': 'Android',
+                    'automationName': 'uiautomator2',
+                    'platformVersion': '7.1.1',
+                    'deviceName': 'emulator-5554',
+                    'app': '/test/apps/ApiDemos-debug.apk',
+                    'deviceUDID': 'emulator-5554',
+                    'appPackage': 'io.appium.android.apis',
+                    'appWaitPackage': 'io.appium.android.apis',
+                    'appActivity': 'io.appium.android.apis.ApiDemos',
+                    'appWaitActivity': 'io.appium.android.apis.ApiDemos',
+                },
             }
         )
 

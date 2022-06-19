@@ -22,11 +22,32 @@ from appium.options.common.base import PLATFORM_NAME, AppiumOptions
 from appium.options.common.postrun_option import PostrunOption
 from appium.options.common.prerun_option import PrerunOption
 
+from .arguments_option import ArgumentsOption
+from .bootstrap_root_option import BootstrapRootOption
+from .bundle_id_option import BundleIdOption
+from .environment_option import EnvironmentOption
+from .server_startup_timeout_option import ServerStartupTimeoutOption
+from .show_server_logs_option import ShowServerLogsOption
+from .skip_app_kill_option import SkipAppKillOption
+from .system_host_option import SystemHostOption
+from .system_port_option import SystemPortOption
+from .web_driver_agent_mac_url_option import WebDriverAgentMacUrlOption
+
 
 class Mac2Options(
     AppiumOptions,
     PrerunOption,
     PostrunOption,
+    ArgumentsOption,
+    BootstrapRootOption,
+    BundleIdOption,
+    EnvironmentOption,
+    ServerStartupTimeoutOption,
+    ShowServerLogsOption,
+    SkipAppKillOption,
+    SystemHostOption,
+    SystemPortOption,
+    WebDriverAgentMacUrlOption,
 ):
     @property
     def default_capabilities(self) -> Dict:

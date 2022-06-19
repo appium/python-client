@@ -2,6 +2,28 @@ Changelog
 =========
 
 
+v2.4.0 (2022-06-17)
+-------------------
+
+New
+~~~
+- Feat: Add common options (#728) [Mykola Mokhnach]
+
+Other
+~~~~~
+- Chore: Add better error handling for session creation responses (#727)
+  [Mykola Mokhnach]
+- Docs: Update changelog for 2.3.0. [Kazuaki Matsuo]
+- Bump 2.3.0. [Kazuaki Matsuo]
+- Chore: Update comments to locator patches (#724) [VladimirPodolyan]
+
+  * Update webelement.py
+
+  * update comment section
+
+  * CR fixes
+
+
 v2.3.0 (2022-06-13)
 -------------------
 

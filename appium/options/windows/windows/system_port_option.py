@@ -15,25 +15,27 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional
+from typing import Optional
 
-from .supports_capabilities import SupportsCapabilities
+from appium.options.common.supports_capabilities import SupportsCapabilities
 
-POSTRUN = 'postrun'
+SYSTEM_PORT = 'systemPort'
 
 
-class PostrunOption(SupportsCapabilities):
+class SystemPortOption(SupportsCapabilities):
     @property
-    def postrun(self) -> Optional[Dict[str, str]]:
+    def system_port(self) -> Optional[int]:
         """
-        :return: System script which is supposed to be executed upon
-        driver session quit.
+        :Returns: Port number to execute Appium Windows Driver server listener on.
         """
-        return self.get_capability(POSTRUN)
+        return self.get_capability(SYSTEM_PORT)
 
-    @postrun.setter
-    def postrun(self, value: Dict[str, str]) -> None:
+    @system_port.setter
+    def system_port(self, value: int) -> None:
         """
-        Set a system script to execute upon driver session quit.
+        The port number to execute Appium Windows Driver server listener on,
+        for example 5556. The port must not be occupied. The default starting port
+        number for a new Appium Windows Driver session is 4724. If this port is
+        already busy then the next free port will be automatically selected.
         """
-        self.set_capability(POSTRUN, value)
+        self.set_capability(SYSTEM_PORT, value)

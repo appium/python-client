@@ -15,25 +15,26 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional
+from typing import Optional
 
-from .supports_capabilities import SupportsCapabilities
+from appium.options.common.supports_capabilities import SupportsCapabilities
 
-POSTRUN = 'postrun'
+APP_TOP_LEVEL_WINDOW = 'appTopLevelWindow'
 
 
-class PostrunOption(SupportsCapabilities):
+class AppTopLevelWindowOption(SupportsCapabilities):
     @property
-    def postrun(self) -> Optional[Dict[str, str]]:
+    def app_top_level_window(self) -> Optional[str]:
         """
-        :return: System script which is supposed to be executed upon
-        driver session quit.
+        :Returns: Hexadecimal handle of an existing application top level window to attach to.
         """
-        return self.get_capability(POSTRUN)
+        return self.get_capability(APP_TOP_LEVEL_WINDOW)
 
-    @postrun.setter
-    def postrun(self, value: Dict[str, str]) -> None:
+    @app_top_level_window.setter
+    def app_top_level_window(self, value: str) -> None:
         """
-        Set a system script to execute upon driver session quit.
+        Set the hexadecimal handle of an existing application top level
+        window to attach to, for example 0x12345 (should be of string type).
+        Either this capability or app one must be provided on session startup.
         """
-        self.set_capability(POSTRUN, value)
+        self.set_capability(APP_TOP_LEVEL_WINDOW, value)

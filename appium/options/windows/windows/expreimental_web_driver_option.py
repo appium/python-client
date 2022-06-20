@@ -15,25 +15,25 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional
+from typing import Optional
 
-from .supports_capabilities import SupportsCapabilities
+from appium.options.common.supports_capabilities import SupportsCapabilities
 
-POSTRUN = 'postrun'
+EXPERIMENTAL_WEB_DRIVER = 'ms:experimental-webdriver'
 
 
-class PostrunOption(SupportsCapabilities):
+class ExperimentalWebDriverOption(SupportsCapabilities):
     @property
-    def postrun(self) -> Optional[Dict[str, str]]:
+    def experimental_webdriver(self) -> Optional[bool]:
         """
-        :return: System script which is supposed to be executed upon
-        driver session quit.
+        :Returns: Whether to enable experimental features and optimizations.
         """
-        return self.get_capability(POSTRUN)
+        return self.get_capability(EXPERIMENTAL_WEB_DRIVER)
 
-    @postrun.setter
-    def postrun(self, value: Dict[str, str]) -> None:
+    @experimental_webdriver.setter
+    def experimental_webdriver(self, value: bool) -> None:
         """
-        Set a system script to execute upon driver session quit.
+        Enables experimental features and optimizations. See Appium Windows
+        Driver release notes for more details on this capability.
         """
-        self.set_capability(POSTRUN, value)
+        self.set_capability(EXPERIMENTAL_WEB_DRIVER, value)

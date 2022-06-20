@@ -15,25 +15,26 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional
+from typing import Optional
 
-from .supports_capabilities import SupportsCapabilities
+from appium.options.common.supports_capabilities import SupportsCapabilities
 
-POSTRUN = 'postrun'
+APP_WORKING_DIR = 'appWorkingDir'
 
 
-class PostrunOption(SupportsCapabilities):
+class AppWorkingDirOption(SupportsCapabilities):
     @property
-    def postrun(self) -> Optional[Dict[str, str]]:
+    def app_working_dir(self) -> Optional[str]:
         """
-        :return: System script which is supposed to be executed upon
-        driver session quit.
+        :Returns: Full path to the folder, which is going to be set as the working
+        dir for the application under test.
         """
-        return self.get_capability(POSTRUN)
+        return self.get_capability(APP_WORKING_DIR)
 
-    @postrun.setter
-    def postrun(self, value: Dict[str, str]) -> None:
+    @app_working_dir.setter
+    def app_working_dir(self, value: str) -> None:
         """
-        Set a system script to execute upon driver session quit.
+        Set the full path to the folder, which is going to be set as the working
+        dir for the application under test. This is only applicable for classic apps.
         """
-        self.set_capability(POSTRUN, value)
+        self.set_capability(APP_WORKING_DIR, value)

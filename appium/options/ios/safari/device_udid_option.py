@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUdid'
+DEVICE_UDID = 'safari:deviceUDID'
 
 
 class DeviceUdidOption(SupportsCapabilities):

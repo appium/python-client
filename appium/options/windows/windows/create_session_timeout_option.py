@@ -27,7 +27,7 @@ class CreateSessionTimeoutOption(SupportsCapabilities):
     @property
     def create_session_timeout(self) -> Optional[timedelta]:
         """
-        :Returns: Timeout used to retry Appium Windows Driver session startup.
+        Timeout used to retry Appium Windows Driver session startup.
         """
         value = self.get_capability(CREATE_SESSION_TIMEOUT)
         return None if value is None else timedelta(milliseconds=value)

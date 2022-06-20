@@ -27,7 +27,7 @@ class WaitForAppLaunchOption(SupportsCapabilities):
     @property
     def wait_for_app_launch(self) -> Optional[timedelta]:
         """
-        :Returns: Timeout used to retry Appium Windows Driver session startup.
+        Timeout used to retry Appium Windows Driver session startup.
         """
         value = self.get_capability(WAIT_FOR_APP_LAUNCH)
         return None if value is None else timedelta(seconds=value)

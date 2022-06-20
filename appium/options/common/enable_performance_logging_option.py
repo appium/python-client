@@ -26,7 +26,7 @@ class EnablePerformanceLoggingOption(SupportsCapabilities):
     @property
     def enable_performance_logging(self) -> Optional[bool]:
         """
-        :Returns: Whether to enable additional performance logging.
+        Whether to enable additional performance logging.
         """
         return self.get_capability(ENABLE_PERFORMANCE_LOGGING)
 

@@ -26,7 +26,7 @@ class LocaleOption(SupportsCapabilities):
     @property
     def locale(self) -> Optional[str]:
         """
-        :Returns: Locale abbreviation to use in a test session.
+        Locale abbreviation to use in a test session.
         """
         return self.get_capability(LOCALE)
 

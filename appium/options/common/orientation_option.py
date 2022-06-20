@@ -26,7 +26,7 @@ class OrientationOption(SupportsCapabilities):
     @property
     def orientation(self) -> Optional[str]:
         """
-        :Returns: The orientation of the device's screen.
+        The orientation of the device's screen.
         Usually this is either 'PORTRAIT' or 'LANDSCAPE'.
         """
         return self.get_capability(ORIENTATION)

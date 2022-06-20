@@ -26,7 +26,7 @@ class ShowServerLogsOption(SupportsCapabilities):
     @property
     def show_server_logs(self) -> Optional[bool]:
         """
-        :Returns: Whether to show WDA server logs in the Appium log.
+        Whether to show WDA server logs in the Appium log.
         """
         return self.get_capability(SHOW_SERVER_LOGS)
 

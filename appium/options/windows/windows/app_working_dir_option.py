@@ -26,7 +26,7 @@ class AppWorkingDirOption(SupportsCapabilities):
     @property
     def app_working_dir(self) -> Optional[str]:
         """
-        :Returns: Full path to the folder, which is going to be set as the working
+        Full path to the folder, which is going to be set as the working
         dir for the application under test.
         """
         return self.get_capability(APP_WORKING_DIR)

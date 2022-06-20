@@ -26,7 +26,7 @@ class BundleIdOption(SupportsCapabilities):
     @property
     def bundle_id(self) -> Optional[str]:
         """
-        :Returns: The bundle identifier of the application to automate.
+        The bundle identifier of the application to automate.
         """
         return self.get_capability(BUNDLE_ID)
 

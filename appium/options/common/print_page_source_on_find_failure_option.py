@@ -26,7 +26,7 @@ class PrintPageSourceOnFindFailureOption(SupportsCapabilities):
     @property
     def print_page_source_on_find_failure(self) -> Optional[bool]:
         """
-        :Returns: Whether the driver should print the page source to the log
+        Whether the driver should print the page source to the log
         if a find failure occurs.
         """
         return self.get_capability(PRINT_PAGE_SOURCE_ON_FIND_FAILURE)

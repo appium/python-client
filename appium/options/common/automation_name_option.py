@@ -26,7 +26,7 @@ class AutomationNameOption(SupportsCapabilities):
     @property
     def automation_name(self) -> Optional[str]:
         """
-        :Returns: String representing the name of the automation engine name.
+        String representing the name of the automation engine name.
         """
         return self.get_capability(AUTOMATION_NAME)
 

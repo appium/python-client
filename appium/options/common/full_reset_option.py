@@ -26,7 +26,7 @@ class FullResetOption(SupportsCapabilities):
     @property
     def full_reset(self) -> Optional[bool]:
         """
-        :Returns: Whether the driver should perform a full reset.
+        Whether the driver should perform a full reset.
         """
         return self.get_capability(FULL_RESET)
 

@@ -26,7 +26,7 @@ class EnvironmentOption(SupportsCapabilities):
     @property
     def environment(self) -> Optional[Dict[str, str]]:
         """
-        :Returns: Application environment variables mapping.
+        Application environment variables mapping.
         """
         return self.get_capability(ENVIRONMENT)
 

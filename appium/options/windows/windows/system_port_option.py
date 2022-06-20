@@ -26,7 +26,7 @@ class SystemPortOption(SupportsCapabilities):
     @property
     def system_port(self) -> Optional[int]:
         """
-        :Returns: Port number to execute Appium Windows Driver server listener on.
+        Port number to execute Appium Windows Driver server listener on.
         """
         return self.get_capability(SYSTEM_PORT)
 

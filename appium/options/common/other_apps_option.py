@@ -26,7 +26,7 @@ class OtherAppsOption(SupportsCapabilities):
     @property
     def other_apps(self) -> Optional[str]:
         """
-        :Returns: Locations of apps to install before running a test.
+        Locations of apps to install before running a test.
         """
         return self.get_capability(OTHER_APPS)
 

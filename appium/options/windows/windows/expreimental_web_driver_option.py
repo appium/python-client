@@ -26,7 +26,7 @@ class ExperimentalWebDriverOption(SupportsCapabilities):
     @property
     def experimental_webdriver(self) -> Optional[bool]:
         """
-        :Returns: Whether to enable experimental features and optimizations.
+        Whether to enable experimental features and optimizations.
         """
         return self.get_capability(EXPERIMENTAL_WEB_DRIVER)
 

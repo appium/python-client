@@ -27,7 +27,7 @@ class ServerStartupTimeoutOption(SupportsCapabilities):
     @property
     def server_startup_timeout(self) -> Optional[timedelta]:
         """
-        :Returns: Get the timeout to wait util the WebDriverAgentMac
+        Get the timeout to wait util the WebDriverAgentMac
         project is built and started.
         """
         value_ms = self.get_capability(SERVER_STARTUP_TIMEOUT)

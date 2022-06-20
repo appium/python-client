@@ -26,7 +26,7 @@ class AppTopLevelWindowOption(SupportsCapabilities):
     @property
     def app_top_level_window(self) -> Optional[str]:
         """
-        :Returns: Hexadecimal handle of an existing application top level window to attach to.
+        Hexadecimal handle of an existing application top level window to attach to.
         """
         return self.get_capability(APP_TOP_LEVEL_WINDOW)
 

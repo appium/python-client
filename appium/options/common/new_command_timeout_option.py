@@ -27,7 +27,7 @@ class NewCommandTimeoutOption(SupportsCapabilities):
     @property
     def new_command_timeout(self) -> Optional[timedelta]:
         """
-        :Returns: The allowed time before seeing a new server command.
+        The allowed time before seeing a new server command.
         """
         value = self.get_capability(NEW_COMMAND_TIMEOUT)
         return None if value is None else timedelta(seconds=value)

@@ -66,7 +66,7 @@ class WindowsOptions(
         """
         PrerunOption.prerun.fset(self, value)  # type: ignore
 
-    @PostrunOption.prerun.setter  # type: ignore
+    @PostrunOption.postrun.setter  # type: ignore
     def postrun(self, value: Dict[str, str]) -> None:
         """
         A mapping containing either 'script' or 'command' key. The value of

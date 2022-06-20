@@ -18,15 +18,34 @@
 from typing import Dict
 
 from appium.options.common.automation_name_option import AUTOMATION_NAME
-from appium.options.common.base import AppiumOptions
+from appium.options.common.base import PLATFORM_NAME, AppiumOptions
+
+from .automatic_inspection_option import AutomaticInspectionOption
+from .automatic_profiling_option import AutomaticProfilingOption
+from .device_name_option import DeviceNameOption
+from .device_type_option import DeviceTypeOption
+from .device_udid_option import DeviceUdidOption
+from .platform_build_version_option import PlatformBuildVersionOption
+from .platform_version_option import PlatformVersionOption
+from .use_simulator_option import UseSimulatorOption
+from .webkit_webrtc_option import WebkitWebrtcOption
 
 
 class SafariOptions(
     AppiumOptions,
+    AutomaticInspectionOption,
+    AutomaticProfilingOption,
+    DeviceNameOption,
+    DeviceTypeOption,
+    DeviceUdidOption,
+    PlatformBuildVersionOption,
+    PlatformVersionOption,
+    UseSimulatorOption,
+    WebkitWebrtcOption,
 ):
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AppiumOptions.PLATFORM_NAME: 'iOS',
+            PLATFORM_NAME: 'iOS',
             AUTOMATION_NAME: 'Safari',
         }

@@ -24,4 +24,5 @@ steps:
     ffmpeg -version
     appium --version
     node --version
+    npm --version
   displayName: Check versions

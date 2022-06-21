@@ -19,26 +19,22 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-BUNDLE_ID = 'bundleId'
+APP_WORKING_DIR = 'appWorkingDir'
 
 
-class BundleIdOption(SupportsCapabilities):
+class AppWorkingDirOption(SupportsCapabilities):
     @property
-    def bundle_id(self) -> Optional[str]:
+    def app_working_dir(self) -> Optional[str]:
         """
-        The bundle identifier of the application to automate.
+        Full path to the folder, which is going to be set as the working
+        dir for the application under test.
         """
-        return self.get_capability(BUNDLE_ID)
+        return self.get_capability(APP_WORKING_DIR)
 
-    @bundle_id.setter
-    def bundle_id(self, value: str) -> None:
+    @app_working_dir.setter
+    def app_working_dir(self, value: str) -> None:
         """
-        Set the bundle identifier of the application to automate, for example
-        com.apple.TextEdit. This is an optional capability. If it is not provided
-        then the session will be started without an application under test
-        (actually, it will be Finder). If the application with the given
-        identifier is not installed then an error will be thrown on session
-        startup. If the application is already running then it will be moved to
-        the foreground.
+        Set the full path to the folder, which is going to be set as the working
+        dir for the application under test. This is only applicable for classic apps.
         """
-        self.set_capability(BUNDLE_ID, value)
+        self.set_capability(APP_WORKING_DIR, value)

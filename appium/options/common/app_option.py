@@ -26,7 +26,7 @@ class AppOption(SupportsCapabilities):
     @property
     def app(self) -> Optional[str]:
         """
-        :Returns: String representing app location.
+        String representing app location.
         """
         return self.get_capability(APP)
 

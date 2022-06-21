@@ -26,7 +26,7 @@ class BootstrapRootOption(SupportsCapabilities):
     @property
     def bootstrap_root(self) -> Optional[str]:
         """
-        :Returns: The full path to WebDriverAgentMac root folder where Xcode project
+        The full path to WebDriverAgentMac root folder where Xcode project
         of the server sources lives.
         """
         return self.get_capability(BOOTSTRAP_ROOT)

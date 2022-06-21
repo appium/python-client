@@ -19,26 +19,22 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-BUNDLE_ID = 'bundleId'
+APP_TOP_LEVEL_WINDOW = 'appTopLevelWindow'
 
 
-class BundleIdOption(SupportsCapabilities):
+class AppTopLevelWindowOption(SupportsCapabilities):
     @property
-    def bundle_id(self) -> Optional[str]:
+    def app_top_level_window(self) -> Optional[str]:
         """
-        The bundle identifier of the application to automate.
+        Hexadecimal handle of an existing application top level window to attach to.
         """
-        return self.get_capability(BUNDLE_ID)
+        return self.get_capability(APP_TOP_LEVEL_WINDOW)
 
-    @bundle_id.setter
-    def bundle_id(self, value: str) -> None:
+    @app_top_level_window.setter
+    def app_top_level_window(self, value: str) -> None:
         """
-        Set the bundle identifier of the application to automate, for example
-        com.apple.TextEdit. This is an optional capability. If it is not provided
-        then the session will be started without an application under test
-        (actually, it will be Finder). If the application with the given
-        identifier is not installed then an error will be thrown on session
-        startup. If the application is already running then it will be moved to
-        the foreground.
+        Set the hexadecimal handle of an existing application top level
+        window to attach to, for example 0x12345 (should be of string type).
+        Either this capability or app one must be provided on session startup.
         """
-        self.set_capability(BUNDLE_ID, value)
+        self.set_capability(APP_TOP_LEVEL_WINDOW, value)

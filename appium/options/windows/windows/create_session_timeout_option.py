@@ -20,25 +20,26 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SERVER_STARTUP_TIMEOUT = 'serverStartupTimeout'
+CREATE_SESSION_TIMEOUT = 'createSessionTimeout'
 
 
-class ServerStartupTimeoutOption(SupportsCapabilities):
+class CreateSessionTimeoutOption(SupportsCapabilities):
     @property
-    def server_startup_timeout(self) -> Optional[timedelta]:
+    def create_session_timeout(self) -> Optional[timedelta]:
         """
-        Get the timeout to wait util the WebDriverAgentMac
-        project is built and started.
+        Timeout used to retry Appium Windows Driver session startup.
         """
-        value_ms = self.get_capability(SERVER_STARTUP_TIMEOUT)
-        return None if value_ms is None else timedelta(milliseconds=value_ms)
+        value = self.get_capability(CREATE_SESSION_TIMEOUT)
+        return None if value is None else timedelta(milliseconds=value)
 
-    @server_startup_timeout.setter
-    def server_startup_timeout(self, value: Union[int, timedelta]) -> None:
+    @create_session_timeout.setter
+    def create_session_timeout(self, value: Union[timedelta, int]) -> None:
         """
-        Set the timeout to wait util the WebDriverAgentMac
-        project is built and started.
+        Set the timeout used to retry Appium Windows Driver session startup.
+        This capability could be used as a workaround for the long startup times
+        of UWP applications (aka Failed to locate opened application window
+        with appId: TestCompany.my_app4!App, and processId: 8480).
         """
         self.set_capability(
-            SERVER_STARTUP_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+            CREATE_SESSION_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
         )

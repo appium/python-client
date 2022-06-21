@@ -17,17 +17,66 @@
 
 from typing import Dict
 
+from appium.options.common.app_option import AppOption
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
 from appium.options.common.postrun_option import PostrunOption
 from appium.options.common.prerun_option import PrerunOption
+
+from .app_top_level_window_option import AppTopLevelWindowOption
+from .app_working_dir_option import AppWorkingDirOption
+from .create_session_timeout_option import CreateSessionTimeoutOption
+from .expreimental_web_driver_option import ExperimentalWebDriverOption
+from .system_port_option import SystemPortOption
+from .wait_for_app_launch_option import WaitForAppLaunchOption
 
 
 class WindowsOptions(
     AppiumOptions,
     PrerunOption,
     PostrunOption,
+    AppOption,
+    AppTopLevelWindowOption,
+    AppWorkingDirOption,
+    CreateSessionTimeoutOption,
+    ExperimentalWebDriverOption,
+    SystemPortOption,
+    WaitForAppLaunchOption,
 ):
+    @AppOption.app.setter  # type: ignore
+    def app(self, value: str) -> None:
+        """
+        The name of the UWP application to test or full path to a classic app,
+        for example Microsoft.WindowsCalculator_8wekyb3d8bbwe!App or
+        C:\\Windows\\System32\\notepad.exe. It is also possible to set app to Root.
+        In such case the session will be invoked without any explicit target application
+        (actually, it will be Explorer). Either this capability or appTopLevelWindow must
+        be provided on session startup.
+        """
+        AppOption.app.fset(self, value)  # type: ignore
+
+    @PrerunOption.prerun.setter  # type: ignore
+    def prerun(self, value: Dict[str, str]) -> None:
+        """
+        A mapping containing either 'script' or 'command' key. The value of
+        each key must be a valid PowerShell script or command to be
+        executed prior to the WinAppDriver session startup.
+        See https://github.com/appium/appium-windows-driver#power-shell-commands-execution
+        for more details.
+        """
+        PrerunOption.prerun.fset(self, value)  # type: ignore
+
+    @PostrunOption.postrun.setter  # type: ignore
+    def postrun(self, value: Dict[str, str]) -> None:
+        """
+        A mapping containing either 'script' or 'command' key. The value of
+        each key must be a valid PowerShell script or command to be
+        executed after a WinAppDriver session is finished.
+        See https://github.com/appium/appium-windows-driver#power-shell-commands-execution
+        for more details.
+        """
+        PostrunOption.postrun.fset(self, value)  # type: ignore
+
     @property
     def default_capabilities(self) -> Dict:
         return {

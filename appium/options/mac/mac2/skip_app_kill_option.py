@@ -26,7 +26,7 @@ class SkipAppKillOption(SupportsCapabilities):
     @property
     def skip_app_kill(self) -> Optional[bool]:
         """
-        :Returns: Whether to skip the termination of the application under test.
+        Whether to skip the termination of the application under test.
         """
         return self.get_capability(SKIP_APP_KILL)
 

@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
+from typing import Dict, Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,15 +24,15 @@ PRERUN = 'prerun'
 
 class PrerunOption(SupportsCapabilities):
     @property
-    def prerun(self) -> Optional[str]:
+    def prerun(self) -> Optional[Dict[str, str]]:
         """
-        :return: System script which is supposed to be executed before
+        System script which is supposed to be executed before
         a driver session is initialised.
         """
         return self.get_capability(PRERUN)
 
     @prerun.setter
-    def prerun(self, value: str) -> None:
+    def prerun(self, value: Dict[str, str]) -> None:
         """
         Set a system script which is supposed to be executed before
         a driver session is initialised.

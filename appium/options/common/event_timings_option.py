@@ -26,7 +26,7 @@ class EventTimingsOption(SupportsCapabilities):
     @property
     def event_timings(self) -> Optional[bool]:
         """
-        :Returns: Whether the driver should to report the timings
+        Whether the driver should to report the timings
         for various Appium-internal events.
         """
         return self.get_capability(EVENT_TIMINGS)

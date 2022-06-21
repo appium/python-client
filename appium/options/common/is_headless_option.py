@@ -26,7 +26,7 @@ class IsHeadlessOption(SupportsCapabilities):
     @property
     def is_headless(self) -> Optional[bool]:
         """
-        :Returns: Whether the driver should start emulator/simulator in headless mode.
+        Whether the driver should start emulator/simulator in headless mode.
         """
         return self.get_capability(IS_HEADLESS)
 

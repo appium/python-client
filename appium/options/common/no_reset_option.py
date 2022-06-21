@@ -26,7 +26,7 @@ class NoResetOption(SupportsCapabilities):
     @property
     def full_reset(self) -> Optional[bool]:
         """
-        :Returns: Whether the driver should not perform a reset.
+        Whether the driver should not perform a reset.
         """
         return self.get_capability(NO_RESET)
 

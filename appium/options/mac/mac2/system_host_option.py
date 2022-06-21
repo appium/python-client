@@ -26,7 +26,7 @@ class SystemHostOption(SupportsCapabilities):
     @property
     def system_host(self) -> Optional[str]:
         """
-        :Returns: The name of the host for the internal server to listen on.
+        The name of the host for the internal server to listen on.
         """
         return self.get_capability(SYSTEM_HOST)
 

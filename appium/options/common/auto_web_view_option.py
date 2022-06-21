@@ -26,7 +26,7 @@ class AutoWebViewOption(SupportsCapabilities):
     @property
     def auto_web_view(self) -> Optional[bool]:
         """
-        :Returns: Whether the driver should try to automatically switch
+        Whether the driver should try to automatically switch
         to a web view context after the session is started.
         """
         return self.get_capability(AUTO_WEB_VIEW)

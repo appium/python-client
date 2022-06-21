@@ -26,7 +26,7 @@ class SystemPortOption(SupportsCapabilities):
     @property
     def system_port(self) -> Optional[int]:
         """
-        :Returns: The number of the port for the internal server to listen on.
+        The number of the port for the internal server to listen on.
         """
         return self.get_capability(SYSTEM_PORT)
 

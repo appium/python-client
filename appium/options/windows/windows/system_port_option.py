@@ -19,26 +19,23 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-BUNDLE_ID = 'bundleId'
+SYSTEM_PORT = 'systemPort'
 
 
-class BundleIdOption(SupportsCapabilities):
+class SystemPortOption(SupportsCapabilities):
     @property
-    def bundle_id(self) -> Optional[str]:
+    def system_port(self) -> Optional[int]:
         """
-        The bundle identifier of the application to automate.
+        Port number to execute Appium Windows Driver server listener on.
         """
-        return self.get_capability(BUNDLE_ID)
+        return self.get_capability(SYSTEM_PORT)
 
-    @bundle_id.setter
-    def bundle_id(self, value: str) -> None:
+    @system_port.setter
+    def system_port(self, value: int) -> None:
         """
-        Set the bundle identifier of the application to automate, for example
-        com.apple.TextEdit. This is an optional capability. If it is not provided
-        then the session will be started without an application under test
-        (actually, it will be Finder). If the application with the given
-        identifier is not installed then an error will be thrown on session
-        startup. If the application is already running then it will be moved to
-        the foreground.
+        The port number to execute Appium Windows Driver server listener on,
+        for example 5556. The port must not be occupied. The default starting port
+        number for a new Appium Windows Driver session is 4724. If this port is
+        already busy then the next free port will be automatically selected.
         """
-        self.set_capability(BUNDLE_ID, value)
+        self.set_capability(SYSTEM_PORT, value)

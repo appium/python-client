@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
+from typing import Dict, Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,15 +24,15 @@ POSTRUN = 'postrun'
 
 class PostrunOption(SupportsCapabilities):
     @property
-    def postrun(self) -> Optional[str]:
+    def postrun(self) -> Optional[Dict[str, str]]:
         """
-        :return: System script which is supposed to be executed upon
+        System script which is supposed to be executed upon
         driver session quit.
         """
         return self.get_capability(POSTRUN)
 
     @postrun.setter
-    def postrun(self, value: str) -> None:
+    def postrun(self, value: Dict[str, str]) -> None:
         """
         Set a system script to execute upon driver session quit.
         """

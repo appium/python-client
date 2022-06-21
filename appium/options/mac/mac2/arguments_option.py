@@ -26,7 +26,7 @@ class ArgumentsOption(SupportsCapabilities):
     @property
     def arguments(self) -> Optional[List[str]]:
         """
-        :Returns: Array of application command line arguments.
+        Array of application command line arguments.
         """
         return self.get_capability(ARGUMENTS)
 

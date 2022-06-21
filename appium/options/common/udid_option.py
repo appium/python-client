@@ -26,7 +26,7 @@ class UdidOption(SupportsCapabilities):
     @property
     def udid(self) -> Optional[str]:
         """
-        :Returns: The unique identifier of the device under test.
+        The unique identifier of the device under test.
         """
         return self.get_capability(UDID)
 

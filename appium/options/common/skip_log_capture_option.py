@@ -26,7 +26,7 @@ class SkipLogCaptureOption(SupportsCapabilities):
     @property
     def skip_log_capture(self) -> Optional[bool]:
         """
-        :Returns: Whether the driver should not record device logs.
+        Whether the driver should not record device logs.
         """
         return self.get_capability(SKIP_LOG_CAPTURE)
 

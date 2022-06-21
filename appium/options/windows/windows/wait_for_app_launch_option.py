@@ -15,30 +15,29 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
+from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-BUNDLE_ID = 'bundleId'
+WAIT_FOR_APP_LAUNCH = 'ms:waitForAppLaunch'
 
 
-class BundleIdOption(SupportsCapabilities):
+class WaitForAppLaunchOption(SupportsCapabilities):
     @property
-    def bundle_id(self) -> Optional[str]:
+    def wait_for_app_launch(self) -> Optional[timedelta]:
         """
-        The bundle identifier of the application to automate.
+        Timeout used to retry Appium Windows Driver session startup.
         """
-        return self.get_capability(BUNDLE_ID)
+        value = self.get_capability(WAIT_FOR_APP_LAUNCH)
+        return None if value is None else timedelta(seconds=value)
 
-    @bundle_id.setter
-    def bundle_id(self, value: str) -> None:
+    @wait_for_app_launch.setter
+    def wait_for_app_launch(self, value: Union[timedelta, int]) -> None:
         """
-        Set the bundle identifier of the application to automate, for example
-        com.apple.TextEdit. This is an optional capability. If it is not provided
-        then the session will be started without an application under test
-        (actually, it will be Finder). If the application with the given
-        identifier is not installed then an error will be thrown on session
-        startup. If the application is already running then it will be moved to
-        the foreground.
+        Similar to createSessionTimeout, but is
+        applied on the server side. Enables Appium Windows Driver to wait for
+        a defined amount of time after an app launch is initiated prior to
+        attaching to the application session. The limit for this is 50 seconds.
         """
-        self.set_capability(BUNDLE_ID, value)
+        self.set_capability(WAIT_FOR_APP_LAUNCH, value.seconds if isinstance(value, timedelta) else value)

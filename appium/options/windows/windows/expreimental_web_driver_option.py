@@ -19,26 +19,21 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-BUNDLE_ID = 'bundleId'
+EXPERIMENTAL_WEB_DRIVER = 'ms:experimental-webdriver'
 
 
-class BundleIdOption(SupportsCapabilities):
+class ExperimentalWebDriverOption(SupportsCapabilities):
     @property
-    def bundle_id(self) -> Optional[str]:
+    def experimental_webdriver(self) -> Optional[bool]:
         """
-        The bundle identifier of the application to automate.
+        Whether to enable experimental features and optimizations.
         """
-        return self.get_capability(BUNDLE_ID)
+        return self.get_capability(EXPERIMENTAL_WEB_DRIVER)
 
-    @bundle_id.setter
-    def bundle_id(self, value: str) -> None:
+    @experimental_webdriver.setter
+    def experimental_webdriver(self, value: bool) -> None:
         """
-        Set the bundle identifier of the application to automate, for example
-        com.apple.TextEdit. This is an optional capability. If it is not provided
-        then the session will be started without an application under test
-        (actually, it will be Finder). If the application with the given
-        identifier is not installed then an error will be thrown on session
-        startup. If the application is already running then it will be moved to
-        the foreground.
+        Enables experimental features and optimizations. See Appium Windows
+        Driver release notes for more details on this capability.
         """
-        self.set_capability(BUNDLE_ID, value)
+        self.set_capability(EXPERIMENTAL_WEB_DRIVER, value)

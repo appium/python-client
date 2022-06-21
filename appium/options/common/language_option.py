@@ -26,7 +26,7 @@ class LanguageOption(SupportsCapabilities):
     @property
     def language(self) -> Optional[str]:
         """
-        :Returns: Language abbreviation to use in a test session.
+        Language abbreviation to use in a test session.
         """
         return self.get_capability(LANGUAGE)
 

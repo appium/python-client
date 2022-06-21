@@ -63,7 +63,7 @@ class Mac2Options(
     @PostrunOption.postrun.setter  # type: ignore
     def postrun(self, value: Dict[str, str]) -> None:
         """
-        A mapping containing either script or command key. The value of
+        A mapping containing either 'script' or 'command' key. The value of
         each key must be a valid AppleScript script or command to be
         executed after Mac2Driver session is stopped. See
         https://github.com/appium/appium-mac2-driver#applescript-commands-execution

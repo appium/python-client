@@ -19,24 +19,20 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SYSTEM_HOST = 'systemHost'
+SYSTEM_PORT = 'systemPort'
 
 
-class SystemHostOption(SupportsCapabilities):
+class SystemPortOption(SupportsCapabilities):
     @property
-    def system_host(self) -> Optional[str]:
+    def system_port(self) -> Optional[int]:
         """
-        The name of the host for the internal server to listen on.
+        The number of the port for the internal server to listen on.
         """
-        return self.get_capability(SYSTEM_HOST)
+        return self.get_capability(SYSTEM_PORT)
 
-    @system_host.setter
-    def system_host(self, value: str) -> None:
+    @system_port.setter
+    def system_port(self, value: int) -> None:
         """
-        Set the name of the host for the internal server to listen on.
-        If not provided then Mac2Driver will use the default host
-        address 127.0.0.1. You could set it to 0.0.0.0 to make the
-        server listening on all available network interfaces.
-        It is also possible to set the particular interface name, for example en1.
+        Set the number of the port for the internal server to listen on.
         """
-        self.set_capability(SYSTEM_HOST, value)
+        self.set_capability(SYSTEM_PORT, value)

@@ -22,12 +22,12 @@ from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
 from appium.options.common.postrun_option import PostrunOption
 from appium.options.common.prerun_option import PrerunOption
+from appium.options.common.system_port_option import SystemPortOption
 
 from .app_top_level_window_option import AppTopLevelWindowOption
 from .app_working_dir_option import AppWorkingDirOption
 from .create_session_timeout_option import CreateSessionTimeoutOption
 from .expreimental_web_driver_option import ExperimentalWebDriverOption
-from .system_port_option import SystemPortOption
 from .wait_for_app_launch_option import WaitForAppLaunchOption
 
 
@@ -76,6 +76,16 @@ class WindowsOptions(
         for more details.
         """
         PostrunOption.postrun.fset(self, value)  # type: ignore
+
+    @SystemPortOption.system_port.setter  # type: ignore
+    def system_port(self, value: int) -> None:
+        """
+        The port number to execute Appium Windows Driver server listener on,
+        for example 5556. The port must not be occupied. The default starting port
+        number for a new Appium Windows Driver session is 4724. If this port is
+        already busy then the next free port will be automatically selected.
+        """
+        SystemPortOption.system_port.fset(self, value)  # type: ignore
 
     @property
     def default_capabilities(self) -> Dict:

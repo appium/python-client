@@ -19,23 +19,20 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SYSTEM_PORT = 'systemPort'
+SYSTEM_HOST = 'systemHost'
 
 
-class SystemPortOption(SupportsCapabilities):
+class SystemHostOption(SupportsCapabilities):
     @property
-    def system_port(self) -> Optional[int]:
+    def system_host(self) -> Optional[str]:
         """
-        Port number to execute Appium Windows Driver server listener on.
+        The name of the host for the internal server to listen on.
         """
-        return self.get_capability(SYSTEM_PORT)
+        return self.get_capability(SYSTEM_HOST)
 
-    @system_port.setter
-    def system_port(self, value: int) -> None:
+    @system_host.setter
+    def system_host(self, value: str) -> None:
         """
-        The port number to execute Appium Windows Driver server listener on,
-        for example 5556. The port must not be occupied. The default starting port
-        number for a new Appium Windows Driver session is 4724. If this port is
-        already busy then the next free port will be automatically selected.
+        Set the name of the host for the internal server to listen on.
         """
-        self.set_capability(SYSTEM_PORT, value)
+        self.set_capability(SYSTEM_HOST, value)

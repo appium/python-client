@@ -13,10 +13,8 @@ jobs:
       - script: bash ci-jobs/functional/start-emulator.sh
         displayName: Create and run Emulator
       - script: |
-          if [[ '${{ parameters.dontRunAppium }}' != true ]]; then
-            appium --relaxed-security > appium_log.txt 2>&1 &
-            sleep 2
-          fi
+          bash ci-jobs/scripts/start_server.sh
+          
           pushd "$(pwd)"
           cd test/functional/android
           python -m pytest ${{ parameters.testFiles}} ${{ parameters.pytestOpt }}

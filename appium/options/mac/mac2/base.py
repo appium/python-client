@@ -71,15 +71,15 @@ class Mac2Options(
         """
         PostrunOption.postrun.fset(self, value)  # type: ignore
 
-    @SystemPortOption.system_port.setter
+    @SystemPortOption.system_port.setter  # type: ignore
     def system_port(self, value: int) -> None:
         """
         Set the number of the port for the internal server to listen on.
         If not provided then Mac2Driver will use the default port 10100.
         """
-        SystemPortOption.system_port.fset(self, value)
+        SystemPortOption.system_port.fset(self, value)  # type: ignore
 
-    @SystemHostOption.system_host.setter
+    @SystemHostOption.system_host.setter  # type: ignore
     def system_host(self, value: str) -> None:
         """
         Set the number of the port for the internal server to listen on.
@@ -88,7 +88,7 @@ class Mac2Options(
         server listening on all available network interfaces.
         It is also possible to set the particular interface name, for example en1.
         """
-        SystemHostOption.system_host.fset(self, value)
+        SystemHostOption.system_host.fset(self, value)  # type: ignore
 
     @property
     def default_capabilities(self) -> Dict:

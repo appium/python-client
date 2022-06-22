@@ -19,11 +19,31 @@ from typing import Dict
 
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import AppiumOptions
+from appium.options.common.system_port_option import SystemPortOption
+
+from .android_storage_option import AndroidStorageOption
+from .firefox_options_option import FirefoxOptionsOption
+from .marionette_port_option import MarionettePortOption
+from .verbosity_option import VerbosityOption
 
 
 class GeckoOptions(
     AppiumOptions,
+    AndroidStorageOption,
+    FirefoxOptionsOption,
+    MarionettePortOption,
+    SystemPortOption,
+    VerbosityOption,
 ):
+    @SystemPortOption.system_port.setter  # type: ignore
+    def system_port(self, value: int) -> None:
+        """
+        The number of the port for the driver to listen on. Must be unique
+        for each session. If not provided then the driver will try to detect
+        it automatically.
+        """
+        SystemPortOption.system_port.fset(self, value)  # type: ignore
+
     @property
     def default_capabilities(self) -> Dict:
         return {

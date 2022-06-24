@@ -22,7 +22,7 @@ from appium.options.common.supports_capabilities import SupportsCapabilities
 PROCESS_ARGUMENTS = 'processArguments'
 
 
-class MaxTypingFrequencyOption(SupportsCapabilities):
+class ProcessArgumentsOption(SupportsCapabilities):
     @property
     def process_arguments(self) -> Optional[Dict[str, Union[List[str], Dict[str, str]]]]:
         """

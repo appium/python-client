@@ -19,25 +19,24 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+SIMPLE_IS_VISIBLE_CHECK = 'simpleIsVisibleCheck'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class SimpleIsVisibleCheckOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def simple_is_visible_check(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to use native methods for determining visibility of elements.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(SIMPLE_IS_VISIBLE_CHECK)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @simple_is_visible_check.setter
+    def simple_is_visible_check(self, value: bool) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Use native methods for determining visibility of elements.
+        In some cases this takes a long time. Setting this capability to false will
+        cause the system to use the position and size of elements to make sure they
+        are visible on the screen. This can, however, lead to false results in some
+        situations. Defaults to false, except iOS 9.3, where it defaults to true.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(SIMPLE_IS_VISIBLE_CHECK, value)

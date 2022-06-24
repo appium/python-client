@@ -19,25 +19,21 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+USE_PREBUILT_WDA = 'usePrebuiltWDA'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class UsePrebuiltWdaOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def use_prebuilt_wda(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to skip the build phase of running the WDA app.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(USE_PREBUILT_WDA)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @use_prebuilt_wda.setter
+    def use_prebuilt_wda(self, value: bool) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Skips the build phase of running the WDA app. Building is then the responsibility
+        of the user. Only works for Xcode 8+. Defaults to false.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(USE_PREBUILT_WDA, value)

@@ -19,25 +19,24 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+MJPEG_SERVER_PORT = 'mjpegServerPort'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class MjpegServerPortOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def mjpeg_server_port(self) -> Optional[int]:
         """
-        String representing the UDID of the device.
+        Port number on which WDA broadcasts screenshots stream encoded into MJPEG
+        format from the device under test.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(MJPEG_SERVER_PORT)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @mjpeg_server_port.setter
+    def mjpeg_server_port(self, value: int) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Port number on which WDA broadcasts screenshots stream encoded into MJPEG
+        format from the device under test. It might be necessary to change this value
+        if the default port is busy because of other tests running in parallel.
+        Default value: 9100.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(MJPEG_SERVER_PORT, value)

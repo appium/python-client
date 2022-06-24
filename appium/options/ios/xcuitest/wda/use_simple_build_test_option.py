@@ -19,25 +19,22 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+USE_SIMPLE_BUILD_TEST = 'useSimpleBuildTest'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class UseSimpleBuildTestOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def use_simple_build_test(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to enforce app termination on session quit.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(USE_SIMPLE_BUILD_TEST)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @use_simple_build_test.setter
+    def use_simple_build_test(self, value: bool) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Build with 'build' and run test with 'test' in xcodebuild for all Xcode versions if
+        this is true, or build with 'build-for-testing' and run tests with
+        'test-without-building' for over Xcode 8 if this is false. Defaults to false.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(USE_SIMPLE_BUILD_TEST, value)

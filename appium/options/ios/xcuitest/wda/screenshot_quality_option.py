@@ -19,25 +19,24 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+SCREENSHOT_QUALITY = 'screenshotQuality'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class ScreenshotQualityOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def screenshot_quality(self) -> Optional[int]:
         """
-        String representing the UDID of the device.
+        Screenshot quality value.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(SCREENSHOT_QUALITY)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @screenshot_quality.setter
+    def screenshot_quality(self, value: int) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Changes the quality of phone display screenshots following
+        xctest/xctimagequality Default value is 1. 0 is the highest and
+        2 is the lowest quality. You can also change it via settings
+        command. 0 might cause OutOfMemory crash on high-resolution
+        devices like iPad Pro.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(SCREENSHOT_QUALITY, value)

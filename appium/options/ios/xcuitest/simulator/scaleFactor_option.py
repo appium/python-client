@@ -19,25 +19,26 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+SCALE_FACTOR = 'scaleFactor'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class ScaleFactorOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def scale_factor(self) -> Optional[str]:
         """
-        String representing the UDID of the device.
+        Simulator scale factor.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(SCALE_FACTOR)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @scale_factor.setter
+    def scale_factor(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Simulator scale factor. This is useful to have if the default resolution
+        of simulated device is greater than the actual display resolution.
+        So you can scale the simulator to see the whole device screen without scrolling.
+        Acceptable values for simulators running Xcode SDK 8 and older are: '1.0',
+        '0.75', '0.5', '0.33' and '0.25', where '1.0' means 100% scale.
+        For simulators running Xcode SDK 9 and above the value could be any valid
+        positive float number.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(SCALE_FACTOR, value)

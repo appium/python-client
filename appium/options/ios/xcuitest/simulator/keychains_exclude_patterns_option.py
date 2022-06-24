@@ -19,25 +19,26 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+KEYCHAINS_EXCLUDE_PATTERNS = 'keychainsExcludePatterns'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class KeychainsExcludePatternsOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def keychains_exclude_patterns(self) -> Optional[str]:
         """
-        String representing the UDID of the device.
+        Keychains exclude patterns.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(KEYCHAINS_EXCLUDE_PATTERNS)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @keychains_exclude_patterns.setter
+    def keychains_exclude_patterns(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        This capability accepts comma-separated path patterns,
+        which are going to be excluded from keychains restore while
+        full reset is being performed on Simulator. It might be
+        useful if you want to exclude only particular keychain types
+        from being restored, like the applications keychain. This
+        feature has no effect on real devices. E.g. "*keychain*.db*"
+        to exclude applications keychain from being restored
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(KEYCHAINS_EXCLUDE_PATTERNS, value)

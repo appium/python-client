@@ -19,25 +19,21 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+WDA_STARTUP_RETRIES = 'wdaStartupRetries'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class WdaStartupRetriesOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def wda_startup_retries(self) -> Optional[int]:
         """
-        String representing the UDID of the device.
+        Number of retries before to fail WDA deployment.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(WDA_STARTUP_RETRIES)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @wda_startup_retries.setter
+    def wda_startup_retries(self, value: int) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Number of times to try to build and launch WebDriverAgent onto the device.
+        Defaults to 2.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(WDA_STARTUP_RETRIES, value)

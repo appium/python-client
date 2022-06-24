@@ -19,25 +19,21 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+KEEP_KEY_CHAINS = 'keepKeyChains'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class KeepKeyChainsOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def keep_key_chains(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to preserve Simulator keychains after full reset.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(KEEP_KEY_CHAINS)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @keep_key_chains.setter
+    def keep_key_chains(self, value: bool) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Set the capability to true in order to preserve Simulator keychains folder after
+        full reset. This feature has no effect on real devices. Defaults to false.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(KEEP_KEY_CHAINS, value)

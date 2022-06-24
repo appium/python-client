@@ -19,25 +19,22 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+MAX_TYPING_FREQUENCY = 'maxTypingFrequency'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class MaxTypingFrequencyOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def max_typing_frequency(self) -> Optional[int]:
         """
-        String representing the UDID of the device.
+        The number of keystrokes per minute.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(MAX_TYPING_FREQUENCY)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @max_typing_frequency.setter
+    def max_typing_frequency(self, value: int) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Maximum frequency of keystrokes for typing and clear. If your tests
+        are failing because of typing errors, you may want to adjust this.
+        Defaults to 60 keystrokes per minute.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(MAX_TYPING_FREQUENCY, value)

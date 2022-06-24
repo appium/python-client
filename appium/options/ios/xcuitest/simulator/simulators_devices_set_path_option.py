@@ -19,25 +19,23 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+SIMULATOR_DEVICES_SET_PATH = 'simulatorDevicesSetPath'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class SimulatorDevicesSetPathOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def simulator_devices_set_path(self) -> Optional[str]:
         """
-        String representing the UDID of the device.
+        Alternative path to the simulator devices set.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(SIMULATOR_DEVICES_SET_PATH)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @simulator_devices_set_path.setter
+    def simulator_devices_set_path(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        This capability allows to set an alternative path to the simulator devices
+        set in case you have multiple sets deployed on your local system. Such
+        feature could be useful if you, for example, would like to save disk space
+        on the main system volume.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(SIMULATOR_DEVICES_SET_PATH, value)

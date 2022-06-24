@@ -19,25 +19,23 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+WDA_LOCAL_PORT = 'wdaLocalPort'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class WdaLocalPortOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def wda_local_port(self) -> Optional[int]:
         """
-        String representing the UDID of the device.
+        Local port number where the WDA traffic is being forwarded.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(WDA_LOCAL_PORT)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @wda_local_port.setter
+    def wda_local_port(self, value: int) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        This value, if specified, will be used to forward traffic from
+        Mac host to real ios devices over USB.
+        Default value is the same as the port number used by WDA on
+        the device under test (8100).
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(WDA_LOCAL_PORT, value)

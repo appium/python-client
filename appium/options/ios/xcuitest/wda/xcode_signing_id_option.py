@@ -19,25 +19,21 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+XCODE_SIGNING_ID = 'xcodeSigningId'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class XcodeSigningIdOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def xcode_signing_id(self) -> Optional[str]:
         """
-        String representing the UDID of the device.
+        Signing certificate for WebDriverAgent compilation.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(XCODE_SIGNING_ID)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @xcode_signing_id.setter
+    def xcode_signing_id(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Provides a signing certificate for WebDriverAgent compilation.
+        If signing id is not provided then it defaults to "iPhone Developer"
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(XCODE_SIGNING_ID, value)

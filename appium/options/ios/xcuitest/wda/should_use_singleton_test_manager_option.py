@@ -19,25 +19,21 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+SHOULD_USE_SINGLETON_TEST_MANAGER = 'shouldUseSingletonTestManager'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class ShouldUseSingletonTestManagerOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def should_use_singleton_test_manager(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to use the default proxy for test management within WebDriverAgent.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(SHOULD_USE_SINGLETON_TEST_MANAGER)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @should_use_singleton_test_manager.setter
+    def should_use_singleton_test_manager(self, value: bool) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Use default proxy for test management within WebDriverAgent. Setting this to false
+        sometimes helps with socket hangup problems. Defaults to true.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(SHOULD_USE_SINGLETON_TEST_MANAGER, value)

@@ -15,29 +15,28 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
+from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+WAIT_FOR_QUIESCENCE = 'waitForQuiescence'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class WaitForQuiescenceOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def wait_for_quiescence(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to wait for application quiescence.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(WAIT_FOR_QUIESCENCE)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @wait_for_quiescence.setter
+    def wait_for_quiescence(self, value: Union[timedelta, float]) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        It allows to turn on/off waiting for application quiescence in WebDriverAgent,
+        while performing queries. The default value is true. You can avoid this kind
+        of issues if you turn it off. Consider using waitForIdleTimeout capability
+        instead for this purpose since Appium 1.20.0.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(WAIT_FOR_QUIESCENCE, value)

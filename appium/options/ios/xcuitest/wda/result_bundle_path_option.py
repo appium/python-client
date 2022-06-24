@@ -19,25 +19,24 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+RESULT_BUNDLE_PATH = 'resultBundlePath'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class ResultBundlePathOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def result_bundle_path(self) -> Optional[str]:
         """
-        String representing the UDID of the device.
+        Path where the resulting XCTest bundle should be stored.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(RESULT_BUNDLE_PATH)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @result_bundle_path.setter
+    def result_bundle_path(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Specify the path to the result bundle path as xcodebuild argument for
+        WebDriverAgent build under a security flag. WebDriverAgent process must
+        start/stop every time to pick up changed value of this property.
+        Specifying useNewWDA to true may help there. Please read 'man xcodebuild'
+        for more details.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(RESULT_BUNDLE_PATH, value)

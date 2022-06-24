@@ -26,7 +26,7 @@ class UseSimulatorOption(SupportsCapabilities):
     @property
     def use_simulator(self) -> Optional[bool]:
         """
-        :Returns: Whether to use iOS Simulator.
+        Whether to use iOS Simulator.
         """
         return self.get_capability(USE_SIMULATOR)
 

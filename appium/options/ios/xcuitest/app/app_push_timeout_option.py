@@ -15,29 +15,28 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
+from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+APP_PUSH_TIMEOUT = 'appPushTimeout'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class AppPushTimeoutOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def app_push_timeout(self) -> Optional[timedelta]:
         """
-        String representing the UDID of the device.
+        Maximum timeout for application upload.
         """
-        return self.get_capability(DEVICE_UDID)
+        value = self.get_capability(APP_PUSH_TIMEOUT)
+        return None if value is None else timedelta(milliseconds=value)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @app_push_timeout.setter
+    def app_push_timeout(self, value: Union[timedelta, int]) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        The timeout for application upload.
+        Works for real devices only.
+        The default value is 30000ms.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(APP_PUSH_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value)

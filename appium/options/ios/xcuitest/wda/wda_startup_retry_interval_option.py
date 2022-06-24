@@ -15,29 +15,29 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
+from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+WDA_STARTUP_RETRY_INTERVAL = 'wdaStartupRetryInterval'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class WdaStartupRetryIntervalOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def wda_startup_retry_interval(self) -> Optional[timedelta]:
         """
-        String representing the UDID of the device.
+        Interval to wait between tries to build and launch WebDriverAgent.
         """
-        return self.get_capability(DEVICE_UDID)
+        value = self.get_capability(WDA_STARTUP_RETRY_INTERVAL)
+        return None if value is None else timedelta(milliseconds=value)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @wda_startup_retry_interval.setter
+    def wda_startup_retry_interval(self, value: Union[timedelta, int]) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Time interval to wait between tries to build and launch WebDriverAgent.
+        Defaults to 10000ms.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(
+            WDA_STARTUP_RETRY_INTERVAL, value.microseconds // 1000 if isinstance(value, timedelta) else value
+        )

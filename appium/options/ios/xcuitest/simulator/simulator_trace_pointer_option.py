@@ -19,25 +19,23 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+SIMULATOR_TRACE_POINTER = 'simulatorTracePointer'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class SimulatorTracePointerOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def simulator_trace_pointer(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to highlight pointer moves in the Simulator window.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(SIMULATOR_TRACE_POINTER)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @simulator_trace_pointer.setter
+    def simulator_trace_pointer(self, value: bool) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Set whether to highlight pointer moves in the Simulator window.
+        The Simulator UI client must be shut down before the session
+        startup in order for this capability to be applied properly.
+        false by default.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(SIMULATOR_TRACE_POINTER, value)

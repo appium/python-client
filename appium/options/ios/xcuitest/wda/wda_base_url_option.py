@@ -19,25 +19,23 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+WDA_BASE_URL = 'wdaBaseUrl'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class WdaBaseUrlOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def wda_base_url(self) -> Optional[str]:
         """
-        String representing the UDID of the device.
+        Prefix to build a custom WebDriverAgent URL.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(WDA_BASE_URL)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @wda_base_url.setter
+    def wda_base_url(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        This value, if specified, will be used as a prefix to build a custom
+        WebDriverAgent url. It is different from webDriverAgentUrl, because
+        if the latter is set then it expects WebDriverAgent to be already
+        listening and skips the building phase. Defaults to http://localhost.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(WDA_BASE_URL, value)

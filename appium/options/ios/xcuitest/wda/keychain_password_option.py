@@ -19,25 +19,21 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+KEYCHAIN_PASSWORD = 'keychainPassword'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class KeychainPasswordOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def keychain_password(self) -> Optional[str]:
         """
-        String representing the UDID of the device.
+        Custom keychain password.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(KEYCHAIN_PASSWORD)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @keychain_password.setter
+    def keychain_password(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Custom keychain password. The keychain is expected to
+        contain the private development key.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(KEYCHAIN_PASSWORD, value)

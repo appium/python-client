@@ -19,25 +19,21 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+UPDATED_WDA_BUNDLE_ID = 'updatedWDABundleId'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class UpdatedWdaBundleIdOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def updated_wda_bundle_id(self) -> Optional[str]:
         """
-        String representing the UDID of the device.
+        WDA bundle identifier.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(UPDATED_WDA_BUNDLE_ID)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @updated_wda_bundle_id.setter
+    def updated_wda_bundle_id(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Bundle id to update WDA to before building and launching on real devices.
+        This bundle id must be associated with a valid provisioning profile.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(UPDATED_WDA_BUNDLE_ID, value)

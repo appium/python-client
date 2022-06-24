@@ -19,25 +19,23 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+SIMULATOR_WINDOW_CENTER = 'simulatorWindowCenter'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class SimulatorWindowCenterOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def simulator_window_center(self) -> Optional[str]:
         """
-        String representing the UDID of the device.
+        Simulator window center coordinates.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(SIMULATOR_WINDOW_CENTER)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @simulator_window_center.setter
+    def simulator_window_center(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Allows to explicitly set the coordinates of Simulator window center
+        for Xcode9+ SDK. This capability only has an effect if Simulator
+        window has not been opened yet for the current session before it started.
+        e.g. "{-100.0,100.0}" or "{500,500}", spaces are not allowed
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(SIMULATOR_WINDOW_CENTER, value)

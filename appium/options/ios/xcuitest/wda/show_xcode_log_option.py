@@ -19,25 +19,22 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+SHOW_XCODE_LOG = 'showXcodeLog'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class ShowXcodeLogOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def show_xcode_log(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to display the output of the Xcode command used to run the tests.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(SHOW_XCODE_LOG)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @show_xcode_log.setter
+    def show_xcode_log(self, value: bool) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Whether to display the output of the Xcode command used to run the tests in
+        server logs. If this is true, there will be lots of extra logging at startup.
+        Defaults to false.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(SHOW_XCODE_LOG, value)

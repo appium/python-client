@@ -17,6 +17,8 @@
 
 from typing import Dict
 
+from options.common.bundle_id_option import BundleIdOption
+
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
 from appium.options.common.postrun_option import PostrunOption
@@ -26,7 +28,6 @@ from appium.options.common.system_port_option import SystemPortOption
 
 from .arguments_option import ArgumentsOption
 from .bootstrap_root_option import BootstrapRootOption
-from .bundle_id_option import BundleIdOption
 from .environment_option import EnvironmentOption
 from .server_startup_timeout_option import ServerStartupTimeoutOption
 from .show_server_logs_option import ShowServerLogsOption
@@ -89,6 +90,19 @@ class Mac2Options(
         It is also possible to set the particular interface name, for example en1.
         """
         SystemHostOption.system_host.fset(self, value)  # type: ignore
+
+    @BundleIdOption.bundle_id.setter  # type: ignore
+    def bundle_id(self, value: str) -> None:
+        """
+        Set the bundle identifier of the application to automate, for example
+        com.apple.TextEdit. This is an optional capability. If it is not provided
+        then the session will be started without an application under test
+        (actually, it will be Finder). If the application with the given
+        identifier is not installed then an error will be thrown on session
+        startup. If the application is already running then it will be moved to
+        the foreground.
+        """
+        BundleIdOption.bundle_id.fset(self, value)  # type: ignore
 
     @property
     def default_capabilities(self) -> Dict:

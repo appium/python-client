@@ -19,25 +19,23 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+INCLUDE_DEVICE_CAPS_TO_SESSION_INFO = 'includeDeviceCapsToSessionInfo'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class IncludeDeviceCapsToSessionInfoOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def include_device_caps_to_session_info(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to include screen information as the result of Get Session Capabilities.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(INCLUDE_DEVICE_CAPS_TO_SESSION_INFO)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @include_device_caps_to_session_info.setter
+    def include_device_caps_to_session_info(self, value: bool) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Whether to include screen information as the result of Get Session Capabilities.
+        It includes pixelRatio, statBarHeight and viewportRect, but
+        it causes an extra API call to WDA which may increase the response time.
+        Defaults to true.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(INCLUDE_DEVICE_CAPS_TO_SESSION_INFO, value)

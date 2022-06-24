@@ -26,7 +26,7 @@ class WebkitWebrtcOption(SupportsCapabilities):
     @property
     def webkit_webrtc(self) -> Optional[Dict[str, Any]]:
         """
-        :Returns: WebRTC policies.
+        WebRTC policies.
         """
         return self.get_capability(WEBKIT_WEBRTC)
 

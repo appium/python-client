@@ -19,25 +19,21 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+RESET_LOCATION_SERVICE = 'resetLocationService'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class ResetLocationServiceOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def reset_location_service(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to reset the location service in the session deletion on real devices.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(RESET_LOCATION_SERVICE)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @reset_location_service.setter
+    def reset_location_service(self, value: bool) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Whether reset the location service in the session deletion on real devices.
+        Defaults to false.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(RESET_LOCATION_SERVICE, value)

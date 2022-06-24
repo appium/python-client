@@ -19,25 +19,22 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+ALLOW_PROVISIONING_DEVICE_REGISTRATION = 'allowProvisioningDeviceRegistration'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class AllowProvisioningDeviceRegistrationOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def allow_provisioning_device_registration(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to allow xcodebuild to register your destination device on the developer portal.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(ALLOW_PROVISIONING_DEVICE_REGISTRATION)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @allow_provisioning_device_registration.setter
+    def allow_provisioning_device_registration(self, value: bool) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Allow xcodebuild to register your destination device on the developer portal
+        if necessary. Requires a developer account to have been added in Xcode's Accounts
+        preference pane. Defaults to false.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(ALLOW_PROVISIONING_DEVICE_REGISTRATION, value)

@@ -19,25 +19,23 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+DERIVED_DATA_PATH = 'derivedDataPath'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class DerivedDataPathOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def derived_data_path(self) -> Optional[str]:
         """
-        String representing the UDID of the device.
+        Path to the derived data WDA folder.
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(DERIVED_DATA_PATH)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @derived_data_path.setter
+    def derived_data_path(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Use along with usePrebuiltWDA capability and choose where to search for the existing WDA app.
+        If the capability is not set then Xcode will store the derived data in the default root
+        taken from preferences.
+        It also makes sense to choose different folders for parallel WDA sessions.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(DERIVED_DATA_PATH, value)

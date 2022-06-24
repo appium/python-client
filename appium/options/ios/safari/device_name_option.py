@@ -26,7 +26,7 @@ class DeviceNameOption(SupportsCapabilities):
     @property
     def device_name(self) -> Optional[str]:
         """
-        :Returns: String representing the name of the device.
+        String representing the name of the device.
         """
         return self.get_capability(DEVICE_NAME)
 

@@ -15,29 +15,29 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
+from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+WEBKIT_RESPONSE_TIMEOUT = 'webkitResponseTimeout'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class WebkitResponseTimeoutOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def webkit_response_timeout(self) -> Optional[timedelta]:
         """
-        String representing the UDID of the device.
+        Time to wait for a response from WebKit in a Safari session.
         """
-        return self.get_capability(DEVICE_UDID)
+        value = self.get_capability(WEBKIT_RESPONSE_TIMEOUT)
+        return None if value is None else timedelta(milliseconds=value)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @webkit_response_timeout.setter
+    def webkit_response_timeout(self, value: Union[timedelta, int]) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        (Real device only) Set the time to wait for a response from
+        WebKit in a Safari session. Defaults to 5000ms.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(
+            WEBKIT_RESPONSE_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+        )

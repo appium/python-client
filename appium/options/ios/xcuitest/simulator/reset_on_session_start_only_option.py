@@ -19,25 +19,23 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_UDID = 'safari:deviceUDID'
+RESET_ON_SESSION_START_ONLY = 'resetOnSessionStartOnly'
 
 
-class DeviceUdidOption(SupportsCapabilities):
+class ResetOnSessionStartOnlyOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def reset_on_session_start_only(self) -> Optional[bool]:
         """
-        String representing the UDID of the device.
+        Whether to perform Simulator reset on test session finish (false) or not (true).
         """
-        return self.get_capability(DEVICE_UDID)
+        return self.get_capability(RESET_ON_SESSION_START_ONLY)
 
-    @device_udid.setter
-    def device_udid(self, value: str) -> None:
+    @reset_on_session_start_only.setter
+    def reset_on_session_start_only(self, value: bool) -> None:
         """
-        safaridriver will only create a session using hosts whose device UDID
-        matches the value of safari:deviceUDID. Device UDIDs are compared
-        case-insensitively. NOTE: If Xcode is installed, UDIDs for connected
-        devices are available via the output of instruments(1) and in the
-        Devices and Simulators window (accessed in Xcode via
-        "Window -&gt; Devices and Simulators").
+        Whether to perform reset on test session finish (false) or not (true).
+        Keeping this variable set to true and Simulator running (the default
+        behaviour since version 1.6.4) may significantly shorten the duration of
+        test session initialization.
         """
-        self.set_capability(DEVICE_UDID, value)
+        self.set_capability(RESET_ON_SESSION_START_ONLY, value)

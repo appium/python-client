@@ -33,12 +33,6 @@ class BundleIdOption(SupportsCapabilities):
     @bundle_id.setter
     def bundle_id(self, value: str) -> None:
         """
-        Set the bundle identifier of the application to automate, for example
-        com.apple.TextEdit. This is an optional capability. If it is not provided
-        then the session will be started without an application under test
-        (actually, it will be Finder). If the application with the given
-        identifier is not installed then an error will be thrown on session
-        startup. If the application is already running then it will be moved to
-        the foreground.
+        Set the bundle identifier of the application to automate.
         """
         self.set_capability(BUNDLE_ID, value)

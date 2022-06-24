@@ -26,7 +26,7 @@ class AutomaticInspectionOption(SupportsCapabilities):
     @property
     def automatic_inspection(self) -> Optional[bool]:
         """
-        :Returns: Whether to use automatic inspection.
+        Whether to use automatic inspection.
         """
         return self.get_capability(AUTOMATIC_INSPECTION)
 

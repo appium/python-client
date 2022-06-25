@@ -20,11 +20,10 @@ from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElemen
 
 from appium.webdriver.common.appiumby import AppiumBy
 
-from .extensions.search_context import AppiumWebElementSearchContext
 from .mobilecommand import MobileCommand as Command
 
 
-class WebElement(SeleniumWebElement, AppiumWebElementSearchContext):
+class WebElement(SeleniumWebElement):
     _execute: Callable
     _id: str
 

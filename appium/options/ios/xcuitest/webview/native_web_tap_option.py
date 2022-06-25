@@ -19,26 +19,22 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-BUNDLE_ID = 'bundleId'
+NATIVE_WEB_TAP = 'nativeWebTap'
 
 
-class BundleIdOption(SupportsCapabilities):
+class NativeWebTapOption(SupportsCapabilities):
     @property
-    def bundle_id(self) -> Optional[str]:
+    def native_web_tap(self) -> Optional[bool]:
         """
-        The bundle identifier of the application to automate.
+        Whether to enable native taps in web view mode.
         """
-        return self.get_capability(BUNDLE_ID)
+        return self.get_capability(NATIVE_WEB_TAP)
 
-    @bundle_id.setter
-    def bundle_id(self, value: str) -> None:
+    @native_web_tap.setter
+    def native_web_tap(self, value: bool) -> None:
         """
-        Set the bundle identifier of the application to automate, for example
-        com.apple.TextEdit. This is an optional capability. If it is not provided
-        then the session will be started without an application under test
-        (actually, it will be Finder). If the application with the given
-        identifier is not installed then an error will be thrown on session
-        startup. If the application is already running then it will be moved to
-        the foreground.
+        Enable native, non-javascript-based taps being in web context mode. Defaults
+        to false. Warning: sometimes the preciseness of native taps could be broken,
+        because there is no reliable way to map web element coordinates to native ones.
         """
-        self.set_capability(BUNDLE_ID, value)
+        self.set_capability(NATIVE_WEB_TAP, value)

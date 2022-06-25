@@ -26,7 +26,7 @@ class DeviceTypeOption(SupportsCapabilities):
     @property
     def device_type(self) -> Optional[str]:
         """
-        :Returns: String representing the type of the device.
+        String representing the type of the device.
         """
         return self.get_capability(DEVICE_TYPE)
 

@@ -26,7 +26,7 @@ class AutomaticProfilingOption(SupportsCapabilities):
     @property
     def automatic_profiling(self) -> Optional[bool]:
         """
-        :Returns: Whether to use automatic profiling.
+        Whether to use automatic profiling.
         """
         return self.get_capability(AUTOMATIC_PROFILING)
 

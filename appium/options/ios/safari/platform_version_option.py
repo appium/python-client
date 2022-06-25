@@ -26,7 +26,7 @@ class PlatformVersionOption(SupportsCapabilities):
     @property
     def platform_version(self) -> Optional[str]:
         """
-        :Returns: String representing the platform version.
+        String representing the platform version.
         """
         return self.get_capability(PLATFORM_VERSION)
 

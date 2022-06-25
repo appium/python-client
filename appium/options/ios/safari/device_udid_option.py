@@ -26,7 +26,7 @@ class DeviceUdidOption(SupportsCapabilities):
     @property
     def device_udid(self) -> Optional[str]:
         """
-        :Returns: String representing the UDID of the device.
+        String representing the UDID of the device.
         """
         return self.get_capability(DEVICE_UDID)
 

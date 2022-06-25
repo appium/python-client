@@ -73,6 +73,3 @@ class TestFindByImage(object):
 
         with pytest.raises(TimeoutException):
             wait_for_element(self.driver, AppiumBy.IMAGE, b64_data, timeout_sec=3)
-
-        with pytest.raises(NoSuchElementException):
-            self.driver.find_element_by_image(image_path)

@@ -19,9 +19,9 @@
 # chaining as the spec requires.
 
 import copy
+import warnings
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
-from appium.common.logger import logger
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
@@ -37,7 +37,9 @@ class MultiAction:
     """
 
     def __init__(self, driver: 'WebDriver', element: Optional['WebElement'] = None) -> None:
-        logger.warning("[Deprecated] 'MultiAction' action is deprecated. Please use W3C actions instead.")
+        warnings.warn(
+            "[Deprecated] 'MultiAction' action is deprecated. Please use W3C actions instead.", DeprecationWarning
+        )
 
         self._driver = driver
         self._element = element

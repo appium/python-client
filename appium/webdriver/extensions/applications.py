@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import warnings
 from typing import TYPE_CHECKING, Any, Dict
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
@@ -106,20 +106,34 @@ class Applications(CanExecuteCommands):
 
     def launch_app(self) -> 'WebDriver':
         """Start on the device the application specified in the desired capabilities.
+        deprecated:: 2.0.0
 
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
+        warnings.warn(
+            'The "launchApp" API is deprecated and will be removed in future versions. '
+            'See https://github.com/appium/appium/issues/15807',
+            DeprecationWarning,
+        )
+
         self.execute(Command.LAUNCH_APP)
         return self  # type: ignore
 
     def close_app(self) -> 'WebDriver':
         """Stop the running application, specified in the desired capabilities, on
         the device.
+        deprecated:: 2.0.0
 
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
+        warnings.warn(
+            'The "closeApp" API is deprecated and will be removed in future versions. '
+            'See https://github.com/appium/appium/issues/15807',
+            DeprecationWarning,
+        )
+
         self.execute(Command.CLOSE_APP)
         return self  # type: ignore
 
@@ -194,10 +208,17 @@ class Applications(CanExecuteCommands):
 
     def reset(self) -> 'WebDriver':
         """Resets the current application on the device.
+        deprecated:: 2.0.0
 
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
+        warnings.warn(
+            'The "reset" API is deprecated and will be removed in future versions. '
+            'See https://github.com/appium/appium/issues/15807',
+            DeprecationWarning,
+        )
+
         self.execute(Command.RESET)
         return self  # type: ignore
 

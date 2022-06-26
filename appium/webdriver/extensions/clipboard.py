@@ -15,23 +15,12 @@
 import base64
 from typing import Optional, TypeVar
 
-from appium.protocols.protocol import Protocol
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
-
-
-class CanSetClipboard(Protocol):
-    def set_clipboard(
-        self: T, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
-    ) -> T:
-        ...
-
-
-TS = TypeVar('TS', bound=CanSetClipboard)
+T = TypeVar('T', bound='Clipboard')
 
 
 class Clipboard(CanExecuteCommands):
@@ -58,7 +47,7 @@ class Clipboard(CanExecuteCommands):
         self.execute(Command.SET_CLIPBOARD, options)
         return self
 
-    def set_clipboard_text(self: TS, text: str, label: Optional[str] = None) -> TS:
+    def set_clipboard_text(self: T, text: str, label: Optional[str] = None) -> T:
         """Copies the given text to the system clipboard
 
         Args:

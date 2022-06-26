@@ -68,7 +68,6 @@ class Clipboard(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Clipboard']: Self instance
         """
-
         return self.set_clipboard(bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
 
     def get_clipboard(self, content_type: str = ClipboardContentType.PLAINTEXT) -> bytes:

@@ -23,18 +23,13 @@ from .mobilecommand import MobileCommand
 
 
 class HasDriver(Protocol):
-    # noinspection PyPropertyDefinition
-    @property
-    def _driver(self) -> CanExecuteCommands:
-        ...
+    _driver: CanExecuteCommands
 
 
 T = TypeVar('T', bound=HasDriver)
 
 
-class MobileSwitchTo(SwitchTo):
-    _driver: CanExecuteCommands
-
+class MobileSwitchTo(SwitchTo, HasDriver):
     def context(self: T, context_name: Optional[str]) -> T:
         """Sets the context for the current session.
         Passing `None` is equal to switching to native context.

@@ -15,27 +15,24 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_OPTIONS = 'intentOptions'
+CHROMEDRIVER_EXECUTABLE = 'chromedriverExecutable'
 
 
-class IntentOptionsOption(SupportsCapabilities):
+class ChromedriverExecutableOption(SupportsCapabilities):
     @property
-    def intent_options(self) -> Optional[Dict[str, Any]]:
+    def chromedriver_executable(self) -> Optional[str]:
         """
-        Intent options.
+        Path to the chromedriver executable on the server file system.
         """
-        return self.get_capability(INTENT_OPTIONS)
+        return self.get_capability(CHROMEDRIVER_EXECUTABLE)
 
-    @intent_options.setter
-    def intent_options(self, value: Dict[str, Any]) -> None:
+    @chromedriver_executable.setter
+    def chromedriver_executable(self, value: str) -> None:
         """
-        The mapping of custom options for the intent that is going to be passed
-        to the main app activity. Check
-        https://github.com/appium/appium-espresso-driver#intent-options
-        for more details.
+        Full path to the chromedriver executable on the server file system.
         """
-        self.set_capability(INTENT_OPTIONS, value)
+        self.set_capability(CHROMEDRIVER_EXECUTABLE, value)

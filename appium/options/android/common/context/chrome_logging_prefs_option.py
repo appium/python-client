@@ -19,23 +19,23 @@ from typing import Any, Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_OPTIONS = 'intentOptions'
+CHROME_LOGGING_PREFS = 'chromeLoggingPrefs'
 
 
-class IntentOptionsOption(SupportsCapabilities):
+class ChromeLoggingPrefsOption(SupportsCapabilities):
     @property
-    def intent_options(self) -> Optional[Dict[str, Any]]:
+    def chrome_logging_prefs(self) -> Optional[Dict[str, Any]]:
         """
-        Intent options.
+        Chrome logging preferences.
         """
-        return self.get_capability(INTENT_OPTIONS)
+        return self.get_capability(CHROME_LOGGING_PREFS)
 
-    @intent_options.setter
-    def intent_options(self, value: Dict[str, Any]) -> None:
+    @chrome_logging_prefs.setter
+    def chrome_logging_prefs(self, value: Dict[str, Any]) -> None:
         """
-        The mapping of custom options for the intent that is going to be passed
-        to the main app activity. Check
-        https://github.com/appium/appium-espresso-driver#intent-options
-        for more details.
+        Chrome logging preferences mapping. Basically the same as
+        [goog:loggingPrefs](https://newbedev.com/
+        getting-console-log-output-from-chrome-with-selenium-python-api-bindings).
+        It is set to {"browser": "ALL"} by default.
         """
-        self.set_capability(INTENT_OPTIONS, value)
+        self.set_capability(CHROME_LOGGING_PREFS, value)

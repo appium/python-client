@@ -15,27 +15,25 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional
+from typing import List, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_OPTIONS = 'intentOptions'
+CHROMEDRIVER_PORTS = 'chromedriverPorts'
 
 
-class IntentOptionsOption(SupportsCapabilities):
+class ChromedriverPortsOption(SupportsCapabilities):
     @property
-    def intent_options(self) -> Optional[Dict[str, Any]]:
+    def chromedriver_ports(self) -> Optional[List[int]]:
         """
-        Intent options.
+        Local port numbers to use for Chromedriver communication.
         """
-        return self.get_capability(INTENT_OPTIONS)
+        return self.get_capability(CHROMEDRIVER_PORTS)
 
-    @intent_options.setter
-    def intent_options(self, value: Dict[str, Any]) -> None:
+    @chromedriver_ports.setter
+    def chromedriver_ports(self, value: List[int]) -> None:
         """
-        The mapping of custom options for the intent that is going to be passed
-        to the main app activity. Check
-        https://github.com/appium/appium-espresso-driver#intent-options
-        for more details.
+        Array of possible port numbers to assign for Chromedriver communication.
+        If none of the port in this array is free then a server error is thrown.
         """
-        self.set_capability(INTENT_OPTIONS, value)
+        self.set_capability(CHROMEDRIVER_PORTS, value)

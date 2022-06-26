@@ -19,23 +19,22 @@ from typing import Any, Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_OPTIONS = 'intentOptions'
+CHROME_OPTIONS = 'chromeOptions'
 
 
-class IntentOptionsOption(SupportsCapabilities):
+class ChromeOptionsOption(SupportsCapabilities):
     @property
-    def intent_options(self) -> Optional[Dict[str, Any]]:
+    def chrome_options(self) -> Optional[Dict[str, Any]]:
         """
-        Intent options.
+        Chrome options.
         """
-        return self.get_capability(INTENT_OPTIONS)
+        return self.get_capability(CHROME_OPTIONS)
 
-    @intent_options.setter
-    def intent_options(self, value: Dict[str, Any]) -> None:
+    @chrome_options.setter
+    def chrome_options(self, value: Dict[str, Any]) -> None:
         """
-        The mapping of custom options for the intent that is going to be passed
-        to the main app activity. Check
-        https://github.com/appium/appium-espresso-driver#intent-options
-        for more details.
+        A mapping, that allows to customize chromedriver options.
+        See https://chromedriver.chromium.org/capabilities for the list
+        of available entries.
         """
-        self.set_capability(INTENT_OPTIONS, value)
+        self.set_capability(CHROME_OPTIONS, value)

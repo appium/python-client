@@ -15,27 +15,27 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_OPTIONS = 'intentOptions'
+CHROMEDRIVER_DISABLE_BUILD_CHECK = 'chromedriverDisableBuildCheck'
 
 
-class IntentOptionsOption(SupportsCapabilities):
+class ChromedriverDisableBuildCheckOption(SupportsCapabilities):
     @property
-    def intent_options(self) -> Optional[Dict[str, Any]]:
+    def chromedriver_disable_build_check(self) -> Optional[bool]:
         """
-        Intent options.
+        Whether to disable the compatibility validation between the current
+        chromedriver and the destination browser/web view.
         """
-        return self.get_capability(INTENT_OPTIONS)
+        return self.get_capability(CHROMEDRIVER_DISABLE_BUILD_CHECK)
 
-    @intent_options.setter
-    def intent_options(self, value: Dict[str, Any]) -> None:
+    @chromedriver_disable_build_check.setter
+    def chromedriver_disable_build_check(self, value: bool) -> None:
         """
-        The mapping of custom options for the intent that is going to be passed
-        to the main app activity. Check
-        https://github.com/appium/appium-espresso-driver#intent-options
-        for more details.
+        Being set to true disables the compatibility validation between the current
+        chromedriver and the destination browser/web view. Use it with care.
+        false by default.
         """
-        self.set_capability(INTENT_OPTIONS, value)
+        self.set_capability(CHROMEDRIVER_DISABLE_BUILD_CHECK, value)

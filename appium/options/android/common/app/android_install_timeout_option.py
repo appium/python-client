@@ -38,4 +38,6 @@ class AndroidInstallTimeoutOption(SupportsCapabilities):
         Maximum amount of time to wait until the application under test is installed.
         90000 ms by default
         """
-        self.set_capability(ANDROID_INSTALL_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value)
+        self.set_capability(
+            ANDROID_INSTALL_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+        )

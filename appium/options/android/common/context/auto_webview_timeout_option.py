@@ -15,27 +15,27 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional
+from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_OPTIONS = 'intentOptions'
+AUTO_WEBVIEW_TIMEOUT = 'autoWebviewTimeout'
 
 
-class IntentOptionsOption(SupportsCapabilities):
+class AutoWebviewTimeoutOption(SupportsCapabilities):
     @property
-    def intent_options(self) -> Optional[Dict[str, Any]]:
+    def auto_webview_timeout(self) -> Optional[timedelta]:
         """
-        Intent options.
+        Set the maximum timeout to wait until a web view is
+        available if autoWebview capability is set to true. 2000 ms by default.
         """
-        return self.get_capability(INTENT_OPTIONS)
+        value = self.get_capability(AUTO_WEBVIEW_TIMEOUT)
+        return None if value is None else timedelta(milliseconds=value)
 
-    @intent_options.setter
-    def intent_options(self, value: Dict[str, Any]) -> None:
+    @auto_webview_timeout.setter
+    def auto_webview_timeout(self, value: Union[timedelta, int]) -> None:
         """
-        The mapping of custom options for the intent that is going to be passed
-        to the main app activity. Check
-        https://github.com/appium/appium-espresso-driver#intent-options
-        for more details.
+        Timeout to wait until a web view is available.
         """
-        self.set_capability(INTENT_OPTIONS, value)
+        self.set_capability(AUTO_WEBVIEW_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value)

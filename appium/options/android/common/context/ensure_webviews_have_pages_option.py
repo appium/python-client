@@ -15,27 +15,26 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_OPTIONS = 'intentOptions'
+ENSURE_WEBVIEWS_HAVE_PAGES = 'ensureWebviewsHavePages'
 
 
-class IntentOptionsOption(SupportsCapabilities):
+class EnsureWebviewsHavePagesOption(SupportsCapabilities):
     @property
-    def intent_options(self) -> Optional[Dict[str, Any]]:
+    def ensure_webviews_have_pages(self) -> Optional[bool]:
         """
-        Intent options.
+        Whether to ensure if web views have pages.
         """
-        return self.get_capability(INTENT_OPTIONS)
+        return self.get_capability(ENSURE_WEBVIEWS_HAVE_PAGES)
 
-    @intent_options.setter
-    def intent_options(self, value: Dict[str, Any]) -> None:
+    @ensure_webviews_have_pages.setter
+    def ensure_webviews_have_pages(self, value: bool) -> None:
         """
-        The mapping of custom options for the intent that is going to be passed
-        to the main app activity. Check
-        https://github.com/appium/appium-espresso-driver#intent-options
-        for more details.
+        Whether to skip web views that have no pages from being shown in getContexts
+        output. The driver uses devtools connection to retrieve the information about
+        existing pages. true by default since Appium 1.19.0, false if lower than 1.19.0.
         """
-        self.set_capability(INTENT_OPTIONS, value)
+        self.set_capability(ENSURE_WEBVIEWS_HAVE_PAGES, value)

@@ -15,27 +15,26 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_OPTIONS = 'intentOptions'
+EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME = 'extractChromeAndroidPackageFromContextName'
 
 
-class IntentOptionsOption(SupportsCapabilities):
+class ExtractChromeAndroidPackageFromContextNameOption(SupportsCapabilities):
     @property
-    def intent_options(self) -> Optional[Dict[str, Any]]:
+    def extract_chrome_android_package_from_context_name(self) -> Optional[bool]:
         """
-        Intent options.
+        Whether to use the android package identifier associated with the context name.
         """
-        return self.get_capability(INTENT_OPTIONS)
+        return self.get_capability(EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME)
 
-    @intent_options.setter
-    def intent_options(self, value: Dict[str, Any]) -> None:
+    @extract_chrome_android_package_from_context_name.setter
+    def extract_chrome_android_package_from_context_name(self, value: bool) -> None:
         """
-        The mapping of custom options for the intent that is going to be passed
-        to the main app activity. Check
-        https://github.com/appium/appium-espresso-driver#intent-options
-        for more details.
+        If set to true, tell chromedriver to attach to the android package we have associated
+        with the context name, rather than the package of the application under test.
+        false by default.
         """
-        self.set_capability(INTENT_OPTIONS, value)
+        self.set_capability(EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME, value)

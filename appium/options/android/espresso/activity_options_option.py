@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional, Dict
+from typing import Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 

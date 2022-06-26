@@ -49,7 +49,8 @@ class TestWebDriverAndroidSearchContext(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/elements'),
-            body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "element-id1"}, {"element-6066-11e4-a52e-4f735466cecf": "element-id2"}]}',
+            body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "element-id1"}, '
+            '{"element-6066-11e4-a52e-4f735466cecf": "element-id2"}]}',
         )
         els = driver.find_elements(
             by=AppiumBy.ANDROID_DATA_MATCHER, value=json.dumps({'name': 'title', 'args': ['title', 'Animation']})
@@ -103,7 +104,8 @@ class TestWebDriverAndroidSearchContext(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/element/element_id/elements'),
-            body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "child-element-id1"}, {"element-6066-11e4-a52e-4f735466cecf": "child-element-id2"}]}',
+            body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "child-element-id1"}, '
+            '{"element-6066-11e4-a52e-4f735466cecf": "child-element-id2"}]}',
         )
         els = element.find_elements(
             by=AppiumBy.ANDROID_DATA_MATCHER, value=json.dumps({'name': 'title', 'args': ['title', 'Animation']})

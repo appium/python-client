@@ -52,7 +52,6 @@ from .extensions.location import Location
 from .extensions.log_event import LogEvent
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
-from .extensions.search_context import AppiumSearchContext
 from .extensions.session import Session
 from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
@@ -172,7 +171,6 @@ class ExtensionBase:
 
 class WebDriver(
     webdriver.Remote,
-    AppiumSearchContext,
     ActionHelpers,
     Activities,
     Applications,

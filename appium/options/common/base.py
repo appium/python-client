@@ -67,7 +67,7 @@ class AppiumOptions(
         # FIXME: https://github.com/SeleniumHQ/selenium/issues/10755
         self._ignore_local_proxy = False
 
-    def set_capability(self, name: str, value: Any) -> T:
+    def set_capability(self: T, name: str, value: Any) -> T:
         w3c_name = name if name in self.W3C_CAPABILITY_NAMES or ':' in name else f'{APPIUM_PREFIX}{name}'
         if value is None:
             if w3c_name in self._caps:
@@ -80,7 +80,7 @@ class AppiumOptions(
         """Fetches capability value or None if the capability is not set"""
         return self._caps[name] if name in self._caps else self._caps.get(f'{APPIUM_PREFIX}{name}')
 
-    def load_capabilities(self, caps: Dict[str, Any]) -> T:
+    def load_capabilities(self: T, caps: Dict[str, Any]) -> T:
         """Sets multiple capabilities"""
         for name, value in caps.items():
             self.set_capability(name, value)

@@ -17,6 +17,22 @@
 
 from typing import Dict
 
+from appium.options.android.common.app.allow_test_packages_option import AllowTestPackagesOption
+from appium.options.android.common.app.android_install_timeout_option import AndroidInstallTimeoutOption
+from appium.options.android.common.app.app_activity_option import AppActivityOption
+from appium.options.android.common.app.app_package_option import AppPackageOption
+from appium.options.android.common.app.app_wait_activity_option import AppWaitActivityOption
+from appium.options.android.common.app.app_wait_duration_option import AppWaitDurationOption
+from appium.options.android.common.app.app_wait_for_launch_option import AppWaitForLaunchOption
+from appium.options.android.common.app.app_wait_package_option import AppWaitPackageOption
+from appium.options.android.common.app.auto_grant_premissions_option import AutoGrantPermissionsOption
+from appium.options.android.common.app.enforce_app_install_option import EnforceAppInstallOption
+from appium.options.android.common.app.intent_action_option import IntentActionOption
+from appium.options.android.common.app.intent_category_option import IntentCategoryOption
+from appium.options.android.common.app.intent_flags_option import IntentFlagsOption
+from appium.options.android.common.app.optional_intent_arguments_option import OptionalIntentArgumentsOption
+from appium.options.android.common.app.remote_apps_cache_limit_option import RemoteAppsCacheLimitOption
+from appium.options.android.common.app.uninstall_other_packages_option import UninstallOtherPackagesOption
 from appium.options.common.app_option import AppOption
 from appium.options.common.auto_web_view_option import AutoWebViewOption
 from appium.options.common.automation_name_option import AUTOMATION_NAME
@@ -30,7 +46,15 @@ from appium.options.common.locale_option import LocaleOption
 from appium.options.common.orientation_option import OrientationOption
 from appium.options.common.other_apps_option import OtherAppsOption
 from appium.options.common.skip_log_capture_option import SkipLogCaptureOption
+from appium.options.common.system_port_option import SystemPortOption
 from appium.options.common.udid_option import UdidOption
+
+from .disable_window_animation_option import DisableWindowAnimationOption
+from .skip_device_initialization_option import SkipDeviceInitializationOption
+from .skip_server_installation_option import SkipServerInstallationOption
+from .uiautomator2_server_install_timeout_option import Uiautomator2ServerInstallTimeoutOption
+from .uiautomator2_server_launch_timeout_option import Uiautomator2ServerLaunchTimeoutOption
+from .uiautomator2_server_read_timeout_option import Uiautomator2ServerReadTimeoutOption
 
 
 class UiAutomator2Options(
@@ -47,6 +71,29 @@ class UiAutomator2Options(
     EnablePerformanceLoggingOption,
     OtherAppsOption,
     DeviceNameOption,
+    SystemPortOption,
+    SkipServerInstallationOption,
+    Uiautomator2ServerInstallTimeoutOption,
+    Uiautomator2ServerLaunchTimeoutOption,
+    Uiautomator2ServerReadTimeoutOption,
+    DisableWindowAnimationOption,
+    SkipDeviceInitializationOption,
+    AppPackageOption,
+    AppActivityOption,
+    AppWaitActivityOption,
+    AppWaitPackageOption,
+    AppWaitDurationOption,
+    AndroidInstallTimeoutOption,
+    AppWaitForLaunchOption,
+    IntentCategoryOption,
+    IntentActionOption,
+    IntentFlagsOption,
+    OptionalIntentArgumentsOption,
+    AutoGrantPermissionsOption,
+    UninstallOtherPackagesOption,
+    AllowTestPackagesOption,
+    RemoteAppsCacheLimitOption,
+    EnforceAppInstallOption,
 ):
     @property
     def default_capabilities(self) -> Dict:

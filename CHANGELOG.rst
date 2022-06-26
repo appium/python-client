@@ -2,6 +2,72 @@ Changelog
 =========
 
 
+v2.5.0 (2022-06-25)
+-------------------
+
+New
+~~~
+- Feat: Add xcuitest driver options (#737) [Mykola Mokhnach]
+- Feat: Add Gecko driver options (#735) [Mykola Mokhnach]
+- Feat: Add Windows driver options (#732) [Mykola Mokhnach]
+- Feat: Add Safari driver options (#731) [Mykola Mokhnach]
+- Feat: Add Mac2Driver options (#730) [Mykola Mokhnach]
+
+Other
+~~~~~
+- Chore(deps): update selenium requirement from ~=4.2 to ~=4.3 (#736)
+  [dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.2.0...selenium-4.3.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps): update pylint requirement from ~=2.14.2 to ~=2.14.3
+  (#733) [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.14.2...v2.14.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Refactor: Make system_port and system_host options common (#734)
+  [Mykola Mokhnach]
+- Chore(deps): update pylint requirement from ~=2.14.1 to ~=2.14.2
+  (#725) [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.14.1...v2.14.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Chore: bump version to 2.4.0. [Kazuaki Matsuo]
+- Chore(deps): update pylint requirement from ~=2.14.1 to ~=2.14.2
+  (#725) [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.14.1...v2.14.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+
+
 v2.4.0 (2022-06-17)
 -------------------
 

@@ -12,17 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING
+from typing import TypeVar
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
+T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class Sms(CanExecuteCommands):
-    def send_sms(self, phone_number: str, message: str) -> 'WebDriver':
+    def send_sms(self: T, phone_number: str, message: str) -> T:
         """Emulate send SMS event on the connected emulator.
 
         Android only.
@@ -38,7 +37,7 @@ class Sms(CanExecuteCommands):
             Union['WebDriver', 'Sms']: Self instance
         """
         self.execute(Command.SEND_SMS, {'phoneNumber': phone_number, 'message': message})
-        return self  # type: ignore
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

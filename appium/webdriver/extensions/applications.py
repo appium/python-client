@@ -12,19 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import warnings
-from typing import TYPE_CHECKING, Any, Dict
+from typing import Any, Dict, TypeVar
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
-    from appium.webdriver.webdriver import WebDriver
+T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class Applications(CanExecuteCommands):
-    def background_app(self, seconds: int) -> 'WebDriver':
+    def background_app(self: T, seconds: int) -> T:
         """Puts the application in the background on the device for a certain duration.
 
         Args:
@@ -37,7 +35,7 @@ class Applications(CanExecuteCommands):
             'seconds': seconds,
         }
         self.execute(Command.BACKGROUND, data)
-        return self  # type: ignore
+        return self
 
     def is_app_installed(self, bundle_id: str) -> bool:
         """Checks whether the application specified by `bundle_id` is installed on the device.
@@ -53,7 +51,7 @@ class Applications(CanExecuteCommands):
         }
         return self.execute(Command.IS_APP_INSTALLED, data)['value']
 
-    def install_app(self, app_path: str, **options: Any) -> 'WebDriver':
+    def install_app(self: T, app_path: str, **options: Any) -> T:
         """Install the application found at `app_path` on the device.
 
         Args:
@@ -79,9 +77,9 @@ class Applications(CanExecuteCommands):
         if options:
             data.update({'options': options})
         self.execute(Command.INSTALL_APP, data)
-        return self  # type: ignore
+        return self
 
-    def remove_app(self, app_id: str, **options: Any) -> 'WebDriver':
+    def remove_app(self: T, app_id: str, **options: Any) -> T:
         """Remove the specified application from the device.
 
         Args:
@@ -102,9 +100,9 @@ class Applications(CanExecuteCommands):
         if options:
             data.update({'options': options})
         self.execute(Command.REMOVE_APP, data)
-        return self  # type: ignore
+        return self
 
-    def launch_app(self) -> 'WebDriver':
+    def launch_app(self: T) -> T:
         """Start on the device the application specified in the desired capabilities.
         deprecated:: 2.0.0
 
@@ -118,9 +116,9 @@ class Applications(CanExecuteCommands):
         )
 
         self.execute(Command.LAUNCH_APP)
-        return self  # type: ignore
+        return self
 
-    def close_app(self) -> 'WebDriver':
+    def close_app(self: T) -> T:
         """Stop the running application, specified in the desired capabilities, on
         the device.
         deprecated:: 2.0.0
@@ -135,7 +133,7 @@ class Applications(CanExecuteCommands):
         )
 
         self.execute(Command.CLOSE_APP)
-        return self  # type: ignore
+        return self
 
     def terminate_app(self, app_id: str, **options: Any) -> bool:
         """Terminates the application if it is running.
@@ -157,7 +155,7 @@ class Applications(CanExecuteCommands):
             data.update({'options': options})
         return self.execute(Command.TERMINATE_APP, data)['value']
 
-    def activate_app(self, app_id: str) -> 'WebDriver':
+    def activate_app(self: T, app_id: str) -> T:
         """Activates the application if it is not running
         or is running in the background.
 
@@ -171,7 +169,7 @@ class Applications(CanExecuteCommands):
             'appId': app_id,
         }
         self.execute(Command.ACTIVATE_APP, data)
-        return self  # type: ignore
+        return self
 
     def query_app_state(self, app_id: str) -> int:
         """Queries the state of the application.
@@ -206,7 +204,7 @@ class Applications(CanExecuteCommands):
             data['stringFile'] = string_file
         return self.execute(Command.GET_APP_STRINGS, data)['value']
 
-    def reset(self) -> 'WebDriver':
+    def reset(self: T) -> T:
         """Resets the current application on the device.
         deprecated:: 2.0.0
 
@@ -220,7 +218,7 @@ class Applications(CanExecuteCommands):
         )
 
         self.execute(Command.RESET)
-        return self  # type: ignore
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

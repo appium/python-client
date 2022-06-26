@@ -13,22 +13,31 @@
 # limitations under the License.
 
 import base64
-from typing import TYPE_CHECKING, Optional
+from typing import Optional, TypeVar
 
+from appium.protocols.protocol import Protocol
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
-    from appium.webdriver.webdriver import WebDriver
+T = TypeVar('T', bound=CanExecuteCommands)
+
+
+class CanSetClipboard(Protocol):
+    def set_clipboard(
+        self: T, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
+    ) -> T:
+        ...
+
+
+TS = TypeVar('TS', bound=CanSetClipboard)
 
 
 class Clipboard(CanExecuteCommands):
     def set_clipboard(
-        self, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
-    ) -> 'WebDriver':
+        self: T, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
+    ) -> T:
         """Set the content of the system clipboard
 
         Args:
@@ -47,9 +56,9 @@ class Clipboard(CanExecuteCommands):
         if label:
             options['label'] = label
         self.execute(Command.SET_CLIPBOARD, options)
-        return self  # type: ignore
+        return self
 
-    def set_clipboard_text(self, text: str, label: Optional[str] = None) -> 'WebDriver':
+    def set_clipboard_text(self: TS, text: str, label: Optional[str] = None) -> TS:
         """Copies the given text to the system clipboard
 
         Args:
@@ -60,8 +69,7 @@ class Clipboard(CanExecuteCommands):
             Union['WebDriver', 'Clipboard']: Self instance
         """
 
-        self.set_clipboard(bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
-        return self  # type: ignore
+        return self.set_clipboard(bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
 
     def get_clipboard(self, content_type: str = ClipboardContentType.PLAINTEXT) -> bytes:
         """Receives the content of the system clipboard

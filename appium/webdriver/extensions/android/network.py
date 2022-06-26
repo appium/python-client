@@ -12,15 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING
+from typing import TypeVar
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
+T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class NetSpeed:
@@ -75,16 +74,16 @@ class Network(CanExecuteCommands):
         data = {'parameters': {'type': connection_type}}
         return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
 
-    def toggle_wifi(self) -> 'WebDriver':
+    def toggle_wifi(self: T) -> T:
         """Toggle the wifi on the device, Android only.
 
         Returns:
             Union['WebDriver', 'Network']: Self instance
         """
         self.execute(Command.TOGGLE_WIFI, {})
-        return self  # type: ignore
+        return self
 
-    def set_network_speed(self, speed_type: str) -> 'WebDriver':
+    def set_network_speed(self: T, speed_type: str) -> T:
         """Set the network speed emulation.
 
         Android Emulator only.
@@ -107,7 +106,7 @@ class Network(CanExecuteCommands):
             )
 
         self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
-        return self  # type: ignore
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

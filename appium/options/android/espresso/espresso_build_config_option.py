@@ -29,7 +29,11 @@ class EspressoBuildConfigOption(SupportsCapabilities):
         """
         Espresso build config.
         """
-        return self.get_capability(ESPRESSO_BUILD_CONFIG)
+        value = self.get_capability(ESPRESSO_BUILD_CONFIG)
+        try:
+            return json.loads(value)
+        except Exception:
+            return value
 
     @espresso_build_config.setter
     def espresso_build_config(self, value: Union[Dict[str, Any], str]) -> None:

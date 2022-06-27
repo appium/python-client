@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING
+from typing import TypeVar
 
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -20,12 +20,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
+T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class Activities(CanExecuteCommands):
-    def start_activity(self, app_package: str, app_activity: str, **opts: str) -> 'WebDriver':
+    def start_activity(self: T, app_package: str, app_activity: str, **opts: str) -> T:
         """Opens an arbitrary activity during a test. If the activity belongs to
         another application, that application is started and the activity is opened.
 
@@ -58,7 +57,7 @@ class Activities(CanExecuteCommands):
             if key in opts:
                 data[value] = opts[key]
         self.execute(Command.START_ACTIVITY, data)
-        return self  # type: ignore
+        return self
 
     @property
     def current_activity(self) -> str:

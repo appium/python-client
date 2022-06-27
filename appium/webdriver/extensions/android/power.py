@@ -12,20 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING
+from typing import TypeVar
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
+T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class Power(CanExecuteCommands):
 
     AC_OFF, AC_ON = 'off', 'on'
 
-    def set_power_capacity(self, percent: int) -> 'WebDriver':
+    def set_power_capacity(self: T, percent: int) -> T:
         """Emulate power capacity change on the connected emulator.
 
         Android only.
@@ -40,9 +39,9 @@ class Power(CanExecuteCommands):
             Union['WebDriver', 'Power']: Self instance
         """
         self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
-        return self  # type: ignore
+        return self
 
-    def set_power_ac(self, ac_state: str) -> 'WebDriver':
+    def set_power_ac(self: T, ac_state: str) -> T:
         """Emulate power state change on the connected emulator.
 
         Android only.
@@ -58,7 +57,7 @@ class Power(CanExecuteCommands):
             Union['WebDriver', 'Power']: Self instance
         """
         self.execute(Command.SET_POWER_AC, {'state': ac_state})
-        return self  # type: ignore
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

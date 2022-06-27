@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any
+from typing import Any, TypeVar
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
+T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class Common(CanExecuteCommands):
@@ -41,14 +40,14 @@ class Common(CanExecuteCommands):
         }
         return self.execute(Command.END_TEST_COVERAGE, data)['value']
 
-    def open_notifications(self) -> 'WebDriver':
+    def open_notifications(self: T) -> T:
         """Open notification shade in Android (API Level 18 and above)
 
         Returns:
             Union['WebDriver', 'Common']: Self instance
         """
         self.execute(Command.OPEN_NOTIFICATIONS, {})
-        return self  # type: ignore
+        return self
 
     @property
     def current_package(self) -> str:

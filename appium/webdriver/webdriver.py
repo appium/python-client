@@ -14,7 +14,7 @@
 
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 from selenium import webdriver
 from selenium.common.exceptions import InvalidArgumentException, SessionNotCreatedException, WebDriverException
@@ -24,6 +24,7 @@ from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.logger import logger
 from appium.options.common.base import AppiumOptions
+from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.common.appiumby import AppiumBy
 
 from .appium_connection import AppiumConnection
@@ -57,6 +58,8 @@ from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
+
+T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class ExtensionBase:
@@ -417,7 +420,7 @@ class WebDriver(
         """
         return MobileWebElement(self, element_id)
 
-    def set_value(self, element: MobileWebElement, value: str) -> 'WebDriver':
+    def set_value(self: T, element: MobileWebElement, value: str) -> T:
         """Set the value on an element in the application.
 
         Args:

@@ -12,15 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, List
+from typing import List, TypeVar
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
-    from appium.webdriver.webdriver import WebDriver
+T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class IME(CanExecuteCommands):
@@ -45,7 +43,7 @@ class IME(CanExecuteCommands):
         """
         return self.execute(Command.IS_IME_ACTIVE, {})['value']  # pylint: disable=unsubscriptable-object
 
-    def activate_ime_engine(self, engine: str) -> 'WebDriver':
+    def activate_ime_engine(self: T, engine: str) -> T:
         """Activates the given IME engine on the device.
 
         Android only.
@@ -59,9 +57,9 @@ class IME(CanExecuteCommands):
         """
         data = {'engine': engine}
         self.execute(Command.ACTIVATE_IME_ENGINE, data)
-        return self  # type: ignore
+        return self
 
-    def deactivate_ime_engine(self) -> 'WebDriver':
+    def deactivate_ime_engine(self: T) -> T:
         """Deactivates the currently active IME engine on the device.
 
         Android only.
@@ -70,7 +68,7 @@ class IME(CanExecuteCommands):
             Union['WebDriver', 'IME']: Self instance
         """
         self.execute(Command.DEACTIVATE_IME_ENGINE, {})
-        return self  # type: ignore
+        return self
 
     @property
     def active_ime_engine(self) -> str:

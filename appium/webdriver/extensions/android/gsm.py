@@ -12,15 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING
+from typing import TypeVar
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
+T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class GsmCallActions:
@@ -49,7 +48,7 @@ class GsmVoiceState:
 
 
 class Gsm(CanExecuteCommands):
-    def make_gsm_call(self, phone_number: str, action: str) -> 'WebDriver':
+    def make_gsm_call(self: T, phone_number: str, action: str) -> T:
         """Make GSM call (Emulator only)
 
         Android only.
@@ -72,9 +71,9 @@ class Gsm(CanExecuteCommands):
                 f'(e.g. {GsmCallActions.__name__}.CALL)'
             )
         self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
-        return self  # type: ignore
+        return self
 
-    def set_gsm_signal(self, strength: int) -> 'WebDriver':
+    def set_gsm_signal(self: T, strength: int) -> T:
         """Set GSM signal strength (Emulator only)
 
         Android only.
@@ -96,9 +95,9 @@ class Gsm(CanExecuteCommands):
                 f'(e.g. {GsmSignalStrength.__name__}.GOOD)'
             )
         self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
-        return self  # type: ignore
+        return self
 
-    def set_gsm_voice(self, state: str) -> 'WebDriver':
+    def set_gsm_voice(self: T, state: str) -> T:
         """Set GSM voice state (Emulator only)
 
         Android only.
@@ -120,7 +119,7 @@ class Gsm(CanExecuteCommands):
                 f'(e.g. {GsmVoiceState.__name__}.HOME)'
             )
         self.execute(Command.SET_GSM_VOICE, {'state': state})
-        return self  # type: ignore
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

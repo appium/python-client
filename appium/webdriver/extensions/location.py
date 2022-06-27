@@ -12,19 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Dict, Union
+from typing import Dict, TypeVar, Union
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    # noinspection PyUnresolvedReferences
-    from appium.webdriver.webdriver import WebDriver
+T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class Location(CanExecuteCommands):
-    def toggle_location_services(self) -> 'WebDriver':
+    def toggle_location_services(self: T) -> T:
         """Toggle the location services on the device.
 
         Android only.
@@ -33,16 +31,16 @@ class Location(CanExecuteCommands):
             Union['WebDriver', 'Location']: Self instance
         """
         self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
-        return self  # type: ignore
+        return self
 
     def set_location(
-        self,
+        self: T,
         latitude: Union[float, str],
         longitude: Union[float, str],
         altitude: Union[float, str, None] = None,
         speed: Union[float, str, None] = None,
         satellites: Union[float, str, None] = None,
-    ) -> 'WebDriver':
+    ) -> T:
         """Set the location of the device
 
         Args:
@@ -68,7 +66,7 @@ class Location(CanExecuteCommands):
         if satellites is not None:
             data['location']['satellites'] = satellites
         self.execute(Command.SET_LOCATION, data)
-        return self  # type: ignore
+        return self
 
     @property
     def location(self) -> Dict[str, float]:

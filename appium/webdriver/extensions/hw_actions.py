@@ -12,18 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, Optional
+from typing import Any, Optional, TypeVar
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
+T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class HardwareActions(CanExecuteCommands):
-    def lock(self, seconds: Optional[int] = None) -> 'WebDriver':
+    def lock(self: T, seconds: Optional[int] = None) -> T:
         """Lock the device. No changes are made if the device is already unlocked.
 
         Args:
@@ -39,16 +38,16 @@ class HardwareActions(CanExecuteCommands):
             self.execute(Command.LOCK)
         else:
             self.execute(Command.LOCK, {'seconds': seconds})
-        return self  # type: ignore
+        return self
 
-    def unlock(self) -> 'WebDriver':
+    def unlock(self: T) -> T:
         """Unlock the device. No changes are made if the device is already locked.
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.UNLOCK)
-        return self  # type: ignore
+        return self
 
     def is_locked(self) -> bool:
         """Checks whether the device is locked.
@@ -58,16 +57,16 @@ class HardwareActions(CanExecuteCommands):
         """
         return self.execute(Command.IS_LOCKED)['value']
 
-    def shake(self) -> 'WebDriver':
+    def shake(self: T) -> T:
         """Shake the device.
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.SHAKE)
-        return self  # type: ignore
+        return self
 
-    def touch_id(self, match: bool) -> 'WebDriver':
+    def touch_id(self: T, match: bool) -> T:
         """Simulate touchId on iOS Simulator
 
         Args:
@@ -78,16 +77,16 @@ class HardwareActions(CanExecuteCommands):
         """
         data = {'match': match}
         self.execute(Command.TOUCH_ID, data)
-        return self  # type: ignore
+        return self
 
-    def toggle_touch_id_enrollment(self) -> 'WebDriver':
+    def toggle_touch_id_enrollment(self: T) -> T:
         """Toggle enroll touchId on iOS Simulator
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         self.execute(Command.TOGGLE_TOUCH_ID_ENROLLMENT)
-        return self  # type: ignore
+        return self
 
     def finger_print(self, finger_id: int) -> Any:
         """Authenticate users by using their finger print scans on supported Android emulators.

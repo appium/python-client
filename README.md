@@ -111,10 +111,10 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 
-options = UiAutomator2Options().\
-    set_capability('platformVersion', '10').\
-    set_capability('deviceName', 'Android Emulator').\
-    set_capability('app', PATH('../../../apps/selendroid-test-app.apk'))
+options = UiAutomator2Options()
+options.platformVersion = '10'
+options.deviceName = 'Android Emulator'
+options.app = PATH('../../../apps/selendroid-test-app.apk')
 # Appium1 points to http://127.0.0.1:4723/wd/hub by default 
 self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options)
 el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
@@ -130,10 +130,10 @@ from appium import webdriver
 from appium.options.ios import XCUITestOptions
 from appium.webdriver.common.appiumby import AppiumBy
 
-options = XCUITestOptions().\
-    set_capability('platformVersion', '13.4').\
-    set_capability('deviceName', 'iPhone Simulator').\
-    set_capability('app', PATH('../../apps/UICatalog.app.zip'))
+options = XCUITestOptions()
+options.platformVersion = '13.4'
+options.deviceName = 'iPhone Simulator'
+options.app = PATH('../../apps/UICatalog.app.zip')
 # Appium1 points to http://127.0.0.1:4723/wd/hub by default 
 self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options)
 el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')

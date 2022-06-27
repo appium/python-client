@@ -163,7 +163,6 @@ class UiAutomator2Options(
     RemoteAdbHostOption,
     AdbExecTimeoutOption,
     ClearDeviceLogsOnStartOption,
-    BuildToolsVersionOption,
     SkipLogcatCaptureOption,
     BuildToolsVersionOption,
     SuppressKillServerOption,

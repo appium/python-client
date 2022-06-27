@@ -113,8 +113,8 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 options = UiAutomator2Options()
 options.platformVersion = '10'
-options.deviceName = 'Android Emulator'
-options.app = PATH('../../../apps/selendroid-test-app.apk')
+options.udid = '123456789ABC'
+options.app = PATH('../../../apps/test-app.apk')
 # Appium1 points to http://127.0.0.1:4723/wd/hub by default 
 self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options)
 el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
@@ -132,7 +132,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 options = XCUITestOptions()
 options.platformVersion = '13.4'
-options.deviceName = 'iPhone Simulator'
+options.udid = '123456789ABC'
 options.app = PATH('../../apps/UICatalog.app.zip')
 # Appium1 points to http://127.0.0.1:4723/wd/hub by default 
 self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options)
@@ -158,6 +158,8 @@ from appium import webdriver
 # instead: https://github.com/appium/python-client/pull/720
 from appium.options.ios import XCUITestOptions
 
+# load_capabilities API could be used to 
+# load options mapping stored in a dictionary
 options = XCUITestOptions().load_capabilities({
     'platformVersion': '13.4',
     'deviceName': 'iPhone Simulator',
@@ -186,6 +188,8 @@ from appium.options.common import AppiumOptions
 options = AppiumOptions()
 options.platform_name = 'mac'
 options.automation_name = 'safari'
+# set_capability API allows to provide any custom option
+# calls to it could be chained
 options.set_capability('browser_name', 'safari')
 
 # Appium1 points to http://127.0.0.1:4723/wd/hub by default 

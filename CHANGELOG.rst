@@ -2,6 +2,35 @@ Changelog
 =========
 
 
+v2.6.0 (2022-06-28)
+-------------------
+
+New
+~~~
+- Feat: Add Android drivers options (#740) [Mykola Mokhnach]
+
+Other
+~~~~~
+- Chore(deps): bump black from 22.3.0 to 22.6.0 (#741) [dependabot[bot]]
+
+  Bumps [black](https://github.com/psf/black) from 22.3.0 to 22.6.0.
+  - [Release notes](https://github.com/psf/black/releases)
+  - [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+  - [Commits](https://github.com/psf/black/compare/22.3.0...22.6.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: black
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+- Chore: Improve autocompletion for methods returning self instance
+  (#739) [Mykola Mokhnach]
+- Refactor: Remove previously deprecated methods and mark
+  reset/close/launch APIs as deprecated (#738) [Mykola Mokhnach]
+- Docs: Update changelog for 2.5.0. [Kazuaki Matsuo]
+
+
 v2.5.0 (2022-06-25)
 -------------------
 

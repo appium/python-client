@@ -31,11 +31,7 @@ class ActionHelpers:
         """Scrolls from one element to another
 
         Args:
-<<<<<<< HEAD
-            origin_el: the element from which to beging scrolling (center of element)
-=======
             origin_el: the element from which to begin scrolling (center of element)
->>>>>>> Backwards compatible behaviour of swipe and scroll in action_helpers
             destination_el: the element to scroll to (center of element)
             duration: defines speed of scroll action when moving from originalEl to destinationEl.
                 Default is 600 ms for W3C spec.

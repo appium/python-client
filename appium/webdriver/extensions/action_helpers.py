@@ -54,7 +54,7 @@ class ActionHelpers:
         # https://github.com/SeleniumHQ/selenium/blob/3c82c868d4f2a7600223a1b3817301d0b04d28e4/py/selenium/webdriver/common/actions/pointer_actions.py#L83
         actions.w3c_actions.pointer_action.move_to(origin_el)
         actions.w3c_actions.pointer_action.pointer_down()
-        # setup duration for the second move only, assuming duration always has atleast default value
+        # setup duration for second move only, assuming duration always has atleast default value
         actions.w3c_actions = ActionBuilder(self, mouse=touch_input, duration=duration)
         actions.w3c_actions.pointer_action.move_to(destination_el)
         actions.w3c_actions.pointer_action.release()

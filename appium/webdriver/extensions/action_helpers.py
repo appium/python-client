@@ -31,9 +31,9 @@ class ActionHelpers:
         """Scrolls from one element to another
 
         Args:
-            origin_el: the element from which to being scrolling
-            destination_el: the element to scroll to
-            duration: a duration after pressing originalEl and move the element to destinationEl.
+            origin_el: the element from which to beging scrolling (center of element)
+            destination_el: the element to scroll to (center of element)
+            duration: defines speed of scroll action when moving from originalEl to destinationEl.
                 Default is 600 ms for W3C spec.
 
         Usage:
@@ -47,27 +47,16 @@ class ActionHelpers:
         if duration is None:
             duration = 600
 
-        # w3c action requires seconds
-        duration_sec = duration / 1000
-
         actions = ActionChains(self)
-        actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
-        dest_el_rect = destination_el.rect
+        # duration given directly as argument, as the default was set above
+        actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"), duration=duration)
 
         # https://github.com/SeleniumHQ/selenium/blob/3c82c868d4f2a7600223a1b3817301d0b04d28e4/py/selenium/webdriver/common/actions/pointer_actions.py#L83
-        if duration_sec is None:
-            actions.w3c_actions.pointer_action.move_to(origin_el)
-            actions.w3c_actions.pointer_action.pointer_down()
-            actions.w3c_actions.pointer_action.move_to_location(dest_el_rect['x'], dest_el_rect['y'])
-            actions.w3c_actions.pointer_action.release()
-            actions.perform()
-        else:
-            actions.w3c_actions.pointer_action.move_to(origin_el)
-            actions.w3c_actions.pointer_action.pointer_down()
-            actions.w3c_actions.pointer_action.pause(duration_sec)
-            actions.w3c_actions.pointer_action.move_to_location(dest_el_rect['x'], dest_el_rect['y'])
-            actions.w3c_actions.pointer_action.release()
-            actions.perform()
+        actions.w3c_actions.pointer_action.move_to(origin_el)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.move_to(destination_el)
+        actions.w3c_actions.pointer_action.release()
+        actions.perform()
         return self
 
     def drag_and_drop(self: T, origin_el: WebElement, destination_el: WebElement) -> T:
@@ -146,7 +135,7 @@ class ActionHelpers:
             start_y: y-coordinate at which to start
             end_x: x-coordinate at which to stop
             end_y: y-coordinate at which to stop
-            duration: time to take the swipe, in ms.
+            duration: defines the swipe speed as time taken to swipe from point a to point b, in ms.
 
         Usage:
             driver.swipe(100, 100, 100, 400)
@@ -154,11 +143,15 @@ class ActionHelpers:
         Returns:
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
+        # if duration is not given, do not define it as argument to use default from ActionBuilder
+        kw_args = {"mouse": PointerInput(interaction.POINTER_TOUCH, "touch")}
+        if duration > 0:
+            kw_args["duration"] =  duration
+
         actions = ActionChains(self)
-        actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+        actions.w3c_actions = ActionBuilder(self, **kw_args)
         actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
         actions.w3c_actions.pointer_action.pointer_down()
-        actions.w3c_actions.pointer_action.pause(duration / 1000)
         actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
         actions.w3c_actions.pointer_action.release()
         actions.perform()
@@ -187,3 +180,4 @@ class ActionHelpers:
         actions.w3c_actions.pointer_action.release()
         actions.perform()
         return self
+

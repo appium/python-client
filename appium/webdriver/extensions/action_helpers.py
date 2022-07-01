@@ -42,18 +42,20 @@ class ActionHelpers:
         Returns:
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
-
         # XCUITest x W3C spec has no duration by default in server side
         if duration is None:
             duration = 600
 
+        touch_input = PointerInput(interaction.POINTER_TOUCH, "touch")
+
         actions = ActionChains(self)
-        # duration given directly as argument, as the default was set above
-        actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"), duration=duration)
+        actions.w3c_actions = ActionBuilder(self, mouse=touch_input)
 
         # https://github.com/SeleniumHQ/selenium/blob/3c82c868d4f2a7600223a1b3817301d0b04d28e4/py/selenium/webdriver/common/actions/pointer_actions.py#L83
         actions.w3c_actions.pointer_action.move_to(origin_el)
         actions.w3c_actions.pointer_action.pointer_down()
+        # setup duration for the second move only, assuming duration always has atleast default value
+        actions.w3c_actions = ActionBuilder(self, mouse=touch_input, duration=duration)
         actions.w3c_actions.pointer_action.move_to(destination_el)
         actions.w3c_actions.pointer_action.release()
         actions.perform()
@@ -143,15 +145,14 @@ class ActionHelpers:
         Returns:
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
-        # if duration is not given, do not define it as argument to use default from ActionBuilder
-        kw_args = {"mouse": PointerInput(interaction.POINTER_TOUCH, "touch")}
-        if duration > 0:
-            kw_args["duration"] =  duration
+        touch_input = PointerInput(interaction.POINTER_TOUCH, "touch")
 
         actions = ActionChains(self)
-        actions.w3c_actions = ActionBuilder(self, **kw_args)
+        actions.w3c_actions = ActionBuilder(self, mouse=touch_input)
         actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
         actions.w3c_actions.pointer_action.pointer_down()
+        if duration > 0:
+            actions.w3c_actions = ActionBuilder(self, mouse=touch_input, duration=duration)
         actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
         actions.w3c_actions.pointer_action.release()
         actions.perform()
@@ -180,4 +181,3 @@ class ActionHelpers:
         actions.w3c_actions.pointer_action.release()
         actions.perform()
         return self
-

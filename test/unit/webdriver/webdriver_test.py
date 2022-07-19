@@ -31,7 +31,7 @@ from test.unit.helper.test_helper import (
 )
 
 
-class TestWebDriverWebDriver(object):
+class TestWebDriverWebDriver:
     @httpretty.activate
     def test_create_session(self):
         httpretty.register_uri(
@@ -319,7 +319,7 @@ class SubSubWebDriver(SubWebDriver):
         )
 
 
-class TestSubModuleWebDriver(object):
+class TestSubModuleWebDriver:
     def android_w3c_driver(self, driver_class):
         response_body_json = json.dumps(
             {

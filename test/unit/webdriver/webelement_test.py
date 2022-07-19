@@ -22,7 +22,7 @@ from appium.webdriver.webelement import WebElement as MobileWebElement
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
-class TestWebElement(object):
+class TestWebElement:
     @httpretty.activate
     def test_set_value(self):
         driver = android_w3c_driver()

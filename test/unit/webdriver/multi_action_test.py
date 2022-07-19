@@ -18,7 +18,7 @@ from appium.webdriver.common.multi_action import MultiAction
 from appium.webdriver.common.touch_action import TouchAction
 
 
-class TestMultiAction(object):
+class TestMultiAction:
     @pytest.fixture
     def multi_action(self):
         return MultiAction(DriverStub())
@@ -44,12 +44,12 @@ class TestMultiAction(object):
         assert json == multi_action.json_wire_gestures
 
 
-class DriverStub(object):
+class DriverStub:
     def execute(self, _action, _params):
         print("driver.execute called")
 
 
-class ElementStub(object):
+class ElementStub:
     def __init__(self, e_id):
         self._id = e_id
 

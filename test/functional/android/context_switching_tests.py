@@ -24,7 +24,7 @@ from .helper import desired_capabilities
 
 
 @pytest.mark.skip(reason="Need to fix broken test")
-class TestContextSwitching(object):
+class TestContextSwitching:
     def setup_method(self) -> None:
         caps = desired_capabilities.get_desired_capabilities('selendroid-test-app.apk')
         self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))

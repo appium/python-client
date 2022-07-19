@@ -15,6 +15,6 @@
 from appium.webdriver.appium_service import AppiumService
 
 
-class TestAppiumService(object):
+class TestAppiumService:
     def test_get_instance(self):
         assert AppiumService()

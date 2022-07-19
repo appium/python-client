@@ -21,7 +21,7 @@ from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
-class TestWebDriverIme(object):
+class TestWebDriverIme:
     @httpretty.activate
     def test_available_ime_engines(self):
         ANDROID_LATIN = 'com.android.inputmethod.latin/.LatinIME'

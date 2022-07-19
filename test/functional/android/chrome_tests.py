@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from test.helpers.constants import SERVER_URL_BASE
 from appium import webdriver
 from appium.options.common import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
-from test.helpers.constants import SERVER_URL_BASE
 
 from .helper.desired_capabilities import get_desired_capabilities
 
 
-class TestChrome(object):
+class TestChrome:
     def setup_method(self) -> None:
         caps = get_desired_capabilities()
         caps['browserName'] = 'Chrome'

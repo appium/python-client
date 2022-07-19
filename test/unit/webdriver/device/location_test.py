@@ -20,7 +20,7 @@ from test.unit.helper.test_helper import android_w3c_driver, appium_command, get
 FLT_EPSILON = 1e-9
 
 
-class TestWebDriverLocation(object):
+class TestWebDriverLocation:
     @httpretty.activate
     def test_toggle_location_services(self):
         driver = android_w3c_driver()

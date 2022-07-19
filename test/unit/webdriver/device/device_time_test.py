@@ -17,7 +17,7 @@ import httpretty
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
-class TestWebDriverDeviceTime(object):
+class TestWebDriverDeviceTime:
     @httpretty.activate
     def test_device_time(self):
         driver = android_w3c_driver()

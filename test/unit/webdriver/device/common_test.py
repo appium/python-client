@@ -18,7 +18,7 @@ from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
-class TestWebDriverCommon(object):
+class TestWebDriverCommon:
     @httpretty.activate
     def test_open_notifications(self):
         driver = android_w3c_driver()

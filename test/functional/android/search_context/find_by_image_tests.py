@@ -25,7 +25,7 @@ from test.functional.test_helper import wait_for_element
 from test.helpers.constants import SERVER_URL_BASE
 
 
-class TestFindByImage(object):
+class TestFindByImage:
     def setup_method(self) -> None:
         caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))

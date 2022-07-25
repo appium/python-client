@@ -21,6 +21,7 @@ from appium.options.common.app_option import AppOption
 from appium.options.common.auto_web_view_option import AutoWebViewOption
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
+from appium.options.common.bundle_id_option import BundleIdOption
 from appium.options.common.clear_system_files_option import ClearSystemFilesOption
 from appium.options.common.device_name_option import DeviceNameOption
 from appium.options.common.enable_performance_logging_option import EnablePerformanceLoggingOption
@@ -118,6 +119,7 @@ from .webview.webview_connect_timeout_option import WebviewConnectTimeoutOption
 class XCUITestOptions(
     AppiumOptions,
     AppOption,
+    BundleIdOption,
     ClearSystemFilesOption,
     OrientationOption,
     UdidOption,

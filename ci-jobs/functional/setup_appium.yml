@@ -3,6 +3,8 @@ steps:
   inputs:
     versionSpec: '16.x'
   displayName: Install Node 16.x
+- script: npm -g install npm@6
+  displayName: Install NPM v6 as a workaround for Appium 2.0.0.beta.41
 - script: npm install -g appium@next --chromedriver_version='2.44'
   displayName: Install appium
 - task: UsePythonVersion@0

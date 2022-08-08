@@ -17,7 +17,7 @@
 
 from typing import Dict
 
-from options.common.bundle_id_option import BundleIdOption
+from appium.options.common.bundle_id_option import BundleIdOption
 
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions

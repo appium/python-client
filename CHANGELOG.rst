@@ -2,6 +2,131 @@ Changelog
 =========
 
 
+v2.6.1 (2022-08-11)
+-------------------
+
+Fix
+~~~
+- Fix options in mac2 (#759) [Kazuaki Matsuo]
+- Backwards compatible behaviour of swipe and scroll in action_helpers
+  (#744) [jatalahd]
+
+  * Backwards compatible behaviour of swipe and scroll in action_helpers
+
+  - Fixed handling the duration argument in swipe() and scroll() helpers
+  - Functionality is now the same as in older versions using TouchActions
+
+  Fixes #743
+
+  * Backwards compatible behaviour of swipe and scroll in action_helpers
+
+  - Fixed handling the duration argument in swipe() and scroll() helpers
+  - Functionality is now the same as in older versions using TouchActions
+
+  Fixes #743
+
+  * Backwards compatible behaviour of swipe and scroll in action_helpers
+
+  - Fixed handling the duration argument in swipe() and scroll() helpers
+  - Functionality is now the same as in older versions using TouchActions
+
+  Fixes #743
+
+  * Backwards compatible behaviour of swipe and scroll in action_helpers
+
+  - Fixed handling the duration argument in swipe() and scroll() helpers
+  - Functionality is now the same as in older versions using TouchActions
+
+  Fixes #743
+
+  * Backwards compatible behaviour of swipe and scroll in action_helpers
+
+  - Fixed handling the duration argument in swipe() and scroll() helpers
+  - Functionality is now the same as in older versions using TouchActions
+
+  Fixes #743
+- Move py.typed to the hierarchy root (#751) [Mykola Mokhnach]
+- Typos/copypaste in various options (#750) [Mykola Mokhnach]
+
+Other
+~~~~~
+- Chore(deps): update selenium requirement from ~=4.3 to ~=4.4 (#757)
+  [dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.3.0...selenium-4.4.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps): update mypy requirement from ~=0.961 to ~=0.971 (#749)
+  [dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.961...v0.971)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:production
+  ...
+- Chore(deps): update pylint requirement from ~=2.14.4 to ~=2.14.5
+  (#747) [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.14.4...v2.14.5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pre-commit requirement from ~=2.19 to ~=2.20
+  (#746) [dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.19.0...v2.20.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pre-commit
+    dependency-type: direct:development
+  ...
+- Chore(deps): update typing-extensions requirement from ~=4.2 to ~=4.3
+  (#745) [dependabot[bot]]
+
+  Updates the requirements on [typing-extensions](https://github.com/python/typing_extensions) to permit the latest version.
+  - [Release notes](https://github.com/python/typing_extensions/releases)
+  - [Changelog](https://github.com/python/typing_extensions/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/python/typing_extensions/compare/4.2.0...4.3.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: typing-extensions
+    dependency-type: direct:production
+  ...
+- Chore(deps): update pylint requirement from ~=2.14.3 to ~=2.14.4
+  (#742) [dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.14.3...v2.14.4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Docs: Update changelog for 2.6.0. [Kazuaki Matsuo]
+
+
 v2.6.0 (2022-06-28)
 -------------------
 

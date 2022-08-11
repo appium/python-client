@@ -17,10 +17,9 @@
 
 from typing import Dict
 
-from options.common.bundle_id_option import BundleIdOption
-
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
+from appium.options.common.bundle_id_option import BundleIdOption
 from appium.options.common.postrun_option import PostrunOption
 from appium.options.common.prerun_option import PrerunOption
 from appium.options.common.system_host_option import SystemHostOption

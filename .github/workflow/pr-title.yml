@@ -1,0 +1,13 @@
+name: Conventional Commits
+on:
+  pull_request:
+
+
+jobs:
+  lint:
+    name: https://www.conventionalcommits.org
+    runs-on: ubuntu-latest
+    steps:
+      - uses: beemojs/conventional-pr-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

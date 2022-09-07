@@ -6,7 +6,7 @@ jobs:
   - template: ./ci-jobs/functional_test.yml
   - job: 'unitTests'
     pool:
-      vmImage: 'ubuntu-18.04'
+      vmImage: 'ubuntu-latest'
     strategy:
       matrix:
         Python37:

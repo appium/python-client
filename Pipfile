@@ -14,7 +14,7 @@ black = "==22.8.0"
 pytest = "~=7.1"
 pytest-cov = "~=3.0"
 
-tox = "~=3.25"
+tox = "~=3.26"
 typing-extensions = "~=4.3"
 
 httpretty = "~=1.1"

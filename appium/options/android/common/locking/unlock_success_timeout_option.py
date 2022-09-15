@@ -39,5 +39,5 @@ class UnlockSuccessTimeoutOption(SupportsCapabilities):
         2000 ms by default.
         """
         self.set_capability(
-            UNLOCK_SUCCESS_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+            UNLOCK_SUCCESS_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
         )

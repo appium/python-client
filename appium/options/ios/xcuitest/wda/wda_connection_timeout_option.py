@@ -39,5 +39,5 @@ class WdaConnectionTimeoutOption(SupportsCapabilities):
         Defaults to 240000ms.
         """
         self.set_capability(
-            WDA_CONNECTION_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+            WDA_CONNECTION_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
         )

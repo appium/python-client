@@ -40,4 +40,4 @@ class WaitForAppLaunchOption(SupportsCapabilities):
         a defined amount of time after an app launch is initiated prior to
         attaching to the application session. The limit for this is 50 seconds.
         """
-        self.set_capability(WAIT_FOR_APP_LAUNCH, value.seconds if isinstance(value, timedelta) else value)
+        self.set_capability(WAIT_FOR_APP_LAUNCH, value.total_seconds() if isinstance(value, timedelta) else value)

@@ -39,5 +39,5 @@ class AndroidInstallTimeoutOption(SupportsCapabilities):
         90000 ms by default
         """
         self.set_capability(
-            ANDROID_INSTALL_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+            ANDROID_INSTALL_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
         )

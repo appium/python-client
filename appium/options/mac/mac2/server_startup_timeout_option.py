@@ -40,5 +40,5 @@ class ServerStartupTimeoutOption(SupportsCapabilities):
         project is built and started.
         """
         self.set_capability(
-            SERVER_STARTUP_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+            SERVER_STARTUP_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
         )

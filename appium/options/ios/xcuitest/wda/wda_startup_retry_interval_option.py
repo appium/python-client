@@ -39,5 +39,5 @@ class WdaStartupRetryIntervalOption(SupportsCapabilities):
         Defaults to 10000ms.
         """
         self.set_capability(
-            WDA_STARTUP_RETRY_INTERVAL, value.microseconds // 1000 if isinstance(value, timedelta) else value
+            WDA_STARTUP_RETRY_INTERVAL, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
         )

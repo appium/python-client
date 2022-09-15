@@ -41,5 +41,5 @@ class CreateSessionTimeoutOption(SupportsCapabilities):
         with appId: TestCompany.my_app4!App, and processId: 8480).
         """
         self.set_capability(
-            CREATE_SESSION_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+            CREATE_SESSION_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
         )

@@ -2,6 +2,91 @@ Changelog
 =========
 
 
+v2.6.2 (2022-09-16)
+-------------------
+
+Fix
+~~~
+- Use total_seconds property of timedelta (#767) [Mykola Mokhnach]
+
+Test
+~~~~
+- Ci: Update Conventional Commits config preset. [Mykola Mokhnach]
+- Ci: Add Conventional commit format validation (#764) [Mykola Mokhnach]
+
+  * ci: Add Conventional commit format validation
+
+  * Rename
+
+Other
+~~~~~
+- Chore(deps): update tox requirement from ~=3.25 to ~=3.26 (#766)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.25.0...3.26.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:production
+  ...
+- Chore(deps): update pylint requirement from ~=2.15.0 to ~=2.15.2
+  (#765) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.15.0...v2.15.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Chore(deps): update astroid requirement from ~=2.9 to ~=2.12 (#762)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [astroid](https://github.com/PyCQA/astroid) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/astroid/releases)
+  - [Changelog](https://github.com/PyCQA/astroid/blob/main/ChangeLog)
+  - [Commits](https://github.com/PyCQA/astroid/compare/v2.9.0...v2.12.5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: astroid
+    dependency-type: direct:production
+  ...
+- Chore(deps): bump black from 22.6.0 to 22.8.0 (#763) [dependabot[bot],
+  dependabot[bot]]
+
+  Bumps [black](https://github.com/psf/black) from 22.6.0 to 22.8.0.
+  - [Release notes](https://github.com/psf/black/releases)
+  - [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+  - [Commits](https://github.com/psf/black/compare/22.6.0...22.8.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: black
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+- Chore(deps): update pylint requirement from ~=2.14.5 to ~=2.15.0
+  (#761) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.14.5...v2.15.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Docs: Update changelog for 2.6.1. [Kazuaki Matsuo]
+
+
 v2.6.1 (2022-08-11)
 -------------------
 
@@ -2619,11 +2704,6 @@ New
 Other
 ~~~~~
 - Update changelog for 0.38. [Kazuaki Matsuo]
-- Bump 0.38. [Kazuaki Matsuo]
-
-
-v0.38 (2019-02-11)
-------------------
 - Bump 0.38. [Kazuaki Matsuo]
 - Remove io.open from getting version code (#334) [Kazuaki Matsuo]
 

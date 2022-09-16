@@ -42,5 +42,5 @@ class SimulatorStartupTimeoutOption(SupportsCapabilities):
         during the boot up procedure.
         """
         self.set_capability(
-            SIMULATOR_STARTUP_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+            SIMULATOR_STARTUP_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
         )

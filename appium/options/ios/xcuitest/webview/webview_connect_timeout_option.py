@@ -39,5 +39,5 @@ class WebviewConnectTimeoutOption(SupportsCapabilities):
         MobileSafari or hybrid apps. Defaults to 0ms.
         """
         self.set_capability(
-            WEBVIEW_CONNECT_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+            WEBVIEW_CONNECT_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
         )

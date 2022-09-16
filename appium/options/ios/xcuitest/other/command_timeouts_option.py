@@ -50,8 +50,8 @@ class CommandTimeoutsOption(SupportsCapabilities):
         were not explicitly mentioned as dictionary keys
         """
         if isinstance(value, dict):
-            self.set_capability(COMMAND_TIMEOUTS, {k: v.microseconds // 1000 for k, v in value.items()})
+            self.set_capability(COMMAND_TIMEOUTS, {k: int(v.total_seconds() * 1000) for k, v in value.items()})
         elif isinstance(value, timedelta):
-            self.set_capability(COMMAND_TIMEOUTS, f'{value.microseconds // 1000}')
+            self.set_capability(COMMAND_TIMEOUTS, f'{int(value.total_seconds() * 1000)}')
         else:
             self.set_capability(COMMAND_TIMEOUTS, value)

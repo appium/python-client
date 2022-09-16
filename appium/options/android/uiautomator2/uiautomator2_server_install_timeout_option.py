@@ -39,5 +39,6 @@ class Uiautomator2ServerInstallTimeoutOption(SupportsCapabilities):
         20000 ms by default
         """
         self.set_capability(
-            UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+            UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT,
+            int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value,
         )

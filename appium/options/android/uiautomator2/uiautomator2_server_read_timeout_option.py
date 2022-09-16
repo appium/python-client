@@ -41,5 +41,6 @@ class Uiautomator2ServerReadTimeoutOption(SupportsCapabilities):
         240000 ms by default
         """
         self.set_capability(
-            UIAUTOMATOR2_SERVER_READ_TIMEOUT, value.microseconds // 1000 if isinstance(value, timedelta) else value
+            UIAUTOMATOR2_SERVER_READ_TIMEOUT,
+            int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value,
         )

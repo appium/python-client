@@ -24,6 +24,7 @@ from appium.options.common.postrun_option import PostrunOption
 from appium.options.common.prerun_option import PrerunOption
 from appium.options.common.system_port_option import SystemPortOption
 
+from .app_arguments_option import AppArgumentsOption
 from .app_top_level_window_option import AppTopLevelWindowOption
 from .app_working_dir_option import AppWorkingDirOption
 from .create_session_timeout_option import CreateSessionTimeoutOption
@@ -42,6 +43,7 @@ class WindowsOptions(
     ExperimentalWebDriverOption,
     SystemPortOption,
     WaitForAppLaunchOption,
+    AppArgumentsOption,
 ):
     @AppOption.app.setter  # type: ignore
     def app(self, value: str) -> None:

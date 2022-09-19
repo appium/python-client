@@ -6,7 +6,7 @@ on:
 jobs:
   lint:
     name: https://www.conventionalcommits.org
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     steps:
       - uses: beemojs/conventional-pr-action@v2
         with:

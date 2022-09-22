@@ -4,26 +4,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+black = "~=22.8.0"
+httpretty = "~=1.1"
+isort = "~=5.10"
+mypy = "~=0.971"
+mock = "~=4.0"
 pre-commit = "~=2.20"
+pylint = "~=2.15.2"
+pytest = "~=7.1"
+pytest-cov = "~=3.0"
+python-dateutil = "~=2.8"
+tox = "~=3.26"
+typing-extensions = "~=4.3"
+types-python-dateutil = "~=2.8"
 
 [packages]
 selenium = "~=4.4"
-
-black = "==22.8.0"
-
-pytest = "~=7.1"
-pytest-cov = "~=3.0"
-
-tox = "~=3.26"
-typing-extensions = "~=4.3"
-
-httpretty = "~=1.1"
-python-dateutil = "~=2.8"
-types-python-dateutil = "~=2.8"
-mock = "~=4.0"
-
-pylint = "~=2.15.3"
-astroid = "~=2.12"
-isort = "~=5.10"
-
-mypy = "~=0.971"

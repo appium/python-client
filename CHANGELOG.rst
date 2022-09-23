@@ -2,6 +2,40 @@ Changelog
 =========
 
 
+v2.7.0 (2022-09-22)
+-------------------
+
+New
+~~~
+- Feat: Add appArguments option to WindowsOptions (#768) [Mykola
+  Mokhnach]
+
+Fix
+~~~
+- Move dev-only dependencies to [dev-packages] section (#772) [Mykola
+  Mokhnach]
+
+Test
+~~~~
+- Ci: Fix runner name. [Mykola Mokhnach]
+
+Other
+~~~~~
+- Chore(deps): update pylint requirement from ~=2.15.2 to ~=2.15.3
+  (#770) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.15.2...v2.15.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:production
+  ...
+- Docs: Update changelog for 2.6.2. [Kazuaki Matsuo]
+
+
 v2.6.2 (2022-09-16)
 -------------------
 
@@ -2704,6 +2738,11 @@ New
 Other
 ~~~~~
 - Update changelog for 0.38. [Kazuaki Matsuo]
+- Bump 0.38. [Kazuaki Matsuo]
+
+
+v0.38 (2019-02-11)
+------------------
 - Bump 0.38. [Kazuaki Matsuo]
 - Remove io.open from getting version code (#334) [Kazuaki Matsuo]
 

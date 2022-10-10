@@ -197,8 +197,8 @@ class AppiumService:
         error_msg: Optional[str] = None
         startup_failure_msg = (
             'Appium server process is unable to start. Make sure proper values have been '
-            f'provided to \'node\' ({node}), \'npm\' ({npm}) and \'main_script\' ({main_script})'
-            f' method arguments.'
+            f'provided to \'node\' ({node}), \'npm\' ({npm}) and \'main_script\' ({main_script}) '
+            f'method arguments.'
         )
         if timeout_ms > 0:
             status_url_path = make_status_url(args)

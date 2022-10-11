@@ -2,6 +2,116 @@ Changelog
 =========
 
 
+v2.7.1 (2022-10-11)
+-------------------
+
+Test
+~~~~
+- Ci: run unit tests on actions (#773) [Kazuaki Matsuo]
+
+  * ci: run unit tests on actions
+
+  * ci: remove unit test section
+
+  * ci: comment out win for now
+
+  * ci: tweak trigger
+
+Other
+~~~~~
+- Refactor: Make service startup failures more helpful (#786) [Mykola
+  Mokhnach]
+- Chore(deps-dev): update typing-extensions requirement (#783) [Kazuaki
+  Matsuo, dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [typing-extensions](https://github.com/python/typing_extensions) to permit the latest version.
+  - [Release notes](https://github.com/python/typing_extensions/releases)
+  - [Changelog](https://github.com/python/typing_extensions/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/python/typing_extensions/compare/4.3.0...4.4.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: typing-extensions
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update black requirement from ~=22.8.0 to ~=22.10.0
+  (#784) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [black](https://github.com/psf/black) to permit the latest version.
+  - [Release notes](https://github.com/psf/black/releases)
+  - [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+  - [Commits](https://github.com/psf/black/compare/22.8.0...22.10.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: black
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update mypy requirement from ~=0.981 to ~=0.982
+  (#782) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.981...v0.982)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pytest-cov requirement from ~=3.0 to ~=4.0
+  (#779) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest-cov](https://github.com/pytest-dev/pytest-cov) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest-cov/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest-cov/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest-cov/compare/v3.0.0...v4.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest-cov
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.4 to ~=4.5 (#780)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.4.0...selenium-4.5.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update mypy requirement from ~=0.971 to ~=0.981
+  (#777) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.971...v0.981)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.15.2 to ~=2.15.3
+  (#774) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.15.2...v2.15.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Bump 2.7.0. [Kazuaki Matsuo]
+- Update changelog for 2.6.3. [Kazuaki Matsuo]
+
+
 v2.7.0 (2022-09-22)
 -------------------
 

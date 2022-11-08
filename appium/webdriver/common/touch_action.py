@@ -108,7 +108,7 @@ class TouchAction:
             el: the element to press
             x: x coordiate to press. If y is used, x must also be set
             y: y coordiate to press. If x is used, y must also be set
-            duration: Duration to press
+            duration: Duration to press, expressed in milliseconds
 
         Returns:
             `TouchAction`: Self instance

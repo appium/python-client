@@ -22,7 +22,7 @@ T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class LogEvent(CanExecuteCommands):
-    def get_events(self, type: List[str] = None) -> Dict[str, Union[str, int]]:
+    def get_events(self, type: Union[List[str], None] = None) -> Dict[str, Union[str, int]]:
         """Retrieves events information from the current session
         (Since Appium 1.16.0)
 

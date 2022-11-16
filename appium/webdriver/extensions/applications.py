@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import warnings
-from typing import Any, Dict, TypeVar
+from typing import Any, Dict, TypeVar, Union
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
@@ -186,7 +186,7 @@ class Applications(CanExecuteCommands):
         }
         return self.execute(Command.QUERY_APP_STATE, data)['value']
 
-    def app_strings(self, language: str = None, string_file: str = None) -> Dict[str, str]:
+    def app_strings(self, language: Union[str, None] = None, string_file: Union[str, None] = None) -> Dict[str, str]:
         """Returns the application strings from the device for the specified
         language.
 

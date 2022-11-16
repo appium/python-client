@@ -79,7 +79,7 @@ class WebElement(SeleniumWebElement):
         """
         return self._execute(Command.IS_ELEMENT_DISPLAYED)['value']
 
-    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> 'WebElement':
+    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> 'WebElement':
         """Find an element given a AppiumBy strategy and locator
 
         Override for Appium
@@ -113,7 +113,7 @@ class WebElement(SeleniumWebElement):
 
         return self._execute(RemoteCommand.FIND_CHILD_ELEMENT, {"using": by, "value": value})['value']
 
-    def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> List['WebElement']:
+    def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> List['WebElement']:
         """Find elements given a AppiumBy strategy and locator
 
         Args:

@@ -149,7 +149,7 @@ class ExtensionBase:
     def __init__(self, execute: Callable[[str, Dict], Dict[str, Any]]):
         self._execute = execute
 
-    def execute(self, parameters: Dict[str, Any] = None) -> Any:
+    def execute(self, parameters: Union[Dict[str, Any], None] = None) -> Any:
         param = {}
         if parameters:
             param = parameters
@@ -205,13 +205,13 @@ class WebDriver(
         self,
         command_executor: str = 'http://127.0.0.1:4444/wd/hub',
         desired_capabilities: Optional[Dict] = None,
-        browser_profile: str = None,
-        proxy: str = None,
+        browser_profile: Union[str, None] = None,
+        proxy: Union[str, None] = None,
         keep_alive: bool = True,
         direct_connection: bool = True,
         extensions: Optional[List['WebDriver']] = None,
         strict_ssl: bool = True,
-        options: Union[AppiumOptions, List[AppiumOptions]] = None,
+        options: Union[AppiumOptions, List[AppiumOptions], None] = None,
     ):
 
         if strict_ssl is False:
@@ -338,7 +338,7 @@ class WebDriver(
         self.session_id = session_id
         self.caps = get_response_value('capabilities') or {}
 
-    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> MobileWebElement:
+    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> MobileWebElement:
         """
         Find an element given a AppiumBy strategy and locator
 
@@ -371,7 +371,7 @@ class WebDriver(
         return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
 
     def find_elements(
-        self, by: str = AppiumBy.ID, value: Union[str, Dict] = None
+        self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None
     ) -> Union[List[MobileWebElement], List]:
         """
         Find elements given a AppiumBy strategy and locator

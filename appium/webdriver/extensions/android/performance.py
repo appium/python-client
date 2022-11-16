@@ -19,7 +19,7 @@ from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
 class Performance(CanExecuteCommands):
-    def get_performance_data(self, package_name: str, data_type: str, data_read_timeout: int = None) -> List[List[str]]:
+    def get_performance_data(self, package_name: str, data_type: str, data_read_timeout: Union[int, None] = None) -> List[List[str]]:
         """Returns the information of the system state
         which is supported to read as like cpu, memory, network traffic, and battery.
 

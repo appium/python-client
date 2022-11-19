@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict
+from typing import Dict, Union
 
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
@@ -22,5 +22,5 @@ from ..protocol import Protocol
 class CanExecuteCommands(Protocol):
     command_executor: RemoteConnection
 
-    def execute(self, driver_command: str, params: Dict = None) -> Dict:
+    def execute(self, driver_command: str, params: Union[Dict, None] = None) -> Dict:
         ...

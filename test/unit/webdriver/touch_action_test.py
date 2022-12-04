@@ -17,7 +17,7 @@ import pytest
 from appium.webdriver.common.touch_action import TouchAction
 
 
-class TestTouchAction(object):
+class TestTouchAction():
     @pytest.fixture
     def touch_action(self):
         return TouchAction(DriverStub())
@@ -85,12 +85,12 @@ class TestTouchAction(object):
         assert [] == touch_action.json_wire_gestures
 
 
-class DriverStub(object):
+class DriverStub():
     def execute(self, _action, _params):
         print("driver.execute called")
 
 
-class ElementStub(object):
+class ElementStub():
     def __init__(self, e_id, _x=None, _y=None, _count=None):
         self._id = e_id
 

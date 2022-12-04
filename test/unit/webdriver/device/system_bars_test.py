@@ -17,7 +17,7 @@ import httpretty
 from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
-class TestWebDriverSystemBars(object):
+class TestWebDriverSystemBars():
     @httpretty.activate
     def test_get_system_bars(self):
         driver = android_w3c_driver()

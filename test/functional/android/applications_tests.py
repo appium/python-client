@@ -61,15 +61,15 @@ class TestApplications(BaseTestCase):
 
     def test_app_strings(self) -> None:
         strings = self.driver.app_strings()
-        assert u'You can\'t wipe my data, you are a monkey!' == strings[u'monkey_wipe_data']
+        assert 'You can\'t wipe my data, you are a monkey!' == strings['monkey_wipe_data']
 
     def test_app_strings_with_language(self) -> None:
         strings = self.driver.app_strings('en')
-        assert u'You can\'t wipe my data, you are a monkey!' == strings[u'monkey_wipe_data']
+        assert 'You can\'t wipe my data, you are a monkey!' == strings['monkey_wipe_data']
 
     def test_app_strings_with_language_and_file(self) -> None:
         strings = self.driver.app_strings('en', 'some_file')
-        assert u'You can\'t wipe my data, you are a monkey!' == strings[u'monkey_wipe_data']
+        assert 'You can\'t wipe my data, you are a monkey!' == strings['monkey_wipe_data']
 
     def test_reset(self) -> None:
         self.driver.reset()

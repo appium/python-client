@@ -45,7 +45,7 @@ class TestWebelement(BaseTestCase):
         for text in ['App', 'Activity', 'Custom Title']:
             wait_for_element(self.driver, AppiumBy.XPATH, f"//android.widget.TextView[@text='{text}']").click()
 
-        el = wait_for_element(self.driver, AppiumBy.ID, '{}:id/left_text_edit'.format(APIDEMO_PKG_NAME))
+        el = wait_for_element(self.driver, AppiumBy.ID, f'{APIDEMO_PKG_NAME}:id/left_text_edit')
         el.send_keys(' text')
 
         assert 'Left is best text' == el.text

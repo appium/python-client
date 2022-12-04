@@ -19,7 +19,7 @@ from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
-class TestWebDriveGsm(object):
+class TestWebDriveGsm():
     @httpretty.activate
     def test_make_gsm_call(self):
         driver = android_w3c_driver()

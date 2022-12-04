@@ -32,7 +32,7 @@ class TestRemoteFs(BaseTestCase):
         assert data == data_ret
 
     def test_pull_folder(self) -> None:
-        data = bytes('random string data {}'.format(random.randint(0, 1000)), 'utf-8')
+        data = bytes(f'random string data {random.randint(0, 1000)}', 'utf-8')
         dest_dir = '/data/local/tmp/'
 
         for filename in ['1.txt', '2.txt']:

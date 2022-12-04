@@ -19,7 +19,7 @@ from test.helpers.constants import SERVER_URL_BASE
 from .desired_capabilities import get_desired_capabilities
 
 
-class BaseTestCase(object):
+class BaseTestCase():
     def setup_method(self) -> None:
         self.driver = webdriver.Remote(
             SERVER_URL_BASE, options=Mac2Options().load_capabilities(get_desired_capabilities())

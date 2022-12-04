@@ -131,13 +131,13 @@ class TestTouchAction(BaseTestCase):
         el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Drag and Drop')
         action.tap(el).perform()
 
-        dd3 = wait_for_element(self.driver, AppiumBy.ID, '{}:id/drag_dot_3'.format(APIDEMO_PKG_NAME))
-        dd2 = self.driver.find_element(by=AppiumBy.ID, value='{}:id/drag_dot_2'.format(APIDEMO_PKG_NAME))
+        dd3 = wait_for_element(self.driver, AppiumBy.ID, f'{APIDEMO_PKG_NAME}:id/drag_dot_3')
+        dd2 = self.driver.find_element(by=AppiumBy.ID, value=f'{APIDEMO_PKG_NAME}:id/drag_dot_2')
 
         # dnd is stimulated by longpress-move_to-release
         action.long_press(dd3).move_to(dd2).release().perform()
 
-        el = wait_for_element(self.driver, AppiumBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
+        el = wait_for_element(self.driver, AppiumBy.ID, f'{APIDEMO_PKG_NAME}:id/drag_result_text')
         assert 'Dropped!' in el.text
 
     def test_driver_drag_and_drop(self) -> None:
@@ -147,12 +147,12 @@ class TestTouchAction(BaseTestCase):
         el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Drag and Drop')
         action.tap(el).perform()
 
-        dd3 = wait_for_element(self.driver, AppiumBy.ID, '{}:id/drag_dot_3'.format(APIDEMO_PKG_NAME))
-        dd2 = self.driver.find_element(by=AppiumBy.ID, value='{}:id/drag_dot_2'.format(APIDEMO_PKG_NAME))
+        dd3 = wait_for_element(self.driver, AppiumBy.ID, f'{APIDEMO_PKG_NAME}:id/drag_dot_3')
+        dd2 = self.driver.find_element(by=AppiumBy.ID, value=f'{APIDEMO_PKG_NAME}:id/drag_dot_2')
 
         self.driver.drag_and_drop(dd3, dd2)
 
-        el = wait_for_element(self.driver, AppiumBy.ID, '{}:id/drag_result_text'.format(APIDEMO_PKG_NAME))
+        el = wait_for_element(self.driver, AppiumBy.ID, f'{APIDEMO_PKG_NAME}:id/drag_result_text')
         assert 'Dropped!' in el.text
 
     def test_driver_swipe(self) -> None:

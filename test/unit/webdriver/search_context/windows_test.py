@@ -20,7 +20,7 @@ from appium.webdriver.webelement import WebElement as MobileWebElement
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
-class TestWebDriverWindowsSearchContext(object):
+class TestWebDriverWindowsSearchContext():
     @httpretty.activate
     def test_find_element_by_windows_uiautomation(self):
         driver = android_w3c_driver()

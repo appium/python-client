@@ -73,7 +73,7 @@ def iphone_device_name() -> str:
     prefix = 'iPhone 12'
     if PytestXdistWorker.NUMBER == PytestXdistWorker.gw(0):
         return f'{prefix} - 8100'
-    elif PytestXdistWorker.NUMBER == PytestXdistWorker.gw(1):
+    if PytestXdistWorker.NUMBER == PytestXdistWorker.gw(1):
         return f'{prefix} - 8101'
 
     return prefix

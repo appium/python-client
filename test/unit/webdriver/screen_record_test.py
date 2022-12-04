@@ -12,7 +12,7 @@ import httpretty
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
-class TestWebDriverScreenRecord(object):
+class TestWebDriverScreenRecord():
     @httpretty.activate
     def test_start_recording_screen(self):
         driver = android_w3c_driver()

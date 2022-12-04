@@ -23,7 +23,7 @@ from test.helpers.constants import SERVER_URL_BASE
 from . import desired_capabilities
 
 
-class BaseTestCase(object):
+class BaseTestCase():
     def setup_method(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
         self.driver = webdriver.Remote(SERVER_URL_BASE, options=XCUITestOptions().load_capabilities(desired_caps))

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-AUTOMATIC_INSPECTION = 'safari:automaticInspection'
+AUTOMATIC_INSPECTION = "safari:automaticInspection"
 
 
 class AutomaticInspectionOption(SupportsCapabilities):

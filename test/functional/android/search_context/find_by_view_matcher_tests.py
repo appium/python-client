@@ -20,47 +20,63 @@ from selenium.common.exceptions import WebDriverException
 from appium import webdriver
 from appium.options.common import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
-from test.functional.android.helper.test_helper import BaseTestCase, desired_capabilities, is_ci
+from test.functional.android.helper.test_helper import (
+    BaseTestCase,
+    desired_capabilities,
+    is_ci,
+)
 from test.helpers.constants import SERVER_URL_BASE
 
 
 class TestFindByViewMatcher(BaseTestCase):
     # Override
     def setup_method(self, method) -> None:  # type: ignore
-        caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
-        caps['automationName'] = 'Espresso'
-        self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
+        caps = desired_capabilities.get_desired_capabilities("ApiDemos-debug.apk.zip")
+        caps["automationName"] = "Espresso"
+        self.driver = webdriver.Remote(
+            SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps)
+        )
         if is_ci():
             self.driver.start_recording_screen()
 
     def test_find_single_element(self) -> None:
         el = self.driver.find_element(
             by=AppiumBy.ANDROID_VIEW_MATCHER,
-            value=json.dumps({'name': 'withText', 'args': ['Accessibility'], 'class': 'ViewMatchers'}),
+            value=json.dumps(
+                {"name": "withText", "args": ["Accessibility"], "class": "ViewMatchers"}
+            ),
         )
-        assert el.text == 'Accessibility'
+        assert el.text == "Accessibility"
 
     def test_find_single_element_ful_class_name(self) -> None:
         el = self.driver.find_element(
             by=AppiumBy.ANDROID_VIEW_MATCHER,
             value=json.dumps(
-                {'name': 'withText', 'args': ['Accessibility'], 'class': 'androidx.test.espresso.matcher.ViewMatchers'}
+                {
+                    "name": "withText",
+                    "args": ["Accessibility"],
+                    "class": "androidx.test.espresso.matcher.ViewMatchers",
+                },
             ),
         )
-        assert el.text == 'Accessibility'
+        assert el.text == "Accessibility"
 
     def test_find_single_element_using_hamcrest_matcher(self) -> None:
         el = self.driver.find_element(
             by=AppiumBy.ANDROID_VIEW_MATCHER,
             value=json.dumps(
                 {
-                    'name': 'withText',
-                    'args': {'name': 'containsString', 'args': 'Animati', 'class': 'org.hamcrest.Matchers'},
-                    'class': 'ViewMatchers',
-                }
+                    "name": "withText",
+                    "args": {
+                        "name": "containsString",
+                        "args": "Animati",
+                        "class": "org.hamcrest.Matchers",
+                    },
+                    "class": "ViewMatchers",
+                },
             ),
         )
-        assert el.text == 'Animation'
+        assert el.text == "Animation"
 
     # androidx.test.espresso.AmbiguousViewMatcherException:
     # 'with text: a string containing "Access"' matches multiple views in the hierarchy.
@@ -68,5 +84,11 @@ class TestFindByViewMatcher(BaseTestCase):
         with pytest.raises(WebDriverException):
             self.driver.find_elements(
                 by=AppiumBy.ANDROID_VIEW_MATCHER,
-                value=json.dumps({'name': 'withSubstring', 'args': ['Access'], 'class': 'ViewMatchers'}),
+                value=json.dumps(
+                    {
+                        "name": "withSubstring",
+                        "args": ["Access"],
+                        "class": "ViewMatchers",
+                    }
+                ),
             )

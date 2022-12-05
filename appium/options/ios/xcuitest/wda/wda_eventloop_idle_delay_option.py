@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WDA_EVENTLOOP_IDLE_DELAY = 'wdaEventloopIdleDelay'
+WDA_EVENTLOOP_IDLE_DELAY = "wdaEventloopIdleDelay"
 
 
 class WdaEventloopIdleDelayOption(SupportsCapabilities):
@@ -43,4 +43,7 @@ class WdaEventloopIdleDelayOption(SupportsCapabilities):
         If you enable this capability start with at least 3 seconds and try increasing it,
         if creating the session still fails. Defaults to 0.
         """
-        self.set_capability(WDA_EVENTLOOP_IDLE_DELAY, value.total_seconds() if isinstance(value, timedelta) else value)
+        self.set_capability(
+            WDA_EVENTLOOP_IDLE_DELAY,
+            value.total_seconds() if isinstance(value, timedelta) else value,
+        )

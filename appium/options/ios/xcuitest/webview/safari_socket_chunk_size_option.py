@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SAFARI_SOCKET_CHUNK_SIZE = 'safariSocketChunkSize'
+SAFARI_SOCKET_CHUNK_SIZE = "safariSocketChunkSize"
 
 
 class SafariSocketChunkSizeOption(SupportsCapabilities):

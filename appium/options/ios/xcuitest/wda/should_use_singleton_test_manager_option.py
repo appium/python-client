@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SHOULD_USE_SINGLETON_TEST_MANAGER = 'shouldUseSingletonTestManager'
+SHOULD_USE_SINGLETON_TEST_MANAGER = "shouldUseSingletonTestManager"
 
 
 class ShouldUseSingletonTestManagerOption(SupportsCapabilities):

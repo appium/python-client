@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SKIP_UNLOCK = 'skipUnlock'
+SKIP_UNLOCK = "skipUnlock"
 
 
 class SkipUnlockOption(SupportsCapabilities):

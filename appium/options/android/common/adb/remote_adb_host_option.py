@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-REMOTE_ADB_HOST = 'remoteAdbHost'
+REMOTE_ADB_HOST = "remoteAdbHost"
 
 
 class RemoteAdbHostOption(SupportsCapabilities):

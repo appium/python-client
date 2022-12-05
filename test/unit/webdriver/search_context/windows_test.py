@@ -17,21 +17,27 @@ from selenium.webdriver.common import by
 
 from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.webelement import WebElement as MobileWebElement
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+)
 
 
-class TestWebDriverWindowsSearchContext():
+class TestWebDriverWindowsSearchContext:
     @httpretty.activate
     def test_find_element_by_windows_uiautomation(self):
         driver = android_w3c_driver()
-        element = MobileWebElement(driver, 'element_id')
+        element = MobileWebElement(driver, "element_id")
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/element/element_id/element'),
+            appium_command("/session/1234567890/element/element_id/element"),
             body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "win-element-id"}}',
         )
-        el = element.find_element(by=AppiumBy.WINDOWS_UI_AUTOMATION, value='win_element')
+        el = element.find_element(
+            by=AppiumBy.WINDOWS_UI_AUTOMATION, value="win_element"
+        )
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['using'] == '-windows uiautomation'
-        assert el.id == 'win-element-id'
+        assert d["using"] == "-windows uiautomation"
+        assert el.id == "win-element-id"

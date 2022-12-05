@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-AUTO_GRANT_PERMISSIONS = 'autoGrantPermissions'
+AUTO_GRANT_PERMISSIONS = "autoGrantPermissions"
 
 
 class AutoGrantPermissionsOption(SupportsCapabilities):

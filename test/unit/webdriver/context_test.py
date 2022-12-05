@@ -17,9 +17,13 @@ import httpretty
 from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
-class TestWebDriverContext():
+class TestWebDriverContext:
     @httpretty.activate
     def test_get_contexts(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890/context'), body='{"value": "NATIVE"}')
-        assert driver.current_context == 'NATIVE'
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command("/session/1234567890/context"),
+            body='{"value": "NATIVE"}',
+        )
+        assert driver.current_context == "NATIVE"

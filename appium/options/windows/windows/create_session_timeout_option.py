@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CREATE_SESSION_TIMEOUT = 'createSessionTimeout'
+CREATE_SESSION_TIMEOUT = "createSessionTimeout"
 
 
 class CreateSessionTimeoutOption(SupportsCapabilities):
@@ -41,5 +41,8 @@ class CreateSessionTimeoutOption(SupportsCapabilities):
         with appId: TestCompany.my_app4!App, and processId: 8480).
         """
         self.set_capability(
-            CREATE_SESSION_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            CREATE_SESSION_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

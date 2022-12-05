@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-BUNDLE_ID = 'bundleId'
+BUNDLE_ID = "bundleId"
 
 
 class BundleIdOption(SupportsCapabilities):

@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-APP_PUSH_TIMEOUT = 'appPushTimeout'
+APP_PUSH_TIMEOUT = "appPushTimeout"
 
 
 class AppPushTimeoutOption(SupportsCapabilities):
@@ -40,5 +40,8 @@ class AppPushTimeoutOption(SupportsCapabilities):
         The default value is 30000ms.
         """
         self.set_capability(
-            APP_PUSH_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            APP_PUSH_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

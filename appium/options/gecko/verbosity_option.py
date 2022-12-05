@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-VERBOSITY = 'verbosity'
+VERBOSITY = "verbosity"
 
 
 class VerbosityOption(SupportsCapabilities):

@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-IS_HEADLESS = 'isHeadless'
+IS_HEADLESS = "isHeadless"
 
 
 class IsHeadlessOption(SupportsCapabilities):

@@ -17,11 +17,13 @@ from typing import Any, TypeVar
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class Common(CanExecuteCommands):
-    def end_test_coverage(self, intent: str, path: str) -> Any:  # TODO Check return type
+    def end_test_coverage(
+        self, intent: str, path: str
+    ) -> Any:  # TODO Check return type
         """Ends the coverage collection and pull the coverage.ec file from the device.
 
         Android only.
@@ -35,10 +37,10 @@ class Common(CanExecuteCommands):
             TODO
         """
         data = {
-            'intent': intent,
-            'path': path,
+            "intent": intent,
+            "path": path,
         }
-        return self.execute(Command.END_TEST_COVERAGE, data)['value']
+        return self.execute(Command.END_TEST_COVERAGE, data)["value"]
 
     def open_notifications(self: T) -> T:
         """Open notification shade in Android (API Level 18 and above)
@@ -52,20 +54,20 @@ class Common(CanExecuteCommands):
     @property
     def current_package(self) -> str:
         """Retrieves the current package running on the device."""
-        return self.execute(Command.GET_CURRENT_PACKAGE)['value']
+        return self.execute(Command.GET_CURRENT_PACKAGE)["value"]
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
         commands[Command.GET_CURRENT_PACKAGE] = (
-            'GET',
-            '/session/$sessionId/appium/device/current_package',
+            "GET",
+            "/session/$sessionId/appium/device/current_package",
         )
         commands[Command.END_TEST_COVERAGE] = (
-            'POST',
-            '/session/$sessionId/appium/app/end_test_coverage',
+            "POST",
+            "/session/$sessionId/appium/app/end_test_coverage",
         )
         commands[Command.OPEN_NOTIFICATIONS] = (
-            'POST',
-            '/session/$sessionId/appium/device/open_notifications',
+            "POST",
+            "/session/$sessionId/appium/device/open_notifications",
         )

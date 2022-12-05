@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-KEYCHAIN_PASSWORD = 'keychainPassword'
+KEYCHAIN_PASSWORD = "keychainPassword"
 
 
 class KeychainPasswordOption(SupportsCapabilities):

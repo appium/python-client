@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-FORCE_APP_LAUNCH = 'forceAppLaunch'
+FORCE_APP_LAUNCH = "forceAppLaunch"
 
 
 class ForceAppLaunchOption(SupportsCapabilities):

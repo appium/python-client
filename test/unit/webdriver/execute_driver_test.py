@@ -16,16 +16,20 @@ import textwrap
 
 import httpretty
 
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+)
 
 
-class TestWebDriverExecuteDriver():
+class TestWebDriverExecuteDriver:
     @httpretty.activate
     def test_batch(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/execute_driver'),
+            appium_command("/session/1234567890/appium/execute_driver"),
             body='{"value": {"result":['
             '{"element-6066-11e4-a52e-4f735466cecf":"39000000-0000-0000-D39A-000000000000",'
             '"ELEMENT":"39000000-0000-0000-D39A-000000000000"},'
@@ -41,21 +45,21 @@ class TestWebDriverExecuteDriver():
         """
         response = driver.execute_driver(script=textwrap.dedent(script))
         # Python client convert an element item as WebElement in the result
-        assert response.result[0].id == '39000000-0000-0000-D39A-000000000000'
-        assert response.result[1]['y'] == 237
-        assert response.logs['warn'] == ['warning message']
+        assert response.result[0].id == "39000000-0000-0000-D39A-000000000000"
+        assert response.result[1]["y"] == 237
+        assert response.logs["warn"] == ["warning message"]
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['script'] == textwrap.dedent(script)
-        assert d['type'] == 'webdriverio'
-        assert 'timeout' not in d
+        assert d["script"] == textwrap.dedent(script)
+        assert d["type"] == "webdriverio"
+        assert "timeout" not in d
 
     @httpretty.activate
     def test_batch_with_timeout(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/execute_driver'),
+            appium_command("/session/1234567890/appium/execute_driver"),
             body='{"value": {"result":['
             '{"element-6066-11e4-a52e-4f735466cecf":"39000000-0000-0000-D39A-000000000000",'
             '"ELEMENT":"39000000-0000-0000-D39A-000000000000"},'
@@ -69,12 +73,14 @@ class TestWebDriverExecuteDriver():
             const rect = await driver.getElementRect(element.ELEMENT);
             return [element, rect];
         """
-        response = driver.execute_driver(script=textwrap.dedent(script), timeout_ms=10000)
-        assert response.result[0].id == '39000000-0000-0000-D39A-000000000000'
-        assert response.result[1]['y'] == 237
-        assert response.logs['error'] == []
+        response = driver.execute_driver(
+            script=textwrap.dedent(script), timeout_ms=10000
+        )
+        assert response.result[0].id == "39000000-0000-0000-D39A-000000000000"
+        assert response.result[1]["y"] == 237
+        assert response.logs["error"] == []
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['script'] == textwrap.dedent(script)
-        assert d['type'] == 'webdriverio'
-        assert d['timeout'] == 10000
+        assert d["script"] == textwrap.dedent(script)
+        assert d["type"] == "webdriverio"
+        assert d["timeout"] == 10000

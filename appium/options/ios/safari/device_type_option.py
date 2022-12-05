@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_TYPE = 'safari:deviceType'
+DEVICE_TYPE = "safari:deviceType"
 
 
 class DeviceTypeOption(SupportsCapabilities):

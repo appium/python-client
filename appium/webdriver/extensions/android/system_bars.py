@@ -39,12 +39,12 @@ class SystemBars(CanExecuteCommands):
                    - width
                    - height
         """
-        return self.execute(Command.GET_SYSTEM_BARS)['value']
+        return self.execute(Command.GET_SYSTEM_BARS)["value"]
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
         commands[Command.GET_SYSTEM_BARS] = (
-            'GET',
-            '/session/$sessionId/appium/device/system_bars',
+            "GET",
+            "/session/$sessionId/appium/device/system_bars",
         )

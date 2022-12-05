@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-APP_WAIT_FOR_LAUNCH = 'appWaitForLaunch'
+APP_WAIT_FOR_LAUNCH = "appWaitForLaunch"
 
 
 class AppWaitForLaunchOption(SupportsCapabilities):

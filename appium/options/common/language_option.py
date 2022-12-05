@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-LANGUAGE = 'language'
+LANGUAGE = "language"
 
 
 class LanguageOption(SupportsCapabilities):

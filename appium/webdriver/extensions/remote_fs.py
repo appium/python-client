@@ -21,7 +21,7 @@ from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class RemoteFS(CanExecuteCommands):
@@ -35,9 +35,9 @@ class RemoteFS(CanExecuteCommands):
             The file's contents encoded as Base64.
         """
         data = {
-            'path': path,
+            "path": path,
         }
-        return self.execute(Command.PULL_FILE, data)['value']
+        return self.execute(Command.PULL_FILE, data)["value"]
 
     def pull_folder(self, path: str) -> str:
         """Retrieves a folder at `path`.
@@ -49,12 +49,15 @@ class RemoteFS(CanExecuteCommands):
             The folder's contents zipped and encoded as Base64.
         """
         data = {
-            'path': path,
+            "path": path,
         }
-        return self.execute(Command.PULL_FOLDER, data)['value']
+        return self.execute(Command.PULL_FOLDER, data)["value"]
 
     def push_file(
-        self: T, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None
+        self: T,
+        destination_path: str,
+        base64data: Optional[str] = None,
+        source_path: Optional[str] = None,
     ) -> T:
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
@@ -70,20 +73,22 @@ class RemoteFS(CanExecuteCommands):
             Union['WebDriver', 'RemoteFS']: Self instance
         """
         if source_path is None and base64data is None:
-            raise InvalidArgumentException('Must either pass base64 data or a local file path')
+            raise InvalidArgumentException(
+                "Must either pass base64 data or a local file path"
+            )
 
         if source_path is not None:
             try:
-                with open(source_path, 'rb') as f:
+                with open(source_path, "rb") as f:
                     file_data = f.read()
             except IOError as e:
                 message = f'source_path "{source_path}" could not be found. Are you sure the file exists?'
                 raise InvalidArgumentException(message) from e
-            base64data = base64.b64encode(file_data).decode('utf-8')
+            base64data = base64.b64encode(file_data).decode("utf-8")
 
         data = {
-            'path': destination_path,
-            'data': base64data,
+            "path": destination_path,
+            "data": base64data,
         }
         self.execute(Command.PUSH_FILE, data)
         return self
@@ -91,6 +96,15 @@ class RemoteFS(CanExecuteCommands):
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
-        commands[Command.PULL_FILE] = ('POST', '/session/$sessionId/appium/device/pull_file')
-        commands[Command.PULL_FOLDER] = ('POST', '/session/$sessionId/appium/device/pull_folder')
-        commands[Command.PUSH_FILE] = ('POST', '/session/$sessionId/appium/device/push_file')
+        commands[Command.PULL_FILE] = (
+            "POST",
+            "/session/$sessionId/appium/device/pull_file",
+        )
+        commands[Command.PULL_FOLDER] = (
+            "POST",
+            "/session/$sessionId/appium/device/pull_folder",
+        )
+        commands[Command.PUSH_FILE] = (
+            "POST",
+            "/session/$sessionId/appium/device/push_file",
+        )

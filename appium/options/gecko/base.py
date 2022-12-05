@@ -47,5 +47,5 @@ class GeckoOptions(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AUTOMATION_NAME: 'Gecko',
+            AUTOMATION_NAME: "Gecko",
         }

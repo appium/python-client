@@ -40,9 +40,10 @@ class TouchAction:
         Please use W3C actions instead: http://appium.io/docs/en/commands/interactions/actions/
     """
 
-    def __init__(self, driver: Optional['WebDriver'] = None):
+    def __init__(self, driver: Optional["WebDriver"] = None):
         warnings.warn(
-            "[Deprecated] 'TouchAction' action is deprecated. Please use W3C actions instead.", DeprecationWarning
+            "[Deprecated] 'TouchAction' action is deprecated. Please use W3C actions instead.",
+            DeprecationWarning,
         )
 
         self._driver = driver
@@ -50,11 +51,11 @@ class TouchAction:
 
     def tap(
         self,
-        element: Optional['WebElement'] = None,
+        element: Optional["WebElement"] = None,
         x: Optional[int] = None,
         y: Optional[int] = None,
         count: int = 1,
-    ) -> 'TouchAction':
+    ) -> "TouchAction":
         """Perform a tap action on the element
 
         Args:
@@ -66,18 +67,18 @@ class TouchAction:
             `TouchAction`: Self instance
         """
         opts = self._get_opts(element, x, y)
-        opts['count'] = count
-        self._add_action('tap', opts)
+        opts["count"] = count
+        self._add_action("tap", opts)
 
         return self
 
     def press(
         self,
-        el: Optional['WebElement'] = None,
+        el: Optional["WebElement"] = None,
         x: Optional[int] = None,
         y: Optional[int] = None,
         pressure: Optional[float] = None,
-    ) -> 'TouchAction':
+    ) -> "TouchAction":
         """Begin a chain with a press down action at a particular element or point
 
         Args:
@@ -91,17 +92,17 @@ class TouchAction:
         Returns:
             `TouchAction`: Self instance
         """
-        self._add_action('press', self._get_opts(el, x, y, pressure=pressure))
+        self._add_action("press", self._get_opts(el, x, y, pressure=pressure))
 
         return self
 
     def long_press(
         self,
-        el: Optional['WebElement'] = None,
+        el: Optional["WebElement"] = None,
         x: Optional[int] = None,
         y: Optional[int] = None,
         duration: int = 1000,
-    ) -> 'TouchAction':
+    ) -> "TouchAction":
         """Begin a chain with a press down that lasts `duration` milliseconds
 
         Args:
@@ -113,11 +114,11 @@ class TouchAction:
         Returns:
             `TouchAction`: Self instance
         """
-        self._add_action('longPress', self._get_opts(el, x, y, duration))
+        self._add_action("longPress", self._get_opts(el, x, y, duration))
 
         return self
 
-    def wait(self, ms: int = 0) -> 'TouchAction':
+    def wait(self, ms: int = 0) -> "TouchAction":
         """Pause for `ms` milliseconds.
 
         Args:
@@ -129,15 +130,18 @@ class TouchAction:
         if ms is None:
             ms = 0
 
-        opts = {'ms': ms}
+        opts = {"ms": ms}
 
-        self._add_action('wait', opts)
+        self._add_action("wait", opts)
 
         return self
 
     def move_to(
-        self, el: Optional['WebElement'] = None, x: Optional[int] = None, y: Optional[int] = None
-    ) -> 'TouchAction':
+        self,
+        el: Optional["WebElement"] = None,
+        x: Optional[int] = None,
+        y: Optional[int] = None,
+    ) -> "TouchAction":
         """Move the pointer from the previous point to the element or point specified
 
         Args:
@@ -148,29 +152,31 @@ class TouchAction:
         Returns:
             `TouchAction`: Self instance
         """
-        self._add_action('moveTo', self._get_opts(el, x, y))
+        self._add_action("moveTo", self._get_opts(el, x, y))
 
         return self
 
-    def release(self) -> 'TouchAction':
+    def release(self) -> "TouchAction":
         """End the action by lifting the pointer off the screen
 
         Returns:
             `TouchAction`: Self instance
         """
-        self._add_action('release', {})
+        self._add_action("release", {})
 
         return self
 
-    def perform(self) -> 'TouchAction':
+    def perform(self) -> "TouchAction":
         """Perform the action by sending the commands to the server to be operated upon
 
         Returns:
             `TouchAction`: Self instance
         """
         if self._driver is None:
-            raise ValueError('Set driver to constructor as a argument when to create the instance.')
-        params = {'actions': self._actions}
+            raise ValueError(
+                "Set driver to constructor as a argument when to create the instance."
+            )
+        params = {"actions": self._actions}
         self._driver.execute(Command.TOUCH_ACTION, params)
 
         # get rid of actions so the object can be reused
@@ -187,14 +193,14 @@ class TouchAction:
 
     def _add_action(self, action: str, options: Dict) -> None:
         gesture = {
-            'action': action,
-            'options': options,
+            "action": action,
+            "options": options,
         }
         self._actions.append(gesture)
 
     def _get_opts(
         self,
-        el: Optional['WebElement'] = None,
+        el: Optional["WebElement"] = None,
         x: Optional[int] = None,
         y: Optional[int] = None,
         duration: Optional[int] = None,
@@ -202,17 +208,17 @@ class TouchAction:
     ) -> Dict[str, Union[int, float]]:
         opts = {}
         if el is not None:
-            opts['element'] = el.id
+            opts["element"] = el.id
 
         # it makes no sense to have x but no y, or vice versa.
         if x is not None and y is not None:
-            opts['x'] = x
-            opts['y'] = y
+            opts["x"] = x
+            opts["y"] = y
 
         if duration is not None:
-            opts['duration'] = duration
+            opts["duration"] = duration
 
         if pressure is not None:
-            opts['pressure'] = pressure
+            opts["pressure"] = pressure
 
         return opts

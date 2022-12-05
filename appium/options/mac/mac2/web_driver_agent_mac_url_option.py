@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WEB_DRIVER_ARGENT_MAC_URL = 'webDriverAgentMacUrl'
+WEB_DRIVER_ARGENT_MAC_URL = "webDriverAgentMacUrl"
 
 
 class WebDriverAgentMacUrlOption(SupportsCapabilities):

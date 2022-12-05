@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WEB_DRIVER_AGENT_URL = 'webDriverAgentUrl'
+WEB_DRIVER_AGENT_URL = "webDriverAgentUrl"
 
 
 class WebDriverAgentUrlOption(SupportsCapabilities):

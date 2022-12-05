@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-APP_WORKING_DIR = 'appWorkingDir'
+APP_WORKING_DIR = "appWorkingDir"
 
 
 class AppWorkingDirOption(SupportsCapabilities):

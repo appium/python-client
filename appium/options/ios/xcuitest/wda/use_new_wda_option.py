@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-USE_NEW_WDA = 'useNewWDA'
+USE_NEW_WDA = "useNewWDA"
 
 
 class UseNewWdaOption(SupportsCapabilities):

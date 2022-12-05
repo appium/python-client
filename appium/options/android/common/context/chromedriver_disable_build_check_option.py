@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CHROMEDRIVER_DISABLE_BUILD_CHECK = 'chromedriverDisableBuildCheck'
+CHROMEDRIVER_DISABLE_BUILD_CHECK = "chromedriverDisableBuildCheck"
 
 
 class ChromedriverDisableBuildCheckOption(SupportsCapabilities):

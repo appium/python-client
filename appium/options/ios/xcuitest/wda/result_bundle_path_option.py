@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-RESULT_BUNDLE_PATH = 'resultBundlePath'
+RESULT_BUNDLE_PATH = "resultBundlePath"
 
 
 class ResultBundlePathOption(SupportsCapabilities):

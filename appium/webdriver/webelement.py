@@ -53,9 +53,8 @@ class WebElement(SeleniumWebElement):
         Returns:
             The given attribute or property of the element
         """
-
-        resp = self._execute(RemoteCommand.GET_ELEMENT_ATTRIBUTE, {'name': name})
-        attribute_value = resp.get('value')
+        resp = self._execute(RemoteCommand.GET_ELEMENT_ATTRIBUTE, {"name": name})
+        attribute_value = resp.get("value")
 
         if attribute_value is None:
             return None
@@ -67,7 +66,7 @@ class WebElement(SeleniumWebElement):
         if not isinstance(attribute_value, str):
             attribute_value = str(attribute_value)
 
-        if name != 'value' and attribute_value.lower() in ('true', 'false'):
+        if name != "value" and attribute_value.lower() in ("true", "false"):
             return attribute_value.lower()
 
         return attribute_value
@@ -77,9 +76,11 @@ class WebElement(SeleniumWebElement):
 
         Override for Appium
         """
-        return self._execute(Command.IS_ELEMENT_DISPLAYED)['value']
+        return self._execute(Command.IS_ELEMENT_DISPLAYED)["value"]
 
-    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> 'WebElement':
+    def find_element(
+        self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None
+    ) -> "WebElement":
         """Find an element given a AppiumBy strategy and locator
 
         Override for Appium
@@ -111,9 +112,13 @@ class WebElement(SeleniumWebElement):
         #     by = By.CSS_SELECTOR
         #     value = '[name="%s"]' % value
 
-        return self._execute(RemoteCommand.FIND_CHILD_ELEMENT, {"using": by, "value": value})['value']
+        return self._execute(
+            RemoteCommand.FIND_CHILD_ELEMENT, {"using": by, "value": value}
+        )["value"]
 
-    def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> List['WebElement']:
+    def find_elements(
+        self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None
+    ) -> List["WebElement"]:
         """Find elements given a AppiumBy strategy and locator
 
         Args:
@@ -141,9 +146,11 @@ class WebElement(SeleniumWebElement):
         #     by = By.CSS_SELECTOR
         #     value = '[name="%s"]' % value
 
-        return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS, {"using": by, "value": value})['value']
+        return self._execute(
+            RemoteCommand.FIND_CHILD_ELEMENTS, {"using": by, "value": value}
+        )["value"]
 
-    def clear(self) -> 'WebElement':
+    def clear(self) -> "WebElement":
         """Clears text.
 
         Override for Appium
@@ -151,11 +158,11 @@ class WebElement(SeleniumWebElement):
         Returns:
             `appium.webdriver.webelement.WebElement`
         """
-        data = {'id': self.id}
+        data = {"id": self.id}
         self._execute(Command.CLEAR, data)
         return self
 
-    def set_text(self, keys: str = '') -> 'WebElement':
+    def set_text(self, keys: str = "") -> "WebElement":
         """Sends text to the element.
 
         Previous text is removed.
@@ -170,7 +177,7 @@ class WebElement(SeleniumWebElement):
         Returns:
             `appium.webdriver.webelement.WebElement`
         """
-        data = {'id': self._id, 'value': [keys]}
+        data = {"id": self._id, "value": [keys]}
         self._execute(Command.REPLACE_KEYS, data)
         return self
 
@@ -186,9 +193,9 @@ class WebElement(SeleniumWebElement):
         Returns:
             dict: The location of an element relative to the view
         """
-        return self._execute(Command.LOCATION_IN_VIEW)['value']
+        return self._execute(Command.LOCATION_IN_VIEW)["value"]
 
-    def set_value(self, value: str) -> 'WebElement':
+    def set_value(self, value: str) -> "WebElement":
         """Set the value on this element in the application
 
         Args:
@@ -198,14 +205,14 @@ class WebElement(SeleniumWebElement):
             `appium.webdriver.webelement.WebElement`
         """
         data = {
-            'id': self.id,
-            'value': [value],
+            "id": self.id,
+            "value": [value],
         }
         self._execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
 
     # Override
-    def send_keys(self, *value: str) -> 'WebElement':
+    def send_keys(self, *value: str) -> "WebElement":
         """Simulates typing into the element.
 
         Args:
@@ -215,5 +222,7 @@ class WebElement(SeleniumWebElement):
             `appium.webdriver.webelement.WebElement`
         """
         keys = keys_to_typing(value)
-        self._execute(RemoteCommand.SEND_KEYS_TO_ELEMENT, {'text': ''.join(keys), 'value': keys})
+        self._execute(
+            RemoteCommand.SEND_KEYS_TO_ELEMENT, {"text": "".join(keys), "value": keys}
+        )
         return self

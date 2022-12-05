@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-KEEP_KEY_CHAINS = 'keepKeyChains'
+KEEP_KEY_CHAINS = "keepKeyChains"
 
 
 class KeepKeyChainsOption(SupportsCapabilities):

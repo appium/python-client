@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-OPTIONAL_INTENT_ARGUMENTS = 'optionalIntentArguments'
+OPTIONAL_INTENT_ARGUMENTS = "optionalIntentArguments"
 
 
 class OptionalIntentArgumentsOption(SupportsCapabilities):

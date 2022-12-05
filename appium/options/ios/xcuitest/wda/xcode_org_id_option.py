@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-XCODE_ORG_ID = 'xcodeOrgId'
+XCODE_ORG_ID = "xcodeOrgId"
 
 
 class XcodeOrgIdOption(SupportsCapabilities):

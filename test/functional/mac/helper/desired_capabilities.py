@@ -16,6 +16,10 @@ from typing import Any, Dict
 
 
 def get_desired_capabilities() -> Dict[str, Any]:
-    desired_caps: Dict[str, Any] = {'platformName': 'mac', 'automationName': 'Mac2', 'bundleId': 'com.apple.TextEdit'}
+    desired_caps: Dict[str, Any] = {
+        "platformName": "mac",
+        "automationName": "Mac2",
+        "bundleId": "com.apple.TextEdit",
+    }
 
     return desired_caps

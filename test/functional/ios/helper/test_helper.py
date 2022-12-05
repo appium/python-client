@@ -23,20 +23,24 @@ from test.helpers.constants import SERVER_URL_BASE
 from . import desired_capabilities
 
 
-class BaseTestCase():
+class BaseTestCase:
     def setup_method(self) -> None:
-        desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        self.driver = webdriver.Remote(SERVER_URL_BASE, options=XCUITestOptions().load_capabilities(desired_caps))
+        desired_caps = desired_capabilities.get_desired_capabilities(
+            "UICatalog.app.zip"
+        )
+        self.driver = webdriver.Remote(
+            SERVER_URL_BASE, options=XCUITestOptions().load_capabilities(desired_caps)
+        )
         if is_ci():
             self.driver.start_recording_screen()
 
     def teardown_method(self, method) -> None:  # type: ignore
-        if not hasattr(self, 'driver'):
+        if not hasattr(self, "driver"):
             return
 
         if is_ci():
             payload = self.driver.stop_recording_screen()
-            video_path = os.path.join(os.getcwd(), method.__name__ + '.mp4')
+            video_path = os.path.join(os.getcwd(), method.__name__ + ".mp4")
             with open(video_path, "wb") as fd:
                 fd.write(base64.b64decode(payload))
         self.driver.quit()

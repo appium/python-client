@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-DEVICE_NAME = 'deviceName'
+DEVICE_NAME = "deviceName"
 
 
 class DeviceNameOption(SupportsCapabilities):

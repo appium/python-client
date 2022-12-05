@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-LOCALIZABLE_STRINGS_DIR = 'localizableStringsDir'
+LOCALIZABLE_STRINGS_DIR = "localizableStringsDir"
 
 
 class LocalizableStringsDirOption(SupportsCapabilities):

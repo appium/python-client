@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SKIP_LOGCAT_CAPTURE = 'skipLogcatCapture'
+SKIP_LOGCAT_CAPTURE = "skipLogcatCapture"
 
 
 class SkipLogcatCaptureOption(SupportsCapabilities):

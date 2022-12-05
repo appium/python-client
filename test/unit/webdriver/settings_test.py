@@ -15,46 +15,54 @@
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+)
 
 
-class TestWebDriverSettings():
+class TestWebDriverSettings:
     @httpretty.activate
     def test_get_settings_bool(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.GET, appium_command('/session/1234567890/appium/settings'), body='{"value": {"sample": true}}'
+            httpretty.GET,
+            appium_command("/session/1234567890/appium/settings"),
+            body='{"value": {"sample": true}}',
         )
-        assert driver.get_settings()['sample'] is True
+        assert driver.get_settings()["sample"] is True
 
     @httpretty.activate
     def test_update_settings_bool(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/settings'),
+            appium_command("/session/1234567890/appium/settings"),
         )
         assert isinstance(driver.update_settings({"sample": True}), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['settings']['sample'] is True
+        assert d["settings"]["sample"] is True
 
     @httpretty.activate
     def test_get_settings_string(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.GET, appium_command('/session/1234567890/appium/settings'), body='{"value": {"sample": "string"}}'
+            httpretty.GET,
+            appium_command("/session/1234567890/appium/settings"),
+            body='{"value": {"sample": "string"}}',
         )
-        assert driver.get_settings()['sample'] == 'string'
+        assert driver.get_settings()["sample"] == "string"
 
     @httpretty.activate
     def test_update_settings_string(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/settings'),
+            appium_command("/session/1234567890/appium/settings"),
         )
-        assert isinstance(driver.update_settings({"sample": 'string'}), WebDriver)
+        assert isinstance(driver.update_settings({"sample": "string"}), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['settings']['sample'] == 'string'
+        assert d["settings"]["sample"] == "string"

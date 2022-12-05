@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WEBVIEW_CONNECT_TIMEOUT = 'webviewConnectTimeout'
+WEBVIEW_CONNECT_TIMEOUT = "webviewConnectTimeout"
 
 
 class WebviewConnectTimeoutOption(SupportsCapabilities):
@@ -39,5 +39,8 @@ class WebviewConnectTimeoutOption(SupportsCapabilities):
         MobileSafari or hybrid apps. Defaults to 0ms.
         """
         self.set_capability(
-            WEBVIEW_CONNECT_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            WEBVIEW_CONNECT_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

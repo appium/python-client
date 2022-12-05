@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-IGNORE_HIDDEN_API_POLICY_ERROR = 'ignoreHiddenApiPolicyError'
+IGNORE_HIDDEN_API_POLICY_ERROR = "ignoreHiddenApiPolicyError"
 
 
 class IgnoreHiddenApiPolicyErrorOption(SupportsCapabilities):

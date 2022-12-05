@@ -15,26 +15,34 @@
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+)
 
 
-class TestWebDriverLock():
+class TestWebDriverLock:
     @httpretty.activate
     def test_lock(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}'
+            httpretty.POST,
+            appium_command("/session/1234567890/appium/device/lock"),
+            body='{"value": ""}',
         )
         driver.lock(1)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['seconds'] == 1
+        assert d["seconds"] == 1
 
     @httpretty.activate
     def test_lock_no_args(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}'
+            httpretty.POST,
+            appium_command("/session/1234567890/appium/device/lock"),
+            body='{"value": ""}',
         )
         driver.lock()
 
@@ -45,7 +53,9 @@ class TestWebDriverLock():
     def test_islocked_false(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/is_locked'), body='{"value": false}'
+            httpretty.POST,
+            appium_command("/session/1234567890/appium/device/is_locked"),
+            body='{"value": false}',
         )
         assert driver.is_locked() is False
 
@@ -53,7 +63,9 @@ class TestWebDriverLock():
     def test_islocked_true(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/is_locked'), body='{"value": true}'
+            httpretty.POST,
+            appium_command("/session/1234567890/appium/device/is_locked"),
+            body='{"value": true}',
         )
 
         assert driver.is_locked() is True
@@ -63,6 +75,6 @@ class TestWebDriverLock():
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/unlock'),
+            appium_command("/session/1234567890/appium/device/unlock"),
         )
         assert isinstance(driver.unlock(), WebDriver)

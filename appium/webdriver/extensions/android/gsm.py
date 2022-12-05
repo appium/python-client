@@ -19,14 +19,14 @@ from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class GsmCallActions:
-    CALL = 'call'
-    ACCEPT = 'accept'
-    CANCEL = 'cancel'
-    HOLD = 'hold'
+    CALL = "call"
+    ACCEPT = "accept"
+    CANCEL = "cancel"
+    HOLD = "hold"
 
 
 class GsmSignalStrength:
@@ -38,13 +38,13 @@ class GsmSignalStrength:
 
 
 class GsmVoiceState:
-    UNREGISTERED = 'unregistered'
-    HOME = 'home'
-    ROAMING = 'roaming'
-    SEARCHING = 'searching'
-    DENIED = 'denied'
-    OFF = 'off'
-    ON = 'on'
+    UNREGISTERED = "unregistered"
+    HOME = "home"
+    ROAMING = "roaming"
+    SEARCHING = "searching"
+    DENIED = "denied"
+    OFF = "off"
+    ON = "on"
 
 
 class Gsm(CanExecuteCommands):
@@ -67,10 +67,13 @@ class Gsm(CanExecuteCommands):
         constants = extract_const_attributes(GsmCallActions)
         if action not in constants.values():
             logger.warning(
-                f'{action} is unknown. Consider using one of {list(constants.keys())} constants. '
-                f'(e.g. {GsmCallActions.__name__}.CALL)'
+                f"{action} is unknown. Consider using one of {list(constants.keys())} constants. "
+                f"(e.g. {GsmCallActions.__name__}.CALL)",
             )
-        self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
+        self.execute(
+            Command.MAKE_GSM_CALL,
+            {"phoneNumber": phone_number, "action": action},
+        )
         return self
 
     def set_gsm_signal(self: T, strength: int) -> T:
@@ -91,10 +94,13 @@ class Gsm(CanExecuteCommands):
         constants = extract_const_attributes(GsmSignalStrength)
         if strength not in constants.values():
             logger.warning(
-                f'{strength} is out of range. Consider using one of {list(constants.keys())} constants. '
-                f'(e.g. {GsmSignalStrength.__name__}.GOOD)'
+                f"{strength} is out of range. Consider using one of {list(constants.keys())} constants. "
+                f"(e.g. {GsmSignalStrength.__name__}.GOOD)",
             )
-        self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
+        self.execute(
+            Command.SET_GSM_SIGNAL,
+            {"signalStrength": strength, "signalStrengh": strength},
+        )
         return self
 
     def set_gsm_voice(self: T, state: str) -> T:
@@ -115,18 +121,24 @@ class Gsm(CanExecuteCommands):
         constants = extract_const_attributes(GsmVoiceState)
         if state not in constants.values():
             logger.warning(
-                f'{state} is unknown. Consider using one of {list(constants.keys())} constants. '
-                f'(e.g. {GsmVoiceState.__name__}.HOME)'
+                f"{state} is unknown. Consider using one of {list(constants.keys())} constants. "
+                f"(e.g. {GsmVoiceState.__name__}.HOME)",
             )
-        self.execute(Command.SET_GSM_VOICE, {'state': state})
+        self.execute(Command.SET_GSM_VOICE, {"state": state})
         return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
-        commands[Command.MAKE_GSM_CALL] = ('POST', '/session/$sessionId/appium/device/gsm_call')
-        commands[Command.SET_GSM_SIGNAL] = (
-            'POST',
-            '/session/$sessionId/appium/device/gsm_signal',
+        commands[Command.MAKE_GSM_CALL] = (
+            "POST",
+            "/session/$sessionId/appium/device/gsm_call",
         )
-        commands[Command.SET_GSM_VOICE] = ('POST', '/session/$sessionId/appium/device/gsm_voice')
+        commands[Command.SET_GSM_SIGNAL] = (
+            "POST",
+            "/session/$sessionId/appium/device/gsm_signal",
+        )
+        commands[Command.SET_GSM_VOICE] = (
+            "POST",
+            "/session/$sessionId/appium/device/gsm_voice",
+        )

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SHUTDOWN_OTHER_SIMULATORS = 'shutdownOtherSimulators'
+SHUTDOWN_OTHER_SIMULATORS = "shutdownOtherSimulators"
 
 
 class ShutdownOtherSimulatorsOption(SupportsCapabilities):

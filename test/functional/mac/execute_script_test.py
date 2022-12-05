@@ -19,21 +19,23 @@ from test.functional.test_helper import wait_for_element
 
 class TestExecuteScript(BaseTestCase):
     def test_sending_custom_keys(self) -> None:
-        edit_field = wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'XCUIElementTypeTextView')
+        edit_field = wait_for_element(
+            self.driver, AppiumBy.CLASS_NAME, "XCUIElementTypeTextView"
+        )
         flagsShift = 1 << 1
         self.driver.execute_script(
-            'macos: keys',
+            "macos: keys",
             {
-                'keys': [
+                "keys": [
                     {
-                        'key': 'h',
-                        'modifierFlags': flagsShift,
+                        "key": "h",
+                        "modifierFlags": flagsShift,
                     },
                     {
-                        'key': 'i',
-                        'modifierFlags': flagsShift,
+                        "key": "i",
+                        "modifierFlags": flagsShift,
                     },
-                ]
+                ],
             },
         )
-        assert edit_field.text == 'HI'
+        assert edit_field.text == "HI"

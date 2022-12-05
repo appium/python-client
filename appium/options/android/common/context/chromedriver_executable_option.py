@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CHROMEDRIVER_EXECUTABLE = 'chromedriverExecutable'
+CHROMEDRIVER_EXECUTABLE = "chromedriverExecutable"
 
 
 class ChromedriverExecutableOption(SupportsCapabilities):

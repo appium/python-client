@@ -19,21 +19,25 @@ from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 class TestActivities(BaseTestCase):
     def test_current_activity(self) -> None:
         activity = self.driver.current_activity
-        assert '.ApiDemos' == activity
+        assert ".ApiDemos" == activity
 
     def test_start_activity_this_app(self) -> None:
         self.driver.start_activity(APIDEMO_PKG_NAME, ".ApiDemos")
-        self._assert_activity_contains('Demos')
+        self._assert_activity_contains("Demos")
 
-        self.driver.start_activity(APIDEMO_PKG_NAME, ".accessibility.AccessibilityNodeProviderActivity")
-        self._assert_activity_contains('Node')
+        self.driver.start_activity(
+            APIDEMO_PKG_NAME, ".accessibility.AccessibilityNodeProviderActivity"
+        )
+        self._assert_activity_contains("Node")
 
     def test_start_activity_other_app(self) -> None:
         self.driver.start_activity(APIDEMO_PKG_NAME, ".ApiDemos")
-        self._assert_activity_contains('Demos')
+        self._assert_activity_contains("Demos")
 
-        self.driver.start_activity("com.google.android.deskclock", "com.android.deskclock.DeskClock")
-        self._assert_activity_contains('Clock')
+        self.driver.start_activity(
+            "com.google.android.deskclock", "com.android.deskclock.DeskClock"
+        )
+        self._assert_activity_contains("Clock")
 
     def _assert_activity_contains(self, activity: str) -> None:
         current = self.driver.current_activity

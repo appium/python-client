@@ -22,7 +22,9 @@ class TestFindByIOSPredicate(BaseTestCase):
         self.driver.find_element(by=AppiumBy.IOS_PREDICATE, value='wdName == "Buttons"')
 
     def test_find_multiple_element_by_type(self) -> None:
-        e = self.driver.find_elements(by=AppiumBy.IOS_PREDICATE, value='wdType == "XCUIElementTypeStaticText"')
+        e = self.driver.find_elements(
+            by=AppiumBy.IOS_PREDICATE, value='wdType == "XCUIElementTypeStaticText"'
+        )
         assert len(e) != 0
 
     def test_find_element_by_label(self) -> None:
@@ -31,20 +33,30 @@ class TestFindByIOSPredicate(BaseTestCase):
 
     def test_find_element_by_value(self) -> None:
         # Will throw exception if element is not found
-        self.driver.find_element(by=AppiumBy.IOS_PREDICATE, value='wdValue == "Buttons"')
+        self.driver.find_element(
+            by=AppiumBy.IOS_PREDICATE, value='wdValue == "Buttons"'
+        )
 
     def test_find_element_by_isvisible(self) -> None:
         # Will throw exception if element is not found
-        self.driver.find_element(by=AppiumBy.IOS_PREDICATE, value='wdValue == "Buttons" AND visible == 1')
+        self.driver.find_element(
+            by=AppiumBy.IOS_PREDICATE, value='wdValue == "Buttons" AND visible == 1'
+        )
 
         # Should not find any elements
-        e = self.driver.find_elements(by=AppiumBy.IOS_PREDICATE, value='wdValue == "Buttons" AND visible == 0')
+        e = self.driver.find_elements(
+            by=AppiumBy.IOS_PREDICATE, value='wdValue == "Buttons" AND visible == 0'
+        )
         assert len(e) == 0
 
     def test_find_element_by_isenabled(self) -> None:
         # Will throw exception if element is not found
-        self.driver.find_element(by=AppiumBy.IOS_PREDICATE, value='wdValue == "Buttons" AND enabled == 1')
+        self.driver.find_element(
+            by=AppiumBy.IOS_PREDICATE, value='wdValue == "Buttons" AND enabled == 1'
+        )
 
         # Should not find any elements
-        e = self.driver.find_elements(by=AppiumBy.IOS_PREDICATE, value='wdValue == "Buttons" AND enabled == 0')
+        e = self.driver.find_elements(
+            by=AppiumBy.IOS_PREDICATE, value='wdValue == "Buttons" AND enabled == 0'
+        )
         assert len(e) == 0

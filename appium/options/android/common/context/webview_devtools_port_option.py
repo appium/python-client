@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WEBVIEW_DEVTOOLS_PORT = 'webviewDevtoolsPort'
+WEBVIEW_DEVTOOLS_PORT = "webviewDevtoolsPort"
 
 
 class WebviewDevtoolsPortOption(SupportsCapabilities):

@@ -19,7 +19,7 @@ from typing import Dict, Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-POSTRUN = 'postrun'
+POSTRUN = "postrun"
 
 
 class PostrunOption(SupportsCapabilities):

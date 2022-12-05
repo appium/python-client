@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-USE_SIMULATOR = 'safari:useSimulator'
+USE_SIMULATOR = "safari:useSimulator"
 
 
 class UseSimulatorOption(SupportsCapabilities):

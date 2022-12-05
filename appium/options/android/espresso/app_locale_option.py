@@ -19,7 +19,7 @@ from typing import Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-APP_LOCALE = 'appLocale'
+APP_LOCALE = "appLocale"
 
 
 class AppLocaleOption(SupportsCapabilities):

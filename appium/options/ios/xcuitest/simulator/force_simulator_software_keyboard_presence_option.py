@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE = 'forceSimulatorSoftwareKeyboardPresence'
+FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE = "forceSimulatorSoftwareKeyboardPresence"
 
 
 class ForceSimulatorSoftwareKeyboardPresenceOption(SupportsCapabilities):

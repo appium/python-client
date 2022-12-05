@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WAIT_FOR_QUIESCENCE = 'waitForQuiescence'
+WAIT_FOR_QUIESCENCE = "waitForQuiescence"
 
 
 class WaitForQuiescenceOption(SupportsCapabilities):

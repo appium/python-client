@@ -19,7 +19,7 @@ from typing import Any, Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CHROME_OPTIONS = 'chromeOptions'
+CHROME_OPTIONS = "chromeOptions"
 
 
 class ChromeOptionsOption(SupportsCapabilities):

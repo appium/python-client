@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT = 'uiautomator2ServerLaunchTimeout'
+UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT = "uiautomator2ServerLaunchTimeout"
 
 
 class Uiautomator2ServerLaunchTimeoutOption(SupportsCapabilities):
@@ -40,5 +40,7 @@ class Uiautomator2ServerLaunchTimeoutOption(SupportsCapabilities):
         """
         self.set_capability(
             UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT,
-            int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

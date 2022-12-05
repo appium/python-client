@@ -19,61 +19,74 @@ import tempfile
 import httpretty
 
 from appium.webdriver.webelement import WebElement as MobileWebElement
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+)
 
 
-class TestWebElement():
+class TestWebElement:
     @httpretty.activate
     def test_set_value(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/element/element_id/value'))
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command("/session/1234567890/appium/element/element_id/value"),
+        )
 
-        element = MobileWebElement(driver, 'element_id')
-        value = 'happy testing'
+        element = MobileWebElement(driver, "element_id")
+        value = "happy testing"
         element.set_value(value)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['value'] == [value]
+        assert d["value"] == [value]
 
     @httpretty.activate
     def test_send_key(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/element/element_id/value'))
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command("/session/1234567890/element/element_id/value"),
+        )
 
-        element = MobileWebElement(driver, 'element_id')
-        element.send_keys('happy testing')
+        element = MobileWebElement(driver, "element_id")
+        element.send_keys("happy testing")
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['text'] == ''.join(d['value'])
+        assert d["text"] == "".join(d["value"])
 
     @httpretty.activate
     def test_send_key_with_file(self):
         driver = android_w3c_driver()
         # Should not send this file
         tmp_f = tempfile.NamedTemporaryFile()
-        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/element/element_id/value'))
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command("/session/1234567890/element/element_id/value"),
+        )
 
         try:
-            element = MobileWebElement(driver, 'element_id')
+            element = MobileWebElement(driver, "element_id")
             element.send_keys(tmp_f.name)
         finally:
             tmp_f.close()
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['text'] == ''.join(d['value'])
+        assert d["text"] == "".join(d["value"])
 
     @httpretty.activate
     def test_get_attribute_with_dict(self):
         driver = android_w3c_driver()
-        rect_dict = {'y': 200, 'x': 100, 'width': 300, 'height': 56}
+        rect_dict = {"y": 200, "x": 100, "width": 300, "height": 56}
         httpretty.register_uri(
             httpretty.GET,
-            appium_command('/session/1234567890/element/element_id/attribute/rect'),
+            appium_command("/session/1234567890/element/element_id/attribute/rect"),
             body=json.dumps({"value": rect_dict}),
         )
 
-        element = MobileWebElement(driver, 'element_id')
-        ef = element.get_attribute('rect')
+        element = MobileWebElement(driver, "element_id")
+        ef = element.get_attribute("rect")
 
         d = httpretty.last_request()
 

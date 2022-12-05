@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-USER_PROFILE = 'userProfile'
+USER_PROFILE = "userProfile"
 
 
 class UserProfileOption(SupportsCapabilities):

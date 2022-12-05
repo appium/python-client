@@ -14,46 +14,56 @@
 
 import httpretty
 
-from appium.webdriver.extensions.android.gsm import GsmCallActions, GsmSignalStrength, GsmVoiceState
+from appium.webdriver.extensions.android.gsm import (
+    GsmCallActions,
+    GsmSignalStrength,
+    GsmVoiceState,
+)
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+)
 
 
-class TestWebDriveGsm():
+class TestWebDriveGsm:
     @httpretty.activate
     def test_make_gsm_call(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/gsm_call'),
+            appium_command("/session/1234567890/appium/device/gsm_call"),
         )
-        assert isinstance(driver.make_gsm_call('5551234567', GsmCallActions.CALL), WebDriver)
+        assert isinstance(
+            driver.make_gsm_call("5551234567", GsmCallActions.CALL), WebDriver
+        )
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['phoneNumber'] == '5551234567'
-        assert d['action'] == GsmCallActions.CALL
+        assert d["phoneNumber"] == "5551234567"
+        assert d["action"] == GsmCallActions.CALL
 
     @httpretty.activate
     def test_set_gsm_signal(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/gsm_signal'),
+            appium_command("/session/1234567890/appium/device/gsm_signal"),
         )
         assert isinstance(driver.set_gsm_signal(GsmSignalStrength.GREAT), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['signalStrength'] == GsmSignalStrength.GREAT
-        assert d['signalStrengh'] == GsmSignalStrength.GREAT
+        assert d["signalStrength"] == GsmSignalStrength.GREAT
+        assert d["signalStrengh"] == GsmSignalStrength.GREAT
 
     @httpretty.activate
     def test_set_gsm_voice(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/gsm_voice'),
+            appium_command("/session/1234567890/appium/device/gsm_voice"),
         )
         assert isinstance(driver.set_gsm_voice(GsmVoiceState.ROAMING), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['state'] == GsmVoiceState.ROAMING
+        assert d["state"] == GsmVoiceState.ROAMING

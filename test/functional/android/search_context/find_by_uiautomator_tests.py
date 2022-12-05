@@ -22,26 +22,36 @@ from test.functional.android.helper.test_helper import BaseTestCase
 @pytest.mark.skip(reason="Need to fix flaky test")
 class TestFindByUIAutomator(BaseTestCase):
     def test_find_single_element(self) -> None:
-        el = self.driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("Animation")')
+        el = self.driver.find_element(
+            by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("Animation")'
+        )
         assert el is not None
 
     def test_find_multiple_elements(self) -> None:
-        els = self.driver.find_elements(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().clickable(true)')
+        els = self.driver.find_elements(
+            by=AppiumBy.ANDROID_UIAUTOMATOR, value="new UiSelector().clickable(true)"
+        )
         assert isinstance(els, list)
 
     def test_element_find_single_element(self) -> None:
-        el = self.driver.find_element(by=AppiumBy.CLASS_NAME, value='android.widget.ListView')
+        el = self.driver.find_element(
+            by=AppiumBy.CLASS_NAME, value="android.widget.ListView"
+        )
 
         sub_el = el.find_element(
-            by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().description("Animation")'
+            by=AppiumBy.ANDROID_UIAUTOMATOR,
+            value='new UiSelector().description("Animation")',
         )  # type: WebElement
         assert sub_el is not None
 
     def test_element_find_multiple_elements(self) -> None:
-        el = self.driver.find_element(by=AppiumBy.CLASS_NAME, value='android.widget.ListView')
+        el = self.driver.find_element(
+            by=AppiumBy.CLASS_NAME, value="android.widget.ListView"
+        )
 
         sub_els = el.find_elements(
-            by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().clickable(true)'
+            by=AppiumBy.ANDROID_UIAUTOMATOR,
+            value="new UiSelector().clickable(true)",
         )  # type: list
         assert isinstance(sub_els, list)
 

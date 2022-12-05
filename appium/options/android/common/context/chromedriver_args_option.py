@@ -19,7 +19,7 @@ from typing import List, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CHROMEDRIVER_ARGS = 'chromedriverArgs'
+CHROMEDRIVER_ARGS = "chromedriverArgs"
 
 
 class ChromedriverArgsOption(SupportsCapabilities):

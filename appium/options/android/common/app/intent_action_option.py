@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_ACTION = 'intentAction'
+INTENT_ACTION = "intentAction"
 
 
 class IntentActionOption(SupportsCapabilities):

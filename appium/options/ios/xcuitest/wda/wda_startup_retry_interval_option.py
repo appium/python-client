@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WDA_STARTUP_RETRY_INTERVAL = 'wdaStartupRetryInterval'
+WDA_STARTUP_RETRY_INTERVAL = "wdaStartupRetryInterval"
 
 
 class WdaStartupRetryIntervalOption(SupportsCapabilities):
@@ -39,5 +39,8 @@ class WdaStartupRetryIntervalOption(SupportsCapabilities):
         Defaults to 10000ms.
         """
         self.set_capability(
-            WDA_STARTUP_RETRY_INTERVAL, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            WDA_STARTUP_RETRY_INTERVAL,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-NATIVE_WEB_SCREENSHOT = 'nativeWebScreenshot'
+NATIVE_WEB_SCREENSHOT = "nativeWebScreenshot"
 
 
 class NativeWebScreenshotOption(SupportsCapabilities):

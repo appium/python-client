@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SIMULATOR_DEVICES_SET_PATH = 'simulatorDevicesSetPath'
+SIMULATOR_DEVICES_SET_PATH = "simulatorDevicesSetPath"
 
 
 class SimulatorDevicesSetPathOption(SupportsCapabilities):

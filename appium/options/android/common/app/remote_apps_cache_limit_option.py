@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-REMOTE_APPS_CACHE_LIMIT = 'remoteAppsCacheLimit'
+REMOTE_APPS_CACHE_LIMIT = "remoteAppsCacheLimit"
 
 
 class RemoteAppsCacheLimitOption(SupportsCapabilities):

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-LOGCAT_FORMAT = 'logcatFormat'
+LOGCAT_FORMAT = "logcatFormat"
 
 
 class LogcatFormatOption(SupportsCapabilities):

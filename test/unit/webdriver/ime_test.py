@@ -18,20 +18,24 @@ import json
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+)
 
 
-class TestWebDriverIme():
+class TestWebDriverIme:
     @httpretty.activate
     def test_available_ime_engines(self):
-        ANDROID_LATIN = 'com.android.inputmethod.latin/.LatinIME'
-        GOOGLE_LATIN = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'
+        ANDROID_LATIN = "com.android.inputmethod.latin/.LatinIME"
+        GOOGLE_LATIN = "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME"
 
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.GET,
-            appium_command('/session/1234567890/ime/available_engines'),
-            body=json.dumps({'value': [ANDROID_LATIN, GOOGLE_LATIN]}),
+            appium_command("/session/1234567890/ime/available_engines"),
+            body=json.dumps({"value": [ANDROID_LATIN, GOOGLE_LATIN]}),
         )
         assert driver.available_ime_engines == [ANDROID_LATIN, GOOGLE_LATIN]
 
@@ -39,7 +43,9 @@ class TestWebDriverIme():
     def test_is_ime_active(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.GET, appium_command('/session/1234567890/ime/activated'), body=json.dumps({'value': True})
+            httpretty.GET,
+            appium_command("/session/1234567890/ime/activated"),
+            body=json.dumps({"value": True}),
         )
         assert driver.is_ime_active() is True
 
@@ -48,20 +54,20 @@ class TestWebDriverIme():
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/ime/activate'),
+            appium_command("/session/1234567890/ime/activate"),
         )
-        engine = 'com.android.inputmethod.latin/.LatinIME'
+        engine = "com.android.inputmethod.latin/.LatinIME"
         assert isinstance(driver.activate_ime_engine(engine), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['engine'] == 'com.android.inputmethod.latin/.LatinIME'
+        assert d["engine"] == "com.android.inputmethod.latin/.LatinIME"
 
     @httpretty.activate
     def test_deactivate_ime_engine(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/ime/deactivate'),
+            appium_command("/session/1234567890/ime/deactivate"),
         )
         assert isinstance(driver.deactivate_ime_engine(), WebDriver)
 
@@ -70,7 +76,7 @@ class TestWebDriverIme():
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.GET,
-            appium_command('/session/1234567890/ime/active_engine'),
-            body=json.dumps({'value': 'com.android.inputmethod.latin/.LatinIME'}),
+            appium_command("/session/1234567890/ime/active_engine"),
+            body=json.dumps({"value": "com.android.inputmethod.latin/.LatinIME"}),
         )
-        assert driver.active_ime_engine == 'com.android.inputmethod.latin/.LatinIME'
+        assert driver.active_ime_engine == "com.android.inputmethod.latin/.LatinIME"

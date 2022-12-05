@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-CLEAR_SYSTEM_FILES = 'clearSystemFiles'
+CLEAR_SYSTEM_FILES = "clearSystemFiles"
 
 
 class ClearSystemFilesOption(SupportsCapabilities):

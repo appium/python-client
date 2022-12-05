@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-UNLOCK_STRATEGY = 'unlockStrategy'
+UNLOCK_STRATEGY = "unlockStrategy"
 
 
 class UnlockStrategyOption(SupportsCapabilities):

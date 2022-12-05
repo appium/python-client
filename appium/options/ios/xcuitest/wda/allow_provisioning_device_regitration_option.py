@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ALLOW_PROVISIONING_DEVICE_REGISTRATION = 'allowProvisioningDeviceRegistration'
+ALLOW_PROVISIONING_DEVICE_REGISTRATION = "allowProvisioningDeviceRegistration"
 
 
 class AllowProvisioningDeviceRegistrationOption(SupportsCapabilities):

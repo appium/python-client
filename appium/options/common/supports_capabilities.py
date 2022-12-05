@@ -19,7 +19,7 @@ from typing import Any, TypeVar
 
 from appium.protocols.protocol import Protocol
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 class SupportsCapabilities(Protocol):

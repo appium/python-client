@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ENFORCE_FRESH_SIMULATOR_CREATION = 'enforceFreshSimulatorCreation'
+ENFORCE_FRESH_SIMULATOR_CREATION = "enforceFreshSimulatorCreation"
 
 
 class EnforceFreshSimulatorCreationOption(SupportsCapabilities):

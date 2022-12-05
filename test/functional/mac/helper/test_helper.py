@@ -19,14 +19,15 @@ from test.helpers.constants import SERVER_URL_BASE
 from .desired_capabilities import get_desired_capabilities
 
 
-class BaseTestCase():
+class BaseTestCase:
     def setup_method(self) -> None:
         self.driver = webdriver.Remote(
-            SERVER_URL_BASE, options=Mac2Options().load_capabilities(get_desired_capabilities())
+            SERVER_URL_BASE,
+            options=Mac2Options().load_capabilities(get_desired_capabilities()),
         )
 
     def teardown_method(self, method) -> None:  # type: ignore
-        if not hasattr(self, 'driver'):
+        if not hasattr(self, "driver"):
             return
 
         self.driver.quit()

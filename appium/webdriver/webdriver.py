@@ -17,7 +17,11 @@
 from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 from selenium import webdriver
-from selenium.common.exceptions import InvalidArgumentException, SessionNotCreatedException, WebDriverException
+from selenium.common.exceptions import (
+    InvalidArgumentException,
+    SessionNotCreatedException,
+    WebDriverException,
+)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
@@ -59,7 +63,7 @@ from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class ExtensionBase:
@@ -203,13 +207,13 @@ class WebDriver(
 ):
     def __init__(
         self,
-        command_executor: str = 'http://127.0.0.1:4444/wd/hub',
+        command_executor: str = "http://127.0.0.1:4444/wd/hub",
         desired_capabilities: Optional[Dict] = None,
         browser_profile: Union[str, None] = None,
         proxy: Union[str, None] = None,
         keep_alive: bool = True,
         direct_connection: bool = True,
-        extensions: Optional[List['WebDriver']] = None,
+        extensions: Optional[List["WebDriver"]] = None,
         strict_ssl: bool = True,
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
     ):
@@ -235,7 +239,7 @@ class WebDriver(
             options=options,
         )
 
-        if hasattr(self, 'command_executor'):
+        if hasattr(self, "command_executor"):
             self._add_commands()
 
         self.error_handler = MobileErrorHandler()
@@ -277,14 +281,16 @@ class WebDriver(
 
     def _update_command_executor(self, keep_alive: bool) -> None:
         """Update command executor following directConnect feature"""
-        direct_protocol = 'directConnectProtocol'
-        direct_host = 'directConnectHost'
-        direct_port = 'directConnectPort'
-        direct_path = 'directConnectPath'
+        direct_protocol = "directConnectProtocol"
+        direct_host = "directConnectHost"
+        direct_port = "directConnectPort"
+        direct_path = "directConnectPath"
 
-        assert self.caps, 'Driver capabilities must be defined'
-        if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps)):
-            message = 'Direct connect capabilities from server were:\n'
+        assert self.caps, "Driver capabilities must be defined"
+        if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(
+            set(self.caps)
+        ):
+            message = "Direct connect capabilities from server were:\n"
             for key in [direct_protocol, direct_host, direct_port, direct_path]:
                 message += f'{key}: \'{self.caps.get(key, "")}\' '
             logger.debug(message)
@@ -294,16 +300,20 @@ class WebDriver(
         hostname = self.caps[direct_host]
         port = self.caps[direct_port]
         path = self.caps[direct_path]
-        executor = f'{protocol}://{hostname}:{port}{path}'
+        executor = f"{protocol}://{hostname}:{port}{path}"
 
-        logger.debug('Updated request endpoint to %s', executor)
+        logger.debug("Updated request endpoint to %s", executor)
         # Override command executor
         self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
         self._add_commands()
 
     # https://github.com/SeleniumHQ/selenium/blob/06fdf2966df6bca47c0ae45e8201cd30db9b9a49/py/selenium/webdriver/remote/webdriver.py#L277
     # noinspection PyAttributeOutsideInit
-    def start_session(self, capabilities: Union[Dict, AppiumOptions], browser_profile: Optional[str] = None) -> None:
+    def start_session(
+        self,
+        capabilities: Union[Dict, AppiumOptions],
+        browser_profile: Optional[str] = None,
+    ) -> None:
         """Creates a new session with the desired capabilities.
 
         Override for Appium
@@ -314,31 +324,43 @@ class WebDriver(
             browser_profile: Browser profile
         """
         if not isinstance(capabilities, (dict, AppiumOptions)):
-            raise InvalidArgumentException('Capabilities must be a dictionary or AppiumOptions instance')
+            raise InvalidArgumentException(
+                "Capabilities must be a dictionary or AppiumOptions instance"
+            )
 
-        w3c_caps = AppiumOptions.as_w3c(capabilities) if isinstance(capabilities, dict) else capabilities.to_w3c()
+        w3c_caps = (
+            AppiumOptions.as_w3c(capabilities)
+            if isinstance(capabilities, dict)
+            else capabilities.to_w3c()
+        )
         response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
         # https://w3c.github.io/webdriver/#new-session
         if not isinstance(response, dict):
             raise SessionNotCreatedException(
-                f'A valid W3C session creation response must be a dictionary. Got "{response}" instead'
+                f'A valid W3C session creation response must be a dictionary. Got "{response}" instead',
             )
         # Due to a W3C spec parsing misconception some servers
         # pack the createSession response stuff into 'value' dictionary and
         # some other put it to the top level of the response JSON nesting hierarchy
-        get_response_value: Callable[[str], Optional[Any]] = lambda key: response.get(key) or (
-            response['value'].get(key) if isinstance(response.get('value'), dict) else None
+        get_response_value: Callable[[str], Optional[Any]] = lambda key: response.get(
+            key
+        ) or (
+            response["value"].get(key)
+            if isinstance(response.get("value"), dict)
+            else None
         )
-        session_id = get_response_value('sessionId')
+        session_id = get_response_value("sessionId")
         if not session_id:
             raise SessionNotCreatedException(
                 f'A valid W3C session creation response must contain a non-empty "sessionId" entry. '
-                f'Got "{response}" instead'
+                f'Got "{response}" instead',
             )
         self.session_id = session_id
-        self.caps = get_response_value('capabilities') or {}
+        self.caps = get_response_value("capabilities") or {}
 
-    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> MobileWebElement:
+    def find_element(
+        self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None
+    ) -> MobileWebElement:
         """
         Find an element given a AppiumBy strategy and locator
 
@@ -368,10 +390,14 @@ class WebDriver(
         #     by = By.CSS_SELECTOR
         #     value = '[name="%s"]' % value
 
-        return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
+        return self.execute(RemoteCommand.FIND_ELEMENT, {"using": by, "value": value})[
+            "value"
+        ]
 
     def find_elements(
-        self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None
+        self,
+        by: str = AppiumBy.ID,
+        value: Union[str, Dict, None] = None,
     ) -> Union[List[MobileWebElement], List]:
         """
         Find elements given a AppiumBy strategy and locator
@@ -404,7 +430,12 @@ class WebDriver(
         # Return empty list if driver returns null
         # See https://github.com/SeleniumHQ/selenium/issues/4555
 
-        return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
+        return (
+            self.execute(RemoteCommand.FIND_ELEMENTS, {"using": by, "value": value})[
+                "value"
+            ]
+            or []
+        )
 
     def create_web_element(self, element_id: Union[int, str]) -> MobileWebElement:
         """Creates a web element with the specified element_id.
@@ -431,8 +462,8 @@ class WebDriver(
             `appium.webdriver.webdriver.WebDriver`: Self instance
         """
         data = {
-            'id': element.id,
-            'value': [value],
+            "id": element.id,
+            "value": [value],
         }
         self.execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
@@ -447,7 +478,6 @@ class WebDriver(
             `appium.webdriver.switch_to.MobileSwitchTo`
 
         """
-
         return MobileSwitchTo(self)
 
     # MJSONWP for Selenium v4
@@ -459,7 +489,7 @@ class WebDriver(
             ::
                 orientation = driver.orientation
         """
-        return self.execute(Command.GET_SCREEN_ORIENTATION)['value']
+        return self.execute(Command.GET_SCREEN_ORIENTATION)["value"]
 
     # MJSONWP for Selenium v4
     @orientation.setter
@@ -472,18 +502,22 @@ class WebDriver(
             ::
                 driver.orientation = 'landscape'
         """
-        allowed_values = ['LANDSCAPE', 'PORTRAIT']
+        allowed_values = ["LANDSCAPE", "PORTRAIT"]
         if value.upper() in allowed_values:
-            self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value})
+            self.execute(Command.SET_SCREEN_ORIENTATION, {"orientation": value})
         else:
 
-            raise WebDriverException("You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'")
+            raise WebDriverException(
+                "You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'"
+            )
 
     def _add_commands(self) -> None:
         # call the overridden command binders from all mixin classes except for
         # appium.webdriver.webdriver.WebDriver and its sub-classes
         # https://github.com/appium/python-client/issues/342
-        for mixin_class in filter(lambda x: not issubclass(x, WebDriver), self.__class__.__mro__):
+        for mixin_class in filter(
+            lambda x: not issubclass(x, WebDriver), self.__class__.__mro__
+        ):
             if hasattr(mixin_class, self._add_commands.__name__):
                 get_atter = getattr(mixin_class, self._add_commands.__name__, None)
                 if get_atter:
@@ -493,33 +527,48 @@ class WebDriver(
         commands = self.command_executor._commands
 
         # FIXME: remove after a while as MJSONWP
-        commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
-        commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
+        commands[Command.TOUCH_ACTION] = ("POST", "/session/$sessionId/touch/perform")
+        commands[Command.MULTI_ACTION] = (
+            "POST",
+            "/session/$sessionId/touch/multi/perform",
+        )
         commands[Command.SET_IMMEDIATE_VALUE] = (
-            'POST',
-            '/session/$sessionId/appium/element/$id/value',
+            "POST",
+            "/session/$sessionId/appium/element/$id/value",
         )
 
         # TODO Move commands for element to webelement
         commands[Command.REPLACE_KEYS] = (
-            'POST',
-            '/session/$sessionId/appium/element/$id/replace_value',
+            "POST",
+            "/session/$sessionId/appium/element/$id/replace_value",
         )
-        commands[Command.CLEAR] = ('POST', '/session/$sessionId/element/$id/clear')
+        commands[Command.CLEAR] = ("POST", "/session/$sessionId/element/$id/clear")
         commands[Command.LOCATION_IN_VIEW] = (
-            'GET',
-            '/session/$sessionId/element/$id/location_in_view',
+            "GET",
+            "/session/$sessionId/element/$id/location_in_view",
         )
 
         # MJSONWP for Selenium v4
-        commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', '/session/$sessionId/element/$id/displayed')
-        commands[Command.GET_CAPABILITIES] = ('GET', '/session/$sessionId')
+        commands[Command.IS_ELEMENT_DISPLAYED] = (
+            "GET",
+            "/session/$sessionId/element/$id/displayed",
+        )
+        commands[Command.GET_CAPABILITIES] = ("GET", "/session/$sessionId")
 
-        commands[Command.GET_SCREEN_ORIENTATION] = ('GET', '/session/$sessionId/orientation')
-        commands[Command.SET_SCREEN_ORIENTATION] = ('POST', '/session/$sessionId/orientation')
+        commands[Command.GET_SCREEN_ORIENTATION] = (
+            "GET",
+            "/session/$sessionId/orientation",
+        )
+        commands[Command.SET_SCREEN_ORIENTATION] = (
+            "POST",
+            "/session/$sessionId/orientation",
+        )
 
         # override for Appium 1.x
         # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`
         # FIXME: remove after a while
-        commands[Command.GET_LOG] = ('POST', '/session/$sessionId/log')
-        commands[Command.GET_AVAILABLE_LOG_TYPES] = ('GET', '/session/$sessionId/log/types')
+        commands[Command.GET_LOG] = ("POST", "/session/$sessionId/log")
+        commands[Command.GET_AVAILABLE_LOG_TYPES] = (
+            "GET",
+            "/session/$sessionId/log/types",
+        )

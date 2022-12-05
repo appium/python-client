@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CHROMEDRIVER_EXECUTABLE_DIR = 'chromedriverExecutableDir'
+CHROMEDRIVER_EXECUTABLE_DIR = "chromedriverExecutableDir"
 
 
 class ChromedriverExecutableDirOption(SupportsCapabilities):

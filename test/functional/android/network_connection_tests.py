@@ -26,7 +26,9 @@ class TestNetworkConnection(BaseTestCase):
         nc = self.driver.network_connection
         assert isinstance(nc, int)
 
-    @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI')
+    @pytest.mark.skipif(
+        condition=is_ci(), reason="Need to fix flaky test during running on CI"
+    )
     def test_set_network_connection(self) -> None:
         nc = self.driver.set_network_connection(ConnectionType.DATA_ONLY)
         assert isinstance(nc, int)

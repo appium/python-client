@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WDA_BASE_URL = 'wdaBaseUrl'
+WDA_BASE_URL = "wdaBaseUrl"
 
 
 class WdaBaseUrlOption(SupportsCapabilities):

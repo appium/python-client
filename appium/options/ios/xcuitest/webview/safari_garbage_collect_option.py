@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SAFARI_GARBAGE_COLLECT = 'safariGarbageCollect'
+SAFARI_GARBAGE_COLLECT = "safariGarbageCollect"
 
 
 class SafariGarbageCollectOption(SupportsCapabilities):

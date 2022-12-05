@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-LOCALE_SCRIPT = 'localeScript'
+LOCALE_SCRIPT = "localeScript"
 
 
 class LocaleScriptOption(SupportsCapabilities):

@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-UDID = 'udid'
+UDID = "udid"
 
 
 class UdidOption(SupportsCapabilities):

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ENABLE_ASYNC_EXECUTE_FROM_HTTPS = 'enableAsyncExecuteFromHttps'
+ENABLE_ASYNC_EXECUTE_FROM_HTTPS = "enableAsyncExecuteFromHttps"
 
 
 class EnableAsyncExecuteFromHttpsOption(SupportsCapabilities):

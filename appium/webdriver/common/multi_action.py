@@ -36,16 +36,21 @@ class MultiAction:
         Please use W3C actions instead: http://appium.io/docs/en/commands/interactions/actions/
     """
 
-    def __init__(self, driver: 'WebDriver', element: Optional['WebElement'] = None) -> None:
+    def __init__(
+        self,
+        driver: "WebDriver",
+        element: Optional["WebElement"] = None,
+    ) -> None:
         warnings.warn(
-            "[Deprecated] 'MultiAction' action is deprecated. Please use W3C actions instead.", DeprecationWarning
+            "[Deprecated] 'MultiAction' action is deprecated. Please use W3C actions instead.",
+            DeprecationWarning,
         )
 
         self._driver = driver
         self._element = element
-        self._touch_actions: List['TouchAction'] = []
+        self._touch_actions: List["TouchAction"] = []
 
-    def add(self, *touch_actions: 'TouchAction') -> None:
+    def add(self, *touch_actions: "TouchAction") -> None:
         """Add TouchAction objects to the MultiAction, to be performed later.
 
         Args:
@@ -67,7 +72,7 @@ class MultiAction:
 
             self._touch_actions.append(copy.copy(touch_action))
 
-    def perform(self) -> 'MultiAction':
+    def perform(self) -> "MultiAction":
         """Perform the actions stored in the object.
 
         Usage:
@@ -93,5 +98,5 @@ class MultiAction:
         for action in self._touch_actions:
             actions.append(action.json_wire_gestures)
         if self._element is not None:
-            return {'actions': actions, 'elementId': self._element.id}
-        return {'actions': actions}
+            return {"actions": actions, "elementId": self._element.id}
+        return {"actions": actions}

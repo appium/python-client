@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-MOCK_LOCATION_APP = 'mockLocationApp'
+MOCK_LOCATION_APP = "mockLocationApp"
 
 
 class MockLocationAppOption(SupportsCapabilities):

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SIMPLE_IS_VISIBLE_CHECK = 'simpleIsVisibleCheck'
+SIMPLE_IS_VISIBLE_CHECK = "simpleIsVisibleCheck"
 
 
 class SimpleIsVisibleCheckOption(SupportsCapabilities):

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ADB_PORT = 'adbPort'
+ADB_PORT = "adbPort"
 
 
 class AdbPortOption(SupportsCapabilities):

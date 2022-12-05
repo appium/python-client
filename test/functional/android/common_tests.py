@@ -29,35 +29,47 @@ class TestCommon(BaseTestCase):
     def test_current_package(self) -> None:
         assert APIDEMO_PKG_NAME == self.driver.current_package
 
-    @pytest.mark.skip('Not sure how to set this up to run')
+    @pytest.mark.skip("Not sure how to set this up to run")
     def test_end_test_coverage(self) -> None:
-        self.driver.end_test_coverage(intent='android.intent.action.MAIN', path='')
+        self.driver.end_test_coverage(intent="android.intent.action.MAIN", path="")
         sleep(5)
 
     # TODO Due to unexpected dialog, "System UI isn't responding"
-    @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI.')
+    @pytest.mark.skipif(
+        condition=is_ci(), reason="Need to fix flaky test during running on CI."
+    )
     def test_open_notifications(self) -> None:
-        for word in ['App', 'Notification', 'Status Bar', ':-|']:
-            wait_for_element(self.driver, AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{word}")').click()
+        for word in ["App", "Notification", "Status Bar", ":-|"]:
+            wait_for_element(
+                self.driver,
+                AppiumBy.ANDROID_UIAUTOMATOR,
+                f'new UiSelector().text("{word}")',
+            ).click()
 
         self.driver.open_notifications()
         sleep(1)
         with pytest.raises(NoSuchElementException):
-            self.driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text(":-|")')
+            self.driver.find_element(
+                by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text(":-|")'
+            )
 
-        els = self.driver.find_element(by=AppiumBy.CLASS_NAME, value='android.widget.TextView')
+        els = self.driver.find_element(
+            by=AppiumBy.CLASS_NAME, value="android.widget.TextView"
+        )
         # sometimes numbers shift
         title = False
         body = False
         for el in els:
             text = el.text
-            if text == 'Mood ring':
+            if text == "Mood ring":
                 title = True
-            elif text == 'I am ok':
+            elif text == "I am ok":
                 body = True
         assert title
         assert body
 
         self.driver.keyevent(4)
         sleep(1)
-        self.driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text(":-|")')
+        self.driver.find_element(
+            by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text(":-|")'
+        )

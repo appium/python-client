@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-RESET_ON_SESSION_START_ONLY = 'resetOnSessionStartOnly'
+RESET_ON_SESSION_START_ONLY = "resetOnSessionStartOnly"
 
 
 class ResetOnSessionStartOnlyOption(SupportsCapabilities):

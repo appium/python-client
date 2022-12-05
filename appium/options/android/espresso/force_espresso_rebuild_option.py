@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-FORCE_ESPRESSO_REBUILD = 'forceEspressoRebuild'
+FORCE_ESPRESSO_REBUILD = "forceEspressoRebuild"
 
 
 class ForceEspressoRebuildOption(SupportsCapabilities):

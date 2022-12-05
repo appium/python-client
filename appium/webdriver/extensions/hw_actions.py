@@ -18,7 +18,7 @@ from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class HardwareActions(CanExecuteCommands):
@@ -37,7 +37,7 @@ class HardwareActions(CanExecuteCommands):
         if seconds is None:
             self.execute(Command.LOCK)
         else:
-            self.execute(Command.LOCK, {'seconds': seconds})
+            self.execute(Command.LOCK, {"seconds": seconds})
         return self
 
     def unlock(self: T) -> T:
@@ -55,7 +55,7 @@ class HardwareActions(CanExecuteCommands):
         Returns:
             `True` if the device is locked
         """
-        return self.execute(Command.IS_LOCKED)['value']
+        return self.execute(Command.IS_LOCKED)["value"]
 
     def shake(self: T) -> T:
         """Shake the device.
@@ -75,7 +75,7 @@ class HardwareActions(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
-        data = {'match': match}
+        data = {"match": match}
         self.execute(Command.TOUCH_ID, data)
         return self
 
@@ -97,21 +97,27 @@ class HardwareActions(CanExecuteCommands):
         Returns:
             TODO
         """
-        return self.execute(Command.FINGER_PRINT, {'fingerprintId': finger_id})['value']
+        return self.execute(Command.FINGER_PRINT, {"fingerprintId": finger_id})["value"]
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
-        commands[Command.LOCK] = ('POST', '/session/$sessionId/appium/device/lock')
-        commands[Command.UNLOCK] = ('POST', '/session/$sessionId/appium/device/unlock')
-        commands[Command.IS_LOCKED] = ('POST', '/session/$sessionId/appium/device/is_locked')
-        commands[Command.SHAKE] = ('POST', '/session/$sessionId/appium/device/shake')
-        commands[Command.TOUCH_ID] = ('POST', '/session/$sessionId/appium/simulator/touch_id')
+        commands[Command.LOCK] = ("POST", "/session/$sessionId/appium/device/lock")
+        commands[Command.UNLOCK] = ("POST", "/session/$sessionId/appium/device/unlock")
+        commands[Command.IS_LOCKED] = (
+            "POST",
+            "/session/$sessionId/appium/device/is_locked",
+        )
+        commands[Command.SHAKE] = ("POST", "/session/$sessionId/appium/device/shake")
+        commands[Command.TOUCH_ID] = (
+            "POST",
+            "/session/$sessionId/appium/simulator/touch_id",
+        )
         commands[Command.TOGGLE_TOUCH_ID_ENROLLMENT] = (
-            'POST',
-            '/session/$sessionId/appium/simulator/toggle_touch_id_enrollment',
+            "POST",
+            "/session/$sessionId/appium/simulator/toggle_touch_id_enrollment",
         )
         commands[Command.FINGER_PRINT] = (
-            'POST',
-            '/session/$sessionId/appium/device/finger_print',
+            "POST",
+            "/session/$sessionId/appium/device/finger_print",
         )

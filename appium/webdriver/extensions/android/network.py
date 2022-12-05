@@ -19,19 +19,19 @@ from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class NetSpeed:
-    GSM = 'gsm'  # GSM/CSD (up: 14.4(kbps), down: 14.4(kbps))
-    SCSD = 'scsd'  # HSCSD (up: 14.4, down: 57.6)
-    GPRS = 'gprs'  # GPRS (up: 28.8, down: 57.6)
-    EDGE = 'edge'  # EDGE/EGPRS (up: 473.6, down: 473.6)
-    UMTS = 'umts'  # UMTS/3G (up: 384.0, down: 384.0)
-    HSDPA = 'hsdpa'  # HSDPA (up: 5760.0, down: 13,980.0)
-    LTE = 'lte'  # LTE (up: 58,000, down: 173,000)
-    EVDO = 'evdo'  # EVDO (up: 75,000, down: 280,000)
-    FULL = 'full'  # No limit, the default (up: 0.0, down: 0.0)
+    GSM = "gsm"  # GSM/CSD (up: 14.4(kbps), down: 14.4(kbps))
+    SCSD = "scsd"  # HSCSD (up: 14.4, down: 57.6)
+    GPRS = "gprs"  # GPRS (up: 28.8, down: 57.6)
+    EDGE = "edge"  # EDGE/EGPRS (up: 473.6, down: 473.6)
+    UMTS = "umts"  # UMTS/3G (up: 384.0, down: 384.0)
+    HSDPA = "hsdpa"  # HSDPA (up: 5760.0, down: 13,980.0)
+    LTE = "lte"  # LTE (up: 58,000, down: 173,000)
+    EVDO = "evdo"  # EVDO (up: 75,000, down: 280,000)
+    FULL = "full"  # No limit, the default (up: 0.0, down: 0.0)
 
 
 class Network(CanExecuteCommands):
@@ -42,7 +42,7 @@ class Network(CanExecuteCommands):
         Android only.
         Possible values are available through the enumeration `appium.webdriver.ConnectionType`
         """
-        return self.execute(Command.GET_NETWORK_CONNECTION, {})['value']
+        return self.execute(Command.GET_NETWORK_CONNECTION, {})["value"]
 
     def set_network_connection(self, connection_type: int) -> int:
         """Sets the network connection type. Android only.
@@ -71,8 +71,8 @@ class Network(CanExecuteCommands):
         Return:
             int: Set network connection type
         """
-        data = {'parameters': {'type': connection_type}}
-        return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
+        data = {"parameters": {"type": connection_type}}
+        return self.execute(Command.SET_NETWORK_CONNECTION, data)["value"]
 
     def toggle_wifi(self: T) -> T:
         """Toggle the wifi on the device, Android only.
@@ -101,26 +101,29 @@ class Network(CanExecuteCommands):
         constants = extract_const_attributes(NetSpeed)
         if speed_type not in constants.values():
             logger.warning(
-                f'{speed_type} is unknown. Consider using one of {list(constants.keys())} constants. '
-                f'(e.g. {NetSpeed.__name__}.LTE)'
+                f"{speed_type} is unknown. Consider using one of {list(constants.keys())} constants. "
+                f"(e.g. {NetSpeed.__name__}.LTE)",
             )
 
-        self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
+        self.execute(Command.SET_NETWORK_SPEED, {"netspeed": speed_type})
         return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
-        commands[Command.TOGGLE_WIFI] = ('POST', '/session/$sessionId/appium/device/toggle_wifi')
+        commands[Command.TOGGLE_WIFI] = (
+            "POST",
+            "/session/$sessionId/appium/device/toggle_wifi",
+        )
         commands[Command.GET_NETWORK_CONNECTION] = (
-            'GET',
-            '/session/$sessionId/network_connection',
+            "GET",
+            "/session/$sessionId/network_connection",
         )
         commands[Command.SET_NETWORK_CONNECTION] = (
-            'POST',
-            '/session/$sessionId/network_connection',
+            "POST",
+            "/session/$sessionId/network_connection",
         )
         commands[Command.SET_NETWORK_SPEED] = (
-            'POST',
-            '/session/$sessionId/appium/device/network_speed',
+            "POST",
+            "/session/$sessionId/appium/device/network_speed",
         )

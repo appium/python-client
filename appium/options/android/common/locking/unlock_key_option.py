@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-UNLOCK_KEY = 'unlockKey'
+UNLOCK_KEY = "unlockKey"
 
 
 class UnlockKeyOption(SupportsCapabilities):

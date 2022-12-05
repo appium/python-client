@@ -21,39 +21,41 @@ def PATH(p: str) -> str:
     return os.path.abspath(os.path.join(os.path.dirname(__file__), p))
 
 
-BUNDLE_ID = 'com.example.apple-samplecode.UICatalog'
+BUNDLE_ID = "com.example.apple-samplecode.UICatalog"
 
 
 def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
     desired_caps: Dict[str, Any] = {
-        'deviceName': iphone_device_name(),
-        'platformName': 'iOS',
-        'platformVersion': '15.5',
-        'automationName': 'XCUITest',
-        'allowTouchIdEnroll': True,
-        'wdaLocalPort': wda_port(),
-        'simpleIsVisibleCheck': True,
+        "deviceName": iphone_device_name(),
+        "platformName": "iOS",
+        "platformVersion": "15.5",
+        "automationName": "XCUITest",
+        "allowTouchIdEnroll": True,
+        "wdaLocalPort": wda_port(),
+        "simpleIsVisibleCheck": True,
     }
 
     if app is not None:
-        desired_caps['app'] = PATH(os.path.join('../../..', 'apps', app))
+        desired_caps["app"] = PATH(os.path.join("../../..", "apps", app))
 
     return desired_caps
 
 
 class PytestXdistWorker:
-    NUMBER: Optional[str] = os.getenv('PYTEST_XDIST_WORKER')
-    COUNT: Optional[str] = os.getenv('PYTEST_XDIST_WORKER_COUNT')  # Return 2 if `-n 2` is passed
+    NUMBER: Optional[str] = os.getenv("PYTEST_XDIST_WORKER")
+    COUNT: Optional[str] = os.getenv(
+        "PYTEST_XDIST_WORKER_COUNT"
+    )  # Return 2 if `-n 2` is passed
 
     @staticmethod
     def gw(number: int) -> str:
         if PytestXdistWorker.COUNT is None:
-            return '0'
+            return "0"
 
         if number >= int(PytestXdistWorker.COUNT):
-            return 'gw0'
+            return "gw0"
 
-        return f'gw{number}'
+        return f"gw{number}"
 
 
 # If you run tests with pytest-xdist, you can run tests in parallel.
@@ -70,10 +72,10 @@ def wda_port() -> int:
 
 
 def iphone_device_name() -> str:
-    prefix = 'iPhone 12'
+    prefix = "iPhone 12"
     if PytestXdistWorker.NUMBER == PytestXdistWorker.gw(0):
-        return f'{prefix} - 8100'
+        return f"{prefix} - 8100"
     if PytestXdistWorker.NUMBER == PytestXdistWorker.gw(1):
-        return f'{prefix} - 8101'
+        return f"{prefix} - 8101"
 
     return prefix

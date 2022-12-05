@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-AUTO_ACCEPT_ALERTS = 'autoAcceptAlerts'
+AUTO_ACCEPT_ALERTS = "autoAcceptAlerts"
 
 
 class AutoAcceptAlertsOption(SupportsCapabilities):

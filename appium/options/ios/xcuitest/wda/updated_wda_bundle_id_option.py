@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-UPDATED_WDA_BUNDLE_ID = 'updatedWDABundleId'
+UPDATED_WDA_BUNDLE_ID = "updatedWDABundleId"
 
 
 class UpdatedWdaBundleIdOption(SupportsCapabilities):

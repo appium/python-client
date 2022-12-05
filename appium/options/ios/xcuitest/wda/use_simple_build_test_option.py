@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-USE_SIMPLE_BUILD_TEST = 'useSimpleBuildTest'
+USE_SIMPLE_BUILD_TEST = "useSimpleBuildTest"
 
 
 class UseSimpleBuildTestOption(SupportsCapabilities):

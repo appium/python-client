@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SCREENSHOT_QUALITY = 'screenshotQuality'
+SCREENSHOT_QUALITY = "screenshotQuality"
 
 
 class ScreenshotQualityOption(SupportsCapabilities):

@@ -27,17 +27,16 @@ def get_available_from_port_range(from_port: int, to_port: int) -> int:
         int: available local port number which are found first
 
     """
-
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     for port in range(from_port, to_port):
         try:
-            if sock.connect_ex(('localhost', port)) != 0:
+            if sock.connect_ex(("localhost", port)) != 0:
                 return port
         finally:
             sock.close()
 
-    raise NoAvailablePortError(f'No available port between {from_port} and {to_port}')
+    raise NoAvailablePortError(f"No available port between {from_port} and {to_port}")
 
 
 def is_ci() -> bool:
@@ -46,10 +45,12 @@ def is_ci() -> bool:
     Returns:
         `True` if current executions is on CI
     """
-    return os.getenv('CI', 'false') == 'true'
+    return os.getenv("CI", "false") == "true"
 
 
-def wait_for_condition(method: Callable, timeout_sec: float = 5, interval_sec: float = 1) -> Any:
+def wait_for_condition(
+    method: Callable, timeout_sec: float = 5, interval_sec: float = 1
+) -> Any:
     """Wait while `method` returns the built-in objects considered false
 
     https://docs.python.org/3/library/stdtypes.html#truth-value-testing
@@ -67,7 +68,7 @@ def wait_for_condition(method: Callable, timeout_sec: float = 5, interval_sec: f
 
     """
     if interval_sec < 0:
-        raise ValueError('interval_sec needs to be not less than 0')
+        raise ValueError("interval_sec needs to be not less than 0")
 
     started = time.time()
     while time.time() - started <= timeout_sec:
@@ -78,7 +79,9 @@ def wait_for_condition(method: Callable, timeout_sec: float = 5, interval_sec: f
     return result
 
 
-def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout_sec: float = 10) -> 'WebElement':
+def wait_for_element(
+    driver: "WebDriver", locator: str, value: str, timeout_sec: float = 10
+) -> "WebElement":
     """Wait until the element located
 
     Args:
@@ -94,4 +97,6 @@ def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout_sec:
     Returns:
         The found WebElement
     """
-    return WebDriverWait(driver, timeout_sec).until(EC.presence_of_element_located((locator, value)))
+    return WebDriverWait(driver, timeout_sec).until(
+        EC.presence_of_element_located((locator, value))
+    )

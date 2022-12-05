@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH = 'safariWebInspectorMaxFrameLength'
+SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH = "safariWebInspectorMaxFrameLength"
 
 
 class SafariWebInspectorMaxFrameLengthOption(SupportsCapabilities):

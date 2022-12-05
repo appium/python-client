@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-UNLOCK_TYPE = 'unlockType'
+UNLOCK_TYPE = "unlockType"
 
 
 class UnlockTypeOption(SupportsCapabilities):

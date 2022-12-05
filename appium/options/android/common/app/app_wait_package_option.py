@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-APP_WAIT_PACKAGE = 'appWaitPackage'
+APP_WAIT_PACKAGE = "appWaitPackage"
 
 
 class AppWaitPackageOption(SupportsCapabilities):

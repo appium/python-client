@@ -15,19 +15,23 @@
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+)
 
 
-class TestWebDriverSms():
+class TestWebDriverSms:
     @httpretty.activate
     def test_send_sms(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/send_sms'),
+            appium_command("/session/1234567890/appium/device/send_sms"),
         )
-        assert isinstance(driver.send_sms('555-123-4567', 'Hey lol'), WebDriver)
+        assert isinstance(driver.send_sms("555-123-4567", "Hey lol"), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['phoneNumber'] == '555-123-4567'
-        assert d['message'] == 'Hey lol'
+        assert d["phoneNumber"] == "555-123-4567"
+        assert d["message"] == "Hey lol"

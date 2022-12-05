@@ -26,7 +26,7 @@ class HasDriver(Protocol):
     _driver: CanExecuteCommands
 
 
-T = TypeVar('T', bound=HasDriver)
+T = TypeVar("T", bound=HasDriver)
 
 
 class MobileSwitchTo(SwitchTo, HasDriver):
@@ -40,5 +40,5 @@ class MobileSwitchTo(SwitchTo, HasDriver):
         Usage:
             driver.switch_to.context('WEBVIEW_1')
         """
-        self._driver.execute(MobileCommand.SWITCH_TO_CONTEXT, {'name': context_name})
+        self._driver.execute(MobileCommand.SWITCH_TO_CONTEXT, {"name": context_name})
         return self

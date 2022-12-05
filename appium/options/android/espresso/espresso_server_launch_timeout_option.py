@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ESPRESSO_SERVER_LAUNCH_TIMEOUT = 'espressoServerLaunchTimeout'
+ESPRESSO_SERVER_LAUNCH_TIMEOUT = "espressoServerLaunchTimeout"
 
 
 class EspressoServerLaunchTimeoutOption(SupportsCapabilities):
@@ -39,5 +39,8 @@ class EspressoServerLaunchTimeoutOption(SupportsCapabilities):
         45000 ms by default
         """
         self.set_capability(
-            ESPRESSO_SERVER_LAUNCH_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            ESPRESSO_SERVER_LAUNCH_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

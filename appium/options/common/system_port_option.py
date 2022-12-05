@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SYSTEM_PORT = 'systemPort'
+SYSTEM_PORT = "systemPort"
 
 
 class SystemPortOption(SupportsCapabilities):

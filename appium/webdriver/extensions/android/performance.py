@@ -20,7 +20,10 @@ from appium.webdriver.mobilecommand import MobileCommand as Command
 
 class Performance(CanExecuteCommands):
     def get_performance_data(
-        self, package_name: str, data_type: str, data_read_timeout: Union[int, None] = None
+        self,
+        package_name: str,
+        data_type: str,
+        data_read_timeout: Union[int, None] = None,
     ) -> List[List[str]]:
         """Returns the information of the system state
         which is supported to read as like cpu, memory, network traffic, and battery.
@@ -40,10 +43,13 @@ class Performance(CanExecuteCommands):
         Returns:
             The data along to `data_type`
         """
-        data: Dict[str, Union[str, int]] = {'packageName': package_name, 'dataType': data_type}
+        data: Dict[str, Union[str, int]] = {
+            "packageName": package_name,
+            "dataType": data_type,
+        }
         if data_read_timeout is not None:
-            data['dataReadTimeout'] = data_read_timeout
-        return self.execute(Command.GET_PERFORMANCE_DATA, data)['value']
+            data["dataReadTimeout"] = data_read_timeout
+        return self.execute(Command.GET_PERFORMANCE_DATA, data)["value"]
 
     def get_performance_data_types(self) -> List:
         """Returns the information types of the system state
@@ -56,16 +62,16 @@ class Performance(CanExecuteCommands):
         Returns:
             Available data types
         """
-        return self.execute(Command.GET_PERFORMANCE_DATA_TYPES)['value']
+        return self.execute(Command.GET_PERFORMANCE_DATA_TYPES)["value"]
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
         commands[Command.GET_PERFORMANCE_DATA] = (
-            'POST',
-            '/session/$sessionId/appium/getPerformanceData',
+            "POST",
+            "/session/$sessionId/appium/getPerformanceData",
         )
         commands[Command.GET_PERFORMANCE_DATA_TYPES] = (
-            'POST',
-            '/session/$sessionId/appium/performanceData/types',
+            "POST",
+            "/session/$sessionId/appium/performanceData/types",
         )

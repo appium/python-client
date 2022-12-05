@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SHOULD_TERMINATE_APP = 'shouldTerminateApp'
+SHOULD_TERMINATE_APP = "shouldTerminateApp"
 
 
 class ShouldTerminateAppOption(SupportsCapabilities):

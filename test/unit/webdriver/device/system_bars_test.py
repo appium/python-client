@@ -17,29 +17,29 @@ import httpretty
 from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
-class TestWebDriverSystemBars():
+class TestWebDriverSystemBars:
     @httpretty.activate
     def test_get_system_bars(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.GET,
-            appium_command('/session/1234567890/appium/device/system_bars'),
-            body=''' {"value":
+            appium_command("/session/1234567890/appium/device/system_bars"),
+            body=""" {"value":
                      {"statusBar":
                      {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 1920},
                      "navigationBar":
-                     {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 126}}}''',
+                     {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 126}}}""",
         )
         d = driver.get_system_bars()
 
-        assert d['statusBar']['visible'] is True
-        assert d['statusBar']['x'] == 0
-        assert d['statusBar']['y'] == 0
-        assert d['statusBar']['width'] == 1080
-        assert d['statusBar']['height'] == 1920
+        assert d["statusBar"]["visible"] is True
+        assert d["statusBar"]["x"] == 0
+        assert d["statusBar"]["y"] == 0
+        assert d["statusBar"]["width"] == 1080
+        assert d["statusBar"]["height"] == 1920
 
-        assert d['navigationBar']['visible'] is True
-        assert d['navigationBar']['x'] == 0
-        assert d['navigationBar']['y'] == 0
-        assert d['navigationBar']['width'] == 1080
-        assert d['navigationBar']['height'] == 126
+        assert d["navigationBar"]["visible"] is True
+        assert d["navigationBar"]["x"] == 0
+        assert d["navigationBar"]["y"] == 0
+        assert d["navigationBar"]["width"] == 1080
+        assert d["navigationBar"]["height"] == 126

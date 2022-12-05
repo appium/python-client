@@ -20,7 +20,7 @@ from typing import Dict, Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-COMMAND_TIMEOUTS = 'commandTimeouts'
+COMMAND_TIMEOUTS = "commandTimeouts"
 
 
 class CommandTimeoutsOption(SupportsCapabilities):
@@ -37,7 +37,9 @@ class CommandTimeoutsOption(SupportsCapabilities):
         return timedelta(milliseconds=int(value))
 
     @command_timeouts.setter
-    def command_timeouts(self, value: Union[Dict[str, timedelta], timedelta, int]) -> None:
+    def command_timeouts(
+        self, value: Union[Dict[str, timedelta], timedelta, int]
+    ) -> None:
         """
         Custom timeout for all WDA backend commands execution.
         This might be useful if WDA backend freezes unexpectedly or requires too
@@ -50,8 +52,13 @@ class CommandTimeoutsOption(SupportsCapabilities):
         were not explicitly mentioned as dictionary keys
         """
         if isinstance(value, dict):
-            self.set_capability(COMMAND_TIMEOUTS, {k: int(v.total_seconds() * 1000) for k, v in value.items()})
+            self.set_capability(
+                COMMAND_TIMEOUTS,
+                {k: int(v.total_seconds() * 1000) for k, v in value.items()},
+            )
         elif isinstance(value, timedelta):
-            self.set_capability(COMMAND_TIMEOUTS, f'{int(value.total_seconds() * 1000)}')
+            self.set_capability(
+                COMMAND_TIMEOUTS, f"{int(value.total_seconds() * 1000)}"
+            )
         else:
             self.set_capability(COMMAND_TIMEOUTS, value)

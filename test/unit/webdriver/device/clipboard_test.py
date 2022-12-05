@@ -15,31 +15,44 @@
 import httpretty
 
 from appium.webdriver.clipboard_content_type import ClipboardContentType
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body, ios_w3c_driver
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+    ios_w3c_driver,
+)
 
 
-class TestWebDriverClipboard():
+class TestWebDriverClipboard:
     @httpretty.activate
     def test_set_clipboard_with_url(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/set_clipboard'), body='{"value": ""}'
+            httpretty.POST,
+            appium_command("/session/1234567890/appium/device/set_clipboard"),
+            body='{"value": ""}',
         )
-        driver.set_clipboard(bytes(str('http://appium.io/'), 'UTF-8'), ClipboardContentType.URL, 'label for android')
+        driver.set_clipboard(
+            bytes(str("http://appium.io/"), "UTF-8"),
+            ClipboardContentType.URL,
+            "label for android",
+        )
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['content'] == 'aHR0cDovL2FwcGl1bS5pby8='
-        assert d['contentType'] == 'url'
-        assert d['label'] == 'label for android'
+        assert d["content"] == "aHR0cDovL2FwcGl1bS5pby8="
+        assert d["contentType"] == "url"
+        assert d["label"] == "label for android"
 
     @httpretty.activate
     def test_set_clipboard_text(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/set_clipboard'), body='{"value": ""}'
+            httpretty.POST,
+            appium_command("/session/1234567890/appium/device/set_clipboard"),
+            body='{"value": ""}',
         )
-        driver.set_clipboard_text('hello')
+        driver.set_clipboard_text("hello")
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['content'] == 'aGVsbG8='
-        assert d['contentType'] == 'plaintext'
+        assert d["content"] == "aGVsbG8="
+        assert d["contentType"] == "plaintext"

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-USE_PREBUILT_WDA = 'usePrebuiltWDA'
+USE_PREBUILT_WDA = "usePrebuiltWDA"
 
 
 class UsePrebuiltWdaOption(SupportsCapabilities):

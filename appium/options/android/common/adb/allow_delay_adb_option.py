@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ALLOW_DELAY_ADB = 'allowDelayAdb'
+ALLOW_DELAY_ADB = "allowDelayAdb"
 
 
 class AllowDelayAdbOption(SupportsCapabilities):

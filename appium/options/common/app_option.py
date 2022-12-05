@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-APP = 'app'
+APP = "app"
 
 
 class AppOption(SupportsCapabilities):

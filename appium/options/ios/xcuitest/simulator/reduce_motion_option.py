@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-REDUCE_MOTION = 'reduceMotion'
+REDUCE_MOTION = "reduceMotion"
 
 
 class ReduceMotionOption(SupportsCapabilities):

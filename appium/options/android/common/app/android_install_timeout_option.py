@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ANDROID_INSTALL_TIMEOUT = 'androidInstallTimeout'
+ANDROID_INSTALL_TIMEOUT = "androidInstallTimeout"
 
 
 class AndroidInstallTimeoutOption(SupportsCapabilities):
@@ -39,5 +39,8 @@ class AndroidInstallTimeoutOption(SupportsCapabilities):
         90000 ms by default
         """
         self.set_capability(
-            ANDROID_INSTALL_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            ANDROID_INSTALL_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

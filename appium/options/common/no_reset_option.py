@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-NO_RESET = 'noReset'
+NO_RESET = "noReset"
 
 
 class NoResetOption(SupportsCapabilities):

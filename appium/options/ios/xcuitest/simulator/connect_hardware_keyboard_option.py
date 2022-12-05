@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CONNECT_HARDWARE_KEYBOARD = 'connectHardwareKeyboard'
+CONNECT_HARDWARE_KEYBOARD = "connectHardwareKeyboard"
 
 
 class ConnectHardwareKeyboardOption(SupportsCapabilities):

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-USE_XCTESTRUN_FILE = 'useXctestrunFile'
+USE_XCTESTRUN_FILE = "useXctestrunFile"
 
 
 class UseXctestrunFileOption(SupportsCapabilities):

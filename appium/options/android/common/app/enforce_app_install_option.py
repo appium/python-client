@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ENFORCE_APP_INSTALL = 'enforceAppInstall'
+ENFORCE_APP_INSTALL = "enforceAppInstall"
 
 
 class EnforceAppInstallOption(SupportsCapabilities):

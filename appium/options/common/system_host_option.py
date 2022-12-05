@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SYSTEM_HOST = 'systemHost'
+SYSTEM_HOST = "systemHost"
 
 
 class SystemHostOption(SupportsCapabilities):

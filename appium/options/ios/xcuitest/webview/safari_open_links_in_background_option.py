@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SAFARI_OPEN_LINKS_IN_BACKGROUND = 'safariOpenLinksInBackground'
+SAFARI_OPEN_LINKS_IN_BACKGROUND = "safariOpenLinksInBackground"
 
 
 class SafariOpenLinksInBackgroundOption(SupportsCapabilities):

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DISABLE_AUTOMATIC_SCREENSHOTS = 'disableAutomaticScreenshots'
+DISABLE_AUTOMATIC_SCREENSHOTS = "disableAutomaticScreenshots"
 
 
 class DisableAutomaticScreenshotsOption(SupportsCapabilities):

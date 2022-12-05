@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CLEAR_DEVICE_LOGS_ON_START = 'clearDeviceLogsOnStart'
+CLEAR_DEVICE_LOGS_ON_START = "clearDeviceLogsOnStart"
 
 
 class ClearDeviceLogsOnStartOption(SupportsCapabilities):

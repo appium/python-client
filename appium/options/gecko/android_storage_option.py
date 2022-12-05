@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ANDROID_STORAGE = 'androidStorage'
+ANDROID_STORAGE = "androidStorage"
 
 
 class AndroidStorageOption(SupportsCapabilities):

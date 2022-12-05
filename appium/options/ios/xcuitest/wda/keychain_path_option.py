@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-KEYCHAIN_PATH = 'keychainPath'
+KEYCHAIN_PATH = "keychainPath"
 
 
 class KeychainPathOption(SupportsCapabilities):

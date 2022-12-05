@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CUSTOM_SSL_CERT = 'customSSLCert'
+CUSTOM_SSL_CERT = "customSSLCert"
 
 
 class CustomSslCertOption(SupportsCapabilities):

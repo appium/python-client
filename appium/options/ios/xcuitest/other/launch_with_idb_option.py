@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-LAUNCH_WITH_IDB = 'launchWithIDB'
+LAUNCH_WITH_IDB = "launchWithIDB"
 
 
 class LaunchWithIdbOption(SupportsCapabilities):

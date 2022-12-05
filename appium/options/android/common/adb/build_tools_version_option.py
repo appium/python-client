@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-BUILD_TOOLS_VERSION = 'buildToolsVersion'
+BUILD_TOOLS_VERSION = "buildToolsVersion"
 
 
 class BuildToolsVersionOption(SupportsCapabilities):

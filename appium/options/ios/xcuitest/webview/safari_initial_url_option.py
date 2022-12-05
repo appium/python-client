@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SAFARI_INITIAL_URL = 'safariInitialUrl'
+SAFARI_INITIAL_URL = "safariInitialUrl"
 
 
 class SafariInitialUrlOption(SupportsCapabilities):

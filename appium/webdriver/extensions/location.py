@@ -18,7 +18,7 @@ from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class Location(CanExecuteCommands):
@@ -57,14 +57,14 @@ class Location(CanExecuteCommands):
             "location": {
                 "latitude": latitude,
                 "longitude": longitude,
-            }
+            },
         }
         if altitude is not None:
-            data['location']['altitude'] = altitude
+            data["location"]["altitude"] = altitude
         if speed is not None:
-            data['location']['speed'] = speed
+            data["location"]["speed"] = speed
         if satellites is not None:
-            data['location']['satellites'] = satellites
+            data["location"]["satellites"] = satellites
         self.execute(Command.SET_LOCATION, data)
         return self
 
@@ -78,15 +78,17 @@ class Location(CanExecuteCommands):
                 - longitude (float)
                 - altitude (float)
         """
-        return self.execute(Command.GET_LOCATION)['value']  # pylint: disable=unsubscriptable-object
+        return self.execute(Command.GET_LOCATION)[
+            "value"
+        ]  # pylint: disable=unsubscriptable-object
 
     def _add_commands(self) -> None:
         """Add location endpoints. They are not int w3c spec."""
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
         commands[Command.TOGGLE_LOCATION_SERVICES] = (
-            'POST',
-            '/session/$sessionId/appium/device/toggle_location_services',
+            "POST",
+            "/session/$sessionId/appium/device/toggle_location_services",
         )
-        commands[Command.GET_LOCATION] = ('GET', '/session/$sessionId/location')
-        commands[Command.SET_LOCATION] = ('POST', '/session/$sessionId/location')
+        commands[Command.GET_LOCATION] = ("GET", "/session/$sessionId/location")
+        commands[Command.SET_LOCATION] = ("POST", "/session/$sessionId/location")

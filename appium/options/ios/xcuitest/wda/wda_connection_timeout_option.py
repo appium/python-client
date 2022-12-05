@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WDA_CONNECTION_TIMEOUT = 'wdaConnectionTimeout'
+WDA_CONNECTION_TIMEOUT = "wdaConnectionTimeout"
 
 
 class WdaConnectionTimeoutOption(SupportsCapabilities):
@@ -39,5 +39,8 @@ class WdaConnectionTimeoutOption(SupportsCapabilities):
         Defaults to 240000ms.
         """
         self.set_capability(
-            WDA_CONNECTION_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            WDA_CONNECTION_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

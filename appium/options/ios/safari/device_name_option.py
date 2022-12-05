@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DEVICE_NAME = 'safari:deviceName'
+DEVICE_NAME = "safari:deviceName"
 
 
 class DeviceNameOption(SupportsCapabilities):
@@ -33,7 +33,7 @@ class DeviceNameOption(SupportsCapabilities):
     @device_name.setter
     def device_name(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose device name
+        Safaridriver will only create a session using hosts whose device name
         matches the value of safari:deviceName. Device names are compared
         case-insensitively. NOTE: Device names for connected devices are shown in
         iTunes. If Xcode is installed, device names for connected devices are available

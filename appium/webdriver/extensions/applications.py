@@ -18,7 +18,7 @@ from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class Applications(CanExecuteCommands):
@@ -32,7 +32,7 @@ class Applications(CanExecuteCommands):
             Union['WebDriver', 'Applications']: Self instance
         """
         data = {
-            'seconds': seconds,
+            "seconds": seconds,
         }
         self.execute(Command.BACKGROUND, data)
         return self
@@ -47,9 +47,9 @@ class Applications(CanExecuteCommands):
             `True` if app is installed
         """
         data = {
-            'bundleId': bundle_id,
+            "bundleId": bundle_id,
         }
-        return self.execute(Command.IS_APP_INSTALLED, data)['value']
+        return self.execute(Command.IS_APP_INSTALLED, data)["value"]
 
     def install_app(self: T, app_path: str, **options: Any) -> T:
         """Install the application found at `app_path` on the device.
@@ -72,10 +72,10 @@ class Applications(CanExecuteCommands):
             Union['WebDriver', 'Applications']: Self instance
         """
         data: Dict[str, Any] = {
-            'appPath': app_path,
+            "appPath": app_path,
         }
         if options:
-            data.update({'options': options})
+            data.update({"options": options})
         self.execute(Command.INSTALL_APP, data)
         return self
 
@@ -95,10 +95,10 @@ class Applications(CanExecuteCommands):
             Union['WebDriver', 'Applications']: Self instance
         """
         data: Dict[str, Any] = {
-            'appId': app_id,
+            "appId": app_id,
         }
         if options:
-            data.update({'options': options})
+            data.update({"options": options})
         self.execute(Command.REMOVE_APP, data)
         return self
 
@@ -111,7 +111,7 @@ class Applications(CanExecuteCommands):
         """
         warnings.warn(
             'The "launchApp" API is deprecated and will be removed in future versions. '
-            'See https://github.com/appium/appium/issues/15807',
+            "See https://github.com/appium/appium/issues/15807",
             DeprecationWarning,
         )
 
@@ -128,7 +128,7 @@ class Applications(CanExecuteCommands):
         """
         warnings.warn(
             'The "closeApp" API is deprecated and will be removed in future versions. '
-            'See https://github.com/appium/appium/issues/15807',
+            "See https://github.com/appium/appium/issues/15807",
             DeprecationWarning,
         )
 
@@ -149,11 +149,11 @@ class Applications(CanExecuteCommands):
             True if the app has been successfully terminated
         """
         data: Dict[str, Any] = {
-            'appId': app_id,
+            "appId": app_id,
         }
         if options:
-            data.update({'options': options})
-        return self.execute(Command.TERMINATE_APP, data)['value']
+            data.update({"options": options})
+        return self.execute(Command.TERMINATE_APP, data)["value"]
 
     def activate_app(self: T, app_id: str) -> T:
         """Activates the application if it is not running
@@ -166,7 +166,7 @@ class Applications(CanExecuteCommands):
             Union['WebDriver', 'Applications']: Self instance
         """
         data = {
-            'appId': app_id,
+            "appId": app_id,
         }
         self.execute(Command.ACTIVATE_APP, data)
         return self
@@ -182,11 +182,15 @@ class Applications(CanExecuteCommands):
             class for more details.
         """
         data = {
-            'appId': app_id,
+            "appId": app_id,
         }
-        return self.execute(Command.QUERY_APP_STATE, data)['value']
+        return self.execute(Command.QUERY_APP_STATE, data)["value"]
 
-    def app_strings(self, language: Union[str, None] = None, string_file: Union[str, None] = None) -> Dict[str, str]:
+    def app_strings(
+        self,
+        language: Union[str, None] = None,
+        string_file: Union[str, None] = None,
+    ) -> Dict[str, str]:
         """Returns the application strings from the device for the specified
         language.
 
@@ -199,10 +203,10 @@ class Applications(CanExecuteCommands):
         """
         data = {}
         if language is not None:
-            data['language'] = language
+            data["language"] = language
         if string_file is not None:
-            data['stringFile'] = string_file
-        return self.execute(Command.GET_APP_STRINGS, data)['value']
+            data["stringFile"] = string_file
+        return self.execute(Command.GET_APP_STRINGS, data)["value"]
 
     def reset(self: T) -> T:
         """Resets the current application on the device.
@@ -213,7 +217,7 @@ class Applications(CanExecuteCommands):
         """
         warnings.warn(
             'The "reset" API is deprecated and will be removed in future versions. '
-            'See https://github.com/appium/appium/issues/15807',
+            "See https://github.com/appium/appium/issues/15807",
             DeprecationWarning,
         )
 
@@ -223,26 +227,38 @@ class Applications(CanExecuteCommands):
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
-        commands[Command.BACKGROUND] = ('POST', '/session/$sessionId/appium/app/background')
-        commands[Command.IS_APP_INSTALLED] = (
-            'POST',
-            '/session/$sessionId/appium/device/app_installed',
+        commands[Command.BACKGROUND] = (
+            "POST",
+            "/session/$sessionId/appium/app/background",
         )
-        commands[Command.INSTALL_APP] = ('POST', '/session/$sessionId/appium/device/install_app')
-        commands[Command.REMOVE_APP] = ('POST', '/session/$sessionId/appium/device/remove_app')
+        commands[Command.IS_APP_INSTALLED] = (
+            "POST",
+            "/session/$sessionId/appium/device/app_installed",
+        )
+        commands[Command.INSTALL_APP] = (
+            "POST",
+            "/session/$sessionId/appium/device/install_app",
+        )
+        commands[Command.REMOVE_APP] = (
+            "POST",
+            "/session/$sessionId/appium/device/remove_app",
+        )
         commands[Command.TERMINATE_APP] = (
-            'POST',
-            '/session/$sessionId/appium/device/terminate_app',
+            "POST",
+            "/session/$sessionId/appium/device/terminate_app",
         )
         commands[Command.ACTIVATE_APP] = (
-            'POST',
-            '/session/$sessionId/appium/device/activate_app',
+            "POST",
+            "/session/$sessionId/appium/device/activate_app",
         )
         commands[Command.QUERY_APP_STATE] = (
-            'POST',
-            '/session/$sessionId/appium/device/app_state',
+            "POST",
+            "/session/$sessionId/appium/device/app_state",
         )
-        commands[Command.GET_APP_STRINGS] = ('POST', '/session/$sessionId/appium/app/strings')
-        commands[Command.RESET] = ('POST', '/session/$sessionId/appium/app/reset')
-        commands[Command.LAUNCH_APP] = ('POST', '/session/$sessionId/appium/app/launch')
-        commands[Command.CLOSE_APP] = ('POST', '/session/$sessionId/appium/app/close')
+        commands[Command.GET_APP_STRINGS] = (
+            "POST",
+            "/session/$sessionId/appium/app/strings",
+        )
+        commands[Command.RESET] = ("POST", "/session/$sessionId/appium/app/reset")
+        commands[Command.LAUNCH_APP] = ("POST", "/session/$sessionId/appium/app/launch")
+        commands[Command.CLOSE_APP] = ("POST", "/session/$sessionId/appium/app/close")

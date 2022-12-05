@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SIMULATOR_WINDOW_CENTER = 'simulatorWindowCenter'
+SIMULATOR_WINDOW_CENTER = "simulatorWindowCenter"
 
 
 class SimulatorWindowCenterOption(SupportsCapabilities):

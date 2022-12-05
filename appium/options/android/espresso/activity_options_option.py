@@ -19,7 +19,7 @@ from typing import Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ACTIVITY_OPTIONS = 'activityOptions'
+ACTIVITY_OPTIONS = "activityOptions"
 
 
 class ActivityOptionsOption(SupportsCapabilities):

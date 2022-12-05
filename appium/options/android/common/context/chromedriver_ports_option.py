@@ -19,7 +19,7 @@ from typing import List, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CHROMEDRIVER_PORTS = 'chromedriverPorts'
+CHROMEDRIVER_PORTS = "chromedriverPorts"
 
 
 class ChromedriverPortsOption(SupportsCapabilities):

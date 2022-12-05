@@ -31,7 +31,7 @@ class Session(CanExecuteCommands):
         Returns:
             `dict`: containing information from the current session
         """
-        return self.execute(Command.GET_SESSION)['value']
+        return self.execute(Command.GET_SESSION)["value"]
 
     @property
     def all_sessions(self) -> List[Dict[str, Any]]:
@@ -43,7 +43,7 @@ class Session(CanExecuteCommands):
         Returns:
             :obj:`list` of :obj:`dict`: containing all open sessions
         """
-        return self.execute(Command.GET_ALL_SESSIONS)['value']
+        return self.execute(Command.GET_ALL_SESSIONS)["value"]
 
     @property
     def events(self) -> Dict:
@@ -57,13 +57,15 @@ class Session(CanExecuteCommands):
         """
         try:
             session = self.session
-            return session['events']
+            return session["events"]
         except Exception as e:
-            logger.warning('Could not find events information in the session. Error: %s', e)
+            logger.warning(
+                "Could not find events information in the session. Error: %s", e
+            )
             return {}
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
-        commands[Command.GET_SESSION] = ('GET', '/session/$sessionId')
-        commands[Command.GET_ALL_SESSIONS] = ('GET', '/sessions')
+        commands[Command.GET_SESSION] = ("GET", "/session/$sessionId")
+        commands[Command.GET_ALL_SESSIONS] = ("GET", "/sessions")

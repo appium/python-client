@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CHROMEDRIVER_CHROME_MAPPING_FILE = 'chromedriverChromeMappingFile'
+CHROMEDRIVER_CHROME_MAPPING_FILE = "chromedriverChromeMappingFile"
 
 
 class ChromedriverChromeMappingFileOption(SupportsCapabilities):

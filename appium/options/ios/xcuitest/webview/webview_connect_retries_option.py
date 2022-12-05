@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WEBVIEW_CONNECT_RETRIES = 'webviewConnectRetries'
+WEBVIEW_CONNECT_RETRIES = "webviewConnectRetries"
 
 
 class WebviewConnectRetriesOption(SupportsCapabilities):

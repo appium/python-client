@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_CATEGORY = 'intentCategory'
+INTENT_CATEGORY = "intentCategory"
 
 
 class IntentCategoryOption(SupportsCapabilities):

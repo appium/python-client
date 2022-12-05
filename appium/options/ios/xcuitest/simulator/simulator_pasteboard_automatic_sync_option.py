@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC = 'simulatorPasteboardAutomaticSync'
+SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC = "simulatorPasteboardAutomaticSync"
 
 
 class SimulatorPasteboardAutomaticSyncOption(SupportsCapabilities):

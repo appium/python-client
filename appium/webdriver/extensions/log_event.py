@@ -18,11 +18,13 @@ from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class LogEvent(CanExecuteCommands):
-    def get_events(self, type: Union[List[str], None] = None) -> Dict[str, Union[str, int]]:
+    def get_events(
+        self, type: Union[List[str], None] = None
+    ) -> Dict[str, Union[str, int]]:
         """Retrieves events information from the current session
         (Since Appium 1.16.0)
 
@@ -42,8 +44,8 @@ class LogEvent(CanExecuteCommands):
         """
         data = {}
         if type is not None:
-            data['type'] = type
-        return self.execute(Command.GET_EVENTS, data)['value']
+            data["type"] = type
+        return self.execute(Command.GET_EVENTS, data)["value"]
 
     def log_event(self: T, vendor: str, event: str) -> T:
         """Log a custom event on the Appium server.
@@ -59,12 +61,12 @@ class LogEvent(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'LogEvent']: Self instance
         """
-        data = {'vendor': vendor, 'event': event}
+        data = {"vendor": vendor, "event": event}
         self.execute(Command.LOG_EVENT, data)
         return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
-        commands[Command.GET_EVENTS] = ('POST', '/session/$sessionId/appium/events')
-        commands[Command.LOG_EVENT] = ('POST', '/session/$sessionId/appium/log_event')
+        commands[Command.GET_EVENTS] = ("POST", "/session/$sessionId/appium/events")
+        commands[Command.LOG_EVENT] = ("POST", "/session/$sessionId/appium/log_event")

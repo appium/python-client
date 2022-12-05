@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-ORIENTATION = 'orientation'
+ORIENTATION = "orientation"
 
 
 class OrientationOption(SupportsCapabilities):

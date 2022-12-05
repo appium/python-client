@@ -24,22 +24,30 @@ from .helper.desired_capabilities import get_desired_capabilities
 class TestSafari:
     def setup_method(self) -> None:
         caps = get_desired_capabilities()
-        caps.update({'browserName': 'safari', 'nativeWebTap': True, 'safariIgnoreFraudWarning': True})
-        self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
+        caps.update(
+            {
+                "browserName": "safari",
+                "nativeWebTap": True,
+                "safariIgnoreFraudWarning": True,
+            }
+        )
+        self.driver = webdriver.Remote(
+            SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps)
+        )
 
     def teardown_method(self) -> None:
         self.driver.quit()
 
     def test_context(self) -> None:
-        assert 'NATIVE_APP' == self.driver.contexts[0]
-        assert self.driver.contexts[1].startswith('WEBVIEW_')
-        assert 'WEBVIEW_' in self.driver.current_context
+        assert "NATIVE_APP" == self.driver.contexts[0]
+        assert self.driver.contexts[1].startswith("WEBVIEW_")
+        assert "WEBVIEW_" in self.driver.current_context
 
     def test_get(self) -> None:
         self.driver.get("http://google.com")
         for _ in range(5):
             time.sleep(0.5)
-            if 'Google' == self.driver.title:
+            if "Google" == self.driver.title:
                 return
 
-        assert False, 'The title was wrong'
+        assert False, "The title was wrong"

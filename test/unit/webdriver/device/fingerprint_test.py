@@ -14,20 +14,24 @@
 
 import httpretty
 
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+)
 
 
-class TestWebDriverFingerprint():
+class TestWebDriverFingerprint:
     @httpretty.activate
     def test_finger_print(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/finger_print'),
+            appium_command("/session/1234567890/appium/device/finger_print"),
             # body is None
         )
 
         assert driver.finger_print(1) is None
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['fingerprintId'] == 1
+        assert d["fingerprintId"] == 1

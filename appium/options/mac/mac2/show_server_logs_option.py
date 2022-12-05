@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SHOW_SERVER_LOGS = 'showServerLogs'
+SHOW_SERVER_LOGS = "showServerLogs"
 
 
 class ShowServerLogsOption(SupportsCapabilities):

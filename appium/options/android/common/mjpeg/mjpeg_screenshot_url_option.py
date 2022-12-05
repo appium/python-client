@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-MJPEG_SCREENSHOT_URL = 'mjpegScreenshotUrl'
+MJPEG_SCREENSHOT_URL = "mjpegScreenshotUrl"
 
 
 class MjpegScreenshotUrlOption(SupportsCapabilities):

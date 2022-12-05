@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-KEYSTORE_PATH = 'keystorePath'
+KEYSTORE_PATH = "keystorePath"
 
 
 class KeystorePathOption(SupportsCapabilities):

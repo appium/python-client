@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-SKIP_LOG_CAPTURE = 'skipLogCapture'
+SKIP_LOG_CAPTURE = "skipLogCapture"
 
 
 class SkipLogCaptureOption(SupportsCapabilities):

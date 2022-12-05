@@ -17,7 +17,7 @@ from typing import TypeVar
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class Sms(CanExecuteCommands):
@@ -36,10 +36,15 @@ class Sms(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Sms']: Self instance
         """
-        self.execute(Command.SEND_SMS, {'phoneNumber': phone_number, 'message': message})
+        self.execute(
+            Command.SEND_SMS, {"phoneNumber": phone_number, "message": message}
+        )
         return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
-        commands[Command.SEND_SMS] = ('POST', '/session/$sessionId/appium/device/send_sms')
+        commands[Command.SEND_SMS] = (
+            "POST",
+            "/session/$sessionId/appium/device/send_sms",
+        )

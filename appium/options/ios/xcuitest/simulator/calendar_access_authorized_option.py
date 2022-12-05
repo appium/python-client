@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CALENDAR_ACCESS_AUTHORIZED = 'calendarAccessAuthorized'
+CALENDAR_ACCESS_AUTHORIZED = "calendarAccessAuthorized"
 
 
 class CalendarAccessAuthorizedOption(SupportsCapabilities):

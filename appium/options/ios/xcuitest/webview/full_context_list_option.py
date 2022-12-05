@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-FULL_CONTEXT_LIST = 'fullContextList'
+FULL_CONTEXT_LIST = "fullContextList"
 
 
 class FullContextListOption(SupportsCapabilities):

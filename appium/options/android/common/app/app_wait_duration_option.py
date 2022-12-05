@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-APP_WAIT_DURATION = 'appWaitDuration'
+APP_WAIT_DURATION = "appWaitDuration"
 
 
 class AppWaitDurationOption(SupportsCapabilities):
@@ -39,5 +39,8 @@ class AppWaitDurationOption(SupportsCapabilities):
         (e.g. an activity returns the control to the caller). 20000 ms by default.
         """
         self.set_capability(
-            APP_WAIT_DURATION, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            APP_WAIT_DURATION,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

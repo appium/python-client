@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ALLOW_TEST_PACKAGES = 'allowTestPackages'
+ALLOW_TEST_PACKAGES = "allowTestPackages"
 
 
 class AllowTestPackagesOption(SupportsCapabilities):

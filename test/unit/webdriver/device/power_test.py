@@ -16,30 +16,34 @@ import httpretty
 
 from appium.webdriver.extensions.android.power import Power
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+)
 
 
-class TestWebDriverPower():
+class TestWebDriverPower:
     @httpretty.activate
     def test_set_power_capacity(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/power_capacity'),
+            appium_command("/session/1234567890/appium/device/power_capacity"),
         )
         assert isinstance(driver.set_power_capacity(50), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['percent'] == 50
+        assert d["percent"] == 50
 
     @httpretty.activate
     def test_set_power_ac(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/power_ac'),
+            appium_command("/session/1234567890/appium/device/power_ac"),
         )
         assert isinstance(driver.set_power_ac(Power.AC_ON), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['state'] == Power.AC_ON
+        assert d["state"] == Power.AC_ON

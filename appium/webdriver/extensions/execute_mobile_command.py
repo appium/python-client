@@ -16,7 +16,7 @@ from typing import Any, Dict, TypeVar
 
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
-T = TypeVar('T', bound=CanExecuteScripts)
+T = TypeVar("T", bound=CanExecuteScripts)
 
 
 class ExecuteMobileCommand(CanExecuteScripts):
@@ -34,8 +34,8 @@ class ExecuteMobileCommand(CanExecuteScripts):
             Union['WebDriver', 'ExecuteMobileCommand']: Self instance
 
         """
-        data = {'name': button_name}
-        self.execute_script('mobile: pressButton', data)
+        data = {"name": button_name}
+        self.execute_script("mobile: pressButton", data)
         return self
 
     @property
@@ -59,4 +59,4 @@ class ExecuteMobileCommand(CanExecuteScripts):
                         5: Full
                         Any other value means the state cannot be retrieved
         """
-        return self.execute_script('mobile: batteryInfo')
+        return self.execute_script("mobile: batteryInfo")

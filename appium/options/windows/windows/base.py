@@ -92,6 +92,6 @@ class WindowsOptions(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AUTOMATION_NAME: 'Windows',
-            PLATFORM_NAME: 'Windows',
+            AUTOMATION_NAME: "Windows",
+            PLATFORM_NAME: "Windows",
         }

@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WAIT_FOR_IDLE_TIMEOUT = 'waitForIdleTimeout'
+WAIT_FOR_IDLE_TIMEOUT = "waitForIdleTimeout"
 
 
 class WaitForIdleTimeoutOption(SupportsCapabilities):
@@ -42,4 +42,7 @@ class WaitForIdleTimeoutOption(SupportsCapabilities):
         (not recommended) and has the same effect as setting waitForQuiescence to false.
         Available since Appium 1.20.0.
         """
-        self.set_capability(WAIT_FOR_IDLE_TIMEOUT, value.total_seconds() if isinstance(value, timedelta) else value)
+        self.set_capability(
+            WAIT_FOR_IDLE_TIMEOUT,
+            value.total_seconds() if isinstance(value, timedelta) else value,
+        )

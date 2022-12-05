@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DERIVED_DATA_PATH = 'derivedDataPath'
+DERIVED_DATA_PATH = "derivedDataPath"
 
 
 class DerivedDataPathOption(SupportsCapabilities):

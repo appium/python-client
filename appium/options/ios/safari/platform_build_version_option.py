@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-PLATFORM_BUILD_VERSION = 'safari:platformBuildVersion'
+PLATFORM_BUILD_VERSION = "safari:platformBuildVersion"
 
 
 class PlatformBuildVersionOption(SupportsCapabilities):
@@ -33,7 +33,7 @@ class PlatformBuildVersionOption(SupportsCapabilities):
     @platform_build_version.setter
     def platform_build_version(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose OS build
+        Safaridriver will only create a session using hosts whose OS build
         version matches the value of safari:platformBuildVersion. Example
         of a macOS build version is '18E193'. On macOS, the OS build version
         can be determined by running the sw_vers(1) utility.

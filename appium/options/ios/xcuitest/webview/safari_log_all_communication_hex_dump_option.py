@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP = 'safariLogAllCommunicationHexDump'
+SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP = "safariLogAllCommunicationHexDump"
 
 
 class SafariLogAllCommunicationHexDumpOption(SupportsCapabilities):

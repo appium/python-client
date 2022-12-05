@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-AUTOMATIC_PROFILING = 'safari:automaticProfiling'
+AUTOMATIC_PROFILING = "safari:automaticProfiling"
 
 
 class AutomaticProfilingOption(SupportsCapabilities):

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-PLATFORM_VERSION = 'safari:platformVersion'
+PLATFORM_VERSION = "safari:platformVersion"
 
 
 class PlatformVersionOption(SupportsCapabilities):
@@ -33,7 +33,7 @@ class PlatformVersionOption(SupportsCapabilities):
     @platform_version.setter
     def platform_version(self, value: str) -> None:
         """
-        safaridriver will only create a session using hosts whose OS
+        Safaridriver will only create a session using hosts whose OS
         version matches the value of safari:platformVersion. OS version
         numbers are prefix-matched. For example, if the value of safari:platformVersion
         is '12', this will allow hosts with an OS version of '12.0' or '12.1' but not '10.12'.

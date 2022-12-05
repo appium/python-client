@@ -27,9 +27,9 @@ from .new_command_timeout_option import NewCommandTimeoutOption
 from .no_reset_option import NoResetOption
 from .print_page_source_on_find_failure_option import PrintPageSourceOnFindFailureOption
 
-APPIUM_PREFIX = 'appium:'
-T = TypeVar('T', bound='AppiumOptions')
-PLATFORM_NAME = 'platformName'
+APPIUM_PREFIX = "appium:"
+T = TypeVar("T", bound="AppiumOptions")
+PLATFORM_NAME = "platformName"
 
 
 class AppiumOptions(
@@ -44,21 +44,21 @@ class AppiumOptions(
     _caps: Dict
     W3C_CAPABILITY_NAMES = frozenset(
         [
-            'acceptInsecureCerts',
-            'browserName',
-            'browserVersion',
+            "acceptInsecureCerts",
+            "browserName",
+            "browserVersion",
             PLATFORM_NAME,
-            'pageLoadStrategy',
-            'proxy',
-            'setWindowRect',
-            'timeouts',
-            'unhandledPromptBehavior',
+            "pageLoadStrategy",
+            "proxy",
+            "setWindowRect",
+            "timeouts",
+            "unhandledPromptBehavior",
         ]
     )
     _OSS_W3C_CONVERSION = {
-        'acceptSslCerts': 'acceptInsecureCerts',
-        'version': 'browserVersion',
-        'platform': PLATFORM_NAME,
+        "acceptSslCerts": "acceptInsecureCerts",
+        "version": "browserVersion",
+        "platform": PLATFORM_NAME,
     }
 
     # noinspection PyMissingConstructor
@@ -68,7 +68,11 @@ class AppiumOptions(
         self._ignore_local_proxy = False
 
     def set_capability(self: T, name: str, value: Any) -> T:
-        w3c_name = name if name in self.W3C_CAPABILITY_NAMES or ':' in name else f'{APPIUM_PREFIX}{name}'
+        w3c_name = (
+            name
+            if name in self.W3C_CAPABILITY_NAMES or ":" in name
+            else f"{APPIUM_PREFIX}{name}"
+        )
         if value is None:
             if w3c_name in self._caps:
                 del self._caps[w3c_name]
@@ -78,7 +82,11 @@ class AppiumOptions(
 
     def get_capability(self, name: str) -> Any:
         """Fetches capability value or None if the capability is not set"""
-        return self._caps[name] if name in self._caps else self._caps.get(f'{APPIUM_PREFIX}{name}')
+        return (
+            self._caps[name]
+            if name in self._caps
+            else self._caps.get(f"{APPIUM_PREFIX}{name}")
+        )
 
     def load_capabilities(self: T, caps: Dict[str, Any]) -> T:
         """Sets multiple capabilities"""
@@ -99,10 +107,12 @@ class AppiumOptions(
             key = AppiumOptions._OSS_W3C_CONVERSION.get(k, k)
             if key in AppiumOptions.W3C_CAPABILITY_NAMES:
                 return key
-            return key if ':' in key else f'{APPIUM_PREFIX}{key}'
+            return key if ":" in key else f"{APPIUM_PREFIX}{key}"
 
-        processed_caps = {process_key(k): v for k, v in copy.deepcopy(capabilities).items()}
-        return {'capabilities': {'firstMatch': [{}], 'alwaysMatch': processed_caps}}
+        processed_caps = {
+            process_key(k): v for k, v in copy.deepcopy(capabilities).items()
+        }
+        return {"capabilities": {"firstMatch": [{}], "alwaysMatch": processed_caps}}
 
     def to_w3c(self) -> Dict:
         """

@@ -46,6 +46,6 @@ class SafariOptions(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            PLATFORM_NAME: 'iOS',
-            AUTOMATION_NAME: 'Safari',
+            PLATFORM_NAME: "iOS",
+            AUTOMATION_NAME: "Safari",
         }

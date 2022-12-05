@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-AUTO_DISMISS_ALERTS = 'autoDismissAlerts'
+AUTO_DISMISS_ALERTS = "autoDismissAlerts"
 
 
 class AutoDismissAlertsOption(SupportsCapabilities):

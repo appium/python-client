@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-FULL_RESET = 'fullReset'
+FULL_RESET = "fullReset"
 
 
 class FullResetOption(SupportsCapabilities):

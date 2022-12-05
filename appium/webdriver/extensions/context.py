@@ -31,7 +31,7 @@ class Context(CanExecuteCommands):
             :obj:`list` of :obj:`str`: The contexts within the current session
 
         """
-        return self.execute(Command.CONTEXTS)['value']
+        return self.execute(Command.CONTEXTS)["value"]
 
     @property
     def current_context(self) -> str:
@@ -43,7 +43,7 @@ class Context(CanExecuteCommands):
         Return:
             str: The context of the current session
         """
-        return self.execute(Command.GET_CURRENT_CONTEXT)['value']
+        return self.execute(Command.GET_CURRENT_CONTEXT)["value"]
 
     @property
     def context(self) -> str:
@@ -60,6 +60,6 @@ class Context(CanExecuteCommands):
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
-        commands[Command.CONTEXTS] = ('GET', '/session/$sessionId/contexts')
-        commands[Command.GET_CURRENT_CONTEXT] = ('GET', '/session/$sessionId/context')
-        commands[Command.SWITCH_TO_CONTEXT] = ('POST', '/session/$sessionId/context')
+        commands[Command.CONTEXTS] = ("GET", "/session/$sessionId/contexts")
+        commands[Command.GET_CURRENT_CONTEXT] = ("GET", "/session/$sessionId/context")
+        commands[Command.SWITCH_TO_CONTEXT] = ("POST", "/session/$sessionId/context")

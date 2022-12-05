@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-USE_NATIVE_CACHING_STRATEGY = 'useNativeCachingStrategy'
+USE_NATIVE_CACHING_STRATEGY = "useNativeCachingStrategy"
 
 
 class UseNativeCachingStrategyOption(SupportsCapabilities):

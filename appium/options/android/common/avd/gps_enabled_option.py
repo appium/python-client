@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-GPS_ENABLED = 'gpsEnabled'
+GPS_ENABLED = "gpsEnabled"
 
 
 class GpsEnabledOption(SupportsCapabilities):

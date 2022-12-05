@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WDA_LOCAL_PORT = 'wdaLocalPort'
+WDA_LOCAL_PORT = "wdaLocalPort"
 
 
 class WdaLocalPortOption(SupportsCapabilities):

@@ -18,7 +18,7 @@ from .helper.test_helper import BaseTestCase
 
 class TestLogEvent(BaseTestCase):
     def test_log_event(self) -> None:
-        vendor = 'appium'
-        event = 'funEvent'
+        vendor = "appium"
+        event = "funEvent"
         self.driver.log_event(vendor, event)
-        assert f'{vendor}:{event}' in self.driver.get_events().keys()
+        assert f"{vendor}:{event}" in self.driver.get_events().keys()

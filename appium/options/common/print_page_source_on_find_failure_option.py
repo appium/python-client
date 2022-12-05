@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-PRINT_PAGE_SOURCE_ON_FIND_FAILURE = 'printPageSourceOnFindFailure'
+PRINT_PAGE_SOURCE_ON_FIND_FAILURE = "printPageSourceOnFindFailure"
 
 
 class PrintPageSourceOnFindFailureOption(SupportsCapabilities):

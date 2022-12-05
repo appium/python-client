@@ -18,7 +18,7 @@ from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class Settings(CanExecuteCommands):
@@ -31,7 +31,7 @@ class Settings(CanExecuteCommands):
         Returns:
             Current settings
         """
-        return self.execute(Command.GET_SETTINGS, {})['value']
+        return self.execute(Command.GET_SETTINGS, {})["value"]
 
     def update_settings(self: T, settings: Dict[str, Any]) -> T:
         """Set settings for the current session.
@@ -49,5 +49,8 @@ class Settings(CanExecuteCommands):
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
-        commands[Command.GET_SETTINGS] = ('GET', '/session/$sessionId/appium/settings')
-        commands[Command.UPDATE_SETTINGS] = ('POST', '/session/$sessionId/appium/settings')
+        commands[Command.GET_SETTINGS] = ("GET", "/session/$sessionId/appium/settings")
+        commands[Command.UPDATE_SETTINGS] = (
+            "POST",
+            "/session/$sessionId/appium/settings",
+        )

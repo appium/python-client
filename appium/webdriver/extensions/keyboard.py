@@ -18,12 +18,15 @@ from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class Keyboard(CanExecuteCommands):
     def hide_keyboard(
-        self: T, key_name: Optional[str] = None, key: Optional[str] = None, strategy: Optional[str] = None
+        self: T,
+        key_name: Optional[str] = None,
+        key: Optional[str] = None,
+        strategy: Optional[str] = None,
     ) -> T:
         """Hides the software keyboard on the device.
 
@@ -40,12 +43,12 @@ class Keyboard(CanExecuteCommands):
         """
         data: Dict[str, Optional[str]] = {}
         if key_name is not None:
-            data['keyName'] = key_name
+            data["keyName"] = key_name
         elif key is not None:
-            data['key'] = key
+            data["key"] = key
         elif strategy is None:
-            strategy = 'tapOutside'
-        data['strategy'] = strategy
+            strategy = "tapOutside"
+        data["strategy"] = strategy
         self.execute(Command.HIDE_KEYBOARD, data)
         return self
 
@@ -55,7 +58,7 @@ class Keyboard(CanExecuteCommands):
         Returns:
             `True` if keyboard is shown
         """
-        return self.execute(Command.IS_KEYBOARD_SHOWN)['value']
+        return self.execute(Command.IS_KEYBOARD_SHOWN)["value"]
 
     def keyevent(self: T, keycode: int, metastate: Optional[int] = None) -> T:
         """Sends a keycode to the device.
@@ -71,14 +74,19 @@ class Keyboard(CanExecuteCommands):
             Union['WebDriver', 'Keyboard']: Self instance
         """
         data = {
-            'keycode': keycode,
+            "keycode": keycode,
         }
         if metastate is not None:
-            data['metastate'] = metastate
+            data["metastate"] = metastate
         self.execute(Command.KEY_EVENT, data)
         return self
 
-    def press_keycode(self: T, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> T:
+    def press_keycode(
+        self: T,
+        keycode: int,
+        metastate: Optional[int] = None,
+        flags: Optional[int] = None,
+    ) -> T:
         """Sends a keycode to the device.
 
         Android only. Possible keycodes can be found
@@ -93,16 +101,21 @@ class Keyboard(CanExecuteCommands):
             Union['WebDriver', 'Keyboard']: Self instance
         """
         data = {
-            'keycode': keycode,
+            "keycode": keycode,
         }
         if metastate is not None:
-            data['metastate'] = metastate
+            data["metastate"] = metastate
         if flags is not None:
-            data['flags'] = flags
+            data["flags"] = flags
         self.execute(Command.PRESS_KEYCODE, data)
         return self
 
-    def long_press_keycode(self: T, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> T:
+    def long_press_keycode(
+        self: T,
+        keycode: int,
+        metastate: Optional[int] = None,
+        flags: Optional[int] = None,
+    ) -> T:
         """Sends a long press of keycode to the device.
 
         Android only. Possible keycodes can be found in
@@ -116,11 +129,11 @@ class Keyboard(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Keyboard']: Self instance
         """
-        data = {'keycode': keycode}
+        data = {"keycode": keycode}
         if metastate is not None:
-            data['metastate'] = metastate
+            data["metastate"] = metastate
         if flags is not None:
-            data['flags'] = flags
+            data["flags"] = flags
         self.execute(Command.LONG_PRESS_KEYCODE, data)
         return self
 
@@ -128,19 +141,22 @@ class Keyboard(CanExecuteCommands):
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
         commands[Command.HIDE_KEYBOARD] = (
-            'POST',
-            '/session/$sessionId/appium/device/hide_keyboard',
+            "POST",
+            "/session/$sessionId/appium/device/hide_keyboard",
         )
         commands[Command.IS_KEYBOARD_SHOWN] = (
-            'GET',
-            '/session/$sessionId/appium/device/is_keyboard_shown',
+            "GET",
+            "/session/$sessionId/appium/device/is_keyboard_shown",
         )
-        commands[Command.KEY_EVENT] = ('POST', '/session/$sessionId/appium/device/keyevent')
+        commands[Command.KEY_EVENT] = (
+            "POST",
+            "/session/$sessionId/appium/device/keyevent",
+        )
         commands[Command.PRESS_KEYCODE] = (
-            'POST',
-            '/session/$sessionId/appium/device/press_keycode',
+            "POST",
+            "/session/$sessionId/appium/device/press_keycode",
         )
         commands[Command.LONG_PRESS_KEYCODE] = (
-            'POST',
-            '/session/$sessionId/appium/device/long_press_keycode',
+            "POST",
+            "/session/$sessionId/appium/device/long_press_keycode",
         )

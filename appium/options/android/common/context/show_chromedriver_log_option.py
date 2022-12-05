@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SHOW_CHROMEDRIVER_LOG = 'showChromedriverLog'
+SHOW_CHROMEDRIVER_LOG = "showChromedriverLog"
 
 
 class ShowChromedriverLogOption(SupportsCapabilities):

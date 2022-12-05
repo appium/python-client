@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SIMULATOR_STARTUP_TIMEOUT = 'simulatorStartupTimeout'
+SIMULATOR_STARTUP_TIMEOUT = "simulatorStartupTimeout"
 
 
 class SimulatorStartupTimeoutOption(SupportsCapabilities):
@@ -42,5 +42,8 @@ class SimulatorStartupTimeoutOption(SupportsCapabilities):
         during the boot up procedure.
         """
         self.set_capability(
-            SIMULATOR_STARTUP_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            SIMULATOR_STARTUP_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

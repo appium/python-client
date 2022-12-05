@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SHOW_IOS_LOG = 'showIOSLog'
+SHOW_IOS_LOG = "showIOSLog"
 
 
 class ShowIosLogOption(SupportsCapabilities):

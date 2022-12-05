@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-APP_PACKAGE = 'appPackage'
+APP_PACKAGE = "appPackage"
 
 
 class AppPackageOption(SupportsCapabilities):

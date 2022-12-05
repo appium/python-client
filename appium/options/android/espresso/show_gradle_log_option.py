@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SHOW_GRADLE_LOG = 'showGradleLog'
+SHOW_GRADLE_LOG = "showGradleLog"
 
 
 class ShowGradleLogOption(SupportsCapabilities):

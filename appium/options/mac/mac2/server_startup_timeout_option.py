@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SERVER_STARTUP_TIMEOUT = 'serverStartupTimeout'
+SERVER_STARTUP_TIMEOUT = "serverStartupTimeout"
 
 
 class ServerStartupTimeoutOption(SupportsCapabilities):
@@ -40,5 +40,8 @@ class ServerStartupTimeoutOption(SupportsCapabilities):
         project is built and started.
         """
         self.set_capability(
-            SERVER_STARTUP_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            SERVER_STARTUP_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

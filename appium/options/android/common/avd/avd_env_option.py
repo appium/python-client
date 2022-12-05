@@ -19,7 +19,7 @@ from typing import Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-AVD_ENV = 'avdEnv'
+AVD_ENV = "avdEnv"
 
 
 class AvdEnvOption(SupportsCapabilities):

@@ -31,14 +31,16 @@ class TestApplications(BaseTestCase):
         self.driver.launch_app()
 
     def test_is_app_installed(self) -> None:
-        assert not self.driver.is_app_installed('sdfsdf')
+        assert not self.driver.is_app_installed("sdfsdf")
         assert self.driver.is_app_installed(APIDEMO_PKG_NAME)
 
-    @pytest.mark.skip('This causes the server to crash. no idea why')
+    @pytest.mark.skip("This causes the server to crash. no idea why")
     def test_install_app(self) -> None:
-        assert not self.driver.is_app_installed('io.selendroid.testapp')
-        self.driver.install_app(PATH(os.path.join('../..', 'apps', 'selendroid-test-app.apk')))
-        assert self.driver.is_app_installed('io.selendroid.testapp')
+        assert not self.driver.is_app_installed("io.selendroid.testapp")
+        self.driver.install_app(
+            PATH(os.path.join("../..", "apps", "selendroid-test-app.apk"))
+        )
+        assert self.driver.is_app_installed("io.selendroid.testapp")
 
     def test_remove_app(self) -> None:
         assert self.driver.is_app_installed(APIDEMO_PKG_NAME)
@@ -49,27 +51,41 @@ class TestApplications(BaseTestCase):
         self.driver.close_app()
         self.driver.launch_app()
         activity = self.driver.current_activity
-        assert '.ApiDemos' == activity
+        assert ".ApiDemos" == activity
 
     def test_app_management(self) -> None:
         app_id = self.driver.current_package
-        assert self.driver.query_app_state(app_id) == ApplicationState.RUNNING_IN_FOREGROUND
+        assert (
+            self.driver.query_app_state(app_id)
+            == ApplicationState.RUNNING_IN_FOREGROUND
+        )
         self.driver.background_app(-1)
-        assert self.driver.query_app_state(app_id) < ApplicationState.RUNNING_IN_FOREGROUND
+        assert (
+            self.driver.query_app_state(app_id) < ApplicationState.RUNNING_IN_FOREGROUND
+        )
         self.driver.activate_app(app_id)
-        assert self.driver.query_app_state(app_id) == ApplicationState.RUNNING_IN_FOREGROUND
+        assert (
+            self.driver.query_app_state(app_id)
+            == ApplicationState.RUNNING_IN_FOREGROUND
+        )
 
     def test_app_strings(self) -> None:
         strings = self.driver.app_strings()
-        assert 'You can\'t wipe my data, you are a monkey!' == strings['monkey_wipe_data']
+        assert (
+            "You can't wipe my data, you are a monkey!" == strings["monkey_wipe_data"]
+        )
 
     def test_app_strings_with_language(self) -> None:
-        strings = self.driver.app_strings('en')
-        assert 'You can\'t wipe my data, you are a monkey!' == strings['monkey_wipe_data']
+        strings = self.driver.app_strings("en")
+        assert (
+            "You can't wipe my data, you are a monkey!" == strings["monkey_wipe_data"]
+        )
 
     def test_app_strings_with_language_and_file(self) -> None:
-        strings = self.driver.app_strings('en', 'some_file')
-        assert 'You can\'t wipe my data, you are a monkey!' == strings['monkey_wipe_data']
+        strings = self.driver.app_strings("en", "some_file")
+        assert (
+            "You can't wipe my data, you are a monkey!" == strings["monkey_wipe_data"]
+        )
 
     def test_reset(self) -> None:
         self.driver.reset()

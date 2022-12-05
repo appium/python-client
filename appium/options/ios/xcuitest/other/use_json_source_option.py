@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-USE_JSON_SOURCE = 'useJSONSource'
+USE_JSON_SOURCE = "useJSONSource"
 
 
 class UseJsonSourceOption(SupportsCapabilities):

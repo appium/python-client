@@ -17,15 +17,21 @@ import httpretty
 
 from appium.webdriver.extensions.android.network import NetSpeed
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
+from test.unit.helper.test_helper import (
+    android_w3c_driver,
+    appium_command,
+    get_httpretty_request_body,
+)
 
 
-class TestWebDriverNetwork():
+class TestWebDriverNetwork:
     @httpretty.activate
     def test_network_connection(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.GET, appium_command('/session/1234567890/network_connection'), body='{"value": 2}'
+            httpretty.GET,
+            appium_command("/session/1234567890/network_connection"),
+            body='{"value": 2}',
         )
         assert driver.network_connection == 2
 
@@ -33,30 +39,32 @@ class TestWebDriverNetwork():
     def test_set_network_connection(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/network_connection'), body='{"value": ""}'
+            httpretty.POST,
+            appium_command("/session/1234567890/network_connection"),
+            body='{"value": ""}',
         )
         driver.set_network_connection(2)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['parameters']['type'] == 2
+        assert d["parameters"]["type"] == 2
 
     @httpretty.activate
     def test_set_network_speed(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/network_speed'),
+            appium_command("/session/1234567890/appium/device/network_speed"),
         )
         assert isinstance(driver.set_network_speed(NetSpeed.LTE), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['netspeed'] == NetSpeed.LTE
+        assert d["netspeed"] == NetSpeed.LTE
 
     @httpretty.activate
     def test_toggle_wifi(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/toggle_wifi'),
+            appium_command("/session/1234567890/appium/device/toggle_wifi"),
         )
         assert isinstance(driver.toggle_wifi(), WebDriver)

@@ -19,7 +19,7 @@ from typing import Any, Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-FIREFOX_OPTIONS = 'moz:firefoxOptions'
+FIREFOX_OPTIONS = "moz:firefoxOptions"
 
 
 class FirefoxOptionsOption(SupportsCapabilities):

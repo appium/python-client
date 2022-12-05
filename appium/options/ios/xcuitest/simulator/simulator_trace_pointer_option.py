@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SIMULATOR_TRACE_POINTER = 'simulatorTracePointer'
+SIMULATOR_TRACE_POINTER = "simulatorTracePointer"
 
 
 class SimulatorTracePointerOption(SupportsCapabilities):

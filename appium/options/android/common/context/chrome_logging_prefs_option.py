@@ -19,7 +19,7 @@ from typing import Any, Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CHROME_LOGGING_PREFS = 'chromeLoggingPrefs'
+CHROME_LOGGING_PREFS = "chromeLoggingPrefs"
 
 
 class ChromeLoggingPrefsOption(SupportsCapabilities):

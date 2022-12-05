@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SUPPRESS_KILL_SERVER = 'suppressKillServer'
+SUPPRESS_KILL_SERVER = "suppressKillServer"
 
 
 class SuppressKillServerOption(SupportsCapabilities):

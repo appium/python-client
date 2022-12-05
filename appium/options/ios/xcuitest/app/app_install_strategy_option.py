@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-APP_INSTALL_STRATEGY = 'appInstallStrategy'
+APP_INSTALL_STRATEGY = "appInstallStrategy"
 
 
 class AppInstallStrategyOption(SupportsCapabilities):

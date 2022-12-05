@@ -20,7 +20,9 @@ from ..mobilecommand import MobileCommand as Command
 
 
 class ImagesComparison(CanExecuteCommands):
-    def match_images_features(self, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> Dict[str, Any]:
+    def match_images_features(
+        self, base64_image1: bytes, base64_image2: bytes, **opts: Any
+    ) -> Dict[str, Any]:
         """Performs images matching by features.
 
         Read
@@ -66,11 +68,19 @@ class ImagesComparison(CanExecuteCommands):
             rect2 (dict): The bounding rect for the `points2` array or a zero rect if not enough matching points
                 were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
         """
-        options = {'mode': 'matchFeatures', 'firstImage': base64_image1, 'secondImage': base64_image2, 'options': opts}
-        return self.execute(Command.COMPARE_IMAGES, options)['value']
+        options = {
+            "mode": "matchFeatures",
+            "firstImage": base64_image1,
+            "secondImage": base64_image2,
+            "options": opts,
+        }
+        return self.execute(Command.COMPARE_IMAGES, options)["value"]
 
     def find_image_occurrence(
-        self, base64_full_image: bytes, base64_partial_image: bytes, **opts: Any
+        self,
+        base64_full_image: bytes,
+        base64_partial_image: bytes,
+        **opts: Any,
     ) -> Dict[str, Union[bytes, Dict]]:
         """Performs images matching by template to find possible occurrence of the partial image
         in the full image.
@@ -96,15 +106,18 @@ class ImagesComparison(CanExecuteCommands):
                     The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
         """
         options = {
-            'mode': 'matchTemplate',
-            'firstImage': base64_full_image,
-            'secondImage': base64_partial_image,
-            'options': opts,
+            "mode": "matchTemplate",
+            "firstImage": base64_full_image,
+            "secondImage": base64_partial_image,
+            "options": opts,
         }
-        return self.execute(Command.COMPARE_IMAGES, options)['value']
+        return self.execute(Command.COMPARE_IMAGES, options)["value"]
 
     def get_images_similarity(
-        self, base64_image1: bytes, base64_image2: bytes, **opts: Any
+        self,
+        base64_image1: bytes,
+        base64_image2: bytes,
+        **opts: Any,
     ) -> Dict[str, Union[bytes, Dict]]:
         """Performs images matching to calculate the similarity score between them.
 
@@ -127,10 +140,18 @@ class ImagesComparison(CanExecuteCommands):
                 score (float): The similarity score as a float number in range [0.0, 1.0].
                     1.0 is the highest score (means both images are totally equal).
         """
-        options = {'mode': 'getSimilarity', 'firstImage': base64_image1, 'secondImage': base64_image2, 'options': opts}
-        return self.execute(Command.COMPARE_IMAGES, options)['value']
+        options = {
+            "mode": "getSimilarity",
+            "firstImage": base64_image1,
+            "secondImage": base64_image2,
+            "options": opts,
+        }
+        return self.execute(Command.COMPARE_IMAGES, options)["value"]
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
-        commands[Command.COMPARE_IMAGES] = ('POST', '/session/$sessionId/appium/compare_images')
+        commands[Command.COMPARE_IMAGES] = (
+            "POST",
+            "/session/$sessionId/appium/compare_images",
+        )

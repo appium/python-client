@@ -20,12 +20,15 @@ from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound='Clipboard')
+T = TypeVar("T", bound="Clipboard")
 
 
 class Clipboard(CanExecuteCommands):
     def set_clipboard(
-        self: T, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
+        self: T,
+        content: bytes,
+        content_type: str = ClipboardContentType.PLAINTEXT,
+        label: Optional[str] = None,
     ) -> T:
         """Set the content of the system clipboard
 
@@ -39,11 +42,11 @@ class Clipboard(CanExecuteCommands):
             Union['WebDriver', 'Clipboard']: Self instance
         """
         options = {
-            'content': base64.b64encode(content).decode('UTF-8'),
-            'contentType': content_type,
+            "content": base64.b64encode(content).decode("UTF-8"),
+            "contentType": content_type,
         }
         if label:
-            options['label'] = label
+            options["label"] = label
         self.execute(Command.SET_CLIPBOARD, options)
         return self
 
@@ -57,9 +60,13 @@ class Clipboard(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Clipboard']: Self instance
         """
-        return self.set_clipboard(bytes(str(text), 'UTF-8'), ClipboardContentType.PLAINTEXT, label)
+        return self.set_clipboard(
+            bytes(str(text), "UTF-8"), ClipboardContentType.PLAINTEXT, label
+        )
 
-    def get_clipboard(self, content_type: str = ClipboardContentType.PLAINTEXT) -> bytes:
+    def get_clipboard(
+        self, content_type: str = ClipboardContentType.PLAINTEXT
+    ) -> bytes:
         """Receives the content of the system clipboard
 
         Args:
@@ -69,7 +76,9 @@ class Clipboard(CanExecuteCommands):
         Returns:
             base64-encoded string: Clipboard content. Or return an empty string if the clipboard is empty
         """
-        base64_str = self.execute(Command.GET_CLIPBOARD, {'contentType': content_type})['value']
+        base64_str = self.execute(Command.GET_CLIPBOARD, {"contentType": content_type})[
+            "value"
+        ]
         return base64.b64decode(base64_str)
 
     def get_clipboard_text(self) -> str:
@@ -78,16 +87,16 @@ class Clipboard(CanExecuteCommands):
         Returns:
             The actual clipboard text or an empty string if the clipboard is empty
         """
-        return self.get_clipboard(ClipboardContentType.PLAINTEXT).decode('UTF-8')
+        return self.get_clipboard(ClipboardContentType.PLAINTEXT).decode("UTF-8")
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
         commands[Command.SET_CLIPBOARD] = (
-            'POST',
-            '/session/$sessionId/appium/device/set_clipboard',
+            "POST",
+            "/session/$sessionId/appium/device/set_clipboard",
         )
         commands[Command.GET_CLIPBOARD] = (
-            'POST',
-            '/session/$sessionId/appium/device/get_clipboard',
+            "POST",
+            "/session/$sessionId/appium/device/get_clipboard",
         )

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SKIP_APP_KILL = 'skipAppKill'
+SKIP_APP_KILL = "skipAppKill"
 
 
 class SkipAppKillOption(SupportsCapabilities):

@@ -21,10 +21,10 @@ from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 
 class TestWebelement(BaseTestCase):
     def test_element_location_in_view(self) -> None:
-        el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Content')
+        el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="Content")
         loc = el.location_in_view
-        assert loc['x'] is not None
-        assert loc['y'] is not None
+        assert loc["x"] is not None
+        assert loc["y"] is not None
 
     def test_set_text(self) -> None:
         self.driver.find_element(
@@ -32,20 +32,30 @@ class TestWebelement(BaseTestCase):
             value='new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Views").instance(0));',
         ).click()
 
-        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Controls').click()
-        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, '1. Light Theme').click()
+        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, "Controls").click()
+        wait_for_element(
+            self.driver, AppiumBy.ACCESSIBILITY_ID, "1. Light Theme"
+        ).click()
 
-        el = wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'android.widget.EditText')
-        el.send_keys('original text')
-        el.set_text('new text')
+        el = wait_for_element(
+            self.driver, AppiumBy.CLASS_NAME, "android.widget.EditText"
+        )
+        el.send_keys("original text")
+        el.set_text("new text")
 
-        assert 'new text' == el.text
+        assert "new text" == el.text
 
     def test_send_keys(self) -> None:
-        for text in ['App', 'Activity', 'Custom Title']:
-            wait_for_element(self.driver, AppiumBy.XPATH, f"//android.widget.TextView[@text='{text}']").click()
+        for text in ["App", "Activity", "Custom Title"]:
+            wait_for_element(
+                self.driver,
+                AppiumBy.XPATH,
+                f"//android.widget.TextView[@text='{text}']",
+            ).click()
 
-        el = wait_for_element(self.driver, AppiumBy.ID, f'{APIDEMO_PKG_NAME}:id/left_text_edit')
-        el.send_keys(' text')
+        el = wait_for_element(
+            self.driver, AppiumBy.ID, f"{APIDEMO_PKG_NAME}:id/left_text_edit"
+        )
+        el.send_keys(" text")
 
-        assert 'Left is best text' == el.text
+        assert "Left is best text" == el.text

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-USE_KEYSTORE = 'useKeystore'
+USE_KEYSTORE = "useKeystore"
 
 
 class UseKeystoreOption(SupportsCapabilities):

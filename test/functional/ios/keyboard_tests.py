@@ -28,13 +28,15 @@ class TestKeyboard(BaseTestCase):
     def test_hide_keyboard(self) -> None:
         self._move_to_textbox()
 
-        el = self.driver.find_elements(by=AppiumBy.CLASS_NAME, value='XCUIElementTypeTextField')[0]
+        el = self.driver.find_elements(
+            by=AppiumBy.CLASS_NAME, value="XCUIElementTypeTextField"
+        )[0]
         el.click()
-        el.set_value('Testing')
+        el.set_value("Testing")
 
         assert self._get_keyboard_el().is_displayed()
 
-        self.driver.hide_keyboard(key_name='Done')
+        self.driver.hide_keyboard(key_name="Done")
 
         with pytest.raises(NoSuchElementException):
             self._get_keyboard_el()
@@ -42,13 +44,15 @@ class TestKeyboard(BaseTestCase):
     def test_hide_keyboard_presskey_strategy(self) -> None:
         self._move_to_textbox()
 
-        el = self.driver.find_elements(by=AppiumBy.CLASS_NAME, value='XCUIElementTypeTextField')[0]
+        el = self.driver.find_elements(
+            by=AppiumBy.CLASS_NAME, value="XCUIElementTypeTextField"
+        )[0]
         el.click()
-        el.set_value('Testing')
+        el.set_value("Testing")
 
         assert self._get_keyboard_el().is_displayed()
 
-        self.driver.hide_keyboard(strategy='pressKey', key='Done')
+        self.driver.hide_keyboard(strategy="pressKey", key="Done")
 
         with pytest.raises(NoSuchElementException):
             self._get_keyboard_el()
@@ -56,9 +60,11 @@ class TestKeyboard(BaseTestCase):
     def test_hide_keyboard_no_key_name(self) -> None:
         self._move_to_textbox()
 
-        el = self.driver.find_elements(by=AppiumBy.CLASS_NAME, value='XCUIElementTypeTextField')[0]
+        el = self.driver.find_elements(
+            by=AppiumBy.CLASS_NAME, value="XCUIElementTypeTextField"
+        )[0]
         el.click()
-        el.set_value('Testing')
+        el.set_value("Testing")
 
         assert self._get_keyboard_el().is_displayed()
 
@@ -70,18 +76,24 @@ class TestKeyboard(BaseTestCase):
     def test_is_keyboard_shown(self) -> None:
         self._move_to_textbox()
 
-        el = self.driver.find_elements(by=AppiumBy.CLASS_NAME, value='XCUIElementTypeTextField')[0]
+        el = self.driver.find_elements(
+            by=AppiumBy.CLASS_NAME, value="XCUIElementTypeTextField"
+        )[0]
         el.click()
-        el.set_value('Testing')
+        el.set_value("Testing")
         assert self.driver.is_keyboard_shown()
 
-    def _get_keyboard_el(self) -> 'WebElement':
-        return self.driver.find_element(by=AppiumBy.CLASS_NAME, value='XCUIElementTypeKeyboard')
+    def _get_keyboard_el(self) -> "WebElement":
+        return self.driver.find_element(
+            by=AppiumBy.CLASS_NAME, value="XCUIElementTypeKeyboard"
+        )
 
     def _move_to_textbox(self) -> None:
-        el1 = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Sliders')
-        el2 = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Buttons')
+        el1 = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="Sliders")
+        el2 = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="Buttons")
         self.driver.scroll(el1, el2)
 
         # Click text fields
-        self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Text Fields').click()
+        self.driver.find_element(
+            by=AppiumBy.ACCESSIBILITY_ID, value="Text Fields"
+        ).click()

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-MAX_TYPING_FREQUENCY = 'maxTypingFrequency'
+MAX_TYPING_FREQUENCY = "maxTypingFrequency"
 
 
 class MaxTypingFrequencyOption(SupportsCapabilities):

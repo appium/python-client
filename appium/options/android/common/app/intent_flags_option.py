@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_FLAGS = 'intentFlags'
+INTENT_FLAGS = "intentFlags"
 
 
 class IntentFlagsOption(SupportsCapabilities):

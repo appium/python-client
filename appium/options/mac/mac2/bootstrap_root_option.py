@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-BOOTSTRAP_ROOT = 'bootstrapRoot'
+BOOTSTRAP_ROOT = "bootstrapRoot"
 
 
 class BootstrapRootOption(SupportsCapabilities):

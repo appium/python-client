@@ -19,7 +19,7 @@ from typing import Any, Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WEBKIT_WEBRTC = 'webkit:WebRTC'
+WEBKIT_WEBRTC = "webkit:WebRTC"
 
 
 class WebkitWebrtcOption(SupportsCapabilities):

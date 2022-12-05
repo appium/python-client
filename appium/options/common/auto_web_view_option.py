@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTO_WEB_VIEW = 'autoWebView'
+AUTO_WEB_VIEW = "autoWebView"
 
 
 class AutoWebViewOption(SupportsCapabilities):

@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WEBKIT_RESPONSE_TIMEOUT = 'webkitResponseTimeout'
+WEBKIT_RESPONSE_TIMEOUT = "webkitResponseTimeout"
 
 
 class WebkitResponseTimeoutOption(SupportsCapabilities):
@@ -39,5 +39,8 @@ class WebkitResponseTimeoutOption(SupportsCapabilities):
         WebKit in a Safari session. Defaults to 5000ms.
         """
         self.set_capability(
-            WEBKIT_RESPONSE_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            WEBKIT_RESPONSE_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

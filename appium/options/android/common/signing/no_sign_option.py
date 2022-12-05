@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-NO_SIGN = 'noSign'
+NO_SIGN = "noSign"
 
 
 class NoSignOption(SupportsCapabilities):

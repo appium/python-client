@@ -21,12 +21,12 @@ from typing import Any, List, Optional, Set
 
 from selenium.webdriver.remote.remote_connection import urllib3
 
-DEFAULT_HOST = '127.0.0.1'
+DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 4723
 STARTUP_TIMEOUT_MS = 60000
-MAIN_SCRIPT_PATH = 'appium/build/lib/main.js'
-STATUS_URL = '/status'
-DEFAULT_BASE_PATH = '/'
+MAIN_SCRIPT_PATH = "appium/build/lib/main.js"
+STATUS_URL = "/status"
+DEFAULT_BASE_PATH = "/"
 
 
 class AppiumServiceError(RuntimeError):
@@ -38,11 +38,11 @@ class AppiumStartupError(RuntimeError):
 
 
 def find_executable(executable: str) -> Optional[str]:
-    path = os.environ['PATH']
+    path = os.environ["PATH"]
     paths = path.split(os.pathsep)
     _, ext = os.path.splitext(executable)
-    if sys.platform == 'win32' and not ext:
-        executable = executable + '.exe'
+    if sys.platform == "win32" and not ext:
+        executable = executable + ".exe"
 
     if os.path.isfile(executable):
         return executable
@@ -56,19 +56,19 @@ def find_executable(executable: str) -> Optional[str]:
 
 
 def get_node() -> str:
-    result = find_executable('node')
+    result = find_executable("node")
     if result is None:
         raise AppiumServiceError(
-            'NodeJS main executable cannot be found. Make sure it is installed and present in PATH'
+            "NodeJS main executable cannot be found. Make sure it is installed and present in PATH",
         )
     return result
 
 
 def get_npm() -> str:
-    result = find_executable('npm.cmd' if sys.platform == 'win32' else 'npm')
+    result = find_executable("npm.cmd" if sys.platform == "win32" else "npm")
     if result is None:
         raise AppiumServiceError(
-            'Node Package Manager executable cannot be found. Make sure it is installed and present in PATH'
+            "Node Package Manager executable cannot be found. Make sure it is installed and present in PATH",
         )
     return result
 
@@ -76,9 +76,9 @@ def get_npm() -> str:
 def get_main_script(node: Optional[str], npm: Optional[str]) -> str:
     result: Optional[str] = None
     npm_path = npm or get_npm()
-    for args in [['root', '-g'], ['root']]:
+    for args in [["root", "-g"], ["root"]]:
         try:
-            modules_root = sp.check_output([npm_path] + args).strip().decode('utf-8')
+            modules_root = sp.check_output([npm_path] + args).strip().decode("utf-8")
             if os.path.exists(os.path.join(modules_root, MAIN_SCRIPT_PATH)):
                 result = os.path.join(modules_root, MAIN_SCRIPT_PATH)
                 break
@@ -88,8 +88,14 @@ def get_main_script(node: Optional[str], npm: Optional[str]) -> str:
         node_path = node or get_node()
         try:
             result = (
-                sp.check_output([node_path, '-e', f'console.log(require.resolve("{MAIN_SCRIPT_PATH}"))'])
-                .decode('utf-8')
+                sp.check_output(
+                    [
+                        node_path,
+                        "-e",
+                        f'console.log(require.resolve("{MAIN_SCRIPT_PATH}"))',
+                    ]
+                )
+                .decode("utf-8")
                 .strip()
             )
         except sp.CalledProcessError as e:
@@ -105,20 +111,24 @@ def parse_arg_value(args: List[str], arg_names: Set[str], default: str) -> str:
 
 
 def parse_port(args: List[str]) -> int:
-    return int(parse_arg_value(args, {'--port', '-p'}, str(DEFAULT_PORT)))
+    return int(parse_arg_value(args, {"--port", "-p"}, str(DEFAULT_PORT)))
 
 
 def parse_base_path(args: List[str]) -> str:
-    return parse_arg_value(args, {'--base-path', '-pa'}, DEFAULT_BASE_PATH)
+    return parse_arg_value(args, {"--base-path", "-pa"}, DEFAULT_BASE_PATH)
 
 
 def parse_host(args: List[str]) -> str:
-    return parse_arg_value(args, {'--address', '-a'}, DEFAULT_HOST)
+    return parse_arg_value(args, {"--address", "-a"}, DEFAULT_HOST)
 
 
 def make_status_url(args: List[str]) -> str:
     base_path = parse_base_path(args)
-    return STATUS_URL if base_path == DEFAULT_BASE_PATH else f'{re.sub(r"/+$", "", base_path)}{STATUS_URL}'
+    return (
+        STATUS_URL
+        if base_path == DEFAULT_BASE_PATH
+        else f'{re.sub(r"/+$", "", base_path)}{STATUS_URL}'
+    )
 
 
 class AppiumService:
@@ -134,7 +144,7 @@ class AppiumService:
                 raise AppiumStartupError()
             # noinspection PyUnresolvedReferences
             try:
-                resp = conn.request('HEAD', f'http://{host}:{port}{path}')
+                resp = conn.request("HEAD", f"http://{host}:{port}{path}")
                 if resp.status < 400:
                     return True
             except urllib3.exceptions.HTTPError:
@@ -180,34 +190,38 @@ class AppiumService:
         """
         self.stop()
 
-        env = kwargs['env'] if 'env' in kwargs else None
-        node: str = kwargs.get('node') or get_node()
-        npm: str = kwargs.get('npm') or get_npm()
-        main_script: str = kwargs.get('main_script') or get_main_script(node, npm)
+        env = kwargs["env"] if "env" in kwargs else None
+        node: str = kwargs.get("node") or get_node()
+        npm: str = kwargs.get("npm") or get_npm()
+        main_script: str = kwargs.get("main_script") or get_main_script(node, npm)
         # A workaround for https://github.com/appium/python-client/issues/534
-        default_std = sp.DEVNULL if sys.platform == 'win32' else sp.PIPE
-        stdout = kwargs['stdout'] if 'stdout' in kwargs else default_std
-        stderr = kwargs['stderr'] if 'stderr' in kwargs else default_std
-        timeout_ms = int(kwargs['timeout_ms']) if 'timeout_ms' in kwargs else STARTUP_TIMEOUT_MS
+        default_std = sp.DEVNULL if sys.platform == "win32" else sp.PIPE
+        stdout = kwargs["stdout"] if "stdout" in kwargs else default_std
+        stderr = kwargs["stderr"] if "stderr" in kwargs else default_std
+        timeout_ms = (
+            int(kwargs["timeout_ms"]) if "timeout_ms" in kwargs else STARTUP_TIMEOUT_MS
+        )
         args: List[str] = [node, main_script]
-        if 'args' in kwargs:
-            args.extend(kwargs['args'])
+        if "args" in kwargs:
+            args.extend(kwargs["args"])
         self._cmd = args
         self._process = sp.Popen(args=args, stdout=stdout, stderr=stderr, env=env)
         error_msg: Optional[str] = None
         startup_failure_msg = (
-            'Appium server process is unable to start. Make sure proper values have been '
-            f'provided to \'node\' ({node}), \'npm\' ({npm}) and \'main_script\' ({main_script}) '
-            f'method arguments.'
+            "Appium server process is unable to start. Make sure proper values have been "
+            f"provided to 'node' ({node}), 'npm' ({npm}) and 'main_script' ({main_script}) "
+            f"method arguments."
         )
         if timeout_ms > 0:
             status_url_path = make_status_url(args)
             try:
-                if not self._poll_status(parse_host(args), parse_port(args), status_url_path, timeout_ms):
+                if not self._poll_status(
+                    parse_host(args), parse_port(args), status_url_path, timeout_ms
+                ):
                     error_msg = (
-                        f'Appium server has started but is not listening on {status_url_path} '
-                        f'within {timeout_ms}ms timeout. Make sure proper values have been provided '
-                        f'to --base-path, --address and --port process arguments.'
+                        f"Appium server has started but is not listening on {status_url_path} "
+                        f"within {timeout_ms}ms timeout. Make sure proper values have been provided "
+                        f"to --base-path, --address and --port process arguments."
                     )
             except AppiumStartupError:
                 error_msg = startup_failure_msg
@@ -217,7 +231,7 @@ class AppiumService:
             if stderr == sp.PIPE and self._process.stderr is not None:
                 err_output = self._process.stderr.read()
                 if err_output:
-                    error_msg += f'\nOriginal error: {str(err_output)}'
+                    error_msg += f"\nOriginal error: {str(err_output)}"
             self.stop()
             raise AppiumServiceError(error_msg)
         return self._process
@@ -247,7 +261,11 @@ class AppiumService:
         Returns:
             bool: `True` if the service is running
         """
-        return self._process is not None and self._cmd is not None and self._process.poll() is None
+        return (
+            self._process is not None
+            and self._cmd is not None
+            and self._process.poll() is None
+        )
 
     @property
     def is_listening(self) -> bool:
@@ -265,16 +283,21 @@ class AppiumService:
 
         assert self._cmd
         try:
-            return self._poll_status(parse_host(self._cmd), parse_port(self._cmd), make_status_url(self._cmd), 1000)
+            return self._poll_status(
+                parse_host(self._cmd),
+                parse_port(self._cmd),
+                make_status_url(self._cmd),
+                1000,
+            )
         except AppiumStartupError:
             return False
 
 
-if __name__ == '__main__':
-    assert find_executable('node') is not None
-    assert find_executable('npm') is not None
+if __name__ == "__main__":
+    assert find_executable("node") is not None
+    assert find_executable("npm") is not None
     service = AppiumService()
-    service.start(args=['--address', '127.0.0.1', '-p', str(DEFAULT_PORT)])
+    service.start(args=["--address", "127.0.0.1", "-p", str(DEFAULT_PORT)])
     # service.start(args=['--address', '127.0.0.1', '-p', '80'], timeout_ms=2000)
     assert service.is_running
     assert service.is_listening

@@ -17,8 +17,8 @@ from time import sleep
 
 from .helper.test_helper import BaseTestCase
 
-ANDROID_LATIN = 'com.android.inputmethod.latin/.LatinIME'  # Android L/M/N
-GOOGLE_LATIN = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'  # Android O/P
+ANDROID_LATIN = "com.android.inputmethod.latin/.LatinIME"  # Android L/M/N
+GOOGLE_LATIN = "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME"  # Android O/P
 
 
 class TestIME(BaseTestCase):

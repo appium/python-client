@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-APP_ARGUMENTS = 'appArguments'
+APP_ARGUMENTS = "appArguments"
 
 
 class AppArgumentsOption(SupportsCapabilities):

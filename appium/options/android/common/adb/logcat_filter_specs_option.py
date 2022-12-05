@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-LOGCAT_FILTER_SPECS = 'logcatFilterSpecs'
+LOGCAT_FILTER_SPECS = "logcatFilterSpecs"
 
 
 class LogcatFilterSpecsOption(SupportsCapabilities):

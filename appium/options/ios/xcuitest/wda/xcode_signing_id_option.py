@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-XCODE_SIGNING_ID = 'xcodeSigningId'
+XCODE_SIGNING_ID = "xcodeSigningId"
 
 
 class XcodeSigningIdOption(SupportsCapabilities):

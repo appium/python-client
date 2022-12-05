@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-AVD_ARGS = 'avdArgs'
+AVD_ARGS = "avdArgs"
 
 
 class AvdArgsOption(SupportsCapabilities):

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-KEYCHAINS_EXCLUDE_PATTERNS = 'keychainsExcludePatterns'
+KEYCHAINS_EXCLUDE_PATTERNS = "keychainsExcludePatterns"
 
 
 class KeychainsExcludePatternsOption(SupportsCapabilities):

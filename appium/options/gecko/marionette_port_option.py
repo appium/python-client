@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-MARIONETTE_PORT = 'marionettePort'
+MARIONETTE_PORT = "marionettePort"
 
 
 class MarionettePortOption(SupportsCapabilities):

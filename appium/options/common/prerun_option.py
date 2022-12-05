@@ -19,7 +19,7 @@ from typing import Dict, Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-PRERUN = 'prerun'
+PRERUN = "prerun"
 
 
 class PrerunOption(SupportsCapabilities):

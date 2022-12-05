@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SAFARI_IGNORE_FRAUD_WARNING = 'safariIgnoreFraudWarning'
+SAFARI_IGNORE_FRAUD_WARNING = "safariIgnoreFraudWarning"
 
 
 class SafariIgnoreFraudWarningOption(SupportsCapabilities):

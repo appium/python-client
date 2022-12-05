@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SCALE_FACTOR = 'scaleFactor'
+SCALE_FACTOR = "scaleFactor"
 
 
 class ScaleFactorOption(SupportsCapabilities):

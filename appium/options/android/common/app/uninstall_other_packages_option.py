@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-UNINSTALL_OTHER_PACKAGES = 'uninstallOtherPackages'
+UNINSTALL_OTHER_PACKAGES = "uninstallOtherPackages"
 
 
 class UninstallOtherPackagesOption(SupportsCapabilities):

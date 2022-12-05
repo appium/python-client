@@ -19,7 +19,7 @@ from typing import Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ENVIRONMENT = 'environment'
+ENVIRONMENT = "environment"
 
 
 class EnvironmentOption(SupportsCapabilities):

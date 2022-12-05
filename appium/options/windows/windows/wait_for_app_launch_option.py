@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WAIT_FOR_APP_LAUNCH = 'ms:waitForAppLaunch'
+WAIT_FOR_APP_LAUNCH = "ms:waitForAppLaunch"
 
 
 class WaitForAppLaunchOption(SupportsCapabilities):
@@ -40,4 +40,7 @@ class WaitForAppLaunchOption(SupportsCapabilities):
         a defined amount of time after an app launch is initiated prior to
         attaching to the application session. The limit for this is 50 seconds.
         """
-        self.set_capability(WAIT_FOR_APP_LAUNCH, value.total_seconds() if isinstance(value, timedelta) else value)
+        self.set_capability(
+            WAIT_FOR_APP_LAUNCH,
+            value.total_seconds() if isinstance(value, timedelta) else value,
+        )

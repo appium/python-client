@@ -19,7 +19,7 @@ from typing import List, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ADDITIONAL_WEBVIEW_BUNDLE_IDS = 'additionalWebviewBundleIds'
+ADDITIONAL_WEBVIEW_BUNDLE_IDS = "additionalWebviewBundleIds"
 
 
 class AdditionalWebviewBundleIdsOption(SupportsCapabilities):

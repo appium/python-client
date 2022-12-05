@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-RECREATE_CHROME_DRIVER_SESSIONS = 'recreateChromeDriverSessions'
+RECREATE_CHROME_DRIVER_SESSIONS = "recreateChromeDriverSessions"
 
 
 class RecreateChromeDriverSessionsOption(SupportsCapabilities):

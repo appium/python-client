@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-EXPERIMENTAL_WEB_DRIVER = 'ms:experimental-webdriver'
+EXPERIMENTAL_WEB_DRIVER = "ms:experimental-webdriver"
 
 
 class ExperimentalWebDriverOption(SupportsCapabilities):

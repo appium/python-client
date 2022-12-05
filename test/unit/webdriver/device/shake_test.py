@@ -19,12 +19,12 @@ from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
-class TestWebDriverShake():
+class TestWebDriverShake:
     @httpretty.activate
     def test_shake(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/shake'),
+            appium_command("/session/1234567890/appium/device/shake"),
         )
         assert isinstance(driver.shake(), WebDriver)

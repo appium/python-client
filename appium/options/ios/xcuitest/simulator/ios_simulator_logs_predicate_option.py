@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-IOS_SIMULATOR_LOGS_PREDICATE = 'iosSimulatorLogsPredicate'
+IOS_SIMULATOR_LOGS_PREDICATE = "iosSimulatorLogsPredicate"
 
 
 class IosSimulatorLogsPredicateOption(SupportsCapabilities):

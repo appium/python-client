@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-AUTOMATION_NAME = 'automationName'
+AUTOMATION_NAME = "automationName"
 
 
 class AutomationNameOption(SupportsCapabilities):

@@ -106,6 +106,6 @@ class Mac2Options(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AUTOMATION_NAME: 'Mac2',
-            PLATFORM_NAME: 'Mac',
+            AUTOMATION_NAME: "Mac2",
+            PLATFORM_NAME: "Mac",
         }

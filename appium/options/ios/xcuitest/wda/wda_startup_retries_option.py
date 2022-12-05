@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WDA_STARTUP_RETRIES = 'wdaStartupRetries'
+WDA_STARTUP_RETRIES = "wdaStartupRetries"
 
 
 class WdaStartupRetriesOption(SupportsCapabilities):

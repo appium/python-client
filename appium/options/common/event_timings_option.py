@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-EVENT_TIMINGS = 'eventTimings'
+EVENT_TIMINGS = "eventTimings"
 
 
 class EventTimingsOption(SupportsCapabilities):

@@ -20,7 +20,7 @@ from typing import Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-PERMISSIONS = 'permissions'
+PERMISSIONS = "permissions"
 
 
 class PermissionsOption(SupportsCapabilities):

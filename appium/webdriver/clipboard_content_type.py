@@ -14,6 +14,6 @@
 
 
 class ClipboardContentType:
-    PLAINTEXT = 'plaintext'
-    IMAGE = 'image'
-    URL = 'url'
+    PLAINTEXT = "plaintext"
+    IMAGE = "image"
+    URL = "url"

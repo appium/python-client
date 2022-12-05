@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SAFARI_IGNORE_WEB_HOSTNAMES = 'safariIgnoreWebHostnames'
+SAFARI_IGNORE_WEB_HOSTNAMES = "safariIgnoreWebHostnames"
 
 
 class SafariIgnoreWebHostnamesOption(SupportsCapabilities):

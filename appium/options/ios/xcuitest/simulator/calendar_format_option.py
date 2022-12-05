@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-CALENDAR_FORMAT = 'calendarFormat'
+CALENDAR_FORMAT = "calendarFormat"
 
 
 class CalendarFormatOption(SupportsCapabilities):

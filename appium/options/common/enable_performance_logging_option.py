@@ -19,7 +19,7 @@ from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
-ENABLE_PERFORMANCE_LOGGING = 'enablePerformanceLogging'
+ENABLE_PERFORMANCE_LOGGING = "enablePerformanceLogging"
 
 
 class EnablePerformanceLoggingOption(SupportsCapabilities):

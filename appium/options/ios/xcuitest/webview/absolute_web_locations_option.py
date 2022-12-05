@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ABSOLUTE_WEB_LOCATIONS = 'absoluteWebLocations'
+ABSOLUTE_WEB_LOCATIONS = "absoluteWebLocations"
 
 
 class AbsoluteWebLocationsOption(SupportsCapabilities):

@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-AVD_LAUNCH_TIMEOUT = 'avdLaunchTimeout'
+AVD_LAUNCH_TIMEOUT = "avdLaunchTimeout"
 
 
 class AvdLaunchTimeoutOption(SupportsCapabilities):
@@ -39,5 +39,8 @@ class AvdLaunchTimeoutOption(SupportsCapabilities):
         60000 ms by default.
         """
         self.set_capability(
-            AVD_LAUNCH_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            AVD_LAUNCH_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

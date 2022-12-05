@@ -26,8 +26,8 @@ class TestExecuteDriver(BaseTestCase):
         """
 
         response = self.driver.execute_driver(script=textwrap.dedent(script))
-        assert response.result['build']
-        assert response.logs['warn'] == ['warning message']
+        assert response.result["build"]
+        assert response.logs["warn"] == ["warning message"]
 
     def test_batch_combination_python_script(self) -> None:
         script = """

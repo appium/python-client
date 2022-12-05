@@ -27,7 +27,7 @@ class DeviceTime(CanExecuteCommands):
         Return:
             str: The date and time
         """
-        return self.execute(Command.GET_DEVICE_TIME_GET, {})['value']
+        return self.execute(Command.GET_DEVICE_TIME_GET, {})["value"]
 
     def get_device_time(self, format: Optional[str] = None) -> str:
         """Returns the date and time from the device.
@@ -47,16 +47,16 @@ class DeviceTime(CanExecuteCommands):
         """
         if format is None:
             return self.device_time
-        return self.execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
+        return self.execute(Command.GET_DEVICE_TIME_POST, {"format": format})["value"]
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
         commands[Command.GET_DEVICE_TIME_GET] = (
-            'GET',
-            '/session/$sessionId/appium/device/system_time',
+            "GET",
+            "/session/$sessionId/appium/device/system_time",
         )
         commands[Command.GET_DEVICE_TIME_POST] = (
-            'POST',
-            '/session/$sessionId/appium/device/system_time',
+            "POST",
+            "/session/$sessionId/appium/device/system_time",
         )

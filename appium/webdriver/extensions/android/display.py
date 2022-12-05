@@ -29,12 +29,12 @@ class Display(CanExecuteCommands):
         Return:
             int: The display density
         """
-        return self.execute(Command.GET_DISPLAY_DENSITY)['value']
+        return self.execute(Command.GET_DISPLAY_DENSITY)["value"]
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
         commands[Command.GET_DISPLAY_DENSITY] = (
-            'GET',
-            '/session/$sessionId/appium/device/display_density',
+            "GET",
+            "/session/$sessionId/appium/device/display_density",
         )

@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-APP_TOP_LEVEL_WINDOW = 'appTopLevelWindow'
+APP_TOP_LEVEL_WINDOW = "appTopLevelWindow"
 
 
 class AppTopLevelWindowOption(SupportsCapabilities):

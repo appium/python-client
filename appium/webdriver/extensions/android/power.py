@@ -17,12 +17,12 @@ from typing import TypeVar
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+T = TypeVar("T", bound=CanExecuteCommands)
 
 
 class Power(CanExecuteCommands):
 
-    AC_OFF, AC_ON = 'off', 'on'
+    AC_OFF, AC_ON = "off", "on"
 
     def set_power_capacity(self: T, percent: int) -> T:
         """Emulate power capacity change on the connected emulator.
@@ -38,7 +38,7 @@ class Power(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Power']: Self instance
         """
-        self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
+        self.execute(Command.SET_POWER_CAPACITY, {"percent": percent})
         return self
 
     def set_power_ac(self: T, ac_state: str) -> T:
@@ -56,14 +56,17 @@ class Power(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Power']: Self instance
         """
-        self.execute(Command.SET_POWER_AC, {'state': ac_state})
+        self.execute(Command.SET_POWER_AC, {"state": ac_state})
         return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
         commands[Command.SET_POWER_CAPACITY] = (
-            'POST',
-            '/session/$sessionId/appium/device/power_capacity',
+            "POST",
+            "/session/$sessionId/appium/device/power_capacity",
         )
-        commands[Command.SET_POWER_AC] = ('POST', '/session/$sessionId/appium/device/power_ac')
+        commands[Command.SET_POWER_AC] = (
+            "POST",
+            "/session/$sessionId/appium/device/power_ac",
+        )

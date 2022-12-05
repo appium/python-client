@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-AUTO_WEBVIEW_TIMEOUT = 'autoWebviewTimeout'
+AUTO_WEBVIEW_TIMEOUT = "autoWebviewTimeout"
 
 
 class AutoWebviewTimeoutOption(SupportsCapabilities):
@@ -39,5 +39,8 @@ class AutoWebviewTimeoutOption(SupportsCapabilities):
         Timeout to wait until a web view is available.
         """
         self.set_capability(
-            AUTO_WEBVIEW_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            AUTO_WEBVIEW_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

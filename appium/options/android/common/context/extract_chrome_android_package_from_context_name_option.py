@@ -19,7 +19,9 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME = 'extractChromeAndroidPackageFromContextName'
+EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME = (
+    "extractChromeAndroidPackageFromContextName"
+)
 
 
 class ExtractChromeAndroidPackageFromContextNameOption(SupportsCapabilities):

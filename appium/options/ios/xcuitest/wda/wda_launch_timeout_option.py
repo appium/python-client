@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-WDA_LAUNCH_TIMEOUT = 'wdaLaunchTimeout'
+WDA_LAUNCH_TIMEOUT = "wdaLaunchTimeout"
 
 
 class WdaLaunchTimeoutOption(SupportsCapabilities):
@@ -39,5 +39,8 @@ class WdaLaunchTimeoutOption(SupportsCapabilities):
         after its building is finished. Defaults to 60000ms.
         """
         self.set_capability(
-            WDA_LAUNCH_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            WDA_LAUNCH_TIMEOUT,
+            int(value.total_seconds() * 1000)
+            if isinstance(value, timedelta)
+            else value,
         )

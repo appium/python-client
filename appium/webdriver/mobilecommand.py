@@ -29,7 +29,6 @@ class MobileCommand:
     DEACTIVATE_IME_ENGINE = 'deactivateIMEEngine'
     GET_ACTIVE_IME_ENGINE = 'getActiveEngine'
 
-    CLEAR = 'clear'
     LOCATION_IN_VIEW = 'locationInView'
 
     CONTEXTS = 'getContexts'

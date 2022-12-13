@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 black = "~=22.10.0"
 httpretty = "~=1.1"
-isort = "~=5.10"
+isort = "~=5.11"
 mypy = "~=0.991"
 mock = "~=4.0"
 pre-commit = "~=2.20"

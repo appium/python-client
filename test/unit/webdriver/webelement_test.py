@@ -23,6 +23,7 @@ from test.unit.helper.test_helper import android_w3c_driver, appium_command, get
 
 
 class TestWebElement(object):
+
     @httpretty.activate
     def test_status(self):
         driver = android_w3c_driver()
@@ -32,10 +33,9 @@ class TestWebElement(object):
             appium_command('/status'),
             body=json.dumps({"value": response}),
         )
-        driver.get_status()
+        s = driver.get_status()
 
-        d = get_httpretty_request_body(httpretty.last_request())
-        assert d['value'] == response
+        assert s == response
 
     @httpretty.activate
     def test_set_value(self):

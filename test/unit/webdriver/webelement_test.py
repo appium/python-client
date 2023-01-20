@@ -23,7 +23,6 @@ from test.unit.helper.test_helper import android_w3c_driver, appium_command, get
 
 
 class TestWebElement(object):
-
     @httpretty.activate
     def test_status(self):
         driver = android_w3c_driver()

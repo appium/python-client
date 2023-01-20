@@ -338,19 +338,14 @@ class WebDriver(
         self.session_id = session_id
         self.caps = get_response_value('capabilities') or {}
 
-    def get_status(self) -> Dict:
+    def c(self) -> Dict:
         """
-        Find an element given a AppiumBy strategy and locator
-
-        Args:
-            by: The strategy
-            value: The locator
+        Get the Appium server status
 
         Usage:
-            driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
-
+            driver.get_status()
         Returns:
-            `appium.webdriver.webelement.WebElement`: The found element
+            Dict: The status information
 
         """
         return self.execute(Command.GET_STATUS)['value']

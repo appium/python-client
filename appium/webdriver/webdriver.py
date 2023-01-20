@@ -338,6 +338,18 @@ class WebDriver(
         self.session_id = session_id
         self.caps = get_response_value('capabilities') or {}
 
+    def get_status(self) -> Dict:
+        """
+        Get the Appium server status
+
+        Usage:
+            driver.get_status()
+        Returns:
+            Dict: The status information
+
+        """
+        return self.execute(Command.GET_STATUS)['value']
+
     def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> MobileWebElement:
         """
         Find an element given a AppiumBy strategy and locator
@@ -491,6 +503,8 @@ class WebDriver(
 
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
+
+        commands[Command.GET_STATUS] = ('GET', '/status')
 
         # FIXME: remove after a while as MJSONWP
         commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')

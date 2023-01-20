@@ -338,7 +338,7 @@ class WebDriver(
         self.session_id = session_id
         self.caps = get_response_value('capabilities') or {}
 
-    def c(self) -> Dict:
+    def get_status(self) -> Dict:
         """
         Get the Appium server status
 

@@ -2,6 +2,293 @@ Changelog
 =========
 
 
+v2.8.1 (2023-01-20)
+-------------------
+
+New
+~~~
+- Feat: add status tentatively (#820) [Kazuaki Matsuo]
+
+  * feat: add status tentatively
+
+  * update test
+
+  * fix docstring
+
+  * fix typo
+
+  * fix lint
+
+
+v2.8.0 (2023-01-20)
+-------------------
+
+New
+~~~
+- Feat: add status tentatively. [Kazuaki Matsuo]
+
+Fix
+~~~
+- Fix lint. [Kazuaki Matsuo]
+- Fix typo. [Kazuaki Matsuo]
+- Fix docstring. [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Update test. [Kazuaki Matsuo]
+- Chore(deps-dev): update tox requirement from ~=4.2 to ~=4.3 (#817)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.2.0...4.3.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps): update sphinx requirement from <6.0,>=4.0 to >=4.0,<7.0
+  (#814) [dependabot[bot]]
+- Chore(deps-dev): update pylint requirement from ~=2.15.9 to ~=2.15.10
+  (#816) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.15.9...v2.15.10)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.1 to ~=4.2 (#815)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.1.0...4.2.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.0 to ~=4.1 (#813)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.0.0...4.1.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update mock requirement from ~=4.0 to ~=5.0 (#812)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [mock](https://github.com/testing-cabal/mock) to permit the latest version.
+  - [Release notes](https://github.com/testing-cabal/mock/releases)
+  - [Changelog](https://github.com/testing-cabal/mock/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/testing-cabal/mock/compare/4.0.0...5.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mock
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pre-commit requirement from ~=2.20 to ~=2.21
+  (#811) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v2.20.0...v2.21.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pre-commit
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.15.8 to ~=2.15.9
+  (#810) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.15.8...v2.15.9)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update isort requirement from ~=5.10 to ~=5.11 (#808)
+  [Kazuaki Matsuo, dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [isort](https://github.com/pycqa/isort) to permit the latest version.
+  - [Release notes](https://github.com/pycqa/isort/releases)
+  - [Changelog](https://github.com/PyCQA/isort/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/pycqa/isort/compare/5.10.0...5.11.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: isort
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update black requirement from ~=22.10.0 to ~=22.12.0
+  (#807) [Kazuaki Matsuo, dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [black](https://github.com/psf/black) to permit the latest version.
+  - [Release notes](https://github.com/psf/black/releases)
+  - [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+  - [Commits](https://github.com/psf/black/compare/22.10.0...22.12.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: black
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=3.27 to ~=4.0 (#806)
+  [Kazuaki Matsuo, dependabot[bot], dependabot[bot]]
+
+  * chore(deps-dev): update tox requirement from ~=3.27 to ~=4.0
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.27.0...4.0.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.15.7 to ~=2.15.8
+  (#804) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.15.7...v2.15.8)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.5 to ~=4.7 (#801)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.5.0...selenium-4.7.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.15.6 to ~=2.15.7
+  (#800) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.15.6...v2.15.7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.15.5 to ~=2.15.6
+  (#799) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.15.5...v2.15.6)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore: update docstring in touch_action.py (#797) [Kazuaki Matsuo,
+  wojciodataist]
+
+  add detailed information to long_press duration param
+- Chore(deps-dev): update mypy requirement from ~=0.982 to ~=0.991
+  (#798) [Kazuaki Matsuo, dependabot[bot], dependabot[bot]]
+
+  * chore(deps-dev): update mypy requirement from ~=0.982 to ~=0.991
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.982...v0.991)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=3.26 to ~=3.27 (#792)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/3.26.0...3.27.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pytest requirement from ~=7.1 to ~=7.2 (#791)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest](https://github.com/pytest-dev/pytest) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest/blob/main/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest/compare/7.1.0...7.2.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.15.4 to ~=2.15.5
+  (#790) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.15.4...v2.15.5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.15.3 to ~=2.15.4
+  (#788) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.15.3...v2.15.4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore: update precommit (#787) [Kazuaki Matsuo]
+- Update changelog for 2.7.1. [Kazuaki Matsuo]
+- Bump 2.7.1. [Kazuaki Matsuo]
+
+
 v2.7.1 (2022-10-11)
 -------------------
 

@@ -46,7 +46,7 @@ class TestWebElement(object):
         element.set_value(value)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['value'] == [value]
+        assert d['text'] == value
 
     @httpretty.activate
     def test_send_key(self):

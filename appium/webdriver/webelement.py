@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import warnings
 from typing import Callable, Dict, List, Optional, Union
 
 from selenium.webdriver.common.utils import keys_to_typing
@@ -157,6 +158,7 @@ class WebElement(SeleniumWebElement):
 
     def set_text(self, keys: str = '') -> 'WebElement':
         """Sends text to the element.
+        deprecated:: 2.8.1
 
         Previous text is removed.
         Android only.
@@ -170,7 +172,14 @@ class WebElement(SeleniumWebElement):
         Returns:
             `appium.webdriver.webelement.WebElement`
         """
-        data = {'id': self._id, 'value': [keys]}
+        warnings.warn(
+            'The "setText" API is deprecated and will be removed in future versions. '
+            'Instead the "send_keys" API or W3C Actions can be used. '
+            'See https://github.com/appium/python-client/pull/831',
+            DeprecationWarning,
+        )
+
+        data = {'text': keys}
         self._execute(Command.REPLACE_KEYS, data)
         return self
 
@@ -190,6 +199,7 @@ class WebElement(SeleniumWebElement):
 
     def set_value(self, value: str) -> 'WebElement':
         """Set the value on this element in the application
+        deprecated:: 2.8.1
 
         Args:
             value: The value to be set
@@ -197,10 +207,14 @@ class WebElement(SeleniumWebElement):
         Returns:
             `appium.webdriver.webelement.WebElement`
         """
-        data = {
-            'id': self.id,
-            'value': [value],
-        }
+        warnings.warn(
+            'The "setValue" API is deprecated and will be removed in future versions. '
+            'Instead the "send_keys" API or W3C Actions can be used. '
+            'See https://github.com/appium/python-client/pull/831',
+            DeprecationWarning,
+        )
+
+        data = {'text': value}
         self._execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
 

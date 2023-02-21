@@ -14,6 +14,7 @@
 
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
+import warnings
 from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 from selenium import webdriver
@@ -434,6 +435,7 @@ class WebDriver(
 
     def set_value(self: T, element: MobileWebElement, value: str) -> T:
         """Set the value on an element in the application.
+        deprecated:: 2.8.1
 
         Args:
             element: the element whose value will be set
@@ -442,10 +444,14 @@ class WebDriver(
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance
         """
-        data = {
-            'id': element.id,
-            'value': [value],
-        }
+        warnings.warn(
+            'The "setValue" API is deprecated and will be removed in future versions. '
+            'Instead the "send_keys" API or W3C Actions can be used. '
+            'See https://github.com/appium/python-client/pull/831',
+            DeprecationWarning,
+        )
+
+        data = {'text': value}
         self.execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
 

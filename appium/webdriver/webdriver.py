@@ -204,7 +204,7 @@ class WebDriver(
 ):
     def __init__(
         self,
-        command_executor: str = 'http://127.0.0.1:4444/wd/hub',
+        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444/wd/hub',
         desired_capabilities: Optional[Dict] = None,
         browser_profile: Union[str, None] = None,
         proxy: Union[str, None] = None,
@@ -228,8 +228,11 @@ class WebDriver(
             AppiumConnection.set_certificate_bundle_path(None)
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+        if isinstance(self.command_executor, (str, bytes)):
+            command_executor = AppiumConnection(command_executor, keep_alive=keep_alive)
+
         super().__init__(
-            command_executor=AppiumConnection(command_executor, keep_alive=keep_alive),
+            command_executor=command_executor,
             desired_capabilities=desired_capabilities,
             browser_profile=browser_profile,
             proxy=proxy,

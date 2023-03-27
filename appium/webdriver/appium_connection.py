@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import uuid
-from typing import TYPE_CHECKING, Any, Dict, Union
+from typing import TYPE_CHECKING, Any, Dict, Union, Optional
 
 import urllib3
 from selenium.webdriver.remote.remote_connection import RemoteConnection
@@ -25,21 +25,29 @@ if TYPE_CHECKING:
 
 
 class AppiumConnection(RemoteConnection):
-    def _get_connection_manager(self) -> Union[urllib3.PoolManager, urllib3.ProxyManager]:
-        # https://github.com/SeleniumHQ/selenium/blob/0e0194b0e52a34e7df4b841f1ed74506beea5c3e/py/selenium/webdriver/remote/remote_connection.py#L134
-        pool_manager_init_args = {'timeout': self._timeout}
+    def __init__(self, remote_server_addr, keep_alive=False, ignore_proxy: Optional[bool] = False):
+        super().__init__(remote_server_addr, keep_alive=keep_alive, ignore_proxy=ignore_proxy)
+        self._pool_manager_init_args = {}
+
+    def set_init_args_for_pool_manager(self, **kwargs):
+        """Set keyword arguments for the pool manager"""
+        self._pool_manager_init_args = {'timeout': self._timeout}
         # pylint: disable=E1101
         if self._ca_certs:
-            pool_manager_init_args['cert_reqs'] = 'CERT_REQUIRED'
-            pool_manager_init_args['ca_certs'] = self._ca_certs
+            self._pool_manager_init_args['cert_reqs'] = 'CERT_REQUIRED'
+            self._pool_manager_init_args['ca_certs'] = self._ca_certs
         else:
             # This line is necessary to disable certificate verification
-            pool_manager_init_args['cert_reqs'] = 'CERT_NONE'
+            self._pool_manager_init_args['cert_reqs'] = 'CERT_NONE'
 
+        self._pool_manager_init_args.update(**kwargs)
+
+    def _get_connection_manager(self) -> Union[urllib3.PoolManager, urllib3.ProxyManager]:
+        # https://github.com/SeleniumHQ/selenium/blob/0e0194b0e52a34e7df4b841f1ed74506beea5c3e/py/selenium/webdriver/remote/remote_connection.py#L134
         return (
-            urllib3.PoolManager(**pool_manager_init_args)
+            urllib3.PoolManager(**self._pool_manager_init_args)
             if self._proxy_url is None
-            else urllib3.ProxyManager(self._proxy_url, **pool_manager_init_args)
+            else urllib3.ProxyManager(self._proxy_url, **self._pool_manager_init_args)
         )
 
     @classmethod

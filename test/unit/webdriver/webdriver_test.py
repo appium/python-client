@@ -16,6 +16,7 @@ import json
 
 import httpretty
 from mock import patch
+import urllib3
 
 from appium import version as appium_version
 from appium import webdriver
@@ -29,6 +30,7 @@ from test.unit.helper.test_helper import (
     ios_w3c_driver,
     ios_w3c_driver_with_extensions,
 )
+from appium.webdriver.appium_connection import AppiumConnection
 
 
 class TestWebDriverWebDriver(object):
@@ -297,6 +299,51 @@ class TestWebDriverWebDriver(object):
         result = driver.test_command('element_id')
         assert result == {}
         driver.delete_extensions()
+
+
+    @httpretty.activate
+    def test_create_session_with_custom_connection(self):
+        httpretty.register_uri(
+            httpretty.POST,
+            f'{SERVER_URL_BASE}/session',
+            body='{ "value": {"sessionId": "session-id", "capabilities": {"deviceName": "Android Emulator"}} }',
+        )
+
+        desired_caps = {
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+        }
+
+        class CustomAppiumConnection(AppiumConnection):
+            pass
+
+        custom_appium_connection = CustomAppiumConnection(remote_server_addr=SERVER_URL_BASE)
+        custom_appium_connection.set_init_args_for_pool_manager(proxies=urllib3.util.retry.Retry(total=3, connect=3, read=False))
+
+        driver = webdriver.Remote(custom_appium_connection, options=UiAutomator2Options().load_capabilities(desired_caps))
+
+        # This tests counts the same request twice on Azure only for now (around 20th May, 2021). Local running works.
+        # Should investigate the cause.
+        # assert len(httpretty.HTTPretty.latest_requests) == 1
+
+        request = httpretty.HTTPretty.latest_requests[0]
+        assert request.headers['content-type'] == 'application/json;charset=UTF-8'
+        assert 'appium/python {} (selenium'.format(appium_version.version) in request.headers['user-agent']
+
+
+        request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
+        assert request_json.get('capabilities') is not None
+        assert request_json['capabilities']['alwaysMatch'] == {
+            'platformName': 'Android',
+            'appium:deviceName': 'Android Emulator',
+            'appium:app': 'path/to/app',
+            'appium:automationName': 'UIAutomator2',
+        }
+        assert request_json.get('desiredCapabilities') is None
+
+        assert driver.session_id == 'session-id'
+
+        assert type(driver.command_executor) == CustomAppiumConnection
 
 
 class SubWebDriver(WebDriver):

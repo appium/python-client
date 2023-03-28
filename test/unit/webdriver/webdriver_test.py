@@ -318,18 +318,13 @@ class TestWebDriverWebDriver(object):
             pass
 
         custom_appium_connection = CustomAppiumConnection(remote_server_addr=SERVER_URL_BASE)
-        custom_appium_connection.set_init_args_for_pool_manager(proxies=urllib3.util.retry.Retry(total=3, connect=3, read=False))
+        custom_appium_connection.set_init_args_for_pool_manager(retries=urllib3.util.retry.Retry(total=3, connect=3, read=False))
 
         driver = webdriver.Remote(custom_appium_connection, options=UiAutomator2Options().load_capabilities(desired_caps))
-
-        # This tests counts the same request twice on Azure only for now (around 20th May, 2021). Local running works.
-        # Should investigate the cause.
-        # assert len(httpretty.HTTPretty.latest_requests) == 1
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
         assert 'appium/python {} (selenium'.format(appium_version.version) in request.headers['user-agent']
-
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is not None
@@ -340,10 +335,9 @@ class TestWebDriverWebDriver(object):
             'appium:automationName': 'UIAutomator2',
         }
         assert request_json.get('desiredCapabilities') is None
-
         assert driver.session_id == 'session-id'
 
-        assert type(driver.command_executor) == CustomAppiumConnection
+        assert isinstance(driver.command_executor, CustomAppiumConnection)
 
 
 class SubWebDriver(WebDriver):

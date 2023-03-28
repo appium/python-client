@@ -26,11 +26,18 @@ if TYPE_CHECKING:
 
 class AppiumConnection(RemoteConnection):
     def __init__(self, remote_server_addr, keep_alive=False, ignore_proxy: Optional[bool] = False):
-        super().__init__(remote_server_addr, keep_alive=keep_alive, ignore_proxy=ignore_proxy)
         self._pool_manager_init_args = {}
 
+        super().__init__(remote_server_addr, keep_alive=keep_alive, ignore_proxy=ignore_proxy)
+
     def set_init_args_for_pool_manager(self, **kwargs):
-        """Set keyword arguments for the pool manager"""
+        """Set keyword arguments for the pool manager.
+
+        Appium Python client manages http requests with urllib3.PoolManager or urllib3.ProxyManager.
+        This method allows to set keyword arguments for the pool manager.
+
+        For example, "urllib3.util.retry.Retry" provides flexible retry strategy for http requests.
+        """
         self._pool_manager_init_args = {'timeout': self._timeout}
         # pylint: disable=E1101
         if self._ca_certs:

@@ -300,7 +300,6 @@ class TestWebDriverWebDriver(object):
         assert result == {}
         driver.delete_extensions()
 
-
     @httpretty.activate
     def test_create_session_with_custom_connection(self):
         httpretty.register_uri(
@@ -318,9 +317,13 @@ class TestWebDriverWebDriver(object):
             pass
 
         custom_appium_connection = CustomAppiumConnection(remote_server_addr=SERVER_URL_BASE)
-        custom_appium_connection.set_init_args_for_pool_manager(retries=urllib3.util.retry.Retry(total=3, connect=3, read=False))
+        custom_appium_connection.set_init_args_for_pool_manager(
+            retries=urllib3.util.retry.Retry(total=3, connect=3, read=False)
+        )
 
-        driver = webdriver.Remote(custom_appium_connection, options=UiAutomator2Options().load_capabilities(desired_caps))
+        driver = webdriver.Remote(
+            custom_appium_connection, options=UiAutomator2Options().load_capabilities(desired_caps)
+        )
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'

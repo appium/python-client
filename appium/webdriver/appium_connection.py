@@ -25,12 +25,14 @@ if TYPE_CHECKING:
 
 
 class AppiumConnection(RemoteConnection):
-    def __init__(self, remote_server_addr, keep_alive=False, ignore_proxy: Optional[bool] = False):
-        self._pool_manager_init_args = {}
+    def __init__(
+        self, remote_server_addr: Union[str, bytes], keep_alive: bool = False, ignore_proxy: Optional[bool] = False
+    ):
+        self._pool_manager_init_args: Dict[str, Any] = {}
 
         super().__init__(remote_server_addr, keep_alive=keep_alive, ignore_proxy=ignore_proxy)
 
-    def set_init_args_for_pool_manager(self, **kwargs):
+    def set_init_args_for_pool_manager(self, **kwargs: Dict[str, Any]) -> None:
         """Set keyword arguments for the pool manager.
 
         Appium Python client manages http requests with urllib3.PoolManager or urllib3.ProxyManager.

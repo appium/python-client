@@ -314,6 +314,7 @@ class TestWebDriverWebDriver(object):
         }
 
         class CustomAppiumConnection(AppiumConnection):
+            # To explicitly check if the given executor is used
             pass
 
         custom_appium_connection = CustomAppiumConnection(remote_server_addr=SERVER_URL_BASE)

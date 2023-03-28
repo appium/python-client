@@ -209,9 +209,12 @@ from appium.options.ios import XCUITestOptions
 import urllib3
 from appium.webdriver.appium_connection import AppiumConnection
 
-appium_executor = AppiumConnection(remote_server_addr='http://127.0.0.1:4723')
 # Retry connection error up to 3 times.
-appium_executor.set_init_args_for_pool_manager(retries=urllib3.util.retry.Retry(total=3, connect=3, read=False))
+init_args_for_pool_manage = {
+    'retries': urllib3.util.retry.Retry(total=3, connect=3, read=False)
+}
+appium_executor = AppiumConnection(remote_server_addr='http://127.0.0.1:4723',
+    init_args_for_pool_manage=init_args_for_pool_manage)
 
 options = XCUITestOptions().load_capabilities({
     'platformVersion': '13.4',

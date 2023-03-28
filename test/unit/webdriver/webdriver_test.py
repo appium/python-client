@@ -317,9 +317,9 @@ class TestWebDriverWebDriver(object):
             # To explicitly check if the given executor is used
             pass
 
-        custom_appium_connection = CustomAppiumConnection(remote_server_addr=SERVER_URL_BASE)
-        custom_appium_connection.set_init_args_for_pool_manager(
-            retries=urllib3.util.retry.Retry(total=3, connect=3, read=False)
+        init_args_for_pool_manager = {'retries': urllib3.util.retry.Retry(total=3, connect=3, read=False)}
+        custom_appium_connection = CustomAppiumConnection(
+            remote_server_addr=SERVER_URL_BASE, init_args_for_pool_manager=init_args_for_pool_manager
         )
 
         driver = webdriver.Remote(

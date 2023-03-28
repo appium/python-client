@@ -228,7 +228,7 @@ class WebDriver(
             AppiumConnection.set_certificate_bundle_path(None)
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-        if isinstance(command_executor, (str, bytes)):
+        if isinstance(command_executor, str):
             command_executor = AppiumConnection(command_executor, keep_alive=keep_alive)
 
         super().__init__(

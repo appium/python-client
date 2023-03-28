@@ -26,37 +26,38 @@ if TYPE_CHECKING:
 
 class AppiumConnection(RemoteConnection):
     def __init__(
-        self, remote_server_addr: Union[str, bytes], keep_alive: bool = False, ignore_proxy: Optional[bool] = False
+        self,
+        remote_server_addr: str,
+        keep_alive: bool = False,
+        ignore_proxy: Optional[bool] = False,
+        init_args_for_pool_manager: Union[Dict[str, Any], None] = None,
     ):
-        self._pool_manager_init_args: Dict[str, Any] = {}
+
+        # Need to call before super().__init__ in order to pass arguments for the pool manager in the super.
+        if init_args_for_pool_manager is None:
+            self._init_args_for_pool_manager = {}
+        else:
+            self._init_args_for_pool_manager = init_args_for_pool_manager
 
         super().__init__(remote_server_addr, keep_alive=keep_alive, ignore_proxy=ignore_proxy)
 
-    def set_init_args_for_pool_manager(self, **kwargs: Dict[str, Any]) -> None:
-        """Set keyword arguments for the pool manager.
-
-        Appium Python client manages http requests with urllib3.PoolManager or urllib3.ProxyManager.
-        This method allows to set keyword arguments for the pool manager.
-
-        For example, "urllib3.util.retry.Retry" provides flexible retry strategy for http requests.
-        """
-        self._pool_manager_init_args = {'timeout': self._timeout}
-        # pylint: disable=E1101
-        if self._ca_certs:
-            self._pool_manager_init_args['cert_reqs'] = 'CERT_REQUIRED'
-            self._pool_manager_init_args['ca_certs'] = self._ca_certs
-        else:
-            # This line is necessary to disable certificate verification
-            self._pool_manager_init_args['cert_reqs'] = 'CERT_NONE'
-
-        self._pool_manager_init_args.update(**kwargs)
-
     def _get_connection_manager(self) -> Union[urllib3.PoolManager, urllib3.ProxyManager]:
         # https://github.com/SeleniumHQ/selenium/blob/0e0194b0e52a34e7df4b841f1ed74506beea5c3e/py/selenium/webdriver/remote/remote_connection.py#L134
+        pool_manager_init_args = {'timeout': self._timeout}
+
+        if self._ca_certs:
+            pool_manager_init_args['cert_reqs'] = 'CERT_REQUIRED'
+            pool_manager_init_args['ca_certs'] = self._ca_certs
+        else:
+            # This line is necessary to disable certificate verification
+            pool_manager_init_args['cert_reqs'] = 'CERT_NONE'
+
+        pool_manager_init_args.update(self._init_args_for_pool_manager)
+
         return (
-            urllib3.PoolManager(**self._pool_manager_init_args)
+            urllib3.PoolManager(**pool_manager_init_args)
             if self._proxy_url is None
-            else urllib3.ProxyManager(self._proxy_url, **self._pool_manager_init_args)
+            else urllib3.ProxyManager(self._proxy_url, **pool_manager_init_args)
         )
 
     @classmethod

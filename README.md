@@ -198,7 +198,7 @@ self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options, strict_
 
 ## Set custom `AppiumConnection`
 
-The first argument of `webdriver.Remote` can set an arbitrary command executor.
+The first argument of `webdriver.Remote` can set an arbitrary command executor for you.
 
 1. Set init arguments for the pool manager Appium Python client uses to manage http requests.
 

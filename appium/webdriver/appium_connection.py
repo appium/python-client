@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import uuid
-from typing import TYPE_CHECKING, Any, Dict, Union, Optional
+from typing import TYPE_CHECKING, Any, Dict, Optional, Union
 
 import urllib3
 from selenium.webdriver.remote.remote_connection import RemoteConnection

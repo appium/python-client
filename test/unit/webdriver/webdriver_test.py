@@ -15,12 +15,13 @@
 import json
 
 import httpretty
-from mock import patch
 import urllib3
+from mock import patch
 
 from appium import version as appium_version
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
+from appium.webdriver.appium_connection import AppiumConnection
 from appium.webdriver.webdriver import ExtensionBase, WebDriver
 from test.helpers.constants import SERVER_URL_BASE
 from test.unit.helper.test_helper import (
@@ -30,7 +31,6 @@ from test.unit.helper.test_helper import (
     ios_w3c_driver,
     ios_w3c_driver_with_extensions,
 )
-from appium.webdriver.appium_connection import AppiumConnection
 
 
 class TestWebDriverWebDriver(object):

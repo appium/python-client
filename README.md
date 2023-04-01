@@ -115,7 +115,7 @@ options = UiAutomator2Options()
 options.platformVersion = '10'
 options.udid = '123456789ABC'
 options.app = PATH('../../../apps/test-app.apk')
-# Appium1 points to http://127.0.0.1:4723/wd/hub by default 
+# Appium1 points to http://127.0.0.1:4723/wd/hub by default
 self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options)
 el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
 el.click()
@@ -134,7 +134,7 @@ options = XCUITestOptions()
 options.platformVersion = '13.4'
 options.udid = '123456789ABC'
 options.app = PATH('../../apps/UICatalog.app.zip')
-# Appium1 points to http://127.0.0.1:4723/wd/hub by default 
+# Appium1 points to http://127.0.0.1:4723/wd/hub by default
 self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options)
 el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
 el.click()
@@ -158,7 +158,7 @@ from appium import webdriver
 # instead: https://github.com/appium/python-client/pull/720
 from appium.options.ios import XCUITestOptions
 
-# load_capabilities API could be used to 
+# load_capabilities API could be used to
 # load options mapping stored in a dictionary
 options = XCUITestOptions().load_capabilities({
     'platformVersion': '13.4',
@@ -167,9 +167,9 @@ options = XCUITestOptions().load_capabilities({
 })
 
 self.driver = webdriver.Remote(
-    # Appium1 points to http://127.0.0.1:4723/wd/hub by default 
-    'http://127.0.0.1:4723', 
-    options=options, 
+    # Appium1 points to http://127.0.0.1:4723/wd/hub by default
+    'http://127.0.0.1:4723',
+    options=options,
     direct_connection=True
 )
 ```
@@ -192,9 +192,61 @@ options.automation_name = 'safari'
 # calls to it could be chained
 options.set_capability('browser_name', 'safari')
 
-# Appium1 points to http://127.0.0.1:4723/wd/hub by default 
+# Appium1 points to http://127.0.0.1:4723/wd/hub by default
 self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options, strict_ssl=False)
 ```
+
+## Set custom `AppiumConnection`
+
+The first argument of `webdriver.Remote` can set an arbitrary command executor for you.
+
+1. Set init arguments for the pool manager Appium Python client uses to manage http requests.
+
+```python
+from appium import webdriver
+from appium.options.ios import XCUITestOptions
+
+import urllib3
+from appium.webdriver.appium_connection import AppiumConnection
+
+# Retry connection error up to 3 times.
+init_args_for_pool_manage = {
+    'retries': urllib3.util.retry.Retry(total=3, connect=3, read=False)
+}
+appium_executor = AppiumConnection(remote_server_addr='http://127.0.0.1:4723',
+    init_args_for_pool_manage=init_args_for_pool_manage)
+
+options = XCUITestOptions()
+options.platformVersion = '13.4'
+options.udid = '123456789ABC'
+options.app = PATH('../../apps/UICatalog.app.zip')
+driver = webdriver.Remote(appium_executor, options=options)
+```
+
+
+2. Define a subclass of `AppiumConnection`
+
+```python
+from appium import webdriver
+from appium.options.ios import XCUITestOptions
+
+from appium.webdriver.appium_connection import AppiumConnection
+
+class CustomAppiumConnection(AppiumConnection):
+    # Can add your own methods for the custom class
+    pass
+
+custom_executor = CustomAppiumConnection(remote_server_addr='http://127.0.0.1:4723')
+
+options = XCUITestOptions().load_capabilities({
+    'platformVersion': '13.4',
+    'deviceName': 'iPhone Simulator',
+    'app': PATH('../../apps/UICatalog.app.zip'),
+})
+driver = webdriver.Remote(custom_executor, options=options)
+
+```
+
 
 ## Documentation
 

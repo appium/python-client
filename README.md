@@ -216,11 +216,10 @@ init_args_for_pool_manage = {
 appium_executor = AppiumConnection(remote_server_addr='http://127.0.0.1:4723',
     init_args_for_pool_manage=init_args_for_pool_manage)
 
-options = XCUITestOptions().load_capabilities({
-    'platformVersion': '13.4',
-    'deviceName': 'iPhone Simulator',
-    'app': PATH('../../apps/UICatalog.app.zip'),
-})
+options = XCUITestOptions()
+options.platformVersion = '13.4'
+options.udid = '123456789ABC'
+options.app = PATH('../../apps/UICatalog.app.zip')
 driver = webdriver.Remote(appium_executor, options=options)
 ```
 

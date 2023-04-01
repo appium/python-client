@@ -34,10 +34,7 @@ class AppiumConnection(RemoteConnection):
     ):
 
         # Need to call before super().__init__ in order to pass arguments for the pool manager in the super.
-        if init_args_for_pool_manager is None:
-            self._init_args_for_pool_manager = {}
-        else:
-            self._init_args_for_pool_manager = init_args_for_pool_manager
+        self._init_args_for_pool_manager = init_args_for_pool_manager or {}
 
         super().__init__(remote_server_addr, keep_alive=keep_alive, ignore_proxy=ignore_proxy)
 

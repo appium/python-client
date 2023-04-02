@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-(unreleased)
-------------
+v2.9.0 (2023-04-02)
+-------------------
 
 New
 ~~~
@@ -35,6 +35,7 @@ Fix
 
 Other
 ~~~~~
+- Update changelog for 2.8.0. [Kazuaki Matsuo]
 - Chore(deps-dev): update pylint requirement from ~=2.17.0 to ~=2.17.1
   (#843) [dependabot[bot], dependabot[bot]]
 

@@ -2,6 +2,164 @@ Changelog
 =========
 
 
+(unreleased)
+------------
+
+New
+~~~
+- Feat: respect the given executor (#844) [Kazuaki Matsuo]
+
+  * feat: can provide a custom connection
+
+  * add tests
+
+  * tweak tests
+
+  * lint
+
+  * tweak
+
+  * add comment
+
+  * fix lint
+
+  * tweak
+
+  * add test
+
+  * tweak review
+
+Fix
+~~~
+- Set_value and set_text sent incorrect data (#831) [eyJhb]
+
+Other
+~~~~~
+- Chore(deps-dev): update pylint requirement from ~=2.17.0 to ~=2.17.1
+  (#843) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.17.0...v2.17.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.16.3 to ~=2.17.0
+  (#838) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.16.3...v2.17.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update mypy requirement from ~=1.0 to ~=1.1 (#836)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v1.0.0...v1.1.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.16.2 to ~=2.16.3
+  (#834) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.16.2...v2.16.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update typing-extensions requirement (#830)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [typing-extensions](https://github.com/python/typing_extensions) to permit the latest version.
+  - [Release notes](https://github.com/python/typing_extensions/releases)
+  - [Changelog](https://github.com/python/typing_extensions/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/python/typing_extensions/compare/4.4.0...4.5.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: typing-extensions
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.16.1 to ~=2.16.2
+  (#829) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.16.1...v2.16.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update mypy requirement from ~=0.991 to ~=1.0 (#828)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [mypy](https://github.com/python/mypy) to permit the latest version.
+  - [Release notes](https://github.com/python/mypy/releases)
+  - [Commits](https://github.com/python/mypy/compare/v0.991...v1.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mypy
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.16.0 to ~=2.16.1
+  (#827) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.16.0...v2.16.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.15.10 to ~=2.16.0
+  (#826) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.15.10...v2.16.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.3 to ~=4.4 (#823)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.3.0...4.4.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Update changelog for 2.8.1. [Kazuaki Matsuo]
+
+
 v2.8.1 (2023-01-20)
 -------------------
 

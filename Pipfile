@@ -7,7 +7,7 @@ verify_ssl = true
 black = "~=22.12.0"
 httpretty = "~=1.1"
 isort = "~=5.11"
-mypy = "~=1.1"
+mypy = "~=1.2"
 mock = "~=5.0"
 pre-commit = "~=2.21"
 pylint = "~=2.17.2"

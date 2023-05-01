@@ -214,7 +214,6 @@ class WebDriver(
         strict_ssl: bool = True,
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
     ):
-
         if strict_ssl is False:
             # pylint: disable=E1101
             # noinspection PyPackageRequirements
@@ -497,7 +496,6 @@ class WebDriver(
         if value.upper() in allowed_values:
             self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value})
         else:
-
             raise WebDriverException("You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'")
 
     def _add_commands(self) -> None:

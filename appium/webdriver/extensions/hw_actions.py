@@ -12,17 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Optional, TypeVar
+from typing import TYPE_CHECKING, Optional, cast
+
+from selenium.common.exceptions import UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
-class HardwareActions(CanExecuteCommands):
-    def lock(self: T, seconds: Optional[int] = None) -> T:
+class HardwareActions(CanExecuteCommands, CanExecuteScripts):
+    def lock(self, seconds: Optional[int] = None) -> 'WebDriver':
         """Lock the device. No changes are made if the device is already unlocked.
 
         Args:
@@ -34,20 +38,28 @@ class HardwareActions(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
-        if seconds is None:
-            self.execute(Command.LOCK)
-        else:
-            self.execute(Command.LOCK, {'seconds': seconds})
-        return self
+        args = {'seconds': seconds or 0}
+        try:
+            self.execute_script('mobile: lock', args)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.execute(Command.LOCK, args)
+        return cast('WebDriver', self)
 
-    def unlock(self: T) -> T:
+    def unlock(self) -> 'WebDriver':
         """Unlock the device. No changes are made if the device is already locked.
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
-        self.execute(Command.UNLOCK)
-        return self
+        try:
+            if not self.execute_script('mobile: isLocked'):
+                return cast('WebDriver', self)
+            self.execute_script('mobile: unlock')
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.execute(Command.UNLOCK)
+        return cast('WebDriver', self)
 
     def is_locked(self) -> bool:
         """Checks whether the device is locked.
@@ -55,18 +67,26 @@ class HardwareActions(CanExecuteCommands):
         Returns:
             `True` if the device is locked
         """
-        return self.execute(Command.IS_LOCKED)['value']
+        try:
+            return self.execute_script('mobile: isLocked')
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            return self.execute(Command.IS_LOCKED)['value']
 
-    def shake(self: T) -> T:
+    def shake(self) -> 'WebDriver':
         """Shake the device.
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
-        self.execute(Command.SHAKE)
-        return self
+        try:
+            self.execute_script('mobile: shake')
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.execute(Command.SHAKE)
+        return cast('WebDriver', self)
 
-    def touch_id(self: T, match: bool) -> T:
+    def touch_id(self, match: bool) -> 'WebDriver':
         """Simulate touchId on iOS Simulator
 
         Args:
@@ -75,29 +95,37 @@ class HardwareActions(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
-        data = {'match': match}
-        self.execute(Command.TOUCH_ID, data)
-        return self
+        self.execute_script(
+            'mobile: sendBiometricMatch',
+            {
+                'type': 'touchId',
+                'match': match,
+            },
+        )
+        return cast('WebDriver', self)
 
-    def toggle_touch_id_enrollment(self: T) -> T:
+    def toggle_touch_id_enrollment(self) -> 'WebDriver':
         """Toggle enroll touchId on iOS Simulator
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
-        self.execute(Command.TOGGLE_TOUCH_ID_ENROLLMENT)
-        return self
+        is_enrolled = self.execute_script('mobile: isBiometricEnrolled')
+        self.execute_script('mobile: enrollBiometric', {'isEnabled': not is_enrolled})
+        return cast('WebDriver', self)
 
-    def finger_print(self, finger_id: int) -> Any:
+    def finger_print(self, finger_id: int) -> 'WebDriver':
         """Authenticate users by using their finger print scans on supported Android emulators.
 
         Args:
             finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
-
-        Returns:
-            TODO
         """
-        return self.execute(Command.FINGER_PRINT, {'fingerprintId': finger_id})['value']
+        args = {'fingerprintId': finger_id}
+        try:
+            self.execute_script('mobile: fingerprint', args)
+        except UnknownMethodException:
+            self.execute(Command.FINGER_PRINT, args)
+        return cast('WebDriver', self)
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

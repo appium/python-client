@@ -13,18 +13,20 @@
 # limitations under the License.
 
 import base64
-from typing import Optional, TypeVar
+from typing import TYPE_CHECKING, Optional, cast
 
-from selenium.common.exceptions import InvalidArgumentException
+from selenium.common.exceptions import InvalidArgumentException, UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
-class RemoteFS(CanExecuteCommands):
+class RemoteFS(CanExecuteCommands, CanExecuteScripts):
     def pull_file(self, path: str) -> str:
         """Retrieves the file at `path`.
 
@@ -34,10 +36,11 @@ class RemoteFS(CanExecuteCommands):
         Returns:
             The file's contents encoded as Base64.
         """
-        data = {
-            'path': path,
-        }
-        return self.execute(Command.PULL_FILE, data)['value']
+        try:
+            return self.execute_script('mobile: pullFile', {'remotePath', path})
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            return self.execute(Command.PULL_FILE, {'path': path})['value']
 
     def pull_folder(self, path: str) -> str:
         """Retrieves a folder at `path`.
@@ -48,14 +51,15 @@ class RemoteFS(CanExecuteCommands):
         Returns:
             The folder's contents zipped and encoded as Base64.
         """
-        data = {
-            'path': path,
-        }
-        return self.execute(Command.PULL_FOLDER, data)['value']
+        try:
+            return self.execute_script('mobile: pullFolder', {'remotePath': path})
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            return self.execute(Command.PULL_FOLDER, {'path': path})['value']
 
     def push_file(
-        self: T, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None
-    ) -> T:
+        self, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None
+    ) -> 'WebDriver':
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
         Specify either `base64data` or `source_path`, if both specified default to `source_path`
@@ -81,12 +85,24 @@ class RemoteFS(CanExecuteCommands):
                 raise InvalidArgumentException(message) from e
             base64data = base64.b64encode(file_data).decode('utf-8')
 
-        data = {
-            'path': destination_path,
-            'data': base64data,
-        }
-        self.execute(Command.PUSH_FILE, data)
-        return self
+        try:
+            self.execute_script(
+                'mobile: pushFile',
+                {
+                    'remotePath': destination_path,
+                    'payload': base64data,
+                },
+            )
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.execute(
+                Command.PUSH_FILE,
+                {
+                    'path': destination_path,
+                    'data': base64data,
+                },
+            )
+        return cast('WebDriver', self)
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

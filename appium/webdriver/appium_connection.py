@@ -32,7 +32,6 @@ class AppiumConnection(RemoteConnection):
         ignore_proxy: Optional[bool] = False,
         init_args_for_pool_manager: Union[Dict[str, Any], None] = None,
     ):
-
         # Need to call before super().__init__ in order to pass arguments for the pool manager in the super.
         self._init_args_for_pool_manager = init_args_for_pool_manager or {}
 

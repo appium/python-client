@@ -14,12 +14,15 @@
 
 from typing import Optional
 
+from selenium.common.exceptions import UnknownMethodException
+
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 from ..mobilecommand import MobileCommand as Command
 
 
-class DeviceTime(CanExecuteCommands):
+class DeviceTime(CanExecuteCommands, CanExecuteScripts):
     @property
     def device_time(self) -> str:
         """Returns the date and time from the device.
@@ -27,7 +30,10 @@ class DeviceTime(CanExecuteCommands):
         Return:
             str: The date and time
         """
-        return self.execute(Command.GET_DEVICE_TIME_GET, {})['value']
+        try:
+            return self.execute_script('mobile: getDeviceTime')
+        except UnknownMethodException:
+            return self.execute(Command.GET_DEVICE_TIME_GET, {})['value']
 
     def get_device_time(self, format: Optional[str] = None) -> str:
         """Returns the date and time from the device.
@@ -47,7 +53,10 @@ class DeviceTime(CanExecuteCommands):
         """
         if format is None:
             return self.device_time
-        return self.execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
+        try:
+            return self.execute_script('mobile: getDeviceTime', {'format': format})
+        except UnknownMethodException:
+            return self.execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

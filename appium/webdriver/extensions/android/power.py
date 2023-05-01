@@ -21,7 +21,6 @@ T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class Power(CanExecuteCommands):
-
     AC_OFF, AC_ON = 'off', 'on'
 
     def set_power_capacity(self: T, percent: int) -> T:

@@ -12,19 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, Optional, TypeVar
+from typing import TYPE_CHECKING, Dict, Optional, cast
+
+from selenium.common.exceptions import UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
-class Keyboard(CanExecuteCommands):
+class Keyboard(CanExecuteCommands, CanExecuteScripts):
     def hide_keyboard(
-        self: T, key_name: Optional[str] = None, key: Optional[str] = None, strategy: Optional[str] = None
-    ) -> T:
+        self, key_name: Optional[str] = None, key: Optional[str] = None, strategy: Optional[str] = None
+    ) -> 'WebDriver':
         """Hides the software keyboard on the device.
 
         In iOS, use `key_name` to press
@@ -38,16 +42,20 @@ class Keyboard(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Keyboard']: Self instance
         """
-        data: Dict[str, Optional[str]] = {}
-        if key_name is not None:
-            data['keyName'] = key_name
-        elif key is not None:
-            data['key'] = key
-        elif strategy is None:
-            strategy = 'tapOutside'
-        data['strategy'] = strategy
-        self.execute(Command.HIDE_KEYBOARD, data)
-        return self
+        try:
+            self.execute_script('mobile: hideKeyboard', {**({'keys': [key or key_name]} if key or key_name else {})})
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            data: Dict[str, Optional[str]] = {}
+            if key_name is not None:
+                data['keyName'] = key_name
+            elif key is not None:
+                data['key'] = key
+            elif strategy is None:
+                strategy = 'tapOutside'
+            data['strategy'] = strategy
+            self.execute(Command.HIDE_KEYBOARD, data)
+        return cast('WebDriver', self)
 
     def is_keyboard_shown(self) -> bool:
         """Attempts to detect whether a software keyboard is present
@@ -55,9 +63,12 @@ class Keyboard(CanExecuteCommands):
         Returns:
             `True` if keyboard is shown
         """
-        return self.execute(Command.IS_KEYBOARD_SHOWN)['value']
+        try:
+            return self.execute_script('mobile: isKeyboardShown')
+        except UnknownMethodException:
+            return self.execute(Command.IS_KEYBOARD_SHOWN)['value']
 
-    def keyevent(self: T, keycode: int, metastate: Optional[int] = None) -> T:
+    def keyevent(self, keycode: int, metastate: Optional[int] = None) -> 'WebDriver':
         """Sends a keycode to the device.
 
         Android only.
@@ -70,15 +81,9 @@ class Keyboard(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Keyboard']: Self instance
         """
-        data = {
-            'keycode': keycode,
-        }
-        if metastate is not None:
-            data['metastate'] = metastate
-        self.execute(Command.KEY_EVENT, data)
-        return self
+        return self.press_keycode(keycode=keycode, metastate=metastate)
 
-    def press_keycode(self: T, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> T:
+    def press_keycode(self, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> 'WebDriver':
         """Sends a keycode to the device.
 
         Android only. Possible keycodes can be found
@@ -92,17 +97,21 @@ class Keyboard(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Keyboard']: Self instance
         """
-        data = {
-            'keycode': keycode,
-        }
+        args = {'keycode': keycode}
         if metastate is not None:
-            data['metastate'] = metastate
+            args['metastate'] = metastate
         if flags is not None:
-            data['flags'] = flags
-        self.execute(Command.PRESS_KEYCODE, data)
-        return self
+            args['flags'] = flags
+        try:
+            self.execute_script('mobile: pressKey', args)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.execute(Command.PRESS_KEYCODE, args)
+        return cast('WebDriver', self)
 
-    def long_press_keycode(self: T, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> T:
+    def long_press_keycode(
+        self, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None
+    ) -> 'WebDriver':
         """Sends a long press of keycode to the device.
 
         Android only. Possible keycodes can be found in
@@ -116,13 +125,25 @@ class Keyboard(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Keyboard']: Self instance
         """
-        data = {'keycode': keycode}
+        args = {
+            'keycode': keycode,
+        }
         if metastate is not None:
-            data['metastate'] = metastate
+            args['metastate'] = metastate
         if flags is not None:
-            data['flags'] = flags
-        self.execute(Command.LONG_PRESS_KEYCODE, data)
-        return self
+            args['flags'] = flags
+        try:
+            self.execute_script(
+                'mobile: pressKey',
+                {
+                    **args,
+                    'isLongPress': True,
+                },
+            )
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.execute(Command.LONG_PRESS_KEYCODE, args)
+        return cast('WebDriver', self)
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

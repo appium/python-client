@@ -25,9 +25,7 @@ class TestWebDriverLock(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}'
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         driver.lock(1)
 
         d = get_httpretty_request_body(httpretty.last_request())
@@ -39,9 +37,7 @@ class TestWebDriverLock(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}'
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         driver.lock()
 
         d = get_httpretty_request_body(httpretty.last_request())
@@ -76,7 +72,5 @@ class TestWebDriverLock(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/unlock'),
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync')
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         assert isinstance(driver.unlock(), WebDriver)

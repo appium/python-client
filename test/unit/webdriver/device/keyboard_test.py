@@ -73,9 +73,7 @@ class TestWebDriverKeyboard(object):
             appium_command('/session/1234567890/appium/device/press_keycode'),
             body='{keycode: 86, metastate: 2097153, flags: 44}',
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync')
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         # metastate is META_SHIFT_ON and META_NUM_LOCK_ON
         # flags is CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE, FLAG_FROM_SYSTEM
         assert isinstance(
@@ -91,9 +89,7 @@ class TestWebDriverKeyboard(object):
             appium_command('/session/1234567890/appium/device/long_press_keycode'),
             body='{keycode: 86, metastate: 2097153, flags: 44}',
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync')
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         # metastate is META_SHIFT_ON and META_NUM_LOCK_ON
         # flags is CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE, FLAG_FROM_SYSTEM
         assert isinstance(

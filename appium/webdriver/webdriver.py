@@ -15,17 +15,21 @@
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
 import warnings
-from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 
 from selenium import webdriver
-from selenium.common.exceptions import InvalidArgumentException, SessionNotCreatedException, WebDriverException
+from selenium.common.exceptions import (
+    InvalidArgumentException,
+    SessionNotCreatedException,
+    UnknownMethodException,
+    WebDriverException,
+)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.logger import logger
 from appium.options.common.base import AppiumOptions
-from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.common.appiumby import AppiumBy
 
 from .appium_connection import AppiumConnection
@@ -59,8 +63,6 @@ from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
-
-T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class ExtensionBase:
@@ -257,6 +259,8 @@ class WebDriver(
         By.IMAGE = AppiumBy.IMAGE
         By.CUSTOM = AppiumBy.CUSTOM
 
+        self._absent_extensions: Set[str] = set()
+
         self._extensions = extensions or []
         for extension in self._extensions:
             instance = extension(self.execute)
@@ -435,7 +439,7 @@ class WebDriver(
         """
         return MobileWebElement(self, element_id)
 
-    def set_value(self: T, element: MobileWebElement, value: str) -> T:
+    def set_value(self, element: MobileWebElement, value: str) -> 'WebDriver':
         """Set the value on an element in the application.
         deprecated:: 2.8.1
 
@@ -497,6 +501,31 @@ class WebDriver(
             self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value})
         else:
             raise WebDriverException("You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'")
+
+    def assert_extension_exists(self, ext_name: str) -> 'WebDriver':
+        """
+        Verifies if the given extension is not present in the list of absent extensions
+        for the given driver instance.
+        This API is designed for private usage.
+
+        :param ext_name: extension name
+        :return: self instance for chaining
+        :raise UnknownMethodException: If the extension has been marked as absent once
+        """
+        if ext_name in self._absent_extensions:
+            raise UnknownMethodException()
+        return self
+
+    def mark_extension_absence(self, ext_name: str) -> 'WebDriver':
+        """
+        Marks the given extension as absent for the given driver instance.
+        This API is designed for private usage.
+
+        :param ext_name: extension name
+        :return: self instance for chaining
+        """
+        self._absent_extensions.add(ext_name)
+        return self
 
     def _add_commands(self) -> None:
         # call the overridden command binders from all mixin classes except for

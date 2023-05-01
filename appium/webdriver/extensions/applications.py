@@ -18,6 +18,7 @@ from selenium.common.exceptions import InvalidArgumentException, UnknownMethodEx
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
 from ..mobilecommand import MobileCommand as Command
 
@@ -25,7 +26,7 @@ if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
 
 
-class Applications(CanExecuteCommands, CanExecuteScripts):
+class Applications(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def background_app(self, seconds: int) -> 'WebDriver':
         """Puts the application in the background on the device for a certain duration.
 
@@ -37,12 +38,13 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
+        ext_name = 'mobile: backgroundApp'
         args = {'seconds': seconds}
         try:
-            self.execute_script('mobile: backgroundApp', args)
+            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
         except UnknownMethodException:
             # TODO: Remove the fallback
-            self.execute(Command.BACKGROUND, args)
+            self.mark_extension_absence(ext_name).execute(Command.BACKGROUND, args)
         return cast('WebDriver', self)
 
     def is_app_installed(self, bundle_id: str) -> bool:
@@ -54,9 +56,10 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
         Returns:
             `True` if app is installed
         """
+        ext_name = 'mobile: isAppInstalled'
         try:
-            return self.execute_script(
-                'mobile: isAppInstalled',
+            return self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
                 {
                     'bundleId': bundle_id,
                     'appId': bundle_id,
@@ -64,7 +67,7 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
             )
         except (UnknownMethodException, InvalidArgumentException):
             # TODO: Remove the fallback
-            return self.execute(
+            return self.mark_extension_absence(ext_name).execute(
                 Command.IS_APP_INSTALLED,
                 {
                     'bundleId': bundle_id,
@@ -91,8 +94,9 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
+        ext_name = 'mobile: installApp'
         try:
-            self.execute_script(
+            self.assert_extension_exists(ext_name).execute_script(
                 'mobile: installApp',
                 {
                     'app': app_path,
@@ -105,7 +109,7 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
             data: Dict[str, Any] = {'appPath': app_path}
             if options:
                 data.update({'options': options})
-            self.execute(Command.INSTALL_APP, data)
+            self.mark_extension_absence(ext_name).execute(Command.INSTALL_APP, data)
         return cast('WebDriver', self)
 
     def remove_app(self, app_id: str, **options: Any) -> 'WebDriver':
@@ -123,9 +127,10 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
+        ext_name = 'mobile: removeApp'
         try:
-            self.execute_script(
-                'mobile: removeApp',
+            self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
                 {
                     'appId': app_id,
                     'bundleId': app_id,
@@ -137,7 +142,7 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
             data: Dict[str, Any] = {'appId': app_id}
             if options:
                 data.update({'options': options})
-            self.execute(Command.REMOVE_APP, data)
+            self.mark_extension_absence(ext_name).execute(Command.REMOVE_APP, data)
         return cast('WebDriver', self)
 
     def launch_app(self) -> 'WebDriver':
@@ -186,9 +191,10 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
         Returns:
             True if the app has been successfully terminated
         """
+        ext_name = 'mobile: terminateApp'
         try:
-            return self.execute_script(
-                'mobile: terminateApp',
+            return self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
                 {
                     'appId': app_id,
                     'bundleId': app_id,
@@ -200,7 +206,7 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
             data: Dict[str, Any] = {'appId': app_id}
             if options:
                 data.update({'options': options})
-            return self.execute(Command.TERMINATE_APP, data)['value']
+            return self.mark_extension_absence(ext_name).execute(Command.TERMINATE_APP, data)['value']
 
     def activate_app(self, app_id: str) -> 'WebDriver':
         """Activates the application if it is not running
@@ -212,9 +218,10 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
+        ext_name = 'mobile: activateApp'
         try:
-            self.execute_script(
-                'mobile: activateApp',
+            self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
                 {
                     'appId': app_id,
                     'bundleId': app_id,
@@ -222,7 +229,7 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
             )
         except (UnknownMethodException, InvalidArgumentException):
             # TODO: Remove the fallback
-            self.execute(Command.ACTIVATE_APP, {'appId': app_id})
+            self.mark_extension_absence(ext_name).execute(Command.ACTIVATE_APP, {'appId': app_id})
         return cast('WebDriver', self)
 
     def query_app_state(self, app_id: str) -> int:
@@ -235,9 +242,10 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
             One of possible application state constants. See ApplicationState
             class for more details.
         """
+        ext_name = 'mobile: queryAppState'
         try:
-            return self.execute_script(
-                'mobile: queryAppState',
+            return self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
                 {
                     'appId': app_id,
                     'bundleId': app_id,
@@ -245,7 +253,7 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
             )
         except (UnknownMethodException, InvalidArgumentException):
             # TODO: Remove the fallback
-            return self.execute(
+            return self.mark_extension_absence(ext_name).execute(
                 Command.QUERY_APP_STATE,
                 {
                     'appId': app_id,
@@ -263,16 +271,17 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
         Returns:
             The key is string id and the value is the content.
         """
+        ext_name = 'mobile: getAppStrings'
         data = {}
         if language is not None:
             data['language'] = language
         if string_file is not None:
             data['stringFile'] = string_file
         try:
-            return self.execute_script('mobile: getAppStrings', data)
+            return self.assert_extension_exists(ext_name).execute_script(ext_name, data)
         except UnknownMethodException:
             # TODO: Remove the fallback
-            return self.execute(Command.GET_APP_STRINGS, data)['value']
+            return self.mark_extension_absence(ext_name).execute(Command.GET_APP_STRINGS, data)['value']
 
     def reset(self) -> 'WebDriver':
         """Resets the current application on the device.

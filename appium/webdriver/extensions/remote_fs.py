@@ -19,6 +19,7 @@ from selenium.common.exceptions import InvalidArgumentException, UnknownMethodEx
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
 from ..mobilecommand import MobileCommand as Command
 
@@ -26,7 +27,7 @@ if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
 
 
-class RemoteFS(CanExecuteCommands, CanExecuteScripts):
+class RemoteFS(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def pull_file(self, path: str) -> str:
         """Retrieves the file at `path`.
 
@@ -36,11 +37,12 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts):
         Returns:
             The file's contents encoded as Base64.
         """
+        ext_name = 'mobile: pullFile'
         try:
-            return self.execute_script('mobile: pullFile', {'remotePath', path})
+            return self.assert_extension_exists(ext_name).execute_script(ext_name, {'remotePath', path})
         except UnknownMethodException:
             # TODO: Remove the fallback
-            return self.execute(Command.PULL_FILE, {'path': path})['value']
+            return self.mark_extension_absence(ext_name).execute(Command.PULL_FILE, {'path': path})['value']
 
     def pull_folder(self, path: str) -> str:
         """Retrieves a folder at `path`.
@@ -51,11 +53,12 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts):
         Returns:
             The folder's contents zipped and encoded as Base64.
         """
+        ext_name = 'mobile: pullFolder'
         try:
-            return self.execute_script('mobile: pullFolder', {'remotePath': path})
+            return self.assert_extension_exists(ext_name).execute_script(ext_name, {'remotePath': path})
         except UnknownMethodException:
             # TODO: Remove the fallback
-            return self.execute(Command.PULL_FOLDER, {'path': path})['value']
+            return self.mark_extension_absence(ext_name).execute(Command.PULL_FOLDER, {'path': path})['value']
 
     def push_file(
         self, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None
@@ -85,9 +88,10 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts):
                 raise InvalidArgumentException(message) from e
             base64data = base64.b64encode(file_data).decode('utf-8')
 
+        ext_name = 'mobile: pushFile'
         try:
-            self.execute_script(
-                'mobile: pushFile',
+            self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
                 {
                     'remotePath': destination_path,
                     'payload': base64data,
@@ -95,7 +99,7 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts):
             )
         except UnknownMethodException:
             # TODO: Remove the fallback
-            self.execute(
+            self.mark_extension_absence(ext_name).execute(
                 Command.PUSH_FILE,
                 {
                     'path': destination_path,

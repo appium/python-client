@@ -15,7 +15,6 @@
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 

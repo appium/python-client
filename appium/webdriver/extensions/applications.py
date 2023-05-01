@@ -97,7 +97,7 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
                 {
                     'app': app_path,
                     'appPath': app_path,
-                    **(options if options else {}),
+                    **(options or {}),
                 },
             )
         except (UnknownMethodException, InvalidArgumentException):
@@ -129,7 +129,7 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
                 {
                     'appId': app_id,
                     'bundleId': app_id,
-                    **(options if options else {}),
+                    **(options or {}),
                 },
             )
         except (UnknownMethodException, InvalidArgumentException):
@@ -192,7 +192,7 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
                 {
                     'appId': app_id,
                     'bundleId': app_id,
-                    **(options if options else {}),
+                    **(options or {}),
                 },
             )
         except (UnknownMethodException, InvalidArgumentException):

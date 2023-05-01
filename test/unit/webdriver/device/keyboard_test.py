@@ -23,6 +23,7 @@ class TestWebDriverKeyboard(object):
     def test_hide_keyboard(self):
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/device/hide_keyboard'))
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         assert isinstance(driver.hide_keyboard(), WebDriver)
 
     @httpretty.activate
@@ -30,6 +31,9 @@ class TestWebDriverKeyboard(object):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/press_keycode'), body='{"value": "86"}'
+        )
+        httpretty.register_uri(
+            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": "86"}'
         )
         driver.press_keycode(86)
         d = get_httpretty_request_body((httpretty.last_request()))
@@ -43,15 +47,21 @@ class TestWebDriverKeyboard(object):
             appium_command('/session/1234567890/appium/device/long_press_keycode'),
             body='{"value": "86"}',
         )
+        httpretty.register_uri(
+            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": "86"}'
+        )
         driver.long_press_keycode(86)
         d = get_httpretty_request_body((httpretty.last_request()))
-        assert d['keycode'] == 86
+        assert d.get('keycode', d['args'][0]['keycode']) == 86
 
     @httpretty.activate
     def test_keyevent(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/keyevent'), body='{keycode: 86}'
+        )
+        httpretty.register_uri(
+            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": "86"}'
         )
         assert isinstance(driver.keyevent(86), WebDriver)
 
@@ -63,10 +73,13 @@ class TestWebDriverKeyboard(object):
             appium_command('/session/1234567890/appium/device/press_keycode'),
             body='{keycode: 86, metastate: 2097153, flags: 44}',
         )
+        httpretty.register_uri(
+            httpretty.POST, appium_command('/session/1234567890/execute/sync')
+        )
         # metastate is META_SHIFT_ON and META_NUM_LOCK_ON
         # flags is CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE, FLAG_FROM_SYSTEM
         assert isinstance(
-            driver.press_keycode(86, metastate=[0x00000001, 0x00200000], flags=[0x20, 0x00000004, 0x00000008]),
+            driver.press_keycode(86, metastate=0x00000001 | 0x00200000, flags=0x20 | 0x00000004 | 0x00000008),
             WebDriver,
         )
 
@@ -78,9 +91,12 @@ class TestWebDriverKeyboard(object):
             appium_command('/session/1234567890/appium/device/long_press_keycode'),
             body='{keycode: 86, metastate: 2097153, flags: 44}',
         )
+        httpretty.register_uri(
+            httpretty.POST, appium_command('/session/1234567890/execute/sync')
+        )
         # metastate is META_SHIFT_ON and META_NUM_LOCK_ON
         # flags is CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE, FLAG_FROM_SYSTEM
         assert isinstance(
-            driver.long_press_keycode(86, metastate=[0x00000001, 0x00200000], flags=[0x20, 0x00000004, 0x00000008]),
+            driver.long_press_keycode(86, metastate=0x00000001 | 0x00200000, flags=0x20 | 0x00000004 | 0x00000008),
             WebDriver,
         )

@@ -37,7 +37,7 @@ class TestWebDriverKeyboard(object):
         )
         driver.press_keycode(86)
         d = get_httpretty_request_body((httpretty.last_request()))
-        assert d['keycode'] == 86
+        assert d.get('keycode', d['args'][0]['keycode']) == 86
 
     @httpretty.activate
     def test_long_press_keycode(self):

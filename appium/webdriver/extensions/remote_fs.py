@@ -39,7 +39,7 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
         """
         ext_name = 'mobile: pullFile'
         try:
-            return self.assert_extension_exists(ext_name).execute_script(ext_name, {'remotePath', path})
+            return self.assert_extension_exists(ext_name).execute_script(ext_name, {'remotePath': path})
         except UnknownMethodException:
             # TODO: Remove the fallback
             return self.mark_extension_absence(ext_name).execute(Command.PULL_FILE, {'path': path})['value']

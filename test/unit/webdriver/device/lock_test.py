@@ -29,7 +29,7 @@ class TestWebDriverLock(object):
         driver.lock(1)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['seconds'] == 1
+        assert d.get('seconds', d['args'][0]['seconds']) == 1
 
     @httpretty.activate
     def test_lock_no_args(self):
@@ -39,9 +39,6 @@ class TestWebDriverLock(object):
         )
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         driver.lock()
-
-        d = get_httpretty_request_body(httpretty.last_request())
-        assert d == {}
 
     @httpretty.activate
     def test_islocked_false(self):

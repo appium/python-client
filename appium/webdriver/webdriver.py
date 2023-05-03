@@ -524,6 +524,7 @@ class WebDriver(
         :param ext_name: extension name
         :return: self instance for chaining
         """
+        logger.debug(f'Marking driver extension "{ext_name}" as absent for the current instance')
         self._absent_extensions.add(ext_name)
         return self
 

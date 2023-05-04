@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import warnings
-from typing import Any, TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, Any, cast
 
 from selenium.common.exceptions import UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
-from appium.webdriver.mobilecommand import MobileCommand as Command
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
+from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
@@ -44,10 +44,13 @@ class Common(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence
             'This API is deprecated and will be removed in future versions',
             DeprecationWarning,
         )
-        return self.execute(Command.END_TEST_COVERAGE, {
-            'intent': intent,
-            'path': path,
-        })['value']
+        return self.execute(
+            Command.END_TEST_COVERAGE,
+            {
+                'intent': intent,
+                'path': path,
+            },
+        )['value']
 
     def open_notifications(self) -> 'WebDriver':
         """Open notification shade in Android (API Level 18 and above)

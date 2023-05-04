@@ -12,19 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import cast, TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 from selenium.common.exceptions import UnknownMethodException
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
-from appium.webdriver.mobilecommand import MobileCommand as Command
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
+from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
+
 
 class NetSpeed:
     GSM = 'gsm'  # GSM/CSD (up: 14.4(kbps), down: 14.4(kbps))
@@ -36,6 +37,7 @@ class NetSpeed:
     LTE = 'lte'  # LTE (up: 58,000, down: 173,000)
     EVDO = 'evdo'  # EVDO (up: 75,000, down: 280,000)
     FULL = 'full'  # No limit, the default (up: 0.0, down: 0.0)
+
 
 class NetworkMask:
     WIFI = 0b010
@@ -98,16 +100,19 @@ class Network(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresenc
         """
         ext_name = 'mobile: setConnectivity'
         try:
-            return self.assert_extension_exists(ext_name).execute_script(ext_name, {
-                'wifi': bool(connection_type & NetworkMask.WIFI),
-                'data': bool(connection_type & NetworkMask.DATA),
-                'airplaneMode': bool(connection_type & NetworkMask.AIRPLANE_MODE),
-            })
+            return self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
+                {
+                    'wifi': bool(connection_type & NetworkMask.WIFI),
+                    'data': bool(connection_type & NetworkMask.DATA),
+                    'airplaneMode': bool(connection_type & NetworkMask.AIRPLANE_MODE),
+                },
+            )
         except UnknownMethodException:
             # TODO: Remove the fallback
-            return self.mark_extension_absence(ext_name).execute(Command.SET_NETWORK_CONNECTION, {
-                'parameters': {'type': connection_type}
-            })['value']
+            return self.mark_extension_absence(ext_name).execute(
+                Command.SET_NETWORK_CONNECTION, {'parameters': {'type': connection_type}}
+            )['value']
 
     def toggle_wifi(self) -> 'WebDriver':
         """Toggle the wifi on the device, Android only.
@@ -119,9 +124,9 @@ class Network(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresenc
         """
         ext_name = 'mobile: setConnectivity'
         try:
-            self.assert_extension_exists(ext_name).execute_script(ext_name, {
-                'wifi': not (self.network_connection & NetworkMask.WIFI)
-            })
+            self.assert_extension_exists(ext_name).execute_script(
+                ext_name, {'wifi': not (self.network_connection & NetworkMask.WIFI)}
+            )
         except UnknownMethodException:
             self.mark_extension_absence(ext_name).execute(Command.TOGGLE_WIFI, {})
         return cast('WebDriver', self)

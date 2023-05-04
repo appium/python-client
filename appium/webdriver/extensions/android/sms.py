@@ -12,17 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import cast, TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 from selenium.common.exceptions import UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
-from appium.webdriver.mobilecommand import MobileCommand as Command
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
+from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
+
 
 class Sms(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def send_sms(self, phone_number: str, message: str) -> 'WebDriver':

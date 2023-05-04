@@ -17,9 +17,10 @@ from typing import Dict, Union
 from selenium.common.exceptions import UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
-from appium.webdriver.mobilecommand import MobileCommand as Command
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
+from appium.webdriver.mobilecommand import MobileCommand as Command
+
 
 class SystemBars(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def get_system_bars(self) -> Dict[str, Dict[str, Union[int, bool]]]:

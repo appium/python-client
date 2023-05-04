@@ -12,19 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import cast, TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 from selenium.common.exceptions import UnknownMethodException
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
-from appium.webdriver.mobilecommand import MobileCommand as Command
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
+from appium.webdriver.mobilecommand import MobileCommand as Command
 
 if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
+
 
 class GsmCallActions:
     CALL = 'call'
@@ -75,10 +76,7 @@ class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
                 f'{action} is unknown. Consider using one of {list(constants.keys())} constants. '
                 f'(e.g. {GsmCallActions.__name__}.CALL)'
             )
-        args = {
-            'phoneNumber': phone_number,
-            'action': action
-        }
+        args = {'phoneNumber': phone_number, 'action': action}
         try:
             self.assert_extension_exists(ext_name).execute_script(ext_name, args)
         except UnknownMethodException:
@@ -112,10 +110,9 @@ class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
             self.assert_extension_exists(ext_name).execute_script(ext_name, {'strength': strength})
         except UnknownMethodException:
             # TODO: Remove the fallback
-            self.mark_extension_absence(ext_name).execute(Command.SET_GSM_SIGNAL, {
-                'signalStrength': strength,
-                'signalStrengh': strength
-            })
+            self.mark_extension_absence(ext_name).execute(
+                Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength}
+            )
         return cast('WebDriver', self)
 
     def set_gsm_voice(self, state: str) -> 'WebDriver':

@@ -15,9 +15,10 @@
 from selenium.common.exceptions import UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
-from appium.webdriver.mobilecommand import MobileCommand as Command
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
+from appium.webdriver.mobilecommand import MobileCommand as Command
+
 
 class Display(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def get_display_density(self) -> int:

@@ -26,8 +26,12 @@ class TestWebDriverSms(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/send_sms'),
         )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+        )
         assert isinstance(driver.send_sms('555-123-4567', 'Hey lol'), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['phoneNumber'] == '555-123-4567'
-        assert d['message'] == 'Hey lol'
+        assert d['args'][0]['phoneNumber'] == '555-123-4567'
+        assert d['args'][0]['message'] == 'Hey lol'

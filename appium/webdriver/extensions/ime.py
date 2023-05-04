@@ -12,13 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, TypeVar
+import warnings
+from typing import TYPE_CHECKING, List, cast
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
 class IME(CanExecuteCommands):
@@ -29,24 +31,42 @@ class IME(CanExecuteCommands):
         Package and activity are returned (e.g., ['com.android.inputmethod.latin/.LatinIME'])
         Android only.
 
+        deprecated:: 2.0.0
+
         Returns:
             :obj:`list` of :obj:`str`: The available input methods for an Android device
         """
+        warnings.warn(
+            'The "available_ime_engines" API is deprecated and will be removed in future versions. '
+            'Use "mobile: shell" extension instead',
+            DeprecationWarning,
+        )
+
         return self.execute(Command.GET_AVAILABLE_IME_ENGINES, {})['value']  # pylint: disable=unsubscriptable-object
 
     def is_ime_active(self) -> bool:
         """Checks whether the device has IME service active.
         Android only.
 
+        deprecated:: 2.0.0
+
         Returns:
             `True` if IME service is active
         """
+        warnings.warn(
+            'The "is_ime_active" API is deprecated and will be removed in future versions. '
+            'Use "mobile: shell" extension instead',
+            DeprecationWarning,
+        )
+
         return self.execute(Command.IS_IME_ACTIVE, {})['value']  # pylint: disable=unsubscriptable-object
 
-    def activate_ime_engine(self: T, engine: str) -> T:
+    def activate_ime_engine(self, engine: str) -> 'WebDriver':
         """Activates the given IME engine on the device.
 
         Android only.
+
+        deprecated:: 2.0.0
 
         Args:
            engine: the package and activity of the IME engine to activate
@@ -55,20 +75,34 @@ class IME(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'IME']: Self instance
         """
+        warnings.warn(
+            'The "activate_ime_engine" API is deprecated and will be removed in future versions. '
+            'Use "mobile: shell" extension instead',
+            DeprecationWarning,
+        )
+
         data = {'engine': engine}
         self.execute(Command.ACTIVATE_IME_ENGINE, data)
-        return self
+        return cast('WebDriver', self)
 
-    def deactivate_ime_engine(self: T) -> T:
+    def deactivate_ime_engine(self) -> 'WebDriver':
         """Deactivates the currently active IME engine on the device.
 
         Android only.
 
+        deprecated:: 2.0.0
+
         Returns:
             Union['WebDriver', 'IME']: Self instance
         """
+        warnings.warn(
+            'The "deactivate_ime_engine" API is deprecated and will be removed in future versions. '
+            'Use "mobile: shell" extension instead',
+            DeprecationWarning,
+        )
+
         self.execute(Command.DEACTIVATE_IME_ENGINE, {})
-        return self
+        return cast('WebDriver', self)
 
     @property
     def active_ime_engine(self) -> str:
@@ -77,9 +111,17 @@ class IME(CanExecuteCommands):
 
         Android only.
 
+        deprecated:: 2.0.0
+
         Returns:
             str: The activity and package of the currently active IME engine
         """
+        warnings.warn(
+            'The "active_ime_engine" API is deprecated and will be removed in future versions. '
+            'Use "mobile: shell" extension instead',
+            DeprecationWarning,
+        )
+
         return self.execute(Command.GET_ACTIVE_IME_ENGINE, {})['value']  # pylint: disable=unsubscriptable-object
 
     def _add_commands(self) -> None:

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import warnings
 from typing import Any, Dict, List
 
 from appium.common.logger import logger
@@ -24,6 +25,7 @@ class Session(CanExecuteCommands):
     @property
     def session(self) -> Dict[str, Any]:
         """Retrieves session information from the current session
+        deprecated:: 2.0.0
 
         Usage:
             session = driver.session
@@ -31,11 +33,17 @@ class Session(CanExecuteCommands):
         Returns:
             `dict`: containing information from the current session
         """
+        warnings.warn(
+            'The "session" API is deprecated and will be removed in future versions',
+            DeprecationWarning,
+        )
+
         return self.execute(Command.GET_SESSION)['value']
 
     @property
     def all_sessions(self) -> List[Dict[str, Any]]:
         """Retrieves all sessions that are open
+        deprecated:: 2.0.0
 
         Usage:
             sessions = driver.all_sessions
@@ -43,6 +51,11 @@ class Session(CanExecuteCommands):
         Returns:
             :obj:`list` of :obj:`dict`: containing all open sessions
         """
+        warnings.warn(
+            'The "all_sessions" API is deprecated and will be removed in future versions',
+            DeprecationWarning,
+        )
+
         return self.execute(Command.GET_ALL_SESSIONS)['value']
 
     @property

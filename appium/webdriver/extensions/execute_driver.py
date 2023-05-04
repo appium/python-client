@@ -20,7 +20,6 @@ from ..mobilecommand import MobileCommand as Command
 
 
 class ExecuteDriver(CanExecuteCommands):
-
     # TODO Inner class case
     def execute_driver(self, script: str, script_type: str = 'webdriverio', timeout_ms: Optional[int] = None) -> Any:
         """Run a set of script against the current session, allowing execution of many commands in one Appium request.

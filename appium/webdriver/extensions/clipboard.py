@@ -13,20 +13,21 @@
 # limitations under the License.
 
 import base64
-from typing import Optional, TypeVar
+from typing import TYPE_CHECKING, Optional, cast
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound='Clipboard')
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
 class Clipboard(CanExecuteCommands):
     def set_clipboard(
-        self: T, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
-    ) -> T:
+        self, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
+    ) -> 'WebDriver':
         """Set the content of the system clipboard
 
         Args:
@@ -45,9 +46,9 @@ class Clipboard(CanExecuteCommands):
         if label:
             options['label'] = label
         self.execute(Command.SET_CLIPBOARD, options)
-        return self
+        return cast('WebDriver', self)
 
-    def set_clipboard_text(self: T, text: str, label: Optional[str] = None) -> T:
+    def set_clipboard_text(self, text: str, label: Optional[str] = None) -> 'WebDriver':
         """Copies the given text to the system clipboard
 
         Args:

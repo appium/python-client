@@ -27,6 +27,7 @@ class TestWebDriverLocation(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/toggle_location_services')
         )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         assert isinstance(driver.toggle_location_services(), WebDriver)
 
     @httpretty.activate

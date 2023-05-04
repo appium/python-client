@@ -12,15 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TypeVar
+from typing import cast, TYPE_CHECKING
+
+from selenium.common.exceptions import UnknownMethodException
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
-T = TypeVar('T', bound=CanExecuteCommands)
-
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 class GsmCallActions:
     CALL = 'call'
@@ -47,8 +51,8 @@ class GsmVoiceState:
     ON = 'on'
 
 
-class Gsm(CanExecuteCommands):
-    def make_gsm_call(self: T, phone_number: str, action: str) -> T:
+class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+    def make_gsm_call(self, phone_number: str, action: str) -> 'WebDriver':
         """Make GSM call (Emulator only)
 
         Android only.
@@ -64,16 +68,25 @@ class Gsm(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Gsm']: Self instance
         """
+        ext_name = 'mobile: gsmCall'
         constants = extract_const_attributes(GsmCallActions)
         if action not in constants.values():
             logger.warning(
                 f'{action} is unknown. Consider using one of {list(constants.keys())} constants. '
                 f'(e.g. {GsmCallActions.__name__}.CALL)'
             )
-        self.execute(Command.MAKE_GSM_CALL, {'phoneNumber': phone_number, 'action': action})
-        return self
+        args = {
+            'phoneNumber': phone_number,
+            'action': action
+        }
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.MAKE_GSM_CALL, args)
+        return cast('WebDriver', self)
 
-    def set_gsm_signal(self: T, strength: int) -> T:
+    def set_gsm_signal(self, strength: int) -> 'WebDriver':
         """Set GSM signal strength (Emulator only)
 
         Android only.
@@ -88,16 +101,24 @@ class Gsm(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Gsm']: Self instance
         """
+        ext_name = 'mobile: gsmSignal'
         constants = extract_const_attributes(GsmSignalStrength)
         if strength not in constants.values():
             logger.warning(
                 f'{strength} is out of range. Consider using one of {list(constants.keys())} constants. '
                 f'(e.g. {GsmSignalStrength.__name__}.GOOD)'
             )
-        self.execute(Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength})
-        return self
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, {'strength': strength})
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.SET_GSM_SIGNAL, {
+                'signalStrength': strength,
+                'signalStrengh': strength
+            })
+        return cast('WebDriver', self)
 
-    def set_gsm_voice(self: T, state: str) -> T:
+    def set_gsm_voice(self, state: str) -> 'WebDriver':
         """Set GSM voice state (Emulator only)
 
         Android only.
@@ -112,14 +133,20 @@ class Gsm(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Gsm']: Self instance
         """
+        ext_name = 'mobile: gmsVoice'
         constants = extract_const_attributes(GsmVoiceState)
         if state not in constants.values():
             logger.warning(
                 f'{state} is unknown. Consider using one of {list(constants.keys())} constants. '
                 f'(e.g. {GsmVoiceState.__name__}.HOME)'
             )
-        self.execute(Command.SET_GSM_VOICE, {'state': state})
-        return self
+        args = {'state': state}
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.SET_GSM_VOICE, args)
+        return cast('WebDriver', self)
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

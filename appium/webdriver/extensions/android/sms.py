@@ -12,16 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TypeVar
+from typing import cast, TYPE_CHECKING
+
+from selenium.common.exceptions import UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
-T = TypeVar('T', bound=CanExecuteCommands)
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
-
-class Sms(CanExecuteCommands):
-    def send_sms(self: T, phone_number: str, message: str) -> T:
+class Sms(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+    def send_sms(self, phone_number: str, message: str) -> 'WebDriver':
         """Emulate send SMS event on the connected emulator.
 
         Android only.
@@ -36,8 +40,14 @@ class Sms(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Sms']: Self instance
         """
-        self.execute(Command.SEND_SMS, {'phoneNumber': phone_number, 'message': message})
-        return self
+        ext_name = 'mobile: sendSms'
+        args = {'phoneNumber': phone_number, 'message': message}
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.SEND_SMS, args)
+        return cast('WebDriver', self)
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

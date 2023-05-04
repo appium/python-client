@@ -12,18 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TypeVar
+from typing import cast, TYPE_CHECKING
+
+from selenium.common.exceptions import UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
-T = TypeVar('T', bound=CanExecuteCommands)
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
-class Power(CanExecuteCommands):
+class Power(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     AC_OFF, AC_ON = 'off', 'on'
 
-    def set_power_capacity(self: T, percent: int) -> T:
+    def set_power_capacity(self, percent: int) -> 'WebDriver':
         """Emulate power capacity change on the connected emulator.
 
         Android only.
@@ -37,10 +42,16 @@ class Power(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Power']: Self instance
         """
-        self.execute(Command.SET_POWER_CAPACITY, {'percent': percent})
-        return self
+        ext_name = 'mobile: powerCapacity'
+        args = {'percent': percent}
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.SET_POWER_CAPACITY, args)
+        return cast('WebDriver', self)
 
-    def set_power_ac(self: T, ac_state: str) -> T:
+    def set_power_ac(self, ac_state: str) -> 'WebDriver':
         """Emulate power state change on the connected emulator.
 
         Android only.
@@ -55,8 +66,14 @@ class Power(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Power']: Self instance
         """
-        self.execute(Command.SET_POWER_AC, {'state': ac_state})
-        return self
+        ext_name = 'mobile: powerAC'
+        args = {'state': ac_state}
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.SET_POWER_AC, args)
+        return cast('WebDriver', self)
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

@@ -12,21 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TypeVar
+from typing import cast, TYPE_CHECKING
+import warnings
 
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
-T = TypeVar('T', bound=CanExecuteCommands)
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
-
-class Activities(CanExecuteCommands):
-    def start_activity(self: T, app_package: str, app_activity: str, **opts: str) -> T:
+class Activities(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+    def start_activity(self, app_package: str, app_activity: str, **opts: str) -> 'WebDriver':
         """Opens an arbitrary activity during a test. If the activity belongs to
         another application, that application is started and the activity is opened.
+        deprecated:: 2.0.0
 
         This is an Android-only method.
 
@@ -43,6 +48,11 @@ class Activities(CanExecuteCommands):
             optional_intent_arguments (str): Optional arguments to the intent.
             dont_stop_app_on_reset (str): Should the app be stopped on reset?
         """
+        warnings.warn(
+            'The "session" API is deprecated. Use "mobile: startActivity" extension instead.',
+            DeprecationWarning,
+        )
+
         data = {'appPackage': app_package, 'appActivity': app_activity}
         arguments = {
             'app_wait_package': 'appWaitPackage',
@@ -57,7 +67,7 @@ class Activities(CanExecuteCommands):
             if key in opts:
                 data[value] = opts[key]
         self.execute(Command.START_ACTIVITY, data)
-        return self
+        return cast('WebDriver', self)
 
     @property
     def current_activity(self) -> str:
@@ -66,7 +76,12 @@ class Activities(CanExecuteCommands):
         Returns:
             str: The current activity name running on the device
         """
-        return self.execute(Command.GET_CURRENT_ACTIVITY)['value']
+        ext_name = 'mobile: getCurrentActivity'
+        try:
+            return self.assert_extension_exists(ext_name).execute_script(ext_name)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            return self.mark_extension_absence(ext_name).execute(Command.GET_CURRENT_ACTIVITY)['value']
 
     def wait_activity(self, activity: str, timeout: int, interval: int = 1) -> bool:
         """Wait for an activity: block until target activity presents or time out.

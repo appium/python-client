@@ -12,15 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TypeVar
+from typing import cast, TYPE_CHECKING
+
+from selenium.common.exceptions import UnknownMethodException
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
-T = TypeVar('T', bound=CanExecuteCommands)
-
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 class NetSpeed:
     GSM = 'gsm'  # GSM/CSD (up: 14.4(kbps), down: 14.4(kbps))
@@ -33,16 +37,34 @@ class NetSpeed:
     EVDO = 'evdo'  # EVDO (up: 75,000, down: 280,000)
     FULL = 'full'  # No limit, the default (up: 0.0, down: 0.0)
 
+class NetworkMask:
+    WIFI = 0b010
+    DATA = 0b100
+    AIRPLANE_MODE = 0b001
 
-class Network(CanExecuteCommands):
+
+class Network(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     @property
     def network_connection(self) -> int:
         """Returns an integer bitmask specifying the network connection type.
 
         Android only.
         Possible values are available through the enumeration `appium.webdriver.ConnectionType`
+
+        This API only works reliably on emulators (any version) and real devices
+        since API level 31.
         """
-        return self.execute(Command.GET_NETWORK_CONNECTION, {})['value']
+        ext_name = 'mobile: getConnectivity'
+        try:
+            result_map = self.assert_extension_exists(ext_name).execute_script(ext_name)
+            return (
+                (NetworkMask.WIFI if result_map['wifi'] else 0)
+                | (NetworkMask.DATA if result_map['data'] else 0)
+                | (NetworkMask.AIRPLANE_MODE if result_map['airplaneMode'] else 0)
+            )
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            return self.mark_extension_absence(ext_name).execute(Command.GET_NETWORK_CONNECTION, {})['value']
 
     def set_network_connection(self, connection_type: int) -> int:
         """Sets the network connection type. Android only.
@@ -65,25 +87,46 @@ class Network(CanExecuteCommands):
 
         These are available through the enumeration `appium.webdriver.ConnectionType`
 
+        This API only works reliably on emulators (any version) and real devices
+        since API level 31.
+
         Args:
             connection_type: a member of the enum `appium.webdriver.ConnectionType`
 
         Return:
             int: Set network connection type
         """
-        data = {'parameters': {'type': connection_type}}
-        return self.execute(Command.SET_NETWORK_CONNECTION, data)['value']
+        ext_name = 'mobile: setConnectivity'
+        try:
+            return self.assert_extension_exists(ext_name).execute_script(ext_name, {
+                'wifi': bool(connection_type & NetworkMask.WIFI),
+                'data': bool(connection_type & NetworkMask.DATA),
+                'airplaneMode': bool(connection_type & NetworkMask.AIRPLANE_MODE),
+            })
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            return self.mark_extension_absence(ext_name).execute(Command.SET_NETWORK_CONNECTION, {
+                'parameters': {'type': connection_type}
+            })['value']
 
-    def toggle_wifi(self: T) -> T:
+    def toggle_wifi(self) -> 'WebDriver':
         """Toggle the wifi on the device, Android only.
+        This API only works reliably on emulators (any version) and real devices
+        since API level 31.
 
         Returns:
             Union['WebDriver', 'Network']: Self instance
         """
-        self.execute(Command.TOGGLE_WIFI, {})
-        return self
+        ext_name = 'mobile: setConnectivity'
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, {
+                'wifi': not (self.network_connection & NetworkMask.WIFI)
+            })
+        except UnknownMethodException:
+            self.mark_extension_absence(ext_name).execute(Command.TOGGLE_WIFI, {})
+        return cast('WebDriver', self)
 
-    def set_network_speed(self: T, speed_type: str) -> T:
+    def set_network_speed(self, speed_type: str) -> 'WebDriver':
         """Set the network speed emulation.
 
         Android Emulator only.
@@ -104,9 +147,13 @@ class Network(CanExecuteCommands):
                 f'{speed_type} is unknown. Consider using one of {list(constants.keys())} constants. '
                 f'(e.g. {NetSpeed.__name__}.LTE)'
             )
-
-        self.execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
-        return self
+        ext_name = 'mobile: networkSpeed'
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, {'speed': speed_type})
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
+        return cast('WebDriver', self)
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

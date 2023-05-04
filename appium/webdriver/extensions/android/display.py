@@ -12,11 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from selenium.common.exceptions import UnknownMethodException
+
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.mobilecommand import MobileCommand as Command
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
-
-class Display(CanExecuteCommands):
+class Display(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def get_display_density(self) -> int:
         """Get the display density, Android only
 
@@ -29,7 +32,12 @@ class Display(CanExecuteCommands):
         Return:
             int: The display density
         """
-        return self.execute(Command.GET_DISPLAY_DENSITY)['value']
+        ext_name = 'mobile: getDisplayDensity'
+        try:
+            return self.assert_extension_exists(ext_name).execute_script(ext_name)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            return self.mark_extension_absence(ext_name).execute(Command.GET_DISPLAY_DENSITY)['value']
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

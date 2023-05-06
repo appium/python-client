@@ -31,7 +31,7 @@ class Activities(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPres
     def start_activity(self, app_package: str, app_activity: str, **opts: str) -> 'WebDriver':
         """Opens an arbitrary activity during a test. If the activity belongs to
         another application, that application is started and the activity is opened.
-        deprecated:: 2.0.0
+        deprecated:: 2.9.0
 
         This is an Android-only method.
 

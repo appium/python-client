@@ -28,7 +28,7 @@ if TYPE_CHECKING:
 class Common(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def end_test_coverage(self, intent: str, path: str) -> Any:
         """Ends the coverage collection and pull the coverage.ec file from the device.
-        deprecated:: 2.0.0
+        deprecated:: 2.9.0
 
         Android only.
         See https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android/android-coverage.md

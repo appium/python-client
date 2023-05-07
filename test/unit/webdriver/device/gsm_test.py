@@ -27,11 +27,15 @@ class TestWebDriveGsm(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/gsm_call'),
         )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+        )
         assert isinstance(driver.make_gsm_call('5551234567', GsmCallActions.CALL), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['phoneNumber'] == '5551234567'
-        assert d['action'] == GsmCallActions.CALL
+        assert d['args'][0]['phoneNumber'] == '5551234567'
+        assert d['args'][0]['action'] == GsmCallActions.CALL
 
     @httpretty.activate
     def test_set_gsm_signal(self):
@@ -40,11 +44,14 @@ class TestWebDriveGsm(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/gsm_signal'),
         )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+        )
         assert isinstance(driver.set_gsm_signal(GsmSignalStrength.GREAT), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['signalStrength'] == GsmSignalStrength.GREAT
-        assert d['signalStrengh'] == GsmSignalStrength.GREAT
+        assert d['args'][0]['strength'] == GsmSignalStrength.GREAT
 
     @httpretty.activate
     def test_set_gsm_voice(self):
@@ -53,7 +60,11 @@ class TestWebDriveGsm(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/gsm_voice'),
         )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+        )
         assert isinstance(driver.set_gsm_voice(GsmVoiceState.ROAMING), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['state'] == GsmVoiceState.ROAMING
+        assert d['args'][0]['state'] == GsmVoiceState.ROAMING

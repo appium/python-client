@@ -27,6 +27,11 @@ class TestWebDriverNetwork(object):
         httpretty.register_uri(
             httpretty.GET, appium_command('/session/1234567890/network_connection'), body='{"value": 2}'
         )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+            body='{"value": {"wifi": true, "data": false, "airplaneMode": false}}',
+        )
         assert driver.network_connection == 2
 
     @httpretty.activate
@@ -35,10 +40,15 @@ class TestWebDriverNetwork(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/network_connection'), body='{"value": ""}'
         )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+            body='{"value": {"wifi": true, "data": false, "airplaneMode": false}}',
+        )
         driver.set_network_connection(2)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['parameters']['type'] == 2
+        assert d['args'][0]['wifi'] is True
 
     @httpretty.activate
     def test_set_network_speed(self):
@@ -47,10 +57,14 @@ class TestWebDriverNetwork(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/network_speed'),
         )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+        )
         assert isinstance(driver.set_network_speed(NetSpeed.LTE), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['netspeed'] == NetSpeed.LTE
+        assert d['args'][0]['speed'] == NetSpeed.LTE
 
     @httpretty.activate
     def test_toggle_wifi(self):
@@ -58,5 +72,10 @@ class TestWebDriverNetwork(object):
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/toggle_wifi'),
+        )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+            body='{"value": {"wifi": true, "data": false, "airplaneMode": false}}',
         )
         assert isinstance(driver.toggle_wifi(), WebDriver)

@@ -25,6 +25,8 @@ if TYPE_CHECKING:
 
 
 class AppiumConnection(RemoteConnection):
+    _proxy_url: Optional[str]
+
     def __init__(
         self,
         remote_server_addr: str,

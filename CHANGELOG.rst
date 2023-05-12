@@ -2,6 +2,74 @@ Changelog
 =========
 
 
+v2.10.0 (2023-05-11)
+--------------------
+
+Fix
+~~~
+- Update connection manager creation (#864) [Mykola Mokhnach]
+
+Other
+~~~~~
+- Refactor: Move driver-specific commands to use extensions (part2)
+  (#859) [Mykola Mokhnach]
+- Chore(deps): update selenium requirement from ~=4.7 to ~=4.9 (#852)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.7.0...selenium-4.9.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Refactor: Move driver-specific commands to use extensions (part1)
+  (#856) [Mykola Mokhnach]
+- Chore(deps-dev): update pylint requirement from ~=2.17.2 to ~=2.17.3
+  (#853) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.17.2...v2.17.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.4 to ~=4.5 (#854)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.4.0...4.5.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update mypy requirement from ~=1.1 to ~=1.2 (#848)
+  [dependabot[bot]]
+- Chore(deps-dev): update pylint requirement from ~=2.17.1 to ~=2.17.2
+  (#847) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/PyCQA/pylint) to permit the latest version.
+  - [Release notes](https://github.com/PyCQA/pylint/releases)
+  - [Commits](https://github.com/PyCQA/pylint/compare/v2.17.1...v2.17.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore: bump and correct version. [Kazuaki Matsuo]
+- Update changelog for 2.9.0. [Kazuaki Matsuo]
+
+
 v2.9.0 (2023-04-02)
 -------------------
 

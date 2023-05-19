@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
-# Licensed under the Apache License, Version 2.0 (the 'License');
+# Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
 #     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an 'AS IS' BASIS,
+# distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -16,12 +16,11 @@ import json
 from typing import Any, Dict, List, Sequence, Type, Union
 
 import selenium.common.exceptions as sel_exceptions
-from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.remote import errorhandler
 
 import appium.common.exceptions as appium_exceptions
 
-ERROR_TO_EXC_MAPPING: Dict[str, Type[WebDriverException]] = {
+ERROR_TO_EXC_MAPPING: Dict[str, Type[sel_exceptions.WebDriverException]] = {
     'element click intercepted': sel_exceptions.ElementClickInterceptedException,
     'element not interactable': sel_exceptions.ElementNotInteractableException,
     'insecure certificate': sel_exceptions.InsecureCertificateException,
@@ -67,7 +66,7 @@ def format_stacktrace(original: Union[None, str, Sequence]) -> List[str]:
         for frame in original:
             if not isinstance(frame, dict):
                 continue
-                
+
             line = frame.get('lineNumber', '')
             file = frame.get('fileName', '<anonymous>')
             if line:
@@ -106,9 +105,11 @@ class MobileErrorHandler(errorhandler.ErrorHandler):
         stacktrace = value.get('stacktrace', '')
         # In theory, we should also be checking HTTP status codes.
         # Java client, for example, prints a warning if the actual `error`
-        # value does not match to the actual HTTP status code.
-        exception_class: Type[WebDriverException] = ERROR_TO_EXC_MAPPING.get(error, WebDriverException)
-        if exception_class is WebDriverException and message:
+        # value does not match to the response's HTTP status code.
+        exception_class: Type[sel_exceptions.WebDriverException] = ERROR_TO_EXC_MAPPING.get(
+            error, sel_exceptions.WebDriverException
+        )
+        if exception_class is sel_exceptions.WebDriverException and message:
             if message == 'No such context found.':
                 exception_class = appium_exceptions.NoSuchContextException
             elif message == 'That command could not be executed in the current context.':

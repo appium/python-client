@@ -74,9 +74,7 @@ def format_stacktrace(original: Union[None, str, Sequence]) -> List[str]:
             meth = frame.get('methodName', '<anonymous>')
             if 'className' in frame:
                 meth = f'{frame["className"]}.{meth}'
-            msg = '    at %s (%s)'
-            msg = msg % (meth, file)
-            result.append(msg)
+            result.append(f'    at {meth} ({file})')
     except TypeError:
         pass
     return result

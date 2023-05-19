@@ -15,7 +15,7 @@
 import warnings
 from typing import TYPE_CHECKING, cast
 
-from selenium.common.exceptions import TimeoutException, UnknownMethodException
+from selenium.common.exceptions import TimeoutException, UnknownMethodException, WebDriverException
 from selenium.webdriver.support.ui import WebDriverWait
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
@@ -79,9 +79,11 @@ class Activities(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPres
         ext_name = 'mobile: getCurrentActivity'
         try:
             return self.assert_extension_exists(ext_name).execute_script(ext_name)
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            return self.mark_extension_absence(ext_name).execute(Command.GET_CURRENT_ACTIVITY)['value']
+        except WebDriverException as e:
+            if isinstance(e, UnknownMethodException) or self.is_missing_command(e.msg):
+                return self.mark_extension_absence(ext_name).execute(Command.GET_CURRENT_ACTIVITY)['value']
+            else:
+                raise e
 
     def wait_activity(self, activity: str, timeout: int, interval: int = 1) -> bool:
         """Wait for an activity: block until target activity presents or time out.

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TypeVar
+from typing import TypeVar, Union
 
 from ..protocol import Protocol
 
@@ -25,3 +25,8 @@ class CanRememberExtensionPresence(Protocol):
 
     def mark_extension_absence(self: T, ext_name: str) -> T:
         ...
+
+    def is_missing_command(self: T, error_msg: Union[str, None]) -> bool:
+        if error_msg is None:
+            return False
+        return 'unknown mobile command' in error_msg.lower()

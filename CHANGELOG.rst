@@ -2,6 +2,25 @@ Changelog
 =========
 
 
+v2.10.1 (2023-05-20)
+--------------------
+
+Fix
+~~~
+- W3C errors to exception classes mapping (#869) [Mykola Mokhnach]
+
+  * fix: W3C errors to exception classes mapping
+
+  * Imports
+
+  * Tune
+
+Other
+~~~~~
+- Chrom: bump the version. [Kazuaki Matsuo]
+- Update changelog for 2.10.0. [Kazuaki Matsuo]
+
+
 v2.10.0 (2023-05-11)
 --------------------
 

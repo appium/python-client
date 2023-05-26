@@ -103,41 +103,87 @@ As a base for the following code examples, the following sets up the [UnitTest](
 environment:
 
 ```python
-# Android environment
+# Python/Pytest
+import pytest
+
 from appium import webdriver
 # Options are only available since client version 2.3.0
 # If you use an older client then switch to desired_capabilities
 # instead: https://github.com/appium/python-client/pull/720
 from appium.options.android import UiAutomator2Options
-from appium.webdriver.common.appiumby import AppiumBy
-
-options = UiAutomator2Options()
-options.platformVersion = '10'
-options.udid = '123456789ABC'
-options.app = PATH('../../../apps/test-app.apk')
-# Appium1 points to http://127.0.0.1:4723/wd/hub by default
-self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options)
-el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
-el.click()
-```
-
-```python
-# iOS environment
-from appium import webdriver
-# Options are only available since client version 2.3.0
-# If you use an older client then switch to desired_capabilities
-# instead: https://github.com/appium/python-client/pull/720
 from appium.options.ios import XCUITestOptions
+from appium.webdriver.appium_service import AppiumService
 from appium.webdriver.common.appiumby import AppiumBy
 
-options = XCUITestOptions()
-options.platformVersion = '13.4'
-options.udid = '123456789ABC'
-options.app = PATH('../../apps/UICatalog.app.zip')
-# Appium1 points to http://127.0.0.1:4723/wd/hub by default
-self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options)
-el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
-el.click()
+APPIUM_PORT = 4723
+APPIUM_HOST = '127.0.0.1'
+
+
+# HINT: fixtures below could be extracted into conftest.py
+# HINT: and shared across all tests in the suite
+@pytest.fixture(scope='session')
+def appium_service():
+    service = AppiumService()
+    service.start(
+        # Check the output of `appium server --help` for the complete list of 
+        # server command line arguments
+        args=['--address', APPIUM_HOST, '-p', str(APPIUM_PORT)],
+        timeout_ms=20000,
+    )
+    assert service.is_running
+    assert service.is_listening
+    yield service
+    service.stop()
+
+
+@pytest.fixture
+def ios_driver_factory():
+    
+    def ios_driver_with_custom_opts(custom_opts = None):    
+        options = XCUITestOptions()
+        options.platformVersion = '13.4'
+        options.udid = '123456789ABC'
+        if custom_opts is not None:
+            options.load_capabilities(custom_opts)
+        # Appium1 points to http://127.0.0.1:4723/wd/hub by default
+        return webdriver.Remote(f'http://{APPIUM_HOST}:{APPIUM_PORT}', options=options)
+    
+    return ios_driver_with_custom_opts
+    
+    
+@pytest.fixture
+def android_driver_factory():
+    def android_driver_with_custom_opts(custom_opts = None):    
+        options = UiAutomator2Options()
+        options.platformVersion = '10'
+        options.udid = '123456789ABC'
+        if custom_opts is not None:
+            options.load_capabilities(custom_opts)
+        # Appium1 points to http://127.0.0.1:4723/wd/hub by default
+        return webdriver.Remote(f'http://{APPIUM_HOST}:{APPIUM_PORT}', options=options)
+    
+    return android_driver_with_custom_opts
+
+            
+def test_ios_click(appium_service, ios_driver_factory):
+    # Usage of the context manager ensures the driver session is closed properly
+    # after the test completes. Otherwise, make sure to call `driver.quit()` on teardown.
+    with ios_driver_factory({
+        'app': '/path/to/app/UICatalog.app.zip'
+    }) as driver:
+        el = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
+        el.click()
+
+
+def test_android_click(appium_service, android_driver_factory):
+    # Usage of the context manager ensures the driver session is closed properly
+    # after the test completes. Otherwise, make sure to call `driver.quit()` on teardown.
+    with android_driver_factory({
+        'app': '/path/to/app/test-app.apk',
+        'udid': '567890',
+    }) as driver:
+        el = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
+        el.click()
 ```
 
 ## Direct Connect URLs
@@ -163,10 +209,10 @@ from appium.options.ios import XCUITestOptions
 options = XCUITestOptions().load_capabilities({
     'platformVersion': '13.4',
     'deviceName': 'iPhone Simulator',
-    'app': PATH('../../apps/UICatalog.app.zip'),
+    'app': '/full/path/to/app/UICatalog.app.zip',
 })
 
-self.driver = webdriver.Remote(
+driver = webdriver.Remote(
     # Appium1 points to http://127.0.0.1:4723/wd/hub by default
     'http://127.0.0.1:4723',
     options=options,
@@ -193,7 +239,7 @@ options.automation_name = 'safari'
 options.set_capability('browser_name', 'safari')
 
 # Appium1 points to http://127.0.0.1:4723/wd/hub by default
-self.driver = webdriver.Remote('http://127.0.0.1:4723', options=options, strict_ssl=False)
+driver = webdriver.Remote('http://127.0.0.1:4723', options=options, strict_ssl=False)
 ```
 
 ## Set custom `AppiumConnection`
@@ -213,13 +259,15 @@ from appium.webdriver.appium_connection import AppiumConnection
 init_args_for_pool_manage = {
     'retries': urllib3.util.retry.Retry(total=3, connect=3, read=False)
 }
-appium_executor = AppiumConnection(remote_server_addr='http://127.0.0.1:4723',
-    init_args_for_pool_manage=init_args_for_pool_manage)
+appium_executor = AppiumConnection(
+    remote_server_addr='http://127.0.0.1:4723',
+    init_args_for_pool_manage=init_args_for_pool_manage
+)
 
 options = XCUITestOptions()
 options.platformVersion = '13.4'
 options.udid = '123456789ABC'
-options.app = PATH('../../apps/UICatalog.app.zip')
+options.app = '/full/path/to/app/UICatalog.app.zip'
 driver = webdriver.Remote(appium_executor, options=options)
 ```
 
@@ -241,7 +289,7 @@ custom_executor = CustomAppiumConnection(remote_server_addr='http://127.0.0.1:47
 options = XCUITestOptions().load_capabilities({
     'platformVersion': '13.4',
     'deviceName': 'iPhone Simulator',
-    'app': PATH('../../apps/UICatalog.app.zip'),
+    'app': '/full/path/to/app/UICatalog.app.zip',
 })
 driver = webdriver.Remote(custom_executor, options=options)
 

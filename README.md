@@ -151,6 +151,7 @@ def ios_driver_factory():
     
 @pytest.fixture
 def android_driver_factory():
+    
     def create_android_driver(custom_opts = None):    
         options = UiAutomator2Options()
         options.platformVersion = '10'

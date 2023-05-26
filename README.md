@@ -130,8 +130,6 @@ def appium_service():
         args=['--address', APPIUM_HOST, '-p', str(APPIUM_PORT)],
         timeout_ms=20000,
     )
-    assert service.is_running
-    assert service.is_listening
     yield service
     service.stop()
 
@@ -139,7 +137,7 @@ def appium_service():
 @pytest.fixture
 def ios_driver_factory():
     
-    def ios_driver_with_custom_opts(custom_opts = None):    
+    def create_ios_driver(custom_opts = None):    
         options = XCUITestOptions()
         options.platformVersion = '13.4'
         options.udid = '123456789ABC'
@@ -148,12 +146,12 @@ def ios_driver_factory():
         # Appium1 points to http://127.0.0.1:4723/wd/hub by default
         return webdriver.Remote(f'http://{APPIUM_HOST}:{APPIUM_PORT}', options=options)
     
-    return ios_driver_with_custom_opts
+    return create_ios_driver
     
     
 @pytest.fixture
 def android_driver_factory():
-    def android_driver_with_custom_opts(custom_opts = None):    
+    def create_android_driver(custom_opts = None):    
         options = UiAutomator2Options()
         options.platformVersion = '10'
         options.udid = '123456789ABC'
@@ -162,7 +160,7 @@ def android_driver_factory():
         # Appium1 points to http://127.0.0.1:4723/wd/hub by default
         return webdriver.Remote(f'http://{APPIUM_HOST}:{APPIUM_PORT}', options=options)
     
-    return android_driver_with_custom_opts
+    return create_android_driver
 
             
 def test_ios_click(appium_service, ios_driver_factory):

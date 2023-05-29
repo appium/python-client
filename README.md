@@ -89,7 +89,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 > the Selenium Python binding update might affect the Appium Python Client.
 > For exampple, some changes in the Selenium binding could break the Appium client.
 > To reduce such unexpected behavior, we strongly recommend you to manage dependencies
-> with version management tool such as Pipenv and Pipfile.
+> with version management tools such as Pipenv and requirements.txt.
 
 ## Usage
 

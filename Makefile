@@ -7,7 +7,7 @@ check-all: ## Run all lint checks and unittest
 
 .PHONY: isort
 isort: ## Run isort
-	python -m isort $(ARGS) .
+	python -m isort --profile black $(ARGS) .
 
 .PHONY: black
 black: ## Run black

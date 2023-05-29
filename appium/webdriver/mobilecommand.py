@@ -18,6 +18,8 @@ class MobileCommand:
     GET_SESSION = 'getSession'
     GET_ALL_SESSIONS = 'getAllSessions'
 
+    GET_STATUS = 'getStatus'
+
     ## MJSONWP for Selenium v4
     GET_LOCATION = 'getLocation'
     SET_LOCATION = 'setLocation'

@@ -24,6 +24,19 @@ from test.unit.helper.test_helper import android_w3c_driver, appium_command, get
 
 class TestWebElement(object):
     @httpretty.activate
+    def test_status(self):
+        driver = android_w3c_driver()
+        response = {'ready': True, 'message': {'build': {'version': '2.0.0', 'revision': None}}}
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/status'),
+            body=json.dumps({"value": response}),
+        )
+        s = driver.get_status()
+
+        assert s == response
+
+    @httpretty.activate
     def test_set_value(self):
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/element/element_id/value'))
@@ -33,7 +46,7 @@ class TestWebElement(object):
         element.set_value(value)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['value'] == [value]
+        assert d['text'] == value
 
     @httpretty.activate
     def test_send_key(self):

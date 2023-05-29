@@ -33,7 +33,6 @@ if TYPE_CHECKING:
 
 
 class TestWebDriver(BaseTestCase):
-
     # TODO Due to not created 2nd session somehow
     @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI.')
     def test_all_sessions(self) -> None:

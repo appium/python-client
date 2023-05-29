@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Optional, Tuple, TypeVar
+from typing import TYPE_CHECKING, List, Optional, Tuple, cast
 
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.actions import interaction
@@ -20,14 +20,14 @@ from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.mouse_button import MouseButton
 from selenium.webdriver.common.actions.pointer_input import PointerInput
 
-from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.webelement import WebElement
 
-T = TypeVar('T', bound=CanExecuteCommands)
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
 class ActionHelpers:
-    def scroll(self: T, origin_el: WebElement, destination_el: WebElement, duration: Optional[int] = None) -> T:
+    def scroll(self, origin_el: WebElement, destination_el: WebElement, duration: Optional[int] = None) -> 'WebDriver':
         """Scrolls from one element to another
 
         Args:
@@ -59,9 +59,9 @@ class ActionHelpers:
         actions.w3c_actions.pointer_action.move_to(destination_el)
         actions.w3c_actions.pointer_action.release()
         actions.perform()
-        return self
+        return cast('WebDriver', self)
 
-    def drag_and_drop(self: T, origin_el: WebElement, destination_el: WebElement) -> T:
+    def drag_and_drop(self, origin_el: WebElement, destination_el: WebElement) -> 'WebDriver':
         """Drag the origin element to the destination element
 
         Args:
@@ -77,9 +77,9 @@ class ActionHelpers:
         actions.w3c_actions.pointer_action.move_to(destination_el)
         actions.w3c_actions.pointer_action.release()
         actions.perform()
-        return self
+        return cast('WebDriver', self)
 
-    def tap(self: T, positions: List[Tuple[int, int]], duration: Optional[int] = None) -> T:
+    def tap(self, positions: List[Tuple[int, int]], duration: Optional[int] = None) -> 'WebDriver':
         """Taps on an particular place with up to five fingers, holding for a
         certain time
 
@@ -127,9 +127,9 @@ class ActionHelpers:
                     new_input.create_pause(0.1)
                 new_input.create_pointer_up(MouseButton.LEFT)
             actions.perform()
-        return self
+        return cast('WebDriver', self)
 
-    def swipe(self: T, start_x: int, start_y: int, end_x: int, end_y: int, duration: int = 0) -> T:
+    def swipe(self, start_x: int, start_y: int, end_x: int, end_y: int, duration: int = 0) -> 'WebDriver':
         """Swipe from one point to another point, for an optional duration.
 
         Args:
@@ -156,9 +156,9 @@ class ActionHelpers:
         actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
         actions.w3c_actions.pointer_action.release()
         actions.perform()
-        return self
+        return cast('WebDriver', self)
 
-    def flick(self: T, start_x: int, start_y: int, end_x: int, end_y: int) -> T:
+    def flick(self, start_x: int, start_y: int, end_x: int, end_y: int) -> 'WebDriver':
         """Flick from one point to another point.
 
         Args:
@@ -180,4 +180,4 @@ class ActionHelpers:
         actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
         actions.w3c_actions.pointer_action.release()
         actions.perform()
-        return self
+        return cast('WebDriver', self)

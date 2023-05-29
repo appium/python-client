@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional, TypeVar
+from typing import TYPE_CHECKING, Optional, cast
 
 from selenium.webdriver.remote.switch_to import SwitchTo
 
@@ -21,16 +21,16 @@ from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from .mobilecommand import MobileCommand
 
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
+
 
 class HasDriver(Protocol):
     _driver: CanExecuteCommands
 
 
-T = TypeVar('T', bound=HasDriver)
-
-
 class MobileSwitchTo(SwitchTo, HasDriver):
-    def context(self: T, context_name: Optional[str]) -> T:
+    def context(self, context_name: Optional[str]) -> 'WebDriver':
         """Sets the context for the current session.
         Passing `None` is equal to switching to native context.
 
@@ -41,4 +41,4 @@ class MobileSwitchTo(SwitchTo, HasDriver):
             driver.switch_to.context('WEBVIEW_1')
         """
         self._driver.execute(MobileCommand.SWITCH_TO_CONTEXT, {'name': context_name})
-        return self
+        return cast('WebDriver', self)

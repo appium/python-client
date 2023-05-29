@@ -14,11 +14,15 @@
 
 from typing import Dict, List, Union
 
+from selenium.common.exceptions import UnknownMethodException
+
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
-class Performance(CanExecuteCommands):
+class Performance(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def get_performance_data(
         self, package_name: str, data_type: str, data_read_timeout: Union[int, None] = None
     ) -> List[List[str]]:
@@ -40,12 +44,17 @@ class Performance(CanExecuteCommands):
         Returns:
             The data along to `data_type`
         """
-        data: Dict[str, Union[str, int]] = {'packageName': package_name, 'dataType': data_type}
-        if data_read_timeout is not None:
-            data['dataReadTimeout'] = data_read_timeout
-        return self.execute(Command.GET_PERFORMANCE_DATA, data)['value']
+        ext_name = 'mobile: getPerformanceData'
+        args: Dict[str, Union[str, int]] = {'packageName': package_name, 'dataType': data_type}
+        try:
+            return self.assert_extension_exists(ext_name).execute_script(ext_name, args)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            if data_read_timeout is not None:
+                args['dataReadTimeout'] = data_read_timeout
+            return self.mark_extension_absence(ext_name).execute(Command.GET_PERFORMANCE_DATA, args)['value']
 
-    def get_performance_data_types(self) -> List:
+    def get_performance_data_types(self) -> List[str]:
         """Returns the information types of the system state
         which is supported to read as like cpu, memory, network traffic, and battery.
         Android only.
@@ -56,7 +65,12 @@ class Performance(CanExecuteCommands):
         Returns:
             Available data types
         """
-        return self.execute(Command.GET_PERFORMANCE_DATA_TYPES)['value']
+        ext_name = 'mobile: getPerformanceDataTypes'
+        try:
+            return self.assert_extension_exists(ext_name).execute_script(ext_name)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            return self.mark_extension_absence(ext_name).execute(Command.GET_PERFORMANCE_DATA_TYPES)['value']
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

@@ -84,6 +84,16 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
     python setup.py install
     ```
 
+
+## Compatibility Matrix
+
+|Appium Python Client| Selenium binding|
+|----|----|
+|`2.10.0`+ |`4.1.0`+ |
+|`2.2.0` - `2.9.0` |`4.1.0` - `4.9.0` |
+|`2.0.0` - `2.1.4` |`4.0.0` |
+|`1.1.0` and below|`3.x`|
+
 ## Usage
 
 The Appium Python Client is fully compliant with the WebDriver Protocol

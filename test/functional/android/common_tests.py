@@ -29,11 +29,6 @@ class TestCommon(BaseTestCase):
     def test_current_package(self) -> None:
         assert APIDEMO_PKG_NAME == self.driver.current_package
 
-    @pytest.mark.skip('Not sure how to set this up to run')
-    def test_end_test_coverage(self) -> None:
-        self.driver.end_test_coverage(intent='android.intent.action.MAIN', path='')
-        sleep(5)
-
     # TODO Due to unexpected dialog, "System UI isn't responding"
     @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI.')
     def test_open_notifications(self) -> None:

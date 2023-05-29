@@ -37,6 +37,7 @@ class TestWebDriverApp(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/install_app'), body='{"value": ""}'
         )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         result = driver.install_app('path/to/app')
 
         assert {'app': 'path/to/app'}, get_httpretty_request_body(httpretty.last_request())
@@ -48,6 +49,7 @@ class TestWebDriverApp(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/remove_app'), body='{"value": ""}'
         )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         result = driver.remove_app('com.app.id')
 
         assert {'app': 'com.app.id'}, get_httpretty_request_body(httpretty.last_request())
@@ -59,6 +61,9 @@ class TestWebDriverApp(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/app_installed'), body='{"value": true}'
         )
+        httpretty.register_uri(
+            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
+        )
         result = driver.is_app_installed("com.app.id")
         assert {'app': "com.app.id"}, get_httpretty_request_body(httpretty.last_request())
         assert result is True
@@ -68,6 +73,9 @@ class TestWebDriverApp(object):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/terminate_app'), body='{"value": true}'
+        )
+        httpretty.register_uri(
+            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
         )
         result = driver.terminate_app("com.app.id")
         assert {'app': "com.app.id"}, get_httpretty_request_body(httpretty.last_request())
@@ -79,6 +87,7 @@ class TestWebDriverApp(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/activate_app'), body='{"value": ""}'
         )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         result = driver.activate_app("com.app.id")
 
         assert {'app': 'com.app.id'}, get_httpretty_request_body(httpretty.last_request())
@@ -90,6 +99,7 @@ class TestWebDriverApp(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/app/background'), body='{"value": ""}'
         )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         result = driver.background_app(0)
         assert {'app': 0}, get_httpretty_request_body(httpretty.last_request())
         assert isinstance(result, WebDriver)
@@ -116,6 +126,7 @@ class TestWebDriverApp(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/app_state'), body='{"value": 3 }'
         )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": 3}')
         result = driver.query_app_state('com.app.id')
 
         assert {'app': 3}, get_httpretty_request_body(httpretty.last_request())

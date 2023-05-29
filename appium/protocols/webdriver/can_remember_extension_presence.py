@@ -12,15 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, Union
-
-from selenium.webdriver.remote.remote_connection import RemoteConnection
+from typing import TypeVar
 
 from ..protocol import Protocol
 
+T = TypeVar('T')
 
-class CanExecuteCommands(Protocol):
-    command_executor: RemoteConnection
 
-    def execute(self, driver_command: str, params: Union[Dict, None] = None) -> Dict:
+class CanRememberExtensionPresence(Protocol):
+    def assert_extension_exists(self: T, ext_name: str) -> T:
+        ...
+
+    def mark_extension_absence(self: T, ext_name: str) -> T:
         ...

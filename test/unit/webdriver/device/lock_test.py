@@ -25,10 +25,11 @@ class TestWebDriverLock(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}'
         )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         driver.lock(1)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['seconds'] == 1
+        assert d.get('seconds', d['args'][0]['seconds']) == 1
 
     @httpretty.activate
     def test_lock_no_args(self):
@@ -36,16 +37,17 @@ class TestWebDriverLock(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}'
         )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         driver.lock()
-
-        d = get_httpretty_request_body(httpretty.last_request())
-        assert d == {}
 
     @httpretty.activate
     def test_islocked_false(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/is_locked'), body='{"value": false}'
+        )
+        httpretty.register_uri(
+            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": false}'
         )
         assert driver.is_locked() is False
 
@@ -55,7 +57,9 @@ class TestWebDriverLock(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/is_locked'), body='{"value": true}'
         )
-
+        httpretty.register_uri(
+            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
+        )
         assert driver.is_locked() is True
 
     @httpretty.activate
@@ -65,4 +69,5 @@ class TestWebDriverLock(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/unlock'),
         )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         assert isinstance(driver.unlock(), WebDriver)

@@ -12,30 +12,40 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import warnings
-from typing import Any, Dict, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, Union, cast
+
+from selenium.common.exceptions import InvalidArgumentException, UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
-class Applications(CanExecuteCommands):
-    def background_app(self: T, seconds: int) -> T:
+class Applications(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+    def background_app(self, seconds: int) -> 'WebDriver':
         """Puts the application in the background on the device for a certain duration.
 
         Args:
-            seconds: the duration for the application to remain in the background
+            seconds: the duration for the application to remain in the background.
+            Providing a negative value will continue immediately after putting the app
+            under test to the background.
 
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
-        data = {
-            'seconds': seconds,
-        }
-        self.execute(Command.BACKGROUND, data)
-        return self
+        ext_name = 'mobile: backgroundApp'
+        args = {'seconds': seconds}
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.BACKGROUND, args)
+        return cast('WebDriver', self)
 
     def is_app_installed(self, bundle_id: str) -> bool:
         """Checks whether the application specified by `bundle_id` is installed on the device.
@@ -46,12 +56,25 @@ class Applications(CanExecuteCommands):
         Returns:
             `True` if app is installed
         """
-        data = {
-            'bundleId': bundle_id,
-        }
-        return self.execute(Command.IS_APP_INSTALLED, data)['value']
+        ext_name = 'mobile: isAppInstalled'
+        try:
+            return self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
+                {
+                    'bundleId': bundle_id,
+                    'appId': bundle_id,
+                },
+            )
+        except (UnknownMethodException, InvalidArgumentException):
+            # TODO: Remove the fallback
+            return self.mark_extension_absence(ext_name).execute(
+                Command.IS_APP_INSTALLED,
+                {
+                    'bundleId': bundle_id,
+                },
+            )['value']
 
-    def install_app(self: T, app_path: str, **options: Any) -> T:
+    def install_app(self, app_path: str, **options: Any) -> 'WebDriver':
         """Install the application found at `app_path` on the device.
 
         Args:
@@ -71,15 +94,25 @@ class Applications(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
-        data: Dict[str, Any] = {
-            'appPath': app_path,
-        }
-        if options:
-            data.update({'options': options})
-        self.execute(Command.INSTALL_APP, data)
-        return self
+        ext_name = 'mobile: installApp'
+        try:
+            self.assert_extension_exists(ext_name).execute_script(
+                'mobile: installApp',
+                {
+                    'app': app_path,
+                    'appPath': app_path,
+                    **(options or {}),
+                },
+            )
+        except (UnknownMethodException, InvalidArgumentException):
+            # TODO: Remove the fallback
+            data: Dict[str, Any] = {'appPath': app_path}
+            if options:
+                data.update({'options': options})
+            self.mark_extension_absence(ext_name).execute(Command.INSTALL_APP, data)
+        return cast('WebDriver', self)
 
-    def remove_app(self: T, app_id: str, **options: Any) -> T:
+    def remove_app(self, app_id: str, **options: Any) -> 'WebDriver':
         """Remove the specified application from the device.
 
         Args:
@@ -94,15 +127,25 @@ class Applications(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
-        data: Dict[str, Any] = {
-            'appId': app_id,
-        }
-        if options:
-            data.update({'options': options})
-        self.execute(Command.REMOVE_APP, data)
-        return self
+        ext_name = 'mobile: removeApp'
+        try:
+            self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
+                {
+                    'appId': app_id,
+                    'bundleId': app_id,
+                    **(options or {}),
+                },
+            )
+        except (UnknownMethodException, InvalidArgumentException):
+            # TODO: Remove the fallback
+            data: Dict[str, Any] = {'appId': app_id}
+            if options:
+                data.update({'options': options})
+            self.mark_extension_absence(ext_name).execute(Command.REMOVE_APP, data)
+        return cast('WebDriver', self)
 
-    def launch_app(self: T) -> T:
+    def launch_app(self) -> 'WebDriver':
         """Start on the device the application specified in the desired capabilities.
         deprecated:: 2.0.0
 
@@ -116,9 +159,9 @@ class Applications(CanExecuteCommands):
         )
 
         self.execute(Command.LAUNCH_APP)
-        return self
+        return cast('WebDriver', self)
 
-    def close_app(self: T) -> T:
+    def close_app(self) -> 'WebDriver':
         """Stop the running application, specified in the desired capabilities, on
         the device.
         deprecated:: 2.0.0
@@ -133,7 +176,7 @@ class Applications(CanExecuteCommands):
         )
 
         self.execute(Command.CLOSE_APP)
-        return self
+        return cast('WebDriver', self)
 
     def terminate_app(self, app_id: str, **options: Any) -> bool:
         """Terminates the application if it is running.
@@ -148,14 +191,24 @@ class Applications(CanExecuteCommands):
         Returns:
             True if the app has been successfully terminated
         """
-        data: Dict[str, Any] = {
-            'appId': app_id,
-        }
-        if options:
-            data.update({'options': options})
-        return self.execute(Command.TERMINATE_APP, data)['value']
+        ext_name = 'mobile: terminateApp'
+        try:
+            return self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
+                {
+                    'appId': app_id,
+                    'bundleId': app_id,
+                    **(options or {}),
+                },
+            )
+        except (UnknownMethodException, InvalidArgumentException):
+            # TODO: Remove the fallback
+            data: Dict[str, Any] = {'appId': app_id}
+            if options:
+                data.update({'options': options})
+            return self.mark_extension_absence(ext_name).execute(Command.TERMINATE_APP, data)['value']
 
-    def activate_app(self: T, app_id: str) -> T:
+    def activate_app(self, app_id: str) -> 'WebDriver':
         """Activates the application if it is not running
         or is running in the background.
 
@@ -165,11 +218,19 @@ class Applications(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
-        data = {
-            'appId': app_id,
-        }
-        self.execute(Command.ACTIVATE_APP, data)
-        return self
+        ext_name = 'mobile: activateApp'
+        try:
+            self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
+                {
+                    'appId': app_id,
+                    'bundleId': app_id,
+                },
+            )
+        except (UnknownMethodException, InvalidArgumentException):
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.ACTIVATE_APP, {'appId': app_id})
+        return cast('WebDriver', self)
 
     def query_app_state(self, app_id: str) -> int:
         """Queries the state of the application.
@@ -181,30 +242,48 @@ class Applications(CanExecuteCommands):
             One of possible application state constants. See ApplicationState
             class for more details.
         """
-        data = {
-            'appId': app_id,
-        }
-        return self.execute(Command.QUERY_APP_STATE, data)['value']
+        ext_name = 'mobile: queryAppState'
+        try:
+            return self.assert_extension_exists(ext_name).execute_script(
+                ext_name,
+                {
+                    'appId': app_id,
+                    'bundleId': app_id,
+                },
+            )
+        except (UnknownMethodException, InvalidArgumentException):
+            # TODO: Remove the fallback
+            return self.mark_extension_absence(ext_name).execute(
+                Command.QUERY_APP_STATE,
+                {
+                    'appId': app_id,
+                },
+            )['value']
 
-    def app_strings(self, language: str = None, string_file: str = None) -> Dict[str, str]:
+    def app_strings(self, language: Union[str, None] = None, string_file: Union[str, None] = None) -> Dict[str, str]:
         """Returns the application strings from the device for the specified
         language.
 
         Args:
             language: strings language code
-            string_file: the name of the string file to query
+            string_file: the name of the string file to query. Only relevant for XCUITest driver
 
         Returns:
             The key is string id and the value is the content.
         """
+        ext_name = 'mobile: getAppStrings'
         data = {}
         if language is not None:
             data['language'] = language
         if string_file is not None:
             data['stringFile'] = string_file
-        return self.execute(Command.GET_APP_STRINGS, data)['value']
+        try:
+            return self.assert_extension_exists(ext_name).execute_script(ext_name, data)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            return self.mark_extension_absence(ext_name).execute(Command.GET_APP_STRINGS, data)['value']
 
-    def reset(self: T) -> T:
+    def reset(self) -> 'WebDriver':
         """Resets the current application on the device.
         deprecated:: 2.0.0
 
@@ -218,7 +297,7 @@ class Applications(CanExecuteCommands):
         )
 
         self.execute(Command.RESET)
-        return self
+        return cast('WebDriver', self)
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

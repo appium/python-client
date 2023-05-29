@@ -21,14 +21,20 @@ class TestWebDriverSystemBars(object):
     @httpretty.activate
     def test_get_system_bars(self):
         driver = android_w3c_driver()
+        body = '''{"value":
+             {"statusBar":
+             {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 1920},
+             "navigationBar":
+             {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 126}}}'''
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890/appium/device/system_bars'),
-            body=''' {"value":
-                     {"statusBar":
-                     {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 1920},
-                     "navigationBar":
-                     {"visible": true, "x": 0, "y": 0, "width": 1080, "height": 126}}}''',
+            body=body,
+        )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+            body=body,
         )
         d = driver.get_system_bars()
 

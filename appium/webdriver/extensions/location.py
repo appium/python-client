@@ -12,35 +12,44 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, TypeVar, Union
+from typing import TYPE_CHECKING, Dict, Union, cast
+
+from selenium.common.exceptions import UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 from ..mobilecommand import MobileCommand as Command
 
-T = TypeVar('T', bound=CanExecuteCommands)
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
-class Location(CanExecuteCommands):
-    def toggle_location_services(self: T) -> T:
+class Location(CanExecuteCommands, CanExecuteScripts):
+    def toggle_location_services(self) -> 'WebDriver':
         """Toggle the location services on the device.
+        This API only reliably since Android 12 (API level 31)
 
         Android only.
 
         Returns:
             Union['WebDriver', 'Location']: Self instance
         """
-        self.execute(Command.TOGGLE_LOCATION_SERVICES, {})
-        return self
+        try:
+            self.execute_script('mobile: toggleGps')
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.execute(Command.TOGGLE_LOCATION_SERVICES)
+        return cast('WebDriver', self)
 
     def set_location(
-        self: T,
+        self,
         latitude: Union[float, str],
         longitude: Union[float, str],
         altitude: Union[float, str, None] = None,
         speed: Union[float, str, None] = None,
         satellites: Union[float, str, None] = None,
-    ) -> T:
+    ) -> 'WebDriver':
         """Set the location of the device
 
         Args:
@@ -66,7 +75,7 @@ class Location(CanExecuteCommands):
         if satellites is not None:
             data['location']['satellites'] = satellites
         self.execute(Command.SET_LOCATION, data)
-        return self
+        return cast('WebDriver', self)
 
     @property
     def location(self) -> Dict[str, float]:

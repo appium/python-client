@@ -27,4 +27,8 @@ class TestWebDriverShake(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/device/shake'),
         )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+        )
         assert isinstance(driver.shake(), WebDriver)

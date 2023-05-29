@@ -14,17 +14,22 @@
 
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
-from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
+import warnings
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 
 from selenium import webdriver
-from selenium.common.exceptions import InvalidArgumentException, SessionNotCreatedException, WebDriverException
+from selenium.common.exceptions import (
+    InvalidArgumentException,
+    SessionNotCreatedException,
+    UnknownMethodException,
+    WebDriverException,
+)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.logger import logger
 from appium.options.common.base import AppiumOptions
-from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.webdriver.common.appiumby import AppiumBy
 
 from .appium_connection import AppiumConnection
@@ -58,8 +63,6 @@ from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
-
-T = TypeVar('T', bound=CanExecuteCommands)
 
 
 class ExtensionBase:
@@ -149,7 +152,7 @@ class ExtensionBase:
     def __init__(self, execute: Callable[[str, Dict], Dict[str, Any]]):
         self._execute = execute
 
-    def execute(self, parameters: Dict[str, Any] = None) -> Any:
+    def execute(self, parameters: Union[Dict[str, Any], None] = None) -> Any:
         param = {}
         if parameters:
             param = parameters
@@ -203,17 +206,16 @@ class WebDriver(
 ):
     def __init__(
         self,
-        command_executor: str = 'http://127.0.0.1:4444/wd/hub',
+        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444/wd/hub',
         desired_capabilities: Optional[Dict] = None,
-        browser_profile: str = None,
-        proxy: str = None,
+        browser_profile: Union[str, None] = None,
+        proxy: Union[str, None] = None,
         keep_alive: bool = True,
         direct_connection: bool = True,
         extensions: Optional[List['WebDriver']] = None,
         strict_ssl: bool = True,
-        options: Union[AppiumOptions, List[AppiumOptions]] = None,
+        options: Union[AppiumOptions, List[AppiumOptions], None] = None,
     ):
-
         if strict_ssl is False:
             # pylint: disable=E1101
             # noinspection PyPackageRequirements
@@ -227,8 +229,11 @@ class WebDriver(
             AppiumConnection.set_certificate_bundle_path(None)
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+        if isinstance(command_executor, str):
+            command_executor = AppiumConnection(command_executor, keep_alive=keep_alive)
+
         super().__init__(
-            command_executor=AppiumConnection(command_executor, keep_alive=keep_alive),
+            command_executor=command_executor,
             desired_capabilities=desired_capabilities,
             browser_profile=browser_profile,
             proxy=proxy,
@@ -253,6 +258,8 @@ class WebDriver(
         By.ACCESSIBILITY_ID = AppiumBy.ACCESSIBILITY_ID
         By.IMAGE = AppiumBy.IMAGE
         By.CUSTOM = AppiumBy.CUSTOM
+
+        self._absent_extensions: Set[str] = set()
 
         self._extensions = extensions or []
         for extension in self._extensions:
@@ -338,7 +345,19 @@ class WebDriver(
         self.session_id = session_id
         self.caps = get_response_value('capabilities') or {}
 
-    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None) -> MobileWebElement:
+    def get_status(self) -> Dict:
+        """
+        Get the Appium server status
+
+        Usage:
+            driver.get_status()
+        Returns:
+            Dict: The status information
+
+        """
+        return self.execute(Command.GET_STATUS)['value']
+
+    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> MobileWebElement:
         """
         Find an element given a AppiumBy strategy and locator
 
@@ -371,7 +390,7 @@ class WebDriver(
         return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
 
     def find_elements(
-        self, by: str = AppiumBy.ID, value: Union[str, Dict] = None
+        self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None
     ) -> Union[List[MobileWebElement], List]:
         """
         Find elements given a AppiumBy strategy and locator
@@ -420,8 +439,9 @@ class WebDriver(
         """
         return MobileWebElement(self, element_id)
 
-    def set_value(self: T, element: MobileWebElement, value: str) -> T:
+    def set_value(self, element: MobileWebElement, value: str) -> 'WebDriver':
         """Set the value on an element in the application.
+        deprecated:: 2.8.1
 
         Args:
             element: the element whose value will be set
@@ -430,10 +450,14 @@ class WebDriver(
         Returns:
             `appium.webdriver.webdriver.WebDriver`: Self instance
         """
-        data = {
-            'id': element.id,
-            'value': [value],
-        }
+        warnings.warn(
+            'The "setValue" API is deprecated and will be removed in future versions. '
+            'Instead the "send_keys" API or W3C Actions can be used. '
+            'See https://github.com/appium/python-client/pull/831',
+            DeprecationWarning,
+        )
+
+        data = {'text': value}
         self.execute(Command.SET_IMMEDIATE_VALUE, data)
         return self
 
@@ -476,8 +500,33 @@ class WebDriver(
         if value.upper() in allowed_values:
             self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value})
         else:
-
             raise WebDriverException("You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'")
+
+    def assert_extension_exists(self, ext_name: str) -> 'WebDriver':
+        """
+        Verifies if the given extension is not present in the list of absent extensions
+        for the given driver instance.
+        This API is designed for private usage.
+
+        :param ext_name: extension name
+        :return: self instance for chaining
+        :raise UnknownMethodException: If the extension has been marked as absent once
+        """
+        if ext_name in self._absent_extensions:
+            raise UnknownMethodException()
+        return self
+
+    def mark_extension_absence(self, ext_name: str) -> 'WebDriver':
+        """
+        Marks the given extension as absent for the given driver instance.
+        This API is designed for private usage.
+
+        :param ext_name: extension name
+        :return: self instance for chaining
+        """
+        logger.debug(f'Marking driver extension "{ext_name}" as absent for the current instance')
+        self._absent_extensions.add(ext_name)
+        return self
 
     def _add_commands(self) -> None:
         # call the overridden command binders from all mixin classes except for
@@ -491,6 +540,8 @@ class WebDriver(
 
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
+
+        commands[Command.GET_STATUS] = ('GET', '/status')
 
         # FIXME: remove after a while as MJSONWP
         commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')

@@ -84,6 +84,13 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
     python setup.py install
     ```
 
+> **Note**
+> The Appium Python Client depends on [Selenium Python binding](https://pypi.org/project/selenium/), thus
+> the Selenium Python binding update might affect the Appium Python Client.
+> For exampple, some changes in the Selenium binding could break the Appium client.
+> To reduce such unexpected behavior, we strongly recommend you to manage dependencies
+> with version management tool such as Pipenv and Pipfile.
+
 ## Usage
 
 The Appium Python Client is fully compliant with the WebDriver Protocol

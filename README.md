@@ -84,12 +84,22 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
     python setup.py install
     ```
 
+## Compatibility Matrix
+
+|Appium Python Client| Selenium binding|
+|----|----|
+|`2.10.0`+ |`4.1.0`+ |
+|`2.2.0` - `2.9.0` |`4.1.0` - `4.9.0` |
+|`2.0.0` - `2.1.4` |`4.0.0` |
+|`1.1.0` and below|`3.x`|
+
+The Appium Python Client depends on [Selenium Python binding](https://pypi.org/project/selenium/), thus
+the Selenium Python binding update might affect the Appium Python Client behavior.
+For exampple, some changes in the Selenium binding could break the Appium client.
+
 > **Note**
-> The Appium Python Client depends on [Selenium Python binding](https://pypi.org/project/selenium/), thus
-> the Selenium Python binding update might affect the Appium Python Client.
-> For exampple, some changes in the Selenium binding could break the Appium client.
-> To reduce such unexpected behavior, we strongly recommend you to manage dependencies
-> with version management tools such as Pipenv and requirements.txt.
+> We strongly recommend you to manage dependencies with version management tools such as Pipenv and requirements.txt
+> to keep compatible version combinations.
 
 ## Usage
 

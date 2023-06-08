@@ -2,6 +2,82 @@ Changelog
 =========
 
 
+v2.10.2 (2023-06-08)
+--------------------
+
+Fix
+~~~
+- Update the constructor for compatibility with python client 4.10
+  (#879) [Mykola Mokhnach]
+
+Test
+~~~~
+- Ci: add py11 for the unit test (#875) [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 2.10.2. [Kazuaki Matsuo]
+- Chore: remove duplicated clean command (#809) [Kazuaki Matsuo]
+
+  * remove clear
+
+  * remove clear more
+- Chore(deps-dev): update tox requirement from ~=4.5 to ~=4.6 (#877)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.5.0...4.6.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Docs: address version management recommendation in the readme (#874)
+  [Kazuaki Matsuo]
+
+  * chore: set the max selenium deps version
+
+  * ci: add python 11
+
+  * Update unit-test.yml
+
+  * add note in the readme
+
+  * Update README.md
+
+  * docs: merge the matrix pr into README.md
+- Docs: Improve usage examples (#873) [Mykola Mokhnach]
+- Chore(deps-dev): update pytest-cov requirement from ~=4.0 to ~=4.1
+  (#872) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest-cov](https://github.com/pytest-dev/pytest-cov) to permit the latest version.
+  - [Changelog](https://github.com/pytest-dev/pytest-cov/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest-cov/compare/v4.0.0...v4.1.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest-cov
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update typing-extensions requirement (#871)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [typing-extensions](https://github.com/python/typing_extensions) to permit the latest version.
+  - [Changelog](https://github.com/python/typing_extensions/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/python/typing_extensions/compare/4.5.0...4.6.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: typing-extensions
+    dependency-type: direct:development
+  ...
+- Chore: nump the version. [Kazuaki Matsuo]
+- Update changelog for 2.10.1. [Kazuaki Matsuo]
+
+
 v2.10.1 (2023-05-20)
 --------------------
 

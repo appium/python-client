@@ -207,7 +207,9 @@ class WebDriver(
     def __init__(
         self,
         command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444/wd/hub',
+        # TODO: Remove the deprecated arg
         desired_capabilities: Optional[Dict] = None,
+        # TODO: Remove the deprecated arg
         browser_profile: Union[str, None] = None,
         proxy: Union[str, None] = None,
         keep_alive: bool = True,
@@ -232,10 +234,14 @@ class WebDriver(
         if isinstance(command_executor, str):
             command_executor = AppiumConnection(command_executor, keep_alive=keep_alive)
 
+        if browser_profile is not None:
+            warnings.warn('browser_profile argument is deprecated and has no effect', DeprecationWarning)
+
         if desired_capabilities is not None:
             warnings.warn(
                 'desired_capabilities argument is deprecated and will be removed in future versions. '
-                'Use options instead.'
+                'Use options instead.',
+                DeprecationWarning,
             )
         # TODO: Remove the fallback after desired_capabilities removal
         dst_options = (
@@ -246,7 +252,6 @@ class WebDriver(
 
         super().__init__(
             command_executor=command_executor,
-            browser_profile=browser_profile,
             proxy=proxy,
             options=dst_options,
         )

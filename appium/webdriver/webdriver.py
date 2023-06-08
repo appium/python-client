@@ -211,6 +211,7 @@ class WebDriver(
         desired_capabilities: Optional[Dict] = None,
         # TODO: Remove the deprecated arg
         browser_profile: Union[str, None] = None,
+        # TODO: Remove the deprecated arg
         proxy: Union[str, None] = None,
         keep_alive: bool = True,
         direct_connection: bool = True,
@@ -237,6 +238,9 @@ class WebDriver(
         if browser_profile is not None:
             warnings.warn('browser_profile argument is deprecated and has no effect', DeprecationWarning)
 
+        if proxy is not None:
+            warnings.warn('proxy argument is deprecated and has no effect', DeprecationWarning)
+
         if desired_capabilities is not None:
             warnings.warn(
                 'desired_capabilities argument is deprecated and will be removed in future versions. '
@@ -252,7 +256,6 @@ class WebDriver(
 
         super().__init__(
             command_executor=command_executor,
-            proxy=proxy,
             options=dst_options,
         )
 

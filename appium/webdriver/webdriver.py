@@ -90,8 +90,8 @@ class ExtensionBase:
 
         2. Creates a session with the extension.
             # Appium capabilities
-            desired_caps = { ... }
-            driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps,
+            options = AppiumOptions()
+            driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options,
                 extensions=[YourCustomCommand])
 
         3. Calls the custom command
@@ -207,8 +207,11 @@ class WebDriver(
     def __init__(
         self,
         command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444/wd/hub',
+        # TODO: Remove the deprecated arg
         desired_capabilities: Optional[Dict] = None,
+        # TODO: Remove the deprecated arg
         browser_profile: Union[str, None] = None,
+        # TODO: Remove the deprecated arg
         proxy: Union[str, None] = None,
         keep_alive: bool = True,
         direct_connection: bool = True,
@@ -232,12 +235,28 @@ class WebDriver(
         if isinstance(command_executor, str):
             command_executor = AppiumConnection(command_executor, keep_alive=keep_alive)
 
+        if browser_profile is not None:
+            warnings.warn('browser_profile argument is deprecated and has no effect', DeprecationWarning)
+
+        if proxy is not None:
+            warnings.warn('proxy argument is deprecated and has no effect', DeprecationWarning)
+
+        if desired_capabilities is not None:
+            warnings.warn(
+                'desired_capabilities argument is deprecated and will be removed in future versions. '
+                'Use options instead.',
+                DeprecationWarning,
+            )
+        # TODO: Remove the fallback after desired_capabilities removal
+        dst_options = (
+            AppiumOptions().load_capabilities(desired_capabilities)
+            if desired_capabilities is not None and options is None
+            else options
+        )
+
         super().__init__(
             command_executor=command_executor,
-            desired_capabilities=desired_capabilities,
-            browser_profile=browser_profile,
-            proxy=proxy,
-            options=options,
+            options=dst_options,
         )
 
         if hasattr(self, 'command_executor'):

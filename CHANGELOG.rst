@@ -2,6 +2,27 @@ Changelog
 =========
 
 
+v2.11.0 (2023-06-09)
+--------------------
+
+New
+~~~
+- Feat: make the UA format with same as other clients (#793) [Kazuaki
+  Matsuo]
+
+  * chore: set version with /
+
+  * chore: update comment
+
+  * update test
+
+  * update tests
+
+Other
+~~~~~
+- Update changelog for 2.10.2. [Kazuaki Matsuo]
+
+
 v2.10.2 (2023-06-08)
 --------------------
 

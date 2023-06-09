@@ -33,7 +33,7 @@ from test.unit.helper.test_helper import (
 )
 
 
-class TestWebDriverWebDriver(object):
+class TestWebDriverWebDriver:
     @httpretty.activate
     def test_create_session(self):
         httpretty.register_uri(
@@ -54,7 +54,7 @@ class TestWebDriverWebDriver(object):
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
-        assert 'appium/python {} (selenium'.format(appium_version.version) in request.headers['user-agent']
+        assert f'appium/{appium_version.version} (selenium' in request.headers['user-agent']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is not None
@@ -328,7 +328,7 @@ class TestWebDriverWebDriver(object):
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
-        assert 'appium/python {} (selenium'.format(appium_version.version) in request.headers['user-agent']
+        assert f'appium/{appium_version.version} (selenium' in request.headers['user-agent']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is not None
@@ -374,7 +374,7 @@ class TestWebDriverWebDriver(object):
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
-        assert 'appium/python {} (selenium'.format(appium_version.version) in request.headers['user-agent']
+        assert f'appium/{appium_version.version} (selenium' in request.headers['user-agent']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is not None

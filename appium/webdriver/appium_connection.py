@@ -24,6 +24,9 @@ if TYPE_CHECKING:
     from urllib.parse import ParseResult
 
 
+PREFIX_HEADER = 'appium/'
+
+
 class AppiumConnection(RemoteConnection):
     _proxy_url: Optional[str]
 
@@ -68,7 +71,8 @@ class AppiumConnection(RemoteConnection):
     def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> Dict[str, Any]:
         """Override get_remote_connection_headers in RemoteConnection"""
         headers = RemoteConnection.get_remote_connection_headers(parsed_url, keep_alive=keep_alive)
-        headers['User-Agent'] = f'appium/python {library_version()} ({headers["User-Agent"]})'
+        # e.g. appium/0.49 (selenium/3.141.0 (python linux))
+        headers['User-Agent'] = f'{PREFIX_HEADER}{library_version()} ({headers["User-Agent"]})'
         if parsed_url.path.endswith('/session'):
             # https://github.com/appium/appium-base-driver/pull/400
             headers['X-Idempotency-Key'] = str(uuid.uuid4())

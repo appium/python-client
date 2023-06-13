@@ -152,7 +152,7 @@ class WebElement(SeleniumWebElement):
         Returns:
             `appium.webdriver.webelement.WebElement`
         """
-        
+
         # NOTE: this method is overridden because the selenium client returned None instead of self.
         # Appium python cleint would like to allow users to chain methods.
         data = {'id': self.id}

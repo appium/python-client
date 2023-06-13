@@ -575,6 +575,7 @@ class WebDriver(
             'POST',
             '/session/$sessionId/appium/element/$id/replace_value',
         )
+        commands[Command.CLEAR] = ('POST', '/session/$sessionId/element/$id/clear')
         commands[Command.LOCATION_IN_VIEW] = (
             'GET',
             '/session/$sessionId/element/$id/location_in_view',

@@ -144,6 +144,18 @@ class WebElement(SeleniumWebElement):
 
         return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS, {"using": by, "value": value})['value']
 
+    def clear(self) -> 'WebElement':
+        """Clears text.
+
+        Override for Appium
+
+        Returns:
+            `appium.webdriver.webelement.WebElement`
+        """
+        data = {'id': self.id}
+        self._execute(Command.CLEAR, data)
+        return self
+
     def set_text(self, keys: str = '') -> 'WebElement':
         """Sends text to the element.
         deprecated:: 2.8.1

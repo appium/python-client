@@ -2,6 +2,21 @@ Changelog
 =========
 
 
+v2.11.1 (2023-06-13)
+--------------------
+- Revert "chore: remove duplicated clean command" (#881) [Kazuaki
+  Matsuo]
+
+  * Revert "chore: remove duplicated clean command (#809)"
+
+  This reverts commit 2f45ef935c12dec2ab8de044ce6a1c1e0b9aa46f.
+
+  * chore: left a comment
+
+  * trim spaces
+- Update changelog. [Kazuaki Matsuo]
+
+
 v2.11.0 (2023-06-09)
 --------------------
 

@@ -17,21 +17,21 @@
 
 from typing import Dict
 
-from appium.options.common.automation_name_option import AUTOMATION_NAME
+from appium.options.common.common_options import AutomationNameOption
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
-from appium.options.common.bundle_id_option import BundleIdOption
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
-from appium.options.common.system_host_option import SystemHostOption
-from appium.options.common.system_port_option import SystemPortOption
+from appium.options.common.common_options import BundleIdOption
+from appium.options.common.common_options import PostrunOption
+from appium.options.common.common_options import PrerunOption
+from appium.options.common.common_options import SystemHostOption
+from appium.options.common.common_options import SystemPortOption
 
 from .arguments_option import ArgumentsOption
-from .bootstrap_root_option import BootstrapRootOption
-from .environment_option import EnvironmentOption
-from .server_startup_timeout_option import ServerStartupTimeoutOption
-from .show_server_logs_option import ShowServerLogsOption
-from .skip_app_kill_option import SkipAppKillOption
-from .web_driver_agent_mac_url_option import WebDriverAgentMacUrlOption
+from .mac_options import BootstrapRootOption
+from .mac_options import EnvironmentOption
+from .mac_options import ServerStartupTimeoutOption
+from .mac_options import ShowServerLogsOption
+from .mac_options import SkipAppKillOption
+from .mac_options import WebDriverAgentMacUrlOption
 
 
 class Mac2Options(
@@ -106,6 +106,6 @@ class Mac2Options(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AUTOMATION_NAME: 'Mac2',
+            AutomationNameOption.AUTOMATION_NAME: 'Mac2',
             PLATFORM_NAME: 'Mac',
         }

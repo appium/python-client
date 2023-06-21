@@ -96,21 +96,21 @@ from appium.options.android.common.signing.keystore_password_option import Keyst
 from appium.options.android.common.signing.keystore_path_option import KeystorePathOption
 from appium.options.android.common.signing.no_sign_option import NoSignOption
 from appium.options.android.common.signing.use_keystore_option import UseKeystoreOption
-from appium.options.common.app_option import AppOption
-from appium.options.common.auto_web_view_option import AutoWebViewOption
-from appium.options.common.automation_name_option import AUTOMATION_NAME
+from appium.options.common.common_options import AppOption
+from appium.options.common.common_options import AutoWebViewOption
+from appium.options.common.common_options import AutomationNameOption
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
-from appium.options.common.clear_system_files_option import ClearSystemFilesOption
-from appium.options.common.device_name_option import DeviceNameOption
-from appium.options.common.enable_performance_logging_option import EnablePerformanceLoggingOption
-from appium.options.common.is_headless_option import IsHeadlessOption
-from appium.options.common.language_option import LanguageOption
-from appium.options.common.locale_option import LocaleOption
-from appium.options.common.orientation_option import OrientationOption
-from appium.options.common.other_apps_option import OtherAppsOption
-from appium.options.common.skip_log_capture_option import SkipLogCaptureOption
-from appium.options.common.system_port_option import SystemPortOption
-from appium.options.common.udid_option import UdidOption
+from appium.options.common.common_options import ClearSystemFilesOption
+from appium.options.common.common_options import DeviceNameOption
+from appium.options.common.common_options import EnablePerformanceLoggingOption
+from appium.options.common.common_options import IsHeadlessOption
+from appium.options.common.common_options import LanguageOption
+from appium.options.common.common_options import LocaleOption
+from appium.options.common.common_options import OrientationOption
+from appium.options.common.common_options import OtherAppsOption
+from appium.options.common.common_options import SkipLogCaptureOption
+from appium.options.common.common_options import SystemPortOption
+from appium.options.common.common_options import UdidOption
 
 from .disable_window_animation_option import DisableWindowAnimationOption
 from .mjpeg_server_port_option import MjpegServerPortOption
@@ -214,6 +214,6 @@ class UiAutomator2Options(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AUTOMATION_NAME: 'UIAutomator2',
+            AutomationNameOption.AUTOMATION_NAME: 'UIAutomator2',
             PLATFORM_NAME: 'Android',
         }

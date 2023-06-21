@@ -20,12 +20,12 @@ from typing import Any, Dict, TypeVar
 
 from selenium.webdriver.common.options import BaseOptions
 
-from .automation_name_option import AutomationNameOption
-from .event_timings_option import EventTimingsOption
-from .full_reset_option import FullResetOption
-from .new_command_timeout_option import NewCommandTimeoutOption
-from .no_reset_option import NoResetOption
-from .print_page_source_on_find_failure_option import PrintPageSourceOnFindFailureOption
+from .common_options import AutomationNameOption
+from .common_options import EventTimingsOption
+from .common_options import FullResetOption
+from .common_options import NewCommandTimeoutOption
+from .common_options import NoResetOption
+from .common_options import PrintPageSourceOnFindFailureOption
 
 APPIUM_PREFIX = 'appium:'
 T = TypeVar('T', bound='AppiumOptions')

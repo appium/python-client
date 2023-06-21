@@ -17,19 +17,19 @@
 
 from typing import Dict
 
-from appium.options.common.app_option import AppOption
-from appium.options.common.automation_name_option import AUTOMATION_NAME
+from appium.options.common.common_options import AppOption
+from appium.options.common.common_options import AutomationNameOption
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
-from appium.options.common.postrun_option import PostrunOption
-from appium.options.common.prerun_option import PrerunOption
-from appium.options.common.system_port_option import SystemPortOption
+from appium.options.common.common_options import PostrunOption
+from appium.options.common.common_options import PrerunOption
+from appium.options.common.common_options import SystemPortOption
 
-from .app_arguments_option import AppArgumentsOption
-from .app_top_level_window_option import AppTopLevelWindowOption
-from .app_working_dir_option import AppWorkingDirOption
-from .create_session_timeout_option import CreateSessionTimeoutOption
-from .expreimental_web_driver_option import ExperimentalWebDriverOption
-from .wait_for_app_launch_option import WaitForAppLaunchOption
+from .windows_options import AppArgumentsOption
+from .windows_options import AppTopLevelWindowOption
+from .windows_options import AppWorkingDirOption
+from .windows_options import CreateSessionTimeoutOption
+from .windows_options import ExperimentalWebDriverOption
+from .windows_options import WaitForAppLaunchOption
 
 
 class WindowsOptions(
@@ -92,6 +92,6 @@ class WindowsOptions(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AUTOMATION_NAME: 'Windows',
+            AutomationNameOption.AUTOMATION_NAME: 'Windows',
             PLATFORM_NAME: 'Windows',
         }

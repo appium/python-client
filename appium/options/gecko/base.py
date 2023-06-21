@@ -17,14 +17,14 @@
 
 from typing import Dict
 
-from appium.options.common.automation_name_option import AUTOMATION_NAME
+from appium.options.common.common_options import AutomationNameOption
 from appium.options.common.base import AppiumOptions
-from appium.options.common.system_port_option import SystemPortOption
+from appium.options.common.common_options import SystemPortOption
 
-from .android_storage_option import AndroidStorageOption
-from .firefox_options_option import FirefoxOptionsOption
-from .marionette_port_option import MarionettePortOption
-from .verbosity_option import VerbosityOption
+from .gecko_options import AndroidStorageOption
+from .gecko_options import FirefoxOptionsOption
+from .gecko_options import MarionettePortOption
+from .gecko_options import VerbosityOption
 
 
 class GeckoOptions(
@@ -47,5 +47,5 @@ class GeckoOptions(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AUTOMATION_NAME: 'Gecko',
+            AutomationNameOption.AUTOMATION_NAME: 'Gecko',
         }

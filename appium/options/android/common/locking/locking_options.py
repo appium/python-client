@@ -15,37 +15,47 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from datetime import timedelta
 from typing import Any
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
-class GeckoOptionsDescriptor:
+class SkipLockOptionsDescriptor:
     def __init__(self, name: str) -> None:
         self.name = name
 
     def __get__(self, obj: Any, cls: Any) -> Any:
+        if self.name == "UNLOCK_SUCCESS_TIMEOUT":
+            value = getattr(obj, "get_capabilities")(self.name)
+            return None if value is None else timedelta(milliseconds=value)
         return getattr(obj, "get_capabilities")(self.name)
 
     def __set__(self, obj: Any, value: Any) -> Any:
+        if self.name == "UNLOCK_SUCCESS_TIMEOUT":
+            getattr(obj, "set_capabilities")(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
         getattr(obj, "set_capabilities")(self.name, value)
 
 
-class AndroidStorageOption(SupportsCapabilities):
-    ANDROID_STORAGE = 'androidStorage'
-    android_storage = GeckoOptionsDescriptor("ANDROID_STORAGE")
+class SkipUnlockOption(SupportsCapabilities):
+    SKIP_UNLOCK = 'skipUnlock'
+    skip_unlock = SkipLockOptionsDescriptor("SKIP_UNLOCK")
 
 
-class FirefoxOptionsOption(SupportsCapabilities):
-    FIREFOX_OPTIONS = 'moz:firefoxOptions'
-    firefox_options = GeckoOptionsDescriptor("ANDROID_STORAGE")
+class UnlockKeyOption(SupportsCapabilities):
+    UNLOCK_KEY = 'unlockKey'
+    unlock_key = SkipLockOptionsDescriptor("UNLOCK_KEY")
+
+class UnlockStrategyOption(SupportsCapabilities):
+    UNLOCK_STRATEGY = 'unlockStrategy'
+    unlock_strategy = SkipLockOptionsDescriptor("UNLOCK_STRATEGY")
 
 
-class MarionettePortOption(SupportsCapabilities):
-    MARIONETTE_PORT = 'marionettePort'
-    marionette_port = GeckoOptionsDescriptor("MARIONETTE_PORT")
+class UnlockSuccessTimeoutOption(SupportsCapabilities):
+    UNLOCK_SUCCESS_TIMEOUT = 'unlockSuccessTimeout'
+    unlock_success_timeout = SkipLockOptionsDescriptor("UNLOCK_SUCCESS_TIMEOUT")
 
 
-class VerbosityOption(SupportsCapabilities):
-    VERBOSITY = 'verbosity'
-    verbosity = GeckoOptionsDescriptor("VERBOSITY")
+class UnlockTypeOption(SupportsCapabilities):
+    UNLOCK_TYPE = 'unlockType'
+    unlock_type = SkipLockOptionsDescriptor("UNLOCK_TYPE")

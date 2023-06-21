@@ -15,37 +15,38 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from datetime import timedelta
 from typing import Any
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
-class GeckoOptionsDescriptor:
+class AppOptionsDescriptor:
     def __init__(self, name: str) -> None:
         self.name = name
 
     def __get__(self, obj: Any, cls: Any) -> Any:
+        if self.name == "APP_PUSH_TIMEOUT":
+            value = getattr(obj, "get_capabilities")(self.name)
+            return None if value is None else timedelta(milliseconds=value)
         return getattr(obj, "get_capabilities")(self.name)
 
     def __set__(self, obj: Any, value: Any) -> Any:
+        if self.name == "APP_PUSH_TIMEOUT":
+            getattr(obj, "set_capabilities")(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
         getattr(obj, "set_capabilities")(self.name, value)
 
 
-class AndroidStorageOption(SupportsCapabilities):
-    ANDROID_STORAGE = 'androidStorage'
-    android_storage = GeckoOptionsDescriptor("ANDROID_STORAGE")
+class AppInstallStrategyOption(SupportsCapabilities):
+    APP_INSTALL_STRATEGY = 'appInstallStrategy'
+    app_install_strategy = AppOptionsDescriptor("APP_INSTALL_STRATEGY")
 
 
-class FirefoxOptionsOption(SupportsCapabilities):
-    FIREFOX_OPTIONS = 'moz:firefoxOptions'
-    firefox_options = GeckoOptionsDescriptor("ANDROID_STORAGE")
+class AppPushTimeoutOption(SupportsCapabilities):
+    APP_PUSH_TIMEOUT = 'appPushTimeout'
+    app_push_timeout = AppOptionsDescriptor("APP_PUSH_TIMEOUT")
 
 
-class MarionettePortOption(SupportsCapabilities):
-    MARIONETTE_PORT = 'marionettePort'
-    marionette_port = GeckoOptionsDescriptor("MARIONETTE_PORT")
-
-
-class VerbosityOption(SupportsCapabilities):
-    VERBOSITY = 'verbosity'
-    verbosity = GeckoOptionsDescriptor("VERBOSITY")
+class LocalizableStringsDirOption(SupportsCapabilities):
+    LOCALIZABLE_STRINGS_DIR = 'localizableStringsDir'
+    localizable_strings_dir = AppOptionsDescriptor("LOCALIZABLE_STRINGS_DIR")

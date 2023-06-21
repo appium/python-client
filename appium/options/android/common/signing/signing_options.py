@@ -20,7 +20,7 @@ from typing import Any
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
-class GeckoOptionsDescriptor:
+class SigningOptionsDescriptor:
     def __init__(self, name: str) -> None:
         self.name = name
 
@@ -31,21 +31,31 @@ class GeckoOptionsDescriptor:
         getattr(obj, "set_capabilities")(self.name, value)
 
 
-class AndroidStorageOption(SupportsCapabilities):
-    ANDROID_STORAGE = 'androidStorage'
-    android_storage = GeckoOptionsDescriptor("ANDROID_STORAGE")
+
+class KeyAliasOption(SupportsCapabilities):
+    KEY_ALIAS = 'keyAlias'
+    key_alias = SigningOptionsDescriptor("KEY_ALIAS")
 
 
-class FirefoxOptionsOption(SupportsCapabilities):
-    FIREFOX_OPTIONS = 'moz:firefoxOptions'
-    firefox_options = GeckoOptionsDescriptor("ANDROID_STORAGE")
+class KeyPasswordOption(SupportsCapabilities):
+    KEY_PASSWORD = 'keyPassword'
+    key_password = SigningOptionsDescriptor("KEY_PASSWORD")
 
 
-class MarionettePortOption(SupportsCapabilities):
-    MARIONETTE_PORT = 'marionettePort'
-    marionette_port = GeckoOptionsDescriptor("MARIONETTE_PORT")
+class KeystorePasswordOption(SupportsCapabilities):
+    KEYSTORE_PASSWORD = 'keystorePassword'
+    keystore_password = SigningOptionsDescriptor("KEYSTORE_PASSWORD")
 
 
-class VerbosityOption(SupportsCapabilities):
-    VERBOSITY = 'verbosity'
-    verbosity = GeckoOptionsDescriptor("VERBOSITY")
+class KeystorePathOption(SupportsCapabilities):
+    KEYSTORE_PATH = 'keystorePath'
+    keystore_path = SigningOptionsDescriptor("KEYSTORE_PATH")
+
+
+class NoSignOption(SupportsCapabilities):
+    NO_SIGN = 'noSign'
+    no_sign = SigningOptionsDescriptor("NO_SIGN")
+
+class UseKeystoreOption(SupportsCapabilities):
+    USE_KEYSTORE = 'useKeystore'
+    use_keystore = SigningOptionsDescriptor("USE_KEYSTORE")

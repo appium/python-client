@@ -25,7 +25,7 @@ from appium.options.common.common_options import PrerunOption
 from appium.options.common.common_options import SystemHostOption
 from appium.options.common.common_options import SystemPortOption
 
-from .arguments_option import ArgumentsOption
+from .mac_options import ArgumentsOption
 from .mac_options import BootstrapRootOption
 from .mac_options import EnvironmentOption
 from .mac_options import ServerStartupTimeoutOption

@@ -33,15 +33,15 @@ from appium.options.common.common_options import OtherAppsOption
 from appium.options.common.common_options import SkipLogCaptureOption
 from appium.options.common.common_options import UdidOption
 
-from .app.app_install_strategy_option import AppInstallStrategyOption
-from .app.app_push_timeout_option import AppPushTimeoutOption
-from .app.localizable_strings_dir_option import LocalizableStringsDirOption
+from .app.app_options import AppInstallStrategyOption
+from .app.app_options import AppPushTimeoutOption
+from .app.app_options import LocalizableStringsDirOption
 from .general.include_device_caps_to_session_info_option import IncludeDeviceCapsToSessionInfoOption
 from .general.reset_location_service_option import ResetLocationServiceOption
-from .other.command_timeouts_option import CommandTimeoutsOption
-from .other.launch_with_idb_option import LaunchWithIdbOption
-from .other.show_ios_log_option import ShowIosLogOption
-from .other.use_json_source_option import UseJsonSourceOption
+from .other.other_options import CommandTimeoutsOption
+from .other.other_options import LaunchWithIdbOption
+from .other.other_options import ShowIosLogOption
+from .other.other_options import UseJsonSourceOption
 from .simulator.simulator_options import CalendarAccessAuthorizedOption
 from .simulator.simulator_options import CalendarFormatOption
 from .simulator.simulator_options import ConnectHardwareKeyboardOption

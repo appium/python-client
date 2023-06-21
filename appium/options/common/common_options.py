@@ -1,22 +1,41 @@
+# Licensed to the Software Freedom Conservancy (SFC) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The SFC licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+from typing import Any
+
 from .supports_capabilities import SupportsCapabilities
 
 class OptionsDescriptor:
-    def __init__(self, name) -> None:
+    def __init__(self, name: str) -> None:
         self.name = name
 
-    def __get__(self, obj, cls):
+    def __get__(self, obj: Any, cls: Any) -> Any:
         return getattr(obj, "get_capabilities")(self.name)
 
-    def __set__(self, obj, value):
+    def __set__(self, obj: Any, value: Any) -> Any:
         getattr(obj, "set_capabilities")(self.name, value)
 
 
 class AppOption(SupportsCapabilities):
     """
-    Set the absolute local path for the location of the App.
-    The app must be located on the same machine where Appium
-    server is running.
-    Could also be a valid URL.
+      Set the absolute local path for the location of the App.
+      The app must be located on the same machine where Appium
+      server is running.
+      Could also be a valid URL.
     """
     APP = 'app'
     # Create a descriptor object (Indirectly we are creating a getter and setter here)
@@ -24,29 +43,29 @@ class AppOption(SupportsCapabilities):
 
 
 class AutoWebViewOption(SupportsCapabilities):
-        """
-        Set whether the driver should try to automatically switch
-        a web view context after the session is started.
-        """
-        AUTO_WEB_VIEW = 'autoWebView'
-        auto_web_view = OptionsDescriptor("AUTO_WEB_VIEW")
+     """
+     Set whether the driver should try to automatically switch
+     a web view context after the session is started.
+     """
+     AUTO_WEB_VIEW = 'autoWebView'
+     auto_web_view = OptionsDescriptor("AUTO_WEB_VIEW")
 
 
 class AutomationNameOption(SupportsCapabilities):
-       """Gets and Sets the automation driver name to use for the given platform."""
-       AUTOMATION_NAME = 'automationName'
-       automation_name = OptionsDescriptor("AUTOMATION_NAME")
+     """Gets and Sets the automation driver name to use for the given platform."""
+     AUTOMATION_NAME = 'automationName'
+     automation_name = OptionsDescriptor("AUTOMATION_NAME")
 
 
 class BundleIdOption(SupportsCapabilities):
-       """Gets and Sets the bundle identifier of the application to automate."""
-       BUNDLE_ID = 'bundleId'
-       bundle_id = OptionsDescriptor("BUNDLE_ID")
+     """Gets and Sets the bundle identifier of the application to automate."""
+     BUNDLE_ID = 'bundleId'
+     bundle_id = OptionsDescriptor("BUNDLE_ID")
 
 class ClearSystemFilesOption(SupportsCapabilities):
-       """ Set whether the driver should delete generated files at the end of a session."""
-       CLEAR_SYSTEM_FILES = 'clearSystemFiles'
-       clear_system_files = OptionsDescriptor("CLEAR_SYSTEM_FILES")
+    """ Set whether the driver should delete generated files at the end of a session."""
+    CLEAR_SYSTEM_FILES = 'clearSystemFiles'
+    clear_system_files = OptionsDescriptor("CLEAR_SYSTEM_FILES")
 
 
 class DeviceNameOption(SupportsCapabilities):

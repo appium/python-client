@@ -16,48 +16,56 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Any
+from typing import Optional, Any
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-class WindowsOptionsDescriptor:
+
+class AvdOptionsDescriptor:
     def __init__(self, name: str) -> None:
         self.name = name
 
     def __get__(self, obj: Any, cls: Any) -> Any:
+        if self.name in ("AVD_LAUNCH_TIMEOUT", "AVD_READY_TIMEOUT"):
+            value = getattr(obj, "get_capabilities")(self.name)
+            return None if value is None else timedelta(milliseconds=value)
         return getattr(obj, "get_capabilities")(self.name)
 
     def __set__(self, obj: Any, value: Any) -> Any:
-        if self.name in ("CREATE_SESSION_TIMEOUT", "WAIT_FOR_APP_LAUNCH"):
+        if self.name in ("AVD_LAUNCH_TIMEOUT", "AVD_READY_TIMEOUT"):
             getattr(obj, "set_capabilities")(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
         getattr(obj, "set_capabilities")(self.name, value)
 
 
-class AppArgumentsOption(SupportsCapabilities):
-    APP_ARGUMENTS = 'appArguments'
-    app_arguments = WindowsOptionsDescriptor("APP_ARGUMENTS")
+class AvdArgsOption(SupportsCapabilities):
+    AVD_ARGS = 'avdArgs'
+    avd_args = AvdOptionsDescriptor("AVD_ARGS")
 
 
-class AppTopLevelWindowOption(SupportsCapabilities):
-    APP_TOP_LEVEL_WINDOW = 'appTopLevelWindow'
-    app_top_level_window = WindowsOptionsDescriptor("APP_TOP_LEVEL_WINDOW")
+class AvdEnvOption(SupportsCapabilities):
+    AVD_ENV = 'avdEnv'
+    avd_env = AvdOptionsDescriptor("AVD_ENV")
 
 
-class AppWorkingDirOption(SupportsCapabilities):
-    APP_WORKING_DIR = 'appWorkingDir'
-    app_working_dir = WindowsOptionsDescriptor("APP_WORKING_DIR")
+class AvdLaunchTimeoutOption(SupportsCapabilities):
+    AVD_LAUNCH_TIMEOUT = 'avdLaunchTimeout'
+    avd_launch_timeout = AvdOptionsDescriptor("AVD_LAUNCH_TIMEOUT")
 
 
-class CreateSessionTimeoutOption(SupportsCapabilities):
-    CREATE_SESSION_TIMEOUT = 'createSessionTimeout'
-    create_session_timeout = WindowsOptionsDescriptor("CREATE_SESSION_TIMEOUT")
+class AvdOption(SupportsCapabilities):
+    AVD = 'avd'
+    avd = AvdOptionsDescriptor("AVD")
+
+class AvdReadyTimeoutOption(SupportsCapabilities):
+    AVD_READY_TIMEOUT = 'avdReadyTimeout'
+    avd_ready_timeout = AvdOptionsDescriptor("AVD_READY_TIMEOUT")
 
 
-class ExperimentalWebDriverOption(SupportsCapabilities):
-    EXPERIMENTAL_WEB_DRIVER = 'ms:experimental-webdriver'
-    experimental_webdriver = WindowsOptionsDescriptor("EXPERIMENTAL_WEB_DRIVER")
+class GpsEnabledOption(SupportsCapabilities):
+    GPS_ENABLED = 'gpsEnabled'
+    gps_enabled = AvdOptionsDescriptor("GPS_ENABLED")
 
 
-class WaitForAppLaunchOption(SupportsCapabilities):
-    WAIT_FOR_APP_LAUNCH = 'ms:waitForAppLaunch'
-    wait_for_app_launch = WindowsOptionsDescriptor("WAIT_FOR_APP_LAUNCH")
+class NetworkSpeedOption(SupportsCapabilities):
+    NETWORK_SPEED = 'networkSpeed'
+    network_speed = AvdOptionsDescriptor("NETWORK_SPEED")

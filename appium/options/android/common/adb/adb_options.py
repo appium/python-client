@@ -28,15 +28,15 @@ class AdbOptionsDescriptor:
         self.name = name
 
     def __get__(self, obj: C, cls: type[C]) -> Any:
-        if self.name == "ADB_EXEC_TIMEOUT":
-            value = getattr(obj, "get_capability")(self.name)
+        if self.name == 'ADB_EXEC_TIMEOUT':
+            value = getattr(obj, 'get_capability')(self.name)
             return None if value is None else timedelta(milliseconds=value)
-        return getattr(obj, "get_capability")(self.name)
+        return getattr(obj, 'get_capability')(self.name)
 
     def __set__(self, obj:C, value: C) -> C:
-        if self.name == "ADB_EXEC_TIMEOUT":
-            return getattr(obj, "set_capability")(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        return getattr(obj, "set_capability")(self.name, value)
+        if self.name == 'ADB_EXEC_TIMEOUT':
+            return getattr(obj, 'set_capability')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
+        return getattr(obj, 'set_capability')(self.name, value)
 
 
 class AdbExecTimeoutOption(SupportsCapabilities):

@@ -16,25 +16,27 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Any
+from typing import Any, TypeVar
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
+
+C = TypeVar("C", bound="SupportsCapabilities")
 
 
 class MacOptionsDescriptor:
     def __init__(self, name: str) -> None:
         self.name = name
 
-    def __get__(self, obj: Any, cls: Any) -> Any:
+    def __get__(self, obj: C, cls: Any) -> Any:
         if self.name == "SERVER_STARTUP_TIMEOUT":
-            value_ms = getattr(obj, "get_capabilities")(self.name)
+            value_ms = getattr(obj, "get_capability")(self.name)
             return None if value_ms is None else timedelta(milliseconds=value_ms)
-        return getattr(obj, "get_capabilities")(self.name)
+        return getattr(obj, "get_capability")(self.name)
 
-    def __set__(self, obj: Any, value: Any) -> Any:
+    def __set__(self, obj: C, value: Any) -> C:
         if self.name == "SERVER_STARTUP_TIMEOUT":
-            getattr(obj, "set_capabilities")(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        getattr(obj, "set_capabilities")(self.name, value)
+            return getattr(obj, "set_capability")(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
+        return getattr(obj, "set_capability")(self.name, value)
 
 
 class ArgumentsOption(SupportsCapabilities):

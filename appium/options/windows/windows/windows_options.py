@@ -25,12 +25,12 @@ class WindowsOptionsDescriptor:
         self.name = name
 
     def __get__(self, obj: Any, cls: Any) -> Any:
-        return getattr(obj, "get_capabilities")(self.name)
+        return getattr(obj, "get_capability")(self.name)
 
     def __set__(self, obj: Any, value: Any) -> Any:
         if self.name in ("CREATE_SESSION_TIMEOUT", "WAIT_FOR_APP_LAUNCH"):
-            getattr(obj, "set_capabilities")(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        getattr(obj, "set_capabilities")(self.name, value)
+            getattr(obj, "set_capability")(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
+        getattr(obj, "set_capability")(self.name, value)
 
 
 class AppArgumentsOption(SupportsCapabilities):

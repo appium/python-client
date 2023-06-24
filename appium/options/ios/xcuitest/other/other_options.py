@@ -20,7 +20,7 @@ from typing import Any, TypeVar
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-C = TypeVar("C", bound="SupportsCapabilities")
+C = TypeVar('C', bound='SupportsCapabilities')
 
 
 class OtherOptionsDescriptor:
@@ -28,29 +28,29 @@ class OtherOptionsDescriptor:
         self.name = name
 
     def __get__(self, obj: C, cls: type[C]) -> Any:
-        if self.name == "COMMAND_TIMEOUTS":
-            value = getattr(obj, "get_capability")(self.name)
+        if self.name == 'COMMAND_TIMEOUTS':
+            value = getattr(obj, 'get_capability')(self.name)
             if value is None:
                 return None
             if isinstance(value, dict):
                 return {k: timedelta(milliseconds=v) for k, v in value.items()}
             return timedelta(milliseconds=int(value))
-        return getattr(obj, "get_capability")(self.name)
+        return getattr(obj, 'get_capability')(self.name)
 
     def __set__(self, obj: C, value: Any) -> C:
-        if self.name == "COMMAND_TIMEOUTS":
+        if self.name == 'COMMAND_TIMEOUTS':
             if isinstance(value, dict):
-                getattr(obj, "set_capability")(self.name, {k: int(v.total_seconds() * 1000) for k, v in value.items()})
+                getattr(obj, 'set_capability')(self.name, {k: int(v.total_seconds() * 1000) for k, v in value.items()})
             elif isinstance(value, timedelta):
-                getattr(obj, "set_capability")(self.name, f'{int(value.total_seconds() * 1000)}')
+                getattr(obj, 'set_capability')(self.name, f'{int(value.total_seconds() * 1000)}')
             else:
-                return getattr(obj, "set_capability")(self.name, value)
-        return getattr(obj, "set_capability")(self.name, value)
+                return getattr(obj, 'set_capability')(self.name, value)
+        return getattr(obj, 'set_capability')(self.name, value)
 
 
 class UseJsonSourceOption(SupportsCapabilities):
     USE_JSON_SOURCE = 'useJSONSource'
-    use_json_source = OtherOptionsDescriptor("USE_JSON_SOURCE")
+    use_json_source = OtherOptionsDescriptor('USE_JSON_SOURCE')
     """
     Whether to get JSON source from WDA and transform it to XML on the driver side.
     Defaults to false.
@@ -64,7 +64,7 @@ class UseJsonSourceOption(SupportsCapabilities):
 
 class ShowIosLogOption(SupportsCapabilities):
     SHOW_IOS_LOG = 'showIOSLog'
-    show_ios_log = OtherOptionsDescriptor("SHOW_IOS_LOG")
+    show_ios_log = OtherOptionsDescriptor('SHOW_IOS_LOG')
     """
     Whether to show any logs captured from a device in the appium logs.
     Default false.
@@ -78,7 +78,7 @@ class ShowIosLogOption(SupportsCapabilities):
 
 class LaunchWithIdbOption(SupportsCapabilities):
     LAUNCH_WITH_IDB = 'launchWithIDB'
-    launch_with_idb = OtherOptionsDescriptor("LAUNCH_WITH_IDB")
+    launch_with_idb = OtherOptionsDescriptor('LAUNCH_WITH_IDB')
     """
     Launch WebDriverAgentRunner with idb instead of xcodebuild. This could save
     a significant amount of time by skipping the xcodebuild process, although the
@@ -95,7 +95,7 @@ class LaunchWithIdbOption(SupportsCapabilities):
 
 class CommandTimeoutsOption(SupportsCapabilities):
     COMMAND_TIMEOUTS = 'commandTimeouts'
-    command_timeouts = OtherOptionsDescriptor("COMMAND_TIMEOUTS")
+    command_timeouts = OtherOptionsDescriptor('COMMAND_TIMEOUTS')
     """
     Custom timeout for all WDA backend commands execution.
     This might be useful if WDA backend freezes unexpectedly or requires too

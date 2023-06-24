@@ -19,22 +19,22 @@ from typing import Any, TypeVar
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-C = TypeVar("C", bound="SupportsCapabilities")
+C = TypeVar('C', bound='SupportsCapabilities')
 
 class GeckoOptionsDescriptor:
     def __init__(self, name: str) -> None:
         self.name = name
 
     def __get__(self, obj: C, cls: type[C]) -> Any:
-        return getattr(obj, "get_capability")(self.name)
+        return getattr(obj, 'get_capability')(self.name)
 
     def __set__(self, obj: C, value: Any) -> C:
-        return getattr(obj, "set_capability")(self.name, value)
+        return getattr(obj, 'set_capability')(self.name, value)
 
 
 class AndroidStorageOption(SupportsCapabilities):
     ANDROID_STORAGE = 'androidStorage'
-    android_storage = GeckoOptionsDescriptor("ANDROID_STORAGE")
+    android_storage = GeckoOptionsDescriptor('ANDROID_STORAGE')
     """
     Gets and Sets Current storge type
     See https://firefox-source-docs.mozilla.org/testing/geckodriver
@@ -49,7 +49,7 @@ class AndroidStorageOption(SupportsCapabilities):
 
 class FirefoxOptionsOption(SupportsCapabilities):
     FIREFOX_OPTIONS = 'moz:firefoxOptions'
-    firefox_options = GeckoOptionsDescriptor("ANDROID_STORAGE")
+    firefox_options = GeckoOptionsDescriptor('ANDROID_STORAGE')
     """
     Gets and Sets Firefox mapping
     See https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions
@@ -63,7 +63,7 @@ class FirefoxOptionsOption(SupportsCapabilities):
 
 class MarionettePortOption(SupportsCapabilities):
     MARIONETTE_PORT = 'marionettePort'
-    marionette_port = GeckoOptionsDescriptor("MARIONETTE_PORT")
+    marionette_port = GeckoOptionsDescriptor('MARIONETTE_PORT')
     """
     Selects the port for Geckodriver’s connection to the Marionette
     remote protocol. The existing Firefox instance must have Marionette
@@ -81,7 +81,7 @@ class MarionettePortOption(SupportsCapabilities):
 
 class VerbosityOption(SupportsCapabilities):
     VERBOSITY = 'verbosity'
-    verbosity = GeckoOptionsDescriptor("VERBOSITY")
+    verbosity = GeckoOptionsDescriptor('VERBOSITY')
     """
     Sets and Gets the  verbosity level of driver logging.
     The verbosity level of driver logging.

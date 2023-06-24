@@ -20,7 +20,7 @@ from typing import Any, TypeVar
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-C = TypeVar("C", bound="SupportsCapabilities")
+C = TypeVar('C', bound='SupportsCapabilities')
 
 
 class MacOptionsDescriptor:
@@ -28,47 +28,47 @@ class MacOptionsDescriptor:
         self.name = name
 
     def __get__(self, obj: C, cls: Any) -> Any:
-        if self.name == "SERVER_STARTUP_TIMEOUT":
-            value_ms = getattr(obj, "get_capability")(self.name)
+        if self.name == 'SERVER_STARTUP_TIMEOUT':
+            value_ms = getattr(obj, 'get_capability')(self.name)
             return None if value_ms is None else timedelta(milliseconds=value_ms)
-        return getattr(obj, "get_capability")(self.name)
+        return getattr(obj, 'get_capability')(self.name)
 
     def __set__(self, obj: C, value: Any) -> C:
-        if self.name == "SERVER_STARTUP_TIMEOUT":
-            return getattr(obj, "set_capability")(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
-        return getattr(obj, "set_capability")(self.name, value)
+        if self.name == 'SERVER_STARTUP_TIMEOUT':
+            return getattr(obj, 'set_capability')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
+        return getattr(obj, 'set_capability')(self.name, value)
 
 
 class ArgumentsOption(SupportsCapabilities):
     ARGUMENTS = 'arguments'
-    arguments = MacOptionsDescriptor("ARGUMENTS")
+    arguments = MacOptionsDescriptor('ARGUMENTS')
 
 
 class BootstrapRootOption(SupportsCapabilities):
     BOOTSTRAP_ROOT = 'bootstrapRoot'
-    bootstrap_root = MacOptionsDescriptor("BOOTSTRAP_ROOT")
+    bootstrap_root = MacOptionsDescriptor('BOOTSTRAP_ROOT')
 
 
 class EnvironmentOption(SupportsCapabilities):
     ENVIRONMENT = 'environment'
-    environment = MacOptionsDescriptor("ENVIRONMENT")
+    environment = MacOptionsDescriptor('ENVIRONMENT')
 
 
 class ServerStartupTimeoutOption(SupportsCapabilities):
     SERVER_STARTUP_TIMEOUT = 'serverStartupTimeout'
-    server_startup_timeout = MacOptionsDescriptor("SERVER_STARTUP_TIMEOUT")
+    server_startup_timeout = MacOptionsDescriptor('SERVER_STARTUP_TIMEOUT')
 
 
 class ShowServerLogsOption(SupportsCapabilities):
     SHOW_SERVER_LOGS = 'showServerLogs'
-    show_server_logs = MacOptionsDescriptor("SHOW_SERVER_LOGS")
+    show_server_logs = MacOptionsDescriptor('SHOW_SERVER_LOGS')
 
 
 class WebDriverAgentMacUrlOption(SupportsCapabilities):
     WEB_DRIVER_ARGENT_MAC_URL = 'webDriverAgentMacUrl'
-    web_driver_agent_mac_url = MacOptionsDescriptor("WEB_DRIVER_ARGENT_MAC_URL")
+    web_driver_agent_mac_url = MacOptionsDescriptor('WEB_DRIVER_ARGENT_MAC_URL')
 
 
 class SkipAppKillOption(SupportsCapabilities):
     SKIP_APP_KILL = 'skipAppKill'
-    skip_app_kill = MacOptionsDescriptor("SKIP_APP_KILL")
+    skip_app_kill = MacOptionsDescriptor('SKIP_APP_KILL')

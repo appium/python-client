@@ -19,7 +19,7 @@ from typing import Any, TypeVar
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-C = TypeVar("C", bound="SupportsCapabilities")
+C = TypeVar('C', bound='SupportsCapabilities')
 
 
 class SafariOptionsDescriptor:
@@ -35,7 +35,7 @@ class SafariOptionsDescriptor:
 
 class AutomaticInspectionOption(SupportsCapabilities):
     AUTOMATIC_INSPECTION = 'safari:automaticInspection'
-    automatic_inspection = SafariOptionsDescriptor("AUTOMATIC_INSPECTION")
+    automatic_inspection = SafariOptionsDescriptor('AUTOMATIC_INSPECTION')
     """
     This capability instructs Safari to preload the Web Inspector and JavaScript
     debugger in the background prior to returning a newly-created window.
@@ -51,7 +51,7 @@ class AutomaticInspectionOption(SupportsCapabilities):
 
 class AutomaticProfilingOption(SupportsCapabilities):
     AUTOMATIC_PROFILING = 'safari:automaticProfiling'
-    automatic_profiling = SafariOptionsDescriptor("AUTOMATIC_PROFILING")
+    automatic_profiling = SafariOptionsDescriptor('AUTOMATIC_PROFILING')
     """
     This capability instructs Safari to preload the Web Inspector and start
     a Timeline recording in the background prior to returning a newly-created
@@ -67,7 +67,7 @@ class AutomaticProfilingOption(SupportsCapabilities):
 
 class DeviceNameOption(SupportsCapabilities):
     DEVICE_NAME = 'safari:deviceName'
-    device_name = SafariOptionsDescriptor("DEVICE_NAME")
+    device_name = SafariOptionsDescriptor('DEVICE_NAME')
     """
     safaridriver will only create a session using hosts whose device name
     matches the value of safari:deviceName. Device names are compared
@@ -85,7 +85,7 @@ class DeviceNameOption(SupportsCapabilities):
 
 class DeviceTypeOption(SupportsCapabilities):
     DEVICE_TYPE = 'safari:deviceType'
-    device_type = SafariOptionsDescriptor("DEVICE_TYPE")
+    device_type = SafariOptionsDescriptor('DEVICE_TYPE')
     """
     If the value of safari:deviceType is 'iPhone', safaridriver will only create a session
     using an iPhone device or iPhone simulator. If the value of safari:deviceType is 'iPad',
@@ -101,7 +101,7 @@ class DeviceTypeOption(SupportsCapabilities):
 
 class DeviceUdidOption(SupportsCapabilities):
     DEVICE_UDID = 'safari:deviceUDID'
-    device_udid = SafariOptionsDescriptor("DEVICE_UDID")
+    device_udid = SafariOptionsDescriptor('DEVICE_UDID')
     """
     safaridriver will only create a session using hosts whose device UDID
     matches the value of safari:deviceUDID. Device UDIDs are compared
@@ -118,7 +118,7 @@ class DeviceUdidOption(SupportsCapabilities):
 
 class PlatformBuildVersionOption(SupportsCapabilities):
     PLATFORM_BUILD_VERSION = 'safari:platformBuildVersion'
-    platform_build_version = SafariOptionsDescriptor("PLATFORM_BUILD_VERSION")
+    platform_build_version = SafariOptionsDescriptor('PLATFORM_BUILD_VERSION')
     """
     safaridriver will only create a session using hosts whose OS build
     version matches the value of safari:platformBuildVersion. Example
@@ -134,7 +134,7 @@ class PlatformBuildVersionOption(SupportsCapabilities):
 
 class PlatformVersionOption(SupportsCapabilities):
     PLATFORM_VERSION = 'safari:platformVersion'
-    platform_version = SafariOptionsDescriptor("PLATFORM_VERSION")
+    platform_version = SafariOptionsDescriptor('PLATFORM_VERSION')
     """
     safaridriver will only create a session using hosts whose OS
     version matches the value of safari:platformVersion. OS version
@@ -150,7 +150,7 @@ class PlatformVersionOption(SupportsCapabilities):
 
 class UseSimulatorOption(SupportsCapabilities):
     USE_SIMULATOR = 'safari:useSimulator'
-    use_simulator = SafariOptionsDescriptor("USE_SIMULATOR")
+    use_simulator = SafariOptionsDescriptor('USE_SIMULATOR')
     """
      If the value of safari:useSimulator is true, safaridriver will only use
     iOS Simulator hosts. If the value of safari:useSimulator is false, safaridriver
@@ -165,7 +165,7 @@ class UseSimulatorOption(SupportsCapabilities):
 
 class WebkitWebrtcOption(SupportsCapabilities):
     WEBKIT_WEBRTC = 'webkit:WebRTC'
-    webkit_webrtc = SafariOptionsDescriptor("WEBKIT_WEBRTC")
+    webkit_webrtc = SafariOptionsDescriptor('WEBKIT_WEBRTC')
     """
     This option allows a test to temporarily change Safari's policies
     for WebRTC and Media Capture.

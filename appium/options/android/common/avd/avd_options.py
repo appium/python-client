@@ -20,7 +20,7 @@ from typing import Any, TypeVar
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-C = TypeVar("C", bound="SupportsCapabilities")
+C = TypeVar('C', bound='SupportsCapabilities')
 
 
 class AvdOptionsDescriptor:
@@ -28,20 +28,20 @@ class AvdOptionsDescriptor:
         self.name = name
 
     def __get__(self, obj: C, cls: type[C]) -> Any:
-        if self.name in ("AVD_LAUNCH_TIMEOUT", "AVD_READY_TIMEOUT"):
-            value = getattr(obj, "get_capability")(self.name)
+        if self.name in ('AVD_LAUNCH_TIMEOUT', 'AVD_READY_TIMEOUT'):
+            value = getattr(obj, 'get_capability')(self.name)
             return None if value is None else timedelta(milliseconds=value)
-        return getattr(obj, "get_capability")(self.name)
+        return getattr(obj, 'get_capability')(self.name)
 
     def __set__(self, obj: C, value: Any) -> C:
-        if self.name in ("AVD_LAUNCH_TIMEOUT", "AVD_READY_TIMEOUT"):
-            return getattr(obj, "set_capability")(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        return getattr(obj, "set_capability")(self.name, value)
+        if self.name in ('AVD_LAUNCH_TIMEOUT', 'AVD_READY_TIMEOUT'):
+            return getattr(obj, 'set_capability')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
+        return getattr(obj, 'set_capability')(self.name, value)
 
 
 class AvdArgsOption(SupportsCapabilities):
     AVD_ARGS = 'avdArgs'
-    avd_args = AvdOptionsDescriptor("AVD_ARGS")
+    avd_args = AvdOptionsDescriptor('AVD_ARGS')
     """
     Gets and Sets emulator command line arguments.
 
@@ -53,7 +53,7 @@ class AvdArgsOption(SupportsCapabilities):
 
 class AvdEnvOption(SupportsCapabilities):
     AVD_ENV = 'avdEnv'
-    avd_env = AvdOptionsDescriptor("AVD_ENV")
+    avd_env = AvdOptionsDescriptor('AVD_ENV')
     """
     Gets and Sets the mapping of emulator environment variables.
 
@@ -66,7 +66,7 @@ class AvdEnvOption(SupportsCapabilities):
 
 class AvdLaunchTimeoutOption(SupportsCapabilities):
     AVD_LAUNCH_TIMEOUT = 'avdLaunchTimeout'
-    avd_launch_timeout = AvdOptionsDescriptor("AVD_LAUNCH_TIMEOUT")
+    avd_launch_timeout = AvdOptionsDescriptor('AVD_LAUNCH_TIMEOUT')
     """
     Timeout to wait until Android Emulator is started.
     Maximum timeout to wait until Android Emulator is started.
@@ -81,7 +81,7 @@ class AvdLaunchTimeoutOption(SupportsCapabilities):
 
 class AvdOption(SupportsCapabilities):
     AVD = 'avd'
-    avd = AvdOptionsDescriptor("AVD")
+    avd = AvdOptionsDescriptor('AVD')
     """
     The name of Android emulator to run the test on.
     Names of currently installed emulators could be listed using
@@ -96,7 +96,7 @@ class AvdOption(SupportsCapabilities):
 
 class AvdReadyTimeoutOption(SupportsCapabilities):
     AVD_READY_TIMEOUT = 'avdReadyTimeout'
-    avd_ready_timeout = AvdOptionsDescriptor("AVD_READY_TIMEOUT")
+    avd_ready_timeout = AvdOptionsDescriptor('AVD_READY_TIMEOUT')
     """
     Maximum timeout to wait until Android Emulator is fully booted and is ready for usage.
     60000 ms by default
@@ -110,7 +110,7 @@ class AvdReadyTimeoutOption(SupportsCapabilities):
 
 class GpsEnabledOption(SupportsCapabilities):
     GPS_ENABLED = 'gpsEnabled'
-    gps_enabled = AvdOptionsDescriptor("GPS_ENABLED")
+    gps_enabled = AvdOptionsDescriptor('GPS_ENABLED')
     """
     Gets and Sets whether to enable (true) or disable (false) GPS service in the Emulator.
     Unset by default, which means to not change the current value.
@@ -124,7 +124,7 @@ class GpsEnabledOption(SupportsCapabilities):
 
 class NetworkSpeedOption(SupportsCapabilities):
     NETWORK_SPEED = 'networkSpeed'
-    network_speed = AvdOptionsDescriptor("NETWORK_SPEED")
+    network_speed = AvdOptionsDescriptor('NETWORK_SPEED')
     """
     Gets and Sets the desired network speed limit for the emulator.
     It is only applied if the emulator is not running before

@@ -20,7 +20,7 @@ from typing import Any, TypeVar
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-C = TypeVar("C", bound="SupportsCapabilities")
+C = TypeVar('C', bound='SupportsCapabilities')
 
 
 class WindowsOptionsDescriptor:
@@ -53,7 +53,7 @@ class AppArgumentsOption(SupportsCapabilities):
 
 class AppTopLevelWindowOption(SupportsCapabilities):
     APP_TOP_LEVEL_WINDOW = 'appTopLevelWindow'
-    app_top_level_window = WindowsOptionsDescriptor("APP_TOP_LEVEL_WINDOW")
+    app_top_level_window = WindowsOptionsDescriptor('APP_TOP_LEVEL_WINDOW')
     """
     Set the hexadecimal handle of an existing application top level
     window to attach to, for example 0x12345 (should be of string type).
@@ -68,7 +68,7 @@ class AppTopLevelWindowOption(SupportsCapabilities):
 
 class AppWorkingDirOption(SupportsCapabilities):
     APP_WORKING_DIR = 'appWorkingDir'
-    app_working_dir = WindowsOptionsDescriptor("APP_WORKING_DIR")
+    app_working_dir = WindowsOptionsDescriptor('APP_WORKING_DIR')
     """
     Set the full path to the folder, which is going to be set as the working
     dir for the application under test. This is only applicable for classic apps.
@@ -82,7 +82,7 @@ class AppWorkingDirOption(SupportsCapabilities):
 
 class CreateSessionTimeoutOption(SupportsCapabilities):
     CREATE_SESSION_TIMEOUT = 'createSessionTimeout'
-    create_session_timeout = WindowsOptionsDescriptor("CREATE_SESSION_TIMEOUT")
+    create_session_timeout = WindowsOptionsDescriptor('CREATE_SESSION_TIMEOUT')
     """
     Set the timeout used to retry Appium Windows Driver session startup.
     This capability could be used as a workaround for the long startup times
@@ -98,7 +98,7 @@ class CreateSessionTimeoutOption(SupportsCapabilities):
 
 class ExperimentalWebDriverOption(SupportsCapabilities):
     EXPERIMENTAL_WEB_DRIVER = 'ms:experimental-webdriver'
-    experimental_webdriver = WindowsOptionsDescriptor("EXPERIMENTAL_WEB_DRIVER")
+    experimental_webdriver = WindowsOptionsDescriptor('EXPERIMENTAL_WEB_DRIVER')
     """
     Enables experimental features and optimizations. See Appium Windows
     Driver release notes for more details on this capability.
@@ -112,7 +112,7 @@ class ExperimentalWebDriverOption(SupportsCapabilities):
 
 class WaitForAppLaunchOption(SupportsCapabilities):
     WAIT_FOR_APP_LAUNCH = 'ms:waitForAppLaunch'
-    wait_for_app_launch = WindowsOptionsDescriptor("WAIT_FOR_APP_LAUNCH")
+    wait_for_app_launch = WindowsOptionsDescriptor('WAIT_FOR_APP_LAUNCH')
     """
     Similar to createSessionTimeout, but is
     applied on the server side. Enables Appium Windows Driver to wait for

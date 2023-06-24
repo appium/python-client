@@ -19,22 +19,22 @@ from typing import Any, TypeVar
 
 from .supports_capabilities import SupportsCapabilities
 
-C = TypeVar("C", bound="SupportsCapabilities")
+C = TypeVar('C', bound='SupportsCapabilities')
 
 class OptionsDescriptor:
     def __init__(self, name: str) -> None:
         self.name = name
 
     def __get__(self, obj: C, cls: type[C]) -> Any:
-        return getattr(obj, "get_capability")(self.name)
+        return getattr(obj, 'get_capability')(self.name)
 
     def __set__(self, obj: C, value: Any) -> C:
-        return getattr(obj, "set_capability")(self.name, value)
+        return getattr(obj, 'set_capability')(self.name, value)
 
 
 class AppOption(SupportsCapabilities):
     APP = 'app'
-    app = OptionsDescriptor("APP")
+    app = OptionsDescriptor('APP')
     """
     Gets and Sets String representing app location
     Set the absolute local path for the location of the App.
@@ -51,7 +51,7 @@ class AppOption(SupportsCapabilities):
 
 class AutoWebViewOption(SupportsCapabilities):
     AUTO_WEB_VIEW = 'autoWebView'
-    auto_web_view = OptionsDescriptor("AUTO_WEB_VIEW")
+    auto_web_view = OptionsDescriptor('AUTO_WEB_VIEW')
     """
     Gets and Sets Whether the driver should try to automatically switch
     to a web view context after the session is started.
@@ -65,7 +65,7 @@ class AutoWebViewOption(SupportsCapabilities):
 
 class AutomationNameOption(SupportsCapabilities):
     AUTOMATION_NAME = 'automationName'
-    automation_name = OptionsDescriptor("AUTOMATION_NAME")
+    automation_name = OptionsDescriptor('AUTOMATION_NAME')
     """
     Gets and Sets the automation driver name to use for the given platform.
 
@@ -78,7 +78,7 @@ class AutomationNameOption(SupportsCapabilities):
 
 class BundleIdOption(SupportsCapabilities):
     BUNDLE_ID = 'bundleId'
-    bundle_id = OptionsDescriptor("BUNDLE_ID")
+    bundle_id = OptionsDescriptor('BUNDLE_ID')
     """
     Gets and Sets the bundle identifier of the application to automate.
 
@@ -91,7 +91,7 @@ class BundleIdOption(SupportsCapabilities):
 
 class ClearSystemFilesOption(SupportsCapabilities):
     CLEAR_SYSTEM_FILES = 'clearSystemFiles'
-    clear_system_files = OptionsDescriptor("CLEAR_SYSTEM_FILES")
+    clear_system_files = OptionsDescriptor('CLEAR_SYSTEM_FILES')
     """
     Set whether the driver should delete generated files at the end of a session.
 
@@ -104,7 +104,7 @@ class ClearSystemFilesOption(SupportsCapabilities):
 
 class DeviceNameOption(SupportsCapabilities):
     DEVICE_NAME = 'deviceName'
-    device_name = OptionsDescriptor("DEVICE_NAME")
+    device_name = OptionsDescriptor('DEVICE_NAME')
     """
     Gets and Sets the name of the device to be used in the test.
 
@@ -117,7 +117,7 @@ class DeviceNameOption(SupportsCapabilities):
 
 class EnablePerformanceLoggingOption(SupportsCapabilities):
     ENABLE_PERFORMANCE_LOGGING = 'enablePerformanceLogging'
-    enable_performance_logging = OptionsDescriptor("ENABLE_PERFORMANCE_LOGGING")
+    enable_performance_logging = OptionsDescriptor('ENABLE_PERFORMANCE_LOGGING')
     """
     Gets and Sets whether to enable additional performance logging.
 
@@ -130,7 +130,7 @@ class EnablePerformanceLoggingOption(SupportsCapabilities):
 
 class EventTimingsOption(SupportsCapabilities):
     EVENT_TIMINGS = 'eventTimings'
-    event_timings = OptionsDescriptor("EVENT_TIMINGS")
+    event_timings = OptionsDescriptor('EVENT_TIMINGS')
     """
     Get and Sets Whether the driver should to report the timings
     for various Appium-internal events.
@@ -144,7 +144,7 @@ class EventTimingsOption(SupportsCapabilities):
 
 class FullResetOption(SupportsCapabilities):
     FULL_RESET = 'fullReset'
-    full_reset = OptionsDescriptor("FULL_RESET")
+    full_reset = OptionsDescriptor('FULL_RESET')
     """
     Get and Sets Whether the driver should perform a full reset.
 
@@ -157,7 +157,7 @@ class FullResetOption(SupportsCapabilities):
 
 class IsHeadlessOption(SupportsCapabilities):
     IS_HEADLESS = 'isHeadless'
-    is_headless = OptionsDescriptor("IS_HEADLESS")
+    is_headless = OptionsDescriptor('IS_HEADLESS')
     """
     Gets and Sets Whether the driver should start emulator/simulator in headless mode.
     It is only applied if the emulator is not running before the test starts.
@@ -171,7 +171,7 @@ class IsHeadlessOption(SupportsCapabilities):
 
 class LanguageOption(SupportsCapabilities):
     LANGUAGE = 'language'
-    language = OptionsDescriptor("LANGUAGE")
+    language = OptionsDescriptor('LANGUAGE')
     """
     Gets and Sets Language abbreviation to use in a test session
 
@@ -184,7 +184,7 @@ class LanguageOption(SupportsCapabilities):
 
 class LocaleOption(SupportsCapabilities):
     LOCALE = 'locale'
-    locale = OptionsDescriptor("LOCALE")
+    locale = OptionsDescriptor('LOCALE')
     """
     Gets and Sets Locale abbreviation to use in a test session.
 
@@ -197,7 +197,7 @@ class LocaleOption(SupportsCapabilities):
 
 class NewCommandTimeoutOption(SupportsCapabilities):
     NEW_COMMAND_TIMEOUT = 'newCommandTimeout'
-    new_command_timeout = OptionsDescriptor("NEW_COMMAND_TIMEOUT")
+    new_command_timeout = OptionsDescriptor('NEW_COMMAND_TIMEOUT')
     """
     Gets and Sets the allowed time before seeing a new server command.
     The value could either be provided as timedelta instance or an integer number of seconds.
@@ -211,7 +211,7 @@ class NewCommandTimeoutOption(SupportsCapabilities):
 
 class NoResetOption(SupportsCapabilities):
     NO_RESET = 'noReset'
-    no_reset = OptionsDescriptor("NO_RESET")
+    no_reset = OptionsDescriptor('NO_RESET')
     """
     Gets and Sets Whether the driver should not perform a reset.
 
@@ -224,7 +224,7 @@ class NoResetOption(SupportsCapabilities):
 
 class OrientationOption(SupportsCapabilities):
     ORIENTATION = 'orientation'
-    orientation = OptionsDescriptor("ORIENTATION")
+    orientation = OptionsDescriptor('ORIENTATION')
     """
     Gets and Sets the orientation of the device's screen.
     Usually this is either 'PORTRAIT' or 'LANDSCAPE'.
@@ -238,7 +238,7 @@ class OrientationOption(SupportsCapabilities):
 
 class OtherAppsOption(SupportsCapabilities):
     OTHER_APPS = 'otherApps'
-    other_apps = OptionsDescriptor("OTHER_APPS")
+    other_apps = OptionsDescriptor('OTHER_APPS')
     """
     Gets and Sets Locations of apps to install before running a test.
     Each item could be separated with a single comma.
@@ -252,7 +252,7 @@ class OtherAppsOption(SupportsCapabilities):
 
 class PostrunOption(SupportsCapabilities):
     POSTRUN = 'postrun'
-    postrun = OptionsDescriptor("POSTRUN")
+    postrun = OptionsDescriptor('POSTRUN')
     """
     Gets and Sets system script which is supposed to be executed upon
     driver session quit.
@@ -266,7 +266,7 @@ class PostrunOption(SupportsCapabilities):
 
 class PrerunOption(SupportsCapabilities):
     PRERUN = 'prerun'
-    prerun = OptionsDescriptor("PRERUN")
+    prerun = OptionsDescriptor('PRERUN')
     """
     Gets and Sets System script which is supposed to be executed before
     a driver session is initialised.
@@ -280,7 +280,7 @@ class PrerunOption(SupportsCapabilities):
 
 class PrintPageSourceOnFindFailureOption(SupportsCapabilities):
     PRINT_PAGE_SOURCE_ON_FIND_FAILURE = 'printPageSourceOnFindFailure'
-    print_page_source_on_find_failure = OptionsDescriptor("PRINT_PAGE_SOURCE_ON_FIND_FAILURE")
+    print_page_source_on_find_failure = OptionsDescriptor('PRINT_PAGE_SOURCE_ON_FIND_FAILURE')
     """
     Gets and Sets Whether the driver should print the page source to the log
     if a find failure occurs.
@@ -302,7 +302,7 @@ class SkipLogCaptureOption(SupportsCapabilities):
     - `self.skip_log_capture` = `value`
     """
     SKIP_LOG_CAPTURE = 'skipLogCapture'
-    skip_log_capture = OptionsDescriptor("SKIP_LOG_CAPTURE")
+    skip_log_capture = OptionsDescriptor('SKIP_LOG_CAPTURE')
 
 
 class SystemHostOption(SupportsCapabilities):
@@ -320,7 +320,7 @@ class SystemHostOption(SupportsCapabilities):
 
 class SystemPortOption(SupportsCapabilities):
     SYSTEM_PORT = 'systemPort'
-    system_port = OptionsDescriptor("SYSTEM_PORT")
+    system_port = OptionsDescriptor('SYSTEM_PORT')
     """
     Gets and Sets the number of the port for the internal server to listen on.
 
@@ -333,7 +333,7 @@ class SystemPortOption(SupportsCapabilities):
 
 class UdidOption(SupportsCapabilities):
     UDID = 'udid'
-    udid = OptionsDescriptor("UDID")
+    udid = OptionsDescriptor('UDID')
     """
     Gets and Sets the unique identifier of the device under test.
     

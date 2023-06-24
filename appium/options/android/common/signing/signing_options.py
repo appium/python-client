@@ -19,7 +19,7 @@ from typing import Any, TypeVar
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-C = TypeVar("C", bound="SupportsCapabilities")
+C = TypeVar('C', bound='SupportsCapabilities')
 
 
 class SigningOptionsDescriptor:
@@ -27,15 +27,15 @@ class SigningOptionsDescriptor:
         self.name = name
 
     def __get__(self, obj: C, cls: type[C]) -> Any:
-        return getattr(obj, "get_capability")(self.name)
+        return getattr(obj, 'get_capability')(self.name)
 
     def __set__(self, obj: C, value: Any) -> Any:
-        return getattr(obj, "set_capability")(self.name, value)
+        return getattr(obj, 'set_capability')(self.name, value)
 
 
 class KeyAliasOption(SupportsCapabilities):
     KEY_ALIAS = 'keyAlias'
-    key_alias = SigningOptionsDescriptor("KEY_ALIAS")
+    key_alias = SigningOptionsDescriptor('KEY_ALIAS')
     """
     The alias of the key in the keystore file provided in keystorePath capability.
     This option is used in combination with useKeystore, keystorePath,
@@ -50,7 +50,7 @@ class KeyAliasOption(SupportsCapabilities):
 
 class KeyPasswordOption(SupportsCapabilities):
     KEY_PASSWORD = 'keyPassword'
-    key_password = SigningOptionsDescriptor("KEY_PASSWORD")
+    key_password = SigningOptionsDescriptor('KEY_PASSWORD')
     """
     The password of the key in the keystore file provided in keystorePath capability.
     This option is used in combination with useKeystore, keystorePath,
@@ -65,7 +65,7 @@ class KeyPasswordOption(SupportsCapabilities):
 
 class KeystorePasswordOption(SupportsCapabilities):
     KEYSTORE_PASSWORD = 'keystorePassword'
-    keystore_password = SigningOptionsDescriptor("KEYSTORE_PASSWORD")
+    keystore_password = SigningOptionsDescriptor('KEYSTORE_PASSWORD')
     """
     The password to the keystore file provided in keystorePath capability.
     This option is used in combination with useKeystore, keystorePath,
@@ -80,7 +80,7 @@ class KeystorePasswordOption(SupportsCapabilities):
 
 class KeystorePathOption(SupportsCapabilities):
     KEYSTORE_PATH = 'keystorePath'
-    keystore_path = SigningOptionsDescriptor("KEYSTORE_PATH")
+    keystore_path = SigningOptionsDescriptor('KEYSTORE_PATH')
     """
     The full path to the keystore file on the server filesystem.
     This option is used in combination with useKeystore, keystorePath,
@@ -95,7 +95,7 @@ class KeystorePathOption(SupportsCapabilities):
 
 class NoSignOption(SupportsCapabilities):
     NO_SIGN = 'noSign'
-    no_sign = SigningOptionsDescriptor("NO_SIGN")
+    no_sign = SigningOptionsDescriptor('NO_SIGN')
     """
      Whether to use a custom keystore to sign the app under test.
     false by default, which means apps are always signed with the default A
@@ -111,7 +111,7 @@ class NoSignOption(SupportsCapabilities):
 
 class UseKeystoreOption(SupportsCapabilities):
     USE_KEYSTORE = 'useKeystore'
-    use_keystore = SigningOptionsDescriptor("USE_KEYSTORE")
+    use_keystore = SigningOptionsDescriptor('USE_KEYSTORE')
     """
     Whether to use a custom keystore to sign the app under test.
     false by default, which means apps are always signed with the default A

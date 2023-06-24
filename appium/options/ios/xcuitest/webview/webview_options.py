@@ -20,7 +20,7 @@ from typing import Any, TypeVar
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-C = TypeVar("C", bound="SupportsCapabilities")
+C = TypeVar('C', bound='SupportsCapabilities')
 
 
 class WebViewOptionsDescriptor:
@@ -41,7 +41,7 @@ class WebViewOptionsDescriptor:
 
 class AbsoluteWebLocationsOption(SupportsCapabilities):
     ABSOLUTE_WEB_LOCATIONS = 'absoluteWebLocations'
-    absolute_web_locations = WebViewOptionsDescriptor("ABSOLUTE_WEB_LOCATIONS")
+    absolute_web_locations = WebViewOptionsDescriptor('ABSOLUTE_WEB_LOCATIONS')
     """
     This capability will direct the Get Element Location command, when used
     within webviews, to return coordinates which are relative to the origin of
@@ -57,7 +57,7 @@ class AbsoluteWebLocationsOption(SupportsCapabilities):
 
 class AdditionalWebviewBundleIdsOption(SupportsCapabilities):
     ADDITIONAL_WEBVIEW_BUNDLE_IDS = 'additionalWebviewBundleIds'
-    additional_webview_bundle_ids = WebViewOptionsDescriptor("ADDITIONAL_WEBVIEW_BUNDLE_IDS")
+    additional_webview_bundle_ids = WebViewOptionsDescriptor('ADDITIONAL_WEBVIEW_BUNDLE_IDS')
     """
     Array of possible bundle identifiers for webviews. This is sometimes
     necessary if the Web Inspector is found to be returning a modified
@@ -72,7 +72,7 @@ class AdditionalWebviewBundleIdsOption(SupportsCapabilities):
 
 class EnableAsyncExecuteFromHttpsOption(SupportsCapabilities):
     ENABLE_ASYNC_EXECUTE_FROM_HTTPS = 'enableAsyncExecuteFromHttps'
-    enable_async_execute_from_https = WebViewOptionsDescriptor("ENABLE_ASYNC_EXECUTE_FROM_HTTPS")
+    enable_async_execute_from_https = WebViewOptionsDescriptor('ENABLE_ASYNC_EXECUTE_FROM_HTTPS')
     """
     Capability to allow simulators to execute asynchronous JavaScript
     on pages using HTTPS. Defaults to false.
@@ -86,7 +86,7 @@ class EnableAsyncExecuteFromHttpsOption(SupportsCapabilities):
 
 class FullContextListOption(SupportsCapabilities):
     FULL_CONTEXT_LIST = 'fullContextList'
-    full_context_list = WebViewOptionsDescriptor("FULL_CONTEXT_LIST")
+    full_context_list = WebViewOptionsDescriptor('FULL_CONTEXT_LIST')
     """
     Sets to return the detailed information on contexts for the get available
     context command. If this capability is enabled, then each item in the returned
@@ -102,7 +102,7 @@ class FullContextListOption(SupportsCapabilities):
 
 class IncludeSafariInWebviewsOption(SupportsCapabilities):
     INCLUDE_SAFARI_IN_WEBVIEWS = 'includeSafariInWebviews'
-    include_safari_in_webviews = WebViewOptionsDescriptor("INCLUDE_SAFARI_IN_WEBVIEWS")
+    include_safari_in_webviews = WebViewOptionsDescriptor('INCLUDE_SAFARI_IN_WEBVIEWS')
     """
     Add Safari web contexts to the list of contexts available during a
     native/webview app test. This is useful if the test opens Safari and
@@ -117,7 +117,7 @@ class IncludeSafariInWebviewsOption(SupportsCapabilities):
 
 class NativeWebTapOption(SupportsCapabilities):
     NATIVE_WEB_TAP = 'nativeWebTap'
-    native_web_tap = WebViewOptionsDescriptor("NATIVE_WEB_TAP")
+    native_web_tap = WebViewOptionsDescriptor('NATIVE_WEB_TAP')
     """
     Enable native, non-javascript-based taps being in web context mode. Defaults
     to false. Warning: sometimes the preciseness of native taps could be broken,
@@ -130,7 +130,7 @@ class NativeWebTapOption(SupportsCapabilities):
 
 class SafariGarbageCollectOption(SupportsCapabilities):
     SAFARI_GARBAGE_COLLECT = 'safariGarbageCollect'
-    safari_garbage_collect = WebViewOptionsDescriptor("SAFARI_GARBAGE_COLLECT")
+    safari_garbage_collect = WebViewOptionsDescriptor('SAFARI_GARBAGE_COLLECT')
     """
     Turns on/off Web Inspector garbage collection when executing scripts on Safari.
     Turning on may improve performance. Defaults to `False`.
@@ -144,7 +144,7 @@ class SafariGarbageCollectOption(SupportsCapabilities):
 
 class SafariIgnoreFraudWarningOption(SupportsCapabilities):
     SAFARI_IGNORE_FRAUD_WARNING = 'safariIgnoreFraudWarning'
-    safari_ignore_fraud_warning = WebViewOptionsDescriptor("SAFARI_IGNORE_FRAUD_WARNING")
+    safari_ignore_fraud_warning = WebViewOptionsDescriptor('SAFARI_IGNORE_FRAUD_WARNING')
     """
     Prevent Safari from showing a fraudulent website warning.
     Default keeps current sim setting..
@@ -158,7 +158,7 @@ class SafariIgnoreFraudWarningOption(SupportsCapabilities):
 
 class SafariIgnoreWebHostnamesOption(SupportsCapabilities):
     SAFARI_IGNORE_WEB_HOSTNAMES = 'safariIgnoreWebHostnames'
-    safari_ignore_web_hostnames = WebViewOptionsDescriptor("SAFARI_IGNORE_WEB_HOSTNAMES")
+    safari_ignore_web_hostnames = WebViewOptionsDescriptor('SAFARI_IGNORE_WEB_HOSTNAMES')
     """
     Provide a list of hostnames (comma-separated) that the Safari automation
     tools should ignore. This is to provide a workaround to prevent a webkit
@@ -175,7 +175,7 @@ class SafariIgnoreWebHostnamesOption(SupportsCapabilities):
 
 class SafariInitialUrlOption(SupportsCapabilities):
     SAFARI_INITIAL_URL = 'safariInitialUrl'
-    safari_initial_url = WebViewOptionsDescriptor("SAFARI_INITIAL_URL")
+    safari_initial_url = WebViewOptionsDescriptor('SAFARI_INITIAL_URL')
     """
     Gets and Sets initial safari url, default is a local welcome page.
 
@@ -188,7 +188,7 @@ class SafariInitialUrlOption(SupportsCapabilities):
 
 class SafariLogAllCommunicationHexDumpOption(SupportsCapabilities):
     SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP = 'safariLogAllCommunicationHexDump'
-    safari_log_all_communication_hex_dump = WebViewOptionsDescriptor("SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP")
+    safari_log_all_communication_hex_dump = WebViewOptionsDescriptor('SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP')
     """
     Log all communication sent to and received from the Web Inspector, as raw
     hex dump and printable characters. This logging is done before any data
@@ -205,7 +205,7 @@ class SafariLogAllCommunicationHexDumpOption(SupportsCapabilities):
 
 class SafariLogAllCommunicationOption(SupportsCapabilities):
     SAFARI_LOG_ALL_COMMUNICATION = 'safariLogAllCommunication'
-    safari_log_all_communication = WebViewOptionsDescriptor("SAFARI_LOG_ALL_COMMUNICATION")
+    safari_log_all_communication = WebViewOptionsDescriptor('SAFARI_LOG_ALL_COMMUNICATION')
     """
     Log all plists sent to and received from the Web Inspector, as plain text.
     For some operations this can be a lot of data, so it is recommended to
@@ -218,7 +218,7 @@ class SafariLogAllCommunicationOption(SupportsCapabilities):
 
 class SafariOpenLinksInBackgroundOption(SupportsCapabilities):
     SAFARI_OPEN_LINKS_IN_BACKGROUND = 'safariOpenLinksInBackground'
-    safari_open_links_in_background = WebViewOptionsDescriptor("SAFARI_OPEN_LINKS_IN_BACKGROUND")
+    safari_open_links_in_background = WebViewOptionsDescriptor('SAFARI_OPEN_LINKS_IN_BACKGROUND')
     """
     Whether Safari should allow links to open in new windows.
     Default keeps current sim setting.
@@ -232,7 +232,7 @@ class SafariOpenLinksInBackgroundOption(SupportsCapabilities):
 
 class SafariSocketChunkSizeOption(SupportsCapabilities):
     SAFARI_SOCKET_CHUNK_SIZE = 'safariSocketChunkSize'
-    safari_socket_chunk_size = WebViewOptionsDescriptor("SAFARI_SOCKET_CHUNK_SIZE")
+    safari_socket_chunk_size = WebViewOptionsDescriptor('SAFARI_SOCKET_CHUNK_SIZE')
     """
     The size, in bytes, of the data to be sent to the Web Inspector on
     iOS 11+ real devices. Some devices hang when sending large amounts of
@@ -247,7 +247,7 @@ class SafariSocketChunkSizeOption(SupportsCapabilities):
 
 class SafariWebInspectorMaxFrameLengthOption(SupportsCapabilities):
     SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH = 'safariWebInspectorMaxFrameLength'
-    safari_web_inspector_max_frame_length = WebViewOptionsDescriptor("SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH")
+    safari_web_inspector_max_frame_length = WebViewOptionsDescriptor('SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH')
     """
     The maximum size in bytes of a single data frame for the Web Inspector.
     Too high values could introduce slowness and/or memory leaks.
@@ -262,7 +262,7 @@ class SafariWebInspectorMaxFrameLengthOption(SupportsCapabilities):
 
 class WebkitResponseTimeoutOption(SupportsCapabilities):
     WEBKIT_RESPONSE_TIMEOUT = 'webkitResponseTimeout'
-    webkit_response_timeout = WebViewOptionsDescriptor("WEBKIT_RESPONSE_TIMEOUT")
+    webkit_response_timeout = WebViewOptionsDescriptor('WEBKIT_RESPONSE_TIMEOUT')
     """
     Time to wait for a response from WebKit in a Safari session.
     (Real device only) Set the time to wait for a respons
@@ -276,7 +276,7 @@ class WebkitResponseTimeoutOption(SupportsCapabilities):
 
 class WebviewConnectRetriesOption(SupportsCapabilities):
     WEBVIEW_CONNECT_RETRIES = 'webviewConnectRetries'
-    webview_connect_retries = WebViewOptionsDescriptor("WEBVIEW_CONNECT_RETRIES")
+    webview_connect_retries = WebViewOptionsDescriptor('WEBVIEW_CONNECT_RETRIES')
     """
     Number of times to send connection message to remote debugger,
     to get a webview. Default: 8.
@@ -290,7 +290,7 @@ class WebviewConnectRetriesOption(SupportsCapabilities):
 
 class WebviewConnectTimeoutOption(SupportsCapabilities):
     WEBVIEW_CONNECT_TIMEOUT = 'webviewConnectTimeout'
-    webview_connect_timeout = WebViewOptionsDescriptor("WEBVIEW_CONNECT_TIMEOUT")
+    webview_connect_timeout = WebViewOptionsDescriptor('WEBVIEW_CONNECT_TIMEOUT')
     """
     The time to wait for the initial presence of webviews in
     MobileSafari or hybrid apps. Defaults to 0ms.

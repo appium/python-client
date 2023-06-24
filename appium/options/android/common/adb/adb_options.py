@@ -20,7 +20,7 @@ from typing import Any, TypeVar
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-C = TypeVar("C", bound="SupportsCapabilities")
+C = TypeVar('C', bound='SupportsCapabilities')
 
 
 class AdbOptionsDescriptor:
@@ -33,7 +33,7 @@ class AdbOptionsDescriptor:
             return None if value is None else timedelta(milliseconds=value)
         return getattr(obj, 'get_capability')(self.name)
 
-    def __set__(self, obj:C, value: C) -> C:
+    def __set__(self, obj: C, value: Any) -> C:
         if self.name == 'ADB_EXEC_TIMEOUT':
             return getattr(obj, 'set_capability')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
         return getattr(obj, 'set_capability')(self.name, value)
@@ -41,7 +41,7 @@ class AdbOptionsDescriptor:
 
 class AdbExecTimeoutOption(SupportsCapabilities):
     ADB_EXEC_TIMEOUT = 'adbExecTimeout'
-    adb_exec_timeout = AdbOptionsDescriptor("ADB_EXEC_TIMEOUT")
+    adb_exec_timeout = AdbOptionsDescriptor('ADB_EXEC_TIMEOUT')
     """
     Gets and Sets Maximum time to wait until single ADB command is executed.
     20000 ms by default.
@@ -55,7 +55,7 @@ class AdbExecTimeoutOption(SupportsCapabilities):
 
 class AdbPortOption(SupportsCapabilities):
     ADB_PORT = 'adbPort'
-    adb_port = AdbOptionsDescriptor("ADB_PORT")
+    adb_port = AdbOptionsDescriptor('ADB_PORT')
     """
     Set number of the port where ADB is running. 5037 by default
 
@@ -68,7 +68,7 @@ class AdbPortOption(SupportsCapabilities):
 
 class AllowDelayAdbOption(SupportsCapabilities):
     ALLOW_DELAY_ADB = 'allowDelayAdb'
-    allow_delay_adb = AdbOptionsDescriptor("ALLOW_DELAY_ADB")
+    allow_delay_adb = AdbOptionsDescriptor('ALLOW_DELAY_ADB')
     """
     Gets and Sets whether to prevent the emulator to use -delay-adb feature.
     Being set to false prevents emulator to use -delay-adb feature to detect its startup.
@@ -83,7 +83,7 @@ class AllowDelayAdbOption(SupportsCapabilities):
 
 class BuildToolsVersionOption(SupportsCapabilities):
     BUILD_TOOLS_VERSION = 'buildToolsVersion'
-    build_tools_version = AdbOptionsDescriptor("BUILD_TOOLS_VERSION")
+    build_tools_version = AdbOptionsDescriptor('BUILD_TOOLS_VERSION')
     """
     Gets and Sets Version of Android build tools to use.
     The version of Android build tools to use. By default, UiAutomator2
@@ -101,7 +101,7 @@ class BuildToolsVersionOption(SupportsCapabilities):
 
 class ClearDeviceLogsOnStartOption(SupportsCapabilities):
     CLEAR_DEVICE_LOGS_ON_START = 'clearDeviceLogsOnStart'
-    clear_device_logs_on_start = AdbOptionsDescriptor("CLEAR_DEVICE_LOGS_ON_START")
+    clear_device_logs_on_start = AdbOptionsDescriptor('CLEAR_DEVICE_LOGS_ON_START')
     """"
     Gets and Sets if the driver to delete all the existing logs in the
     device buffer before starting a new test.
@@ -117,7 +117,7 @@ class ClearDeviceLogsOnStartOption(SupportsCapabilities):
 
 class IgnoreHiddenApiPolicyErrorOption(SupportsCapabilities):
     IGNORE_HIDDEN_API_POLICY_ERROR = 'ignoreHiddenApiPolicyError'
-    ignore_hidden_api_policy_error = AdbOptionsDescriptor("IGNORE_HIDDEN_API_POLICY_ERROR")
+    ignore_hidden_api_policy_error = AdbOptionsDescriptor('IGNORE_HIDDEN_API_POLICY_ERROR')
     """
     Gets and Sets Whether to ignore a failure while changing hidden API access policies.
     Being set to true ignores a failure while changing hidden API access policies.
@@ -133,7 +133,7 @@ class IgnoreHiddenApiPolicyErrorOption(SupportsCapabilities):
 
 class LogcatFilterSpecsOption(SupportsCapabilities):
     LOGCAT_FILTER_SPECS = 'logcatFilterSpecs'
-    logcat_filter_specs = AdbOptionsDescriptor("LOGCAT_FILTER_SPECS")
+    logcat_filter_specs = AdbOptionsDescriptor('LOGCAT_FILTER_SPECS')
     """
     Gets and Sets Logcat filter format.
     Series of tag[:priority] where tag is a log component tag (or * for all)
@@ -151,7 +151,7 @@ class LogcatFilterSpecsOption(SupportsCapabilities):
 
 class LogcatFormatOption(SupportsCapabilities):
     LOGCAT_FORMAT = 'logcatFormat' 
-    logcat_format = AdbOptionsDescriptor("LOGCAT_FORMAT")
+    logcat_format = AdbOptionsDescriptor('LOGCAT_FORMAT')
     """
     Gets and Sets Log print format.
     The log print format, where format is one of: brief process tag thread raw time
@@ -166,7 +166,7 @@ class LogcatFormatOption(SupportsCapabilities):
 
 class MockLocationAppOption(SupportsCapabilities):
     MOCK_LOCATION_APP = 'mockLocationApp'
-    mock_location_app = AdbOptionsDescriptor("MOCK_LOCATION_APP")
+    mock_location_app = AdbOptionsDescriptor('MOCK_LOCATION_APP')
     """
     Gets and Sets Identifier of the app, which is used as a system mock location provider.
 
@@ -184,7 +184,7 @@ class MockLocationAppOption(SupportsCapabilities):
 
 class RemoteAdbHostOption(SupportsCapabilities):
     REMOTE_ADB_HOST = 'remoteAdbHost'
-    remote_adb_host = AdbOptionsDescriptor("REMOTE_ADB_HOST")
+    remote_adb_host = AdbOptionsDescriptor('REMOTE_ADB_HOST')
     """
     Gets and Sets Address of the host where ADB is running.
     (the value of -H ADB command line option).Localhost by default.
@@ -198,7 +198,7 @@ class RemoteAdbHostOption(SupportsCapabilities):
 
 class SkipLogcatCaptureOption(SupportsCapabilities):
     SKIP_LOGCAT_CAPTURE = 'skipLogcatCapture'
-    skip_logcat_capture = AdbOptionsDescriptor("SKIP_LOGCAT_CAPTURE")
+    skip_logcat_capture = AdbOptionsDescriptor('SKIP_LOGCAT_CAPTURE')
     """
     Whether to delete all the existing logs in the
     device buffer before starting a new test.
@@ -214,7 +214,7 @@ class SkipLogcatCaptureOption(SupportsCapabilities):
 
 class SuppressKillServerOption(SupportsCapabilities):
     SUPPRESS_KILL_SERVER = 'suppressKillServer'
-    suppress_kill_server = AdbOptionsDescriptor("SUPPRESS_KILL_SERVER")
+    suppress_kill_server = AdbOptionsDescriptor('SUPPRESS_KILL_SERVER')
     """
     Prevents the driver from ever killing the ADB server explicitly.
     Being set to true prevents the driver from ever killing the ADB server explicitly.

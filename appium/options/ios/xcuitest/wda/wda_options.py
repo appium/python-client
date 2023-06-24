@@ -20,7 +20,7 @@ from datetime import timedelta
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-C = TypeVar("C", bound="SupportsCapabilities")
+C = TypeVar('C', bound='SupportsCapabilities')
 
 
 class WdaOptionsDescriptor:
@@ -30,7 +30,7 @@ class WdaOptionsDescriptor:
     def __get__(self, obj: C, cls: type[C]) -> Any:
         if self.name in ('WAIT_FOR_IDLE_TIMEOUT', 'WDA_CONNECTION_TIMEOUT', 
                          'WDA_EVENTLOOP_IDLE_DELAY', 'WDA_LAUNCH_TIMEOUT', 'WDA_STARTUP_RETRY_INTERVAL'):
-            value = getattr(obj, "get_capabilities")(self.name)
+            value = getattr(obj, 'get_capabilities')(self.name)
             return None if value is None else timedelta(seconds=value)
         return getattr(obj, 'get_capabilities')(self.name)
 
@@ -43,7 +43,7 @@ class WdaOptionsDescriptor:
 
 class AllowProvisioningDeviceRegistrationOption(SupportsCapabilities):
     ALLOW_PROVISIONING_DEVICE_REGISTRATION = 'allowProvisioningDeviceRegistration'
-    allow_provisioning_device_registration = WdaOptionsDescriptor("ALLOW_PROVISIONING_DEVICE_REGISTRATION")
+    allow_provisioning_device_registration = WdaOptionsDescriptor('ALLOW_PROVISIONING_DEVICE_REGISTRATION')
     """
     Allow xcodebuild to register your destination device on the developer portal
     if necessary. Requires a developer account to have been added in Xcode's Accounts
@@ -58,7 +58,7 @@ class AllowProvisioningDeviceRegistrationOption(SupportsCapabilities):
 
 class AutoAcceptAlertsOption(SupportsCapabilities):
     AUTO_ACCEPT_ALERTS = 'autoAcceptAlerts'
-    auto_accept_alerts = WdaOptionsDescriptor("AUTO_ACCEPT_ALERTS")
+    auto_accept_alerts = WdaOptionsDescriptor('AUTO_ACCEPT_ALERTS')
     """
     Accept all iOS alerts automatically if they pop up. This includes privacy
     access permission alerts (e.g., location, contacts, photos). Default is false.
@@ -72,7 +72,7 @@ class AutoAcceptAlertsOption(SupportsCapabilities):
 
 class AutoDismissAlertsOption(SupportsCapabilities):
     AUTO_DISMISS_ALERTS = 'autoDismissAlerts'
-    auto_dismiss_alerts = WdaOptionsDescriptor("AUTO_DISMISS_ALERTS")
+    auto_dismiss_alerts = WdaOptionsDescriptor('AUTO_DISMISS_ALERTS')
     """
     Dismiss all iOS alerts automatically if they pop up. This includes privacy
     access permission alerts (e.g., location, contacts, photos). Default is false.
@@ -86,7 +86,7 @@ class AutoDismissAlertsOption(SupportsCapabilities):
 
 class DerivedDataPathOption(SupportsCapabilities):
     DERIVED_DATA_PATH = 'derivedDataPath'
-    derived_data_path = WdaOptionsDescriptor("DERIVED_DATA_PATH")
+    derived_data_path = WdaOptionsDescriptor('DERIVED_DATA_PATH')
     """
     Use along with usePrebuiltWDA capability and choose where to search for the existing WDA app.
     If the capability is not set then Xcode will store the derived data in the default root
@@ -101,7 +101,7 @@ class DerivedDataPathOption(SupportsCapabilities):
 
 class DisableAutomaticScreenshotsOption(SupportsCapabilities):
     DISABLE_AUTOMATIC_SCREENSHOTS = 'disableAutomaticScreenshots'
-    disable_automatic_screenshots = WdaOptionsDescriptor("DISABLE_AUTOMATIC_SCREENSHOTS")
+    disable_automatic_screenshots = WdaOptionsDescriptor('DISABLE_AUTOMATIC_SCREENSHOTS')
     """
     Disable automatic screenshots taken by XCTest at every interaction.
     Default is up to WebDriverAgent's config to decide, which currently
@@ -116,7 +116,7 @@ class DisableAutomaticScreenshotsOption(SupportsCapabilities):
 
 class ForceAppLaunchOption(SupportsCapabilities):
     FORCE_APP_LAUNCH = 'forceAppLaunch'
-    force_app_launch = WdaOptionsDescriptor("FORCE_APP_LAUNCH")
+    force_app_launch = WdaOptionsDescriptor('FORCE_APP_LAUNCH')
     """
     Specify if the app should be forcefully restarted if it is already
     running on session startup. This capability only has an effect if an
@@ -133,7 +133,7 @@ class ForceAppLaunchOption(SupportsCapabilities):
 
 class KeychainPasswordOption(SupportsCapabilities):
     KEYCHAIN_PASSWORD = 'keychainPassword'
-    keychain_password = WdaOptionsDescriptor("KEYCHAIN_PASSWORD")
+    keychain_password = WdaOptionsDescriptor('KEYCHAIN_PASSWORD')
     """
     Custom keychain password. The keychain is expected to
     contain the private development key.
@@ -146,7 +146,7 @@ class KeychainPasswordOption(SupportsCapabilities):
 
 class KeychainPathOption(SupportsCapabilities):
     KEYCHAIN_PATH = 'keychainPath'
-    keychain_path = WdaOptionsDescriptor("KEYCHAIN_PATH")
+    keychain_path = WdaOptionsDescriptor('KEYCHAIN_PATH')
     """
     Path to a custom keychain, which
     contains the private development key.
@@ -159,7 +159,7 @@ class KeychainPathOption(SupportsCapabilities):
 
 class MaxTypingFrequencyOption(SupportsCapabilities):
     MAX_TYPING_FREQUENCY = 'maxTypingFrequency'
-    max_typing_frequency = WdaOptionsDescriptor("MAX_TYPING_FREQUENCY")
+    max_typing_frequency = WdaOptionsDescriptor('MAX_TYPING_FREQUENCY')
     """
     Maximum frequency of keystrokes for typing and clear. If your tests
     are failing because of typing errors, you may want to adjust this.
@@ -174,7 +174,7 @@ class MaxTypingFrequencyOption(SupportsCapabilities):
 
 class MjpegServerPortOption(SupportsCapabilities):
     MJPEG_SERVER_PORT = 'mjpegServerPort'
-    mjpeg_server_port = WdaOptionsDescriptor("MJPEG_SERVER_PORT")
+    mjpeg_server_port = WdaOptionsDescriptor('MJPEG_SERVER_PORT')
     """
      Port number on which WDA broadcasts screenshots stream encoded into MJPEG
     format from the device under test. It might be necessary to change this value
@@ -190,7 +190,7 @@ class MjpegServerPortOption(SupportsCapabilities):
 
 class ProcessArgumentsOption(SupportsCapabilities):
     PROCESS_ARGUMENTS = 'processArguments'
-    process_arguments = WdaOptionsDescriptor("PROCESS_ARGUMENTS")
+    process_arguments = WdaOptionsDescriptor('PROCESS_ARGUMENTS')
     """
     Provides process arguments and environment which will be sent
     to the WebDriverAgent server. Acceptable dictionary keys are 'env'
@@ -207,7 +207,7 @@ class ProcessArgumentsOption(SupportsCapabilities):
 
 class ResultBundlePathOption(SupportsCapabilities):
     RESULT_BUNDLE_PATH = 'resultBundlePath'
-    result_bundle_path = WdaOptionsDescriptor("RESULT_BUNDLE_PATH")
+    result_bundle_path = WdaOptionsDescriptor('RESULT_BUNDLE_PATH')
     """
     Specify the path to the result bundle path as xcodebuild argument for
     WebDriverAgent build under a security flag. WebDriverAgent process must
@@ -224,7 +224,7 @@ class ResultBundlePathOption(SupportsCapabilities):
 
 class ScreenshotQualityOption(SupportsCapabilities):
     SCREENSHOT_QUALITY = 'screenshotQuality'
-    screenshot_quality = WdaOptionsDescriptor("SCREENSHOT_QUALITY")
+    screenshot_quality = WdaOptionsDescriptor('SCREENSHOT_QUALITY')
     """
      Changes the quality of phone display screenshots following
     xctest/xctimagequality Default value is 1. 0 is the highest and
@@ -241,7 +241,7 @@ class ScreenshotQualityOption(SupportsCapabilities):
 
 class ShouldTerminateAppOption(SupportsCapabilities):
     SHOULD_TERMINATE_APP = 'shouldTerminateApp'
-    should_terminate_app = WdaOptionsDescriptor("SHOULD_TERMINATE_APP")
+    should_terminate_app = WdaOptionsDescriptor('SHOULD_TERMINATE_APP')
     """
     Specify if the app should be terminated on session end.
     This capability only has an effect if an application identifier
@@ -257,7 +257,7 @@ class ShouldTerminateAppOption(SupportsCapabilities):
 
 class ShouldUseSingletonTestManagerOption(SupportsCapabilities):
     SHOULD_USE_SINGLETON_TEST_MANAGER = 'shouldUseSingletonTestManager'
-    should_use_singleton_test_manager = WdaOptionsDescriptor("SHOULD_USE_SINGLETON_TEST_MANAGER")
+    should_use_singleton_test_manager = WdaOptionsDescriptor('SHOULD_USE_SINGLETON_TEST_MANAGER')
     """
     Use default proxy for test management within WebDriverAgent. Setting this to false
     sometimes helps with socket hangup problems. Defaults to true.
@@ -271,7 +271,7 @@ class ShouldUseSingletonTestManagerOption(SupportsCapabilities):
 
 class ShowXcodeLogOption(SupportsCapabilities):
     SHOW_XCODE_LOG = 'showXcodeLog'
-    show_xcode_log = WdaOptionsDescriptor("SHOW_XCODE_LOG")
+    show_xcode_log = WdaOptionsDescriptor('SHOW_XCODE_LOG')
     """
      Whether to display the output of the Xcode command used to run the tests in
     server logs. If this is true, there will be lots of extra logging at startup.
@@ -286,7 +286,7 @@ class ShowXcodeLogOption(SupportsCapabilities):
 
 class SimpleIsVisibleCheckOption(SupportsCapabilities):
     SIMPLE_IS_VISIBLE_CHECK = 'simpleIsVisibleCheck'
-    simple_is_visible_check = WdaOptionsDescriptor("SIMPLE_IS_VISIBLE_CHECK")
+    simple_is_visible_check = WdaOptionsDescriptor('SIMPLE_IS_VISIBLE_CHECK')
     """
     Use native methods for determining visibility of elements.
     In some cases this takes a long time. Setting this capability to false will
@@ -302,7 +302,7 @@ class SimpleIsVisibleCheckOption(SupportsCapabilities):
 
 class UpdatedWdaBundleIdOption(SupportsCapabilities):
     UPDATED_WDA_BUNDLE_ID = 'updatedWDABundleId'
-    updated_wda_bundle_id = WdaOptionsDescriptor("UPDATED_WDA_BUNDLE_ID")
+    updated_wda_bundle_id = WdaOptionsDescriptor('UPDATED_WDA_BUNDLE_ID')
     """
     Bundle id to update WDA to before building and launching on real devices.
     This bundle id must be associated with a valid provisioning profile.
@@ -316,7 +316,7 @@ class UpdatedWdaBundleIdOption(SupportsCapabilities):
 
 class UseNativeCachingStrategyOption(SupportsCapabilities):
     USE_NATIVE_CACHING_STRATEGY = 'useNativeCachingStrategy'
-    use_native_caching_strategy = WdaOptionsDescriptor("USE_NATIVE_CACHING_STRATEGY")
+    use_native_caching_strategy = WdaOptionsDescriptor('USE_NATIVE_CACHING_STRATEGY')
     """
     Set this capability to false in order to use the custom elements caching
     strategy. This might help to avoid stale element exception on property
@@ -332,7 +332,7 @@ class UseNativeCachingStrategyOption(SupportsCapabilities):
 
 class UseNewWdaOption(SupportsCapabilities):
     USE_NEW_WDA = 'useNewWDA'
-    use_new_wda = WdaOptionsDescriptor("USE_NEW_WDA")
+    use_new_wda = WdaOptionsDescriptor('USE_NEW_WDA')
     """
     If true, forces uninstall of any existing WebDriverAgent app on device.
     Set it to true if you want to apply different startup options for WebDriverAgent
@@ -357,7 +357,7 @@ class UseNewWdaOption(SupportsCapabilities):
 
 class UsePrebuiltWdaOption(SupportsCapabilities):
     USE_PREBUILT_WDA = 'usePrebuiltWDA'
-    use_prebuilt_wda = WdaOptionsDescriptor("USE_PREBUILT_WDA")
+    use_prebuilt_wda = WdaOptionsDescriptor('USE_PREBUILT_WDA')
     """
     Skips the build phase of running the WDA app. Building is then the responsibility
     of the user. Only works for Xcode 8+. Defaults to `False`.
@@ -371,7 +371,7 @@ class UsePrebuiltWdaOption(SupportsCapabilities):
 
 class UseSimpleBuildTestOption(SupportsCapabilities):
     USE_SIMPLE_BUILD_TEST = 'useSimpleBuildTest'
-    use_simple_build_test = WdaOptionsDescriptor("USE_SIMPLE_BUILD_TEST")
+    use_simple_build_test = WdaOptionsDescriptor('USE_SIMPLE_BUILD_TEST')
     """
     Build with 'build' and run test with 'test' in xcodebuild for all Xcode versions if
     this is true, or build with 'build-for-testing' and run tests with
@@ -386,7 +386,7 @@ class UseSimpleBuildTestOption(SupportsCapabilities):
 
 class UseXctestrunFileOption(SupportsCapabilities):
     USE_XCTESTRUN_FILE = 'useXctestrunFile'
-    use_xctestrun_file = WdaOptionsDescriptor("USE_XCTESTRUN_FILE")
+    use_xctestrun_file = WdaOptionsDescriptor('USE_XCTESTRUN_FILE')
     """
     Use Xctestrun file to launch WDA. It will search for such file in bootstrapPath.
     Expected name of file is WebDriverAgentRunner_iphoneos&lt;sdkVersion&gt;-arm64.xctestrun for
@@ -410,7 +410,7 @@ class UseXctestrunFileOption(SupportsCapabilities):
 
 class WaitForIdleTimeoutOption(SupportsCapabilities):
     WAIT_FOR_IDLE_TIMEOUT = 'waitForIdleTimeout'
-    wait_for_idle_timeout = WdaOptionsDescriptor("WAIT_FOR_IDLE_TIMEOUT")
+    wait_for_idle_timeout = WdaOptionsDescriptor('WAIT_FOR_IDLE_TIMEOUT')
     """
      The time to wait until the application under test is idling.
     XCTest requires the app's main thread to be idling in order to execute any action on it,
@@ -427,7 +427,7 @@ class WaitForIdleTimeoutOption(SupportsCapabilities):
 
 class WaitForQuiescenceOption(SupportsCapabilities):
     WAIT_FOR_QUIESCENCE = 'waitForQuiescence'
-    wait_for_quiescence = WdaOptionsDescriptor("WAIT_FOR_QUIESCENCE")
+    wait_for_quiescence = WdaOptionsDescriptor('WAIT_FOR_QUIESCENCE')
     """
     It allows to turn on/off waiting for application quiescence in WebDriverAgent,
     while performing queries. The default value is true. You can avoid this kind
@@ -443,7 +443,7 @@ class WaitForQuiescenceOption(SupportsCapabilities):
 
 class WdaBaseUrlOption(SupportsCapabilities):
     WDA_BASE_URL = 'wdaBaseUrl'
-    wda_base_url = WdaOptionsDescriptor("WDA_BASE_URL")
+    wda_base_url = WdaOptionsDescriptor('WDA_BASE_URL')
     """
     This value, if specified, will be used as a prefix to build a custom
     WebDriverAgent url. It is different from webDriverAgentUrl, because
@@ -459,7 +459,7 @@ class WdaBaseUrlOption(SupportsCapabilities):
 
 class WdaConnectionTimeoutOption(SupportsCapabilities):
     WDA_CONNECTION_TIMEOUT = 'wdaConnectionTimeout'
-    wda_connection_timeout = WdaOptionsDescriptor("WDA_CONNECTION_TIMEOUT")
+    wda_connection_timeout = WdaOptionsDescriptor('WDA_CONNECTION_TIMEOUT')
     """
     Connection timeout to wait for a response from WebDriverAgent.
     Defaults to 240000ms.
@@ -473,7 +473,7 @@ class WdaConnectionTimeoutOption(SupportsCapabilities):
 
 class WdaEventloopIdleDelayOption(SupportsCapabilities):
     WDA_EVENTLOOP_IDLE_DELAY = 'wdaEventloopIdleDelay'
-    wda_eventloop_idle_delay = WdaOptionsDescriptor("WDA_EVENTLOOP_IDLE_DELAY")
+    wda_eventloop_idle_delay = WdaOptionsDescriptor('WDA_EVENTLOOP_IDLE_DELAY')
     """
     Delays the invocation of -[XCUIApplicationProcess setEventLoopHasIdled:] by the
     duration specified with this capability. This can help quiescence apps
@@ -492,7 +492,7 @@ class WdaEventloopIdleDelayOption(SupportsCapabilities):
 
 class WdaLaunchTimeoutOption(SupportsCapabilities):
     WDA_LAUNCH_TIMEOUT = 'wdaLaunchTimeout'
-    wda_launch_timeout = WdaOptionsDescriptor("WDA_LAUNCH_TIMEOUT")
+    wda_launch_timeout = WdaOptionsDescriptor('WDA_LAUNCH_TIMEOUT')
     """
     Timeout to wait for WebDriverAgent to be pingable,
     after its building is finished. Defaults to 60000ms.
@@ -505,7 +505,7 @@ class WdaLaunchTimeoutOption(SupportsCapabilities):
 
 class WdaLocalPortOption(SupportsCapabilities):
     WDA_LOCAL_PORT = 'wdaLocalPort'
-    wda_local_port = WdaOptionsDescriptor("WDA_LOCAL_PORT")
+    wda_local_port = WdaOptionsDescriptor('WDA_LOCAL_PORT')
     """
     This value, if specified, will be used to forward traffic from
     Mac host to real ios devices over USB.
@@ -521,7 +521,7 @@ class WdaLocalPortOption(SupportsCapabilities):
 
 class WdaStartupRetriesOption(SupportsCapabilities):
     WDA_STARTUP_RETRIES = 'wdaStartupRetries'
-    wda_startup_retries = WdaOptionsDescriptor("WDA_STARTUP_RETRIES")
+    wda_startup_retries = WdaOptionsDescriptor('WDA_STARTUP_RETRIES')
     """
     Number of times to try to build and launch WebDriverAgent onto the device.
     Defaults to 2.
@@ -535,7 +535,7 @@ class WdaStartupRetriesOption(SupportsCapabilities):
 
 class WdaStartupRetryIntervalOption(SupportsCapabilities):
     WDA_STARTUP_RETRY_INTERVAL = 'wdaStartupRetryInterval'
-    wda_startup_retry_interval = WdaOptionsDescriptor("WDA_STARTUP_RETRY_INTERVAL")
+    wda_startup_retry_interval = WdaOptionsDescriptor('WDA_STARTUP_RETRY_INTERVAL')
     """
     Time interval to wait between tries to build and launch WebDriverAgent.
     Defaults to 10000ms.
@@ -549,7 +549,7 @@ class WdaStartupRetryIntervalOption(SupportsCapabilities):
 
 class WebDriverAgentUrlOption(SupportsCapabilities):
     WEB_DRIVER_AGENT_URL = 'webDriverAgentUrl'
-    web_driver_agent_url = WdaOptionsDescriptor("WEB_DRIVER_AGENT_URL")
+    web_driver_agent_url = WdaOptionsDescriptor('WEB_DRIVER_AGENT_URL')
     """
     If provided, Appium will connect to an existing WebDriverAgent
     instance at this URL instead of starting a new one.
@@ -562,7 +562,7 @@ class WebDriverAgentUrlOption(SupportsCapabilities):
 
 class XcodeOrgIdOption(SupportsCapabilities):
     XCODE_ORG_ID = 'xcodeOrgId'
-    xcode_org_id = WdaOptionsDescriptor("XCODE_ORG_ID")
+    xcode_org_id = WdaOptionsDescriptor('XCODE_ORG_ID')
     """
     Provides a signing certificate organization id for WebDriverAgent compilation.
     If signing id is not provided then it defaults to "iPhone Developer"
@@ -576,7 +576,7 @@ class XcodeOrgIdOption(SupportsCapabilities):
 
 class XcodeSigningIdOption(SupportsCapabilities):
     XCODE_SIGNING_ID = 'xcodeSigningId'
-    xcode_signing_id = WdaOptionsDescriptor("XCODE_SIGNING_ID")
+    xcode_signing_id = WdaOptionsDescriptor('XCODE_SIGNING_ID')
     """
     Provides a signing certificate for WebDriverAgent compilation.
     If signing id is not provided then it defaults to "iPhone Developer"

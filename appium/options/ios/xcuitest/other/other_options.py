@@ -40,9 +40,9 @@ class OtherOptionsDescriptor:
     def __set__(self, obj: C, value: Any) -> C:
         if self.name == 'COMMAND_TIMEOUTS':
             if isinstance(value, dict):
-                getattr(obj, 'set_capability')(self.name, {k: int(v.total_seconds() * 1000) for k, v in value.items()})
+                return getattr(obj, 'set_capability')(self.name, {k: int(v.total_seconds() * 1000) for k, v in value.items()})
             elif isinstance(value, timedelta):
-                getattr(obj, 'set_capability')(self.name, f'{int(value.total_seconds() * 1000)}')
+                return getattr(obj, 'set_capability')(self.name, f'{int(value.total_seconds() * 1000)}')
             else:
                 return getattr(obj, 'set_capability')(self.name, value)
         return getattr(obj, 'set_capability')(self.name, value)

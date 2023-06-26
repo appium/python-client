@@ -16,27 +16,28 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Any, TypeVar
+from typing import Any, TypeVar, Generic
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
+T = TypeVar("T")
 C = TypeVar('C', bound='SupportsCapabilities')
 
 
-class ContextOptionsDescriptor:
+class ContextOptionsDescriptor(Generic[T]):
     def __init__(self, name: str) -> None:
         self.name = name
 
     def __get__(self, obj: C, cls: type[C]) -> Any:
         if self.name == 'AUTO_WEBVIEW_TIMEOUT':
-            value = getattr(obj, "get_capability")(self.name)
+            value = obj.get_capability(self.name)
             return None if value is None else timedelta(milliseconds=value)
-        return getattr(obj, 'get_capability')(self.name)
+        return obj.get_capability(self.name)
 
     def __set__(self, obj: C, value: Any) -> C:
         if self.name == 'AUTO_WEBVIEW_TIMEOUT':
-            return getattr(obj, 'set_capability')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        return getattr(obj, 'set_capability')(self.name, value)
+            return obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
+        return obj.set_capability(self.name, value)
 
 
 class AutoWebviewTimeoutOption(SupportsCapabilities):

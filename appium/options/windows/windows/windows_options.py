@@ -16,24 +16,25 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Any, TypeVar
+from typing import Any, TypeVar, Generic
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
+T = TypeVar('T')
 C = TypeVar('C', bound='SupportsCapabilities')
 
 
-class WindowsOptionsDescriptor:
+class WindowsOptionsDescriptor(Generic[T]):
     def __init__(self, name: str) -> None:
         self.name = name
 
     def __get__(self, obj: C, cls: type[C]) -> Any:
-        return getattr(obj, 'get_capability')(self.name)
+        return obj.get_capability(self.name)
 
     def __set__(self, obj: C, value: Any) -> C:
         if self.name in ('CREATE_SESSION_TIMEOUT', 'WAIT_FOR_APP_LAUNCH'):
-            return getattr(obj, 'set_capability')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        return getattr(obj, 'set_capability')(self.name, value)
+            return obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
+        return obj.set_capability(self.name, value)
 
 
 class AppArgumentsOption(SupportsCapabilities):

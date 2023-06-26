@@ -16,57 +16,115 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Any, TypeVar
+from typing import Any, TypeVar, Generic
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
+T = TypeVar('T')
 C = TypeVar('C', bound='SupportsCapabilities')
 
 
-class MacOptionsDescriptor:
+class MacOptionsDescriptor(Generic[T]):
     def __init__(self, name: str) -> None:
         self.name = name
 
     def __get__(self, obj: C, cls: Any) -> Any:
         if self.name == 'SERVER_STARTUP_TIMEOUT':
-            value_ms = getattr(obj, 'get_capability')(self.name)
+            value_ms = obj.get_capability(self.name)
             return None if value_ms is None else timedelta(milliseconds=value_ms)
-        return getattr(obj, 'get_capability')(self.name)
+        return obj.get_capability(self.name)
 
     def __set__(self, obj: C, value: Any) -> C:
         if self.name == 'SERVER_STARTUP_TIMEOUT':
-            return getattr(obj, 'set_capability')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
-        return getattr(obj, 'set_capability')(self.name, value)
+            return obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
+        return obj.set_capability(self.name, value)
 
 
 class ArgumentsOption(SupportsCapabilities):
     ARGUMENTS = 'arguments'
     arguments = MacOptionsDescriptor('ARGUMENTS')
+    """
+    Gets and Sets the array of application command line arguments. This capability is
+    only going to be applied if the application is not running on session startup.
+
+    Usage
+    -----
+    - `self.arguments`
+    - `self.arguments` = `value`
+    """
 
 
 class BootstrapRootOption(SupportsCapabilities):
     BOOTSTRAP_ROOT = 'bootstrapRoot'
     bootstrap_root = MacOptionsDescriptor('BOOTSTRAP_ROOT')
+    """
+    Gets and Sets the full path to WebDriverAgentMac root folder where Xcode project
+    of the server sources lives. By default, this project is located in
+    the same folder where the corresponding driver Node.js module lives.
+
+    Usage
+    -----
+    - `self.bootstrap_root`
+    - `self.bootstrap_root` = `value`
+    """
 
 
 class EnvironmentOption(SupportsCapabilities):
     ENVIRONMENT = 'environment'
     environment = MacOptionsDescriptor('ENVIRONMENT')
+    """
+    Gets and Sets the dictionary of environment variables (name-&gt;value) that are going to be passed
+    to the application under test on top of environment variables inherited from
+    the parent process. This option is only going to be applied if the application
+    is not running on session startup.
+
+    Usage
+    -----
+    - `self.environment`
+    - `self.environment` = `value`
+    """
 
 
 class ServerStartupTimeoutOption(SupportsCapabilities):
     SERVER_STARTUP_TIMEOUT = 'serverStartupTimeout'
     server_startup_timeout = MacOptionsDescriptor('SERVER_STARTUP_TIMEOUT')
+    """
+    Gets and Sets the timeout to wait util the WebDriverAgentMac
+    project is built and started.
+
+    Usage
+    -----
+    - `self.server_startup_timeout`
+    - `self.server_startup_timeout` = `value`
+    """
 
 
 class ShowServerLogsOption(SupportsCapabilities):
     SHOW_SERVER_LOGS = 'showServerLogs'
     show_server_logs = MacOptionsDescriptor('SHOW_SERVER_LOGS')
+    """
+    Gets and Sets it to true in order to include xcodebuild output to the Appium
+    server log. false by default.
+
+    Usage
+    -----
+    - `self.show_server_logs`
+    - `self.show_server_logs` = `value`
+    """
 
 
 class WebDriverAgentMacUrlOption(SupportsCapabilities):
     WEB_DRIVER_ARGENT_MAC_URL = 'webDriverAgentMacUrl'
     web_driver_agent_mac_url = MacOptionsDescriptor('WEB_DRIVER_ARGENT_MAC_URL')
+    """
+    Gets and Sets the URL Appium will connect to an existing WebDriverAgentMac
+    instance at this URL instead of starting a new one.
+
+    Usage
+    -----
+    - `self.web_driver_agent_mac_url`
+    - `self.web_driver_agent_mac_url` = `value`
+    """
 
 
 class SkipAppKillOption(SupportsCapabilities):

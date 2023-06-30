@@ -34,10 +34,10 @@ class AvdOptionsDescriptor(Generic[T]):
             return None if value is None else timedelta(milliseconds=value)
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
+    def __set__(self, obj: C, value: Any) -> None:
         if self.name in ('AVD_LAUNCH_TIMEOUT', 'AVD_READY_TIMEOUT'):
-            return obj.get_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        return obj.get_capability(self.name, value)
+            obj.get_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
+        obj.get_capability(self.name, value)
 
 
 class AvdArgsOption(SupportsCapabilities):
@@ -47,8 +47,22 @@ class AvdArgsOption(SupportsCapabilities):
     Gets and Sets emulator command line arguments.
 
     Usage
-    - `self.avd_args`
-    - `self.avd_args` = `value`
+    -----
+    - Get
+        - `self.avd_args`
+    - Set
+        - `self.avd_args` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -59,9 +73,22 @@ class AvdEnvOption(SupportsCapabilities):
     Gets and Sets the mapping of emulator environment variables.
 
     Usage
-    ----
-    - `self.avd_env`
-    - `self.avd_env` = `value`
+    -----
+    - Get
+        - `self.avd_env`
+    - Set
+        - `self.avd_env` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict[str, str]`
+    - Set
+        - `None`
     """
 
 
@@ -75,8 +102,21 @@ class AvdLaunchTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.avd_launch_timeout`
-    - `self.avd_launch_timeout` = `value`
+    - Get
+        - `self.avd_launch_timeout`
+    - Set
+        - `self.avd_launch_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -91,8 +131,21 @@ class AvdOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.avd`
-    - `self.avd` = `value`
+    - Get
+        - `self.avd`
+    - Set
+        - `self.avd` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 class AvdReadyTimeoutOption(SupportsCapabilities):
@@ -104,8 +157,21 @@ class AvdReadyTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.avd_ready_timeout`
-    - `self.avd_ready_timeout` = `value`
+    - Get
+        - `self.avd_ready_timeout`
+    - Set
+        - `self.avd_ready_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - Optional[timedelta]
+    - Set
+        - `None`
     """
 
 
@@ -118,8 +184,21 @@ class GpsEnabledOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.gps_enabled`
-    - `self.gps_enabled` = `value`
+    - Get
+        - `self.gps_enabled`
+    - Set
+        - `self.gps_enabled` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -134,6 +213,19 @@ class NetworkSpeedOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.network_speed`
-    - `self.network_speed` = `value`
+    - Get
+        - `self.network_speed`
+    - Set
+        - `self.network_speed` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """

@@ -1,13 +1,14 @@
 from datetime import timedelta
 import json
-from typing import Any, TypeVar
+from typing import Any, TypeVar, Generic
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
+T = TypeVar('T')
 C = TypeVar('C', bound='SupportsCapabilities')
 
 
-class SimulatorOptionsDescriptor:
+class SimulatorOptionsDescriptor(Generic[T]):
     def __init__(self, name):
         self.name = name
 
@@ -20,12 +21,12 @@ class SimulatorOptionsDescriptor:
             return None if value is None else timedelta(milliseconds=value)
         return getattr(obj, 'get_capability')(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
+    def __set__(self, obj: C, value: Any) -> None:
         if self.name == 'PERMISSIONS':
             getattr(obj, 'set_capability')(self.name, json.dumps(value, ensure_ascii=False))
         if self.name == 'SIMULATOR_STARTUP_TIMEOUT':
-            return getattr(obj, 'set_capability')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)      
-        return getattr(obj, 'set_capability')(self.name, value)
+            getattr(obj, 'set_capability')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)      
+        getattr(obj, 'set_capability')(self.name, value)
 
 
 class CalendarAccessAuthorizedOption(SupportsCapabilities):
@@ -39,8 +40,21 @@ class CalendarAccessAuthorizedOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.calendar_access_authorized`
-    - `self.calendar_access_authorized` = `value`
+    - Get
+        - `self.calendar_access_authorized`
+    - Set
+        - `self.calendar_access_authorized` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Ser
+        - `None`
     """
 
 
@@ -51,9 +65,22 @@ class CalendarFormatOption(SupportsCapabilities):
     Gets and Sets calendar format for the iOS Simulator.
 
     Usage
-    ----
-    - `self.calendar_format`
-    - `self.calendar_format` = `value`
+    -----
+    - Get
+        - `self.calendar_format`
+    - Set
+        - `self.calendar_format` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -70,8 +97,21 @@ class ConnectHardwareKeyboardOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.connect_hardware_keyboard`
-    - `self.connect_hardware_keyboard` = `value`
+    - Get
+        - `self.connect_hardware_keyboard`
+    - Set
+        - `self.connect_hardware_keyboard` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -84,8 +124,21 @@ class CustomSslCertOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.custom_ssl_cert`
-    - `self.custom_ssl_cert` = `value`
+    - Get
+        - `self.custom_ssl_cert`
+    - Set
+        - `self.custom_ssl_cert` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -98,8 +151,21 @@ class EnforceFreshSimulatorCreationOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.enforce_fresh_simulator_creation`
-    - `self.enforce_fresh_simulator_creation` = `value`
+    - Get
+        - `self.enforce_fresh_simulator_creation`
+    - Set
+        - `self.enforce_fresh_simulator_creation` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -118,8 +184,21 @@ class ForceSimulatorSoftwareKeyboardPresenceOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.force_simulator_software_keyboard_presence`
-    - `self.force_simulator_software_keyboard_presence` = `value`
+    - Get
+        - `self.force_simulator_software_keyboard_presence`
+    - Set
+        - `self.force_simulator_software_keyboard_presence` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -131,8 +210,21 @@ class IosSimulatorLogsPredicateOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.ios_simulator_logs_predicate`
-    - `self.ios_simulator_logs_predicate` = `value`
+    - Get
+        - `self.ios_simulator_logs_predicate`
+    - Set
+        - `self.ios_simulator_logs_predicate` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -145,8 +237,21 @@ class KeepKeyChainsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.keep_key_chains`
-    - `self.keep_key_chains` = `value`
+    - Get
+        - `self.keep_key_chains`
+    - Set
+        - `self.keep_key_chains` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -164,8 +269,21 @@ class KeychainsExcludePatternsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.keychains_exclude_patterns`
-    - `self.keychains_exclude_patterns` = `value`
+    - Get
+        - `self.keychains_exclude_patterns`
+    - Set
+        - `self.keychains_exclude_patterns` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -184,8 +302,21 @@ class PermissionsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.permissions`
-    - `self.permissions` = `value`
+    - Get
+        - `self.permissions`
+    - Set
+        - `self.permissions` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict[str, Dict[str, str]]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict[str, Dict[str, str]]]`
+    - Set
+        - `None`
     """
 
 
@@ -199,8 +330,21 @@ class ReduceMotionOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.reduce_motion`
-    - `self.reduce_motion` = `value`
+    - Get
+        - `self.reduce_motion`
+    - Set
+        - `self.reduce_motion` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -214,9 +358,22 @@ class ResetOnSessionStartOnlyOption(SupportsCapabilities):
     test session initialization.
 
     Usage
-    ----
-    - `self.reset_on_session_start_only`
-    - `self.reset_on_session_start_only` = `value`
+    -----
+    - Get
+        - `self.reset_on_session_start_only`
+    - Set
+        - `self.reset_on_session_start_only` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -234,8 +391,21 @@ class ScaleFactorOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.scale_factor`
-    - `self.scale_factor` = `value`
+    - Get
+        - `self.scale_factor`
+    - Set
+        - `self.scale_factor` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -253,8 +423,21 @@ class ShutdownOtherSimulatorsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.shutdown_other_simulators`
-    - `self.shutdown_other_simulators` = `value`
+    - Get
+        - `self.shutdown_other_simulators`
+    - Set
+        - `self.shutdown_other_simulators` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -269,8 +452,21 @@ class SimulatorDevicesSetPathOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.simulator_devices_set_path`
-    - `self.simulator_devices_set_path` = `value`
+    - Get
+        - `self.simulator_devices_set_path`
+    - Set
+        - `self.simulator_devices_set_path` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -286,8 +482,21 @@ class SimulatorPasteboardAutomaticSyncOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.simulator_pasteboard_automatic_sync`
-    - `self.simulator_pasteboard_automatic_sync` = `value`
+    - Get
+        - `self.simulator_pasteboard_automatic_sync`
+    - Set
+        - `self.simulator_pasteboard_automatic_sync` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -303,8 +512,21 @@ class SimulatorStartupTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.simulator_startup_timeout`
-    - `self.simulator_startup_timeout` = `value`
+    - Get
+        - `self.simulator_startup_timeout`
+    - Set
+        - `self.simulator_startup_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -319,8 +541,21 @@ class SimulatorTracePointerOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.simulator_trace_pointer`
-    - `self.simulator_trace_pointer` = `value`
+    - Get
+        - `self.simulator_trace_pointer`
+    - Set
+        - `self.simulator_trace_pointer` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 class SimulatorWindowCenterOption(SupportsCapabilities):
@@ -334,6 +569,19 @@ class SimulatorWindowCenterOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.simulator_window_center`
-    - `self.simulator_window_center` = `value`
+    - Get
+        - `self.simulator_window_center`
+    - Set
+        - `self.simulator_window_center` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """

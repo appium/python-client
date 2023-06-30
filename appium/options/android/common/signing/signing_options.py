@@ -30,8 +30,8 @@ class SigningOptionsDescriptor(Generic[T]):
     def __get__(self, obj: C, cls: type[C]) -> Any:
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> Any:
-        return obj.set_capability(self.name, value)
+    def __set__(self, obj: C, value: Any) -> None:
+        obj.set_capability(self.name, value)
 
 
 class KeyAliasOption(SupportsCapabilities):
@@ -44,8 +44,21 @@ class KeyAliasOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.key_alias`
-    - `self.key_alias` = `value`
+    - Get
+        - `self.key_alias`
+    - Set
+        - `self.key_alias` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -59,8 +72,21 @@ class KeyPasswordOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.key_password`
-    - `self.key_password` = `value`
+    - Get
+        - `self.key_password`
+    - Set
+        - `self.key_password` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -74,8 +100,21 @@ class KeystorePasswordOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.keystore_password`
-    - `self.keystore_password` = `value`
+    - Get
+        - `self.keystore_password`
+    - Set
+        - `self.keystore_password` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -89,8 +128,21 @@ class KeystorePathOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.keystore_path`
-    - `self.keystore_path` = `value`
+    - Get
+        - `self.keystore_path`
+    - Set
+        - `self.keystore_path` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -106,8 +158,21 @@ class NoSignOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.no_sign`
-    - `self.no_sign` = `value`
+    - Get
+        - `self.no_sign`
+    - Set
+        - `self.no_sign` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 class UseKeystoreOption(SupportsCapabilities):
@@ -122,6 +187,19 @@ class UseKeystoreOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.use_keystore`
-    - `self.use_keystore` = `value`
+    - Get
+        - `self.use_keystore`
+    - Set
+        - `self.use_keystore` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """

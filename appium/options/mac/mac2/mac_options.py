@@ -34,10 +34,10 @@ class MacOptionsDescriptor(Generic[T]):
             return None if value_ms is None else timedelta(milliseconds=value_ms)
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
+    def __set__(self, obj: C, value: Any) -> None:
         if self.name == 'SERVER_STARTUP_TIMEOUT':
-            return obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
-        return obj.set_capability(self.name, value)
+            obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
+        obj.set_capability(self.name, value)
 
 
 class ArgumentsOption(SupportsCapabilities):
@@ -49,8 +49,21 @@ class ArgumentsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.arguments`
-    - `self.arguments` = `value`
+    - Get
+        - `self.arguments`
+    - Set
+        - `self.arguments` = `value`
+    
+    Parameters
+    ----------
+    `value`: `List[str]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[List[str]]`
+    - Set
+        - `None`
     """
 
 
@@ -64,8 +77,21 @@ class BootstrapRootOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.bootstrap_root`
-    - `self.bootstrap_root` = `value`
+    - Get
+        - `self.bootstrap_root`
+    - Set
+        - `self.bootstrap_root` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -80,8 +106,21 @@ class EnvironmentOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.environment`
-    - `self.environment` = `value`
+    - Get
+        - `self.environment`
+    - Set
+        - `self.environment` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict[str, str]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict[str, str]]`
+    - Set
+        - `None`
     """
 
 
@@ -94,8 +133,21 @@ class ServerStartupTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.server_startup_timeout`
-    - `self.server_startup_timeout` = `value`
+    - Get
+        - `self.server_startup_timeout`
+    - Set
+        - `self.server_startup_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[int, timedelta]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -108,8 +160,21 @@ class ShowServerLogsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.show_server_logs`
-    - `self.show_server_logs` = `value`
+    - Get
+        - `self.show_server_logs`
+    - Set
+        - `self.show_server_logs` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -122,11 +187,47 @@ class WebDriverAgentMacUrlOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.web_driver_agent_mac_url`
-    - `self.web_driver_agent_mac_url` = `value`
+    - Get
+        - `self.web_driver_agent_mac_url`
+    - Set
+        - `self.web_driver_agent_mac_url` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
 class SkipAppKillOption(SupportsCapabilities):
     SKIP_APP_KILL = 'skipAppKill'
     skip_app_kill = MacOptionsDescriptor('SKIP_APP_KILL')
+    """
+    Gets and Sets whether to skip the termination of the application under test
+    when the testing session quits. false by default. This capability
+    is only going to be applied if bundleId is set.
+
+    Usage
+    -----
+    - Get
+        - `self.skip_app_kill`
+    - Set
+        - `self.skip_app_kill` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
+    """

@@ -16,14 +16,15 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Any, TypeVar
+from typing import Any, TypeVar, Generic
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
+T = TypeVar('T')
 C = TypeVar('C', bound='SupportsCapabilities')
 
 
-class WebViewOptionsDescriptor:
+class WebViewOptionsDescriptor(Generic[T]):
     def __init__(self, name: str) -> None:
         self.name = name
 
@@ -33,10 +34,10 @@ class WebViewOptionsDescriptor:
             return None if value is None else timedelta(milliseconds=value)
         return getattr(obj, 'get_capabilities')(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
+    def __set__(self, obj: C, value: Any) -> None:
         if self.name == ('WEBKIT_RESPONSE_TIMEOUT', 'WEBVIEW_CONNECT_TIMEOUT'):
-            return getattr(obj, 'set_capabilities')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
-        return getattr(obj, 'set_capabilities')(self.name, value)
+            getattr(obj, 'set_capabilities')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
+        getattr(obj, 'set_capabilities')(self.name, value)
 
 
 class AbsoluteWebLocationsOption(SupportsCapabilities):
@@ -50,8 +51,21 @@ class AbsoluteWebLocationsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.absolute_web_locations`
-    - `self.absolute_web_locations` = `value`
+    - Get
+        - `self.absolute_web_locations`
+    - Set
+        - `self.absolute_web_locations` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -65,8 +79,21 @@ class AdditionalWebviewBundleIdsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.additional_webview_bundle_ids`
-    - `self.additional_webview_bundle_ids` = `value`
+    - Get
+        - `self.additional_webview_bundle_ids`
+    - Set
+        - `self.additional_webview_bundle_ids` = `value`
+    
+    Parameters
+    ----------
+    `value`: `List[str]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[List[str]]`
+    - Set
+        - `None`
     """
 
 
@@ -79,8 +106,21 @@ class EnableAsyncExecuteFromHttpsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.enable_async_execute_from_https`
-    - `self.enable_async_execute_from_https` = `value`
+    - Get
+        - `self.enable_async_execute_from_https`
+    - Set
+        - `self.enable_async_execute_from_https` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -95,8 +135,21 @@ class FullContextListOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.full_context_list`
-    - `self.full_context_list` = `value`
+    - Get
+        - `self.full_context_list`
+    - Set
+        - `self.full_context_list` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -109,9 +162,22 @@ class IncludeSafariInWebviewsOption(SupportsCapabilities):
     needs to be able to interact with it. Defaults to false.
 
     Usage
-    ----
-    - `self.include_safari_in_webviews`
-    - `self.include_safari_in_webviews` = `value`
+    -----
+    - Get
+        - `self.include_safari_in_webviews`
+    - Set
+        - `self.include_safari_in_webviews` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -123,8 +189,23 @@ class NativeWebTapOption(SupportsCapabilities):
     to false. Warning: sometimes the preciseness of native taps could be broken,
     because there is no reliable way to map web element coordinates to native ones.
 
-    - `self.native_web_tap`
-    - `self.native_web_tap` = `value`
+    Usage
+    -----
+    - Get
+        - `self.native_web_tap`
+    - Set
+        - `self.native_web_tap` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -137,8 +218,21 @@ class SafariGarbageCollectOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.safari_garbage_collect`
-    - `self.safari_garbage_collect` = `value`
+    - Get
+        - `self.safari_garbage_collect`
+    - Set
+        - `self.safari_garbage_collect` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -151,8 +245,21 @@ class SafariIgnoreFraudWarningOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.safari_ignore_fraud_warning`
-    - `self.safari_ignore_fraud_warning` = `value`
+    - Get
+        - `self.safari_ignore_fraud_warning`
+    - Set
+        - `self.safari_ignore_fraud_warning` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -168,8 +275,21 @@ class SafariIgnoreWebHostnamesOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.safari_ignore_web_hostnames`
-    - `self.safari_ignore_web_hostnames` = `value`
+    - Get
+        - `self.safari_ignore_web_hostnames`
+    - Set
+        - `self.safari_ignore_web_hostnames` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -181,8 +301,21 @@ class SafariInitialUrlOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.safari_initial_url`
-    - `self.safari_initial_url` = `value`
+    - Get
+        - `self.safari_initial_url`
+    - Set
+        - `self.safari_initial_url` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -198,8 +331,21 @@ class SafariLogAllCommunicationHexDumpOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.safari_log_all_communication_hex_dump`
-    - `self.safari_log_all_communication_hex_dump` = `value`
+    - Get
+        - `self.safari_log_all_communication_hex_dump`
+    - Set
+        - `self.safari_log_all_communication_hex_dump` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - ` Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -211,8 +357,23 @@ class SafariLogAllCommunicationOption(SupportsCapabilities):
     For some operations this can be a lot of data, so it is recommended to
     be used only when necessary. Defaults to false.
 
-    - `self.safari_log_all_communication`
-    - `self.safari_log_all_communication` = `value`
+    Usage
+    -----
+    - Get
+        - `self.safari_log_all_communication`
+    - Set
+        - `self.safari_log_all_communication` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -225,8 +386,21 @@ class SafariOpenLinksInBackgroundOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.safari_open_links_in_background`
-    - `self.safari_open_links_in_background` = `value`
+    - Get
+        - `self.safari_open_links_in_background`
+    - Set
+        - `self.safari_open_links_in_background` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -241,8 +415,21 @@ class SafariSocketChunkSizeOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.safari_socket_chunk_size`
-    - `self.safari_socket_chunk_size` = `value`
+    - Get
+        - `self.safari_socket_chunk_size`
+    - Set
+        - `self.safari_socket_chunk_size` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 class SafariWebInspectorMaxFrameLengthOption(SupportsCapabilities):
@@ -256,8 +443,21 @@ class SafariWebInspectorMaxFrameLengthOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.safari_web_inspector_max_frame_length`
-    - `self.safari_web_inspector_max_frame_length` = `value`
+    - Get
+        - `self.safari_web_inspector_max_frame_length`
+    - Set
+        - `self.safari_web_inspector_max_frame_length` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 class WebkitResponseTimeoutOption(SupportsCapabilities):
@@ -269,8 +469,21 @@ class WebkitResponseTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.webkit_response_timeout`
-    - `self.webkit_response_timeout` = `value`
+    - Get
+        - `self.webkit_response_timeout`
+    - Set
+        - `self.webkit_response_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -283,8 +496,21 @@ class WebviewConnectRetriesOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.webview_connect_retries`
-    - `self.webview_connect_retries` = `value`
+    - Get
+        - `self.webview_connect_retries`
+    - Set
+        - `self.webview_connect_retries` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 
@@ -297,6 +523,19 @@ class WebviewConnectTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.webview_connect_timeout`
-    - `self.webview_connect_timeout` = `value`
+    - Get
+        - `self.webview_connect_timeout`
+    - Set
+        - `self.webview_connect_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """

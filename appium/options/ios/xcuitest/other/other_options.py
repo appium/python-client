@@ -16,14 +16,15 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Any, TypeVar
+from typing import Any, TypeVar, Generic
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
+T = TypeVar('T')
 C = TypeVar('C', bound='SupportsCapabilities')
 
 
-class OtherOptionsDescriptor:
+class OtherOptionsDescriptor(Generic[T]):
     def __init__(self, name: str) -> None:
         self.name = name
 
@@ -37,15 +38,15 @@ class OtherOptionsDescriptor:
             return timedelta(milliseconds=int(value))
         return getattr(obj, 'get_capability')(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
+    def __set__(self, obj: C, value: Any) -> None:
         if self.name == 'COMMAND_TIMEOUTS':
             if isinstance(value, dict):
-                return getattr(obj, 'set_capability')(self.name, {k: int(v.total_seconds() * 1000) for k, v in value.items()})
+                getattr(obj, 'set_capability')(self.name, {k: int(v.total_seconds() * 1000) for k, v in value.items()})
             elif isinstance(value, timedelta):
-                return getattr(obj, 'set_capability')(self.name, f'{int(value.total_seconds() * 1000)}')
+                getattr(obj, 'set_capability')(self.name, f'{int(value.total_seconds() * 1000)}')
             else:
-                return getattr(obj, 'set_capability')(self.name, value)
-        return getattr(obj, 'set_capability')(self.name, value)
+                getattr(obj, 'set_capability')(self.name, value)
+        getattr(obj, 'set_capability')(self.name, value)
 
 
 class UseJsonSourceOption(SupportsCapabilities):
@@ -57,8 +58,21 @@ class UseJsonSourceOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.use_json_source`
-    - `self.use_json_source` = `value`
+    - Get
+        - `self.use_json_source`
+    - Set
+        - `self.use_json_source` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -70,9 +84,22 @@ class ShowIosLogOption(SupportsCapabilities):
     Default false.
 
     Usage
-    ----
-    - `self.show_ios_log`
-    - `self.show_ios_log` = `value`
+    -----
+    - Get
+        - `self.show_ios_log`
+    - Set
+        - `self.show_ios_log` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -88,8 +115,21 @@ class LaunchWithIdbOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.launch_with_idb`
-    - `self.launch_with_idb` = `value`
+    - Get
+        - `self.launch_with_idb`
+    - Set
+        - `self.launch_with_idb` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -108,7 +148,20 @@ class CommandTimeoutsOption(SupportsCapabilities):
     were not explicitly mentioned as dictionary keys
 
     Usage
-    ----
-    - `self.command_timeouts`
-    - `self.command_timeouts` = `value`
+    -----
+    - Get
+        - `self.command_timeouts`
+    - Set
+        - `self.command_timeouts` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[Dict[str, timedelta], timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Union[Dict[str, timedelta], timedelta]`
+    - Set
+        - `None`
     """

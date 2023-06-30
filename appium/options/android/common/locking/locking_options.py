@@ -34,10 +34,10 @@ class SkipLockOptionsDescriptor(Generic[T]):
             return None if value is None else timedelta(milliseconds=value)
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
+    def __set__(self, obj: C, value: Any) -> None:
         if self.name == 'UNLOCK_SUCCESS_TIMEOUT':
-            return obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
-        return obj.set_capability(self.name, value)
+            obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
+        obj.set_capability(self.name, value)
 
 
 class SkipUnlockOption(SupportsCapabilities):
@@ -52,8 +52,21 @@ class SkipUnlockOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.skip_unlock`
-    - `self.skip_unlock` = `value`
+    - Get
+        - `self.skip_unlock`
+    - Set
+        - `self.skip_unlock` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -67,8 +80,21 @@ class UnlockKeyOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.unlock_key`
-    - `self.unlock_key` = `value`
+    - Get
+        - `self.unlock_key`
+    - Set
+        - `self.unlock_key` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 class UnlockStrategyOption(SupportsCapabilities):
@@ -81,8 +107,21 @@ class UnlockStrategyOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.unlock_strategy`
-    - `self.unlock_strategy` = `value`
+    - Get
+        - `self.unlock_strategy`
+    - Set
+        - `self.unlock_strategy` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -95,8 +134,21 @@ class UnlockSuccessTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.unlock_success_timeout`
-    - `self.unlock_success_timeout` = `value`
+    - Get
+        - `self.unlock_success_timeout`
+    - Set
+        - `self.unlock_success_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -108,6 +160,21 @@ class UnlockTypeOption(SupportsCapabilities):
     Read the Unlock tutorial](https://github.com/appium/appium-android-driver/blob/master/docs/UNLOCK.md)
     for more details.
 
-    - `self.unlock_type`
-    - `self.unlock_type` = `value`
+    Usage
+    -----
+    - Get
+        - `self.unlock_type`
+    - Set
+        - `self.unlock_type` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """

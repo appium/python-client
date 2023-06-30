@@ -30,8 +30,8 @@ class OptionsDescriptor(Generic[T]):
     def __get__(self, obj: C, cls: type[C]) -> Any:
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
-        return obj.set_capability(self.name, value)
+    def __set__(self, obj: C, value: Any) -> None:
+        obj.set_capability(self.name, value)
 
 
 class AppOption(SupportsCapabilities):
@@ -46,8 +46,21 @@ class AppOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.app`
-    - `self.app` = `value`
+    - Get
+        - `self.app`
+    - Set
+        - `self.app` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -60,8 +73,21 @@ class AutoWebViewOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.auto_web_view`
-    - `self.auto_web_view` = `value`
+    - Get
+        - `self.auto_web_view`
+    - Set
+        - `self.auto_web_view` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -73,8 +99,21 @@ class AutomationNameOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.automation_name`
-    - `self.automation_name` = `value`
+    - Get
+        - `self.automation_name`
+    - Set
+        - `self.automation_name` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
      """
 
 
@@ -86,8 +125,21 @@ class BundleIdOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.bundle_id`
-    - `self.bundle_id` = `value`
+    - Get
+        - `self.bundle_id`
+    - Set
+        - `self.bundle_id` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -99,8 +151,21 @@ class ClearSystemFilesOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.clear_system_files`
-    - `self.clear_system_files` = `value`
+    - Get
+        - `self.clear_system_files`
+    - Set
+        - `self.clear_system_files` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -112,8 +177,21 @@ class DeviceNameOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.device_name` 
-    - `self.device_name` = `value`
+    - Get
+        - `self.device_name` 
+    - Set
+        - `self.device_name` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -124,9 +202,22 @@ class EnablePerformanceLoggingOption(SupportsCapabilities):
     Gets and Sets whether to enable additional performance logging.
 
     Usage
-    ----
-    - `self.enable_performace_logging`
-    - `self.enable_performace_logging` = `value`
+    -----
+    - Get
+        - `self.enable_performace_logging`
+    - Set
+        - `self.enable_performace_logging` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -139,8 +230,21 @@ class EventTimingsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.event_timings`
-    - `self.event_timings` = `value`
+    - Get
+        - `self.event_timings`
+    - Set
+        - `self.event_timings` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -152,8 +256,21 @@ class FullResetOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.full_reset`
-    - `self.full_reset` = `value`
+    - Get
+        - `self.full_reset`
+    - Set
+        - `self.full_reset` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -165,9 +282,22 @@ class IsHeadlessOption(SupportsCapabilities):
     It is only applied if the emulator is not running before the test starts.
 
     Usage
-    ----
-    - `self.is_headless`
-    - `self.is_headless` = `value`
+    -----
+    - Get
+        - `self.is_headless`
+    - Set
+        - `self.is_headless` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -179,8 +309,21 @@ class LanguageOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.language`
-    - `self.language` = `value`
+    - Get
+        - `self.language`
+    - Set
+        - `self.language` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -192,8 +335,21 @@ class LocaleOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.locale`
-    - `self.locale` = `value`
+    - Get
+        - `self.locale`
+    - Set
+        - `self.locale` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -205,9 +361,22 @@ class NewCommandTimeoutOption(SupportsCapabilities):
     The value could either be provided as timedelta instance or an integer number of seconds.
 
     Usage
-    ----
-    - `self.new_command_timeout`
-    - `self.new_command_timeout` = `value`
+    -----
+    - Get
+        - `self.new_command_timeout`
+    - Set
+        - `self.new_command_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -218,9 +387,22 @@ class NoResetOption(SupportsCapabilities):
     Gets and Sets Whether the driver should not perform a reset.
 
     Usage
-    ----
-    - `self.no_reset`
-    - `self.no_reset` = `value`
+    -----
+    - Get
+        - `self.no_reset`
+    - Set
+        - `self.no_reset` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -233,8 +415,21 @@ class OrientationOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.orientation`
-    - `self.orientation` = `value`
+    - Get
+        - `self.orientation`
+    - Set
+        - `self.orientation` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -247,8 +442,21 @@ class OtherAppsOption(SupportsCapabilities):
 
     Usage
     ----
-    - `self.other_apps`
-    - `self.other_apps` = `value`
+    - Get
+        - `self.other_apps`
+    - Set
+        - `self.other_apps` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -261,8 +469,21 @@ class PostrunOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.postrun`
-    - `self.postrun` = `value`
+    - Get
+        - `self.postrun`
+    - Set
+        - `self.postrun` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict[str, str]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict[str, str]`
+    - Set
+        - `None`
     """
 
 
@@ -275,8 +496,21 @@ class PrerunOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.prerun`
-    - `slef.prerun` = `value`
+    - Get
+        - `self.prerun`
+    - Set
+        - `self.prerun` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict[str, str]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict[str, str]`
+    - Set
+        - `None`
     """
 
 
@@ -288,9 +522,22 @@ class PrintPageSourceOnFindFailureOption(SupportsCapabilities):
     if a find failure occurs.
 
     Usage
-    ----
-    - `self.print_page_source_on_find_failure`
-    - `self.print_page_source_on_find_failure` = `value`
+    -----
+    - Get
+        - `self.print_page_source_on_find_failure`
+    - Set
+        - `self.print_page_source_on_find_failure` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -299,9 +546,22 @@ class SkipLogCaptureOption(SupportsCapabilities):
     Gets and Sets Whether the driver should not record device logs.
 
     Usage
-    ----
-    - `self.skip_log_capture`
-    - `self.skip_log_capture` = `value`
+    -----
+    - Get
+        - `self.skip_log_capture`
+    - Set
+        - `self.skip_log_capture` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
     SKIP_LOG_CAPTURE = 'skipLogCapture'
     skip_log_capture = OptionsDescriptor('SKIP_LOG_CAPTURE')
@@ -314,9 +574,22 @@ class SystemHostOption(SupportsCapabilities):
     Gets and Sets the name of the host for the internal server to listen on.
 
     Usage
-    ----
-    - `self.system_host`
-    - `self.system_host` = `value`
+    -----
+    - Get
+        - `self.system_host`
+    - Set
+        - `self.system_host` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -327,9 +600,22 @@ class SystemPortOption(SupportsCapabilities):
     Gets and Sets the number of the port for the internal server to listen on.
 
     Usage
-    ----
-    - `self.system_post`
-    - `self.system_post` = `value`
+    -----
+    - Get
+        - `self.system_post`
+    - Set
+        - `self.system_post` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 
@@ -341,6 +627,19 @@ class UdidOption(SupportsCapabilities):
     
     Usage
     -----
-    - `self.udid`
-    - `self.udid` = `value`
+    - Get
+        - `self.udid`
+    - Set
+        - `self.udid` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """

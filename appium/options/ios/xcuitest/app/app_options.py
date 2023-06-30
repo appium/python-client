@@ -34,10 +34,10 @@ class AppOptionsDescriptor(Generic[T]):
             return None if value is None else timedelta(milliseconds=value)
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
+    def __set__(self, obj: C, value: Any) -> None:
         if self.name == 'APP_PUSH_TIMEOUT':
-            return obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
-        return obj.set_capability(self.name, value)
+            obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
+        obj.set_capability(self.name, value)
 
 
 class AppInstallStrategyOption(SupportsCapabilities):
@@ -56,8 +56,21 @@ class AppInstallStrategyOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.app_install_strategy`
-    - `self.app_install_strategy` = `value`
+    - Get
+        - `self.app_install_strategy`
+    - Set
+        - `self.app_install_strategy` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -71,8 +84,21 @@ class AppPushTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.app_push_timeout`
-    - `self.app_push_timeout` = `value`
+    - Get
+        - `self.app_push_timeout`
+    - Set
+        - `self.app_push_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -85,6 +111,19 @@ class LocalizableStringsDirOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.localizable_strings_dir`
-    - `self.localizable_strings_dir` = `value`
+    - Get
+        - `self.localizable_strings_dir`
+    - Set
+        - `self.localizable_strings_dir` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """

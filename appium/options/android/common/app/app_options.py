@@ -34,13 +34,15 @@ class AppOptionsDescriptor(Generic[T]):
             return None if value is None else timedelta(milliseconds=value)
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
+    def __set__(self, obj: C, value: Any) -> None:
         if self.name in ('ANDROID_INSTALL_TIMEOUT', 'APP_WAIT_DURATION'):
-            return obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        return obj.set_capability(self.name, value)
+            obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
+        obj.set_capability(self.name, value)
     
 
 class AllowTestPackagesOption(SupportsCapabilities):
+    ALLOW_TEST_PACKAGES = 'allowTestPackages'
+    allow_test_packages = AppOptionsDescriptor('ALLOW_TEST_PACKAGES')
     """
     Whether it is possible to use packages built with the test flag for
     the automated testing (literally adds -t flag to the adb install command).
@@ -49,11 +51,22 @@ class AllowTestPackagesOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.allow_test_packages`
-    - `self.allow_test_packages` = `value`
+    - Get
+        - `self.allow_test_packages`
+    - Set
+        - `self.allow_test_packages` = `value`
+
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
-    ALLOW_TEST_PACKAGES = 'allowTestPackages'
-    allow_test_packages = AppOptionsDescriptor('ALLOW_TEST_PACKAGES')
 
 
 class AndroidInstallTimeoutOption(SupportsCapabilities):
@@ -65,8 +78,21 @@ class AndroidInstallTimeoutOption(SupportsCapabilities):
 
     Usage
     ----
-    - `self.android_install_timeout`
-    - `self.android_install_timeout` = `value`
+    - Get
+        - `self.android_install_timeout`
+    - Set
+        - `self.android_install_timeout` = `value`
+
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -80,8 +106,21 @@ class AppActivityOption(SupportsCapabilities):
 
     Usage
     ----
-    - `self.app_activity`
-    - `self.app_activity` = `value`
+    - Get
+        - `self.app_activity`
+    - Set
+        - `self.app_activity` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -95,8 +134,21 @@ class AppPackageOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.app_package`
-    - `self.app_package` = `value`
+    - Get
+        - `self.app_package`
+    - Set
+        - `self.app_package` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -111,8 +163,21 @@ class AppWaitActivityOption(SupportsCapabilities):
 
     Usage
     ----
-    - `self.app_wait_activity`
-    - `self.app_wait_activity` = `value`
+    - Get
+        - `self.app_wait_activity`
+    - Set
+        - `self.app_wait_activity` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - None
     """
 
 
@@ -126,8 +191,21 @@ class AppWaitDurationOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.app_wait_duration`
-    - `self.app_wait_duration` = `value`
+    - Get
+        - `self.app_wait_duration`
+    - Set
+        - `self.app_wait_duration` = `value`
+
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -141,8 +219,21 @@ class AppWaitForLaunchOption(SupportsCapabilities):
 
     Usage
     ----
-    - `self.app_wait_for_launch`
-    - `self.app_wait_for_launch` = `value`
+    - Get
+        - `self.app_wait_for_launch`
+    - Set
+        - `self.app_wait_for_launch` = `value`
+
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -156,8 +247,21 @@ class AppWaitPackageOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.app_wait_package`
-    - `self.app_wait_package` = `value`
+    - Get
+        - `self.app_wait_package`
+    - Set
+        - `self.app_wait_package` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -171,8 +275,21 @@ class AutoGrantPermissionsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.auto_grant_permissions`
-    - `self.auto_grant_permissions` = `value`
+    - Get
+        - `self.auto_grant_permissions`
+    - Set
+        - `self.auto_grant_permissions` = `value`
+
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -186,8 +303,21 @@ class EnforceAppInstallOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.enforce_app_install`
-    - `self.enforce_app_install` = `value`
+    - Get
+        - `self.enforce_app_install`
+    - Set
+        - `self.enforce_app_install` = `value`
+
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -202,8 +332,21 @@ class IntentActionOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.intent_action`
-    - `self.intent_action` = `value`
+    - Get
+        - `self.intent_action`
+    - Set
+        - `self.intent_action` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -216,8 +359,21 @@ class IntentCategoryOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.intent_category`
-    - `self.intent_category` = `value`
+    - Get
+        - `self.intent_category`
+    - Set
+        - `self.intent_category` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -230,8 +386,21 @@ class IntentFlagsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.intent_flags`
-    - `self.intent_flags` = `value`
+    - Get
+        - `self.intent_flags`
+    - Set
+        - `self.intent_flags` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -244,8 +413,21 @@ class OptionalIntentArgumentsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.optional_intent_arguments`
-    - `self.optional_intent_arguments` = `value`
+    - Get
+        - `self.optional_intent_arguments`
+    - Set
+        - `self.optional_intent_arguments` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -261,8 +443,21 @@ class RemoteAppsCacheLimitOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.remote_apps_cache_limit`
-    - `self.remote_apps_cache_limit` = `value`
+    - Get
+        - `self.remote_apps_cache_limit`
+    - Set
+        - `self.remote_apps_cache_limit` = `value`
+
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 
@@ -275,6 +470,19 @@ class UninstallOtherPackagesOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.uninstall_other_packages`
-    - `self.uninstall_other_packages` = `value`
+    - Get
+        - `self.uninstall_other_packages`
+    - Set
+        - `self.uninstall_other_packages` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """

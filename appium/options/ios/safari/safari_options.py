@@ -30,8 +30,8 @@ class SafariOptionsDescriptor(Generic[T]):
     def __get__(self, obj: C, cls: type[C]) -> Any:
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
-        return obj.set_capability(self.name, value)
+    def __set__(self, obj: C, value: Any) -> None:
+        obj.set_capability(self.name, value)
 
 
 class AutomaticInspectionOption(SupportsCapabilities):
@@ -44,9 +44,22 @@ class AutomaticInspectionOption(SupportsCapabilities):
     Debugger tab, you can simply evaluate a debugger statement in the test page.
 
     Usage
-    ----
-    - `self.automatic_inspection`
-    - `self.automatic_inspection` = `value`
+    -----
+    - Get
+        - `self.automatic_inspection`
+    - Set
+        - `self.automatic_inspection` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -61,8 +74,21 @@ class AutomaticProfilingOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.automatic_profiling`
-    - `self.automatic_profiling` = `value`
+    - Get
+        - `self.automatic_profiling`
+    - Set
+        - `self.automatic_profiling` = `value`
+
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -79,8 +105,21 @@ class DeviceNameOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.device_name`
-    - `self.device_name` = `value`
+    - Get
+        - `self.device_name`
+    - Set
+        - `self.device_name` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    -Set
+        - `None`
     """
 
 
@@ -95,8 +134,21 @@ class DeviceTypeOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.device_type`
-    - `self.device_type` = `value`
+    - Get
+        - `self.device_type`
+    - Set
+        - `self.device_type` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -112,9 +164,22 @@ class DeviceUdidOption(SupportsCapabilities):
     "Window -&gt; Devices and Simulators").
 
     Usage
-    ----
-    - `self.device_udid`
-    - `self.device_udid` = `value`
+    -----
+    - Get
+        - `self.device_udid`
+    - Set
+        - `self.device_udid` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 class PlatformBuildVersionOption(SupportsCapabilities):
@@ -128,8 +193,21 @@ class PlatformBuildVersionOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.platform_build_version`
-    - `self.platform_build_version` = `value`
+    - Get
+        - `self.platform_build_version`
+    - Set
+        - `self.platform_build_version` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -143,9 +221,22 @@ class PlatformVersionOption(SupportsCapabilities):
     is '12', this will allow hosts with an OS version of '12.0' or '12.1' but not '10.12'.
 
     Usage
-    ----
-    - `self.platform_version`
-    - `self.platform_version` = `value`
+    -----
+    - Get
+        - `self.platform_version`
+    - Set
+        - `self.platform_version` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -160,8 +251,21 @@ class UseSimulatorOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.use_simulator`
-    - `self.use_simulator` = `value`
+    - Get
+        - `self.use_simulator`
+    - Set
+        - `self.use_simulator` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 class WebkitWebrtcOption(SupportsCapabilities):
@@ -186,6 +290,19 @@ class WebkitWebrtcOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.webkit_webrtc`
-    - `self.webkit_webrtc` = `value`
+    - Get
+        - `self.webkit_webrtc`
+    - Set
+        - `self.webkit_webrtc` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict[str, Any]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict[str, Any]`
+    - Set
+        - `None`
     """

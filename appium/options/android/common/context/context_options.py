@@ -34,10 +34,10 @@ class ContextOptionsDescriptor(Generic[T]):
             return None if value is None else timedelta(milliseconds=value)
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
+    def __set__(self, obj: C, value: Any) -> None:
         if self.name == 'AUTO_WEBVIEW_TIMEOUT':
-            return obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        return obj.set_capability(self.name, value)
+            obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
+        obj.set_capability(self.name, value)
 
 
 class AutoWebviewTimeoutOption(SupportsCapabilities):
@@ -49,8 +49,21 @@ class AutoWebviewTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.auto_webview_timeout`
-    - `self.auto_webview_timeout` = `value`
+    - Get
+        - `self.auto_webview_timeout`
+    - Set
+        - `self.auto_webview_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -65,8 +78,21 @@ class ChromeLoggingPrefsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.chrome_logging_prefs`
-    - `self.chrome_logging_prefs` = `value`
+    - Get
+        - `self.chrome_logging_prefs`
+    - Set
+        - `self.chrome_logging_prefs` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict[str, Any]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict[str, Any]`
+    - Set
+        - `None`
     """
 
 
@@ -80,8 +106,21 @@ class ChromeOptionsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.chrome_options`
-    - `self.chrome_options` = `value`
+    - Get
+        - `self.chrome_options`
+    - Set
+        - `self.chrome_options` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict[str, Any]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict[str, Any]`
+    - Set
+        - `None`
     """
 
 
@@ -96,8 +135,21 @@ class ChromedriverArgsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.chromedriver_args`
-    - `self.chromedriver_args` = `value`
+    - Get
+        - `self.chromedriver_args`
+    - Set
+        - `self.chromedriver_args` = `value`
+    
+    Parameters
+    ----------
+    `value`: `List[str]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[List[str]`
+    - Set
+        - `None`
     """
 
 
@@ -113,8 +165,22 @@ class ChromedriverChromeMappingFileOption(SupportsCapabilities):
     article for more details.
 
     Usage
-    - `self.chromedriver_chrome_mapping_file`
-    - `self.chromedriver_chrome_mapping_file` = `value`
+    -----
+    - Get
+        - `self.chromedriver_chrome_mapping_file`
+    - Set
+        - `self.chromedriver_chrome_mapping_file` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -128,8 +194,21 @@ class ChromedriverDisableBuildCheckOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.chromedriver_disable_build_check`
-    - `self.chromedriver_disable_build_check` = `value`
+    - Get
+        - `self.chromedriver_disable_build_check`
+    - Set
+        - `self.chromedriver_disable_build_check` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -146,8 +225,21 @@ class ChromedriverExecutableDirOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.chromedriver_executable_dir`
-    - `self.chromedriver_executable_dir` = `value`
+    - Get
+        - `self.chromedriver_executable_dir`
+    - Set
+        - `self.chromedriver_executable_dir` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -159,8 +251,21 @@ class ChromedriverExecutableOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.chromedriver_executable`
-    - `self.chromedriver_executable` = `value`
+    - Get
+        - `self.chromedriver_executable`
+    - Set
+        - `self.chromedriver_executable` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -173,8 +278,21 @@ class ChromedriverPortOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.chromedriver_port`
-    - `self.chromedriver_port` = `value`
+    - Get
+        - `self.chromedriver_port`
+    - Set
+        - `self.chromedriver_port` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 
@@ -187,8 +305,21 @@ class ChromedriverPortsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.chromedriver_ports`
-    - `self.chromedriver_ports` = `value`
+    - Get
+        - `self.chromedriver_ports`
+    - Set
+        - `self.chromedriver_ports` = `value`
+    
+    Parameters
+    ----------
+    `value`: `List[int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[List[int]`
+    - Set
+        - `None`
     """
 
 
@@ -202,8 +333,21 @@ class ChromedriverUseSystemExecutableOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.chromedriver_use_system_executable`
-    - `self.chromedriver_use_system_executable` = `value`
+    - Get
+        - `self.chromedriver_use_system_executable`
+    - Set
+        - `self.chromedriver_use_system_executable` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 class EnsureWebviewsHavePagesOption(SupportsCapabilities):
@@ -216,8 +360,21 @@ class EnsureWebviewsHavePagesOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.ensure_webviews_have_pages`
-    - `self.ensure_webviews_have_pages` = `value`
+    - Get
+        - `self.ensure_webviews_have_pages`
+    - Set
+        - `self.ensure_webviews_have_pages` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -231,14 +388,50 @@ class ExtractChromeAndroidPackageFromContextNameOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.extract_chrome_android_package_from_context_name`
-    - `self.extract_chrome_android_package_from_context_name` = `value`
+    - Get
+        - `self.extract_chrome_android_package_from_context_name`
+    - Set
+        - `self.extract_chrome_android_package_from_context_name` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
 class NativeWebScreenshotOption(SupportsCapabilities):
     NATIVE_WEB_SCREENSHOT = 'nativeWebScreenshot'
     native_web_screenshot = ContextOptionsDescriptor('NATIVE_WEB_SCREENSHOT')
+    """
+    Gets and Sets Whether to use screenshoting endpoint provided by UiAutomator framework (true)
+    rather than the one provided by chromedriver (false, the default value).
+    Use it when you experience issues with the latter.
+
+    Usage
+    -----
+    - Get
+        - `self.native_web_screenshot`
+    - Set
+        - `self.native_web_screenshot` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        -  `None`
+    """
 
 
 class RecreateChromeDriverSessionsOption(SupportsCapabilities):
@@ -251,8 +444,21 @@ class RecreateChromeDriverSessionsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.recreate_chrome_driver_sessions`
-    - `self.recreate_chrome_driver_sessions` = `value`
+    - Get
+        - `self.recreate_chrome_driver_sessions`
+    - Set
+        - `self.recreate_chrome_driver_sessions` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -265,8 +471,21 @@ class ShowChromedriverLogOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.show_chromedriver_log`
-    - `self.show_chromedriver_log` = `value`
+    - Get
+        - `self.show_chromedriver_log`
+    - Set
+        - `self.show_chromedriver_log` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -280,6 +499,19 @@ class WebviewDevtoolsPortOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.webview_devtools_port`
-    - `self.webview_devtools_port` = `value`
+    - Get
+        - `self.webview_devtools_port`
+    - Set
+        - `self.webview_devtools_port` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """

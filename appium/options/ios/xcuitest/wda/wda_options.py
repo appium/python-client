@@ -15,15 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, TypeVar
+from typing import Any, TypeVar, Generic
 from datetime import timedelta
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
+T = TypeVar('T')
 C = TypeVar('C', bound='SupportsCapabilities')
 
 
-class WdaOptionsDescriptor:
+class WdaOptionsDescriptor(Generic[T]):
     def __init__(self, name: str) -> None:
         self.name = name
 
@@ -34,11 +35,11 @@ class WdaOptionsDescriptor:
             return None if value is None else timedelta(seconds=value)
         return getattr(obj, 'get_capabilities')(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
-        if self.name == ('WAIT_FOR_IDLE_TIMEOUT', 'WDA_CONNECTION_TIMEOUT', 
+    def __set__(self, obj: C, value: Any) -> None:
+        if self.name in ('WAIT_FOR_IDLE_TIMEOUT', 'WDA_CONNECTION_TIMEOUT', 
                          'WDA_EVENTLOOP_IDLE_DELAY', 'WDA_LAUNCH_TIMEOUT', 'WDA_STARTUP_RETRY_INTERVAL'):
-            return getattr(obj, 'set_capabilities')(self.name, value.total_seconds() if isinstance(value, timedelta) else value)  
-        return getattr(obj, 'set_capabilities')(self.name, value)
+            getattr(obj, 'set_capabilities')(self.name, value.total_seconds() if isinstance(value, timedelta) else value)  
+        getattr(obj, 'set_capabilities')(self.name, value)
 
 
 class AllowProvisioningDeviceRegistrationOption(SupportsCapabilities):
@@ -51,8 +52,21 @@ class AllowProvisioningDeviceRegistrationOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.allow_provisioning_device_registration`
-    - `self.allow_provisioning_device_registration` = `value`
+    - Get
+        - `self.allow_provisioning_device_registration`
+    - Set
+        - `self.allow_provisioning_device_registration` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -65,8 +79,21 @@ class AutoAcceptAlertsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.auto_accept_alerts`
-    - `self.auto_accept_alerts` = `value`
+    - Get
+        - `self.auto_accept_alerts`
+    - Set
+        - `self.auto_accept_alerts` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -79,8 +106,21 @@ class AutoDismissAlertsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.auto_dismiss_alerts`
-    - `self.auto_dismiss_alerts` = `value`
+    - Get
+        - `self.auto_dismiss_alerts`
+    - Set
+        - `self.auto_dismiss_alerts` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -94,8 +134,21 @@ class DerivedDataPathOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.derived_data_path`
-    - `self.derived_data_path` = `value`
+    - Get
+        - `self.derived_data_path`
+    - Set
+        - `self.derived_data_path` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -109,8 +162,21 @@ class DisableAutomaticScreenshotsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.disable_automatic_screenshots`
-    - `self.disable_automatic_screenshots` = `value`
+    - Get
+        - `self.disable_automatic_screenshots`
+    - Set
+        - `self.disable_automatic_screenshots` = `value`
+
+    Parameters
+    ----------
+    `value` = `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -126,8 +192,21 @@ class ForceAppLaunchOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.force_app_launch`
-    - `self.force_app_launch` = `value`
+    - Get
+        - `self.force_app_launch`
+    - Set
+        - `self.force_app_launch` = `value`
+    
+    Parameters
+    ---------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -140,8 +219,21 @@ class KeychainPasswordOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.keychain_password`
-    - `self.keychain_password` = `value`
+    - Get
+        - `self.keychain_password`
+    - Set
+        - `self.keychain_password` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 class KeychainPathOption(SupportsCapabilities):
@@ -153,8 +245,21 @@ class KeychainPathOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.keychain_path`
-    - `self.keychain_path` = `value`
+    - Get
+        - `self.keychain_path`
+    - Set
+        - `self.keychain_path` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 class MaxTypingFrequencyOption(SupportsCapabilities):
@@ -167,8 +272,21 @@ class MaxTypingFrequencyOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.max_typing_frequency`
-    - `self.max_typing_frequency` = `value`
+    - Get
+        - `self.max_typing_frequency`
+    - Set
+        - `self.max_typing_frequency` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 
@@ -183,8 +301,21 @@ class MjpegServerPortOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.mjpeg_server_port`
-    - `self.mjpeg_server_port` = `value`
+    - Get
+        - `self.mjpeg_server_port`
+    - Set
+        - `self.mjpeg_server_port` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 
@@ -200,8 +331,21 @@ class ProcessArgumentsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.process_arguments`
-    - `self.process_arguments` = `value`
+    - Get
+        - `self.process_arguments`
+    - Set
+        - `self.process_arguments` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict[str, Union[List[str], Dict[str, str]]]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict[str, Union[List[str], Dict[str, str]]]]`
+    - Set
+        - `None`
     """
 
 
@@ -217,8 +361,21 @@ class ResultBundlePathOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.result_bundle_path`
-    - `self.result_bundle_path` = `value`
+    - Get
+        - `self.result_bundle_path`
+    - Set
+        - `self.result_bundle_path` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -234,8 +391,21 @@ class ScreenshotQualityOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.screenshot_quality`
-    - `self.screenshot_quality` = `value`
+    - Get
+        - `self.screenshot_quality`
+    - Set
+        - `self.screenshot_quality` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 
@@ -251,8 +421,21 @@ class ShouldTerminateAppOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.should_terminate_app`
-    - `self.should_terminate_app` = `value`
+    - Get
+        - `self.should_terminate_app`
+    - Set
+        - `self.should_terminate_app` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 class ShouldUseSingletonTestManagerOption(SupportsCapabilities):
@@ -264,8 +447,21 @@ class ShouldUseSingletonTestManagerOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.should_use_singleton_test_manager`
-    - `self.should_use_singleton_test_manager` = `value`
+    - Get
+        - `self.should_use_singleton_test_manager`
+    - Set
+        - `self.should_use_singleton_test_manager` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -279,8 +475,21 @@ class ShowXcodeLogOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.show_xcode_log`
-    - `self.show_xcode_log` = `value`
+    - Get
+        - `self.show_xcode_log`
+    - Set
+        - `self.show_xcode_log` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -296,8 +505,21 @@ class SimpleIsVisibleCheckOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.simple_is_visible_check`
-    - `self.simple_is_visible_check` = `value`
+    - Get
+        - `self.simple_is_visible_check`
+    - Set
+        - `self.simple_is_visible_check` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 class UpdatedWdaBundleIdOption(SupportsCapabilities):
@@ -309,8 +531,21 @@ class UpdatedWdaBundleIdOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.updated_wda_bundle_id`
-    - `self.updated_wda_bundle_id` = `value`
+    - Get
+        - `self.updated_wda_bundle_id`
+    - Set
+        - `self.updated_wda_bundle_id` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -325,8 +560,21 @@ class UseNativeCachingStrategyOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.use_native_caching_strategy`
-    - `self.use_native_caching_strategy` = `value`
+    - Get
+        - `self.use_native_caching_strategy`
+    - Set
+        - `self.use_native_caching_strategy` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -350,8 +598,21 @@ class UseNewWdaOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.use_new_wda`
-    - `self.use_new_wda` = `value`
+    - Get
+        - `self.use_new_wda`
+    - Set
+        - `self.use_new_wda` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -363,9 +624,22 @@ class UsePrebuiltWdaOption(SupportsCapabilities):
     of the user. Only works for Xcode 8+. Defaults to `False`.
 
     Usage
-    ----
-    - `self.use_prebuilt_wda`
-    - `self.use_prebuilt_wda` = `value`
+    -----
+    - Get
+        - `self.use_prebuilt_wda`
+    - Set
+        - `self.use_prebuilt_wda` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -379,8 +653,21 @@ class UseSimpleBuildTestOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.use_simple_build_test`
-    - `self.use_simple_build_test` = `value`
+    - Get
+        - `self.use_simple_build_test`
+    - Set
+        - `self.use_simple_build_test` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -403,8 +690,21 @@ class UseXctestrunFileOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.use_xctestrun_file`
-    - `self.use_xctestrun_file` = `value`
+    - Get
+        - `self.use_xctestrun_file`
+    - Set
+        - `self.use_xctestrun_file` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Result
+    ------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -421,8 +721,21 @@ class WaitForIdleTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.wait_for_idle_timeout`
-    - `self.wait_for_idle_timeout` = `value`
+    - Get
+        - `self.wait_for_idle_timeout`
+    - Set
+        - `self.wait_for_idle_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, float]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 class WaitForQuiescenceOption(SupportsCapabilities):
@@ -436,8 +749,21 @@ class WaitForQuiescenceOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.wait_for_quiescence`
-    - `self.wait_for_quiescence` = `value`
+    - Get
+        - `self.wait_for_quiescence`
+    - Set
+        - `self.wait_for_quiescence` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, float]`
+
+    Results
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -452,8 +778,21 @@ class WdaBaseUrlOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.wda_base_url`
-    - `self.wda_base_url` = `value`
+    - Get
+        - `self.wda_base_url`
+    - Set
+        - `self.wda_base_url` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -466,8 +805,21 @@ class WdaConnectionTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.wda_connection_timeout`
-    - `self.wda_connection_timeout` = `value`
+    - Get
+        - `self.wda_connection_timeout`
+    - Set
+        - `self.wda_connection_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Results
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -485,8 +837,21 @@ class WdaEventloopIdleDelayOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.wda_eventloop_idle_delay`
-    - `self.wda_eventloop_idle_delay` = `value`
+    - Get
+        - `self.wda_eventloop_idle_delay`
+    - Set
+        - `self.wda_eventloop_idle_delay` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, float]`
+
+    Results
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -499,8 +864,21 @@ class WdaLaunchTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.wda_launch_timeout`
-    - `self.wda_launch_timeout` = `value`
+    - Get
+        - `self.wda_launch_timeout`
+    - Set
+        - `self.wda_launch_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 class WdaLocalPortOption(SupportsCapabilities):
@@ -514,8 +892,21 @@ class WdaLocalPortOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.wda_local_port`
-    - `self.wda_local_port` = `value`
+    - Get
+        - `self.wda_local_port`
+    - Set
+        - `self.wda_local_port` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 
@@ -528,8 +919,21 @@ class WdaStartupRetriesOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.wda_startup_retries`
-    - `self.wda_startup_retries` = `value`
+    - Get
+        - `self.wda_startup_retries`
+    - Set
+        - `self.wda_startup_retries` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 
@@ -542,8 +946,21 @@ class WdaStartupRetryIntervalOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.wda_startup_retry_interval`
-    - `self.wda_startup_retry_interval` = `value`
+    - Get
+        - `self.wda_startup_retry_interval`
+    - Set
+        - `self.wda_startup_retry_interval` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -556,8 +973,21 @@ class WebDriverAgentUrlOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.web_driver_agent_url`
-    - `self.web_driver_agent_url` = `value`
+    - Get
+        - `self.web_driver_agent_url`
+    - Set
+        - `self.web_driver_agent_url` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 class XcodeOrgIdOption(SupportsCapabilities):
@@ -569,8 +999,21 @@ class XcodeOrgIdOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.xcode_org_id`
-    - `self.xcode_org_id` = `value`
+    - Get
+        - `self.xcode_org_id`
+    - Set
+        - `self.xcode_org_id` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -583,6 +1026,19 @@ class XcodeSigningIdOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.xcode_signing_id`
-    - `self.xcode_signing_id` = `value`
+    - Get
+        - `self.xcode_signing_id`
+    - Set
+        - `self.xcode_signing_id` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """

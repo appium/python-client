@@ -31,10 +31,10 @@ class WindowsOptionsDescriptor(Generic[T]):
     def __get__(self, obj: C, cls: type[C]) -> Any:
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
+    def __set__(self, obj: C, value: Any) -> None:
         if self.name in ('CREATE_SESSION_TIMEOUT', 'WAIT_FOR_APP_LAUNCH'):
-            return obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        return obj.set_capability(self.name, value)
+            obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
+        obj.set_capability(self.name, value)
 
 
 class AppArgumentsOption(SupportsCapabilities):
@@ -47,8 +47,21 @@ class AppArgumentsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.app_arguments`
-    - `self.app_arguments` = `value`
+    - Get
+        - `self.app_arguments`
+    - Set
+        - `self.app_arguments` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -62,8 +75,21 @@ class AppTopLevelWindowOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.app_top_level_window`
-    - `self.app_top_level_window` = `value`
+    - Get
+        - `self.app_top_level_window`
+    - Set
+        - `self.app_top_level_window` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -76,8 +102,21 @@ class AppWorkingDirOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.app_working_dir`
-    - `self.app_working_dir` = `value`
+    - Get
+        - `self.app_working_dir`
+    - Set
+        - `self.app_working_dir` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -92,8 +131,21 @@ class CreateSessionTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.create_session_timeout`
-    - `self.create_session_timeout` = `value`
+    - Get
+        - `self.create_session_timeout`
+    - Set
+        - `self.create_session_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -106,8 +158,21 @@ class ExperimentalWebDriverOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.experimental_webdriver`
-    - `self.experimental_webdriver` = `value`
+    - Get
+        - `self.experimental_webdriver`
+    - Set
+        - `self.experimental_webdriver` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -122,6 +187,19 @@ class WaitForAppLaunchOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.wait_for_app_launch`
-    - `self.wait_for_app_launch` = `value`
+    - Get
+        - `self.wait_for_app_launch`
+    - Set
+        - `self.wait_for_app_launch` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """

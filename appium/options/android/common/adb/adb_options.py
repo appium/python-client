@@ -34,10 +34,10 @@ class AdbOptionsDescriptor(Generic[T]):
             return None if value is None else timedelta(milliseconds=value)
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
+    def __set__(self, obj: C, value: Any) -> None:
         if self.name == 'ADB_EXEC_TIMEOUT':
-            return obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        return obj.set_capability(self.name, value)
+            obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
+        obj.set_capability(self.name, value)
 
 
 class AdbExecTimeoutOption(SupportsCapabilities):
@@ -49,8 +49,21 @@ class AdbExecTimeoutOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.adb_exec_timeout`
-    - `self.adb_exec_timeout` = `value`
+    - Get
+        - `self.adb_exec_timeout`
+    - Set
+        - `self.adb_exec_timeout` = `value`
+
+    Parameters
+    ----------
+    `value` : `Union[timedelta, int]`
+    
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
     """
 
 
@@ -58,12 +71,25 @@ class AdbPortOption(SupportsCapabilities):
     ADB_PORT = 'adbPort'
     adb_port = AdbOptionsDescriptor('ADB_PORT')
     """
-    Set number of the port where ADB is running. 5037 by default
+    Gets and Sets number of the port where ADB is running. 5037 by default
 
     Usage
     -----
-    - `self.adb_port`
-    - `self.adb_port` = `value`
+    - Get
+        - `self.adb_port`
+    - Set
+        - `self.adb_port` = `value`
+
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 
@@ -77,8 +103,21 @@ class AllowDelayAdbOption(SupportsCapabilities):
 
     Usage
     ----
-    - `self.allow_delay_adb`
-    - `self.allow_delay_adb` = `value`
+    - Get
+        - `self.allow_delay_adb`
+    - Set
+        - `self.allow_delay_adb` = `value`
+
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -95,8 +134,21 @@ class BuildToolsVersionOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.build_tools_version`
-    - `self.build_tools_version` = `value`
+    - Get
+        - `self.build_tools_version`
+    - Set
+        - `self.build_tools_version` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -110,9 +162,22 @@ class ClearDeviceLogsOnStartOption(SupportsCapabilities):
     device buffer before starting a new test.
 
     Usage
-    ----
-    - `self.clear_device_logs_on_start`
-    - `self.clear_device_logs_on_start` = `value`
+    -----
+    - Get
+        - `self.clear_device_logs_on_start`
+    - Set
+        - `self.clear_device_logs_on_start` = `value`
+
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -127,8 +192,21 @@ class IgnoreHiddenApiPolicyErrorOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.ignore_hidden_api_ploicy_error`
-    - `self.ignore_hidden_api_ploicy_error` = `value`
+    - Get
+        - `self.ignore_hidden_api_ploicy_error`
+    - Set
+        - `self.ignore_hidden_api_ploicy_error` = `value`
+
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -145,8 +223,21 @@ class LogcatFilterSpecsOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.logcat_filter_specs`
-    - `self.logcat_filter_specs` = `value`
+    - Get
+        - `self.logcat_filter_specs`
+    - Set
+        - `self.logcat_filter_specs` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -159,9 +250,22 @@ class LogcatFormatOption(SupportsCapabilities):
     threadtime long. threadtime is the default value.
 
     Usage
-    ----
-    - `self.logcat_format`
-    - `self.logcat_format` = `value`
+    -----
+    - Get
+        - `self.logcat_format`
+    - Set
+        - `self.logcat_format` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -170,7 +274,6 @@ class MockLocationAppOption(SupportsCapabilities):
     mock_location_app = AdbOptionsDescriptor('MOCK_LOCATION_APP')
     """
     Gets and Sets Identifier of the app, which is used as a system mock location provider.
-
     This capability has no effect on emulators.
     If the value is set to null or an empty string, then Appium will skip the mocked
     location provider setup procedure. Defaults to Appium Setting package
@@ -178,8 +281,21 @@ class MockLocationAppOption(SupportsCapabilities):
 
     Usage
     ----
-    - `self.mock_location_app`
-    - `self.mock_location_app` = `value`
+    - Get
+        - `self.mock_location_app`
+    - Set
+        - `self.mock_location_app` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -192,8 +308,21 @@ class RemoteAdbHostOption(SupportsCapabilities):
 
     Usage
     ----
-    - `self.remote_adb_host`
-    - `self.remote_adb_host` = `value`
+    - Get
+        - `self.remote_adb_host`
+    - Set
+        - `self.remote_adb_host` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -208,8 +337,21 @@ class SkipLogcatCaptureOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.skip_logcat_capture`
-    - `self.skip_logcat_capture` = `value`
+    - Get
+        - `self.skip_logcat_capture`
+    - Set
+        - `self.skip_logcat_capture` = `value`
+
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """
 
 
@@ -223,6 +365,19 @@ class SuppressKillServerOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.suppress_kill_server`
-    - `self.suppress_kill_server` = `value`
+    - Get
+        - `self.suppress_kill_server`
+    - Set
+        - `self.suppress_kill_server` = `value`
+
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
     """

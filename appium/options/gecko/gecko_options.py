@@ -30,8 +30,8 @@ class GeckoOptionsDescriptor(Generic[T]):
     def __get__(self, obj: C, cls: type[C]) -> Any:
         return obj.get_capability(self.name)
 
-    def __set__(self, obj: C, value: Any) -> C:
-        return obj.set_capability(self.name, value)
+    def __set__(self, obj: C, value: Any) -> None:
+        obj.set_capability(self.name, value)
 
 
 class AndroidStorageOption(SupportsCapabilities):
@@ -43,9 +43,22 @@ class AndroidStorageOption(SupportsCapabilities):
     /Flags.html#code-android-storage-var-android-storage-var-code
 
     Usage
-    ----
-    - `self.android_storage`
-    - `self.android_storage` = `value`
+    -----
+    - Get
+        - `self.android_storage`
+    - Set
+        - `self.android_storage` = `value`
+
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """
 
 
@@ -57,9 +70,22 @@ class FirefoxOptionsOption(SupportsCapabilities):
     See https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions
 
     Usage
-    ----
-    - `self.firefox_options`
-    - `self.firefox_options` = `value`
+    -----
+    - Get
+        - `self.firefox_options`
+    - Set
+        - `self.firefox_options` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict[str, Any]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict[str, Any]`
+    - Set
+        - `None`
     """
 
 
@@ -75,9 +101,22 @@ class MarionettePortOption(SupportsCapabilities):
     value for this capability.
 
     Usage
-    ----
-    - `self.marionette_port`
-    - `self.marionette_port` = `value`
+    -----
+    - Get
+        - `self.marionette_port`
+    - Set
+        - `self.marionette_port` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
     """
 
 
@@ -92,6 +131,19 @@ class VerbosityOption(SupportsCapabilities):
 
     Usage
     -----
-    - `self.verbosity`
-    - `self.verbosity` = `value`
+    - Get
+        - `self.verbosity`
+    - Set
+        - `self.verbosity` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
     """

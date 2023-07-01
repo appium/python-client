@@ -15,7 +15,8 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.transformers import OptionsDescriptor, transform_get, transform_set
+from appium.options.base_options import OptionsDescriptor
+from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
@@ -106,7 +107,10 @@ class UnlockStrategyOption(SupportsCapabilities):
 
 class UnlockSuccessTimeoutOption(SupportsCapabilities):
     UNLOCK_SUCCESS_TIMEOUT = 'unlockSuccessTimeout'
-    unlock_success_timeout = OptionsDescriptor('UNLOCK_SUCCESS_TIMEOUT', transform_get, transform_set)
+
+    _transform_duration_get = DurationTransformer.transform_duration_get
+    _transform_duration_set = DurationTransformer.transform_duration_set
+    unlock_success_timeout = OptionsDescriptor('UNLOCK_SUCCESS_TIMEOUT', _transform_duration_get, _transform_duration_set)
     """
     Maximum timeout to wait until the device is unlocked.
     2000 ms by default.

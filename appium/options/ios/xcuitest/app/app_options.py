@@ -15,7 +15,8 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.transformers import OptionsDescriptor, transform_get, transform_set
+from appium.options.base_options import OptionsDescriptor
+from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
@@ -55,7 +56,10 @@ class AppInstallStrategyOption(SupportsCapabilities):
 
 class AppPushTimeoutOption(SupportsCapabilities):
     APP_PUSH_TIMEOUT = 'appPushTimeout'
-    app_push_timeout = OptionsDescriptor('APP_PUSH_TIMEOUT', transform_get, transform_set)
+
+    _transform_duration_get = DurationTransformer.transform_duration_get
+    _transform_duration_set = DurationTransformer.transform_duration_set
+    app_push_timeout = OptionsDescriptor('APP_PUSH_TIMEOUT', _transform_duration_get, _transform_duration_set)
     """
     The timeout for application upload.
     Works for real devices only.

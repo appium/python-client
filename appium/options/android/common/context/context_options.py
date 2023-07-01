@@ -15,13 +15,17 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.transformers import OptionsDescriptor, transform_get, transform_set
+from appium.options.base_options import OptionsDescriptor
+from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class AutoWebviewTimeoutOption(SupportsCapabilities):
     AUTO_WEBVIEW_TIMEOUT = 'autoWebviewTimeout'
-    auto_webview_timeout = OptionsDescriptor('AUTO_WEBVIEW_TIMEOUT', transform_get, transform_set)
+
+    _transform_duration_get = DurationTransformer.transform_duration_get
+    _transform_duration_set = DurationTransformer.transform_duration_set
+    auto_webview_timeout = OptionsDescriptor('AUTO_WEBVIEW_TIMEOUT', _transform_duration_get, _transform_duration_set)
     """
     Set the maximum timeout to wait until a web view is
     available if autoWebview capability is set to true. 2000 ms by default.

@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.transformers import OptionsDescriptor
+from appium.options.base_options import OptionsDescriptor
 from .supports_capabilities import SupportsCapabilities
 
 

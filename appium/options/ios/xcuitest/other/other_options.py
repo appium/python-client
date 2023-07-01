@@ -17,7 +17,7 @@
 
 from datetime import timedelta
 
-from appium.options.transformers import OptionsDescriptor
+from appium.options.base_options import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
@@ -108,14 +108,14 @@ class LaunchWithIdbOption(SupportsCapabilities):
 class CommandTimeoutsOption(SupportsCapabilities):
     COMMAND_TIMEOUTS = 'commandTimeouts'
 
-    def transform_get(self, value):
+    def transform_timeout_get(self, value):
         if value is None:
             return None
         if isinstance(value, dict):
             return {k: timedelta(milliseconds=v) for k, v in value.items()}
         return timedelta(milliseconds=int(value))
 
-    def transform_set(self, value):
+    def transform_timeout_set(self, value):
         if isinstance(value, dict):
             return {k: int(v.total_seconds() * 1000) for k, v in value.items()}
         elif isinstance(value, timedelta):
@@ -123,7 +123,7 @@ class CommandTimeoutsOption(SupportsCapabilities):
         else:
             return value
     
-    command_timeouts = OptionsDescriptor('COMMAND_TIMEOUTS', transform_get, transform_set)
+    command_timeouts = OptionsDescriptor('COMMAND_TIMEOUTS', transform_timeout_get, transform_timeout_set)
     """
     Custom timeout for all WDA backend commands execution.
     This might be useful if WDA backend freezes unexpectedly or requires too

@@ -15,14 +15,18 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.transformers import OptionsDescriptor, transform_get, transform_set
+from appium.options.base_options import OptionsDescriptor
+from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class AdbExecTimeoutOption(SupportsCapabilities):
     ADB_EXEC_TIMEOUT = 'adbExecTimeout'
     
-    adb_exec_timeout = OptionsDescriptor('ADB_EXEC_TIMEOUT', transform_get, transform_set)
+    _transform_duration_get = DurationTransformer.transform_duration_get
+    _transform_duration_set = DurationTransformer.transform_duration_set
+    
+    adb_exec_timeout = OptionsDescriptor('ADB_EXEC_TIMEOUT', _transform_duration_get, _transform_duration_set)
     """
     Gets and Sets Maximum time to wait until single ADB command is executed.
     20000 ms by default.

@@ -15,7 +15,8 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.transformers import OptionsDescriptor, transform_set
+from appium.options.base_options import OptionsDescriptor
+from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
@@ -104,7 +105,9 @@ class AppWorkingDirOption(SupportsCapabilities):
 
 class CreateSessionTimeoutOption(SupportsCapabilities):
     CREATE_SESSION_TIMEOUT = 'createSessionTimeout'
-    create_session_timeout = OptionsDescriptor('CREATE_SESSION_TIMEOUT', tset=transform_set)
+
+    _transform_duration_set = DurationTransformer.transform_duration_set
+    create_session_timeout = OptionsDescriptor('CREATE_SESSION_TIMEOUT', tset=_transform_duration_set)
     """
     Set the timeout used to retry Appium Windows Driver session startup.
     This capability could be used as a workaround for the long startup times
@@ -160,7 +163,9 @@ class ExperimentalWebDriverOption(SupportsCapabilities):
 
 class WaitForAppLaunchOption(SupportsCapabilities):
     WAIT_FOR_APP_LAUNCH = 'ms:waitForAppLaunch'
-    wait_for_app_launch = OptionsDescriptor('WAIT_FOR_APP_LAUNCH', tset=transform_set)
+
+    _transform_duration_set = DurationTransformer.transform_duration_set
+    wait_for_app_launch = OptionsDescriptor('WAIT_FOR_APP_LAUNCH', tset=_transform_duration_set)
     """
     Similar to createSessionTimeout, but is
     applied on the server side. Enables Appium Windows Driver to wait for

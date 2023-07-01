@@ -17,7 +17,7 @@
 
 from datetime import timedelta
 
-from appium.options.transformers import OptionsDescriptor
+from appium.options.base_options import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 class AllowProvisioningDeviceRegistrationOption(SupportsCapabilities):

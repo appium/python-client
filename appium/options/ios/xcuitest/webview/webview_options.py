@@ -15,7 +15,8 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.transformers import OptionsDescriptor, transform_get, transform_set
+from appium.options.base_options import OptionsDescriptor
+from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
@@ -441,7 +442,10 @@ class SafariWebInspectorMaxFrameLengthOption(SupportsCapabilities):
 
 class WebkitResponseTimeoutOption(SupportsCapabilities):
     WEBKIT_RESPONSE_TIMEOUT = 'webkitResponseTimeout'
-    webkit_response_timeout = OptionsDescriptor('WEBKIT_RESPONSE_TIMEOUT', transform_get, transform_set)
+
+    _transform_duration_get = DurationTransformer.transform_duration_get
+    _transform_duration_set = DurationTransformer.transform_duration_set
+    webkit_response_timeout = OptionsDescriptor('WEBKIT_RESPONSE_TIMEOUT', _transform_duration_get, _transform_duration_set)
     """
     Time to wait for a response from WebKit in a Safari session.
     (Real device only) Set the time to wait for a respons
@@ -495,7 +499,10 @@ class WebviewConnectRetriesOption(SupportsCapabilities):
 
 class WebviewConnectTimeoutOption(SupportsCapabilities):
     WEBVIEW_CONNECT_TIMEOUT = 'webviewConnectTimeout'
-    webview_connect_timeout = OptionsDescriptor('WEBVIEW_CONNECT_TIMEOUT', transform_get, transform_set)
+
+    _transform_duration_get = DurationTransformer.transform_duration_get
+    _transform_duration_set = DurationTransformer.transform_duration_set
+    webview_connect_timeout = OptionsDescriptor('WEBVIEW_CONNECT_TIMEOUT', _transform_duration_get, _transform_duration_set)
     """
     The time to wait for the initial presence of webviews in
     MobileSafari or hybrid apps. Defaults to 0ms.

@@ -1,6 +1,7 @@
 import json
 
-from appium.options.transformers import OptionsDescriptor, transform_get, transform_set
+from appium.options.base_options import OptionsDescriptor
+from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
@@ -484,7 +485,10 @@ class SimulatorPasteboardAutomaticSyncOption(SupportsCapabilities):
 
 class SimulatorStartupTimeoutOption(SupportsCapabilities):
     SIMULATOR_STARTUP_TIMEOUT = 'simulatorStartupTimeout'
-    simulator_startup_timeout = OptionsDescriptor('SIMULATOR_STARTUP_TIMEOUT', transform_get, transform_set)
+
+    _transform_duration_get = DurationTransformer.transform_duration_get
+    _transform_duration_set = DurationTransformer.transform_duration_set
+    simulator_startup_timeout = OptionsDescriptor('SIMULATOR_STARTUP_TIMEOUT', _transform_duration_get, _transform_duration_set)
     """
      Allows to change the default timeout for Simulator startup.
     By default, this value is set to 120000ms (2 minutes),

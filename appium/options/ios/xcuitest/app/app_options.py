@@ -15,34 +15,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from datetime import timedelta
-from typing import Any, TypeVar, Generic
-
+from appium.options.transformers import OptionsDescriptor, transform_get, transform_set
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-T = TypeVar('T')
-C = TypeVar('C', bound='SupportsCapabilities')
-
-
-class AppOptionsDescriptor(Generic[T]):
-    def __init__(self, name: str) -> None:
-        self.name = name
-
-    def __get__(self, obj: C, cls: type[C]) -> Any:
-        if self.name == 'APP_PUSH_TIMEOUT':
-            value = obj.get_capability(self.name)
-            return None if value is None else timedelta(milliseconds=value)
-        return obj.get_capability(self.name)
-
-    def __set__(self, obj: C, value: Any) -> None:
-        if self.name == 'APP_PUSH_TIMEOUT':
-            obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
-        obj.set_capability(self.name, value)
 
 
 class AppInstallStrategyOption(SupportsCapabilities):
     APP_INSTALL_STRATEGY = 'appInstallStrategy'
-    app_install_strategy = AppOptionsDescriptor('APP_INSTALL_STRATEGY')
+    app_install_strategy = OptionsDescriptor('APP_INSTALL_STRATEGY')
     """
     Select application installation strategy for real devices. The following
     strategies are supported:
@@ -76,7 +55,7 @@ class AppInstallStrategyOption(SupportsCapabilities):
 
 class AppPushTimeoutOption(SupportsCapabilities):
     APP_PUSH_TIMEOUT = 'appPushTimeout'
-    app_push_timeout = AppOptionsDescriptor('APP_PUSH_TIMEOUT')
+    app_push_timeout = OptionsDescriptor('APP_PUSH_TIMEOUT', transform_get, transform_set)
     """
     The timeout for application upload.
     Works for real devices only.
@@ -104,7 +83,7 @@ class AppPushTimeoutOption(SupportsCapabilities):
 
 class LocalizableStringsDirOption(SupportsCapabilities):
     LOCALIZABLE_STRINGS_DIR = 'localizableStringsDir'
-    localizable_strings_dir = AppOptionsDescriptor('LOCALIZABLE_STRINGS_DIR')
+    localizable_strings_dir = OptionsDescriptor('LOCALIZABLE_STRINGS_DIR')
     """
     Where to look for localizable strings in the application bundle.
     Defaults to en.lproj.

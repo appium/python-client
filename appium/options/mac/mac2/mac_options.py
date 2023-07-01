@@ -15,34 +15,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from datetime import timedelta
-from typing import Any, TypeVar, Generic
-
+from appium.options.transformers import OptionsDescriptor, transform_get, transform_set
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-T = TypeVar('T')
-C = TypeVar('C', bound='SupportsCapabilities')
-
-
-class MacOptionsDescriptor(Generic[T]):
-    def __init__(self, name: str) -> None:
-        self.name = name
-
-    def __get__(self, obj: C, cls: Any) -> Any:
-        if self.name == 'SERVER_STARTUP_TIMEOUT':
-            value_ms = obj.get_capability(self.name)
-            return None if value_ms is None else timedelta(milliseconds=value_ms)
-        return obj.get_capability(self.name)
-
-    def __set__(self, obj: C, value: Any) -> None:
-        if self.name == 'SERVER_STARTUP_TIMEOUT':
-            obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)
-        obj.set_capability(self.name, value)
-
 
 class ArgumentsOption(SupportsCapabilities):
     ARGUMENTS = 'arguments'
-    arguments = MacOptionsDescriptor('ARGUMENTS')
+    arguments = OptionsDescriptor('ARGUMENTS')
     """
     Gets and Sets the array of application command line arguments. This capability is
     only going to be applied if the application is not running on session startup.
@@ -69,7 +47,7 @@ class ArgumentsOption(SupportsCapabilities):
 
 class BootstrapRootOption(SupportsCapabilities):
     BOOTSTRAP_ROOT = 'bootstrapRoot'
-    bootstrap_root = MacOptionsDescriptor('BOOTSTRAP_ROOT')
+    bootstrap_root = OptionsDescriptor('BOOTSTRAP_ROOT')
     """
     Gets and Sets the full path to WebDriverAgentMac root folder where Xcode project
     of the server sources lives. By default, this project is located in
@@ -97,7 +75,7 @@ class BootstrapRootOption(SupportsCapabilities):
 
 class EnvironmentOption(SupportsCapabilities):
     ENVIRONMENT = 'environment'
-    environment = MacOptionsDescriptor('ENVIRONMENT')
+    environment = OptionsDescriptor('ENVIRONMENT')
     """
     Gets and Sets the dictionary of environment variables (name-&gt;value) that are going to be passed
     to the application under test on top of environment variables inherited from
@@ -126,7 +104,7 @@ class EnvironmentOption(SupportsCapabilities):
 
 class ServerStartupTimeoutOption(SupportsCapabilities):
     SERVER_STARTUP_TIMEOUT = 'serverStartupTimeout'
-    server_startup_timeout = MacOptionsDescriptor('SERVER_STARTUP_TIMEOUT')
+    server_startup_timeout = OptionsDescriptor('SERVER_STARTUP_TIMEOUT', transform_get, transform_set)
     """
     Gets and Sets the timeout to wait util the WebDriverAgentMac
     project is built and started.
@@ -153,7 +131,7 @@ class ServerStartupTimeoutOption(SupportsCapabilities):
 
 class ShowServerLogsOption(SupportsCapabilities):
     SHOW_SERVER_LOGS = 'showServerLogs'
-    show_server_logs = MacOptionsDescriptor('SHOW_SERVER_LOGS')
+    show_server_logs = OptionsDescriptor('SHOW_SERVER_LOGS')
     """
     Gets and Sets it to true in order to include xcodebuild output to the Appium
     server log. false by default.
@@ -180,7 +158,7 @@ class ShowServerLogsOption(SupportsCapabilities):
 
 class WebDriverAgentMacUrlOption(SupportsCapabilities):
     WEB_DRIVER_ARGENT_MAC_URL = 'webDriverAgentMacUrl'
-    web_driver_agent_mac_url = MacOptionsDescriptor('WEB_DRIVER_ARGENT_MAC_URL')
+    web_driver_agent_mac_url = OptionsDescriptor('WEB_DRIVER_ARGENT_MAC_URL')
     """
     Gets and Sets the URL Appium will connect to an existing WebDriverAgentMac
     instance at this URL instead of starting a new one.
@@ -207,7 +185,7 @@ class WebDriverAgentMacUrlOption(SupportsCapabilities):
 
 class SkipAppKillOption(SupportsCapabilities):
     SKIP_APP_KILL = 'skipAppKill'
-    skip_app_kill = MacOptionsDescriptor('SKIP_APP_KILL')
+    skip_app_kill = OptionsDescriptor('SKIP_APP_KILL')
     """
     Gets and Sets whether to skip the termination of the application under test
     when the testing session quits. false by default. This capability

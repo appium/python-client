@@ -15,31 +15,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from datetime import timedelta
-from typing import Any, TypeVar, Generic
-
+from appium.options.transformers import OptionsDescriptor, transform_set
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-T = TypeVar('T')
-C = TypeVar('C', bound='SupportsCapabilities')
-
-
-class WindowsOptionsDescriptor(Generic[T]):
-    def __init__(self, name: str) -> None:
-        self.name = name
-
-    def __get__(self, obj: C, cls: type[C]) -> Any:
-        return obj.get_capability(self.name)
-
-    def __set__(self, obj: C, value: Any) -> None:
-        if self.name in ('CREATE_SESSION_TIMEOUT', 'WAIT_FOR_APP_LAUNCH'):
-            obj.set_capability(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)    
-        obj.set_capability(self.name, value)
 
 
 class AppArgumentsOption(SupportsCapabilities):
     APP_ARGUMENTS = 'appArguments'
-    app_arguments = WindowsOptionsDescriptor("APP_ARGUMENTS")
+    app_arguments = OptionsDescriptor("APP_ARGUMENTS")
     """
     Set application arguments string, for example `/argone "/arg two"`.
     Make sure arguments are quoted/escaped properly if necessary:
@@ -67,7 +49,7 @@ class AppArgumentsOption(SupportsCapabilities):
 
 class AppTopLevelWindowOption(SupportsCapabilities):
     APP_TOP_LEVEL_WINDOW = 'appTopLevelWindow'
-    app_top_level_window = WindowsOptionsDescriptor('APP_TOP_LEVEL_WINDOW')
+    app_top_level_window = OptionsDescriptor('APP_TOP_LEVEL_WINDOW')
     """
     Set the hexadecimal handle of an existing application top level
     window to attach to, for example 0x12345 (should be of string type).
@@ -95,7 +77,7 @@ class AppTopLevelWindowOption(SupportsCapabilities):
 
 class AppWorkingDirOption(SupportsCapabilities):
     APP_WORKING_DIR = 'appWorkingDir'
-    app_working_dir = WindowsOptionsDescriptor('APP_WORKING_DIR')
+    app_working_dir = OptionsDescriptor('APP_WORKING_DIR')
     """
     Set the full path to the folder, which is going to be set as the working
     dir for the application under test. This is only applicable for classic apps.
@@ -122,7 +104,7 @@ class AppWorkingDirOption(SupportsCapabilities):
 
 class CreateSessionTimeoutOption(SupportsCapabilities):
     CREATE_SESSION_TIMEOUT = 'createSessionTimeout'
-    create_session_timeout = WindowsOptionsDescriptor('CREATE_SESSION_TIMEOUT')
+    create_session_timeout = OptionsDescriptor('CREATE_SESSION_TIMEOUT', tset=transform_set)
     """
     Set the timeout used to retry Appium Windows Driver session startup.
     This capability could be used as a workaround for the long startup times
@@ -151,7 +133,7 @@ class CreateSessionTimeoutOption(SupportsCapabilities):
 
 class ExperimentalWebDriverOption(SupportsCapabilities):
     EXPERIMENTAL_WEB_DRIVER = 'ms:experimental-webdriver'
-    experimental_webdriver = WindowsOptionsDescriptor('EXPERIMENTAL_WEB_DRIVER')
+    experimental_webdriver = OptionsDescriptor('EXPERIMENTAL_WEB_DRIVER')
     """
     Enables experimental features and optimizations. See Appium Windows
     Driver release notes for more details on this capability.
@@ -178,7 +160,7 @@ class ExperimentalWebDriverOption(SupportsCapabilities):
 
 class WaitForAppLaunchOption(SupportsCapabilities):
     WAIT_FOR_APP_LAUNCH = 'ms:waitForAppLaunch'
-    wait_for_app_launch = WindowsOptionsDescriptor('WAIT_FOR_APP_LAUNCH')
+    wait_for_app_launch = OptionsDescriptor('WAIT_FOR_APP_LAUNCH', tset=transform_set)
     """
     Similar to createSessionTimeout, but is
     applied on the server side. Enables Appium Windows Driver to wait for

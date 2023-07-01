@@ -1,37 +1,12 @@
-from datetime import timedelta
 import json
-from typing import Any, TypeVar, Generic
 
+from appium.options.transformers import OptionsDescriptor, transform_get, transform_set
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-T = TypeVar('T')
-C = TypeVar('C', bound='SupportsCapabilities')
-
-
-class SimulatorOptionsDescriptor(Generic[T]):
-    def __init__(self, name):
-        self.name = name
-
-    def __get__(self, obj: C, cls: type[C]) -> Any:
-        if self.name == 'PERMISSIONS':
-            value = getattr(obj, 'get_capability')(self.name)
-            return None if value is None else json.loads(value)
-        if self.name == 'SIMULATOR_STARTUP_TIMEOUT':
-            value = getattr(obj, 'get_capability')(self.name)
-            return None if value is None else timedelta(milliseconds=value)
-        return getattr(obj, 'get_capability')(self.name)
-
-    def __set__(self, obj: C, value: Any) -> None:
-        if self.name == 'PERMISSIONS':
-            getattr(obj, 'set_capability')(self.name, json.dumps(value, ensure_ascii=False))
-        if self.name == 'SIMULATOR_STARTUP_TIMEOUT':
-            getattr(obj, 'set_capability')(self.name, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)      
-        getattr(obj, 'set_capability')(self.name, value)
 
 
 class CalendarAccessAuthorizedOption(SupportsCapabilities):
     CALENDAR_ACCESS_AUTHORIZED = 'calendarAccessAuthorized'
-    calendar_access_authorized = SimulatorOptionsDescriptor('CALENDAR_ACCESS_AUTHORIZED')
+    calendar_access_authorized = OptionsDescriptor('CALENDAR_ACCESS_AUTHORIZED')
     """
     Set this to true if you want to enable calendar access on IOS Simulator
     with given bundleId. Set to false, if you want to disable calendar access
@@ -60,7 +35,7 @@ class CalendarAccessAuthorizedOption(SupportsCapabilities):
 
 class CalendarFormatOption(SupportsCapabilities):
     CALENDAR_FORMAT = 'calendarFormat'
-    calendar_format = SimulatorOptionsDescriptor('CALENDAR_FORMAT')
+    calendar_format = OptionsDescriptor('CALENDAR_FORMAT')
     """
     Gets and Sets calendar format for the iOS Simulator.
 
@@ -86,7 +61,7 @@ class CalendarFormatOption(SupportsCapabilities):
 
 class ConnectHardwareKeyboardOption(SupportsCapabilities):
     CONNECT_HARDWARE_KEYBOARD = 'connectHardwareKeyboard'
-    connect_hardware_keyboard = SimulatorOptionsDescriptor('CONNECT_HARDWARE_KEYBOARD')
+    connect_hardware_keyboard = OptionsDescriptor('CONNECT_HARDWARE_KEYBOARD')
     """
     Set this option to true in order to enable hardware keyboard in Simulator.
     The preference works only when Appium launches a simulator instance with
@@ -117,7 +92,7 @@ class ConnectHardwareKeyboardOption(SupportsCapabilities):
 
 class CustomSslCertOption(SupportsCapabilities):
     CUSTOM_SSL_CERT = 'customSSLCert'
-    custom_ssl_cert = SimulatorOptionsDescriptor('CUSTOM_SSL_CERT')
+    custom_ssl_cert = OptionsDescriptor('CUSTOM_SSL_CERT')
     """
     Adds a root SSL certificate to IOS Simulator.
     The certificate content must be provided in PEM format.
@@ -144,7 +119,7 @@ class CustomSslCertOption(SupportsCapabilities):
 
 class EnforceFreshSimulatorCreationOption(SupportsCapabilities):
     ENFORCE_FRESH_SIMULATOR_CREATION = 'enforceFreshSimulatorCreation'
-    enforce_fresh_simulator_creation = SimulatorOptionsDescriptor('ENFORCE_FRESH_SIMULATOR_CREATION')
+    enforce_fresh_simulator_creation = OptionsDescriptor('ENFORCE_FRESH_SIMULATOR_CREATION')
     """
     Creates a new simulator in session creation and deletes it in session deletion.
     Defaults to false.
@@ -171,7 +146,7 @@ class EnforceFreshSimulatorCreationOption(SupportsCapabilities):
 
 class ForceSimulatorSoftwareKeyboardPresenceOption(SupportsCapabilities):
     FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE = 'forceSimulatorSoftwareKeyboardPresence'
-    force_simulator_software_keyboard_presence = SimulatorOptionsDescriptor('FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE')
+    force_simulator_software_keyboard_presence = OptionsDescriptor('FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE')
     """
     Set this option to true in order to turn software keyboard on and turn
     hardware keyboard off in Simulator since Appium 1.22.0. This option helps
@@ -204,7 +179,7 @@ class ForceSimulatorSoftwareKeyboardPresenceOption(SupportsCapabilities):
 
 class IosSimulatorLogsPredicateOption(SupportsCapabilities):
     IOS_SIMULATOR_LOGS_PREDICATE = 'iosSimulatorLogsPredicate'
-    ios_simulator_logs_predicate = SimulatorOptionsDescriptor('IOS_SIMULATOR_LOGS_PREDICATE')
+    ios_simulator_logs_predicate = OptionsDescriptor('IOS_SIMULATOR_LOGS_PREDICATE')
     """
     Gets and Sets the --predicate flag in the ios simulator logs.
 
@@ -230,7 +205,7 @@ class IosSimulatorLogsPredicateOption(SupportsCapabilities):
 
 class KeepKeyChainsOption(SupportsCapabilities):
     KEEP_KEY_CHAINS = 'keepKeyChains'
-    keep_key_chains = SimulatorOptionsDescriptor('KEEP_KEY_CHAINS')
+    keep_key_chains = OptionsDescriptor('KEEP_KEY_CHAINS')
     """
     Gets and Sets the capability to true in order to preserve Simulator keychains folder after
     full reset. This feature has no effect on real devices. Defaults to false.
@@ -257,7 +232,7 @@ class KeepKeyChainsOption(SupportsCapabilities):
 
 class KeychainsExcludePatternsOption(SupportsCapabilities):
     KEYCHAINS_EXCLUDE_PATTERNS = 'keychainsExcludePatterns'
-    keychains_exclude_patterns = SimulatorOptionsDescriptor('KEYCHAINS_EXCLUDE_PATTERNS')
+    keychains_exclude_patterns = OptionsDescriptor('KEYCHAINS_EXCLUDE_PATTERNS')
     """
     This capability accepts comma-separated path patterns,
     which are going to be excluded from keychains restore while
@@ -289,7 +264,14 @@ class KeychainsExcludePatternsOption(SupportsCapabilities):
 
 class PermissionsOption(SupportsCapabilities):
     PERMISSIONS = 'permissions'
-    permissions = SimulatorOptionsDescriptor('PERMISSIONS')
+
+    def transform_get(self, value):
+        return None if value is None else json.loads(value)
+
+    def transform_set(self, value):
+        return json.dumps(value, ensure_ascii=False)
+    
+    permissions = OptionsDescriptor('PERMISSIONS', transform_get, transform_set)
     """
     Since Xcode SDK 11.4 Apple provides native APIs to interact with
     application settings. Check the output of `xcrun simctl privacy booted`
@@ -322,7 +304,7 @@ class PermissionsOption(SupportsCapabilities):
 
 class ReduceMotionOption(SupportsCapabilities):
     REDUCE_MOTION = 'reduceMotion'
-    reduce_motion = SimulatorOptionsDescriptor('REDUCE_MOTION')
+    reduce_motion = OptionsDescriptor('REDUCE_MOTION')
     """
     Allows to turn on/off reduce motion accessibility preference.
     Setting reduceMotion on helps to reduce flakiness during tests.
@@ -350,7 +332,7 @@ class ReduceMotionOption(SupportsCapabilities):
 
 class ResetOnSessionStartOnlyOption(SupportsCapabilities):
     RESET_ON_SESSION_START_ONLY = 'resetOnSessionStartOnly'
-    reset_on_session_start_only = SimulatorOptionsDescriptor('RESET_ON_SESSION_START_ONLY')
+    reset_on_session_start_only = OptionsDescriptor('RESET_ON_SESSION_START_ONLY')
     """
      Whether to perform reset on test session finish (false) or not (true).
     Keeping this variable set to true and Simulator running (the default
@@ -379,7 +361,7 @@ class ResetOnSessionStartOnlyOption(SupportsCapabilities):
 
 class ScaleFactorOption(SupportsCapabilities):
     SCALE_FACTOR = 'scaleFactor'
-    scale_factor = SimulatorOptionsDescriptor('SCALE_FACTOR')
+    scale_factor = OptionsDescriptor('SCALE_FACTOR')
     """
     Simulator scale factor. This is useful to have if the default resolution
     of simulated device is greater than the actual display resolution.
@@ -411,7 +393,7 @@ class ScaleFactorOption(SupportsCapabilities):
 
 class ShutdownOtherSimulatorsOption(SupportsCapabilities):
     SHUTDOWN_OTHER_SIMULATORS = 'shutdownOtherSimulators'
-    shutdown_other_simulators = SimulatorOptionsDescriptor('SHUTDOWN_OTHER_SIMULATORS')
+    shutdown_other_simulators = OptionsDescriptor('SHUTDOWN_OTHER_SIMULATORS')
     """
     If this capability set to true and the current device under test is an iOS
     Simulator then Appium will try to shut down all the other running Simulators
@@ -443,7 +425,7 @@ class ShutdownOtherSimulatorsOption(SupportsCapabilities):
 
 class SimulatorDevicesSetPathOption(SupportsCapabilities):
     SIMULATOR_DEVICES_SET_PATH = 'simulatorDevicesSetPath'
-    simulator_devices_set_path = SimulatorOptionsDescriptor('SIMULATOR_DEVICES_SET_PATH')
+    simulator_devices_set_path = OptionsDescriptor('SIMULATOR_DEVICES_SET_PATH')
     """
     This capability allows to set an alternative path to the simulator devices
     set in case you have multiple sets deployed on your local system. Such
@@ -472,7 +454,7 @@ class SimulatorDevicesSetPathOption(SupportsCapabilities):
 
 class SimulatorPasteboardAutomaticSyncOption(SupportsCapabilities):
     SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC = 'simulatorPasteboardAutomaticSync'
-    simulator_pasteboard_automatic_sync = SimulatorOptionsDescriptor('SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC')
+    simulator_pasteboard_automatic_sync = OptionsDescriptor('SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC')
     """
     Handle the -PasteboardAutomaticSync flag when simulator process launches.
     It could improve launching simulator performance not to sync pasteboard with
@@ -502,7 +484,7 @@ class SimulatorPasteboardAutomaticSyncOption(SupportsCapabilities):
 
 class SimulatorStartupTimeoutOption(SupportsCapabilities):
     SIMULATOR_STARTUP_TIMEOUT = 'simulatorStartupTimeout'
-    simulator_startup_timeout = SimulatorOptionsDescriptor('SIMULATOR_STARTUP_TIMEOUT')
+    simulator_startup_timeout = OptionsDescriptor('SIMULATOR_STARTUP_TIMEOUT', transform_get, transform_set)
     """
      Allows to change the default timeout for Simulator startup.
     By default, this value is set to 120000ms (2 minutes),
@@ -532,7 +514,7 @@ class SimulatorStartupTimeoutOption(SupportsCapabilities):
 
 class SimulatorTracePointerOption(SupportsCapabilities):
     SIMULATOR_TRACE_POINTER = 'simulatorTracePointer'
-    simulator_trace_pointer = SimulatorOptionsDescriptor('SIMULATOR_TRACE_POINTER')
+    simulator_trace_pointer = OptionsDescriptor('SIMULATOR_TRACE_POINTER')
     """
      Set whether to highlight pointer moves in the Simulator window.
     The Simulator UI client must be shut down before the session
@@ -560,7 +542,7 @@ class SimulatorTracePointerOption(SupportsCapabilities):
 
 class SimulatorWindowCenterOption(SupportsCapabilities):
     SIMULATOR_WINDOW_CENTER = 'simulatorWindowCenter'
-    simulator_window_center = SimulatorOptionsDescriptor('SIMULATOR_WINDOW_CENTER')
+    simulator_window_center = OptionsDescriptor('SIMULATOR_WINDOW_CENTER')
     """
     Allows to explicitly set the coordinates of Simulator window center
     for Xcode9+ SDK. This capability only has an effect if Simulator

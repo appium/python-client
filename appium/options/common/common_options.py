@@ -15,23 +15,8 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, TypeVar, Generic
-
+from appium.options.transformers import OptionsDescriptor
 from .supports_capabilities import SupportsCapabilities
-
-T = TypeVar('T')
-C = TypeVar('C', bound='SupportsCapabilities')
-
-
-class OptionsDescriptor(Generic[T]):
-    def __init__(self, name: str) -> None:
-        self.name = name
-
-    def __get__(self, obj: C, cls: type[C]) -> Any:
-        return obj.get_capability(self.name)
-
-    def __set__(self, obj: C, value: Any) -> None:
-        obj.set_capability(self.name, value)
 
 
 class AppOption(SupportsCapabilities):

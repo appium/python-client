@@ -266,10 +266,12 @@ class KeychainsExcludePatternsOption(SupportsCapabilities):
 class PermissionsOption(SupportsCapabilities):
     PERMISSIONS = 'permissions'
 
-    def transform_get(self, value):
+    @staticmethod
+    def transform_get(value):
         return None if value is None else json.loads(value)
 
-    def transform_set(self, value):
+    @staticmethod
+    def transform_set(value):
         return json.dumps(value, ensure_ascii=False)
     
     permissions = OptionsDescriptor(PERMISSIONS, transform_get, transform_set)

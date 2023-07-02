@@ -1,5 +1,5 @@
 from datetime import timedelta
-from typing import Any, Optional, Union
+from typing import Optional, Union
 
 
 class DurationTransformer:

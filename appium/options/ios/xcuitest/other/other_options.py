@@ -108,14 +108,16 @@ class LaunchWithIdbOption(SupportsCapabilities):
 class CommandTimeoutsOption(SupportsCapabilities):
     COMMAND_TIMEOUTS = 'commandTimeouts'
 
-    def transform_timeout_get(self, value):
+    @staticmethod
+    def transform_timeout_get(value):
         if value is None:
             return None
         if isinstance(value, dict):
             return {k: timedelta(milliseconds=v) for k, v in value.items()}
         return timedelta(milliseconds=int(value))
 
-    def transform_timeout_set(self, value):
+    @staticmethod
+    def transform_timeout_set(value):
         if isinstance(value, dict):
             return {k: int(v.total_seconds() * 1000) for k, v in value.items()}
         elif isinstance(value, timedelta):

@@ -15,18 +15,19 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.base_options_descriptor import OptionsDescriptor
-from appium.options.transformers import DurationTransformer
+from typing import Optional, Union
+from datetime import timedelta
+
 from appium.options.common.supports_capabilities import SupportsCapabilities
+
+from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.transformers import transform_duration_get, transform_duration_set
 
 
 class AdbExecTimeoutOption(SupportsCapabilities):
     ADB_EXEC_TIMEOUT = 'adbExecTimeout'
-    adb_exec_timeout = OptionsDescriptor(
-        ADB_EXEC_TIMEOUT, 
-        DurationTransformer.transform_duration_get, 
-        DurationTransformer.transform_duration_set
-    )
+    adb_exec_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
+    (ADB_EXEC_TIMEOUT, transform_duration_get, transform_duration_set)
     """
     Gets and Sets Maximum time to wait until single ADB command is executed.
     20000 ms by default.
@@ -53,7 +54,7 @@ class AdbExecTimeoutOption(SupportsCapabilities):
 
 class AdbPortOption(SupportsCapabilities):
     ADB_PORT = 'adbPort'
-    adb_port = OptionsDescriptor(ADB_PORT)
+    adb_port = OptionsDescriptor[Optional[int], int](ADB_PORT)
     """
     Gets and Sets number of the port where ADB is running. 5037 by default
 
@@ -79,7 +80,7 @@ class AdbPortOption(SupportsCapabilities):
 
 class AllowDelayAdbOption(SupportsCapabilities):
     ALLOW_DELAY_ADB = 'allowDelayAdb'
-    allow_delay_adb = OptionsDescriptor(ALLOW_DELAY_ADB)
+    allow_delay_adb = OptionsDescriptor[Optional[bool], bool](ALLOW_DELAY_ADB)
     """
     Gets and Sets whether to prevent the emulator to use -delay-adb feature.
     Being set to false prevents emulator to use -delay-adb feature to detect its startup.
@@ -107,7 +108,7 @@ class AllowDelayAdbOption(SupportsCapabilities):
 
 class BuildToolsVersionOption(SupportsCapabilities):
     BUILD_TOOLS_VERSION = 'buildToolsVersion'
-    build_tools_version = OptionsDescriptor(BUILD_TOOLS_VERSION)
+    build_tools_version = OptionsDescriptor[Optional[str], str](BUILD_TOOLS_VERSION)
     """
     Gets and Sets Version of Android build tools to use.
     The version of Android build tools to use. By default, UiAutomator2
@@ -138,7 +139,7 @@ class BuildToolsVersionOption(SupportsCapabilities):
 
 class ClearDeviceLogsOnStartOption(SupportsCapabilities):
     CLEAR_DEVICE_LOGS_ON_START = 'clearDeviceLogsOnStart'
-    clear_device_logs_on_start = OptionsDescriptor(CLEAR_DEVICE_LOGS_ON_START)
+    clear_device_logs_on_start = OptionsDescriptor[Optional[bool], bool](CLEAR_DEVICE_LOGS_ON_START)
     """"
     Gets and Sets if the driver to delete all the existing logs in the
     device buffer before starting a new test.
@@ -167,7 +168,7 @@ class ClearDeviceLogsOnStartOption(SupportsCapabilities):
 
 class IgnoreHiddenApiPolicyErrorOption(SupportsCapabilities):
     IGNORE_HIDDEN_API_POLICY_ERROR = 'ignoreHiddenApiPolicyError'
-    ignore_hidden_api_policy_error = OptionsDescriptor(IGNORE_HIDDEN_API_POLICY_ERROR)
+    ignore_hidden_api_policy_error = OptionsDescriptor[Optional[bool], bool](IGNORE_HIDDEN_API_POLICY_ERROR)
     """
     Gets and Sets Whether to ignore a failure while changing hidden API access policies.
     Being set to true ignores a failure while changing hidden API access policies.
@@ -196,7 +197,7 @@ class IgnoreHiddenApiPolicyErrorOption(SupportsCapabilities):
 
 class LogcatFilterSpecsOption(SupportsCapabilities):
     LOGCAT_FILTER_SPECS = 'logcatFilterSpecs'
-    logcat_filter_specs = OptionsDescriptor(LOGCAT_FILTER_SPECS)
+    logcat_filter_specs = OptionsDescriptor[Optional[str], str](LOGCAT_FILTER_SPECS)
     """
     Gets and Sets Logcat filter format.
     Series of tag[:priority] where tag is a log component tag (or * for all)
@@ -227,7 +228,7 @@ class LogcatFilterSpecsOption(SupportsCapabilities):
 
 class LogcatFormatOption(SupportsCapabilities):
     LOGCAT_FORMAT = 'logcatFormat' 
-    logcat_format = OptionsDescriptor(LOGCAT_FORMAT)
+    logcat_format = OptionsDescriptor[Optional[str], str](LOGCAT_FORMAT)
     """
     Gets and Sets Log print format.
     The log print format, where format is one of: brief process tag thread raw time
@@ -255,7 +256,7 @@ class LogcatFormatOption(SupportsCapabilities):
 
 class MockLocationAppOption(SupportsCapabilities):
     MOCK_LOCATION_APP = 'mockLocationApp'
-    mock_location_app = OptionsDescriptor(MOCK_LOCATION_APP)
+    mock_location_app = OptionsDescriptor[Optional[str], str](MOCK_LOCATION_APP)
     """
     Gets and Sets Identifier of the app, which is used as a system mock location provider.
     This capability has no effect on emulators.
@@ -285,7 +286,7 @@ class MockLocationAppOption(SupportsCapabilities):
 
 class RemoteAdbHostOption(SupportsCapabilities):
     REMOTE_ADB_HOST = 'remoteAdbHost'
-    remote_adb_host = OptionsDescriptor(REMOTE_ADB_HOST)
+    remote_adb_host = OptionsDescriptor[Optional[str], str](REMOTE_ADB_HOST)
     """
     Gets and Sets Address of the host where ADB is running.
     (the value of -H ADB command line option).Localhost by default.
@@ -312,7 +313,7 @@ class RemoteAdbHostOption(SupportsCapabilities):
 
 class SkipLogcatCaptureOption(SupportsCapabilities):
     SKIP_LOGCAT_CAPTURE = 'skipLogcatCapture'
-    skip_logcat_capture = OptionsDescriptor(SKIP_LOGCAT_CAPTURE)
+    skip_logcat_capture = OptionsDescriptor[Optional[bool], bool](SKIP_LOGCAT_CAPTURE)
     """
     Whether to delete all the existing logs in the
     device buffer before starting a new test.
@@ -341,7 +342,7 @@ class SkipLogcatCaptureOption(SupportsCapabilities):
 
 class SuppressKillServerOption(SupportsCapabilities):
     SUPPRESS_KILL_SERVER = 'suppressKillServer'
-    suppress_kill_server = OptionsDescriptor(SUPPRESS_KILL_SERVER)
+    suppress_kill_server:OptionsDescriptor[Optional[bool], bool]  = OptionsDescriptor(SUPPRESS_KILL_SERVER)
     """
     Prevents the driver from ever killing the ADB server explicitly.
     Being set to true prevents the driver from ever killing the ADB server explicitly.

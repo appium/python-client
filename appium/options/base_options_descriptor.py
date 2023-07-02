@@ -1,4 +1,4 @@
-from typing import Any, TypeVar, Generic, Type, Callable, Optional
+from typing import Any, Callable, Generic, Optional, TypeVar, Type
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -22,13 +22,13 @@ class OptionsDescriptor(Generic[R, V]):
 
     def __get__(self, obj: C, cls: Type[C]) -> R:
         value = obj.get_capability(self.name)
-        if not self.tget is None:
+        if self.tget is not None:
             # transform the value and then return
             return self.tget(value)
         return value
 
     def __set__(self, obj: C, value: V) -> None:
-        if not self.tset is None:
+        if self.tset is not None:
             # transform the value before setting
             transformed_value = self.tset(value)
         obj.set_capability(self.name, transformed_value)

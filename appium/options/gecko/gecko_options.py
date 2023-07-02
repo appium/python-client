@@ -15,13 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.base_options_descriptor import OptionsDescriptor
+from typing import Any, Dict, Optional
+
 from appium.options.common.supports_capabilities import SupportsCapabilities
+
+from appium.options.base_options_descriptor import OptionsDescriptor
 
 
 class AndroidStorageOption(SupportsCapabilities):
     ANDROID_STORAGE = 'androidStorage'
-    android_storage = OptionsDescriptor(ANDROID_STORAGE)
+    android_storage = OptionsDescriptor[Optional[str], str](ANDROID_STORAGE)
     """
     Gets and Sets Current storge type
     See https://firefox-source-docs.mozilla.org/testing/geckodriver
@@ -49,7 +52,7 @@ class AndroidStorageOption(SupportsCapabilities):
 
 class FirefoxOptionsOption(SupportsCapabilities):
     FIREFOX_OPTIONS = 'moz:firefoxOptions'
-    firefox_options = OptionsDescriptor(FIREFOX_OPTIONS)
+    firefox_options = OptionsDescriptor[Optional[Dict[str, Any]], Dict[str, Any]](FIREFOX_OPTIONS)
     """
     Gets and Sets Firefox mapping
     See https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions
@@ -68,7 +71,7 @@ class FirefoxOptionsOption(SupportsCapabilities):
     Returns
     -------
     - Get
-        - `Optional[Dict[str, Any]`
+        - `Optional[Dict[str, Any]]`
     - Set
         - `None`
     """
@@ -76,7 +79,7 @@ class FirefoxOptionsOption(SupportsCapabilities):
 
 class MarionettePortOption(SupportsCapabilities):
     MARIONETTE_PORT = 'marionettePort'
-    marionette_port = OptionsDescriptor(MARIONETTE_PORT)
+    marionette_port = OptionsDescriptor[Optional[int], int](MARIONETTE_PORT)
     """
     Selects the port for Geckodriver’s connection to the Marionette
     remote protocol. The existing Firefox instance must have Marionette
@@ -107,7 +110,7 @@ class MarionettePortOption(SupportsCapabilities):
 
 class VerbosityOption(SupportsCapabilities):
     VERBOSITY = 'verbosity'
-    verbosity = OptionsDescriptor(VERBOSITY)
+    verbosity = OptionsDescriptor[Optional[str], str](VERBOSITY)
     """
     Sets and Gets the  verbosity level of driver logging.
     The verbosity level of driver logging.

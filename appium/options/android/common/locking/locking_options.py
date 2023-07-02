@@ -15,14 +15,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.base_options import OptionsDescriptor
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class SkipUnlockOption(SupportsCapabilities):
     SKIP_UNLOCK = 'skipUnlock'
-    skip_unlock = OptionsDescriptor('SKIP_UNLOCK')
+    skip_unlock = OptionsDescriptor(SKIP_UNLOCK)
     """
     Whether to skip the check for lock screen presence (true). By default,
     the driver tries to detect if the device's screen is locked
@@ -52,7 +52,7 @@ class SkipUnlockOption(SupportsCapabilities):
 
 class UnlockKeyOption(SupportsCapabilities):
     UNLOCK_KEY = 'unlockKey'
-    unlock_key = OptionsDescriptor('UNLOCK_KEY')
+    unlock_key = OptionsDescriptor(UNLOCK_KEY)
     """
     Allows to set an unlock key.
     Read [Unlock tutorial](https://github.com/appium/appium-android-driver/blob/master/docs/UNLOCK.md)
@@ -79,7 +79,7 @@ class UnlockKeyOption(SupportsCapabilities):
 
 class UnlockStrategyOption(SupportsCapabilities):
     UNLOCK_STRATEGY = 'unlockStrategy'
-    unlock_strategy = OptionsDescriptor('UNLOCK_STRATEGY')
+    unlock_strategy = OptionsDescriptor(UNLOCK_STRATEGY)
     """
     Either 'locksettings' (default) or 'uiautomator'.
     Setting it to 'uiautomator' will enforce the driver to avoid using special
@@ -107,10 +107,11 @@ class UnlockStrategyOption(SupportsCapabilities):
 
 class UnlockSuccessTimeoutOption(SupportsCapabilities):
     UNLOCK_SUCCESS_TIMEOUT = 'unlockSuccessTimeout'
-
-    _transform_duration_get = DurationTransformer.transform_duration_get
-    _transform_duration_set = DurationTransformer.transform_duration_set
-    unlock_success_timeout = OptionsDescriptor('UNLOCK_SUCCESS_TIMEOUT', _transform_duration_get, _transform_duration_set)
+    unlock_success_timeout = OptionsDescriptor(
+        UNLOCK_SUCCESS_TIMEOUT, 
+        DurationTransformer.transform_duration_get, 
+        DurationTransformer.transform_duration_set
+    )
     """
     Maximum timeout to wait until the device is unlocked.
     2000 ms by default.
@@ -137,7 +138,7 @@ class UnlockSuccessTimeoutOption(SupportsCapabilities):
 
 class UnlockTypeOption(SupportsCapabilities):
     UNLOCK_TYPE = 'unlockType'
-    unlock_type = OptionsDescriptor('UNLOCK_TYPE')
+    unlock_type = OptionsDescriptor(UNLOCK_TYPE)
     """
     Gets and Sets one of the possible types of Android lock screens to unlock.
     Read the Unlock tutorial](https://github.com/appium/appium-android-driver/blob/master/docs/UNLOCK.md)

@@ -15,13 +15,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.base_options import OptionsDescriptor
+from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class AvdArgsOption(SupportsCapabilities):
     AVD_ARGS = 'avdArgs'
-    avd_args = OptionsDescriptor('AVD_ARGS')
+    avd_args = OptionsDescriptor(AVD_ARGS)
     """
     Gets and Sets emulator command line arguments.
 
@@ -47,7 +48,7 @@ class AvdArgsOption(SupportsCapabilities):
 
 class AvdEnvOption(SupportsCapabilities):
     AVD_ENV = 'avdEnv'
-    avd_env = OptionsDescriptor('AVD_ENV')
+    avd_env = OptionsDescriptor(AVD_ENV)
     """
     Gets and Sets the mapping of emulator environment variables.
 
@@ -73,7 +74,7 @@ class AvdEnvOption(SupportsCapabilities):
 
 class AvdLaunchTimeoutOption(SupportsCapabilities):
     AVD_LAUNCH_TIMEOUT = 'avdLaunchTimeout'
-    avd_launch_timeout = OptionsDescriptor('AVD_LAUNCH_TIMEOUT')
+    avd_launch_timeout = OptionsDescriptor(AVD_LAUNCH_TIMEOUT)
     """
     Timeout to wait until Android Emulator is started.
     Maximum timeout to wait until Android Emulator is started.
@@ -101,7 +102,7 @@ class AvdLaunchTimeoutOption(SupportsCapabilities):
 
 class AvdOption(SupportsCapabilities):
     AVD = 'avd'
-    avd = OptionsDescriptor('AVD')
+    avd = OptionsDescriptor(AVD)
     """
     The name of Android emulator to run the test on.
     Names of currently installed emulators could be listed using
@@ -129,7 +130,11 @@ class AvdOption(SupportsCapabilities):
 
 class AvdReadyTimeoutOption(SupportsCapabilities):
     AVD_READY_TIMEOUT = 'avdReadyTimeout'
-    avd_ready_timeout = OptionsDescriptor('AVD_READY_TIMEOUT')
+    avd_ready_timeout = OptionsDescriptor(
+        AVD_READY_TIMEOUT, 
+        DurationTransformer.transform_duration_get, 
+        DurationTransformer.transform_duration_set
+    )
     """
     Maximum timeout to wait until Android Emulator is fully booted and is ready for usage.
     60000 ms by default
@@ -156,7 +161,7 @@ class AvdReadyTimeoutOption(SupportsCapabilities):
 
 class GpsEnabledOption(SupportsCapabilities):
     GPS_ENABLED = 'gpsEnabled'
-    gps_enabled = OptionsDescriptor('GPS_ENABLED')
+    gps_enabled = OptionsDescriptor(GPS_ENABLED)
     """
     Gets and Sets whether to enable (true) or disable (false) GPS service in the Emulator.
     Unset by default, which means to not change the current value.
@@ -183,7 +188,7 @@ class GpsEnabledOption(SupportsCapabilities):
 
 class NetworkSpeedOption(SupportsCapabilities):
     NETWORK_SPEED = 'networkSpeed'
-    network_speed = OptionsDescriptor('NETWORK_SPEED')
+    network_speed = OptionsDescriptor(NETWORK_SPEED)
     """
     Gets and Sets the desired network speed limit for the emulator.
     It is only applied if the emulator is not running before

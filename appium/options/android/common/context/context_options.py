@@ -15,17 +15,18 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.base_options import OptionsDescriptor
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class AutoWebviewTimeoutOption(SupportsCapabilities):
     AUTO_WEBVIEW_TIMEOUT = 'autoWebviewTimeout'
-
-    _transform_duration_get = DurationTransformer.transform_duration_get
-    _transform_duration_set = DurationTransformer.transform_duration_set
-    auto_webview_timeout = OptionsDescriptor('AUTO_WEBVIEW_TIMEOUT', _transform_duration_get, _transform_duration_set)
+    auto_webview_timeout = OptionsDescriptor(
+        AUTO_WEBVIEW_TIMEOUT, 
+        DurationTransformer.transform_duration_get, 
+        DurationTransformer.transform_duration_set
+    )
     """
     Set the maximum timeout to wait until a web view is
     available if autoWebview capability is set to true. 2000 ms by default.
@@ -52,7 +53,7 @@ class AutoWebviewTimeoutOption(SupportsCapabilities):
 
 class ChromeLoggingPrefsOption(SupportsCapabilities):
     CHROME_LOGGING_PREFS = 'chromeLoggingPrefs'
-    chrome_logging_prefs = OptionsDescriptor('CHROME_LOGGING_PREFS')
+    chrome_logging_prefs = OptionsDescriptor(CHROME_LOGGING_PREFS)
     """
     Chrome logging preferences mapping. Basically the same as
     [goog:loggingPrefs](https://newbedev.com/
@@ -81,7 +82,7 @@ class ChromeLoggingPrefsOption(SupportsCapabilities):
 
 class ChromeOptionsOption(SupportsCapabilities):
     CHROME_OPTIONS = 'chromeOptions'
-    chrome_options = OptionsDescriptor('CHROME_OPTIONS')
+    chrome_options = OptionsDescriptor(CHROME_OPTIONS)
     """
     A mapping, that allows to customize chromedriver options.
     See https://chromedriver.chromium.org/capabilities for the list
@@ -109,7 +110,7 @@ class ChromeOptionsOption(SupportsCapabilities):
 
 class ChromedriverArgsOption(SupportsCapabilities):
     CHROMEDRIVER_ARGS = 'chromedriverArgs'
-    chromedriver_args = OptionsDescriptor('CHROMEDRIVER_ARGS')
+    chromedriver_args = OptionsDescriptor(CHROMEDRIVER_ARGS)
     """
     Array of chromedriver [command line
     arguments](http://www.assertselenium.com/java/list-of-chrome-driver-command-line-arguments/).
@@ -138,7 +139,7 @@ class ChromedriverArgsOption(SupportsCapabilities):
 
 class ChromedriverChromeMappingFileOption(SupportsCapabilities):
     CHROMEDRIVER_CHROME_MAPPING_FILE = 'chromedriverChromeMappingFile'
-    chromedriver_chrome_mapping_file = OptionsDescriptor('CHROMEDRIVER_CHROME_MAPPING_FILE')
+    chromedriver_chrome_mapping_file = OptionsDescriptor(CHROMEDRIVER_CHROME_MAPPING_FILE)
     """
     Full path to the chromedrivers mapping file. This file is used to statically
     map webview/browser versions to the chromedriver versions that are capable
@@ -169,7 +170,7 @@ class ChromedriverChromeMappingFileOption(SupportsCapabilities):
 
 class ChromedriverDisableBuildCheckOption(SupportsCapabilities):
     CHROMEDRIVER_DISABLE_BUILD_CHECK = 'chromedriverDisableBuildCheck'
-    chromedriver_disable_build_check = OptionsDescriptor('CHROMEDRIVER_DISABLE_BUILD_CHECK')
+    chromedriver_disable_build_check = OptionsDescriptor(CHROMEDRIVER_DISABLE_BUILD_CHECK)
     """
     Being set to true disables the compatibility validation between the current
     chromedriver and the destination browser/web view. Use it with care.
@@ -197,7 +198,7 @@ class ChromedriverDisableBuildCheckOption(SupportsCapabilities):
 
 class ChromedriverExecutableDirOption(SupportsCapabilities):
     CHROMEDRIVER_EXECUTABLE_DIR = 'chromedriverExecutableDir'
-    chromedriver_executable_dir = OptionsDescriptor('CHROMEDRIVER_EXECUTABLE_DIR')
+    chromedriver_executable_dir = OptionsDescriptor(CHROMEDRIVER_EXECUTABLE_DIR)
     """
     Full path to the folder where chromedriver executables are located.
     This folder is used then to store the downloaded chromedriver executables
@@ -228,7 +229,7 @@ class ChromedriverExecutableDirOption(SupportsCapabilities):
 
 class ChromedriverExecutableOption(SupportsCapabilities):
     CHROMEDRIVER_EXECUTABLE = 'chromedriverExecutable'
-    chromedriver_executable = OptionsDescriptor('CHROMEDRIVER_EXECUTABLE')
+    chromedriver_executable = OptionsDescriptor(CHROMEDRIVER_EXECUTABLE)
     """
     Gets and Sets Full path to the chromedriver executable on the server file system.
 
@@ -254,7 +255,7 @@ class ChromedriverExecutableOption(SupportsCapabilities):
 
 class ChromedriverPortOption(SupportsCapabilities):
     CHROMEDRIVER_PORT = 'chromedriverPort'
-    chromedriver_port = OptionsDescriptor('CHROMEDRIVER_PORT')
+    chromedriver_port = OptionsDescriptor(CHROMEDRIVER_PORT)
     """
     The port number to use for Chromedriver communication.
     Any free port number is selected by default if unset.
@@ -281,7 +282,7 @@ class ChromedriverPortOption(SupportsCapabilities):
 
 class ChromedriverPortsOption(SupportsCapabilities):
     CHROMEDRIVER_PORTS = 'chromedriverPorts'
-    chromedriver_ports = OptionsDescriptor('CHROMEDRIVER_PORTS')
+    chromedriver_ports = OptionsDescriptor(CHROMEDRIVER_PORTS)
     """
     Array of possible port numbers to assign for Chromedriver communication.
     If none of the port in this array is free then a server error is thrown.
@@ -308,7 +309,7 @@ class ChromedriverPortsOption(SupportsCapabilities):
 
 class ChromedriverUseSystemExecutableOption(SupportsCapabilities):
     CHROMEDRIVER_USE_SYSTEM_EXECUTABLE = 'chromedriverUseSystemExecutable'
-    chromedriver_use_system_executable = OptionsDescriptor('CHROMEDRIVER_USE_SYSTEM_EXECUTABLE')
+    chromedriver_use_system_executable = OptionsDescriptor(CHROMEDRIVER_USE_SYSTEM_EXECUTABLE)
     """
     Set it to true in order to enforce the usage of chromedriver, which gets
     downloaded by Appium automatically upon installation. This driver might not
@@ -335,7 +336,7 @@ class ChromedriverUseSystemExecutableOption(SupportsCapabilities):
 
 class EnsureWebviewsHavePagesOption(SupportsCapabilities):
     ENSURE_WEBVIEWS_HAVE_PAGES = 'ensureWebviewsHavePages'
-    ensure_webviews_have_pages = OptionsDescriptor('ENSURE_WEBVIEWS_HAVE_PAGES')
+    ensure_webviews_have_pages = OptionsDescriptor(ENSURE_WEBVIEWS_HAVE_PAGES)
     """
     Whether to skip web views that have no pages from being shown in getContexts
     output. The driver uses devtools connection to retrieve the information about
@@ -363,7 +364,9 @@ class EnsureWebviewsHavePagesOption(SupportsCapabilities):
 
 class ExtractChromeAndroidPackageFromContextNameOption(SupportsCapabilities):
     EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME = 'extractChromeAndroidPackageFromContextName'
-    extract_chrome_android_package_from_context_name = OptionsDescriptor('EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME')
+    extract_chrome_android_package_from_context_name = OptionsDescriptor(
+        EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME
+        )
     """
     If set to true, tell chromedriver to attach to the android package we have associated
     with the context name, rather than the package of the application under test.
@@ -391,7 +394,7 @@ class ExtractChromeAndroidPackageFromContextNameOption(SupportsCapabilities):
 
 class NativeWebScreenshotOption(SupportsCapabilities):
     NATIVE_WEB_SCREENSHOT = 'nativeWebScreenshot'
-    native_web_screenshot = OptionsDescriptor('NATIVE_WEB_SCREENSHOT')
+    native_web_screenshot = OptionsDescriptor(NATIVE_WEB_SCREENSHOT)
     """
     Gets and Sets Whether to use screenshoting endpoint provided by UiAutomator framework (true)
     rather than the one provided by chromedriver (false, the default value).
@@ -419,7 +422,7 @@ class NativeWebScreenshotOption(SupportsCapabilities):
 
 class RecreateChromeDriverSessionsOption(SupportsCapabilities):
     RECREATE_CHROME_DRIVER_SESSIONS = 'recreateChromeDriverSessions'
-    recreate_chrome_driver_sessions = OptionsDescriptor('RECREATE_CHROME_DRIVER_SESSIONS')
+    recreate_chrome_driver_sessions = OptionsDescriptor(RECREATE_CHROME_DRIVER_SESSIONS)
     """
     If this capability is set to true then chromedriver session is always going
     to be killed and then recreated instead of just suspending it on context
@@ -447,7 +450,7 @@ class RecreateChromeDriverSessionsOption(SupportsCapabilities):
 
 class ShowChromedriverLogOption(SupportsCapabilities):
     SHOW_CHROMEDRIVER_LOG = 'showChromedriverLog'
-    show_chromedriver_log = OptionsDescriptor('SHOW_CHROMEDRIVER_LOG')
+    show_chromedriver_log = OptionsDescriptor(SHOW_CHROMEDRIVER_LOG)
     """
     If set to true then all the output from chromedriver binary will be
     forwarded to the Appium server log. false by default.
@@ -474,7 +477,7 @@ class ShowChromedriverLogOption(SupportsCapabilities):
 
 class WebviewDevtoolsPortOption(SupportsCapabilities):
     WEBVIEW_DEVTOOLS_PORT = 'webviewDevtoolsPort'
-    webview_devtools_port = OptionsDescriptor('WEBVIEW_DEVTOOLS_PORT')
+    webview_devtools_port = OptionsDescriptor(WEBVIEW_DEVTOOLS_PORT)
     """
     The local port number to use for devtools communication. By default, the first
     free port from 10900..11000 range is selected. Consider setting the custom

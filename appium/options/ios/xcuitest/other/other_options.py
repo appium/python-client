@@ -17,13 +17,13 @@
 
 from datetime import timedelta
 
-from appium.options.base_options import OptionsDescriptor
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class UseJsonSourceOption(SupportsCapabilities):
     USE_JSON_SOURCE = 'useJSONSource'
-    use_json_source = OptionsDescriptor('USE_JSON_SOURCE')
+    use_json_source = OptionsDescriptor(USE_JSON_SOURCE)
     """
     Whether to get JSON source from WDA and transform it to XML on the driver side.
     Defaults to false.
@@ -50,7 +50,7 @@ class UseJsonSourceOption(SupportsCapabilities):
 
 class ShowIosLogOption(SupportsCapabilities):
     SHOW_IOS_LOG = 'showIOSLog'
-    show_ios_log = OptionsDescriptor('SHOW_IOS_LOG')
+    show_ios_log = OptionsDescriptor(SHOW_IOS_LOG)
     """
     Whether to show any logs captured from a device in the appium logs.
     Default false.
@@ -77,7 +77,7 @@ class ShowIosLogOption(SupportsCapabilities):
 
 class LaunchWithIdbOption(SupportsCapabilities):
     LAUNCH_WITH_IDB = 'launchWithIDB'
-    launch_with_idb = OptionsDescriptor('LAUNCH_WITH_IDB')
+    launch_with_idb = OptionsDescriptor(LAUNCH_WITH_IDB)
     """
     Launch WebDriverAgentRunner with idb instead of xcodebuild. This could save
     a significant amount of time by skipping the xcodebuild process, although the
@@ -123,7 +123,7 @@ class CommandTimeoutsOption(SupportsCapabilities):
         else:
             return value
     
-    command_timeouts = OptionsDescriptor('COMMAND_TIMEOUTS', transform_timeout_get, transform_timeout_set)
+    command_timeouts = OptionsDescriptor(COMMAND_TIMEOUTS, transform_timeout_get, transform_timeout_set)
     """
     Custom timeout for all WDA backend commands execution.
     This might be useful if WDA backend freezes unexpectedly or requires too

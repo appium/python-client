@@ -15,14 +15,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.base_options import OptionsDescriptor
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class AppInstallStrategyOption(SupportsCapabilities):
     APP_INSTALL_STRATEGY = 'appInstallStrategy'
-    app_install_strategy = OptionsDescriptor('APP_INSTALL_STRATEGY')
+    app_install_strategy = OptionsDescriptor(APP_INSTALL_STRATEGY)
     """
     Select application installation strategy for real devices. The following
     strategies are supported:
@@ -56,10 +56,11 @@ class AppInstallStrategyOption(SupportsCapabilities):
 
 class AppPushTimeoutOption(SupportsCapabilities):
     APP_PUSH_TIMEOUT = 'appPushTimeout'
-
-    _transform_duration_get = DurationTransformer.transform_duration_get
-    _transform_duration_set = DurationTransformer.transform_duration_set
-    app_push_timeout = OptionsDescriptor('APP_PUSH_TIMEOUT', _transform_duration_get, _transform_duration_set)
+    app_push_timeout = OptionsDescriptor(
+        APP_PUSH_TIMEOUT, 
+        DurationTransformer.transform_duration_get, 
+        DurationTransformer.transform_duration_set
+    )
     """
     The timeout for application upload.
     Works for real devices only.
@@ -87,7 +88,7 @@ class AppPushTimeoutOption(SupportsCapabilities):
 
 class LocalizableStringsDirOption(SupportsCapabilities):
     LOCALIZABLE_STRINGS_DIR = 'localizableStringsDir'
-    localizable_strings_dir = OptionsDescriptor('LOCALIZABLE_STRINGS_DIR')
+    localizable_strings_dir = OptionsDescriptor(LOCALIZABLE_STRINGS_DIR)
     """
     Where to look for localizable strings in the application bundle.
     Defaults to en.lproj.

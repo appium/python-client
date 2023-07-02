@@ -15,14 +15,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.base_options import OptionsDescriptor
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.transformers import DurationTransformer
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class AppArgumentsOption(SupportsCapabilities):
     APP_ARGUMENTS = 'appArguments'
-    app_arguments = OptionsDescriptor("APP_ARGUMENTS")
+    app_arguments = OptionsDescriptor(APP_ARGUMENTS)
     """
     Set application arguments string, for example `/argone "/arg two"`.
     Make sure arguments are quoted/escaped properly if necessary:
@@ -50,7 +50,7 @@ class AppArgumentsOption(SupportsCapabilities):
 
 class AppTopLevelWindowOption(SupportsCapabilities):
     APP_TOP_LEVEL_WINDOW = 'appTopLevelWindow'
-    app_top_level_window = OptionsDescriptor('APP_TOP_LEVEL_WINDOW')
+    app_top_level_window = OptionsDescriptor(APP_TOP_LEVEL_WINDOW)
     """
     Set the hexadecimal handle of an existing application top level
     window to attach to, for example 0x12345 (should be of string type).
@@ -78,7 +78,7 @@ class AppTopLevelWindowOption(SupportsCapabilities):
 
 class AppWorkingDirOption(SupportsCapabilities):
     APP_WORKING_DIR = 'appWorkingDir'
-    app_working_dir = OptionsDescriptor('APP_WORKING_DIR')
+    app_working_dir = OptionsDescriptor(APP_WORKING_DIR)
     """
     Set the full path to the folder, which is going to be set as the working
     dir for the application under test. This is only applicable for classic apps.
@@ -105,9 +105,10 @@ class AppWorkingDirOption(SupportsCapabilities):
 
 class CreateSessionTimeoutOption(SupportsCapabilities):
     CREATE_SESSION_TIMEOUT = 'createSessionTimeout'
-
-    _transform_duration_set = DurationTransformer.transform_duration_set
-    create_session_timeout = OptionsDescriptor('CREATE_SESSION_TIMEOUT', tset=_transform_duration_set)
+    create_session_timeout = OptionsDescriptor(
+        CREATE_SESSION_TIMEOUT, 
+        tset=DurationTransformer.transform_duration_set
+    )
     """
     Set the timeout used to retry Appium Windows Driver session startup.
     This capability could be used as a workaround for the long startup times
@@ -136,7 +137,7 @@ class CreateSessionTimeoutOption(SupportsCapabilities):
 
 class ExperimentalWebDriverOption(SupportsCapabilities):
     EXPERIMENTAL_WEB_DRIVER = 'ms:experimental-webdriver'
-    experimental_webdriver = OptionsDescriptor('EXPERIMENTAL_WEB_DRIVER')
+    experimental_webdriver = OptionsDescriptor(EXPERIMENTAL_WEB_DRIVER)
     """
     Enables experimental features and optimizations. See Appium Windows
     Driver release notes for more details on this capability.
@@ -163,9 +164,7 @@ class ExperimentalWebDriverOption(SupportsCapabilities):
 
 class WaitForAppLaunchOption(SupportsCapabilities):
     WAIT_FOR_APP_LAUNCH = 'ms:waitForAppLaunch'
-
-    _transform_duration_set = DurationTransformer.transform_duration_set
-    wait_for_app_launch = OptionsDescriptor('WAIT_FOR_APP_LAUNCH', tset=_transform_duration_set)
+    wait_for_app_launch = OptionsDescriptor(WAIT_FOR_APP_LAUNCH, tset=DurationTransformer.transform_duration_set)
     """
     Similar to createSessionTimeout, but is
     applied on the server side. Enables Appium Windows Driver to wait for

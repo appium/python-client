@@ -15,13 +15,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.base_options import OptionsDescriptor
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class AndroidStorageOption(SupportsCapabilities):
     ANDROID_STORAGE = 'androidStorage'
-    android_storage = OptionsDescriptor('ANDROID_STORAGE')
+    android_storage = OptionsDescriptor(ANDROID_STORAGE)
     """
     Gets and Sets Current storge type
     See https://firefox-source-docs.mozilla.org/testing/geckodriver
@@ -49,7 +49,7 @@ class AndroidStorageOption(SupportsCapabilities):
 
 class FirefoxOptionsOption(SupportsCapabilities):
     FIREFOX_OPTIONS = 'moz:firefoxOptions'
-    firefox_options = OptionsDescriptor('ANDROID_STORAGE')
+    firefox_options = OptionsDescriptor(FIREFOX_OPTIONS)
     """
     Gets and Sets Firefox mapping
     See https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions
@@ -76,7 +76,7 @@ class FirefoxOptionsOption(SupportsCapabilities):
 
 class MarionettePortOption(SupportsCapabilities):
     MARIONETTE_PORT = 'marionettePort'
-    marionette_port = OptionsDescriptor('MARIONETTE_PORT')
+    marionette_port = OptionsDescriptor(MARIONETTE_PORT)
     """
     Selects the port for Geckodriver’s connection to the Marionette
     remote protocol. The existing Firefox instance must have Marionette
@@ -107,7 +107,7 @@ class MarionettePortOption(SupportsCapabilities):
 
 class VerbosityOption(SupportsCapabilities):
     VERBOSITY = 'verbosity'
-    verbosity = OptionsDescriptor('VERBOSITY')
+    verbosity = OptionsDescriptor(VERBOSITY)
     """
     Sets and Gets the  verbosity level of driver logging.
     The verbosity level of driver logging.

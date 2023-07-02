@@ -15,13 +15,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.options.base_options import OptionsDescriptor
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class KeyAliasOption(SupportsCapabilities):
     KEY_ALIAS = 'keyAlias'
-    key_alias = OptionsDescriptor('KEY_ALIAS')
+    key_alias = OptionsDescriptor(KEY_ALIAS)
     """
     The alias of the key in the keystore file provided in keystorePath capability.
     This option is used in combination with useKeystore, keystorePath,
@@ -49,7 +49,7 @@ class KeyAliasOption(SupportsCapabilities):
 
 class KeyPasswordOption(SupportsCapabilities):
     KEY_PASSWORD = 'keyPassword'
-    key_password = OptionsDescriptor('KEY_PASSWORD')
+    key_password = OptionsDescriptor(KEY_PASSWORD)
     """
     The password of the key in the keystore file provided in keystorePath capability.
     This option is used in combination with useKeystore, keystorePath,
@@ -77,7 +77,7 @@ class KeyPasswordOption(SupportsCapabilities):
 
 class KeystorePasswordOption(SupportsCapabilities):
     KEYSTORE_PASSWORD = 'keystorePassword'
-    keystore_password = OptionsDescriptor('KEYSTORE_PASSWORD')
+    keystore_password = OptionsDescriptor(KEYSTORE_PASSWORD)
     """
     The password to the keystore file provided in keystorePath capability.
     This option is used in combination with useKeystore, keystorePath,
@@ -105,7 +105,7 @@ class KeystorePasswordOption(SupportsCapabilities):
 
 class KeystorePathOption(SupportsCapabilities):
     KEYSTORE_PATH = 'keystorePath'
-    keystore_path = OptionsDescriptor('KEYSTORE_PATH')
+    keystore_path = OptionsDescriptor(KEYSTORE_PATH)
     """
     The full path to the keystore file on the server filesystem.
     This option is used in combination with useKeystore, keystorePath,
@@ -133,7 +133,7 @@ class KeystorePathOption(SupportsCapabilities):
 
 class NoSignOption(SupportsCapabilities):
     NO_SIGN = 'noSign'
-    no_sign = OptionsDescriptor('NO_SIGN')
+    no_sign = OptionsDescriptor(NO_SIGN)
     """
      Whether to use a custom keystore to sign the app under test.
     false by default, which means apps are always signed with the default A
@@ -162,7 +162,7 @@ class NoSignOption(SupportsCapabilities):
 
 class UseKeystoreOption(SupportsCapabilities):
     USE_KEYSTORE = 'useKeystore'
-    use_keystore = OptionsDescriptor('USE_KEYSTORE')
+    use_keystore = OptionsDescriptor(USE_KEYSTORE)
     """
     Whether to use a custom keystore to sign the app under test.
     false by default, which means apps are always signed with the default A

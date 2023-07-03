@@ -17,24 +17,33 @@
 
 from typing import Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-MJPEG_SCREENSHOT_URL = "mjpegScreenshotUrl"
 
 
 class MjpegScreenshotUrlOption(SupportsCapabilities):
-    @property
-    def mjpeg_screenshot_url(self) -> Optional[str]:
-        """
-        URL of a service that provides realtime device screenshots in MJPEG format.
-        """
-        return self.get_capability(MJPEG_SCREENSHOT_URL)
+    MJPEG_SCREENSHOT_URL = "mjpegScreenshotUrl"
+    mjpeg_screenshot_url = OptionsDescriptor[Optional[str], str](MJPEG_SCREENSHOT_URL)
+    """
+    The URL of a service that provides realtime device screenshots in MJPEG format.
+    If provided then the actual command to retrieve a screenshot will be
+    requesting pictures from this service rather than directly from the server.
 
-    @mjpeg_screenshot_url.setter
-    def mjpeg_screenshot_url(self, value: str) -> None:
-        """
-        The URL of a service that provides realtime device screenshots in MJPEG format.
-        If provided then the actual command to retrieve a screenshot will be
-        requesting pictures from this service rather than directly from the server.
-        """
-        self.set_capability(MJPEG_SCREENSHOT_URL, value)
+    Usage
+    -----
+    - Get
+        - `self.mjpeg_screenshot_url`
+    - Set
+        - `self.mjpeg_screenshot_url` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
+    """

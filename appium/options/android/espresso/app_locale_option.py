@@ -17,28 +17,37 @@
 
 from typing import Dict, Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-APP_LOCALE = "appLocale"
 
 
 class AppLocaleOption(SupportsCapabilities):
-    @property
-    def app_locale(self) -> Optional[Dict[str, str]]:
-        """
-        Locale for the app under test.
-        """
-        return self.get_capability(APP_LOCALE)
+    APP_LOCALE = "appLocale"
+    app_locale = OptionsDescriptor[Optional[Dict[str, str]], Dict[str, str]](APP_LOCALE)
+    """
+    Sets the locale for the app under test. The main difference between this option
+    and the above ones is that this option only changes the locale for the application
+    under test and does not affect other parts of the system. Also, it only uses
+    public APIs for its purpose. See
+    https://github.com/libyal/libfwnt/wiki/Language-Code-identifiers to get the
+    list of available language abbreviations.
+    Example: {"language": "zh", "country": "CN", "variant": "Hans"}.
 
-    @app_locale.setter
-    def app_locale(self, value: Dict[str, str]) -> None:
-        """
-        Sets the locale for the app under test. The main difference between this option
-        and the above ones is that this option only changes the locale for the application
-        under test and does not affect other parts of the system. Also, it only uses
-        public APIs for its purpose. See
-        https://github.com/libyal/libfwnt/wiki/Language-Code-identifiers to get the
-        list of available language abbreviations.
-        Example: {"language": "zh", "country": "CN", "variant": "Hans"}.
-        """
-        self.set_capability(APP_LOCALE, value)
+    Usage
+    -----
+    - Get
+        - `self.app_locale`
+    - Set
+        - `self.app_locale` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict[str, str]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict[str, str]]`
+    - Set
+        - `None`
+    """

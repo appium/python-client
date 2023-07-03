@@ -55,7 +55,7 @@ class SkipUnlockOption(SupportsCapabilities):
 
 class UnlockKeyOption(SupportsCapabilities):
     UNLOCK_KEY = "unlockKey"
-    unlock_key = OptionsDescriptor[Optional[str], bool](UNLOCK_KEY)
+    unlock_key = OptionsDescriptor[Optional[str], str](UNLOCK_KEY)
     """
     Allows to set an unlock key.
     Read [Unlock tutorial](https://github.com/appium/appium-android-driver/blob/master/docs/UNLOCK.md)
@@ -70,7 +70,7 @@ class UnlockKeyOption(SupportsCapabilities):
     
     Parameters
     ----------
-    `value`: `bool`
+    `value`: `str`
 
     Returns
     -------

@@ -17,23 +17,32 @@
 
 from typing import Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-SHOW_GRADLE_LOG = "showGradleLog"
 
 
 class ShowGradleLogOption(SupportsCapabilities):
-    @property
-    def show_gradle_log(self) -> Optional[bool]:
-        """
-        Whether to include Gradle log to the regular server log.
-        """
-        return self.get_capability(SHOW_GRADLE_LOG)
+    SHOW_GRADLE_LOG = "showGradleLog"
+    show_gradle_log = OptionsDescriptor[Optional[bool], bool](SHOW_GRADLE_LOG)
+    """
+    Whether to include Gradle log to the regular server logs while
+    building Espresso server. false by default.
 
-    @show_gradle_log.setter
-    def show_gradle_log(self, value: bool) -> None:
-        """
-        Whether to include Gradle log to the regular server logs while
-        building Espresso server. false by default.
-        """
-        self.set_capability(SHOW_GRADLE_LOG, value)
+    Usage
+    -----
+    - Get
+        - `self.show_gradle_log`
+    - Set
+        - `self.show_gradle_log` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
+    """

@@ -17,25 +17,34 @@
 
 from typing import Dict, Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-ACTIVITY_OPTIONS = "activityOptions"
 
 
 class ActivityOptionsOption(SupportsCapabilities):
-    @property
-    def activity_options(self) -> Optional[Dict]:
-        """
-        Activity options.
-        """
-        return self.get_capability(ACTIVITY_OPTIONS)
+    ACTIVITY_OPTIONS = "activityOptions"
+    activity_options = OptionsDescriptor[Optional[Dict], Dict](ACTIVITY_OPTIONS)
+    """
+    The mapping of custom options for the main app activity that is going to
+    be started. Check
+    https://github.com/appium/appium-espresso-driver#activity-options
+    for more details.
 
-    @activity_options.setter
-    def activity_options(self, value: Dict) -> None:
-        """
-        The mapping of custom options for the main app activity that is going to
-        be started. Check
-        https://github.com/appium/appium-espresso-driver#activity-options
-        for more details.
-        """
-        self.set_capability(ACTIVITY_OPTIONS, value)
+    Usage
+    -----
+    - Get
+        - `self.activity_options`
+    - Set
+        - `self.activity_options` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Dict]`
+    - Set
+        - `None`
+    """

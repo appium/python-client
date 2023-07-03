@@ -17,25 +17,34 @@
 
 from typing import Any, Dict, Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-INTENT_OPTIONS = "intentOptions"
 
 
 class IntentOptionsOption(SupportsCapabilities):
-    @property
-    def intent_options(self) -> Optional[Dict[str, Any]]:
-        """
-        Intent options.
-        """
-        return self.get_capability(INTENT_OPTIONS)
+    INTENT_OPTIONS = "intentOptions"
+    intent_options = OptionsDescriptor[Optional[Dict[str, Any]], Dict[str, Any]](INTENT_OPTIONS)
+    """
+    The mapping of custom options for the intent that is going to be passed
+    to the main app activity. Check
+    https://github.com/appium/appium-espresso-driver#intent-options
+    for more details.
 
-    @intent_options.setter
-    def intent_options(self, value: Dict[str, Any]) -> None:
-        """
-        The mapping of custom options for the intent that is going to be passed
-        to the main app activity. Check
-        https://github.com/appium/appium-espresso-driver#intent-options
-        for more details.
-        """
-        self.set_capability(INTENT_OPTIONS, value)
+    Usage
+    -----
+    - Get
+        - `self.intent_options`
+    - Set
+        - `self.intent_options` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Dict[str, Any]`
+
+    Returns
+    -------
+    - Get
+        - `Dict[str, Any]`
+    - Set
+        - `None`
+    """

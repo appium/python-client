@@ -51,7 +51,7 @@ class AvdArgsOption(SupportsCapabilities):
 
 class AvdEnvOption(SupportsCapabilities):
     AVD_ENV = "avdEnv"
-    avd_env = OptionsDescriptor[Optional[Dict[str, str]], str](AVD_ENV)
+    avd_env = OptionsDescriptor[Optional[Dict[str, str]], Dict[str, str]](AVD_ENV)
     """
     Gets and Sets the mapping of emulator environment variables.
 

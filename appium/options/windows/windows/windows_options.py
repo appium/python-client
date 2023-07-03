@@ -166,8 +166,17 @@ class ExperimentalWebDriverOption(SupportsCapabilities):
 
 class WaitForAppLaunchOption(SupportsCapabilities):
     WAIT_FOR_APP_LAUNCH = "ms:waitForAppLaunch"
+
+    @staticmethod
+    def transform_get(value: Optional[float]) -> Optional[timedelta]:
+        return None if value is None else timedelta(seconds=value)
+
+    @staticmethod
+    def transform_set(value: Union[timedelta, int]) -> Union[float, int]:
+        return value.total_seconds() if isinstance(value, timedelta) else value
+
     wait_for_app_launch = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]](
-        WAIT_FOR_APP_LAUNCH, tset=transform_duration_set
+        WAIT_FOR_APP_LAUNCH, transform_get, transform_set
     )
     """
     Similar to createSessionTimeout, but is

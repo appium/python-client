@@ -89,8 +89,7 @@ class AppPushTimeoutOption(SupportsCapabilities):
 
 class LocalizableStringsDirOption(SupportsCapabilities):
     LOCALIZABLE_STRINGS_DIR = "localizableStringsDir"
-    localizable_strings_dir = OptionsDescriptor[Optional[str], str]
-    (LOCALIZABLE_STRINGS_DIR)
+    localizable_strings_dir = OptionsDescriptor[Optional[str], str](LOCALIZABLE_STRINGS_DIR)
     """
     Where to look for localizable strings in the application bundle.
     Defaults to en.lproj.

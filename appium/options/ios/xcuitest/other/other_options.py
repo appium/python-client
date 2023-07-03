@@ -131,8 +131,7 @@ class CommandTimeoutsOption(SupportsCapabilities):
             return value
 
     command_timeouts = OptionsDescriptor[
-        Optional[Union[Dict[str, timedelta], timedelta]],
-        Union[Dict[str, timedelta], timedelta, int],
+        Optional[Union[Dict[str, timedelta], timedelta]], Union[Dict[str, timedelta], timedelta, int]
     ]
     (COMMAND_TIMEOUTS, transform_timeout_get, transform_timeout_set)
     """

@@ -116,13 +116,15 @@ from appium.options.common.common_options import (
     UdidOption,
 )
 
-from .uianimator2_options import DisableWindowAnimationOption
-from .uianimator2_options import MjpegServerPortOption
-from .uianimator2_options import SkipDeviceInitializationOption
-from .uianimator2_options import SkipServerInstallationOption
-from .uianimator2_options import Uiautomator2ServerInstallTimeoutOption
-from .uianimator2_options import Uiautomator2ServerLaunchTimeoutOption
-from .uianimator2_options import Uiautomator2ServerReadTimeoutOption
+from .uianimator2_options import (
+    DisableWindowAnimationOption,
+    MjpegServerPortOption,
+    SkipDeviceInitializationOption,
+    SkipServerInstallationOption,
+    Uiautomator2ServerInstallTimeoutOption,
+    Uiautomator2ServerLaunchTimeoutOption,
+    Uiautomator2ServerReadTimeoutOption,
+)
 
 
 class UiAutomator2Options(

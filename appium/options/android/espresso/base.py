@@ -116,13 +116,15 @@ from appium.options.common.common_options import (
     UdidOption,
 )
 
-from .activity_options_option import ActivityOptionsOption
-from .app_locale_option import AppLocaleOption
-from .espresso_build_config_option import EspressoBuildConfigOption
-from .espresso_server_launch_timeout_option import EspressoServerLaunchTimeoutOption
-from .force_espresso_rebuild_option import ForceEspressoRebuildOption
-from .intent_options_option import IntentOptionsOption
-from .show_gradle_log_option import ShowGradleLogOption
+from .espresso_options import (
+    ActivityOptionsOption,
+    AppLocaleOption,
+    EspressoBuildConfigOption,
+    EspressoServerLaunchTimeoutOption,
+    ForceEspressoRebuildOption,
+    IntentOptionsOption,
+    ShowGradleLogOption,
+)
 
 
 class EspressoOptions(

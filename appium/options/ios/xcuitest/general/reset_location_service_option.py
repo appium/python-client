@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-RESET_LOCATION_SERVICE = 'resetLocationService'
+RESET_LOCATION_SERVICE = "resetLocationService"
 
 
 class ResetLocationServiceOption(SupportsCapabilities):

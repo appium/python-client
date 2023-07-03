@@ -20,7 +20,7 @@ from typing import Any, Dict, Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-ESPRESSO_BUILD_CONFIG = 'espressoBuildConfig'
+ESPRESSO_BUILD_CONFIG = "espressoBuildConfig"
 
 
 class EspressoBuildConfigOption(SupportsCapabilities):
@@ -44,5 +44,6 @@ class EspressoBuildConfigOption(SupportsCapabilities):
         for more information on how to properly construct such config.
         """
         self.set_capability(
-            ESPRESSO_BUILD_CONFIG, value if isinstance(value, str) else json.dumps(value, ensure_ascii=False)
+            ESPRESSO_BUILD_CONFIG,
+            value if isinstance(value, str) else json.dumps(value, ensure_ascii=False),
         )

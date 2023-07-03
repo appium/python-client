@@ -17,13 +17,12 @@
 
 from typing import Optional
 
-from appium.options.common.supports_capabilities import SupportsCapabilities
-
 from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class KeyAliasOption(SupportsCapabilities):
-    KEY_ALIAS = 'keyAlias'
+    KEY_ALIAS = "keyAlias"
     key_alias = OptionsDescriptor[Optional[str], str](KEY_ALIAS)
     """
     The alias of the key in the keystore file provided in keystorePath capability.
@@ -51,7 +50,7 @@ class KeyAliasOption(SupportsCapabilities):
 
 
 class KeyPasswordOption(SupportsCapabilities):
-    KEY_PASSWORD = 'keyPassword'
+    KEY_PASSWORD = "keyPassword"
     key_password = OptionsDescriptor[Optional[str], str](KEY_PASSWORD)
     """
     The password of the key in the keystore file provided in keystorePath capability.
@@ -79,7 +78,7 @@ class KeyPasswordOption(SupportsCapabilities):
 
 
 class KeystorePasswordOption(SupportsCapabilities):
-    KEYSTORE_PASSWORD = 'keystorePassword'
+    KEYSTORE_PASSWORD = "keystorePassword"
     keystore_password = OptionsDescriptor[Optional[str], str](KEYSTORE_PASSWORD)
     """
     The password to the keystore file provided in keystorePath capability.
@@ -107,7 +106,7 @@ class KeystorePasswordOption(SupportsCapabilities):
 
 
 class KeystorePathOption(SupportsCapabilities):
-    KEYSTORE_PATH = 'keystorePath'
+    KEYSTORE_PATH = "keystorePath"
     keystore_path = OptionsDescriptor[Optional[str], str](KEYSTORE_PATH)
     """
     The full path to the keystore file on the server filesystem.
@@ -135,7 +134,7 @@ class KeystorePathOption(SupportsCapabilities):
 
 
 class NoSignOption(SupportsCapabilities):
-    NO_SIGN = 'noSign'
+    NO_SIGN = "noSign"
     no_sign = OptionsDescriptor[Optional[bool], bool](NO_SIGN)
     """
      Whether to use a custom keystore to sign the app under test.
@@ -163,8 +162,9 @@ class NoSignOption(SupportsCapabilities):
         - `None`
     """
 
+
 class UseKeystoreOption(SupportsCapabilities):
-    USE_KEYSTORE = 'useKeystore'
+    USE_KEYSTORE = "useKeystore"
     use_keystore = OptionsDescriptor[Optional[bool], bool](USE_KEYSTORE)
     """
     Whether to use a custom keystore to sign the app under test.

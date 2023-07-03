@@ -15,17 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional, Union
 from datetime import timedelta
-
-from appium.options.common.supports_capabilities import SupportsCapabilities
+from typing import Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.common.supports_capabilities import SupportsCapabilities
 from appium.options.transformers import transform_duration_get, transform_duration_set
 
 
 class SkipUnlockOption(SupportsCapabilities):
-    SKIP_UNLOCK = 'skipUnlock'
+    SKIP_UNLOCK = "skipUnlock"
     skip_unlock = OptionsDescriptor[Optional[bool], bool](SKIP_UNLOCK)
     """
     Whether to skip the check for lock screen presence (true). By default,
@@ -55,7 +54,7 @@ class SkipUnlockOption(SupportsCapabilities):
 
 
 class UnlockKeyOption(SupportsCapabilities):
-    UNLOCK_KEY = 'unlockKey'
+    UNLOCK_KEY = "unlockKey"
     unlock_key = OptionsDescriptor[Optional[str], bool](UNLOCK_KEY)
     """
     Allows to set an unlock key.
@@ -81,8 +80,9 @@ class UnlockKeyOption(SupportsCapabilities):
         - `None`
     """
 
+
 class UnlockStrategyOption(SupportsCapabilities):
-    UNLOCK_STRATEGY = 'unlockStrategy'
+    UNLOCK_STRATEGY = "unlockStrategy"
     unlock_strategy = OptionsDescriptor[Optional[str], str](UNLOCK_STRATEGY)
     """
     Either 'locksettings' (default) or 'uiautomator'.
@@ -110,7 +110,7 @@ class UnlockStrategyOption(SupportsCapabilities):
 
 
 class UnlockSuccessTimeoutOption(SupportsCapabilities):
-    UNLOCK_SUCCESS_TIMEOUT = 'unlockSuccessTimeout'
+    UNLOCK_SUCCESS_TIMEOUT = "unlockSuccessTimeout"
     unlock_success_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
     (UNLOCK_SUCCESS_TIMEOUT, transform_duration_get, transform_duration_set)
     """
@@ -138,7 +138,7 @@ class UnlockSuccessTimeoutOption(SupportsCapabilities):
 
 
 class UnlockTypeOption(SupportsCapabilities):
-    UNLOCK_TYPE = 'unlockType'
+    UNLOCK_TYPE = "unlockType"
     unlock_type = OptionsDescriptor[Optional[str], str](UNLOCK_TYPE)
     """
     Gets and Sets one of the possible types of Android lock screens to unlock.

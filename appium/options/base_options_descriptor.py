@@ -1,10 +1,11 @@
-from typing import Any, Callable, Generic, Optional, TypeVar, Type
+from typing import Any, Callable, Generic, Optional, Type, TypeVar
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-R = TypeVar('R')
-V = TypeVar('V')
-C = TypeVar('C', bound='SupportsCapabilities')
+R = TypeVar("R")
+V = TypeVar("V")
+C = TypeVar("C", bound="SupportsCapabilities")
+
 
 class OptionsDescriptor(Generic[R, V]):
     """Generic Descriptor class which calls get_capability and set_capability:
@@ -13,9 +14,13 @@ class OptionsDescriptor(Generic[R, V]):
     If transformation method is passed, get_capability and set_capability:
     method will be called with transformed value.
     """
-    def __init__(self, name: str,
-                 tget: Optional[Callable[[Any], R]] = None, 
-                 tset: Optional[Callable[[V], Any]] = None) -> None:
+
+    def __init__(
+        self,
+        name: str,
+        tget: Optional[Callable[[Any], R]] = None,
+        tset: Optional[Callable[[V], Any]] = None,
+    ) -> None:
         self.name = name
         self.tget = tget
         self.tset = tset

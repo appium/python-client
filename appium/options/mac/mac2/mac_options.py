@@ -15,15 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, List, Optional, Union
 from datetime import timedelta
+from typing import Dict, List, Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
-from appium.options.transformers import transform_duration_get, transform_duration_set
 from appium.options.common.supports_capabilities import SupportsCapabilities
+from appium.options.transformers import transform_duration_get, transform_duration_set
+
 
 class ArgumentsOption(SupportsCapabilities):
-    ARGUMENTS = 'arguments'
+    ARGUMENTS = "arguments"
     arguments = OptionsDescriptor[Optional[List[str]], List[str]](ARGUMENTS)
     """
     Gets and Sets the array of application command line arguments. This capability is
@@ -50,7 +51,7 @@ class ArgumentsOption(SupportsCapabilities):
 
 
 class BootstrapRootOption(SupportsCapabilities):
-    BOOTSTRAP_ROOT = 'bootstrapRoot'
+    BOOTSTRAP_ROOT = "bootstrapRoot"
     bootstrap_root = OptionsDescriptor[Optional[str], str](BOOTSTRAP_ROOT)
     """
     Gets and Sets the full path to WebDriverAgentMac root folder where Xcode project
@@ -78,7 +79,7 @@ class BootstrapRootOption(SupportsCapabilities):
 
 
 class EnvironmentOption(SupportsCapabilities):
-    ENVIRONMENT = 'environment'
+    ENVIRONMENT = "environment"
     environment = OptionsDescriptor[Optional[Dict[str, str]], Dict[str, str]](ENVIRONMENT)
     """
     Gets and Sets the dictionary of environment variables (name-&gt;value) that are going to be passed
@@ -107,13 +108,9 @@ class EnvironmentOption(SupportsCapabilities):
 
 
 class ServerStartupTimeoutOption(SupportsCapabilities):
-    SERVER_STARTUP_TIMEOUT = 'serverStartupTimeout'
+    SERVER_STARTUP_TIMEOUT = "serverStartupTimeout"
     server_startup_timeout = OptionsDescriptor[Optional[timedelta], Union[int, timedelta]]
-    (
-        SERVER_STARTUP_TIMEOUT, 
-        transform_duration_get, 
-        transform_duration_set
-    )
+    (SERVER_STARTUP_TIMEOUT, transform_duration_get, transform_duration_set)
     """
     Gets and Sets the timeout to wait util the WebDriverAgentMac
     project is built and started.
@@ -139,7 +136,7 @@ class ServerStartupTimeoutOption(SupportsCapabilities):
 
 
 class ShowServerLogsOption(SupportsCapabilities):
-    SHOW_SERVER_LOGS = 'showServerLogs'
+    SHOW_SERVER_LOGS = "showServerLogs"
     show_server_logs = OptionsDescriptor[Optional[bool], bool](SHOW_SERVER_LOGS)
     """
     Gets and Sets it to true in order to include xcodebuild output to the Appium
@@ -166,7 +163,7 @@ class ShowServerLogsOption(SupportsCapabilities):
 
 
 class WebDriverAgentMacUrlOption(SupportsCapabilities):
-    WEB_DRIVER_ARGENT_MAC_URL = 'webDriverAgentMacUrl'
+    WEB_DRIVER_ARGENT_MAC_URL = "webDriverAgentMacUrl"
     web_driver_agent_mac_url = OptionsDescriptor[Optional[str], str](WEB_DRIVER_ARGENT_MAC_URL)
     """
     Gets and Sets the URL Appium will connect to an existing WebDriverAgentMac
@@ -193,7 +190,7 @@ class WebDriverAgentMacUrlOption(SupportsCapabilities):
 
 
 class SkipAppKillOption(SupportsCapabilities):
-    SKIP_APP_KILL = 'skipAppKill'
+    SKIP_APP_KILL = "skipAppKill"
     skip_app_kill = OptionsDescriptor[Optional[bool], bool](SKIP_APP_KILL)
     """
     Gets and Sets whether to skip the termination of the application under test

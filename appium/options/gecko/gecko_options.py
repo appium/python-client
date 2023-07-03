@@ -17,13 +17,12 @@
 
 from typing import Any, Dict, Optional
 
-from appium.options.common.supports_capabilities import SupportsCapabilities
-
 from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class AndroidStorageOption(SupportsCapabilities):
-    ANDROID_STORAGE = 'androidStorage'
+    ANDROID_STORAGE = "androidStorage"
     android_storage = OptionsDescriptor[Optional[str], str](ANDROID_STORAGE)
     """
     Gets and Sets Current storge type
@@ -51,7 +50,7 @@ class AndroidStorageOption(SupportsCapabilities):
 
 
 class FirefoxOptionsOption(SupportsCapabilities):
-    FIREFOX_OPTIONS = 'moz:firefoxOptions'
+    FIREFOX_OPTIONS = "moz:firefoxOptions"
     firefox_options = OptionsDescriptor[Optional[Dict[str, Any]], Dict[str, Any]](FIREFOX_OPTIONS)
     """
     Gets and Sets Firefox mapping
@@ -78,7 +77,7 @@ class FirefoxOptionsOption(SupportsCapabilities):
 
 
 class MarionettePortOption(SupportsCapabilities):
-    MARIONETTE_PORT = 'marionettePort'
+    MARIONETTE_PORT = "marionettePort"
     marionette_port = OptionsDescriptor[Optional[int], int](MARIONETTE_PORT)
     """
     Selects the port for Geckodriver’s connection to the Marionette
@@ -109,7 +108,7 @@ class MarionettePortOption(SupportsCapabilities):
 
 
 class VerbosityOption(SupportsCapabilities):
-    VERBOSITY = 'verbosity'
+    VERBOSITY = "verbosity"
     verbosity = OptionsDescriptor[Optional[str], str](VERBOSITY)
     """
     Sets and Gets the  verbosity level of driver logging.

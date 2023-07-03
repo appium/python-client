@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INCLUDE_DEVICE_CAPS_TO_SESSION_INFO = 'includeDeviceCapsToSessionInfo'
+INCLUDE_DEVICE_CAPS_TO_SESSION_INFO = "includeDeviceCapsToSessionInfo"
 
 
 class IncludeDeviceCapsToSessionInfoOption(SupportsCapabilities):

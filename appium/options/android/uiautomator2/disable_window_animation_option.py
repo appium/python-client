@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DISABLE_WINDOWS_ANIMATION = 'disableWindowAnimation'
+DISABLE_WINDOWS_ANIMATION = "disableWindowAnimation"
 
 
 class DisableWindowAnimationOption(SupportsCapabilities):

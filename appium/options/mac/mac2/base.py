@@ -17,21 +17,25 @@
 
 from typing import Dict
 
-from appium.options.common.common_options import AutomationNameOption
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
-from appium.options.common.common_options import BundleIdOption
-from appium.options.common.common_options import PostrunOption
-from appium.options.common.common_options import PrerunOption
-from appium.options.common.common_options import SystemHostOption
-from appium.options.common.common_options import SystemPortOption
+from appium.options.common.common_options import (
+    AutomationNameOption,
+    BundleIdOption,
+    PostrunOption,
+    PrerunOption,
+    SystemHostOption,
+    SystemPortOption,
+)
 
-from .mac_options import ArgumentsOption
-from .mac_options import BootstrapRootOption
-from .mac_options import EnvironmentOption
-from .mac_options import ServerStartupTimeoutOption
-from .mac_options import ShowServerLogsOption
-from .mac_options import SkipAppKillOption
-from .mac_options import WebDriverAgentMacUrlOption
+from .mac_options import (
+    ArgumentsOption,
+    BootstrapRootOption,
+    EnvironmentOption,
+    ServerStartupTimeoutOption,
+    ShowServerLogsOption,
+    SkipAppKillOption,
+    WebDriverAgentMacUrlOption,
+)
 
 
 class Mac2Options(
@@ -106,6 +110,6 @@ class Mac2Options(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AutomationNameOption.AUTOMATION_NAME: 'Mac2',
-            PLATFORM_NAME: 'Mac',
+            AutomationNameOption.AUTOMATION_NAME: "Mac2",
+            PLATFORM_NAME: "Mac",
         }

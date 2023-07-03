@@ -17,90 +17,104 @@
 
 from typing import Dict
 
-from appium.options.android.common.adb.adb_options import AdbExecTimeoutOption
-from appium.options.android.common.adb.adb_options import AdbPortOption
-from appium.options.android.common.adb.adb_options import AllowDelayAdbOption
-from appium.options.android.common.adb.adb_options import BuildToolsVersionOption
-from appium.options.android.common.adb.adb_options import ClearDeviceLogsOnStartOption
-from appium.options.android.common.adb.adb_options import IgnoreHiddenApiPolicyErrorOption
-from appium.options.android.common.adb.adb_options import LogcatFilterSpecsOption
-from appium.options.android.common.adb.adb_options import LogcatFormatOption
-from appium.options.android.common.adb.adb_options import MockLocationAppOption
-from appium.options.android.common.adb.adb_options import RemoteAdbHostOption
-from appium.options.android.common.adb.adb_options import SkipLogcatCaptureOption
-from appium.options.android.common.adb.adb_options import SuppressKillServerOption
-from appium.options.android.common.app.app_options import AllowTestPackagesOption
-from appium.options.android.common.app.app_options import AndroidInstallTimeoutOption
-from appium.options.android.common.app.app_options import AppActivityOption
-from appium.options.android.common.app.app_options import AppPackageOption
-from appium.options.android.common.app.app_options import AppWaitActivityOption
-from appium.options.android.common.app.app_options import AppWaitDurationOption
-from appium.options.android.common.app.app_options import AppWaitForLaunchOption
-from appium.options.android.common.app.app_options import AppWaitPackageOption
-from appium.options.android.common.app.app_options import AutoGrantPermissionsOption
-from appium.options.android.common.app.app_options import EnforceAppInstallOption
-from appium.options.android.common.app.app_options import IntentActionOption
-from appium.options.android.common.app.app_options import IntentCategoryOption
-from appium.options.android.common.app.app_options import IntentFlagsOption
-from appium.options.android.common.app.app_options import OptionalIntentArgumentsOption
-from appium.options.android.common.app.app_options import RemoteAppsCacheLimitOption
-from appium.options.android.common.app.app_options import UninstallOtherPackagesOption
-from appium.options.android.common.avd.avd_options import AvdArgsOption
-from appium.options.android.common.avd.avd_options import AvdEnvOption
-from appium.options.android.common.avd.avd_options import AvdLaunchTimeoutOption
-from appium.options.android.common.avd.avd_options import AvdOption
-from appium.options.android.common.avd.avd_options import AvdReadyTimeoutOption
-from appium.options.android.common.avd.avd_options import GpsEnabledOption
-from appium.options.android.common.avd.avd_options import NetworkSpeedOption
-from appium.options.android.common.context.context_options import AutoWebviewTimeoutOption
-from appium.options.android.common.context.context_options import ChromeLoggingPrefsOption
-from appium.options.android.common.context.context_options import ChromeOptionsOption
-from appium.options.android.common.context.context_options import ChromedriverArgsOption
-from appium.options.android.common.context.context_options import ChromedriverChromeMappingFileOption
-from appium.options.android.common.context.context_options import ChromedriverDisableBuildCheckOption
-from appium.options.android.common.context.context_options import ChromedriverExecutableDirOption
-from appium.options.android.common.context.context_options import ChromedriverExecutableOption
-from appium.options.android.common.context.context_options import ChromedriverPortOption
-from appium.options.android.common.context.context_options import ChromedriverPortsOption
-from appium.options.android.common.context.context_options import ChromedriverUseSystemExecutableOption
-from appium.options.android.common.context.context_options import EnsureWebviewsHavePagesOption
-from appium.options.android.common.context.context_options import ExtractChromeAndroidPackageFromContextNameOption
-from appium.options.android.common.context.context_options import NativeWebScreenshotOption
-from appium.options.android.common.context.context_options import RecreateChromeDriverSessionsOption
-from appium.options.android.common.context.context_options import ShowChromedriverLogOption
-from appium.options.android.common.context.context_options import WebviewDevtoolsPortOption
+from appium.options.android.common.adb.adb_options import (
+    AdbExecTimeoutOption,
+    AdbPortOption,
+    AllowDelayAdbOption,
+    BuildToolsVersionOption,
+    ClearDeviceLogsOnStartOption,
+    IgnoreHiddenApiPolicyErrorOption,
+    LogcatFilterSpecsOption,
+    LogcatFormatOption,
+    MockLocationAppOption,
+    RemoteAdbHostOption,
+    SkipLogcatCaptureOption,
+    SuppressKillServerOption,
+)
+from appium.options.android.common.app.app_options import (
+    AllowTestPackagesOption,
+    AndroidInstallTimeoutOption,
+    AppActivityOption,
+    AppPackageOption,
+    AppWaitActivityOption,
+    AppWaitDurationOption,
+    AppWaitForLaunchOption,
+    AppWaitPackageOption,
+    AutoGrantPermissionsOption,
+    EnforceAppInstallOption,
+    IntentActionOption,
+    IntentCategoryOption,
+    IntentFlagsOption,
+    OptionalIntentArgumentsOption,
+    RemoteAppsCacheLimitOption,
+    UninstallOtherPackagesOption,
+)
+from appium.options.android.common.avd.avd_options import (
+    AvdArgsOption,
+    AvdEnvOption,
+    AvdLaunchTimeoutOption,
+    AvdOption,
+    AvdReadyTimeoutOption,
+    GpsEnabledOption,
+    NetworkSpeedOption,
+)
+from appium.options.android.common.context.context_options import (
+    AutoWebviewTimeoutOption,
+    ChromedriverArgsOption,
+    ChromedriverChromeMappingFileOption,
+    ChromedriverDisableBuildCheckOption,
+    ChromedriverExecutableDirOption,
+    ChromedriverExecutableOption,
+    ChromedriverPortOption,
+    ChromedriverPortsOption,
+    ChromedriverUseSystemExecutableOption,
+    ChromeLoggingPrefsOption,
+    ChromeOptionsOption,
+    EnsureWebviewsHavePagesOption,
+    ExtractChromeAndroidPackageFromContextNameOption,
+    NativeWebScreenshotOption,
+    RecreateChromeDriverSessionsOption,
+    ShowChromedriverLogOption,
+    WebviewDevtoolsPortOption,
+)
 from appium.options.android.common.localization.locale_script_option import LocaleScriptOption
-from appium.options.android.common.locking.locking_options import SkipUnlockOption
-from appium.options.android.common.locking.locking_options import UnlockKeyOption
-from appium.options.android.common.locking.locking_options import UnlockStrategyOption
-from appium.options.android.common.locking.locking_options import UnlockSuccessTimeoutOption
-from appium.options.android.common.locking.locking_options import UnlockTypeOption
+from appium.options.android.common.locking.locking_options import (
+    SkipUnlockOption,
+    UnlockKeyOption,
+    UnlockStrategyOption,
+    UnlockSuccessTimeoutOption,
+    UnlockTypeOption,
+)
 from appium.options.android.common.mjpeg.mjpeg_screenshot_url_option import MjpegScreenshotUrlOption
 from appium.options.android.common.other.disable_suppress_accessibility_service_option import (
     DisableSuppressAccessibilityServiceOption,
 )
 from appium.options.android.common.other.user_profile_option import UserProfileOption
-from appium.options.android.common.signing.signing_options import KeyAliasOption
-from appium.options.android.common.signing.signing_options import KeyPasswordOption
-from appium.options.android.common.signing.signing_options import KeystorePasswordOption
-from appium.options.android.common.signing.signing_options import KeystorePathOption
-from appium.options.android.common.signing.signing_options import NoSignOption
-from appium.options.android.common.signing.signing_options import UseKeystoreOption
-from appium.options.common.common_options import AppOption
-from appium.options.common.common_options import AutoWebViewOption
-from appium.options.common.common_options import AutomationNameOption
+from appium.options.android.common.signing.signing_options import (
+    KeyAliasOption,
+    KeyPasswordOption,
+    KeystorePasswordOption,
+    KeystorePathOption,
+    NoSignOption,
+    UseKeystoreOption,
+)
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
-from appium.options.common.common_options import ClearSystemFilesOption
-from appium.options.common.common_options import DeviceNameOption
-from appium.options.common.common_options import EnablePerformanceLoggingOption
-from appium.options.common.common_options import IsHeadlessOption
-from appium.options.common.common_options import LanguageOption
-from appium.options.common.common_options import LocaleOption
-from appium.options.common.common_options import OrientationOption
-from appium.options.common.common_options import OtherAppsOption
-from appium.options.common.common_options import SkipLogCaptureOption
-from appium.options.common.common_options import SystemPortOption
-from appium.options.common.common_options import UdidOption
+from appium.options.common.common_options import (
+    AppOption,
+    AutomationNameOption,
+    AutoWebViewOption,
+    ClearSystemFilesOption,
+    DeviceNameOption,
+    EnablePerformanceLoggingOption,
+    IsHeadlessOption,
+    LanguageOption,
+    LocaleOption,
+    OrientationOption,
+    OtherAppsOption,
+    SkipLogCaptureOption,
+    SystemPortOption,
+    UdidOption,
+)
 
 from .disable_window_animation_option import DisableWindowAnimationOption
 from .mjpeg_server_port_option import MjpegServerPortOption
@@ -204,6 +218,6 @@ class UiAutomator2Options(
     @property
     def default_capabilities(self) -> Dict:
         return {
-            AutomationNameOption.AUTOMATION_NAME: 'UIAutomator2',
-            PLATFORM_NAME: 'Android',
+            AutomationNameOption.AUTOMATION_NAME: "UIAutomator2",
+            PLATFORM_NAME: "Android",
         }

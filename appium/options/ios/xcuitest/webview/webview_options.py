@@ -15,17 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import List, Optional, Union
 from datetime import timedelta
-
-from appium.options.common.supports_capabilities import SupportsCapabilities
+from typing import List, Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.common.supports_capabilities import SupportsCapabilities
 from appium.options.transformers import transform_duration_get, transform_duration_set
 
 
 class AbsoluteWebLocationsOption(SupportsCapabilities):
-    ABSOLUTE_WEB_LOCATIONS = 'absoluteWebLocations'
+    ABSOLUTE_WEB_LOCATIONS = "absoluteWebLocations"
     absolute_web_locations = OptionsDescriptor[Optional[bool], bool](ABSOLUTE_WEB_LOCATIONS)
     """
     This capability will direct the Get Element Location command, when used
@@ -54,7 +53,7 @@ class AbsoluteWebLocationsOption(SupportsCapabilities):
 
 
 class AdditionalWebviewBundleIdsOption(SupportsCapabilities):
-    ADDITIONAL_WEBVIEW_BUNDLE_IDS = 'additionalWebviewBundleIds'
+    ADDITIONAL_WEBVIEW_BUNDLE_IDS = "additionalWebviewBundleIds"
     additional_webview_bundle_ids = OptionsDescriptor[Optional[List[str]], List[str]](ADDITIONAL_WEBVIEW_BUNDLE_IDS)
     """
     Array of possible bundle identifiers for webviews. This is sometimes
@@ -82,7 +81,7 @@ class AdditionalWebviewBundleIdsOption(SupportsCapabilities):
 
 
 class EnableAsyncExecuteFromHttpsOption(SupportsCapabilities):
-    ENABLE_ASYNC_EXECUTE_FROM_HTTPS = 'enableAsyncExecuteFromHttps'
+    ENABLE_ASYNC_EXECUTE_FROM_HTTPS = "enableAsyncExecuteFromHttps"
     enable_async_execute_from_https = OptionsDescriptor[Optional[bool], bool](ENABLE_ASYNC_EXECUTE_FROM_HTTPS)
     """
     Capability to allow simulators to execute asynchronous JavaScript
@@ -109,7 +108,7 @@ class EnableAsyncExecuteFromHttpsOption(SupportsCapabilities):
 
 
 class FullContextListOption(SupportsCapabilities):
-    FULL_CONTEXT_LIST = 'fullContextList'
+    FULL_CONTEXT_LIST = "fullContextList"
     full_context_list = OptionsDescriptor[Optional[bool], bool](FULL_CONTEXT_LIST)
     """
     Sets to return the detailed information on contexts for the get available
@@ -138,7 +137,7 @@ class FullContextListOption(SupportsCapabilities):
 
 
 class IncludeSafariInWebviewsOption(SupportsCapabilities):
-    INCLUDE_SAFARI_IN_WEBVIEWS = 'includeSafariInWebviews'
+    INCLUDE_SAFARI_IN_WEBVIEWS = "includeSafariInWebviews"
     include_safari_in_webviews = OptionsDescriptor[Optional[bool], bool](INCLUDE_SAFARI_IN_WEBVIEWS)
     """
     Add Safari web contexts to the list of contexts available during a
@@ -166,7 +165,7 @@ class IncludeSafariInWebviewsOption(SupportsCapabilities):
 
 
 class NativeWebTapOption(SupportsCapabilities):
-    NATIVE_WEB_TAP = 'nativeWebTap'
+    NATIVE_WEB_TAP = "nativeWebTap"
     native_web_tap = OptionsDescriptor[Optional[bool], bool](NATIVE_WEB_TAP)
     """
     Enable native, non-javascript-based taps being in web context mode. Defaults
@@ -194,7 +193,7 @@ class NativeWebTapOption(SupportsCapabilities):
 
 
 class SafariGarbageCollectOption(SupportsCapabilities):
-    SAFARI_GARBAGE_COLLECT = 'safariGarbageCollect'
+    SAFARI_GARBAGE_COLLECT = "safariGarbageCollect"
     safari_garbage_collect = OptionsDescriptor[Optional[bool], bool](SAFARI_GARBAGE_COLLECT)
     """
     Turns on/off Web Inspector garbage collection when executing scripts on Safari.
@@ -221,7 +220,7 @@ class SafariGarbageCollectOption(SupportsCapabilities):
 
 
 class SafariIgnoreFraudWarningOption(SupportsCapabilities):
-    SAFARI_IGNORE_FRAUD_WARNING = 'safariIgnoreFraudWarning'
+    SAFARI_IGNORE_FRAUD_WARNING = "safariIgnoreFraudWarning"
     safari_ignore_fraud_warning = OptionsDescriptor[Optional[bool], bool](SAFARI_IGNORE_FRAUD_WARNING)
     """
     Prevent Safari from showing a fraudulent website warning.
@@ -248,7 +247,7 @@ class SafariIgnoreFraudWarningOption(SupportsCapabilities):
 
 
 class SafariIgnoreWebHostnamesOption(SupportsCapabilities):
-    SAFARI_IGNORE_WEB_HOSTNAMES = 'safariIgnoreWebHostnames'
+    SAFARI_IGNORE_WEB_HOSTNAMES = "safariIgnoreWebHostnames"
     safari_ignore_web_hostnames = OptionsDescriptor[Optional[str], str](SAFARI_IGNORE_WEB_HOSTNAMES)
     """
     Provide a list of hostnames (comma-separated) that the Safari automation
@@ -278,7 +277,7 @@ class SafariIgnoreWebHostnamesOption(SupportsCapabilities):
 
 
 class SafariInitialUrlOption(SupportsCapabilities):
-    SAFARI_INITIAL_URL = 'safariInitialUrl'
+    SAFARI_INITIAL_URL = "safariInitialUrl"
     safari_initial_url = OptionsDescriptor[Optional[str], str](SAFARI_INITIAL_URL)
     """
     Gets and Sets initial safari url, default is a local welcome page.
@@ -304,7 +303,7 @@ class SafariInitialUrlOption(SupportsCapabilities):
 
 
 class SafariLogAllCommunicationHexDumpOption(SupportsCapabilities):
-    SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP = 'safariLogAllCommunicationHexDump'
+    SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP = "safariLogAllCommunicationHexDump"
     safari_log_all_communication_hex_dump = OptionsDescriptor[Optional[bool], bool]
     (SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP)
     """
@@ -335,7 +334,7 @@ class SafariLogAllCommunicationHexDumpOption(SupportsCapabilities):
 
 
 class SafariLogAllCommunicationOption(SupportsCapabilities):
-    SAFARI_LOG_ALL_COMMUNICATION = 'safariLogAllCommunication'
+    SAFARI_LOG_ALL_COMMUNICATION = "safariLogAllCommunication"
     safari_log_all_communication = OptionsDescriptor[Optional[bool], bool]
     (SAFARI_LOG_ALL_COMMUNICATION)
     """
@@ -364,7 +363,7 @@ class SafariLogAllCommunicationOption(SupportsCapabilities):
 
 
 class SafariOpenLinksInBackgroundOption(SupportsCapabilities):
-    SAFARI_OPEN_LINKS_IN_BACKGROUND = 'safariOpenLinksInBackground'
+    SAFARI_OPEN_LINKS_IN_BACKGROUND = "safariOpenLinksInBackground"
     safari_open_links_in_background = OptionsDescriptor[Optional[bool], bool]
     (SAFARI_OPEN_LINKS_IN_BACKGROUND)
     """
@@ -392,7 +391,7 @@ class SafariOpenLinksInBackgroundOption(SupportsCapabilities):
 
 
 class SafariSocketChunkSizeOption(SupportsCapabilities):
-    SAFARI_SOCKET_CHUNK_SIZE = 'safariSocketChunkSize'
+    SAFARI_SOCKET_CHUNK_SIZE = "safariSocketChunkSize"
     safari_socket_chunk_size = OptionsDescriptor[Optional[int], int]
     (SAFARI_SOCKET_CHUNK_SIZE)
     """
@@ -420,8 +419,9 @@ class SafariSocketChunkSizeOption(SupportsCapabilities):
         - `None`
     """
 
+
 class SafariWebInspectorMaxFrameLengthOption(SupportsCapabilities):
-    SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH = 'safariWebInspectorMaxFrameLength'
+    SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH = "safariWebInspectorMaxFrameLength"
     safari_web_inspector_max_frame_length = OptionsDescriptor[Optional[int], int]
     (SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH)
     """
@@ -449,14 +449,11 @@ class SafariWebInspectorMaxFrameLengthOption(SupportsCapabilities):
         - `None`
     """
 
+
 class WebkitResponseTimeoutOption(SupportsCapabilities):
-    WEBKIT_RESPONSE_TIMEOUT = 'webkitResponseTimeout'
+    WEBKIT_RESPONSE_TIMEOUT = "webkitResponseTimeout"
     webkit_response_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
-    (
-        WEBKIT_RESPONSE_TIMEOUT, 
-        transform_duration_get, 
-        transform_duration_set
-    )
+    (WEBKIT_RESPONSE_TIMEOUT, transform_duration_get, transform_duration_set)
     """
     Time to wait for a response from WebKit in a Safari session.
     (Real device only) Set the time to wait for a respons
@@ -482,7 +479,7 @@ class WebkitResponseTimeoutOption(SupportsCapabilities):
 
 
 class WebviewConnectRetriesOption(SupportsCapabilities):
-    WEBVIEW_CONNECT_RETRIES = 'webviewConnectRetries'
+    WEBVIEW_CONNECT_RETRIES = "webviewConnectRetries"
     webview_connect_retries = OptionsDescriptor[Optional[int], int](WEBVIEW_CONNECT_RETRIES)
     """
     Number of times to send connection message to remote debugger,
@@ -509,13 +506,9 @@ class WebviewConnectRetriesOption(SupportsCapabilities):
 
 
 class WebviewConnectTimeoutOption(SupportsCapabilities):
-    WEBVIEW_CONNECT_TIMEOUT = 'webviewConnectTimeout'
+    WEBVIEW_CONNECT_TIMEOUT = "webviewConnectTimeout"
     webview_connect_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
-    (
-        WEBVIEW_CONNECT_TIMEOUT, 
-        transform_duration_get, 
-        transform_duration_set
-    )
+    (WEBVIEW_CONNECT_TIMEOUT, transform_duration_get, transform_duration_set)
     """
     The time to wait for the initial presence of webviews in
     MobileSafari or hybrid apps. Defaults to 0ms.

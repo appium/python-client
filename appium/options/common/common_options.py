@@ -15,16 +15,15 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional, Union
 from datetime import timedelta
-
-from .supports_capabilities import SupportsCapabilities
+from typing import Dict, Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class AppOption(SupportsCapabilities):
-    APP = 'app'
+    APP = "app"
     app = OptionsDescriptor[Optional[str], str](APP)
     """
     Gets and Sets String representing app location
@@ -54,7 +53,7 @@ class AppOption(SupportsCapabilities):
 
 
 class AutoWebViewOption(SupportsCapabilities):
-    AUTO_WEB_VIEW = 'autoWebView'
+    AUTO_WEB_VIEW = "autoWebView"
     auto_web_view = OptionsDescriptor[Optional[bool], bool](AUTO_WEB_VIEW)
     """
     Gets and Sets Whether the driver should try to automatically switch
@@ -81,7 +80,7 @@ class AutoWebViewOption(SupportsCapabilities):
 
 
 class AutomationNameOption(SupportsCapabilities):
-    AUTOMATION_NAME = 'automationName'
+    AUTOMATION_NAME = "automationName"
     automation_name = OptionsDescriptor[Optional[str], str](AUTOMATION_NAME)
     """
     Gets and Sets the automation driver name to use for the given platform.
@@ -107,7 +106,7 @@ class AutomationNameOption(SupportsCapabilities):
 
 
 class BundleIdOption(SupportsCapabilities):
-    BUNDLE_ID = 'bundleId'
+    BUNDLE_ID = "bundleId"
     bundle_id = OptionsDescriptor[Optional[str], str](BUNDLE_ID)
     """
     Gets and Sets the bundle identifier of the application to automate.
@@ -133,7 +132,7 @@ class BundleIdOption(SupportsCapabilities):
 
 
 class ClearSystemFilesOption(SupportsCapabilities):
-    CLEAR_SYSTEM_FILES = 'clearSystemFiles'
+    CLEAR_SYSTEM_FILES = "clearSystemFiles"
     clear_system_files = OptionsDescriptor[Optional[bool], bool](CLEAR_SYSTEM_FILES)
     """
     Set whether the driver should delete generated files at the end of a session.
@@ -159,7 +158,7 @@ class ClearSystemFilesOption(SupportsCapabilities):
 
 
 class DeviceNameOption(SupportsCapabilities):
-    DEVICE_NAME = 'deviceName'
+    DEVICE_NAME = "deviceName"
     device_name = OptionsDescriptor[Optional[str], str](DEVICE_NAME)
     """
     Gets and Sets the name of the device to be used in the test.
@@ -185,7 +184,7 @@ class DeviceNameOption(SupportsCapabilities):
 
 
 class EnablePerformanceLoggingOption(SupportsCapabilities):
-    ENABLE_PERFORMANCE_LOGGING = 'enablePerformanceLogging'
+    ENABLE_PERFORMANCE_LOGGING = "enablePerformanceLogging"
     enable_performance_logging = OptionsDescriptor[Optional[bool], bool](ENABLE_PERFORMANCE_LOGGING)
     """
     Gets and Sets whether to enable additional performance logging.
@@ -211,7 +210,7 @@ class EnablePerformanceLoggingOption(SupportsCapabilities):
 
 
 class EventTimingsOption(SupportsCapabilities):
-    EVENT_TIMINGS = 'eventTimings'
+    EVENT_TIMINGS = "eventTimings"
     event_timings = OptionsDescriptor[Optional[bool], bool](EVENT_TIMINGS)
     """
     Get and Sets Whether the driver should to report the timings
@@ -238,7 +237,7 @@ class EventTimingsOption(SupportsCapabilities):
 
 
 class FullResetOption(SupportsCapabilities):
-    FULL_RESET = 'fullReset'
+    FULL_RESET = "fullReset"
     full_reset = OptionsDescriptor[Optional[bool], bool](FULL_RESET)
     """
     Get and Sets Whether the driver should perform a full reset.
@@ -264,7 +263,7 @@ class FullResetOption(SupportsCapabilities):
 
 
 class IsHeadlessOption(SupportsCapabilities):
-    IS_HEADLESS = 'isHeadless'
+    IS_HEADLESS = "isHeadless"
     is_headless = OptionsDescriptor[Optional[bool], bool](IS_HEADLESS)
     """
     Gets and Sets Whether the driver should start emulator/simulator in headless mode.
@@ -291,7 +290,7 @@ class IsHeadlessOption(SupportsCapabilities):
 
 
 class LanguageOption(SupportsCapabilities):
-    LANGUAGE = 'language'
+    LANGUAGE = "language"
     language = OptionsDescriptor[Optional[str], str](LANGUAGE)
     """
     Gets and Sets Language abbreviation to use in a test session
@@ -317,7 +316,7 @@ class LanguageOption(SupportsCapabilities):
 
 
 class LocaleOption(SupportsCapabilities):
-    LOCALE = 'locale'
+    LOCALE = "locale"
     locale = OptionsDescriptor[Optional[str], str](LOCALE)
     """
     Gets and Sets Locale abbreviation to use in a test session.
@@ -343,12 +342,12 @@ class LocaleOption(SupportsCapabilities):
 
 
 class NewCommandTimeoutOption(SupportsCapabilities):
-    NEW_COMMAND_TIMEOUT = 'newCommandTimeout'
+    NEW_COMMAND_TIMEOUT = "newCommandTimeout"
 
     @staticmethod
     def transform_command_timeout_get(value: Optional[int]) -> Optional[timedelta]:
         return None if value is None else timedelta(seconds=value)
-    
+
     @staticmethod
     def transfrom_command_timeout_set(value: Union[timedelta, int]) -> Union[int, float]:
         return value.total_seconds() if isinstance(value, timedelta) else value
@@ -380,7 +379,7 @@ class NewCommandTimeoutOption(SupportsCapabilities):
 
 
 class NoResetOption(SupportsCapabilities):
-    NO_RESET = 'noReset'
+    NO_RESET = "noReset"
     no_reset = OptionsDescriptor[Optional[bool], bool](NO_RESET)
     """
     Gets and Sets Whether the driver should not perform a reset.
@@ -406,7 +405,7 @@ class NoResetOption(SupportsCapabilities):
 
 
 class OrientationOption(SupportsCapabilities):
-    ORIENTATION = 'orientation'
+    ORIENTATION = "orientation"
     orientation = OptionsDescriptor[Optional[str], str](ORIENTATION)
     """
     Gets and Sets the orientation of the device's screen.
@@ -433,7 +432,7 @@ class OrientationOption(SupportsCapabilities):
 
 
 class OtherAppsOption(SupportsCapabilities):
-    OTHER_APPS = 'otherApps'
+    OTHER_APPS = "otherApps"
     other_apps = OptionsDescriptor[Optional[str], str](OTHER_APPS)
     """
     Gets and Sets Locations of apps to install before running a test.
@@ -460,7 +459,7 @@ class OtherAppsOption(SupportsCapabilities):
 
 
 class PostrunOption(SupportsCapabilities):
-    POSTRUN = 'postrun'
+    POSTRUN = "postrun"
     postrun = OptionsDescriptor[Optional[Dict[str, str]], Dict[str, str]](POSTRUN)
     """
     Gets and Sets system script which is supposed to be executed upon
@@ -487,7 +486,7 @@ class PostrunOption(SupportsCapabilities):
 
 
 class PrerunOption(SupportsCapabilities):
-    PRERUN = 'prerun'
+    PRERUN = "prerun"
     prerun = OptionsDescriptor[Optional[Dict[str, str]], Dict[str, str]](PRERUN)
     """
     Gets and Sets System script which is supposed to be executed before
@@ -514,7 +513,7 @@ class PrerunOption(SupportsCapabilities):
 
 
 class PrintPageSourceOnFindFailureOption(SupportsCapabilities):
-    PRINT_PAGE_SOURCE_ON_FIND_FAILURE = 'printPageSourceOnFindFailure'
+    PRINT_PAGE_SOURCE_ON_FIND_FAILURE = "printPageSourceOnFindFailure"
     print_page_source_on_find_failure = OptionsDescriptor[Optional[bool], bool]
     (PRINT_PAGE_SOURCE_ON_FIND_FAILURE)
     """
@@ -542,7 +541,7 @@ class PrintPageSourceOnFindFailureOption(SupportsCapabilities):
 
 
 class SkipLogCaptureOption(SupportsCapabilities):
-    SKIP_LOG_CAPTURE = 'skipLogCapture'
+    SKIP_LOG_CAPTURE = "skipLogCapture"
     skip_log_capture = OptionsDescriptor[Optional[bool], bool](SKIP_LOG_CAPTURE)
     """
     Gets and Sets Whether the driver should not record device logs.
@@ -568,7 +567,7 @@ class SkipLogCaptureOption(SupportsCapabilities):
 
 
 class SystemHostOption(SupportsCapabilities):
-    SYSTEM_HOST = 'systemHost'
+    SYSTEM_HOST = "systemHost"
     system_host = OptionsDescriptor[Optional[str], str](SYSTEM_HOST)
     """
     Gets and Sets the name of the host for the internal server to listen on.
@@ -594,7 +593,7 @@ class SystemHostOption(SupportsCapabilities):
 
 
 class SystemPortOption(SupportsCapabilities):
-    SYSTEM_PORT = 'systemPort'
+    SYSTEM_PORT = "systemPort"
     system_port = OptionsDescriptor[Optional[int], int](SYSTEM_PORT)
     """
     Gets and Sets the number of the port for the internal server to listen on.
@@ -620,7 +619,7 @@ class SystemPortOption(SupportsCapabilities):
 
 
 class UdidOption(SupportsCapabilities):
-    UDID = 'udid'
+    UDID = "udid"
     udid = OptionsDescriptor[Optional[str], str](UDID)
     """
     Gets and Sets the unique identifier of the device under test.

@@ -15,19 +15,19 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional, List, Union
 from datetime import timedelta
-
-from appium.options.common.supports_capabilities import SupportsCapabilities
+from typing import Any, Dict, List, Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.common.supports_capabilities import SupportsCapabilities
 from appium.options.transformers import transform_duration_get, transform_duration_set
 
 
 class AutoWebviewTimeoutOption(SupportsCapabilities):
-    AUTO_WEBVIEW_TIMEOUT = 'autoWebviewTimeout'
-    auto_webview_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
-    (AUTO_WEBVIEW_TIMEOUT, transform_duration_get, transform_duration_set)
+    AUTO_WEBVIEW_TIMEOUT = "autoWebviewTimeout"
+    auto_webview_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]](
+        AUTO_WEBVIEW_TIMEOUT, transform_duration_get, transform_duration_set
+    )
     """
     Set the maximum timeout to wait until a web view is
     available if autoWebview capability is set to true. 2000 ms by default.
@@ -53,7 +53,7 @@ class AutoWebviewTimeoutOption(SupportsCapabilities):
 
 
 class ChromeLoggingPrefsOption(SupportsCapabilities):
-    CHROME_LOGGING_PREFS = 'chromeLoggingPrefs'
+    CHROME_LOGGING_PREFS = "chromeLoggingPrefs"
     chrome_logging_prefs = OptionsDescriptor[Optional[Dict[str, Any]], Dict[str, Any]](CHROME_LOGGING_PREFS)
     """
     Chrome logging preferences mapping. Basically the same as
@@ -82,7 +82,7 @@ class ChromeLoggingPrefsOption(SupportsCapabilities):
 
 
 class ChromeOptionsOption(SupportsCapabilities):
-    CHROME_OPTIONS = 'chromeOptions'
+    CHROME_OPTIONS = "chromeOptions"
     chrome_options = OptionsDescriptor[Optional[Dict[str, Any]], Dict[str, Any]](CHROME_OPTIONS)
     """
     A mapping, that allows to customize chromedriver options.
@@ -110,7 +110,7 @@ class ChromeOptionsOption(SupportsCapabilities):
 
 
 class ChromedriverArgsOption(SupportsCapabilities):
-    CHROMEDRIVER_ARGS = 'chromedriverArgs'
+    CHROMEDRIVER_ARGS = "chromedriverArgs"
     chromedriver_args = OptionsDescriptor[Optional[List[str]], List[str]](CHROMEDRIVER_ARGS)
     """
     Array of chromedriver [command line
@@ -139,7 +139,7 @@ class ChromedriverArgsOption(SupportsCapabilities):
 
 
 class ChromedriverChromeMappingFileOption(SupportsCapabilities):
-    CHROMEDRIVER_CHROME_MAPPING_FILE = 'chromedriverChromeMappingFile'
+    CHROMEDRIVER_CHROME_MAPPING_FILE = "chromedriverChromeMappingFile"
     chromedriver_chrome_mapping_file = OptionsDescriptor[Optional[str], str](CHROMEDRIVER_CHROME_MAPPING_FILE)
     """
     Full path to the chromedrivers mapping file. This file is used to statically
@@ -170,7 +170,7 @@ class ChromedriverChromeMappingFileOption(SupportsCapabilities):
 
 
 class ChromedriverDisableBuildCheckOption(SupportsCapabilities):
-    CHROMEDRIVER_DISABLE_BUILD_CHECK = 'chromedriverDisableBuildCheck'
+    CHROMEDRIVER_DISABLE_BUILD_CHECK = "chromedriverDisableBuildCheck"
     chromedriver_disable_build_check = OptionsDescriptor[Optional[bool], bool](CHROMEDRIVER_DISABLE_BUILD_CHECK)
     """
     Being set to true disables the compatibility validation between the current
@@ -198,7 +198,7 @@ class ChromedriverDisableBuildCheckOption(SupportsCapabilities):
 
 
 class ChromedriverExecutableDirOption(SupportsCapabilities):
-    CHROMEDRIVER_EXECUTABLE_DIR = 'chromedriverExecutableDir'
+    CHROMEDRIVER_EXECUTABLE_DIR = "chromedriverExecutableDir"
     chromedriver_executable_dir = OptionsDescriptor[Optional[str], str](CHROMEDRIVER_EXECUTABLE_DIR)
     """
     Full path to the folder where chromedriver executables are located.
@@ -229,7 +229,7 @@ class ChromedriverExecutableDirOption(SupportsCapabilities):
 
 
 class ChromedriverExecutableOption(SupportsCapabilities):
-    CHROMEDRIVER_EXECUTABLE = 'chromedriverExecutable'
+    CHROMEDRIVER_EXECUTABLE = "chromedriverExecutable"
     chromedriver_executable = OptionsDescriptor[Optional[str], str](CHROMEDRIVER_EXECUTABLE)
     """
     Gets and Sets Full path to the chromedriver executable on the server file system.
@@ -255,7 +255,7 @@ class ChromedriverExecutableOption(SupportsCapabilities):
 
 
 class ChromedriverPortOption(SupportsCapabilities):
-    CHROMEDRIVER_PORT = 'chromedriverPort'
+    CHROMEDRIVER_PORT = "chromedriverPort"
     chromedriver_port = OptionsDescriptor[Optional[int], int](CHROMEDRIVER_PORT)
     """
     The port number to use for Chromedriver communication.
@@ -282,7 +282,7 @@ class ChromedriverPortOption(SupportsCapabilities):
 
 
 class ChromedriverPortsOption(SupportsCapabilities):
-    CHROMEDRIVER_PORTS = 'chromedriverPorts'
+    CHROMEDRIVER_PORTS = "chromedriverPorts"
     chromedriver_ports = OptionsDescriptor[Optional[List[int]], List[int]](CHROMEDRIVER_PORTS)
     """
     Array of possible port numbers to assign for Chromedriver communication.
@@ -309,7 +309,7 @@ class ChromedriverPortsOption(SupportsCapabilities):
 
 
 class ChromedriverUseSystemExecutableOption(SupportsCapabilities):
-    CHROMEDRIVER_USE_SYSTEM_EXECUTABLE = 'chromedriverUseSystemExecutable'
+    CHROMEDRIVER_USE_SYSTEM_EXECUTABLE = "chromedriverUseSystemExecutable"
     chromedriver_use_system_executable = OptionsDescriptor[Optional[bool], bool](CHROMEDRIVER_USE_SYSTEM_EXECUTABLE)
     """
     Set it to true in order to enforce the usage of chromedriver, which gets
@@ -335,8 +335,9 @@ class ChromedriverUseSystemExecutableOption(SupportsCapabilities):
         - `None`
     """
 
+
 class EnsureWebviewsHavePagesOption(SupportsCapabilities):
-    ENSURE_WEBVIEWS_HAVE_PAGES = 'ensureWebviewsHavePages'
+    ENSURE_WEBVIEWS_HAVE_PAGES = "ensureWebviewsHavePages"
     ensure_webviews_have_pages = OptionsDescriptor[Optional[bool], bool](ENSURE_WEBVIEWS_HAVE_PAGES)
     """
     Whether to skip web views that have no pages from being shown in getContexts
@@ -364,9 +365,10 @@ class EnsureWebviewsHavePagesOption(SupportsCapabilities):
 
 
 class ExtractChromeAndroidPackageFromContextNameOption(SupportsCapabilities):
-    EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME = 'extractChromeAndroidPackageFromContextName'
-    extract_chrome_android_package_from_context_name = OptionsDescriptor[Optional[bool], bool]
-    (EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME)
+    EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME = "extractChromeAndroidPackageFromContextName"
+    extract_chrome_android_package_from_context_name = OptionsDescriptor[Optional[bool], bool](
+        EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME
+    )
     """
     If set to true, tell chromedriver to attach to the android package we have associated
     with the context name, rather than the package of the application under test.
@@ -393,7 +395,7 @@ class ExtractChromeAndroidPackageFromContextNameOption(SupportsCapabilities):
 
 
 class NativeWebScreenshotOption(SupportsCapabilities):
-    NATIVE_WEB_SCREENSHOT = 'nativeWebScreenshot'
+    NATIVE_WEB_SCREENSHOT = "nativeWebScreenshot"
     native_web_screenshot = OptionsDescriptor[Optional[bool], bool](NATIVE_WEB_SCREENSHOT)
     """
     Gets and Sets Whether to use screenshoting endpoint provided by UiAutomator framework (true)
@@ -421,7 +423,7 @@ class NativeWebScreenshotOption(SupportsCapabilities):
 
 
 class RecreateChromeDriverSessionsOption(SupportsCapabilities):
-    RECREATE_CHROME_DRIVER_SESSIONS = 'recreateChromeDriverSessions'
+    RECREATE_CHROME_DRIVER_SESSIONS = "recreateChromeDriverSessions"
     recreate_chrome_driver_sessions = OptionsDescriptor[Optional[bool], bool](RECREATE_CHROME_DRIVER_SESSIONS)
     """
     If this capability is set to true then chromedriver session is always going
@@ -449,7 +451,7 @@ class RecreateChromeDriverSessionsOption(SupportsCapabilities):
 
 
 class ShowChromedriverLogOption(SupportsCapabilities):
-    SHOW_CHROMEDRIVER_LOG = 'showChromedriverLog'
+    SHOW_CHROMEDRIVER_LOG = "showChromedriverLog"
     show_chromedriver_log = OptionsDescriptor[Optional[bool], bool](SHOW_CHROMEDRIVER_LOG)
     """
     If set to true then all the output from chromedriver binary will be
@@ -476,7 +478,7 @@ class ShowChromedriverLogOption(SupportsCapabilities):
 
 
 class WebviewDevtoolsPortOption(SupportsCapabilities):
-    WEBVIEW_DEVTOOLS_PORT = 'webviewDevtoolsPort'
+    WEBVIEW_DEVTOOLS_PORT = "webviewDevtoolsPort"
     webview_devtools_port = OptionsDescriptor[Optional[int], int](WEBVIEW_DEVTOOLS_PORT)
     """
     The local port number to use for devtools communication. By default, the first

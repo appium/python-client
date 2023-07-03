@@ -1,14 +1,14 @@
 import json
-from typing import  Dict, Optional, Union
 from datetime import timedelta
+from typing import Dict, Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
-
-from appium.options.transformers import transform_duration_get, transform_duration_set
 from appium.options.common.supports_capabilities import SupportsCapabilities
+from appium.options.transformers import transform_duration_get, transform_duration_set
+
 
 class CalendarAccessAuthorizedOption(SupportsCapabilities):
-    CALENDAR_ACCESS_AUTHORIZED = 'calendarAccessAuthorized'
+    CALENDAR_ACCESS_AUTHORIZED = "calendarAccessAuthorized"
     calendar_access_authorized = OptionsDescriptor[Optional[bool], bool](CALENDAR_ACCESS_AUTHORIZED)
     """
     Set this to true if you want to enable calendar access on IOS Simulator
@@ -37,7 +37,7 @@ class CalendarAccessAuthorizedOption(SupportsCapabilities):
 
 
 class CalendarFormatOption(SupportsCapabilities):
-    CALENDAR_FORMAT = 'calendarFormat'
+    CALENDAR_FORMAT = "calendarFormat"
     calendar_format = OptionsDescriptor[Optional[str], str](CALENDAR_FORMAT)
     """
     Gets and Sets calendar format for the iOS Simulator.
@@ -63,7 +63,7 @@ class CalendarFormatOption(SupportsCapabilities):
 
 
 class ConnectHardwareKeyboardOption(SupportsCapabilities):
-    CONNECT_HARDWARE_KEYBOARD = 'connectHardwareKeyboard'
+    CONNECT_HARDWARE_KEYBOARD = "connectHardwareKeyboard"
     connect_hardware_keyboard = OptionsDescriptor[Optional[bool], bool](CONNECT_HARDWARE_KEYBOARD)
     """
     Set this option to true in order to enable hardware keyboard in Simulator.
@@ -94,7 +94,7 @@ class ConnectHardwareKeyboardOption(SupportsCapabilities):
 
 
 class CustomSslCertOption(SupportsCapabilities):
-    CUSTOM_SSL_CERT = 'customSSLCert'
+    CUSTOM_SSL_CERT = "customSSLCert"
     custom_ssl_cert = OptionsDescriptor[Optional[str], str](CUSTOM_SSL_CERT)
     """
     Adds a root SSL certificate to IOS Simulator.
@@ -121,7 +121,7 @@ class CustomSslCertOption(SupportsCapabilities):
 
 
 class EnforceFreshSimulatorCreationOption(SupportsCapabilities):
-    ENFORCE_FRESH_SIMULATOR_CREATION = 'enforceFreshSimulatorCreation'
+    ENFORCE_FRESH_SIMULATOR_CREATION = "enforceFreshSimulatorCreation"
     enforce_fresh_simulator_creation = OptionsDescriptor[Optional[bool], bool](ENFORCE_FRESH_SIMULATOR_CREATION)
     """
     Creates a new simulator in session creation and deletes it in session deletion.
@@ -148,7 +148,7 @@ class EnforceFreshSimulatorCreationOption(SupportsCapabilities):
 
 
 class ForceSimulatorSoftwareKeyboardPresenceOption(SupportsCapabilities):
-    FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE = 'forceSimulatorSoftwareKeyboardPresence'
+    FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE = "forceSimulatorSoftwareKeyboardPresence"
     force_simulator_software_keyboard_presence = OptionsDescriptor[Optional[bool], bool]
     (FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE)
     """
@@ -182,7 +182,7 @@ class ForceSimulatorSoftwareKeyboardPresenceOption(SupportsCapabilities):
 
 
 class IosSimulatorLogsPredicateOption(SupportsCapabilities):
-    IOS_SIMULATOR_LOGS_PREDICATE = 'iosSimulatorLogsPredicate'
+    IOS_SIMULATOR_LOGS_PREDICATE = "iosSimulatorLogsPredicate"
     ios_simulator_logs_predicate = OptionsDescriptor[Optional[bool], bool](IOS_SIMULATOR_LOGS_PREDICATE)
     """
     Gets and Sets the --predicate flag in the ios simulator logs.
@@ -208,7 +208,7 @@ class IosSimulatorLogsPredicateOption(SupportsCapabilities):
 
 
 class KeepKeyChainsOption(SupportsCapabilities):
-    KEEP_KEY_CHAINS = 'keepKeyChains'
+    KEEP_KEY_CHAINS = "keepKeyChains"
     keep_key_chains = OptionsDescriptor[Optional[bool], bool](KEEP_KEY_CHAINS)
     """
     Gets and Sets the capability to true in order to preserve Simulator keychains folder after
@@ -235,7 +235,7 @@ class KeepKeyChainsOption(SupportsCapabilities):
 
 
 class KeychainsExcludePatternsOption(SupportsCapabilities):
-    KEYCHAINS_EXCLUDE_PATTERNS = 'keychainsExcludePatterns'
+    KEYCHAINS_EXCLUDE_PATTERNS = "keychainsExcludePatterns"
     keychains_exclude_patterns = OptionsDescriptor[Optional[str], str](KEYCHAINS_EXCLUDE_PATTERNS)
     """
     This capability accepts comma-separated path patterns,
@@ -267,7 +267,7 @@ class KeychainsExcludePatternsOption(SupportsCapabilities):
 
 
 class PermissionsOption(SupportsCapabilities):
-    PERMISSIONS = 'permissions'
+    PERMISSIONS = "permissions"
 
     @staticmethod
     def transform_get(value: Union[str, bytes]) -> Optional[Dict[str, Dict[str, str]]]:
@@ -276,7 +276,7 @@ class PermissionsOption(SupportsCapabilities):
     @staticmethod
     def transform_set(value: Dict[str, Dict[str, str]]) -> str:
         return json.dumps(value, ensure_ascii=False)
-    
+
     permissions = OptionsDescriptor[Optional[Dict[str, Dict[str, str]]], Dict[str, Dict[str, str]]]
     (PERMISSIONS, transform_get, transform_set)
     """
@@ -310,7 +310,7 @@ class PermissionsOption(SupportsCapabilities):
 
 
 class ReduceMotionOption(SupportsCapabilities):
-    REDUCE_MOTION = 'reduceMotion'
+    REDUCE_MOTION = "reduceMotion"
     reduce_motion = OptionsDescriptor[Optional[bool], bool](REDUCE_MOTION)
     """
     Allows to turn on/off reduce motion accessibility preference.
@@ -338,7 +338,7 @@ class ReduceMotionOption(SupportsCapabilities):
 
 
 class ResetOnSessionStartOnlyOption(SupportsCapabilities):
-    RESET_ON_SESSION_START_ONLY = 'resetOnSessionStartOnly'
+    RESET_ON_SESSION_START_ONLY = "resetOnSessionStartOnly"
     reset_on_session_start_only = OptionsDescriptor[Optional[bool], bool](RESET_ON_SESSION_START_ONLY)
     """
      Whether to perform reset on test session finish (false) or not (true).
@@ -367,7 +367,7 @@ class ResetOnSessionStartOnlyOption(SupportsCapabilities):
 
 
 class ScaleFactorOption(SupportsCapabilities):
-    SCALE_FACTOR = 'scaleFactor'
+    SCALE_FACTOR = "scaleFactor"
     scale_factor = OptionsDescriptor[Optional[str], str](SCALE_FACTOR)
     """
     Simulator scale factor. This is useful to have if the default resolution
@@ -399,7 +399,7 @@ class ScaleFactorOption(SupportsCapabilities):
 
 
 class ShutdownOtherSimulatorsOption(SupportsCapabilities):
-    SHUTDOWN_OTHER_SIMULATORS = 'shutdownOtherSimulators'
+    SHUTDOWN_OTHER_SIMULATORS = "shutdownOtherSimulators"
     shutdown_other_simulators = OptionsDescriptor[Optional[bool], bool](SHUTDOWN_OTHER_SIMULATORS)
     """
     If this capability set to true and the current device under test is an iOS
@@ -431,7 +431,7 @@ class ShutdownOtherSimulatorsOption(SupportsCapabilities):
 
 
 class SimulatorDevicesSetPathOption(SupportsCapabilities):
-    SIMULATOR_DEVICES_SET_PATH = 'simulatorDevicesSetPath'
+    SIMULATOR_DEVICES_SET_PATH = "simulatorDevicesSetPath"
     simulator_devices_set_path = OptionsDescriptor[Optional[str], str](SIMULATOR_DEVICES_SET_PATH)
     """
     This capability allows to set an alternative path to the simulator devices
@@ -460,7 +460,7 @@ class SimulatorDevicesSetPathOption(SupportsCapabilities):
 
 
 class SimulatorPasteboardAutomaticSyncOption(SupportsCapabilities):
-    SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC = 'simulatorPasteboardAutomaticSync'
+    SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC = "simulatorPasteboardAutomaticSync"
     simulator_pasteboard_automatic_sync = OptionsDescriptor[Optional[bool], bool]
     (SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC)
     """
@@ -491,7 +491,7 @@ class SimulatorPasteboardAutomaticSyncOption(SupportsCapabilities):
 
 
 class SimulatorStartupTimeoutOption(SupportsCapabilities):
-    SIMULATOR_STARTUP_TIMEOUT = 'simulatorStartupTimeout'
+    SIMULATOR_STARTUP_TIMEOUT = "simulatorStartupTimeout"
     simulator_startup_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
     (SIMULATOR_STARTUP_TIMEOUT, transform_duration_get, transform_duration_set)
     """
@@ -522,7 +522,7 @@ class SimulatorStartupTimeoutOption(SupportsCapabilities):
 
 
 class SimulatorTracePointerOption(SupportsCapabilities):
-    SIMULATOR_TRACE_POINTER = 'simulatorTracePointer'
+    SIMULATOR_TRACE_POINTER = "simulatorTracePointer"
     simulator_trace_pointer = OptionsDescriptor[Optional[bool], bool](SIMULATOR_TRACE_POINTER)
     """
      Set whether to highlight pointer moves in the Simulator window.
@@ -549,8 +549,9 @@ class SimulatorTracePointerOption(SupportsCapabilities):
         - `None`
     """
 
+
 class SimulatorWindowCenterOption(SupportsCapabilities):
-    SIMULATOR_WINDOW_CENTER = 'simulatorWindowCenter'
+    SIMULATOR_WINDOW_CENTER = "simulatorWindowCenter"
     simulator_window_center = OptionsDescriptor[Optional[str], str](SIMULATOR_WINDOW_CENTER)
     """
     Allows to explicitly set the coordinates of Simulator window center

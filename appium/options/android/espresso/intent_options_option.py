@@ -19,7 +19,7 @@ from typing import Any, Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-INTENT_OPTIONS = 'intentOptions'
+INTENT_OPTIONS = "intentOptions"
 
 
 class IntentOptionsOption(SupportsCapabilities):

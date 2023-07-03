@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-MJPEG_SERVER_PORT = 'mjpegServerPort'
+MJPEG_SERVER_PORT = "mjpegServerPort"
 
 
 class MjpegServerPortOption(SupportsCapabilities):

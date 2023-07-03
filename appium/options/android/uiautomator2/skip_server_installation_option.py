@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-SKIP_SERVER_INSTALLATION = 'skipServerInstallation'
+SKIP_SERVER_INSTALLATION = "skipServerInstallation"
 
 
 class SkipServerInstallationOption(SupportsCapabilities):

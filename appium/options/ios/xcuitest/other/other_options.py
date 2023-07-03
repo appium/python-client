@@ -15,16 +15,15 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional, Union
 from datetime import timedelta
-
-from appium.options.common.supports_capabilities import SupportsCapabilities
+from typing import Dict, Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
 class UseJsonSourceOption(SupportsCapabilities):
-    USE_JSON_SOURCE = 'useJSONSource'
+    USE_JSON_SOURCE = "useJSONSource"
     use_json_source = OptionsDescriptor[Optional[bool], bool](USE_JSON_SOURCE)
     """
     Whether to get JSON source from WDA and transform it to XML on the driver side.
@@ -51,7 +50,7 @@ class UseJsonSourceOption(SupportsCapabilities):
 
 
 class ShowIosLogOption(SupportsCapabilities):
-    SHOW_IOS_LOG = 'showIOSLog'
+    SHOW_IOS_LOG = "showIOSLog"
     show_ios_log = OptionsDescriptor[Optional[bool], bool](SHOW_IOS_LOG)
     """
     Whether to show any logs captured from a device in the appium logs.
@@ -78,7 +77,7 @@ class ShowIosLogOption(SupportsCapabilities):
 
 
 class LaunchWithIdbOption(SupportsCapabilities):
-    LAUNCH_WITH_IDB = 'launchWithIDB'
+    LAUNCH_WITH_IDB = "launchWithIDB"
     launch_with_idb = OptionsDescriptor[Optional[bool], bool](LAUNCH_WITH_IDB)
     """
     Launch WebDriverAgentRunner with idb instead of xcodebuild. This could save
@@ -108,10 +107,12 @@ class LaunchWithIdbOption(SupportsCapabilities):
 
 
 class CommandTimeoutsOption(SupportsCapabilities):
-    COMMAND_TIMEOUTS = 'commandTimeouts'
+    COMMAND_TIMEOUTS = "commandTimeouts"
 
     @staticmethod
-    def transform_timeout_get(value: Optional[Union[Dict[str, int], int]]) -> Optional[Union[Dict[str, timedelta], timedelta]]:
+    def transform_timeout_get(
+        value: Optional[Union[Dict[str, int], int]]
+    ) -> Optional[Union[Dict[str, timedelta], timedelta]]:
         if value is None:
             return None
         if isinstance(value, dict):
@@ -119,15 +120,20 @@ class CommandTimeoutsOption(SupportsCapabilities):
         return timedelta(milliseconds=int(value))
 
     @staticmethod
-    def transform_timeout_set(value: Union[Dict[str, timedelta], timedelta, int]) -> Union[Dict[str, int], timedelta, str, int]:
+    def transform_timeout_set(
+        value: Union[Dict[str, timedelta], timedelta, int]
+    ) -> Union[Dict[str, int], timedelta, str, int]:
         if isinstance(value, dict):
             return {k: int(v.total_seconds() * 1000) for k, v in value.items()}
         elif isinstance(value, timedelta):
-            return f'{int(value.total_seconds() * 1000)}'
+            return f"{int(value.total_seconds() * 1000)}"
         else:
             return value
-    
-    command_timeouts = OptionsDescriptor[Optional[Union[Dict[str, timedelta], timedelta]], Union[Dict[str, timedelta], timedelta, int]]
+
+    command_timeouts = OptionsDescriptor[
+        Optional[Union[Dict[str, timedelta], timedelta]],
+        Union[Dict[str, timedelta], timedelta, int],
+    ]
     (COMMAND_TIMEOUTS, transform_timeout_get, transform_timeout_set)
     """
     Custom timeout for all WDA backend commands execution.

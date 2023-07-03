@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-UIAUTOMATOR2_SERVER_READ_TIMEOUT = 'uiautomator2ServerReadTimeout'
+UIAUTOMATOR2_SERVER_READ_TIMEOUT = "uiautomator2ServerReadTimeout"
 
 
 class Uiautomator2ServerReadTimeoutOption(SupportsCapabilities):

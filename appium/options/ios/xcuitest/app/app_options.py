@@ -15,17 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional, Union
 from datetime import timedelta
-
-from appium.options.common.supports_capabilities import SupportsCapabilities
+from typing import Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.common.supports_capabilities import SupportsCapabilities
 from appium.options.transformers import transform_duration_get, transform_duration_set
 
 
 class AppInstallStrategyOption(SupportsCapabilities):
-    APP_INSTALL_STRATEGY = 'appInstallStrategy'
+    APP_INSTALL_STRATEGY = "appInstallStrategy"
     app_install_strategy = OptionsDescriptor[Optional[str], str](APP_INSTALL_STRATEGY)
     """
     Select application installation strategy for real devices. The following
@@ -59,11 +58,9 @@ class AppInstallStrategyOption(SupportsCapabilities):
 
 
 class AppPushTimeoutOption(SupportsCapabilities):
-    APP_PUSH_TIMEOUT = 'appPushTimeout'
+    APP_PUSH_TIMEOUT = "appPushTimeout"
     app_push_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]](
-        APP_PUSH_TIMEOUT, 
-        transform_duration_get, 
-        transform_duration_set
+        APP_PUSH_TIMEOUT, transform_duration_get, transform_duration_set
     )
     """
     The timeout for application upload.
@@ -91,7 +88,7 @@ class AppPushTimeoutOption(SupportsCapabilities):
 
 
 class LocalizableStringsDirOption(SupportsCapabilities):
-    LOCALIZABLE_STRINGS_DIR = 'localizableStringsDir'
+    LOCALIZABLE_STRINGS_DIR = "localizableStringsDir"
     localizable_strings_dir = OptionsDescriptor[Optional[str], str]
     (LOCALIZABLE_STRINGS_DIR)
     """

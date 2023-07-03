@@ -20,7 +20,7 @@ from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT = 'uiautomator2ServerInstallTimeout'
+UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT = "uiautomator2ServerInstallTimeout"
 
 
 class Uiautomator2ServerInstallTimeoutOption(SupportsCapabilities):

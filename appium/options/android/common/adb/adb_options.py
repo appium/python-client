@@ -15,17 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional, Union
 from datetime import timedelta
-
-from appium.options.common.supports_capabilities import SupportsCapabilities
+from typing import Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.common.supports_capabilities import SupportsCapabilities
 from appium.options.transformers import transform_duration_get, transform_duration_set
 
 
 class AdbExecTimeoutOption(SupportsCapabilities):
-    ADB_EXEC_TIMEOUT = 'adbExecTimeout'
+    ADB_EXEC_TIMEOUT = "adbExecTimeout"
     adb_exec_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
     (ADB_EXEC_TIMEOUT, transform_duration_get, transform_duration_set)
     """
@@ -53,7 +52,7 @@ class AdbExecTimeoutOption(SupportsCapabilities):
 
 
 class AdbPortOption(SupportsCapabilities):
-    ADB_PORT = 'adbPort'
+    ADB_PORT = "adbPort"
     adb_port = OptionsDescriptor[Optional[int], int](ADB_PORT)
     """
     Gets and Sets number of the port where ADB is running. 5037 by default
@@ -79,7 +78,7 @@ class AdbPortOption(SupportsCapabilities):
 
 
 class AllowDelayAdbOption(SupportsCapabilities):
-    ALLOW_DELAY_ADB = 'allowDelayAdb'
+    ALLOW_DELAY_ADB = "allowDelayAdb"
     allow_delay_adb = OptionsDescriptor[Optional[bool], bool](ALLOW_DELAY_ADB)
     """
     Gets and Sets whether to prevent the emulator to use -delay-adb feature.
@@ -107,7 +106,7 @@ class AllowDelayAdbOption(SupportsCapabilities):
 
 
 class BuildToolsVersionOption(SupportsCapabilities):
-    BUILD_TOOLS_VERSION = 'buildToolsVersion'
+    BUILD_TOOLS_VERSION = "buildToolsVersion"
     build_tools_version = OptionsDescriptor[Optional[str], str](BUILD_TOOLS_VERSION)
     """
     Gets and Sets Version of Android build tools to use.
@@ -138,7 +137,7 @@ class BuildToolsVersionOption(SupportsCapabilities):
 
 
 class ClearDeviceLogsOnStartOption(SupportsCapabilities):
-    CLEAR_DEVICE_LOGS_ON_START = 'clearDeviceLogsOnStart'
+    CLEAR_DEVICE_LOGS_ON_START = "clearDeviceLogsOnStart"
     clear_device_logs_on_start = OptionsDescriptor[Optional[bool], bool](CLEAR_DEVICE_LOGS_ON_START)
     """"
     Gets and Sets if the driver to delete all the existing logs in the
@@ -167,7 +166,7 @@ class ClearDeviceLogsOnStartOption(SupportsCapabilities):
 
 
 class IgnoreHiddenApiPolicyErrorOption(SupportsCapabilities):
-    IGNORE_HIDDEN_API_POLICY_ERROR = 'ignoreHiddenApiPolicyError'
+    IGNORE_HIDDEN_API_POLICY_ERROR = "ignoreHiddenApiPolicyError"
     ignore_hidden_api_policy_error = OptionsDescriptor[Optional[bool], bool](IGNORE_HIDDEN_API_POLICY_ERROR)
     """
     Gets and Sets Whether to ignore a failure while changing hidden API access policies.
@@ -196,7 +195,7 @@ class IgnoreHiddenApiPolicyErrorOption(SupportsCapabilities):
 
 
 class LogcatFilterSpecsOption(SupportsCapabilities):
-    LOGCAT_FILTER_SPECS = 'logcatFilterSpecs'
+    LOGCAT_FILTER_SPECS = "logcatFilterSpecs"
     logcat_filter_specs = OptionsDescriptor[Optional[str], str](LOGCAT_FILTER_SPECS)
     """
     Gets and Sets Logcat filter format.
@@ -227,7 +226,7 @@ class LogcatFilterSpecsOption(SupportsCapabilities):
 
 
 class LogcatFormatOption(SupportsCapabilities):
-    LOGCAT_FORMAT = 'logcatFormat' 
+    LOGCAT_FORMAT = "logcatFormat"
     logcat_format = OptionsDescriptor[Optional[str], str](LOGCAT_FORMAT)
     """
     Gets and Sets Log print format.
@@ -255,7 +254,7 @@ class LogcatFormatOption(SupportsCapabilities):
 
 
 class MockLocationAppOption(SupportsCapabilities):
-    MOCK_LOCATION_APP = 'mockLocationApp'
+    MOCK_LOCATION_APP = "mockLocationApp"
     mock_location_app = OptionsDescriptor[Optional[str], str](MOCK_LOCATION_APP)
     """
     Gets and Sets Identifier of the app, which is used as a system mock location provider.
@@ -285,7 +284,7 @@ class MockLocationAppOption(SupportsCapabilities):
 
 
 class RemoteAdbHostOption(SupportsCapabilities):
-    REMOTE_ADB_HOST = 'remoteAdbHost'
+    REMOTE_ADB_HOST = "remoteAdbHost"
     remote_adb_host = OptionsDescriptor[Optional[str], str](REMOTE_ADB_HOST)
     """
     Gets and Sets Address of the host where ADB is running.
@@ -312,7 +311,7 @@ class RemoteAdbHostOption(SupportsCapabilities):
 
 
 class SkipLogcatCaptureOption(SupportsCapabilities):
-    SKIP_LOGCAT_CAPTURE = 'skipLogcatCapture'
+    SKIP_LOGCAT_CAPTURE = "skipLogcatCapture"
     skip_logcat_capture = OptionsDescriptor[Optional[bool], bool](SKIP_LOGCAT_CAPTURE)
     """
     Whether to delete all the existing logs in the
@@ -341,8 +340,8 @@ class SkipLogcatCaptureOption(SupportsCapabilities):
 
 
 class SuppressKillServerOption(SupportsCapabilities):
-    SUPPRESS_KILL_SERVER = 'suppressKillServer'
-    suppress_kill_server:OptionsDescriptor[Optional[bool], bool]  = OptionsDescriptor(SUPPRESS_KILL_SERVER)
+    SUPPRESS_KILL_SERVER = "suppressKillServer"
+    suppress_kill_server: OptionsDescriptor[Optional[bool], bool] = OptionsDescriptor(SUPPRESS_KILL_SERVER)
     """
     Prevents the driver from ever killing the ADB server explicitly.
     Being set to true prevents the driver from ever killing the ADB server explicitly.

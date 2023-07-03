@@ -15,17 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional, Union
 from datetime import timedelta
-
-from appium.options.common.supports_capabilities import SupportsCapabilities
+from typing import Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
+from appium.options.common.supports_capabilities import SupportsCapabilities
 from appium.options.transformers import transform_duration_get, transform_duration_set
 
 
 class AllowTestPackagesOption(SupportsCapabilities):
-    ALLOW_TEST_PACKAGES = 'allowTestPackages'
+    ALLOW_TEST_PACKAGES = "allowTestPackages"
     allow_test_packages = OptionsDescriptor[Optional[bool], bool](ALLOW_TEST_PACKAGES)
     """
     Whether it is possible to use packages built with the test flag for
@@ -54,11 +53,9 @@ class AllowTestPackagesOption(SupportsCapabilities):
 
 
 class AndroidInstallTimeoutOption(SupportsCapabilities):
-    ANDROID_INSTALL_TIMEOUT = 'androidInstallTimeout'
+    ANDROID_INSTALL_TIMEOUT = "androidInstallTimeout"
     android_install_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]](
-        ANDROID_INSTALL_TIMEOUT, 
-        transform_duration_get, 
-        transform_duration_set
+        ANDROID_INSTALL_TIMEOUT, transform_duration_get, transform_duration_set
     )
     """
     Maximum amount of time to wait until the application under test is installed.
@@ -85,7 +82,7 @@ class AndroidInstallTimeoutOption(SupportsCapabilities):
 
 
 class AppActivityOption(SupportsCapabilities):
-    APP_ACTIVITY = 'appActivity'
+    APP_ACTIVITY = "appActivity"
     app_activity = OptionsDescriptor[Optional[str], str](APP_ACTIVITY)
     """
     Name of the main app activity.
@@ -113,7 +110,7 @@ class AppActivityOption(SupportsCapabilities):
 
 
 class AppPackageOption(SupportsCapabilities):
-    APP_PACKAGE = 'appPackage'
+    APP_PACKAGE = "appPackage"
     app_package = OptionsDescriptor[Optional[str], str](APP_PACKAGE)
     """
     App package identifier.
@@ -141,7 +138,7 @@ class AppPackageOption(SupportsCapabilities):
 
 
 class AppWaitActivityOption(SupportsCapabilities):
-    APP_WAIT_ACTIVITY = 'appWaitActivity'
+    APP_WAIT_ACTIVITY = "appWaitActivity"
     app_wait_activity = OptionsDescriptor[Optional[str], str](APP_WAIT_ACTIVITY)
     """
     Name of the app activity to wait for.
@@ -170,7 +167,7 @@ class AppWaitActivityOption(SupportsCapabilities):
 
 
 class AppWaitDurationOption(SupportsCapabilities):
-    APP_WAIT_DURATION = 'appWaitDuration'
+    APP_WAIT_DURATION = "appWaitDuration"
     app_wait_duration = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]](APP_WAIT_DURATION)
     """
     Identifier of the app package to wait for.
@@ -198,7 +195,7 @@ class AppWaitDurationOption(SupportsCapabilities):
 
 
 class AppWaitForLaunchOption(SupportsCapabilities):
-    APP_WAIT_FOR_LAUNCH = 'appWaitForLaunch'
+    APP_WAIT_FOR_LAUNCH = "appWaitForLaunch"
     app_wait_for_launch = OptionsDescriptor[Optional[bool], bool](APP_WAIT_FOR_LAUNCH)
     """
     Whether to block until the app under test returns the control to the
@@ -226,7 +223,7 @@ class AppWaitForLaunchOption(SupportsCapabilities):
 
 
 class AppWaitPackageOption(SupportsCapabilities):
-    APP_WAIT_PACKAGE = 'appWaitPackage'
+    APP_WAIT_PACKAGE = "appWaitPackage"
     app_wait_package = OptionsDescriptor[Optional[str], str](APP_WAIT_PACKAGE)
     """
     Identifier of the app package to wait for.
@@ -254,7 +251,7 @@ class AppWaitPackageOption(SupportsCapabilities):
 
 
 class AutoGrantPermissionsOption(SupportsCapabilities):
-    AUTO_GRANT_PERMISSIONS = 'autoGrantPermissions'
+    AUTO_GRANT_PERMISSIONS = "autoGrantPermissions"
     auto_grant_permissions = OptionsDescriptor[Optional[bool], bool](AUTO_GRANT_PERMISSIONS)
     """
     Whether to grant all the requested application permissions
@@ -282,7 +279,7 @@ class AutoGrantPermissionsOption(SupportsCapabilities):
 
 
 class EnforceAppInstallOption(SupportsCapabilities):
-    ENFORCE_APP_INSTALL = 'enforceAppInstall'
+    ENFORCE_APP_INSTALL = "enforceAppInstall"
     enforce_app_install = OptionsDescriptor[Optional[bool], bool](ENFORCE_APP_INSTALL)
     """
     Whether the application under test is always reinstalled even
@@ -310,7 +307,7 @@ class EnforceAppInstallOption(SupportsCapabilities):
 
 
 class IntentActionOption(SupportsCapabilities):
-    INTENT_ACTION = 'intentAction'
+    INTENT_ACTION = "intentAction"
     intent_action = OptionsDescriptor[Optional[str], str](INTENT_ACTION)
     """
     Intent action to be applied when
@@ -339,7 +336,7 @@ class IntentActionOption(SupportsCapabilities):
 
 
 class IntentCategoryOption(SupportsCapabilities):
-    INTENT_CATEGORY = 'intentCategory'
+    INTENT_CATEGORY = "intentCategory"
     intent_category = OptionsDescriptor[Optional[str], str](INTENT_CATEGORY)
     """
     Gets and Sets an optional intent category to be applied when
@@ -366,7 +363,7 @@ class IntentCategoryOption(SupportsCapabilities):
 
 
 class IntentFlagsOption(SupportsCapabilities):
-    INTENT_FLAGS = 'intentFlags'
+    INTENT_FLAGS = "intentFlags"
     intent_flags = OptionsDescriptor[Optional[str], str](INTENT_FLAGS)
     """
     Gets and Sets optional intent flags to be applied when
@@ -393,7 +390,7 @@ class IntentFlagsOption(SupportsCapabilities):
 
 
 class OptionalIntentArgumentsOption(SupportsCapabilities):
-    OPTIONAL_INTENT_ARGUMENTS = 'optionalIntentArguments'
+    OPTIONAL_INTENT_ARGUMENTS = "optionalIntentArguments"
     optional_intent_arguments = OptionsDescriptor[Optional[str], str](OPTIONAL_INTENT_ARGUMENTS)
     """
     Gets and Sets optional intent arguments to be applied when
@@ -420,7 +417,7 @@ class OptionalIntentArgumentsOption(SupportsCapabilities):
 
 
 class RemoteAppsCacheLimitOption(SupportsCapabilities):
-    REMOTE_APPS_CACHE_LIMIT = 'remoteAppsCacheLimit'
+    REMOTE_APPS_CACHE_LIMIT = "remoteAppsCacheLimit"
     remote_apps_cache_limit = OptionsDescriptor[Optional[int], int](REMOTE_APPS_CACHE_LIMIT)
     """
     Gets and Sets the maximum amount of application packages to be cached on the device under test.
@@ -450,7 +447,7 @@ class RemoteAppsCacheLimitOption(SupportsCapabilities):
 
 
 class UninstallOtherPackagesOption(SupportsCapabilities):
-    UNINSTALL_OTHER_PACKAGES = 'uninstallOtherPackages'
+    UNINSTALL_OTHER_PACKAGES = "uninstallOtherPackages"
     uninstall_other_packages = OptionsDescriptor[Optional[str], str](UNINSTALL_OTHER_PACKAGES)
     """
     Allows to Get and Set one or more comma-separated package

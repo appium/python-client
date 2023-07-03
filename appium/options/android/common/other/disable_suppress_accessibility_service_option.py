@@ -19,7 +19,7 @@ from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-DISABLE_SUPPRESS_ACCESSIBILITY_SERVICE = 'disableSuppressAccessibilityService'
+DISABLE_SUPPRESS_ACCESSIBILITY_SERVICE = "disableSuppressAccessibilityService"
 
 
 class DisableSuppressAccessibilityServiceOption(SupportsCapabilities):

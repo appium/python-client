@@ -36,8 +36,7 @@ from appium.options.common.common_options import (
 )
 
 from .app.app_options import AppInstallStrategyOption, AppPushTimeoutOption, LocalizableStringsDirOption
-from .general.include_device_caps_to_session_info_option import IncludeDeviceCapsToSessionInfoOption
-from .general.reset_location_service_option import ResetLocationServiceOption
+from .general.general_options import IncludeDeviceCapsToSessionInfoOption, ResetLocationServiceOption
 from .other.other_options import CommandTimeoutsOption, LaunchWithIdbOption, ShowIosLogOption, UseJsonSourceOption
 from .simulator.simulator_options import (
     CalendarAccessAuthorizedOption,

@@ -17,26 +17,35 @@
 
 from typing import Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-USER_PROFILE = "userProfile"
 
 
 class UserProfileOption(SupportsCapabilities):
-    @property
-    def user_profile(self) -> Optional[int]:
-        """
-        Integer identifier of a user profile.
-        """
-        return self.get_capability(USER_PROFILE)
+    USER_PROFILE = "userProfile"
+    user_profile = OptionsDescriptor[Optional[int], int](USER_PROFILE)
+    """
+    Integer identifier of a user profile. By default, the app under test is
+    installed for the currently active user, but in case it is necessary to
+    test how the app performs while being installed for a user profile,
+    which is different from the current one, this capability might
+    come in handy.
 
-    @user_profile.setter
-    def user_profile(self, value: int) -> None:
-        """
-        Integer identifier of a user profile. By default, the app under test is
-        installed for the currently active user, but in case it is necessary to
-        test how the app performs while being installed for a user profile,
-        which is different from the current one, this capability might
-        come in handy.
-        """
-        self.set_capability(USER_PROFILE, value)
+    Usage
+    -----
+    - Get
+        - `self.user_profile`
+    - Set
+        - `self.user_profile` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
+    """

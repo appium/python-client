@@ -20,7 +20,12 @@ from typing import Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-from appium.options.transformers import transform_duration_set
+from appium.options.transformers import (
+    transform_duration_get,
+    transform_duration_in_seconds_get,
+    transform_duration_in_seconds_set,
+    transform_duration_set,
+)
 
 
 class AppArgumentsOption(SupportsCapabilities):
@@ -109,7 +114,7 @@ class AppWorkingDirOption(SupportsCapabilities):
 class CreateSessionTimeoutOption(SupportsCapabilities):
     CREATE_SESSION_TIMEOUT = "createSessionTimeout"
     create_session_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]](
-        CREATE_SESSION_TIMEOUT, tset=transform_duration_set
+        CREATE_SESSION_TIMEOUT, transform_duration_get, transform_duration_set
     )
     """
     Set the timeout used to retry Appium Windows Driver session startup.
@@ -166,17 +171,8 @@ class ExperimentalWebDriverOption(SupportsCapabilities):
 
 class WaitForAppLaunchOption(SupportsCapabilities):
     WAIT_FOR_APP_LAUNCH = "ms:waitForAppLaunch"
-
-    @staticmethod
-    def transform_get(value: Optional[float]) -> Optional[timedelta]:
-        return None if value is None else timedelta(seconds=value)
-
-    @staticmethod
-    def transform_set(value: Union[timedelta, int]) -> Union[float, int]:
-        return value.total_seconds() if isinstance(value, timedelta) else value
-
     wait_for_app_launch = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]](
-        WAIT_FOR_APP_LAUNCH, transform_get, transform_set
+        WAIT_FOR_APP_LAUNCH, transform_duration_in_seconds_get, transform_duration_in_seconds_set
     )
     """
     Similar to createSessionTimeout, but is

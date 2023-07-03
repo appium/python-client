@@ -17,28 +17,36 @@
 
 from typing import Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-SKIP_SERVER_INSTALLATION = "skipServerInstallation"
 
 
 class SkipServerInstallationOption(SupportsCapabilities):
-    @property
-    def skip_server_installation(self) -> Optional[bool]:
-        """
-        Whether to skip the server components installation
-        on the device under test and all the related checks.
-        """
-        return self.get_capability(SKIP_SERVER_INSTALLATION)
+    SKIP_SERVER_INSTALLATION = "skipServerInstallation"
+    skip_server_installation = OptionsDescriptor[Optional[bool], bool](SKIP_SERVER_INSTALLATION)
+    """
+    Gets and Sets whether to skip the server components installation
+    on the device under test and all the related checks.
+    This could help to speed up the session startup if you know for sure the
+    correct server version is installed on the device.
+    In case the server is not installed or an incorrect version of it is installed
+    then you may get an unexpected error later.
 
-    @skip_server_installation.setter
-    def skip_server_installation(self, value: bool) -> None:
-        """
-        Set whether to skip the server components installation
-        on the device under test and all the related checks.
-        This could help to speed up the session startup if you know for sure the
-        correct server version is installed on the device.
-        In case the server is not installed or an incorrect version of it is installed
-        then you may get an unexpected error later.
-        """
-        self.set_capability(SKIP_SERVER_INSTALLATION, value)
+    Usage
+    -----
+    - Get
+        - `self.skip_server_installation`
+    - Set
+        - `self.skip_server_installation` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
+    """

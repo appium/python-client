@@ -18,29 +18,36 @@
 from datetime import timedelta
 from typing import Optional, Union
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-UIAUTOMATOR2_SERVER_READ_TIMEOUT = "uiautomator2ServerReadTimeout"
+from appium.options.transformers import transform_duration_get, transform_duration_set
 
 
 class Uiautomator2ServerReadTimeoutOption(SupportsCapabilities):
-    @property
-    def uiautomator2_server_read_timeout(self) -> Optional[timedelta]:
-        """
-        Maximum timeout to wait for an HTTP response from UiAutomator2Server.
-        """
-        value = self.get_capability(UIAUTOMATOR2_SERVER_READ_TIMEOUT)
-        return None if value is None else timedelta(milliseconds=value)
+    UIAUTOMATOR2_SERVER_READ_TIMEOUT = "uiautomator2ServerReadTimeout"
+    uiautomator2_server_read_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
+    (UIAUTOMATOR2_SERVER_READ_TIMEOUT, transform_duration_get, transform_duration_set)
+    """
+    Set the maximum timeout to wait for a HTTP response from UiAutomator2Server.
+    Only values greater than zero are accepted. If the given value is too low
+    then expect driver commands to fail with timeout of Xms exceeded error.
+    240000 ms by default
 
-    @uiautomator2_server_read_timeout.setter
-    def uiautomator2_server_read_timeout(self, value: Union[timedelta, int]) -> None:
-        """
-        Set the maximum timeout to wait for a HTTP response from UiAutomator2Server.
-        Only values greater than zero are accepted. If the given value is too low
-        then expect driver commands to fail with timeout of Xms exceeded error.
-        240000 ms by default
-        """
-        self.set_capability(
-            UIAUTOMATOR2_SERVER_READ_TIMEOUT,
-            int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value,
-        )
+    Usage
+    -----
+    - Get
+        - `self.uiautomator2_server_read_timeout`
+    - Set
+        - `self.uiautomator2_server_read_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
+    """

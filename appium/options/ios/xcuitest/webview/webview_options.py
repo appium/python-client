@@ -304,8 +304,9 @@ class SafariInitialUrlOption(SupportsCapabilities):
 
 class SafariLogAllCommunicationHexDumpOption(SupportsCapabilities):
     SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP = "safariLogAllCommunicationHexDump"
-    safari_log_all_communication_hex_dump = OptionsDescriptor[Optional[bool], bool]
-    (SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP)
+    safari_log_all_communication_hex_dump = OptionsDescriptor[Optional[bool], bool](
+        SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP
+    )
     """
     Log all communication sent to and received from the Web Inspector, as raw
     hex dump and printable characters. This logging is done before any data
@@ -335,8 +336,7 @@ class SafariLogAllCommunicationHexDumpOption(SupportsCapabilities):
 
 class SafariLogAllCommunicationOption(SupportsCapabilities):
     SAFARI_LOG_ALL_COMMUNICATION = "safariLogAllCommunication"
-    safari_log_all_communication = OptionsDescriptor[Optional[bool], bool]
-    (SAFARI_LOG_ALL_COMMUNICATION)
+    safari_log_all_communication = OptionsDescriptor[Optional[bool], bool](SAFARI_LOG_ALL_COMMUNICATION)
     """
     Log all plists sent to and received from the Web Inspector, as plain text.
     For some operations this can be a lot of data, so it is recommended to
@@ -364,8 +364,7 @@ class SafariLogAllCommunicationOption(SupportsCapabilities):
 
 class SafariOpenLinksInBackgroundOption(SupportsCapabilities):
     SAFARI_OPEN_LINKS_IN_BACKGROUND = "safariOpenLinksInBackground"
-    safari_open_links_in_background = OptionsDescriptor[Optional[bool], bool]
-    (SAFARI_OPEN_LINKS_IN_BACKGROUND)
+    safari_open_links_in_background = OptionsDescriptor[Optional[bool], bool](SAFARI_OPEN_LINKS_IN_BACKGROUND)
     """
     Whether Safari should allow links to open in new windows.
     Default keeps current sim setting.
@@ -392,8 +391,7 @@ class SafariOpenLinksInBackgroundOption(SupportsCapabilities):
 
 class SafariSocketChunkSizeOption(SupportsCapabilities):
     SAFARI_SOCKET_CHUNK_SIZE = "safariSocketChunkSize"
-    safari_socket_chunk_size = OptionsDescriptor[Optional[int], int]
-    (SAFARI_SOCKET_CHUNK_SIZE)
+    safari_socket_chunk_size = OptionsDescriptor[Optional[int], int](SAFARI_SOCKET_CHUNK_SIZE)
     """
     The size, in bytes, of the data to be sent to the Web Inspector on
     iOS 11+ real devices. Some devices hang when sending large amounts of
@@ -422,8 +420,7 @@ class SafariSocketChunkSizeOption(SupportsCapabilities):
 
 class SafariWebInspectorMaxFrameLengthOption(SupportsCapabilities):
     SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH = "safariWebInspectorMaxFrameLength"
-    safari_web_inspector_max_frame_length = OptionsDescriptor[Optional[int], int]
-    (SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH)
+    safari_web_inspector_max_frame_length = OptionsDescriptor[Optional[int], int](SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH)
     """
     The maximum size in bytes of a single data frame for the Web Inspector.
     Too high values could introduce slowness and/or memory leaks.
@@ -455,8 +452,8 @@ class WebkitResponseTimeoutOption(SupportsCapabilities):
     webkit_response_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
     (WEBKIT_RESPONSE_TIMEOUT, transform_duration_get, transform_duration_set)
     """
-    Time to wait for a response from WebKit in a Safari session.
-    (Real device only) Set the time to wait for a respons
+    (Real device only) Set the time to wait for a response from
+    WebKit in a Safari session. Defaults to 5000ms.
 
     Usage
     -----

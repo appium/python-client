@@ -18,27 +18,33 @@
 from datetime import timedelta
 from typing import Optional, Union
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-ESPRESSO_SERVER_LAUNCH_TIMEOUT = "espressoServerLaunchTimeout"
+from appium.options.transformers import transform_duration_get, transform_duration_set
 
 
 class EspressoServerLaunchTimeoutOption(SupportsCapabilities):
-    @property
-    def espresso_server_launch_timeout(self) -> Optional[timedelta]:
-        """
-        Maximum timeout to wait until Espresso server is listening on the device.
-        """
-        value = self.get_capability(ESPRESSO_SERVER_LAUNCH_TIMEOUT)
-        return None if value is None else timedelta(milliseconds=value)
+    ESPRESSO_SERVER_LAUNCH_TIMEOUT = "espressoServerLaunchTimeout"
+    espresso_server_launch_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
+    (ESPRESSO_SERVER_LAUNCH_TIMEOUT, transform_duration_get, transform_duration_set)
+    """Gets and Sets the maximum timeout to wait util Espresso  is listening on the device.
+    45000 ms by default
 
-    @espresso_server_launch_timeout.setter
-    def espresso_server_launch_timeout(self, value: Union[timedelta, int]) -> None:
-        """
-        Set the maximum timeout to wait util Espresso  is listening on the device.
-        45000 ms by default
-        """
-        self.set_capability(
-            ESPRESSO_SERVER_LAUNCH_TIMEOUT,
-            int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value,
-        )
+    Usage
+    -----
+    - Get
+        - `self.espresso_server_launch_timeout`
+    - Set
+        - `self.espresso_server_launch_timeout` = `value`
+
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[timedelta]`
+    - Set
+        - `None`
+    """

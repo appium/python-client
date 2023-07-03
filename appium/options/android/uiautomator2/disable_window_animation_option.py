@@ -17,24 +17,33 @@
 
 from typing import Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-DISABLE_WINDOWS_ANIMATION = "disableWindowAnimation"
 
 
 class DisableWindowAnimationOption(SupportsCapabilities):
-    @property
-    def disable_window_animation(self) -> Optional[bool]:
-        """
-        Whether window animations when starting the instrumentation process
-        are disabled.
-        """
-        return self.get_capability(DISABLE_WINDOWS_ANIMATION)
+    DISABLE_WINDOWS_ANIMATION = "disableWindowAnimation"
+    disable_window_animation = OptionsDescriptor[Optional[bool], bool](DISABLE_WINDOWS_ANIMATION)
+    """
+    Gets and Sets whether to disable window animations when starting the instrumentation process.
+    false by default
 
-    @disable_window_animation.setter
-    def disable_window_animation(self, value: bool) -> None:
-        """
-        Set whether to disable window animations when starting the instrumentation process.
-        false by default
-        """
-        self.set_capability(DISABLE_WINDOWS_ANIMATION, value)
+    Usage
+    -----
+    - Get
+        - `self.disable_window_animation`
+    
+    - Set
+        - `self.disable_window_animation` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
+    """

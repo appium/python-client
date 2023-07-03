@@ -20,22 +20,14 @@ from typing import Dict, List, Optional, Union
 
 from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-
-class WDATransformTimeout:
-    @staticmethod
-    def transform_wda_timeout_get(value: Optional[int]) -> Optional[timedelta]:
-        return None if value is None else timedelta(seconds=value)
-
-    @staticmethod
-    def transform_wda_timeout_set(value: Union[timedelta, int]) -> Union[int, float]:
-        return value.total_seconds() if isinstance(value, timedelta) else value
+from appium.options.transformers import transform_duration_in_seconds_get, transform_duration_in_seconds_set
 
 
 class AllowProvisioningDeviceRegistrationOption(SupportsCapabilities):
     ALLOW_PROVISIONING_DEVICE_REGISTRATION = "allowProvisioningDeviceRegistration"
-    allow_provisioning_device_registration = OptionsDescriptor[Optional[bool], bool]
-    (ALLOW_PROVISIONING_DEVICE_REGISTRATION)
+    allow_provisioning_device_registration = OptionsDescriptor[Optional[bool], bool](
+        ALLOW_PROVISIONING_DEVICE_REGISTRATION
+    )
     """
     Allow xcodebuild to register your destination device on the developer portal
     if necessary. Requires a developer account to have been added in Xcode's Accounts
@@ -315,8 +307,7 @@ class MjpegServerPortOption(SupportsCapabilities):
 class ProcessArgumentsOption(SupportsCapabilities):
     PROCESS_ARGUMENTS = "processArguments"
     process_arguments = OptionsDescriptor[
-        Optional[Dict[str, Union[List[str], Dict[str, str]]]],
-        Dict[str, Union[List[str], Dict[str, str]]],
+        Optional[Dict[str, Union[List[str], Dict[str, str]]]], Dict[str, Union[List[str], Dict[str, str]]]
     ]
     (PROCESS_ARGUMENTS)
     """
@@ -710,11 +701,7 @@ class UseXctestrunFileOption(SupportsCapabilities):
 class WaitForIdleTimeoutOption(SupportsCapabilities):
     WAIT_FOR_IDLE_TIMEOUT = "waitForIdleTimeout"
     wait_for_idle_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, float]]
-    (
-        WAIT_FOR_IDLE_TIMEOUT,
-        WDATransformTimeout.transform_wda_timeout_get,
-        WDATransformTimeout.transform_wda_timeout_set,
-    )
+    (WAIT_FOR_IDLE_TIMEOUT, transform_duration_in_seconds_get, transform_duration_in_seconds_set)
     """
      The time to wait until the application under test is idling.
     XCTest requires the app's main thread to be idling in order to execute any action on it,
@@ -804,11 +791,7 @@ class WdaBaseUrlOption(SupportsCapabilities):
 class WdaConnectionTimeoutOption(SupportsCapabilities):
     WDA_CONNECTION_TIMEOUT = "wdaConnectionTimeout"
     wda_connection_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
-    (
-        WDA_CONNECTION_TIMEOUT,
-        WDATransformTimeout.transform_wda_timeout_get,
-        WDATransformTimeout.transform_wda_timeout_set,
-    )
+    (WDA_CONNECTION_TIMEOUT, transform_duration_in_seconds_get, transform_duration_in_seconds_set)
     """
     Connection timeout to wait for a response from WebDriverAgent.
     Defaults to 240000ms.
@@ -836,11 +819,7 @@ class WdaConnectionTimeoutOption(SupportsCapabilities):
 class WdaEventloopIdleDelayOption(SupportsCapabilities):
     WDA_EVENTLOOP_IDLE_DELAY = "wdaEventloopIdleDelay"
     wda_eventloop_idle_delay = OptionsDescriptor[Optional[timedelta], Union[timedelta, float]]
-    (
-        WDA_EVENTLOOP_IDLE_DELAY,
-        WDATransformTimeout.transform_wda_timeout_get,
-        WDATransformTimeout.transform_wda_timeout_set,
-    )
+    (WDA_EVENTLOOP_IDLE_DELAY, transform_duration_in_seconds_get, transform_duration_in_seconds_set)
     """
     Delays the invocation of -[XCUIApplicationProcess setEventLoopHasIdled:] by the
     duration specified with this capability. This can help quiescence apps
@@ -873,11 +852,7 @@ class WdaEventloopIdleDelayOption(SupportsCapabilities):
 class WdaLaunchTimeoutOption(SupportsCapabilities):
     WDA_LAUNCH_TIMEOUT = "wdaLaunchTimeout"
     wda_launch_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
-    (
-        WDA_LAUNCH_TIMEOUT,
-        WDATransformTimeout.transform_wda_timeout_get,
-        WDATransformTimeout.transform_wda_timeout_set,
-    )
+    (WDA_LAUNCH_TIMEOUT, transform_duration_in_seconds_get, transform_duration_in_seconds_set)
     """
     Timeout to wait for WebDriverAgent to be pingable,
     after its building is finished. Defaults to 60000ms.
@@ -963,8 +938,8 @@ class WdaStartupRetryIntervalOption(SupportsCapabilities):
     wda_startup_retry_interval = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
     (
         WDA_STARTUP_RETRY_INTERVAL,
-        WDATransformTimeout.transform_wda_timeout_get,
-        WDATransformTimeout.transform_wda_timeout_set,
+        transform_duration_in_seconds_get,
+        transform_duration_in_seconds_set,
     )
     """
     Time interval to wait between tries to build and launch WebDriverAgent.

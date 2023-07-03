@@ -514,8 +514,7 @@ class PrerunOption(SupportsCapabilities):
 
 class PrintPageSourceOnFindFailureOption(SupportsCapabilities):
     PRINT_PAGE_SOURCE_ON_FIND_FAILURE = "printPageSourceOnFindFailure"
-    print_page_source_on_find_failure = OptionsDescriptor[Optional[bool], bool]
-    (PRINT_PAGE_SOURCE_ON_FIND_FAILURE)
+    print_page_source_on_find_failure = OptionsDescriptor[Optional[bool], bool](PRINT_PAGE_SOURCE_ON_FIND_FAILURE)
     """
     Gets and Sets Whether the driver should print the page source to the log
     if a find failure occurs.

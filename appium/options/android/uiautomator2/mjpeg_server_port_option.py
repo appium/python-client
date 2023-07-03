@@ -17,25 +17,34 @@
 
 from typing import Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-MJPEG_SERVER_PORT = "mjpegServerPort"
 
 
 class MjpegServerPortOption(SupportsCapabilities):
-    @property
-    def mjpeg_server_port(self) -> Optional[int]:
-        """
-        Number of the port UiAutomator2 server starts the MJPEG server on.
-        """
-        return self.get_capability(MJPEG_SERVER_PORT)
+    MJPEG_SERVER_PORT = "mjpegServerPort"
+    mjpeg_server_port = OptionsDescriptor[Optional[int], int](MJPEG_SERVER_PORT)
+    """
+    Gets and Sets The number of the port UiAutomator2 server starts the MJPEG server on.
+    If not provided then the screenshots broadcasting service on the remote
+    device does not get exposed to a local port (e.g. no adb port forwarding
+    is happening).
 
-    @mjpeg_server_port.setter
-    def mjpeg_server_port(self, value: int) -> None:
-        """
-        The number of the port UiAutomator2 server starts the MJPEG server on.
-        If not provided then the screenshots broadcasting service on the remote
-        device does not get exposed to a local port (e.g. no adb port forwarding
-        is happening).
-        """
-        self.set_capability(MJPEG_SERVER_PORT, value)
+    Usage
+    -----
+    - Get
+        - `self.mjpeg_server_port`
+    - Set
+        - `self.mjpeg_server_port` = `value`
+    
+    Parameters
+    ----------
+    `value`: `int`
+
+    Returns
+    -------
+    - Get
+        - `Optional[int]`
+    - Set
+        - `None`
+    """

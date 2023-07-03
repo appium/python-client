@@ -17,24 +17,33 @@
 
 from typing import Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-SKIP_DEVICE_INITIALIZATION = "skipDeviceInitialization"
 
 
 class SkipDeviceInitializationOption(SupportsCapabilities):
-    @property
-    def skip_device_initialization(self) -> Optional[bool]:
-        """
-        Whether initial device startup checks by the server are disabled.
-        """
-        return self.get_capability(SKIP_DEVICE_INITIALIZATION)
+    SKIP_DEVICE_INITIALIZATION = "skipDeviceInitialization"
+    skip_device_initialization = OptionsDescriptor[Optional[bool], bool](SKIP_DEVICE_INITIALIZATION)
+    """
+    Gets and Sets if the device  is ready and whether
+    Settings app is installed will be canceled on session creation.
+    Could speed up the session creation if you know what you are doing. false by default
 
-    @skip_device_initialization.setter
-    def skip_device_initialization(self, value: bool) -> None:
-        """
-        If set to true then device startup checks (whether it is ready and whether
-        Settings app is installed) will be canceled on session creation.
-        Could speed up the session creation if you know what you are doing. false by default
-        """
-        self.set_capability(SKIP_DEVICE_INITIALIZATION, value)
+    Usage
+    -----
+    - Get
+        - `self.skip_device_initialization`
+    - Set
+        - `self.skip_device_initialization` = `value`
+
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
+    """

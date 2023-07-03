@@ -18,27 +18,27 @@
 from datetime import timedelta
 from typing import Optional, Union
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT = "uiautomator2ServerInstallTimeout"
+from appium.options.transformers import transform_duration_get, transform_duration_set
 
 
 class Uiautomator2ServerInstallTimeoutOption(SupportsCapabilities):
-    @property
-    def uiautomator2_server_install_timeout(self) -> Optional[timedelta]:
-        """
-        Maximum timeout to wait until UiAutomator2 server is installed on the device.
-        """
-        value = self.get_capability(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT)
-        return None if value is None else timedelta(milliseconds=value)
+    UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT = "uiautomator2ServerInstallTimeout"
+    uiautomator2_server_install_timeout = OptionsDescriptor[Optional[timedelta], Union[timedelta, int]]
+    (UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT, transform_duration_get, transform_duration_set)
+    """
+    Gets and Sets the maximum timeout to wait util UiAutomator2 server is installed on the device.
+    20000 ms by default
 
-    @uiautomator2_server_install_timeout.setter
-    def uiautomator2_server_install_timeout(self, value: Union[timedelta, int]) -> None:
-        """
-        Set the maximum timeout to wait util UiAutomator2 server is installed on the device.
-        20000 ms by default
-        """
-        self.set_capability(
-            UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT,
-            int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value,
-        )
+    Usage
+    -----
+    - Get
+        - `self.uiautomator2_server_install_timeout`
+    - Set
+        - `self.uiautomator2_server_install_timeout` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[timedelta, int]`
+    """

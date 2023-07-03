@@ -149,8 +149,9 @@ class EnforceFreshSimulatorCreationOption(SupportsCapabilities):
 
 class ForceSimulatorSoftwareKeyboardPresenceOption(SupportsCapabilities):
     FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE = "forceSimulatorSoftwareKeyboardPresence"
-    force_simulator_software_keyboard_presence = OptionsDescriptor[Optional[bool], bool]
-    (FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE)
+    force_simulator_software_keyboard_presence = OptionsDescriptor[Optional[bool], bool](
+        FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE
+    )
     """
     Set this option to true in order to turn software keyboard on and turn
     hardware keyboard off in Simulator since Appium 1.22.0. This option helps
@@ -277,7 +278,8 @@ class PermissionsOption(SupportsCapabilities):
     def transform_set(value: Dict[str, Dict[str, str]]) -> str:
         return json.dumps(value, ensure_ascii=False)
 
-    permissions = OptionsDescriptor[Optional[Dict[str, Dict[str, str]]], Dict[str, Dict[str, str]]]
+    permissions = OptionsDescriptor
+    [Optional[Dict[str, Dict[str, str]]], Dict[str, Dict[str, str]]]
     (PERMISSIONS, transform_get, transform_set)
     """
     Since Xcode SDK 11.4 Apple provides native APIs to interact with
@@ -461,8 +463,7 @@ class SimulatorDevicesSetPathOption(SupportsCapabilities):
 
 class SimulatorPasteboardAutomaticSyncOption(SupportsCapabilities):
     SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC = "simulatorPasteboardAutomaticSync"
-    simulator_pasteboard_automatic_sync = OptionsDescriptor[Optional[bool], bool]
-    (SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC)
+    simulator_pasteboard_automatic_sync = OptionsDescriptor[Optional[bool], bool](SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC)
     """
     Handle the -PasteboardAutomaticSync flag when simulator process launches.
     It could improve launching simulator performance not to sync pasteboard with

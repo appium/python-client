@@ -17,25 +17,34 @@
 
 from typing import Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-FORCE_ESPRESSO_REBUILD = "forceEspressoRebuild"
 
 
 class ForceEspressoRebuildOption(SupportsCapabilities):
-    @property
-    def force_espresso_rebuild(self) -> Optional[bool]:
-        """
-        Whether to force Espresso server rebuild on a new session startup.
-        """
-        return self.get_capability(FORCE_ESPRESSO_REBUILD)
+    FORCE_ESPRESSO_REBUILD = "forceEspressoRebuild"
+    force_espresso_rebuild = OptionsDescriptor[Optional[bool], bool](FORCE_ESPRESSO_REBUILD)
+    """
+    Gets and Sets Whether to always enforce Espresso server rebuild (true).
+    By default, Espresso caches the already built server apk and only rebuilds
+    it when it is necessary, because rebuilding process needs extra time.
+    false by default.
 
-    @force_espresso_rebuild.setter
-    def force_espresso_rebuild(self, value: bool) -> None:
-        """
-        Whether to always enforce Espresso server rebuild (true).
-        By default, Espresso caches the already built server apk and only rebuilds
-        it when it is necessary, because rebuilding process needs extra time.
-        false by default.
-        """
-        self.set_capability(FORCE_ESPRESSO_REBUILD, value)
+    Usage
+    -----
+    - Get
+        - `self.force_espresso_rebuild`
+    - Set
+        - `self.force_espresso_rebuild` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
+    """

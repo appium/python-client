@@ -18,32 +18,47 @@
 import json
 from typing import Any, Dict, Optional, Union
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-ESPRESSO_BUILD_CONFIG = "espressoBuildConfig"
 
 
 class EspressoBuildConfigOption(SupportsCapabilities):
-    @property
-    def espresso_build_config(self) -> Optional[Union[Dict[str, Any], str]]:
-        """
-        Espresso build config.
-        """
-        value = self.get_capability(ESPRESSO_BUILD_CONFIG)
+    ESPRESSO_BUILD_CONFIG = "espressoBuildConfig"
+
+    @staticmethod
+    def transform_get(value: Any) -> Any:
         try:
             return json.loads(value)
         except Exception:
             return value
 
-    @espresso_build_config.setter
-    def espresso_build_config(self, value: Union[Dict[str, Any], str]) -> None:
-        """
-        This config allows to customize several important properties of
-        Espresso server. Refer to
-        https://github.com/appium/appium-espresso-driver#espresso-build-config
-        for more information on how to properly construct such config.
-        """
-        self.set_capability(
-            ESPRESSO_BUILD_CONFIG,
-            value if isinstance(value, str) else json.dumps(value, ensure_ascii=False),
-        )
+    @staticmethod
+    def transform_set(value: Union[str, Any]) -> str:
+        return value if isinstance(value, str) else json.dumps(value, ensure_ascii=False)
+
+    espresso_build_config = OptionsDescriptor[Optional[Union[Dict[str, Any], str]], Union[Dict[str, Any], str]]
+    (ESPRESSO_BUILD_CONFIG, transform_get, transform_set)
+    """
+    This config allows to customize several important properties of
+    Espresso server. Refer to
+    https://github.com/appium/appium-espresso-driver#espresso-build-config
+    for more information on how to properly construct such config.
+
+    Usage
+    -----
+    - Get
+        - `self.espresso_build_config`
+    - Set
+        - `self.espresso_build_config` = `value`
+    
+    Parameters
+    ----------
+    `value`: `Union[Dict[str, Any], str]`
+
+    Returns
+    -------
+    - Get
+        - `Optional[Union[Dict[str, Any], str]]`
+    - Set
+        - `None`
+    """

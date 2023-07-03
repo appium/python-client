@@ -17,24 +17,34 @@
 
 from typing import Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-DISABLE_SUPPRESS_ACCESSIBILITY_SERVICE = "disableSuppressAccessibilityService"
 
 
 class DisableSuppressAccessibilityServiceOption(SupportsCapabilities):
-    @property
-    def disable_suppress_accessibility_service(self) -> Optional[bool]:
-        """
-        Whether to suppress accessibility services.
-        """
-        return self.get_capability(DISABLE_SUPPRESS_ACCESSIBILITY_SERVICE)
+    DISABLE_SUPPRESS_ACCESSIBILITY_SERVICE = "disableSuppressAccessibilityService"
+    disable_suppress_accessibility_service = OptionsDescriptor[Optional[bool], bool]
+    (DISABLE_SUPPRESS_ACCESSIBILITY_SERVICE)
+    """
+    Being set to true tells the instrumentation process to not suppress
+    accessibility services during the automated test. This might be useful
+    if your automated test needs these services. false by default.
 
-    @disable_suppress_accessibility_service.setter
-    def disable_suppress_accessibility_service(self, value: bool) -> None:
-        """
-        Being set to true tells the instrumentation process to not suppress
-        accessibility services during the automated test. This might be useful
-        if your automated test needs these services. false by default.
-        """
-        self.set_capability(DISABLE_SUPPRESS_ACCESSIBILITY_SERVICE, value)
+    Usage
+    -----
+    - Get
+        - `self.disable_suppress_accessibility_service`
+    - Set
+        - `self.disable_suppress_accessibility_service` = `value`
+    
+    Parameters
+    ----------
+    `value`: `bool`
+
+    Returns
+    -------
+    - Get
+        - `Optional[bool]`
+    - Set
+        - `None`
+    """

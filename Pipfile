@@ -13,7 +13,6 @@ pre-commit = "~=2.21"
 pylint = "~=2.17.3"
 pylint-quotes = "~=0.2.3"
 pytest = "~=7.4"
->>>>>>> master
 pytest-cov = "~=4.1"
 python-dateutil = "~=2.8"
 tox = "~=4.6"

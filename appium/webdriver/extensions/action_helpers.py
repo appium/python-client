@@ -46,7 +46,7 @@ class ActionHelpers:
         if duration is None:
             duration = 600
 
-        touch_input = PointerInput(interaction.POINTER_TOUCH, "touch")
+        touch_input = PointerInput(interaction.POINTER_TOUCH, 'touch')
 
         actions = ActionChains(self)
         actions.w3c_actions = ActionBuilder(self, mouse=touch_input)
@@ -96,7 +96,7 @@ class ActionHelpers:
         """
         if len(positions) == 1:
             actions = ActionChains(self)
-            actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+            actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, 'touc'))
             x = positions[0][0]
             y = positions[0][1]
             actions.w3c_actions.pointer_action.move_to_location(x, y)
@@ -145,7 +145,7 @@ class ActionHelpers:
         Returns:
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
-        touch_input = PointerInput(interaction.POINTER_TOUCH, "touch")
+        touch_input = PointerInput(interaction.POINTER_TOUCH, 'touch')
 
         actions = ActionChains(self)
         actions.w3c_actions = ActionBuilder(self, mouse=touch_input)
@@ -174,7 +174,7 @@ class ActionHelpers:
             Union['WebDriver', 'ActionHelpers']: Self instance
         """
         actions = ActionChains(self)
-        actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+        actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, 'touch'))
         actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
         actions.w3c_actions.pointer_action.pointer_down()
         actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)

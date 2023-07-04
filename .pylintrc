@@ -552,8 +552,6 @@ known-third-party=enchant
 # "Exception"
 overgeneral-exceptions=Exception
 
-
 string-quote=single
 triple-quote=single
 docstring-quote=double
-

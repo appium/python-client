@@ -285,7 +285,7 @@ class WebDriver(
             instance = extension(self.execute)
             method_name = instance.method_name()
             if hasattr(WebDriver, method_name):
-                logger.debug(f"Overriding the method '{method_name}'")
+                logger.debug(f'Overriding the method \'{method_name}\'')
 
             # add a new method named 'instance.method_name()' and call it
             setattr(WebDriver, method_name, getattr(instance, method_name))
@@ -519,7 +519,7 @@ class WebDriver(
         if value.upper() in allowed_values:
             self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value})
         else:
-            raise WebDriverException("You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'")
+            raise WebDriverException('You can only set the orientation to \'LANDSCAPE\' and \'PORTRAIT\'')
 
     def assert_extension_exists(self, ext_name: str) -> 'WebDriver':
         """

@@ -42,7 +42,7 @@ class Settings(CanExecuteCommands):
         Args:
             settings: dictionary of settings to apply to the current test session
         """
-        self.execute(Command.UPDATE_SETTINGS, {"settings": settings})
+        self.execute(Command.UPDATE_SETTINGS, {'settings': settings})
         return cast('WebDriver', self)
 
     def _add_commands(self) -> None:

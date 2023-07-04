@@ -51,7 +51,7 @@ class TestTouchAction(BaseTestCase):
         action.tap(el, count=2).perform()
 
         els = self.driver.find_elements(by=AppiumBy.CLASS_NAME, value='android.widget.TextView')
-        assert 'This is a test\nThis is a test\n' == els[1].get_attribute("text")
+        assert 'This is a test\nThis is a test\n' == els[1].get_attribute('text')
 
     def test_press_and_immediately_release(self) -> None:
         el = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Animation')

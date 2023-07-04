@@ -17,24 +17,33 @@
 
 from typing import Optional
 
+from appium.options.base_options_descriptor import OptionsDescriptor
 from appium.options.common.supports_capabilities import SupportsCapabilities
-
-LOCALE_SCRIPT = "localeScript"
 
 
 class LocaleScriptOption(SupportsCapabilities):
-    @property
-    def locale_script(self) -> Optional[str]:
-        """
-        Canonical name of the locale to be set for the app under test.
-        """
-        return self.get_capability(LOCALE_SCRIPT)
+    LOCALE_SCRIPT = "localeScript"
+    locale_script = OptionsDescriptor[Optional[str], str](LOCALE_SCRIPT)
+    """
+    Gets and Sets canonical name of the locale to be set for the app under test,
+    for example zh-Hans-CN.
+    See https://developer.android.com/reference/java/util/Locale.html for more details.
 
-    @locale_script.setter
-    def locale_script(self, value: str) -> None:
-        """
-        Set canonical name of the locale to be set for the app under test,
-        for example zh-Hans-CN.
-        See https://developer.android.com/reference/java/util/Locale.html for more details.
-        """
-        self.set_capability(LOCALE_SCRIPT, value)
+    Usage
+    -----
+    - Get
+        - `self.locale_script`
+    - Set
+        - `self.locale_script` = `value`
+    
+    Parameters
+    ----------
+    `value`: `str`
+
+    Returns
+    -------
+    - Get
+        - `Optional[str]`
+    - Set
+        - `None`
+    """

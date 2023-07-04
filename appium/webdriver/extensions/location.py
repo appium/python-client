@@ -63,9 +63,9 @@ class Location(CanExecuteCommands, CanExecuteScripts):
             Union['WebDriver', 'Location']: Self instance
         """
         data = {
-            "location": {
-                "latitude": latitude,
-                "longitude": longitude,
+            'location': {
+                'latitude': latitude,
+                'longitude': longitude,
             }
         }
         if altitude is not None:

@@ -36,7 +36,7 @@ class TestSafari:
         assert 'WEBVIEW_' in self.driver.current_context
 
     def test_get(self) -> None:
-        self.driver.get("http://google.com")
+        self.driver.get('http://google.com')
         for _ in range(5):
             time.sleep(0.5)
             if 'Google' == self.driver.title:

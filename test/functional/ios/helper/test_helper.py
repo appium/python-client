@@ -37,6 +37,6 @@ class BaseTestCase(object):
         if is_ci():
             payload = self.driver.stop_recording_screen()
             video_path = os.path.join(os.getcwd(), method.__name__ + '.mp4')
-            with open(video_path, "wb") as fd:
+            with open(video_path, 'wb') as fd:
                 fd.write(base64.b64decode(payload))
         self.driver.quit()

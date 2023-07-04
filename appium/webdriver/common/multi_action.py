@@ -38,7 +38,7 @@ class MultiAction:
 
     def __init__(self, driver: 'WebDriver', element: Optional['WebElement'] = None) -> None:
         warnings.warn(
-            "[Deprecated] 'MultiAction' action is deprecated. Please use W3C actions instead.", DeprecationWarning
+            '[Deprecated] \'MultiAction\' action is deprecated. Please use W3C actions instead.', DeprecationWarning
         )
 
         self._driver = driver

@@ -112,7 +112,7 @@ class WebElement(SeleniumWebElement):
         #     by = By.CSS_SELECTOR
         #     value = '[name="%s"]' % value
 
-        return self._execute(RemoteCommand.FIND_CHILD_ELEMENT, {"using": by, "value": value})['value']
+        return self._execute(RemoteCommand.FIND_CHILD_ELEMENT, {'using': by, 'value': value})['value']
 
     def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> List['WebElement']:
         """Find elements given a AppiumBy strategy and locator
@@ -142,7 +142,7 @@ class WebElement(SeleniumWebElement):
         #     by = By.CSS_SELECTOR
         #     value = '[name="%s"]' % value
 
-        return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS, {"using": by, "value": value})['value']
+        return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS, {'using': by, 'value': value})['value']
 
     def clear(self) -> 'WebElement':
         """Clears text.

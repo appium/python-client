@@ -23,7 +23,7 @@ from test.helpers.constants import SERVER_URL_BASE
 from .helper import desired_capabilities
 
 
-@pytest.mark.skip(reason="Need to fix broken test")
+@pytest.mark.skip(reason='Need to fix broken test')
 class TestContextSwitching(object):
     def setup_method(self) -> None:
         caps = desired_capabilities.get_desired_capabilities('selendroid-test-app.apk')
@@ -44,7 +44,7 @@ class TestContextSwitching(object):
     def test_actually_in_webview(self) -> None:
         self._enter_webview()
         self.driver.find_element(by=AppiumBy.CSS_SELECTOR, value='input[type=submit]').click()
-        el = self.driver.find_element(by=AppiumBy.XPATH, value="//h1[contains(., 'This is my way')]")
+        el = self.driver.find_element(by=AppiumBy.XPATH, value='//h1[contains(., \'This is my way\')]')
         assert el is not None
 
     def test_move_back_to_native_context(self) -> None:

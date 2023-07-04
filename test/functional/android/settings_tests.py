@@ -22,6 +22,6 @@ class TestSettings(BaseTestCase):
         assert settings is not None
 
     def test_update_settings(self) -> None:
-        self.driver.update_settings({"waitForIdleTimeout": 10001})
+        self.driver.update_settings({'waitForIdleTimeout': 10001})
         settings = self.driver.get_settings()
-        assert settings["waitForIdleTimeout"] == 10001
+        assert settings['waitForIdleTimeout'] == 10001

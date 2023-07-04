@@ -32,7 +32,7 @@ class TestFindByImage(object):
 
         # relax template matching
         self.driver.update_settings(
-            {"fixImageFindScreenshotDims": False, "fixImageTemplateSize": True, "autoUpdateImageElementPosition": True}
+            {'fixImageFindScreenshotDims': False, 'fixImageTemplateSize': True, 'autoUpdateImageElementPosition': True}
         )
 
     def teardown_method(self) -> None:
@@ -57,14 +57,14 @@ class TestFindByImage(object):
         assert rect['y'] is not None
         assert el.is_displayed()
         el.click()
-        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, "Alarm")
+        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Alarm')
 
     def test_find_multiple_elements_by_image_just_returns_one(self) -> None:
-        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, "App")
+        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'App')
         image_path = desired_capabilities.PATH('file/find_by_image_success.png')
         els = self.driver.find_elements_by_image(image_path)
         els[0].click()
-        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, "Alarm")
+        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Alarm')
 
     def test_find_throws_no_such_element(self) -> None:
         image_path = desired_capabilities.PATH('file/find_by_image_failure.png')

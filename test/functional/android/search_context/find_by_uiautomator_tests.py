@@ -19,7 +19,7 @@ from appium.webdriver.webelement import WebElement
 from test.functional.android.helper.test_helper import BaseTestCase
 
 
-@pytest.mark.skip(reason="Need to fix flaky test")
+@pytest.mark.skip(reason='Need to fix flaky test')
 class TestFindByUIAutomator(BaseTestCase):
     def test_find_single_element(self) -> None:
         el = self.driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("Animation")')

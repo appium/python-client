@@ -16,7 +16,7 @@ black: ## Run black
 .PHONY: pylint
 pylint: ## Run pylint
     # TODO Remove --disable=E1136 when no errors in py39
-	python -m pylint $(ARGS) --rcfile .pylintrc appium test --disable=E1136
+	python -m pylint $(ARGS) --load-plugins pylint_quotes --rcfile .pylintrc appium test --disable=E1136
 
 .PHONY: mypy
 mypy:  ## Run mypy

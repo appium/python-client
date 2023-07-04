@@ -66,7 +66,7 @@ class TestWebDriver(BaseTestCase):
         assert wait_for_condition(
             lambda: self.driver.query_app_state(desired_capabilities.BUNDLE_ID)
             < ApplicationState.RUNNING_IN_FOREGROUND,
-        ), "The app didn't go to background."
+        ), 'The app didn\'t go to background.'
         self.driver.activate_app(desired_capabilities.BUNDLE_ID)
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND
 
@@ -97,7 +97,7 @@ class TestWebDriver(BaseTestCase):
         assert text == def_text
 
     def test_press_button(self) -> None:
-        self.driver.press_button("Home")
+        self.driver.press_button('Home')
         if float(desired_capabilities.get_desired_capabilities(desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:
             return
         assert self.driver.query_app_state(desired_capabilities.BUNDLE_ID) == ApplicationState.RUNNING_IN_FOREGROUND

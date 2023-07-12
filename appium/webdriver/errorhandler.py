@@ -86,12 +86,15 @@ class MobileErrorHandler(errorhandler.ErrorHandler):
         https://www.w3.org/TR/webdriver/#errors
         """
         payload = response.get('value', '')
-        try:
-            payload_dict = json.loads(payload)
-        except (json.JSONDecodeError, TypeError):
-            return
-        if not isinstance(payload_dict, dict):
-            return
+        if isinstance(payload, dict):
+            payload_dict = payload
+        else:
+            try:
+                payload_dict = json.loads(payload)
+            except (json.JSONDecodeError, TypeError):
+                return
+            if not isinstance(payload_dict, dict):
+                return
         value = payload_dict.get('value')
         if not isinstance(value, dict):
             return

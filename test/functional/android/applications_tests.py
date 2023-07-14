@@ -16,8 +16,6 @@
 import os
 from time import sleep
 
-import pytest
-
 from appium.webdriver.applicationstate import ApplicationState
 
 from .helper.desired_capabilities import PATH

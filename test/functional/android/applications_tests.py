@@ -16,8 +16,6 @@
 import os
 from time import sleep
 
-import pytest
-
 from appium.webdriver.applicationstate import ApplicationState
 
 from .helper.desired_capabilities import PATH
@@ -34,11 +32,11 @@ class TestApplications(BaseTestCase):
         assert not self.driver.is_app_installed('sdfsdf')
         assert self.driver.is_app_installed(APIDEMO_PKG_NAME)
 
-    @pytest.mark.skip('This causes the server to crash. no idea why')
     def test_install_app(self) -> None:
-        assert not self.driver.is_app_installed('io.selendroid.testapp')
-        self.driver.install_app(PATH(os.path.join('../..', 'apps', 'selendroid-test-app.apk')))
-        assert self.driver.is_app_installed('io.selendroid.testapp')
+        self.driver.remove_app(APIDEMO_PKG_NAME)
+        assert not self.driver.is_app_installed(APIDEMO_PKG_NAME)
+        self.driver.install_app(PATH(os.path.join('../..', 'apps', 'ApiDemos-debug.apk.zip')))
+        assert self.driver.is_app_installed(APIDEMO_PKG_NAME)
 
     def test_remove_app(self) -> None:
         assert self.driver.is_app_installed(APIDEMO_PKG_NAME)

@@ -14,8 +14,8 @@ An extension library for adding [WebDriver Protocol](https://www.w3.org/TR/webdr
 Since **v1.0.0**, only Python 3.7+ is supported.
 
 Since **v2.0.0**, the base selenium client version is v4.
-The version only works in W3C WebDriver protocol format.
-If you would like to use the old protocol (MJSONWP), please use v1 Appium Python client.
+The version only works in the W3C WebDriver protocol format.
+If you would like to use the old protocol (MJSONWP), please use the v1 Appium Python client.
 
 ### Quick migration guide from v1 to v2
 - Enhancement
@@ -23,7 +23,7 @@ If you would like to use the old protocol (MJSONWP), please use v1 Appium Python
         - Removed `forceMjsonwp` since Selenium v4 and Appium Python client v2 expect only W3C WebDriver protocol
     - Methods `ActionHelpers#scroll`, `ActionHelpers#drag_and_drop`, `ActionHelpers#tap`, `ActionHelpers#swipe` and `ActionHelpers#flick` now call W3C actions as its backend
         - Please check each behavior. Their behaviors could slightly differ.
-    - Added `strict_ssl` to relax SSL error such as self-signed ones
+    - Added `strict_ssl` to relax SSL errors such as self-signed ones
 - Deprecated
     - `MultiAction` and `TouchAction` are deprecated. Please use W3C WebDriver actions.
         - e.g.
@@ -32,11 +32,11 @@ If you would like to use the old protocol (MJSONWP), please use v1 Appium Python
             - https://www.youtube.com/watch?v=oAJ7jwMNFVU
             - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
             - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
-    - `launch_app`, `close_app` and `reset` are deprecated. Please read [issues#15807](https://github.com/appium/appium/issues/15807) for more details
+    - `launch_app`, `close_app`, and `reset` are deprecated. Please read [issues#15807](https://github.com/appium/appium/issues/15807) for more details
 
 #### MultiAction/TouchAction to W3C actions
 
-On UIA2, some elements can be handled with `touch` pointer action insead of the default `mouse` pointer action in the Selenium Python cleint.
+On UIA2, some elements can be handled with `touch` pointer action instead of the default `mouse` pointer action in the Selenium Python client.
 For example, the below action builder is to replace the default one with the `touch` pointer action.
 
 ```python
@@ -95,10 +95,10 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 
 The Appium Python Client depends on [Selenium Python binding](https://pypi.org/project/selenium/), thus
 the Selenium Python binding update might affect the Appium Python Client behavior.
-For exampple, some changes in the Selenium binding could break the Appium client.
+For example, some changes in the Selenium binding could break the Appium client.
 
 > **Note**
-> We strongly recommend you to manage dependencies with version management tools such as Pipenv and requirements.txt
+> We strongly recommend you manage dependencies with version management tools such as Pipenv and requirements.txt
 > to keep compatible version combinations.
 
 ## Usage
@@ -116,7 +116,7 @@ from appium import webdriver
 
 From there much of your test code will work with no change.
 
-As a base for the following code examples, the following sets up the [UnitTest](https://docs.python.org/3/library/unittest.html)
+As a base for the following code examples, the following set up the [UnitTest](https://docs.python.org/3/library/unittest.html)
 environment:
 
 ```python
@@ -278,7 +278,7 @@ driver = webdriver.Remote('http://127.0.0.1:4723', options=options, strict_ssl=F
 
 The first argument of `webdriver.Remote` can set an arbitrary command executor for you.
 
-1. Set init arguments for the pool manager Appium Python client uses to manage http requests.
+1. Set init arguments for the pool manager Appium Python client uses to manage HTTP requests.
 
 ```python
 from appium import webdriver
@@ -351,7 +351,7 @@ driver = webdriver.Remote(custom_executor, options=options)
 
 ### Run tests
 
-You can run all of tests running on CI via `tox` in your local.
+You can run all of the tests running on CI via `tox` in your local.
 
 ```bash
 $ tox
@@ -389,7 +389,7 @@ $ pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_tests.p
 
 ## Release
 
-Follow below steps.
+Follow the below steps.
 
 ```bash
 $ pip install twine

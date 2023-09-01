@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TypeVar
-
-from ..protocol import Protocol
+from typing import Protocol, TypeVar
 
 T = TypeVar('T')
 

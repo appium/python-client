@@ -12,11 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, Union
+from typing import Dict, Protocol, Union
 
 from selenium.webdriver.remote.remote_connection import RemoteConnection
-
-from ..protocol import Protocol
 
 
 class CanExecuteCommands(Protocol):

@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Optional, cast
+from typing import TYPE_CHECKING, Optional, Protocol, cast
 
 from selenium.webdriver.remote.switch_to import SwitchTo
 
-from appium.protocols.protocol import Protocol
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from .mobilecommand import MobileCommand

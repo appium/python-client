@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Dict, List, Union
-
-from ..protocol import Protocol
+from typing import TYPE_CHECKING, Dict, List, Protocol, Union
 
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement

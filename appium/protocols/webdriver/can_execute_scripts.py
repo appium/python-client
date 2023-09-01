@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, List, Optional
-
-from ..protocol import Protocol
+from typing import Any, List, Optional, Protocol
 
 
 class CanExecuteScripts(Protocol):

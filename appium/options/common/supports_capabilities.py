@@ -15,9 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, TypeVar
-
-from appium.protocols.protocol import Protocol
+from typing import Any, Protocol, TypeVar
 
 T = TypeVar('T')
 

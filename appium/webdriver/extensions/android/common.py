@@ -26,32 +26,6 @@ if TYPE_CHECKING:
 
 
 class Common(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
-    def end_test_coverage(self, intent: str, path: str) -> Any:
-        """Ends the coverage collection and pull the coverage.ec file from the device.
-        deprecated:: 2.9.0
-
-        Android only.
-        See https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android/android-coverage.md
-
-        Args:
-            intent: description of operation to be performed
-            path: path to coverage.ec file to be pulled from the device
-
-        Returns:
-            TODO
-        """
-        warnings.warn(
-            'This API is deprecated and will be removed in future versions',
-            DeprecationWarning,
-        )
-        return self.execute(
-            Command.END_TEST_COVERAGE,
-            {
-                'intent': intent,
-                'path': path,
-            },
-        )['value']
-
     def open_notifications(self) -> 'WebDriver':
         """Open notification shade in Android (API Level 18 and above)
 
@@ -82,10 +56,6 @@ class Common(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence
         commands[Command.GET_CURRENT_PACKAGE] = (
             'GET',
             '/session/$sessionId/appium/device/current_package',
-        )
-        commands[Command.END_TEST_COVERAGE] = (
-            'POST',
-            '/session/$sessionId/appium/app/end_test_coverage',
         )
         commands[Command.OPEN_NOTIFICATIONS] = (
             'POST',

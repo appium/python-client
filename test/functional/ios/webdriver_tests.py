@@ -12,50 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING
-
-import pytest
-from selenium.webdriver.support.ui import WebDriverWait
-
-from appium import webdriver
-from appium.options.common import AppiumOptions
 from appium.webdriver.applicationstate import ApplicationState
 from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.ios.helper.test_helper import BaseTestCase
-from test.functional.test_helper import get_available_from_port_range, wait_for_condition
-from test.helpers.constants import SERVER_URL_BASE
+from test.functional.test_helper import wait_for_condition
 
-from ..test_helper import is_ci
 from .helper import desired_capabilities
-
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
 
 
 class TestWebDriver(BaseTestCase):
-    # TODO Due to not created 2nd session somehow
-    @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI.')
-    def test_all_sessions(self) -> None:
-        port = get_available_from_port_range(8200, 8300)
-        caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        caps['deviceName'] = 'iPhone Xs Max'
-        caps['wdaLocalPort'] = port
-
-        class session_counts_is_two:
-            TIMEOUT = 10
-
-            def __call__(self, driver: 'WebDriver') -> bool:
-                return len(driver.all_sessions) == 2
-
-        driver2 = None
-        try:
-            driver2 = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
-            WebDriverWait(driver2, session_counts_is_two.TIMEOUT).until(session_counts_is_two())
-            assert len(self.driver.all_sessions) == 2
-        finally:
-            if driver2 is not None:
-                driver2.quit()
-
     def test_app_management(self) -> None:
         # this only works in Xcode9+
         if float(desired_capabilities.get_desired_capabilities(desired_capabilities.BUNDLE_ID)['platformVersion']) < 11:

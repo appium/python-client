@@ -30,7 +30,7 @@ class TestKeyboard(BaseTestCase):
 
         el = self.driver.find_elements(by=AppiumBy.CLASS_NAME, value='XCUIElementTypeTextField')[0]
         el.click()
-        el.set_value('Testing')
+        el.send_keys('Testing')
 
         assert self._get_keyboard_el().is_displayed()
 
@@ -44,7 +44,7 @@ class TestKeyboard(BaseTestCase):
 
         el = self.driver.find_elements(by=AppiumBy.CLASS_NAME, value='XCUIElementTypeTextField')[0]
         el.click()
-        el.set_value('Testing')
+        el.send_keys('Testing')
 
         assert self._get_keyboard_el().is_displayed()
 
@@ -58,7 +58,7 @@ class TestKeyboard(BaseTestCase):
 
         el = self.driver.find_elements(by=AppiumBy.CLASS_NAME, value='XCUIElementTypeTextField')[0]
         el.click()
-        el.set_value('Testing')
+        el.send_keys('Testing')
 
         assert self._get_keyboard_el().is_displayed()
 
@@ -72,7 +72,7 @@ class TestKeyboard(BaseTestCase):
 
         el = self.driver.find_elements(by=AppiumBy.CLASS_NAME, value='XCUIElementTypeTextField')[0]
         el.click()
-        el.set_value('Testing')
+        el.send_keys('Testing')
         assert self.driver.is_keyboard_shown()
 
     def _get_keyboard_el(self) -> 'WebElement':

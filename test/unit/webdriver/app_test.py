@@ -21,17 +21,6 @@ from test.unit.helper.test_helper import android_w3c_driver, appium_command, get
 
 class TestWebDriverApp(object):
     @httpretty.activate
-    def test_reset(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/app/reset'), body='{"value": ""}'
-        )
-        result = driver.reset()
-
-        assert {'sessionId': '1234567890'}, get_httpretty_request_body(httpretty.last_request())
-        assert isinstance(result, WebDriver)
-
-    @httpretty.activate
     def test_install_app(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
@@ -103,22 +92,6 @@ class TestWebDriverApp(object):
         result = driver.background_app(0)
         assert {'app': 0}, get_httpretty_request_body(httpretty.last_request())
         assert isinstance(result, WebDriver)
-
-    @httpretty.activate
-    def test_launch_app(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/app/launch'), body='{"value": }'
-        )
-        assert isinstance(driver.launch_app(), WebDriver)
-
-    @httpretty.activate
-    def test_close_app(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/app/close'), body='{"value": }'
-        )
-        assert isinstance(driver.close_app(), WebDriver)
 
     @httpretty.activate
     def test_query_app_state(self):

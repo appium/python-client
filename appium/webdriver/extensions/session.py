@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import warnings
-from typing import Any, Dict, List
+from typing import Dict
 
 from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
@@ -22,42 +21,6 @@ from ..mobilecommand import MobileCommand as Command
 
 
 class Session(CanExecuteCommands):
-    @property
-    def session(self) -> Dict[str, Any]:
-        """Retrieves session information from the current session
-        deprecated:: 2.0.0
-
-        Usage:
-            session = driver.session
-
-        Returns:
-            `dict`: containing information from the current session
-        """
-        warnings.warn(
-            'The "session" API is deprecated and will be removed in future versions',
-            DeprecationWarning,
-        )
-
-        return self.execute(Command.GET_SESSION)['value']
-
-    @property
-    def all_sessions(self) -> List[Dict[str, Any]]:
-        """Retrieves all sessions that are open
-        deprecated:: 2.0.0
-
-        Usage:
-            sessions = driver.all_sessions
-
-        Returns:
-            :obj:`list` of :obj:`dict`: containing all open sessions
-        """
-        warnings.warn(
-            'The "all_sessions" API is deprecated and will be removed in future versions',
-            DeprecationWarning,
-        )
-
-        return self.execute(Command.GET_ALL_SESSIONS)['value']
-
     @property
     def events(self) -> Dict:
         """Retrieves events information from the current session
@@ -69,8 +32,7 @@ class Session(CanExecuteCommands):
             `dict`:  containing events timing information from the current session
         """
         try:
-            session = self.session
-            return session['events']
+            return self.execute(Command.GET_SESSION)['value']['events']
         except Exception as e:
             logger.warning('Could not find events information in the session. Error: %s', e)
             return {}
@@ -79,4 +41,3 @@ class Session(CanExecuteCommands):
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
         commands[Command.GET_SESSION] = ('GET', '/session/$sessionId')
-        commands[Command.GET_ALL_SESSIONS] = ('GET', '/sessions')

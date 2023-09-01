@@ -37,7 +37,8 @@ class TestWebelement(BaseTestCase):
 
         el = wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'android.widget.EditText')
         el.send_keys('original text')
-        el.set_text('new text')
+        el.clear()
+        el.send_keys('new text')
 
         assert 'new text' == el.text
 

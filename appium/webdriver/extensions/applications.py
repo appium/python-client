@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import warnings
 from typing import TYPE_CHECKING, Any, Dict, Union, cast
 
 from selenium.common.exceptions import InvalidArgumentException, UnknownMethodException
@@ -145,39 +144,6 @@ class Applications(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPr
             self.mark_extension_absence(ext_name).execute(Command.REMOVE_APP, data)
         return cast('WebDriver', self)
 
-    def launch_app(self) -> 'WebDriver':
-        """Start on the device the application specified in the desired capabilities.
-        deprecated:: 2.0.0
-
-        Returns:
-            Union['WebDriver', 'Applications']: Self instance
-        """
-        warnings.warn(
-            'The "launchApp" API is deprecated and will be removed in future versions. '
-            'See https://github.com/appium/appium/issues/15807',
-            DeprecationWarning,
-        )
-
-        self.execute(Command.LAUNCH_APP)
-        return cast('WebDriver', self)
-
-    def close_app(self) -> 'WebDriver':
-        """Stop the running application, specified in the desired capabilities, on
-        the device.
-        deprecated:: 2.0.0
-
-        Returns:
-            Union['WebDriver', 'Applications']: Self instance
-        """
-        warnings.warn(
-            'The "closeApp" API is deprecated and will be removed in future versions. '
-            'See https://github.com/appium/appium/issues/15807',
-            DeprecationWarning,
-        )
-
-        self.execute(Command.CLOSE_APP)
-        return cast('WebDriver', self)
-
     def terminate_app(self, app_id: str, **options: Any) -> bool:
         """Terminates the application if it is running.
 
@@ -283,22 +249,6 @@ class Applications(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPr
             # TODO: Remove the fallback
             return self.mark_extension_absence(ext_name).execute(Command.GET_APP_STRINGS, data)['value']
 
-    def reset(self) -> 'WebDriver':
-        """Resets the current application on the device.
-        deprecated:: 2.0.0
-
-        Returns:
-            Union['WebDriver', 'Applications']: Self instance
-        """
-        warnings.warn(
-            'The "reset" API is deprecated and will be removed in future versions. '
-            'See https://github.com/appium/appium/issues/15807',
-            DeprecationWarning,
-        )
-
-        self.execute(Command.RESET)
-        return cast('WebDriver', self)
-
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
         commands = self.command_executor._commands
@@ -322,6 +272,3 @@ class Applications(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPr
             '/session/$sessionId/appium/device/app_state',
         )
         commands[Command.GET_APP_STRINGS] = ('POST', '/session/$sessionId/appium/app/strings')
-        commands[Command.RESET] = ('POST', '/session/$sessionId/appium/app/reset')
-        commands[Command.LAUNCH_APP] = ('POST', '/session/$sessionId/appium/app/launch')
-        commands[Command.CLOSE_APP] = ('POST', '/session/$sessionId/appium/app/close')

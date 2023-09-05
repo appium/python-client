@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import warnings
-from typing import TYPE_CHECKING, cast
-
 from selenium.common.exceptions import TimeoutException, UnknownMethodException
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -23,52 +20,8 @@ from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
 
 class Activities(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
-    def start_activity(self, app_package: str, app_activity: str, **opts: str) -> 'WebDriver':
-        """Opens an arbitrary activity during a test. If the activity belongs to
-        another application, that application is started and the activity is opened.
-        deprecated:: 2.9.0
-
-        This is an Android-only method.
-
-        Args:
-            app_package: The package containing the activity to start.
-            app_activity: The activity to start.
-
-        Keyword Args:
-            app_wait_package (str): Begin automation after this package starts.
-            app_wait_activity (str): Begin automation after this activity starts.
-            intent_action (str): Intent to start.
-            intent_category (str): Intent category to start.
-            intent_flags (str): Flags to send to the intent.
-            optional_intent_arguments (str): Optional arguments to the intent.
-            dont_stop_app_on_reset (str): Should the app be stopped on reset?
-        """
-        warnings.warn(
-            'The "session" API is deprecated. Use "mobile: startActivity" extension instead.',
-            DeprecationWarning,
-        )
-
-        data = {'appPackage': app_package, 'appActivity': app_activity}
-        arguments = {
-            'app_wait_package': 'appWaitPackage',
-            'app_wait_activity': 'appWaitActivity',
-            'intent_action': 'intentAction',
-            'intent_category': 'intentCategory',
-            'intent_flags': 'intentFlags',
-            'optional_intent_arguments': 'optionalIntentArguments',
-            'dont_stop_app_on_reset': 'dontStopAppOnReset',
-        }
-        for key, value in arguments.items():
-            if key in opts:
-                data[value] = opts[key]
-        self.execute(Command.START_ACTIVITY, data)
-        return cast('WebDriver', self)
-
     @property
     def current_activity(self) -> str:
         """Retrieves the current activity running on the device.
@@ -108,8 +61,4 @@ class Activities(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPres
         commands[Command.GET_CURRENT_ACTIVITY] = (
             'GET',
             '/session/$sessionId/appium/device/current_activity',
-        )
-        commands[Command.START_ACTIVITY] = (
-            'POST',
-            '/session/$sessionId/appium/device/start_activity',
         )

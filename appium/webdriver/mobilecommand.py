@@ -16,20 +16,12 @@
 class MobileCommand:
     # Common
     GET_SESSION = 'getSession'
-    GET_ALL_SESSIONS = 'getAllSessions'
 
     GET_STATUS = 'getStatus'
 
     ## MJSONWP for Selenium v4
     GET_LOCATION = 'getLocation'
     SET_LOCATION = 'setLocation'
-
-    ## MJSONWP for Selenium v4
-    GET_AVAILABLE_IME_ENGINES = 'getAvailableIMEEngines'
-    IS_IME_ACTIVE = 'isIMEActive'
-    ACTIVATE_IME_ENGINE = 'activateIMEEngine'
-    DEACTIVATE_IME_ENGINE = 'deactivateIMEEngine'
-    GET_ACTIVE_IME_ENGINE = 'getActiveEngine'
 
     CLEAR = 'clear'
     LOCATION_IN_VIEW = 'locationInView'
@@ -41,12 +33,6 @@ class MobileCommand:
     TOUCH_ACTION = 'touchAction'
     MULTI_ACTION = 'multiAction'
 
-    SET_IMMEDIATE_VALUE = 'setImmediateValue'
-    REPLACE_KEYS = 'replaceKeys'
-
-    LAUNCH_APP = 'launchApp'
-    CLOSE_APP = 'closeApp'
-    RESET = 'reset'
     BACKGROUND = 'background'
     GET_APP_STRINGS = 'getAppStrings'
 
@@ -96,14 +82,12 @@ class MobileCommand:
 
     # Android
     OPEN_NOTIFICATIONS = 'openNotifications'
-    START_ACTIVITY = 'startActivity'
     GET_CURRENT_ACTIVITY = 'getCurrentActivity'
     GET_CURRENT_PACKAGE = 'getCurrentPackage'
     GET_SYSTEM_BARS = 'getSystemBars'
     GET_DISPLAY_DENSITY = 'getDisplayDensity'
     TOGGLE_WIFI = 'toggleWiFi'
     TOGGLE_LOCATION_SERVICES = 'toggleLocationServices'
-    END_TEST_COVERAGE = 'endTestCoverage'
     GET_PERFORMANCE_DATA_TYPES = 'getPerformanceDataTypes'
     GET_PERFORMANCE_DATA = 'getPerformanceData'
     GET_NETWORK_CONNECTION = 'getNetworkConnection'

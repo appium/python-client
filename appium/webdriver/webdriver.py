@@ -14,7 +14,6 @@
 
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
-import warnings
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 
 from selenium import webdriver
@@ -52,7 +51,6 @@ from .extensions.execute_driver import ExecuteDriver
 from .extensions.execute_mobile_command import ExecuteMobileCommand
 from .extensions.hw_actions import HardwareActions
 from .extensions.images_comparison import ImagesComparison
-from .extensions.ime import IME
 from .extensions.keyboard import Keyboard
 from .extensions.location import Location
 from .extensions.log_event import LogEvent
@@ -190,7 +188,6 @@ class WebDriver(
     Gsm,
     HardwareActions,
     ImagesComparison,
-    IME,
     Keyboard,
     Location,
     LogEvent,
@@ -207,12 +204,6 @@ class WebDriver(
     def __init__(
         self,
         command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444/wd/hub',
-        # TODO: Remove the deprecated arg
-        desired_capabilities: Optional[Dict] = None,
-        # TODO: Remove the deprecated arg
-        browser_profile: Union[str, None] = None,
-        # TODO: Remove the deprecated arg
-        proxy: Union[str, None] = None,
         keep_alive: bool = True,
         direct_connection: bool = True,
         extensions: Optional[List['WebDriver']] = None,
@@ -235,28 +226,9 @@ class WebDriver(
         if isinstance(command_executor, str):
             command_executor = AppiumConnection(command_executor, keep_alive=keep_alive)
 
-        if browser_profile is not None:
-            warnings.warn('browser_profile argument is deprecated and has no effect', DeprecationWarning)
-
-        if proxy is not None:
-            warnings.warn('proxy argument is deprecated and has no effect', DeprecationWarning)
-
-        if desired_capabilities is not None:
-            warnings.warn(
-                'desired_capabilities argument is deprecated and will be removed in future versions. '
-                'Use options instead.',
-                DeprecationWarning,
-            )
-        # TODO: Remove the fallback after desired_capabilities removal
-        dst_options = (
-            AppiumOptions().load_capabilities(desired_capabilities)
-            if desired_capabilities is not None and options is None
-            else options
-        )
-
         super().__init__(
             command_executor=command_executor,
-            options=dst_options,
+            options=options,
         )
 
         if hasattr(self, 'command_executor'):
@@ -458,28 +430,6 @@ class WebDriver(
         """
         return MobileWebElement(self, element_id)
 
-    def set_value(self, element: MobileWebElement, value: str) -> 'WebDriver':
-        """Set the value on an element in the application.
-        deprecated:: 2.8.1
-
-        Args:
-            element: the element whose value will be set
-            value: the value to set on the element
-
-        Returns:
-            `appium.webdriver.webdriver.WebDriver`: Self instance
-        """
-        warnings.warn(
-            'The "setValue" API is deprecated and will be removed in future versions. '
-            'Instead the "send_keys" API or W3C Actions can be used. '
-            'See https://github.com/appium/python-client/pull/831',
-            DeprecationWarning,
-        )
-
-        data = {'text': value}
-        self.execute(Command.SET_IMMEDIATE_VALUE, data)
-        return self
-
     @property
     def switch_to(self) -> MobileSwitchTo:
         """Returns an object containing all options to switch focus into
@@ -565,16 +515,8 @@ class WebDriver(
         # FIXME: remove after a while as MJSONWP
         commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
         commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
-        commands[Command.SET_IMMEDIATE_VALUE] = (
-            'POST',
-            '/session/$sessionId/appium/element/$id/value',
-        )
 
         # TODO Move commands for element to webelement
-        commands[Command.REPLACE_KEYS] = (
-            'POST',
-            '/session/$sessionId/appium/element/$id/replace_value',
-        )
         commands[Command.CLEAR] = ('POST', '/session/$sessionId/element/$id/clear')
         commands[Command.LOCATION_IN_VIEW] = (
             'GET',

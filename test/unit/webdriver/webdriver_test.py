@@ -175,29 +175,6 @@ class TestWebDriverWebDriver:
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
 
     @httpretty.activate
-    def test_get_all_sessions(self):
-        driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.GET,
-            appium_command('/sessions'),
-            body=json.dumps({'value': {'deviceName': 'iPhone Simulator', 'events': {'simStarted': [1234567891]}}}),
-        )
-        session = driver.all_sessions
-        assert len(session) != 1
-
-    @httpretty.activate
-    def test_get_session(self):
-        driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.GET,
-            appium_command('/session/1234567890'),
-            body=json.dumps({'value': {'deviceName': 'iPhone Simulator', 'events': {'simStarted': [1234567890]}}}),
-        )
-        session = driver.session
-        assert session['deviceName'] == 'iPhone Simulator'
-        assert session['events']['simStarted'] == [1234567890]
-
-    @httpretty.activate
     def test_get_events(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(
@@ -391,20 +368,18 @@ class TestWebDriverWebDriver:
 
 
 class SubWebDriver(WebDriver):
-    def __init__(self, command_executor, desired_capabilities=None, direct_connection=False, options=None):
+    def __init__(self, command_executor, direct_connection=False, options=None):
         super().__init__(
             command_executor=command_executor,
-            desired_capabilities=desired_capabilities,
             direct_connection=direct_connection,
             options=options,
         )
 
 
 class SubSubWebDriver(SubWebDriver):
-    def __init__(self, command_executor, desired_capabilities=None, direct_connection=False, options=None):
+    def __init__(self, command_executor, direct_connection=False, options=None):
         super().__init__(
             command_executor=command_executor,
-            desired_capabilities=desired_capabilities,
             direct_connection=direct_connection,
             options=options,
         )

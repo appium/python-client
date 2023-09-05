@@ -14,7 +14,6 @@
 # limitations under the License.
 
 import os
-from time import sleep
 
 from appium.webdriver.applicationstate import ApplicationState
 
@@ -25,8 +24,6 @@ from .helper.test_helper import APIDEMO_PKG_NAME, BaseTestCase
 class TestApplications(BaseTestCase):
     def test_background_app(self) -> None:
         self.driver.background_app(1)
-        sleep(3)
-        self.driver.launch_app()
 
     def test_is_app_installed(self) -> None:
         assert not self.driver.is_app_installed('sdfsdf')
@@ -42,12 +39,6 @@ class TestApplications(BaseTestCase):
         assert self.driver.is_app_installed(APIDEMO_PKG_NAME)
         self.driver.remove_app(APIDEMO_PKG_NAME)
         assert not self.driver.is_app_installed(APIDEMO_PKG_NAME)
-
-    def test_close_and_launch_app(self) -> None:
-        self.driver.close_app()
-        self.driver.launch_app()
-        activity = self.driver.current_activity
-        assert '.ApiDemos' == activity
 
     def test_app_management(self) -> None:
         app_id = self.driver.current_package
@@ -68,7 +59,3 @@ class TestApplications(BaseTestCase):
     def test_app_strings_with_language_and_file(self) -> None:
         strings = self.driver.app_strings('en', 'some_file')
         assert u'You can\'t wipe my data, you are a monkey!' == strings[u'monkey_wipe_data']
-
-    def test_reset(self) -> None:
-        self.driver.reset()
-        assert self.driver.is_app_installed(APIDEMO_PKG_NAME)

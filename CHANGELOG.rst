@@ -2,6 +2,144 @@ Changelog
 =========
 
 
+v3.0.0 (2023-09-08)
+-------------------
+
+New
+~~~
+- Feat!: Update selenium dependency to 4.12 (#908) [Mykola Mokhnach]
+
+  BREAKING CHANGE: The minimum supported Python version set to 3.8
+  BREAKING CHANGE: The minimum supported selenium version set to 4.12
+
+Fix
+~~~
+- Handle the situation where payload is already a dictionary (#892)
+  [Mykola Mokhnach]
+- Add missing dependencies for types-python-dateutil (#891) [Dor
+  Blayzer]
+
+  * fix: Add missing dependencies for types-python-dateutil
+
+  * test: replace usage of selendroid app from 'test_install_app' in applications_tests.py
+
+  * Revert "test: replace usage of selendroid app from 'test_install_app' in applications_tests.py"
+
+  This reverts commit dcdf08b67d24257700923c89ae2643f26af2892f.
+
+Test
+~~~~
+- Test: selendroid cleanup (#895) [Dor Blayzer]
+
+  * test: replace usage of selendroid app from 'test_install_app' in applications_tests.py
+
+  * test: remove unused import pytest from applications_tests.py
+
+  * test: fix broken TestContextSwitching by replacing selendroid with ApiDemos
+
+  * test: remove selendroid-test-app.apk from apps folder
+- Ci: add pylint_quotes for pylint to use single quote as primary method
+  (#886) [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 3.0.0. [Kazuaki Matsuo]
+- Chore(deps-dev): update tox requirement from ~=4.8 to ~=4.11 (#906)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.8.0...4.11.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Refactor!: remove several previously deprecated APIs (#909) [Mykola
+  Mokhnach]
+
+  BREAKING CHANGE: Removed obsolete all_sessions and session properties
+  BREAKING CHANGE: Removed the obsolete start_activity method
+  BREAKING CHANGE: Removed the obsolete end_test_coverage method
+  BREAKING CHANGE: Removed the following obsolete arguments from the driver constructor: desired_capabilities, browser_profile, proxy
+  BREAKING CHANGE: Removed obsolete set_value and set_text methods
+  BREAKING CHANGE: Removed the obsolete MobileBy class
+  BREAKING CHANGE: Removed obsolete application management methods: launch_app, close_app, reset
+  BREAKING CHANGE: Removed obsolete IME methods: available_ime_engines, is_ime_active, activate_ime_engine, deactivate_ime_engine, active_ime_engine
+- Chore(deps-dev): update tox requirement from ~=4.6 to ~=4.8 (#902)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.6.0...4.8.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.10 to ~=4.11 (#899)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/commits)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pylint requirement from ~=2.17.3 to ~=2.17.5
+  (#897) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/pylint-dev/pylint) to permit the latest version.
+  - [Release notes](https://github.com/pylint-dev/pylint/releases)
+  - [Commits](https://github.com/pylint-dev/pylint/compare/v2.17.3...v2.17.5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Docs: Update README.md (#898) [Dor Blayzer]
+
+  Some typos and grammar fixes
+- Chore(deps-dev): update mock requirement from ~=5.0 to ~=5.1 (#893)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [mock](https://github.com/testing-cabal/mock) to permit the latest version.
+  - [Changelog](https://github.com/testing-cabal/mock/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/testing-cabal/mock/compare/5.0.0...5.1.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mock
+    dependency-type: direct:development
+  ...
+- Chore: run pre-commit autoupdate (#890) [Kazuaki Matsuo]
+- Chore: update isort revision to 5.12.0 (#889) [Dor Blayzer]
+- Chore(deps-dev): update pytest requirement from ~=7.2 to ~=7.4 (#884)
+  [dependabot[bot]]
+- Chore(deps-dev): update typing-extensions requirement (#885)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [typing-extensions](https://github.com/python/typing_extensions) to permit the latest version.
+  - [Release notes](https://github.com/python/typing_extensions/releases)
+  - [Changelog](https://github.com/python/typing_extensions/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/python/typing_extensions/compare/4.6.0...4.7.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: typing-extensions
+    dependency-type: direct:development
+  ...
+- Docs: update changelogs and version. [Kazuaki Matsuo]
+
+
 v2.11.1 (2023-06-13)
 --------------------
 - Revert "chore: remove duplicated clean command" (#881) [Kazuaki

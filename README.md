@@ -61,14 +61,14 @@ For example, some changes in the Selenium binding could break the Appium client.
 
 ### Quick migration guide from v2 to v3
 - Replacement
-    - `start_activity`: Please use [`mobile: startActivity`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-startactivity)
-    - `launch_app`, `close_app`, `reset`: Please refer to https://github.com/appium/appium/issues/15807
-    - `available_ime_engines`, `is_ime_active`, `activate_ime_engine`, `deactivate_ime_engine`, `active_ime_engine`: Please use [`mobile: shell`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-shell)
-    - `set_value`, `set_text`: Please use `send_keys` or W3C actions' `send_keys`
+    - `start_activity` method: Please use [`mobile: startActivity`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-startactivity)
+    - `launch_app`, `close_app` and `reset` methods: Please refer to https://github.com/appium/appium/issues/15807
+    - `available_ime_engines`, `is_ime_active`, `activate_ime_engine`, `deactivate_ime_engine` and `active_ime_engine` methods: Please use [`mobile: shell`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-shell)
+    - `set_value` and `set_text` methods: Please use `element.send_keys` or `send_keys` by W3C Actions
 - Removal
-    - `end_test_coverage` is no longer available
-    - `session` is no longer available
-    - `all_sessions` is no longer available
+    - `end_test_coverage` method is no longer available
+    - `session` properly is no longer available
+    - `all_sessions` properly is no longer available
 
 ### Quick migration guide from v1 to v2
 - Enhancement

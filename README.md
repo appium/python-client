@@ -9,13 +9,66 @@
 
 An extension library for adding [WebDriver Protocol](https://www.w3.org/TR/webdriver/) and Appium commands to the Selenium Python language binding for use with the mobile testing framework [Appium](https://appium.io).
 
-## Notice
+## Getting the Appium Python client
 
-Since **v1.0.0**, only Python 3.7+ is supported.
+There are three ways to install and use the Appium Python client.
 
-Since **v2.0.0**, the base selenium client version is v4.
-The version only works in the W3C WebDriver protocol format.
-If you would like to use the old protocol (MJSONWP), please use the v1 Appium Python client.
+1. Install from [PyPi](https://pypi.org), as
+['Appium-Python-Client'](https://pypi.org/project/Appium-Python-Client/).
+
+    ```shell
+    pip install Appium-Python-Client
+    ```
+
+    You can see the history from [here](https://pypi.org/project/Appium-Python-Client/#history)
+
+2. Install from source, via [PyPi](https://pypi.org). From ['Appium-Python-Client'](https://pypi.org/project/Appium-Python-Client/),
+download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
+
+    ```shell
+    tar -xvf Appium-Python-Client-X.X.tar.gz
+    cd Appium-Python-Client-X.X
+    python setup.py install
+    ```
+
+3. Install from source via [GitHub](https://github.com/appium/python-client).
+
+    ```shell
+    git clone git@github.com:appium/python-client.git
+    cd python-client
+    python setup.py install
+    ```
+
+## Compatibility Matrix
+
+|Appium Python Client| Selenium binding| Python version |
+|----|----|----|
+|`3.0.0`+ |`4.12.0`+ | 3.8+ |
+|`2.10.0` - `2.11.1` |`4.1.0` - `4.11.2` | 3.7+ |
+|`2.2.0` - `2.9.0` |`4.1.0` - `4.9.0` | 3.7+ |
+|`2.0.0` - `2.1.4` |`4.0.0` | 3.7+ |
+|`1.0.0` - `1.1.0` |`3.x`| 3.7, 3.8 |
+|`0.52` and below|`3.x`| 2.7, 3.4 - 3.7 |
+
+The Appium Python Client depends on [Selenium Python binding](https://pypi.org/project/selenium/), thus
+the Selenium Python binding update might affect the Appium Python Client behavior.
+For example, some changes in the Selenium binding could break the Appium client.
+
+> **Note**
+> We strongly recommend you manage dependencies with version management tools such as Pipenv and requirements.txt
+> to keep compatible version combinations.
+
+
+### Quick migration guide from v2 to v3
+- Replacement
+    - `start_activity` method: Please use [`mobile: startActivity`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-startactivity)
+    - `launch_app`, `close_app` and `reset` methods: Please refer to https://github.com/appium/appium/issues/15807
+    - `available_ime_engines`, `is_ime_active`, `activate_ime_engine`, `deactivate_ime_engine` and `active_ime_engine` methods: Please use [`mobile: shell`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-shell)
+    - `set_value` and `set_text` methods: Please use `element.send_keys` or `send_keys` by W3C Actions
+- Removal
+    - `end_test_coverage` method is no longer available
+    - `session` properly is no longer available
+    - `all_sessions` properly is no longer available
 
 ### Quick migration guide from v1 to v2
 - Enhancement
@@ -53,53 +106,6 @@ actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
 actions.w3c_actions.pointer_action.release()
 actions.perform()
 ```
-
-## Getting the Appium Python client
-
-There are three ways to install and use the Appium Python client.
-
-1. Install from [PyPi](https://pypi.org), as
-['Appium-Python-Client'](https://pypi.org/project/Appium-Python-Client/).
-
-    ```shell
-    pip install Appium-Python-Client
-    ```
-
-    You can see the history from [here](https://pypi.org/project/Appium-Python-Client/#history)
-
-2. Install from source, via [PyPi](https://pypi.org). From ['Appium-Python-Client'](https://pypi.org/project/Appium-Python-Client/),
-download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
-
-    ```shell
-    tar -xvf Appium-Python-Client-X.X.tar.gz
-    cd Appium-Python-Client-X.X
-    python setup.py install
-    ```
-
-3. Install from source via [GitHub](https://github.com/appium/python-client).
-
-    ```shell
-    git clone git@github.com:appium/python-client.git
-    cd python-client
-    python setup.py install
-    ```
-
-## Compatibility Matrix
-
-|Appium Python Client| Selenium binding|
-|----|----|
-|`2.10.0`+ |`4.1.0`+ |
-|`2.2.0` - `2.9.0` |`4.1.0` - `4.9.0` |
-|`2.0.0` - `2.1.4` |`4.0.0` |
-|`1.1.0` and below|`3.x`|
-
-The Appium Python Client depends on [Selenium Python binding](https://pypi.org/project/selenium/), thus
-the Selenium Python binding update might affect the Appium Python Client behavior.
-For example, some changes in the Selenium binding could break the Appium client.
-
-> **Note**
-> We strongly recommend you manage dependencies with version management tools such as Pipenv and requirements.txt
-> to keep compatible version combinations.
 
 ## Usage
 

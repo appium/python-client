@@ -172,6 +172,18 @@ class WebElement(SeleniumWebElement):
         """
         return self._execute(Command.LOCATION_IN_VIEW)['value']
 
+    def set_value(self, value: str) -> 'WebElement':
+        """Set the value on this element in the application
+        Args:
+            value: The value to be set
+        Returns:
+            `appium.webdriver.webelement.WebElement`
+        """
+
+        data = {'text': value}
+        self._execute(Command.SET_IMMEDIATE_VALUE, data)
+        return self
+
     # Override
     def send_keys(self, *value: str) -> 'WebElement':
         """Simulates typing into the element.

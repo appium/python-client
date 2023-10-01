@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+import os
 import tempfile
 
 import httpretty
@@ -34,6 +35,18 @@ class TestWebElement(object):
         s = driver.get_status()
 
         assert s == response
+
+    @httpretty.activate
+    def test_set_value(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/element/element_id/value'))
+
+        element = MobileWebElement(driver, 'element_id')
+        value = 'happy testing'
+        element.set_value(value)
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['text'] == value
 
     @httpretty.activate
     def test_send_key(self):

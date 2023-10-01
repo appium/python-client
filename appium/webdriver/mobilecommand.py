@@ -33,6 +33,8 @@ class MobileCommand:
     TOUCH_ACTION = 'touchAction'
     MULTI_ACTION = 'multiAction'
 
+    SET_IMMEDIATE_VALUE = 'setImmediateValue'
+
     BACKGROUND = 'background'
     GET_APP_STRINGS = 'getAppStrings'
 

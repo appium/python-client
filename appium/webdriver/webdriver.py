@@ -430,6 +430,19 @@ class WebDriver(
         """
         return MobileWebElement(self, element_id)
 
+    def set_value(self, element: MobileWebElement, value: str) -> 'WebDriver':
+        """Set the value on an element in the application.
+        Args:
+            element: the element whose value will be set
+            value: the value to set on the element
+        Returns:
+            `appium.webdriver.webdriver.WebDriver`: Self instance
+        """
+
+        data = {'text': value}
+        self.execute(Command.SET_IMMEDIATE_VALUE, data)
+        return self
+
     @property
     def switch_to(self) -> MobileSwitchTo:
         """Returns an object containing all options to switch focus into
@@ -515,6 +528,10 @@ class WebDriver(
         # FIXME: remove after a while as MJSONWP
         commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
         commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
+        commands[Command.SET_IMMEDIATE_VALUE] = (
+            'POST',
+            '/session/$sessionId/appium/element/$id/value',
+        )
 
         # TODO Move commands for element to webelement
         commands[Command.CLEAR] = ('POST', '/session/$sessionId/element/$id/clear')

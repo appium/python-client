@@ -21,6 +21,7 @@ from typing import Any, Dict, TypeVar
 from selenium.webdriver.common.options import BaseOptions
 
 from .automation_name_option import AutomationNameOption
+from .browser_name_option import BROWSER_NAME, BrowserNameOption
 from .event_timings_option import EventTimingsOption
 from .full_reset_option import FullResetOption
 from .new_command_timeout_option import NewCommandTimeoutOption
@@ -34,6 +35,7 @@ PLATFORM_NAME = 'platformName'
 
 class AppiumOptions(
     BaseOptions,
+    BrowserNameOption,
     AutomationNameOption,
     EventTimingsOption,
     PrintPageSourceOnFindFailureOption,
@@ -45,7 +47,7 @@ class AppiumOptions(
     W3C_CAPABILITY_NAMES = frozenset(
         [
             'acceptInsecureCerts',
-            'browserName',
+            BROWSER_NAME,
             'browserVersion',
             PLATFORM_NAME,
             'pageLoadStrategy',

@@ -108,6 +108,7 @@ from appium.options.common.language_option import LanguageOption
 from appium.options.common.locale_option import LocaleOption
 from appium.options.common.orientation_option import OrientationOption
 from appium.options.common.other_apps_option import OtherAppsOption
+from appium.options.common.platform_version_option import PlatformVersionOption
 from appium.options.common.skip_log_capture_option import SkipLogCaptureOption
 from appium.options.common.system_port_option import SystemPortOption
 from appium.options.common.udid_option import UdidOption
@@ -154,6 +155,7 @@ class EspressoOptions(
     EnforceAppInstallOption,
     LocaleScriptOption,
     AdbPortOption,
+    PlatformVersionOption,
     RemoteAdbHostOption,
     AdbExecTimeoutOption,
     ClearDeviceLogsOnStartOption,

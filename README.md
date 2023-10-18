@@ -63,7 +63,7 @@ For example, some changes in the Selenium binding could break the Appium client.
 - `options` keyword argument in the `webdriver.Remote` constructor such as `XCUITestOptions` instead of `desired_capabilities`
     - Available options are https://github.com/appium/python-client/tree/master/appium/options
         - Please check the [Usage](#usage) below as an exampple.
-    - Not a "new" change, but the `desired_capabilities` has been removed since v3.
+    - Not a "new" change, but the `desired_capabilities` argument has been removed since v3.
 - Replacement
     - `start_activity` method: Please use [`mobile: startActivity`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-startactivity)
     - `launch_app`, `close_app` and `reset` methods: Please refer to https://github.com/appium/appium/issues/15807

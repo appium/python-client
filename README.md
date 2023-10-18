@@ -60,6 +60,10 @@ For example, some changes in the Selenium binding could break the Appium client.
 
 
 ### Quick migration guide from v2 to v3
+- `options` keyword argument in the `webdriver.Remote` constructor such as `XCUITestOptions` instead of `desired_capabilities`
+    - Available options are https://github.com/appium/python-client/tree/master/appium/options
+        - Please check the [Usage](#usage) below as an exampple.
+    - Not a "new" change, but the `desired_capabilities` argument has been removed since v3.
 - Replacement
     - `start_activity` method: Please use [`mobile: startActivity`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-startactivity)
     - `launch_app`, `close_app` and `reset` methods: Please refer to https://github.com/appium/appium/issues/15807
@@ -67,8 +71,8 @@ For example, some changes in the Selenium binding could break the Appium client.
     - `set_value` and `set_text` methods: Please use `element.send_keys` or `send_keys` by W3C Actions
 - Removal
     - `end_test_coverage` method is no longer available
-    - `session` properly is no longer available
-    - `all_sessions` properly is no longer available
+    - `session` property is no longer available
+    - `all_sessions` property is no longer available
 
 ### Quick migration guide from v1 to v2
 - Enhancement
@@ -148,7 +152,7 @@ APPIUM_HOST = '127.0.0.1'
 def appium_service():
     service = AppiumService()
     service.start(
-        # Check the output of `appium server --help` for the complete list of 
+        # Check the output of `appium server --help` for the complete list of
         # server command line arguments
         args=['--address', APPIUM_HOST, '-p', str(APPIUM_PORT)],
         timeout_ms=20000,
@@ -157,7 +161,7 @@ def appium_service():
     service.stop()
 
 
-def create_ios_driver(custom_opts = None):    
+def create_ios_driver(custom_opts = None):
     options = XCUITestOptions()
     options.platformVersion = '13.4'
     options.udid = '123456789ABC'
@@ -165,9 +169,9 @@ def create_ios_driver(custom_opts = None):
         options.load_capabilities(custom_opts)
     # Appium1 points to http://127.0.0.1:4723/wd/hub by default
     return webdriver.Remote(f'http://{APPIUM_HOST}:{APPIUM_PORT}', options=options)
-    
 
-def create_android_driver(custom_opts = None):    
+
+def create_android_driver(custom_opts = None):
     options = UiAutomator2Options()
     options.platformVersion = '10'
     options.udid = '123456789ABC'
@@ -180,16 +184,16 @@ def create_android_driver(custom_opts = None):
 @pytest.fixture
 def ios_driver_factory():
     return create_ios_driver
-    
+
 
 @pytest.fixture
 def ios_driver():
-    # prefer this fixture if there is no need to customize driver options in tests 
+    # prefer this fixture if there is no need to customize driver options in tests
     driver = create_ios_driver()
     yield driver
     driver.quit()
 
-    
+
 @pytest.fixture
 def android_driver_factory():
     return create_android_driver
@@ -197,12 +201,12 @@ def android_driver_factory():
 
 @pytest.fixture
 def android_driver():
-    # prefer this fixture if there is no need to customize driver options in tests 
+    # prefer this fixture if there is no need to customize driver options in tests
     driver = create_android_driver()
     yield driver
     driver.quit()
 
-            
+
 def test_ios_click(appium_service, ios_driver_factory):
     # Usage of the context manager ensures the driver session is closed properly
     # after the test completes. Otherwise, make sure to call `driver.quit()` on teardown.

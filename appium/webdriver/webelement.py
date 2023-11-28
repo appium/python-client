@@ -60,7 +60,7 @@ class WebElement(SeleniumWebElement):
         if attribute_value is None:
             return None
 
-        if isinstance(attribute_value, dict):
+        if isinstance(attribute_value, dict) or isinstance(attribute_value, list):
             return attribute_value
 
         # Convert to str along to the spec

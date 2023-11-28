@@ -27,7 +27,7 @@ class WebElement(SeleniumWebElement):
     _execute: Callable
     _id: str
 
-    def get_attribute(self, name: str) -> Optional[Union[str, Dict]]:
+    def get_attribute(self, name: str) -> Optional[Union[str, Dict, List]]:
         """Gets the given attribute or property of the element.
 
         Override for Appium

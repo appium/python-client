@@ -75,7 +75,21 @@ class TestWebElement(object):
         element = MobileWebElement(driver, 'element_id')
         ef = element.get_attribute('rect')
 
-        d = httpretty.last_request()
-
         assert isinstance(ef, dict)
         assert ef == rect_dict
+
+    @httpretty.activate
+    def test_get_attribute_with_list(self):
+        driver = android_w3c_driver()
+        mixed_list = ['abc', 123, True]
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/element/element_id/attribute/mixed'),
+            body=json.dumps({"value": mixed_list}),
+        )
+
+        element = MobileWebElement(driver, 'element_id')
+        l = element.get_attribute('mixed')
+
+        assert isinstance(l, list)
+        assert l == mixed_list

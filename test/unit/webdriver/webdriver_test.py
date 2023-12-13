@@ -134,6 +134,7 @@ class TestWebDriverWebDriver:
 
         assert 'http://localhost2:4800/special/path/wd/hub' == driver.command_executor._url
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
+        assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
     def test_create_session_register_uridirect_no_direct_connect_path(self):
@@ -173,6 +174,7 @@ class TestWebDriverWebDriver:
 
         assert SERVER_URL_BASE == driver.command_executor._url
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
+        assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
     def test_get_events(self):

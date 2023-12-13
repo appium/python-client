@@ -296,8 +296,7 @@ class WebDriver(
 
         logger.debug('Updated request endpoint to %s', executor)
         # Override command executor.
-        # TODO: add custome executor case by the user.
-        if isinstance(self.command_executor, AppiumConnection):
+        if isinstance(self.command_executor, AppiumConnection):  # type: ignore
             self.command_executor = AppiumConnection(executor, keep_alive=keep_alive)
         else:
             self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)

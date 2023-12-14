@@ -295,8 +295,11 @@ class WebDriver(
         executor = f'{protocol}://{hostname}:{port}{path}'
 
         logger.debug('Updated request endpoint to %s', executor)
-        # Override command executor
-        self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
+        # Override command executor.
+        if isinstance(self.command_executor, AppiumConnection):  # type: ignore
+            self.command_executor = AppiumConnection(executor, keep_alive=keep_alive)
+        else:
+            self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
         self._add_commands()
 
     # https://github.com/SeleniumHQ/selenium/blob/06fdf2966df6bca47c0ae45e8201cd30db9b9a49/py/selenium/webdriver/remote/webdriver.py#L277

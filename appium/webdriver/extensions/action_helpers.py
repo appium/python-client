@@ -96,7 +96,7 @@ class ActionHelpers:
         """
         if len(positions) == 1:
             actions = ActionChains(self)
-            actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, 'touc'))
+            actions.w3c_actions = ActionBuilder(self, mouse=PointerInput(interaction.POINTER_TOUCH, 'touch'))
             x = positions[0][0]
             y = positions[0][1]
             actions.w3c_actions.pointer_action.move_to_location(x, y)

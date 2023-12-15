@@ -2,8 +2,52 @@ Changelog
 =========
 
 
-(unreleased)
-------------
+v3.1.1 (2023-12-15)
+-------------------
+
+Fix
+~~~
+- Typo in ActionHelpers (#937) [kkb912002]
+
+  touc -> touch
+- Self.command_executor instance in _update_command_executor (#940)
+  [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 3.1.1. [Kazuaki Matsuo]
+- Chore(deps-dev): update pylint requirement from ~=3.0.1 to ~=3.0.3
+  (#939) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/pylint-dev/pylint) to permit the latest version.
+  - [Release notes](https://github.com/pylint-dev/pylint/releases)
+  - [Commits](https://github.com/pylint-dev/pylint/compare/v3.0.1...v3.0.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.14 to ~=4.15 (#933)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.14.0...selenium-4.15.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Docs: address options in the migration guide (#929) [Kazuaki Matsuo]
+
+  * docs: adress options in the migration guide
+
+  * Update README.md
+
+  * Update README.md
+- Docs: update changelog. [Kazuaki Matsuo]
 - Update changelog for 3.1.0. [Kazuaki Matsuo]
 
 

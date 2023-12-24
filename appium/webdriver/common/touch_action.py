@@ -37,7 +37,7 @@ if TYPE_CHECKING:
 class TouchAction:
     """
     deprecated:: 2.0.0
-        Please use W3C actions instead: http://appium.io/docs/en/commands/interactions/actions/
+        Please use W3C actions instead: https://github.com/appium/python-client?tab=readme-ov-file#multiactiontouchaction-to-w3c-actions
     """
 
     def __init__(self, driver: Optional['WebDriver'] = None):

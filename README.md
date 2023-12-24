@@ -82,10 +82,10 @@ For example, some changes in the Selenium binding could break the Appium client.
         - Please check each behavior. Their behaviors could slightly differ.
     - Added `strict_ssl` to relax SSL errors such as self-signed ones
 - Deprecated
-    - `MultiAction` and `TouchAction` are deprecated. Please use W3C WebDriver actions.
+    - `MultiAction` and `TouchAction` are deprecated. Please use W3C WebDriver actions or `mobile:` extensions
         - e.g.
             - [appium/webdriver/extensions/action_helpers.py](appium/webdriver/extensions/action_helpers.py)
-            - https://www.selenium.dev/documentation/support_packages/mouse_and_keyboard_actions_in_detail/
+            - https://www.selenium.dev/documentation/webdriver/actions_api/
             - https://www.youtube.com/watch?v=oAJ7jwMNFVU
             - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
             - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
@@ -110,6 +110,9 @@ actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
 actions.w3c_actions.pointer_action.release()
 actions.perform()
 ```
+
+- [appium/webdriver/extensions/action_helpers.py](appium/webdriver/extensions/action_helpers.py)
+- https://www.selenium.dev/documentation/webdriver/actions_api/
 
 ## Usage
 

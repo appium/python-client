@@ -97,6 +97,7 @@ On UIA2, some elements can be handled with `touch` pointer action instead of the
 For example, the below action builder is to replace the default one with the `touch` pointer action.
 
 ```python
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 

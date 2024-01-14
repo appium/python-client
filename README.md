@@ -100,6 +100,7 @@ For example, the below action builder is to replace the default one with the `to
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
 
 actions = ActionChains(driver)
 # override as 'touch' pointer action

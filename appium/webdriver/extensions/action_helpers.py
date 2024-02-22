@@ -69,7 +69,7 @@ class ActionHelpers:
         Args:
             origin_el: the element to drag
             destination_el: the element to drag to
-            pause: how lon the action pauses before moving after the tap and hold, in seconds.
+            pause: how long the action pauses before moving after the tap and hold, in float seconds.
 
         Returns:
             Union['WebDriver', 'ActionHelpers']: Self instance

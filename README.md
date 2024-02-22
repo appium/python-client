@@ -59,6 +59,10 @@ For example, some changes in the Selenium binding could break the Appium client.
 > to keep compatible version combinations.
 
 
+### Quick migration guide from v3 to v4
+- Removal
+    - `MultiAction` and `TouchAction` are removed
+
 ### Quick migration guide from v2 to v3
 - `options` keyword argument in the `webdriver.Remote` constructor such as `XCUITestOptions` instead of `desired_capabilities`
     - Available options are https://github.com/appium/python-client/tree/master/appium/options

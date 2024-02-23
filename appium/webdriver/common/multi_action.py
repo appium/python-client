@@ -59,7 +59,7 @@ class MultiAction:
             | MultiAction(driver).add(a1, a2)
 
         Returns:
-            `MultiAction`: Self instance
+            `MultiAction`: None
         """
         for touch_action in touch_actions:
             if self._touch_actions is None:

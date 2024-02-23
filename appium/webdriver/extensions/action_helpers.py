@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, List, Optional, Tuple, Union, cast
+from typing import TYPE_CHECKING, List, Optional, Tuple, cast
 
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.actions import interaction
@@ -62,7 +62,7 @@ class ActionHelpers:
         return cast('WebDriver', self)
 
     def drag_and_drop(
-        self, origin_el: WebElement, destination_el: WebElement, pause: Union[float, None] = None
+        self, origin_el: WebElement, destination_el: WebElement, pause: Optional[float] = None
     ) -> 'WebDriver':
         """Drag the origin element to the destination element
 
@@ -77,7 +77,7 @@ class ActionHelpers:
         actions = ActionChains(self)
         # 'mouse' pointer action
         actions.w3c_actions.pointer_action.click_and_hold(origin_el)
-        if pause:
+        if pause is not None and pause > 0:
             actions.w3c_actions.pointer_action.pause(pause)
         actions.w3c_actions.pointer_action.move_to(destination_el)
         actions.w3c_actions.pointer_action.release()

@@ -45,7 +45,7 @@ class MultiAction:
         self._element = element
         self._touch_actions: List['TouchAction'] = []
 
-    def add(self, *touch_actions: 'TouchAction') -> None:
+    def add(self, *touch_actions: 'TouchAction') -> 'MultiAction':
         """Add TouchAction objects to the MultiAction, to be performed later.
 
         Args:
@@ -66,6 +66,8 @@ class MultiAction:
                 self._touch_actions = []
 
             self._touch_actions.append(copy.copy(touch_action))
+
+        return self
 
     def perform(self) -> 'MultiAction':
         """Perform the actions stored in the object.

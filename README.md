@@ -61,7 +61,13 @@ For example, some changes in the Selenium binding could break the Appium client.
 
 ### Quick migration guide from v3 to v4
 - Removal
-    - `MultiAction` and `TouchAction` are removed
+    - `MultiAction` and `TouchAction` are removed. Please use W3C WebDriver actions or `mobile:` extensions
+        - e.g.
+            - [appium/webdriver/extensions/action_helpers.py](appium/webdriver/extensions/action_helpers.py)
+            - https://www.selenium.dev/documentation/webdriver/actions_api/
+            - https://www.youtube.com/watch?v=oAJ7jwMNFVU
+            - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
+            - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
 
 ### Quick migration guide from v2 to v3
 - `options` keyword argument in the `webdriver.Remote` constructor such as `XCUITestOptions` instead of `desired_capabilities`
@@ -87,12 +93,6 @@ For example, some changes in the Selenium binding could break the Appium client.
     - Added `strict_ssl` to relax SSL errors such as self-signed ones
 - Deprecated
     - `MultiAction` and `TouchAction` are deprecated. Please use W3C WebDriver actions or `mobile:` extensions
-        - e.g.
-            - [appium/webdriver/extensions/action_helpers.py](appium/webdriver/extensions/action_helpers.py)
-            - https://www.selenium.dev/documentation/webdriver/actions_api/
-            - https://www.youtube.com/watch?v=oAJ7jwMNFVU
-            - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
-            - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
     - `launch_app`, `close_app`, and `reset` are deprecated. Please read [issues#15807](https://github.com/appium/appium/issues/15807) for more details
 
 #### MultiAction/TouchAction to W3C actions

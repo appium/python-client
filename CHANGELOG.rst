@@ -2,6 +2,84 @@ Changelog
 =========
 
 
+v3.2.0 (2024-02-24)
+-------------------
+
+New
+~~~
+- Feat: add pause in drag_and_drop (#961) [Kazuaki Matsuo]
+
+  * feat: add pause in drag_and_drop
+
+  * docs: tweak docstring
+
+  * Update action_helpers.py
+
+  * apply pause only when the value is not negative
+
+Fix
+~~~
+- Add return self in MultiAction#add (#964) [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 3.2.0. [Kazuaki Matsuo]
+- Chore(deps): update selenium requirement from ~=4.17 to ~=4.18 (#958)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.17.0...selenium-4.18.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pytest requirement from ~=7.4 to ~=8.0 (#953)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest](https://github.com/pytest-dev/pytest) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest/blob/main/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest/compare/7.4.0...8.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.15 to ~=4.17 (#948)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.15.0...selenium-4.17.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Docs: update W3C actions example in readme (#946) [Dor Blayzer]
+- Chore(deps-dev): update tox requirement from ~=4.11 to ~=4.12 (#947)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.11.0...4.12.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Docs: update example in readme (#945) [Kazuaki Matsuo]
+- Docs: update links (#944) [Kazuaki Matsuo]
+- Update changelog for 3.1.1. [Kazuaki Matsuo]
+
+
 v3.1.1 (2023-12-15)
 -------------------
 

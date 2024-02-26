@@ -2,6 +2,23 @@ Changelog
 =========
 
 
+v3.2.1 (2024-02-26)
+-------------------
+
+Fix
+~~~
+- Unclosed file <_io.BufferedReader name error by proper cleanup of
+  subprocess.Popen process (#965) [WrrngnCode]
+
+  https://github.com/appium/python-client/issues/962
+  add a Popen.communicate call after terminate to ensure that file stdout and sdterr file descriptors are closed properly.
+
+Other
+~~~~~
+- Bump 3.2.1. [Kazuaki Matsuo]
+- Update changelog for 3.2.0. [Kazuaki Matsuo]
+
+
 v3.2.0 (2024-02-24)
 -------------------
 

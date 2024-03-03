@@ -67,6 +67,7 @@ For example, some changes in the Selenium binding could break the Appium client.
         - https://www.youtube.com/watch?v=oAJ7jwMNFVU
         - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
         - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
+    - Deprecated `AppiumBy.WINDOWS_UI_AUTOMATION`, which has no usage right now.
 
 ### Quick migration guide from v2 to v3
 - `options` keyword argument in the `webdriver.Remote` constructor such as `XCUITestOptions` instead of `desired_capabilities`

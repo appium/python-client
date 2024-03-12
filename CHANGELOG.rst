@@ -2,6 +2,88 @@ Changelog
 =========
 
 
+v4.0.0 (2024-03-12)
+-------------------
+
+New
+~~~
+- Feat: remove MultiAction and TouchAction (#960) [Kazuaki Matsuo]
+
+  BREAKING CHANGE: Remove MultiAction and TouchAction as non-w3c WebDriver-defined methods. Please use w3c actions instead.
+
+Other
+~~~~~
+- Bump 4.0.0. [Kazuaki Matsuo]
+- Chore(deps-dev): update tox requirement from ~=4.13 to ~=4.14 (#972)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.13.0...4.14.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.12 to ~=4.13 (#957)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.12.0...4.13.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pytest requirement from ~=8.0 to ~=8.1 (#969)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest](https://github.com/pytest-dev/pytest) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest/blob/main/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest/compare/8.0.0...8.1.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest
+    dependency-type: direct:development
+  ...
+- Docs: update readme. [Kazuaki Matsuo]
+- Chore: remove deprecated AppiumBy.WINDOWS_UI_AUTOMATION (#968)
+  [Kazuaki Matsuo]
+- Chore(deps-dev): update python-dateutil requirement from ~=2.8 to
+  ~=2.9 (#967) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [python-dateutil](https://github.com/dateutil/dateutil) to permit the latest version.
+  - [Release notes](https://github.com/dateutil/dateutil/releases)
+  - [Changelog](https://github.com/dateutil/dateutil/blob/master/NEWS)
+  - [Commits](https://github.com/dateutil/dateutil/compare/2.8.0...2.9.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: python-dateutil
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=3.0.3 to ~=3.1.0
+  (#966) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/pylint-dev/pylint) to permit the latest version.
+  - [Release notes](https://github.com/pylint-dev/pylint/releases)
+  - [Commits](https://github.com/pylint-dev/pylint/compare/v3.0.3...v3.1.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Update changelog for 3.2.1. [Kazuaki Matsuo]
+
+
 v3.2.1 (2024-02-26)
 -------------------
 

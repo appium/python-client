@@ -240,7 +240,6 @@ class WebDriver(
             self._update_command_executor(keep_alive=keep_alive)
 
         # add new method to the `find_by_*` pantheon
-        By.IOS_UIAUTOMATION = AppiumBy.IOS_UIAUTOMATION
         By.IOS_PREDICATE = AppiumBy.IOS_PREDICATE
         By.IOS_CLASS_CHAIN = AppiumBy.IOS_CLASS_CHAIN
         By.ANDROID_UIAUTOMATOR = AppiumBy.ANDROID_UIAUTOMATOR

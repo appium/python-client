@@ -55,8 +55,9 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: 3.9
-      - script: python -m pytest ${{ test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
-        pwd: test/functional/ios
+
+    - run: python -m pytest ${{ test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+      working-directory: test/functional/ios
 
     - name: Save server output
       if: ${{ always() }}

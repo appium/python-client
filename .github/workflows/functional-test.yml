@@ -56,7 +56,7 @@ jobs:
       with:
         python-version: 3.9
 
-    - run: python -m pytest ${{ test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+    - run: python -m pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
       working-directory: test/functional/ios
 
     - name: Save server output

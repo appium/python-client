@@ -98,7 +98,7 @@ def ios_w3c_driver() -> 'WebDriver':
             'sessionId': '1234567890',
             'capabilities': {
                 'device': 'iphone',
-                'browserName': 'UICatalog',
+                'browserName': 'UIKitCatalog',
                 'sdkVersion': '11.4',
                 'CFBundleIdentifier': 'com.example.apple-samplecode.UICatalog',
             },

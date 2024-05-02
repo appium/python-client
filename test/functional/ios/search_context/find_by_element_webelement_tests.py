@@ -18,14 +18,14 @@ from test.functional.ios.helper.test_helper import BaseTestCase
 
 class TestFindByElementWebelement(BaseTestCase):
     def test_find_element_by_path(self) -> None:
-        el = self.driver.find_element(by=AppiumBy.IOS_PREDICATE, value='wdName == "UICatalog"')
-        assert 'UICatalog' == el.get_attribute('name')
+        el = self.driver.find_element(by=AppiumBy.IOS_PREDICATE, value='wdName == "UIKitCatalog"')
+        assert 'UIKitCatalog' == el.get_attribute('name')
 
         c_el = el.find_elements(by=AppiumBy.IOS_PREDICATE, value='label == "Action Sheets"')  # type: list
         assert 'Action Sheets' == c_el[0].get_attribute('name')
 
         c_el = el.find_elements(by=AppiumBy.IOS_CLASS_CHAIN, value='**/XCUIElementTypeStaticText')
-        assert 'UICatalog' == c_el[0].get_attribute('name')
+        assert 'UIKitCatalog' == c_el[0].get_attribute('name')
 
-        c_el = el.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='UICatalog')
-        assert 'UICatalog' == c_el[0].get_attribute('name')
+        c_el = el.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='UIKitCatalog')
+        assert 'UIKitCatalog' == c_el[0].get_attribute('name')

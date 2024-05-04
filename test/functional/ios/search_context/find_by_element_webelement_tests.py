@@ -21,8 +21,8 @@ class TestFindByElementWebelement(BaseTestCase):
         el = self.driver.find_element(by=AppiumBy.IOS_PREDICATE, value='wdName == "UIKitCatalog"')
         assert 'UIKitCatalog' == el.get_attribute('name')
 
-        c_el = el.find_elements(by=AppiumBy.IOS_PREDICATE, value='label == "Action Sheets"')  # type: list
-        assert 'Action Sheets' == c_el[0].get_attribute('name')
+        c_el = el.find_elements(by=AppiumBy.IOS_PREDICATE, value='label == "UIKitCatalog"')  # type: list
+        assert 'UIKitCatalog' == c_el[0].get_attribute('name')
 
         c_el = el.find_elements(by=AppiumBy.IOS_CLASS_CHAIN, value='**/XCUIElementTypeStaticText')
         assert 'UIKitCatalog' == c_el[0].get_attribute('name')

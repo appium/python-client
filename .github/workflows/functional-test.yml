@@ -44,7 +44,7 @@ jobs:
         os_version: '17.4'
 
     # needed?
-    # - run: brew install ffmpeg
+    - run: brew install ffmpeg
 
     # Start Appium
     - run: npm install -g appium
@@ -62,7 +62,7 @@ jobs:
     - run: |
         git --no-pager log -n1
         python --version
-        # ffmpeg -version
+        ffmpeg -version
         appium --version
         node --version
         npm --version

@@ -41,7 +41,7 @@ jobs:
       with:
         # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
         model: 'iPhone 15 Plus'
-        os_version: '14.3.1'
+        os_version: 17.4
 
     # needed?
     - run: brew install ffmpeg

@@ -45,11 +45,11 @@ jobs:
 
     # needed?
     # - run: brew install ffmpeg
-  - run: |
-      pip install --upgrade pip
-      pip install --upgrade pipenv
-      pipenv lock --clear
-      pipenv install --system
+    - run: |
+        pip install --upgrade pip
+        pip install --upgrade pipenv
+        pipenv lock --clear
+        pipenv install --system
 
     # Start Appium
     - run: npm install -g appium

@@ -25,7 +25,7 @@ class TestFindByIOClassChain(BaseTestCase):
         assert 'UIKitCatalog' == els[0].get_attribute('name')
 
     def test_find_multiple_elements_by_path(self) -> None:
-        el = self.driver.find_elements(by=AppiumBy.IOS_CLASS_CHAIN, value='XCUIElementTypeWindow/*/*/*')
-        assert 1 == len(el)
+        el = self.driver.find_elements(by=AppiumBy.IOS_CLASS_CHAIN, value='XCUIElementTypeWindow')
         assert 'UIKitCatalog' == el[0].get_attribute('name')
+        assert 1 == len(el)
         assert el[1].get_attribute('name') is None

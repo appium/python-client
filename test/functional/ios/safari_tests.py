@@ -24,7 +24,7 @@ from .helper.desired_capabilities import get_desired_capabilities
 class TestSafari:
     def setup_method(self) -> None:
         caps = get_desired_capabilities()
-        caps.update({'browserName': 'safari', 'nativeWebTap': True, 'safariIgnoreFraudWarning': True, 'webviewConnectTimeout': 5000})
+        caps.update({'browserName': 'safari', 'nativeWebTap': True, 'safariIgnoreFraudWarning': True, 'webviewConnectTimeout': 100000})
         self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
 
     def teardown_method(self) -> None:

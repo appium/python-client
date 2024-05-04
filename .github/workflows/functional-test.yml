@@ -72,8 +72,8 @@ jobs:
         pip install --upgrade pip
         pip install --upgrade pipenv
         pipenv lock --clear
-        pipenv install --system
-        pipenv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        pipenv install -d --system
+        pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
 
     - name: Save server output
       if: ${{ always() }}

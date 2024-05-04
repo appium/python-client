@@ -59,7 +59,9 @@ jobs:
       with:
         python-version: 3.9
 
-    - run: python setup.py install
+    - run: |
+        python setup.py install
+        pip install pytest
 
     - run: |
         git --no-pager log -n1

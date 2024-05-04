@@ -45,6 +45,11 @@ jobs:
 
     # needed?
     # - run: brew install ffmpeg
+  - run: |
+      pip install --upgrade pip
+      pip install --upgrade pipenv
+      pipenv lock --clear
+      pipenv install --system
 
     # Start Appium
     - run: npm install -g appium
@@ -59,9 +64,7 @@ jobs:
       with:
         python-version: 3.9
 
-    - run: |
-        python setup.py install
-        pip install pytest
+    - run: python setup.py install
 
     - run: |
         git --no-pager log -n1

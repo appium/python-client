@@ -52,7 +52,7 @@ jobs:
         appium driver install xcuitest
         appium plugin install images
         appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
+        nohup appium --base-path=/wd/hub --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
 
     - name: Set up Python 3.9
       uses: actions/setup-python@v3

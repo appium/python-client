@@ -76,11 +76,9 @@ jobs:
         npm --version
       name: Check versions
 
-    - run: pip list
-
     - run: |
-        pip list
-        python -m pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        pipenv run pip list
+        pipenv run python -m pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
       working-directory: test/functional/ios
 
     - name: Save server output

@@ -24,18 +24,43 @@ from .helper.desired_capabilities import get_desired_capabilities
 class TestSafari:
     def setup_method(self) -> None:
         caps = get_desired_capabilities()
-        caps.update({'browserName': 'safari', 'nativeWebTap': True, 'safariIgnoreFraudWarning': True, 'webviewConnectTimeout': 100000})
+        caps.update(
+            {
+                'bundleId': 'com.apple.mobilesafari',
+                'nativeWebTap': True,
+                'safariIgnoreFraudWarning': True,
+                'webviewConnectTimeout': 100000
+            }
+        )
         self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
+
+        # Fresh iOS 17.4 simulator may not show up the webview context with "safari"
+        self.driver.terminate_app('com.apple.mobilesafari')
+        self.driver.activate_app('com.apple.mobilesafari')
 
     def teardown_method(self) -> None:
         self.driver.quit()
 
     def test_context(self) -> None:
-        assert 'NATIVE_APP' == self.driver.contexts[0]
-        assert self.driver.contexts[1].startswith('WEBVIEW_')
+        contexts = self.driver.contexts
+        assert 'NATIVE_APP' == contexts[0]
+        assert contexts[1].startswith('WEBVIEW_')
+        self.driver.switch_to.context(contexts[1])
         assert 'WEBVIEW_' in self.driver.current_context
 
     def test_get(self) -> None:
+        ok = False
+        contexts = self.driver.contexts
+        for context in contexts:
+            if context.startswith('WEBVIEW_'):
+                self.driver.switch_to.context(context)
+                ok = True
+                break
+
+        if ok is False:
+            assert False, 'Could not set WEBVIEW context'
+
+
         self.driver.get('http://google.com')
         for _ in range(5):
             time.sleep(0.5)

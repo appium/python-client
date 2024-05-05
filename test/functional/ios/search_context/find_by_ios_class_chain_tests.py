@@ -18,14 +18,12 @@ from test.functional.ios.helper.test_helper import BaseTestCase
 
 class TestFindByIOClassChain(BaseTestCase):
     def test_find_element_by_path(self) -> None:
+        el = self.driver.find_element(by=AppiumBy.IOS_CLASS_CHAIN, value='**/XCUIElementTypeNavigationBar')
+        assert 'UIKitCatalog' == el.get_attribute('name')
+
+    def test_find_multiple_elements_by_path(self) -> None:
         els = self.driver.find_elements(
             by=AppiumBy.IOS_CLASS_CHAIN, value='XCUIElementTypeWindow/**/XCUIElementTypeStaticText'
         )
         assert 37 == len(els)
         assert 'UIKitCatalog' == els[0].get_attribute('name')
-
-    def test_find_multiple_elements_by_path(self) -> None:
-        el = self.driver.find_elements(by=AppiumBy.IOS_CLASS_CHAIN, value='XCUIElementTypeWindow')
-        assert 'UIKitCatalog' == el[0].get_attribute('name')
-        assert 1 == len(el)
-        assert el[1].get_attribute('name') is None

@@ -35,6 +35,8 @@ class TestSafari:
         self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
 
         # Fresh iOS 17.4 simulator may not show up the webview context with "safari"
+        # after a fresh simlator instance creation.
+        # Re-launch the process could be a workaround in my debugging.
         self.driver.terminate_app('com.apple.mobilesafari')
         self.driver.activate_app('com.apple.mobilesafari')
 

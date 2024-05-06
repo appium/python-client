@@ -29,7 +29,7 @@ class TestSafari:
                 'bundleId': 'com.apple.mobilesafari',
                 'nativeWebTap': True,
                 'safariIgnoreFraudWarning': True,
-                'webviewConnectTimeout': 100000
+                'webviewConnectTimeout': 100000,
             }
         )
         self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
@@ -59,7 +59,6 @@ class TestSafari:
 
         if ok is False:
             assert False, 'Could not set WEBVIEW context'
-
 
         self.driver.get('http://google.com')
         for _ in range(5):

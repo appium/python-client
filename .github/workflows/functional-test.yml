@@ -20,6 +20,8 @@ jobs:
         test_targets:
           - target: test/functional/ios/search_context/find_by_*.py test/functional/ios/remote_fs_tests.py test/functional/ios/safari_tests.py test/functional/ios/execute_driver_tests.py
             name: func_test_ios1
+          - target: test/functional/ios/applications_tests.py test/functional/ios/hw_actions_tests.py test/functional/ios/keyboard_tests.py test/functional/ios/screen_record_tests.py webdriver_tests.py
+            name: func_test_ios2
 
     runs-on: macos-14
 
@@ -60,15 +62,7 @@ jobs:
         python-version: 3.9
 
     - run: |
-        git --no-pager log -n1
-        python --version
-        ffmpeg -version
-        appium --version
-        node --version
-        npm --version
-      name: Check versions
-
-    - run: |
+        # separate 'run' creates differnet pipenv env.
         pip install --upgrade pip
         pip install --upgrade pipenv
         pipenv lock --clear

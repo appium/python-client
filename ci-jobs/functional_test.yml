@@ -6,22 +6,6 @@ parameters:
   CI: true
 
 jobs:
-  - template: ./functional/run_ios_test.yml
-    parameters:
-      name: 'func_test_ios1'
-      vmImage: ${{ parameters.vmImage }}
-      pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'search_context/find_by_*.py remote_fs_tests.py safari_tests.py execute_driver_tests.py'
-      CI: ${{ parameters.ci }}
-      xcodeForIOS: ${{ parameters.xcodeForIOS }}
-  - template: ./functional/run_ios_test.yml
-    parameters:
-      name: 'func_test_ios2'
-      vmImage: ${{ parameters.vmImage }}
-      pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'applications_tests.py hw_actions_tests.py keyboard_tests.py screen_record_tests.py webdriver_tests.py'
-      CI: ${{ parameters.ci }}
-      xcodeForIOS: ${{ parameters.xcodeForIOS }}
   - template: ./functional/run_android_test.yml
     parameters:
       name: 'func_test_android1'

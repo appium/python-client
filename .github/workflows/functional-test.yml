@@ -27,6 +27,11 @@ jobs:
 
     runs-on: macos-14
 
+    env:
+      XCODE_VERSION: 15.3
+      IOS_VERSION: 17.4
+      IPHONE_MODEL: iPhone 15 Plus
+
     steps:
     - uses: actions/checkout@v3
 
@@ -38,14 +43,14 @@ jobs:
     - name: Select Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: 15.3
+        xcode-version: ${{ env.XCODE_VERSION }}
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
     - uses: futureware-tech/simulator-action@v3
       with:
         # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
-        model: 'iPhone 15 Plus'
-        os_version: '17.4'
+        model: ${{ env.IPHONE_MODEL }}
+        os_version: ${{ env.IOS_VERSION }}
 
     # needed?
     - run: brew install ffmpeg
@@ -76,4 +81,95 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: appium-ios-${{matrix.test_targets.name}}.log
+        path: appium.log
+
+
+  android_test:
+    strategy:
+      fail-fast: false
+      matrix:
+        test_targets:
+          - target: test/functional/android/device_time_tests.py test/functional/android/search_context/find_by_*.py
+            name: func_test_android1
+
+    runs-on: ubuntu-latest
+
+    env:
+      API_LEVEL: 29
+      ARCH: x86
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'lts/*'
+
+    # Start Appium
+    - run: npm install -g appium
+    - run: |
+        appium driver install uiautomator2
+        appium plugin install images
+        appium plugin install execute-driver
+        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
+
+    - name: Enable KVM group perms
+      run: |
+        echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+        sudo udevadm control --reload-rules
+        sudo udevadm trigger --name-match=kvm
+
+    - name: AVD cache
+      uses: actions/cache@v3
+      id: avd-cache
+      with:
+        path: |
+          ~/.android/avd/*
+          ~/.android/adb*
+        key: avd-${{ env.API_LEVEL }}
+    - name: create AVD and generate snapshot for caching
+      if: steps.avd-cache.outputs.cache-hit != 'true'
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: ${{ env.API_LEVEL }}
+        arch: ${{ env.ARCH }}
+        target: google_apis
+        force-avd-creation: false
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+        disable-animations: false
+        script: echo "Generated AVD snapshot for caching."
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.9
+
+    - name: run tests
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: ${{ env.API_LEVEL }}
+        arch: ${{ env.ARCH }}
+        script: |
+          # Separate 'run' creates differnet pipenv env. Does them in one run for now.
+          pip install --upgrade pip
+          pip install --upgrade pipenv
+          pipenv lock --clear
+          pipenv install -d --system
+          pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        target: google_apis
+        profile: Nexus 6
+        disable-spellchecker: true
+        disable-animations: true
+      env:
+        ANDROID_SDK_VERSION: ${{ env.API_LEVEL }}
+        APPIUM_DRIVER: ${{matrix.test_targets.automation_name}}
+        IGNORE_VERSION_SKIP: true
+        CI: true
+
+    - name: Save server output
+      if: ${{ always() }}
+      uses: actions/upload-artifact@master
+      with:
+        name: appium-android-${{matrix.test_targets.name}}.log
         path: appium.log

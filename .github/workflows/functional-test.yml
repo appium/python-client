@@ -110,6 +110,7 @@ jobs:
     - run: npm install -g appium
     - run: |
         appium driver install uiautomator2
+        appium driver install espresso
         appium plugin install images
         appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &

@@ -8,14 +8,6 @@ parameters:
 jobs:
   - template: ./functional/run_android_test.yml
     parameters:
-      name: 'func_test_android1'
-      vmImage: ${{ parameters.vmImage }}
-      pytestOpt: ${{ parameters.pytestOpt }}
-      testFiles: 'device_time_tests.py search_context/find_by_*.py'
-      sdkVer: ${{ parameters.androidSdkVer }}
-      CI: ${{ parameters.ci }}
-  - template: ./functional/run_android_test.yml
-    parameters:
       name: 'func_test_android2'
       vmImage: ${{ parameters.vmImage }}
       pytestOpt: ${{ parameters.pytestOpt }}

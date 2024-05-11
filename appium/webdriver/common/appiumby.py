@@ -17,7 +17,6 @@ from selenium.webdriver.common.by import By
 
 class AppiumBy(By):
     IOS_PREDICATE = '-ios predicate string'
-    IOS_UIAUTOMATION = '-ios uiautomation'
     IOS_CLASS_CHAIN = '-ios class chain'
     ANDROID_UIAUTOMATOR = '-android uiautomator'
     ANDROID_VIEWTAG = '-android viewtag'

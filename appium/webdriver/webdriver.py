@@ -126,7 +126,7 @@ class ExtensionBase:
             driver.custom_method_name({'dummy_arg': 'as a value'})
 
 
-        When you customize the URL dinamically with element id.
+        When you customize the URL dynamically with element id.
 
             class CustomURLCommand(ExtensionBase):
                 def method_name(self):
@@ -140,7 +140,7 @@ class ExtensionBase:
 
             driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options,
                 extensions=[YourCustomCommand])
-            element = driver.find_elemeent(by=AppiumBy.ACCESSIBILITY_ID, value='id')
+            element = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='id')
 
             # Then, the driver calls a get request to `session/$sessionId/path/to/your/custom/$id/url`
             # with replacing the `$id` with the given `element.id`

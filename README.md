@@ -47,7 +47,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 |`2.10.0` - `2.11.1` |`4.1.0` - `4.11.2` | 3.7+ |
 |`2.2.0` - `2.9.0` |`4.1.0` - `4.9.0` | 3.7+ |
 |`2.0.0` - `2.1.4` |`4.0.0` | 3.7+ |
-|`1.0.0` - `1.1.0` |`3.x`| 3.7, 3.8 |
+|`1.0.0` - `1.3.0` |`3.x`| 3.7+ |
 |`0.52` and below|`3.x`| 2.7, 3.4 - 3.7 |
 
 The Appium Python Client depends on [Selenium Python binding](https://pypi.org/project/selenium/), thus
@@ -72,7 +72,7 @@ For example, some changes in the Selenium binding could break the Appium client.
 ### Quick migration guide from v2 to v3
 - `options` keyword argument in the `webdriver.Remote` constructor such as `XCUITestOptions` instead of `desired_capabilities`
     - Available options are https://github.com/appium/python-client/tree/master/appium/options
-        - Please check the [Usage](#usage) below as an exampple.
+        - Please check the [Usage](#usage) below as an example.
     - Not a "new" change, but the `desired_capabilities` argument has been removed since v3.
 - Replacement
     - `start_activity` method: Please use [`mobile: startActivity`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-startactivity)

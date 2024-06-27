@@ -28,7 +28,7 @@ if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
 
 
-class Clipboard(CanExecuteCommands, CanRememberExtensionPresence, CanExecuteScripts):
+class Clipboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def set_clipboard(
         self, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
     ) -> 'WebDriver':

@@ -15,7 +15,11 @@
 import base64
 from typing import TYPE_CHECKING, Optional, cast
 
+from selenium.common.exceptions import UnknownMethodException
+
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
+from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 from ..mobilecommand import MobileCommand as Command
@@ -24,7 +28,7 @@ if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver
 
 
-class Clipboard(CanExecuteCommands):
+class Clipboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def set_clipboard(
         self, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
     ) -> 'WebDriver':
@@ -39,13 +43,18 @@ class Clipboard(CanExecuteCommands):
         Returns:
             Union['WebDriver', 'Clipboard']: Self instance
         """
+        ext_name = 'mobile: setClipboard'
         options = {
             'content': base64.b64encode(content).decode('UTF-8'),
             'contentType': content_type,
         }
         if label:
             options['label'] = label
-        self.execute(Command.SET_CLIPBOARD, options)
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, options)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.SET_CLIPBOARD, options)
         return cast('WebDriver', self)
 
     def set_clipboard_text(self, text: str, label: Optional[str] = None) -> 'WebDriver':
@@ -68,9 +77,15 @@ class Clipboard(CanExecuteCommands):
                 is supported on Android
 
         Returns:
-            base64-encoded string: Clipboard content. Or return an empty string if the clipboard is empty
+            Clipboard content as bytearray. Or empty bytes if the clipboard is empty
         """
-        base64_str = self.execute(Command.GET_CLIPBOARD, {'contentType': content_type})['value']
+        ext_name = 'mobile: getClipboard'
+        options = {'contentType': content_type}
+        try:
+            base64_str = self.assert_extension_exists(ext_name).execute_script(ext_name, options)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            base64_str = self.mark_extension_absence(ext_name).execute(Command.GET_CLIPBOARD, options)['value']
         return base64.b64decode(base64_str)
 
     def get_clipboard_text(self) -> str:

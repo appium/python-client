@@ -415,7 +415,10 @@ class WebDriver(
         # Return empty list if driver returns null
         # See https://github.com/SeleniumHQ/selenium/issues/4555
 
-        return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
+        try:
+            return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
+        except NoSuchElementException:
+            return []
 
     def create_web_element(self, element_id: Union[int, str]) -> MobileWebElement:
         """Creates a web element with the specified element_id.

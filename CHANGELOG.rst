@@ -2,6 +2,153 @@ Changelog
 =========
 
 
+v4.0.1 (2024-07-09)
+-------------------
+
+Fix
+~~~
+- Typo and update test (#992) [Kazuaki Matsuo]
+
+  * docs: fix typo
+
+  * fix more typos
+
+  * test: fix one test
+
+Test
+~~~~
+- Ci: enable trigger. [Kazuaki Matsuo]
+- Ci: Bump conventional-pr-action to v3 (#989) [Mykola Mokhnach]
+- Ci: use gha instead of Azure for iOS in Azure (#987) [Kazuaki Matsuo]
+
+  ci: use gha instead of Azure for iOS in Azure
+- Ci: move the file. [Kazuaki Matsuo]
+- Ci: add initial gha to run by manual (#984) [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 4.0.1. [Kazuaki Matsuo]
+- Chore: Add mobile: replacements to clipboard API wrappers (#998)
+  [Mykola Mokhnach]
+
+  * chore: Add mobile: replacements to clipboard API wrappers
+
+  * Fix order
+
+  * update tests
+- Chore(deps): update selenium requirement from ~=4.21 to ~=4.22 (#996)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.21.0...selenium-4.22.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pylint requirement from ~=3.1.0 to ~=3.2.2
+  (#993) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/pylint-dev/pylint) to permit the latest version.
+  - [Release notes](https://github.com/pylint-dev/pylint/releases)
+  - [Commits](https://github.com/pylint-dev/pylint/compare/v3.1.0...v3.2.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.20 to ~=4.21 (#991)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.20.0...selenium-4.21.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Docs: missing appium python client version in the compatibility
+  matrix. [Kazuaki Matsuo]
+- Chore(deps): update sphinx-rtd-theme requirement from <2.0 to <3.0
+  (#935) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [sphinx-rtd-theme](https://github.com/readthedocs/sphinx_rtd_theme) to permit the latest version.
+  - [Changelog](https://github.com/readthedocs/sphinx_rtd_theme/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/readthedocs/sphinx_rtd_theme/compare/0.1.8...2.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: sphinx-rtd-theme
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.14 to ~=4.15 (#982)
+  [Kazuaki Matsuo, dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.14.0...4.15.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Docs: update docstring (#986) [Kazuaki Matsuo]
+- Chore(deps-dev): update pytest requirement from ~=8.1 to ~=8.2 (#983)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest](https://github.com/pytest-dev/pytest) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest/blob/main/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest/compare/8.1.0...8.2.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.19 to ~=4.20 (#981)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.19.0...selenium-4.20.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore: remove IOS_UIAUTOMATION (#979) [zeufack]
+- Chore(deps): update selenium requirement from ~=4.18 to ~=4.19 (#976)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.18.0...selenium-4.19.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update types-python-dateutil requirement (#973)
+  [dependabot[bot], dependabot[bot]]
+
+  ---
+  updated-dependencies:
+  - dependency-name: types-python-dateutil
+    dependency-type: direct:development
+  ...
+- Update changelog for 4.0.0. [Kazuaki Matsuo]
+
+
 v4.0.0 (2024-03-12)
 -------------------
 

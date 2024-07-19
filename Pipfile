@@ -19,4 +19,4 @@ tox = "~=4.15"
 types-python-dateutil = "~=2.9"
 
 [packages]
-selenium = "~=4.22"
+selenium = "~=4.23"

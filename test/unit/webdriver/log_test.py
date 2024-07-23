@@ -16,7 +16,6 @@ import json
 
 import httpretty
 
-from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import appium_command, get_httpretty_request_body, ios_w3c_driver
 
 

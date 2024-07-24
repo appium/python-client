@@ -41,11 +41,11 @@ class TestFindByAccessibilityID(BaseTestCase):
         ).click()
         el = wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'android.widget.ListView')
 
-        sub_el = el.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Task Take out Trash')  # type: WebElement
+        sub_el: WebElement = el.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='Task Take out Trash')
         assert sub_el is not None
 
     def test_element_find_multiple_elements(self) -> None:
         wait_for_element(self.driver, AppiumBy.CLASS_NAME, 'android.widget.ListView')
         el = self.driver.find_element(by=AppiumBy.CLASS_NAME, value='android.widget.ListView')
-        sub_els = el.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='Animation')  # type: list
+        sub_els: list = el.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='Animation')
         assert isinstance(sub_els, list)

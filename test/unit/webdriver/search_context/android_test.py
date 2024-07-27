@@ -76,7 +76,7 @@ class TestWebDriverAndroidSearchContext(object):
         assert len(els) == 0
 
     @httpretty.activate
-    def test_find_element_by_android_data_matcher(self):
+    def test_find_child_element_by_android_data_matcher(self):
         driver = android_w3c_driver()
         element = MobileWebElement(driver, 'element_id')
         httpretty.register_uri(
@@ -98,7 +98,7 @@ class TestWebDriverAndroidSearchContext(object):
         assert el.id == 'child-element-id'
 
     @httpretty.activate
-    def test_find_elements_by_android_data_matcher(self):
+    def test_find_child_elements_by_android_data_matcher(self):
         driver = android_w3c_driver()
         element = MobileWebElement(driver, 'element_id')
         httpretty.register_uri(
@@ -120,7 +120,7 @@ class TestWebDriverAndroidSearchContext(object):
         assert els[1].id == 'child-element-id2'
 
     @httpretty.activate
-    def test_find_elements_by_android_data_matcher_no_value(self):
+    def test_find_child_elements_by_android_data_matcher_no_value(self):
         driver = android_w3c_driver()
         element = MobileWebElement(driver, 'element_id')
         httpretty.register_uri(

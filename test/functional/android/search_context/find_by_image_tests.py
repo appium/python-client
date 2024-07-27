@@ -15,7 +15,7 @@
 import base64
 
 import pytest
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import TimeoutException
 
 from appium import webdriver
 from appium.options.common import AppiumOptions

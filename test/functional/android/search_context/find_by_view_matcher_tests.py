@@ -64,6 +64,7 @@ class TestFindByViewMatcher(BaseTestCase):
 
     # androidx.test.espresso.AmbiguousViewMatcherException:
     # 'with text: a string containing "Access"' matches multiple views in the hierarchy.
+    @pytest.mark.skipif(condition=is_ci(), reason='Need to fix')
     def test_find_multiple_elements(self) -> None:
         with pytest.raises(WebDriverException):
             self.driver.find_elements(

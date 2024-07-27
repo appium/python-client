@@ -21,9 +21,9 @@ from appium import webdriver
 from appium.options.common import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.android.helper import desired_capabilities
+from test.functional.android.helper.test_helper import is_ci
 from test.functional.test_helper import wait_for_element
 from test.helpers.constants import SERVER_URL_BASE
-from test.functional.android.helper.test_helper import is_ci
 
 
 @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI')

@@ -32,7 +32,12 @@ class TestFindByImage(object):
 
         # relax template matching
         self.driver.update_settings(
-            {'fixImageFindScreenshotDims': False, 'fixImageTemplateSize': True, 'autoUpdateImageElementPosition': True}
+            {
+                'fixImageFindScreenshotDims': False,
+                'fixImageTemplateSize': True,
+                'autoUpdateImageElementPosition': True,
+                'imageMatchThreshold': 0.8,
+            }
         )
 
     def teardown_method(self) -> None:

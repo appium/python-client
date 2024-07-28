@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+import unittest
 import base64
 import os
 
@@ -30,7 +31,7 @@ SLEEPY_TIME = 10
 APIDEMO_PKG_NAME = 'io.appium.android.apis'
 
 
-class BaseTestCase:
+class BaseTestCase(unittest.TestCase):
     def setup_method(self, method) -> None:  # type: ignore
         caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
         self.driver = webdriver.Remote(SERVER_URL_BASE, options=UiAutomator2Options().load_capabilities(caps))

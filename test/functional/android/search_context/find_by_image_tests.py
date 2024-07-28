@@ -36,6 +36,7 @@ class TestFindByImage(object):
                 'fixImageFindScreenshotDims': False,
                 'fixImageTemplateSize': True,
                 'autoUpdateImageElementPosition': True,
+                'fixImageTemplateScale': True,
                 'imageMatchThreshold': 0.8,
             }
         )

@@ -21,7 +21,6 @@ from appium import webdriver
 from appium.options.common import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.android.helper import desired_capabilities
-from test.functional.android.helper.test_helper import is_ci
 from test.functional.test_helper import wait_for_element
 from test.helpers.constants import SERVER_URL_BASE
 
@@ -61,7 +60,7 @@ class TestFindByImage(object):
         wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Alarm')
 
     def test_find_multiple_elements_by_image_just_returns_one(self) -> None:
-        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'App')
+        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'App')
         with open(desired_capabilities.PATH('file/find_by_image_success.png'), 'rb') as png_file:
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
         els = self.driver.find_elements(AppiumBy.IMAGE, b64_data)

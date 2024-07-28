@@ -26,7 +26,6 @@ from test.functional.test_helper import wait_for_element
 from test.helpers.constants import SERVER_URL_BASE
 
 
-@pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI')
 class TestFindByImage(object):
     def setup_method(self) -> None:
         caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
@@ -62,10 +61,10 @@ class TestFindByImage(object):
         wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Alarm')
 
     def test_find_multiple_elements_by_image_just_returns_one(self) -> None:
-        wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'App')
+        el = wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'App')
         with open(desired_capabilities.PATH('file/find_by_image_success.png'), 'rb') as png_file:
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
-        els = self.driver.find_element(AppiumBy.IMAGE, b64_data)
+        els = self.driver.find_elements(AppiumBy.IMAGE, b64_data)
         els[0].click()
         wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Alarm')
 

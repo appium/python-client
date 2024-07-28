@@ -164,7 +164,7 @@ jobs:
           pipenv install -d --system
           pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: google_apis
-        profile: Pixel 6
+        profile: Nexus 5X
         disable-spellchecker: true
         disable-animations: true
 

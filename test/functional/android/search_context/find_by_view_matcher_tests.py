@@ -69,4 +69,4 @@ class TestFindByViewMatcher(BaseTestCase):
             by=AppiumBy.ANDROID_VIEW_MATCHER,
             value=json.dumps({'name': 'withSubstring', 'args': ['Access'], 'class': 'ViewMatchers'}),
         )
-        self.assertEqual(el.text, "Access'ibility")
+        assert el.text == "Access'ibility"

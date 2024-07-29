@@ -3,8 +3,7 @@ name: Functional Tests
 on:
   # Run by manual at this time
   workflow_dispatch:
-  # push:
-  #   branches: [ master ]
+  push:
   pull_request:
 
 concurrency:

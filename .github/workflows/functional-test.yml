@@ -93,6 +93,13 @@ jobs:
         test_targets:
           - target: test/functional/android/device_time_tests.py test/functional/android/search_context/find_by_*.py
             name: func_test_android1
+          - target: test/functional/android/ime_tests.py test/functional/android/search_context/keyboard_tests.py test/functional/android/search_context/location_tests.py
+            name: func_test_android2
+          - target: test/functional/android/appium_service_tests.py
+            name: func_test_android3
+          - target: test/functional/android/finger_print_tests.py test/functional/android/screen_record_tests.py test/functional/android/settings_tests.py test/functional/android/chrome_tests.py
+            name: func_test_android4
+
 
     runs-on: ubuntu-latest
 

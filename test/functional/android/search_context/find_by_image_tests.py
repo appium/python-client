@@ -70,10 +70,7 @@ class TestFindByImage(object):
         image_path = desired_capabilities.PATH('file/find_by_image_success.png')
         with open(image_path, 'rb') as png_file:
             b64_data = base64.b64encode(png_file.read()).decode('UTF-8')
-        def _find_elements():
-            els = self.driver.find_elements(AppiumBy.IMAGE, b64_data)
-            return None if len(els) == 0 else els
-        els = wait_for_condition(_find_elements, timeout_sec=30)
+        els = self.driver.find_elements(AppiumBy.IMAGE, b64_data)
         els[0].click()
         wait_for_element(self.driver, AppiumBy.ACCESSIBILITY_ID, 'Alarm')
 

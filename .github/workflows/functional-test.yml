@@ -27,6 +27,8 @@ jobs:
 
     runs-on: macos-14
 
+    # Please make sure the available Xcode versions and iOS versions
+    # on the runner images. https://github.com/actions/runner-images
     env:
       XCODE_VERSION: 15.3
       IOS_VERSION: 17.4
@@ -118,7 +120,7 @@ jobs:
         appium driver install espresso
         appium plugin install images
         appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
+        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - name: Enable KVM group perms
       run: |

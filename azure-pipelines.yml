@@ -4,4 +4,3 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 jobs:
   - template: ./ci-jobs/functional_test.yml
-

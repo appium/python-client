@@ -21,7 +21,7 @@ from appium import webdriver
 from appium.options.common import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
 from test.functional.android.helper import desired_capabilities
-from test.functional.test_helper import wait_for_element, wait_for_condition
+from test.functional.test_helper import wait_for_condition, wait_for_element
 from test.helpers.constants import SERVER_URL_BASE
 
 

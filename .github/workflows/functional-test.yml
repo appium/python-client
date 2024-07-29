@@ -99,7 +99,14 @@ jobs:
             name: func_test_android3
           - target: test/functional/android/finger_print_tests.py test/functional/android/screen_record_tests.py test/functional/android/settings_tests.py test/functional/android/chrome_tests.py
             name: func_test_android4
-
+          - target: test/functional/android/context_switching_tests.py test/functional/android/remote_fs_tests.py
+            name: func_test_android5
+          - target: test/functional/android/common_tests.py test/functional/android/multi_action_tests.py test/functional/android/webelement_tests.py
+            name: func_test_android6
+          - target: test/functional/android/applications_tests.py
+            name: func_test_android7
+          - target: test/functional/android/network_connection_tests.py test/functional/android/log_event_tests.py test/functional/android/activities_tests.py test/functional/android/hw_actions_tests.py
+            name: func_test_android8
 
     runs-on: ubuntu-latest
 

@@ -3,10 +3,9 @@ name: Functional Tests
 on:
   # Run by manual at this time
   workflow_dispatch:
-  push:
-    branches: [ master ]
+  # push:
+  #   branches: [ master ]
   pull_request:
-    branches: [ master ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}

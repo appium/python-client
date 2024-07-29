@@ -92,7 +92,7 @@ jobs:
         test_targets:
           - target: test/functional/android/device_time_tests.py test/functional/android/search_context/find_by_*.py
             name: func_test_android1
-          - target: test/functional/android/ime_tests.py test/functional/android/search_context/keyboard_tests.py test/functional/android/search_context/location_tests.py
+          - target: test/functional/android/keyboard_tests.py test/functional/android/location_tests.py
             name: func_test_android2
           - target: test/functional/android/appium_service_tests.py
             name: func_test_android3
@@ -100,7 +100,7 @@ jobs:
             name: func_test_android4
           - target: test/functional/android/context_switching_tests.py test/functional/android/remote_fs_tests.py
             name: func_test_android5
-          - target: test/functional/android/common_tests.py test/functional/android/multi_action_tests.py test/functional/android/webelement_tests.py
+          - target: test/functional/android/common_tests.py test/functional/android/webelement_tests.py
             name: func_test_android6
           - target: test/functional/android/applications_tests.py
             name: func_test_android7

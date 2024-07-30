@@ -2,5 +2,5 @@
 # Build, test, and archive an Xcode workspace on macOS.
 # Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
-# jobs:
-#   - template: ./ci-jobs/functional_test.yml
+jobs:
+  - template: ./ci-jobs/functional_test.yml

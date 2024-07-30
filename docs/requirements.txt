@@ -1,2 +1,2 @@
-sphinx >= 4.0, < 7.0
+sphinx >= 4.0, < 9.0
 sphinx_rtd_theme < 3.0

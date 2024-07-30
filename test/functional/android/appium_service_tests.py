@@ -38,6 +38,7 @@ def appium_service() -> Generator[AppiumService, None, None]:
     finally:
         service.stop()
 
+
 def test_appium_service(appium_service: AppiumService) -> None:
     assert appium_service.is_running
     assert appium_service.is_listening

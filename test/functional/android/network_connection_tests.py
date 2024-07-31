@@ -32,3 +32,4 @@ class TestNetworkConnection(BaseTestCase):
             self.driver.set_network_connection(ConnectionType.DATA_ONLY)
         except Exception:
             assert False, "Should not raise any exceptions"
+

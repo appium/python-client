@@ -20,4 +20,5 @@ from selenium.webdriver.remote.remote_connection import RemoteConnection
 class CanExecuteCommands(Protocol):
     command_executor: RemoteConnection
 
-    def execute(self, driver_command: str, params: Union[Dict, None] = None) -> Dict: ...
+    def execute(self, driver_command: str, params: Union[Dict, None] = None) -> Dict:
+        ...

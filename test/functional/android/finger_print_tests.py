@@ -21,4 +21,4 @@ class TestFingerPrint(BaseTestCase):
         try:
             self.driver.finger_print(1)
         except Exception:
-            self.assertTrue(False, "Sould not raise any exceptions")
+            assert False, "Sould not raise any exceptions"

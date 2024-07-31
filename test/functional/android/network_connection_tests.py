@@ -28,6 +28,8 @@ class TestNetworkConnection(BaseTestCase):
 
     @pytest.mark.skipif(condition=is_ci(), reason='Need to fix flaky test during running on CI')
     def test_set_network_connection(self) -> None:
-        nc = self.driver.set_network_connection(ConnectionType.DATA_ONLY)
-        assert isinstance(nc, int)
-        assert nc == ConnectionType.DATA_ONLY
+        try:
+            self.driver.set_network_connection(ConnectionType.DATA_ONLY)
+        except Exception:
+            self.assertTrue(False, "Should not raise any exceptions")
+

@@ -41,7 +41,11 @@ class TestRemoteFs(BaseTestCase):
         folder = self.driver.pull_folder(dest_dir)
 
         with ZipFile(BytesIO(base64.b64decode(folder))) as fzip:
-            for filename in ['1.txt', '2.txt']:
+            for filename in ['tmp/1.txt', 'tmp/2.txt']:
+                # e.g. in the fzip.namelist():
+                # ['tmp/', 'tmp/.studio/', 'tmp/.studio/process-tracker', 'tmp/1.txt', 'tmp/2.txt',
+                #  'tmp/chrome-command-line', 'tmp/espresso.apppackage', 'tmp/remote.txt',
+                #  'tmp/test_file.txt', 'tmp/test_image.jpg', 'tmp/test_push_file.txt']
                 assert filename in fzip.namelist()
 
     def test_push_file_with_src_path(self) -> None:

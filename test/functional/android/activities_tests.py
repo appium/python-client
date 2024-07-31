@@ -50,7 +50,7 @@ class TestActivities(BaseTestCase):
         self.driver.execute_script(
             'mobile: startActivity',
             {
-                'component': f'{APIDEMO_PKG_NAME}/com.android.deskclock.DeskClock',
+                'component': 'com.google.android.deskclock/com.android.deskclock.DeskClock',
             },
         )
         self._assert_activity_contains('Clock')

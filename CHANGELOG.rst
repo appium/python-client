@@ -2,6 +2,330 @@ Changelog
 =========
 
 
+v4.0.1 (2024-07-09)
+-------------------
+
+Fix
+~~~
+- Typo and update test (#992) [Kazuaki Matsuo]
+
+  * docs: fix typo
+
+  * fix more typos
+
+  * test: fix one test
+
+Test
+~~~~
+- Ci: enable trigger. [Kazuaki Matsuo]
+- Ci: Bump conventional-pr-action to v3 (#989) [Mykola Mokhnach]
+- Ci: use gha instead of Azure for iOS in Azure (#987) [Kazuaki Matsuo]
+
+  ci: use gha instead of Azure for iOS in Azure
+- Ci: move the file. [Kazuaki Matsuo]
+- Ci: add initial gha to run by manual (#984) [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 4.0.1. [Kazuaki Matsuo]
+- Chore: Add mobile: replacements to clipboard API wrappers (#998)
+  [Mykola Mokhnach]
+
+  * chore: Add mobile: replacements to clipboard API wrappers
+
+  * Fix order
+
+  * update tests
+- Chore(deps): update selenium requirement from ~=4.21 to ~=4.22 (#996)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.21.0...selenium-4.22.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pylint requirement from ~=3.1.0 to ~=3.2.2
+  (#993) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/pylint-dev/pylint) to permit the latest version.
+  - [Release notes](https://github.com/pylint-dev/pylint/releases)
+  - [Commits](https://github.com/pylint-dev/pylint/compare/v3.1.0...v3.2.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.20 to ~=4.21 (#991)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.20.0...selenium-4.21.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Docs: missing appium python client version in the compatibility
+  matrix. [Kazuaki Matsuo]
+- Chore(deps): update sphinx-rtd-theme requirement from <2.0 to <3.0
+  (#935) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [sphinx-rtd-theme](https://github.com/readthedocs/sphinx_rtd_theme) to permit the latest version.
+  - [Changelog](https://github.com/readthedocs/sphinx_rtd_theme/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/readthedocs/sphinx_rtd_theme/compare/0.1.8...2.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: sphinx-rtd-theme
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.14 to ~=4.15 (#982)
+  [Kazuaki Matsuo, dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.14.0...4.15.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Docs: update docstring (#986) [Kazuaki Matsuo]
+- Chore(deps-dev): update pytest requirement from ~=8.1 to ~=8.2 (#983)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest](https://github.com/pytest-dev/pytest) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest/blob/main/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest/compare/8.1.0...8.2.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.19 to ~=4.20 (#981)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.19.0...selenium-4.20.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore: remove IOS_UIAUTOMATION (#979) [zeufack]
+- Chore(deps): update selenium requirement from ~=4.18 to ~=4.19 (#976)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.18.0...selenium-4.19.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update types-python-dateutil requirement (#973)
+  [dependabot[bot], dependabot[bot]]
+
+  ---
+  updated-dependencies:
+  - dependency-name: types-python-dateutil
+    dependency-type: direct:development
+  ...
+- Update changelog for 4.0.0. [Kazuaki Matsuo]
+
+
+v4.0.0 (2024-03-12)
+-------------------
+
+New
+~~~
+- Feat: remove MultiAction and TouchAction (#960) [Kazuaki Matsuo]
+
+  BREAKING CHANGE: Remove MultiAction and TouchAction as non-w3c WebDriver-defined methods. Please use w3c actions instead.
+
+Other
+~~~~~
+- Bump 4.0.0. [Kazuaki Matsuo]
+- Chore(deps-dev): update tox requirement from ~=4.13 to ~=4.14 (#972)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.13.0...4.14.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.12 to ~=4.13 (#957)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.12.0...4.13.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pytest requirement from ~=8.0 to ~=8.1 (#969)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest](https://github.com/pytest-dev/pytest) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest/blob/main/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest/compare/8.0.0...8.1.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest
+    dependency-type: direct:development
+  ...
+- Docs: update readme. [Kazuaki Matsuo]
+- Chore: remove deprecated AppiumBy.WINDOWS_UI_AUTOMATION (#968)
+  [Kazuaki Matsuo]
+- Chore(deps-dev): update python-dateutil requirement from ~=2.8 to
+  ~=2.9 (#967) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [python-dateutil](https://github.com/dateutil/dateutil) to permit the latest version.
+  - [Release notes](https://github.com/dateutil/dateutil/releases)
+  - [Changelog](https://github.com/dateutil/dateutil/blob/master/NEWS)
+  - [Commits](https://github.com/dateutil/dateutil/compare/2.8.0...2.9.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: python-dateutil
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=3.0.3 to ~=3.1.0
+  (#966) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/pylint-dev/pylint) to permit the latest version.
+  - [Release notes](https://github.com/pylint-dev/pylint/releases)
+  - [Commits](https://github.com/pylint-dev/pylint/compare/v3.0.3...v3.1.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Update changelog for 3.2.1. [Kazuaki Matsuo]
+
+
+v3.2.1 (2024-02-26)
+-------------------
+
+Fix
+~~~
+- Unclosed file <_io.BufferedReader name error by proper cleanup of
+  subprocess.Popen process (#965) [WrrngnCode]
+
+  https://github.com/appium/python-client/issues/962
+  add a Popen.communicate call after terminate to ensure that file stdout and sdterr file descriptors are closed properly.
+
+Other
+~~~~~
+- Bump 3.2.1. [Kazuaki Matsuo]
+- Update changelog for 3.2.0. [Kazuaki Matsuo]
+
+
+v3.2.0 (2024-02-24)
+-------------------
+
+New
+~~~
+- Feat: add pause in drag_and_drop (#961) [Kazuaki Matsuo]
+
+  * feat: add pause in drag_and_drop
+
+  * docs: tweak docstring
+
+  * Update action_helpers.py
+
+  * apply pause only when the value is not negative
+
+Fix
+~~~
+- Add return self in MultiAction#add (#964) [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 3.2.0. [Kazuaki Matsuo]
+- Chore(deps): update selenium requirement from ~=4.17 to ~=4.18 (#958)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.17.0...selenium-4.18.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pytest requirement from ~=7.4 to ~=8.0 (#953)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest](https://github.com/pytest-dev/pytest) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest/blob/main/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest/compare/7.4.0...8.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.15 to ~=4.17 (#948)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.15.0...selenium-4.17.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Docs: update W3C actions example in readme (#946) [Dor Blayzer]
+- Chore(deps-dev): update tox requirement from ~=4.11 to ~=4.12 (#947)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.11.0...4.12.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Docs: update example in readme (#945) [Kazuaki Matsuo]
+- Docs: update links (#944) [Kazuaki Matsuo]
+- Update changelog for 3.1.1. [Kazuaki Matsuo]
+
+
 v3.1.1 (2023-12-15)
 -------------------
 

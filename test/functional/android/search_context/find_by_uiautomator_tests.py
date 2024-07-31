@@ -32,9 +32,9 @@ class TestFindByUIAutomator(BaseTestCase):
     def test_element_find_single_element(self) -> None:
         el = self.driver.find_element(by=AppiumBy.CLASS_NAME, value='android.widget.ListView')
 
-        sub_el = el.find_element(
+        sub_el: WebElement = el.find_element(
             by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().description("Animation")'
-        )  # type: WebElement
+        )
         assert sub_el is not None
 
     def test_element_find_multiple_elements(self) -> None:

@@ -75,7 +75,7 @@ class TestWebElement(object):
         element = MobileWebElement(driver, 'element_id')
         ef = element.get_attribute('rect')
 
-        d = httpretty.last_request()
+        httpretty.last_request()
 
         assert isinstance(ef, dict)
         assert ef == rect_dict

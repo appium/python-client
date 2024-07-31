@@ -118,7 +118,7 @@ class ExtensionBase:
                 def add_command(self):
                     return ('post', 'session/$sessionId/path/to/your/custom/url')
 
-            driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps,
+            driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options,
                 extensions=[YourCustomCommand])
 
             # Then, the driver sends a post request to `session/$sessionId/path/to/your/custom/url`
@@ -126,7 +126,7 @@ class ExtensionBase:
             driver.custom_method_name({'dummy_arg': 'as a value'})
 
 
-        When you customize the URL dinamically with element id.
+        When you customize the URL dynamically with element id.
 
             class CustomURLCommand(ExtensionBase):
                 def method_name(self):
@@ -138,9 +138,9 @@ class ExtensionBase:
                 def add_command(self):
                     return ('GET', 'session/$sessionId/path/to/your/custom/$id/url')
 
-            driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps,
+            driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options,
                 extensions=[YourCustomCommand])
-            element = driver.find_elemeent(by=AppiumBy.ACCESSIBILITY_ID, value='id')
+            element = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='id')
 
             # Then, the driver calls a get request to `session/$sessionId/path/to/your/custom/$id/url`
             # with replacing the `$id` with the given `element.id`
@@ -240,12 +240,10 @@ class WebDriver(
             self._update_command_executor(keep_alive=keep_alive)
 
         # add new method to the `find_by_*` pantheon
-        By.IOS_UIAUTOMATION = AppiumBy.IOS_UIAUTOMATION
         By.IOS_PREDICATE = AppiumBy.IOS_PREDICATE
         By.IOS_CLASS_CHAIN = AppiumBy.IOS_CLASS_CHAIN
         By.ANDROID_UIAUTOMATOR = AppiumBy.ANDROID_UIAUTOMATOR
         By.ANDROID_VIEWTAG = AppiumBy.ANDROID_VIEWTAG
-        By.WINDOWS_UI_AUTOMATION = AppiumBy.WINDOWS_UI_AUTOMATION
         By.ACCESSIBILITY_ID = AppiumBy.ACCESSIBILITY_ID
         By.IMAGE = AppiumBy.IMAGE
         By.CUSTOM = AppiumBy.CUSTOM

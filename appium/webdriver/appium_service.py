@@ -235,6 +235,7 @@ class AppiumService:
         if self.is_running:
             assert self._process
             self._process.terminate()
+            self._process.communicate(timeout=5)
             is_terminated = True
         self._process = None
         self._cmd = None

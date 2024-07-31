@@ -47,7 +47,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 |`2.10.0` - `2.11.1` |`4.1.0` - `4.11.2` | 3.7+ |
 |`2.2.0` - `2.9.0` |`4.1.0` - `4.9.0` | 3.7+ |
 |`2.0.0` - `2.1.4` |`4.0.0` | 3.7+ |
-|`1.0.0` - `1.1.0` |`3.x`| 3.7, 3.8 |
+|`1.0.0` - `1.3.0` |`3.x`| 3.7+ |
 |`0.52` and below|`3.x`| 2.7, 3.4 - 3.7 |
 
 The Appium Python Client depends on [Selenium Python binding](https://pypi.org/project/selenium/), thus
@@ -59,10 +59,20 @@ For example, some changes in the Selenium binding could break the Appium client.
 > to keep compatible version combinations.
 
 
+### Quick migration guide from v3 to v4
+- Removal
+    - `MultiAction` and `TouchAction` are removed. Please use W3C WebDriver actions or `mobile:` extensions
+        - [appium/webdriver/extensions/action_helpers.py](appium/webdriver/extensions/action_helpers.py)
+        - https://www.selenium.dev/documentation/webdriver/actions_api/
+        - https://www.youtube.com/watch?v=oAJ7jwMNFVU
+        - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
+        - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
+    - Deprecated `AppiumBy.WINDOWS_UI_AUTOMATION`, which has no usage right now.
+
 ### Quick migration guide from v2 to v3
 - `options` keyword argument in the `webdriver.Remote` constructor such as `XCUITestOptions` instead of `desired_capabilities`
     - Available options are https://github.com/appium/python-client/tree/master/appium/options
-        - Please check the [Usage](#usage) below as an exampple.
+        - Please check the [Usage](#usage) below as an example.
     - Not a "new" change, but the `desired_capabilities` argument has been removed since v3.
 - Replacement
     - `start_activity` method: Please use [`mobile: startActivity`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-startactivity)
@@ -83,12 +93,6 @@ For example, some changes in the Selenium binding could break the Appium client.
     - Added `strict_ssl` to relax SSL errors such as self-signed ones
 - Deprecated
     - `MultiAction` and `TouchAction` are deprecated. Please use W3C WebDriver actions or `mobile:` extensions
-        - e.g.
-            - [appium/webdriver/extensions/action_helpers.py](appium/webdriver/extensions/action_helpers.py)
-            - https://www.selenium.dev/documentation/webdriver/actions_api/
-            - https://www.youtube.com/watch?v=oAJ7jwMNFVU
-            - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
-            - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
     - `launch_app`, `close_app`, and `reset` are deprecated. Please read [issues#15807](https://github.com/appium/appium/issues/15807) for more details
 
 #### MultiAction/TouchAction to W3C actions

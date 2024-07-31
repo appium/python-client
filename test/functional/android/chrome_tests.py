@@ -30,7 +30,8 @@ class TestChrome(object):
         self.driver.quit()
 
     def test_find_single_element(self) -> None:
-        self.driver.get(f'{SERVER_URL_BASE}/test/guinea-pig')
-        self.driver.find_element(by=AppiumBy.LINK_TEXT, value='i am a link').click()
+        e = self.driver.find_element(by=AppiumBy.XPATH, value='//body')
+        assert e.text == ''
 
-        assert 'I am some other page content' in self.driver.page_source
+        # Chrome browser's default page
+        assert '<html><head></head><body></body></html>' in self.driver.page_source

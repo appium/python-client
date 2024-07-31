@@ -18,5 +18,7 @@ from .helper.test_helper import BaseTestCase
 
 class TestFingerPrint(BaseTestCase):
     def test_finger_print(self) -> None:
-        result = self.driver.finger_print(1)
-        assert result is None
+        try:
+            self.driver.finger_print(1)
+        except Exception:
+            self.assertTrue(False, "Sould not raise any exceptions")

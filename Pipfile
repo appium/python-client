@@ -15,7 +15,7 @@ pylint-quotes = "~=0.2.3"
 pytest = "~=8.3"
 pytest-cov = "~=4.1"
 python-dateutil = "~=2.9"
-tox = "~=4.16"
+tox = "~=4.17"
 types-python-dateutil = "~=2.9"
 
 [packages]

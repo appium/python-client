@@ -3,7 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/Appium-Python-Client.svg)](https://badge.fury.io/py/Appium-Python-Client)
 [![Downloads](https://pepy.tech/badge/appium-python-client)](https://pepy.tech/project/appium-python-client)
 
-[![Build Status](https://dev.azure.com/AppiumCI/Appium%20CI/_apis/build/status/appium.python-client?branchName=master)](https://dev.azure.com/AppiumCI/Appium%20CI/_build/latest?definitionId=56&branchName=master)
+[![Functional Tests](https://github.com/appium/python-client/actions/workflows/functional-test.yml/badge.svg)](https://github.com/appium/python-client/actions/workflows/functional-test.yml)
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 

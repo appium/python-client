@@ -25,6 +25,7 @@ from appium.options.common.prerun_option import PrerunOption
 from appium.options.common.system_host_option import SystemHostOption
 from appium.options.common.system_port_option import SystemPortOption
 
+from .app_path_option import AppPathOption
 from .arguments_option import ArgumentsOption
 from .bootstrap_root_option import BootstrapRootOption
 from .environment_option import EnvironmentOption
@@ -36,6 +37,7 @@ from .web_driver_agent_mac_url_option import WebDriverAgentMacUrlOption
 
 class Mac2Options(
     AppiumOptions,
+    AppPathOption,
     PrerunOption,
     PostrunOption,
     ArgumentsOption,

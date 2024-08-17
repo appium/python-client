@@ -2,6 +2,132 @@ Changelog
 =========
 
 
+v4.1.0 (2024-08-17)
+-------------------
+
+New
+~~~
+- Feat: add app_path property ("appPath") to Mac2Options (#1014)
+  [Kazuaki Matsuo, a-fultz]
+
+Test
+~~~~
+- Ci: moving to GHA (#1010) [Kazuaki Matsuo]
+
+  * ci: run func_test_android4
+
+  * test: fix tests
+
+  * fix tests
+
+  * remove azure related
+
+  * use assert
+
+  * fix black lint
+
+  * use python 3.12
+
+  * use newer python
+
+  * use 3.9 for now
+
+  * Revert "fix black lint"
+
+  This reverts commit 228fe8a316d0bd361ead94ddb29da6f66abb7a09.
+
+  * remove a new line
+- Ci: run other android tests on GHA (#1008) [Kazuaki Matsuo]
+
+  - ci: run other android tests on GHA a few more
+- Ci: move Azure to GHA (Android) (#1007) [Kazuaki Matsuo]
+
+  * ci: move Azure to GHA (Android)
+
+Other
+~~~~~
+- Bump 4.1.0. [Kazuaki Matsuo]
+- Chore(deps-dev): update tox requirement from ~=4.16 to ~=4.18 (#1013)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.16.0...4.18.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Docs: replace badge source (#1012) [Kazuaki Matsuo]
+- Chore(deps-dev): update pylint requirement from ~=3.2.5 to ~=3.2.6
+  (#1005) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/pylint-dev/pylint) to permit the latest version.
+  - [Release notes](https://github.com/pylint-dev/pylint/releases)
+  - [Commits](https://github.com/pylint-dev/pylint/compare/v3.2.5...v3.2.6)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore: remove non-reference variables, import and fix test names to
+  run them properly (#1006) [Kazuaki Matsuo]
+- Chore(deps-dev): update pytest requirement from ~=8.2 to ~=8.3 (#1004)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest](https://github.com/pytest-dev/pytest) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest/blob/main/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest/compare/8.2.0...8.3.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pylint requirement from ~=3.2.2 to ~=3.2.5
+  (#1000) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/pylint-dev/pylint) to permit the latest version.
+  - [Release notes](https://github.com/pylint-dev/pylint/releases)
+  - [Commits](https://github.com/pylint-dev/pylint/compare/v3.2.2...v3.2.5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.15 to ~=4.16 (#1002)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.15.0...4.16.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.22 to ~=4.23 (#1003)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.22.0...selenium-4.23.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Update changelog for 4.0.1. [Kazuaki Matsuo]
+
+
 v4.0.1 (2024-07-09)
 -------------------
 

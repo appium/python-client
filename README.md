@@ -97,7 +97,7 @@ For example, some changes in the Selenium binding could break the Appium client.
 
 #### MultiAction/TouchAction to W3C actions
 
-On UIA2, some elements can be handled with `touch` pointer action instead of the default `mouse` pointer action in the Selenium Python client.
+Some elements can be handled with `touch` pointer action instead of the default `mouse` pointer action in the Selenium Python client.
 For example, the below action builder is to replace the default one with the `touch` pointer action.
 
 ```python

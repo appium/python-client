@@ -196,3 +196,138 @@ jobs:
       with:
         name: appium-android-${{matrix.test_targets.name}}.log
         path: appium.log
+
+  flutter_e2e_test:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-14
+            e2e-tests: flutter-ios
+          - platform: ubuntu-latest
+            e2e-tests: flutter-android
+
+    runs-on: ${{ matrix.platform }}
+
+    env:
+      API_LEVEL: 29
+      ARCH: x86
+      CI: true
+      XCODE_VERSION: 15.4
+      IOS_VERSION: 17.5
+      IPHONE_MODEL: iPhone 15
+      FLUTTER_ANDROID_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/latest/download/app-debug.apk"
+      FLUTTER_IOS_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/latest/download/ios.zip"
+
+    steps:
+
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-java@v4
+      if: matrix.e2e-tests == 'flutter-android'
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+
+    - name: Enable KVM group perms
+      if: matrix.e2e-tests == 'flutter-android'
+      run: |
+        echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+        sudo udevadm control --reload-rules
+        sudo udevadm trigger --name-match=kvm
+  
+    - name: AVD cache
+      if: matrix.e2e-tests == 'flutter-android'
+      uses: actions/cache@v3
+      id: avd-cache
+      with:
+        path: |
+          ~/.android/avd/*
+          ~/.android/adb*
+        key: avd-${{ env.API_LEVEL }}
+
+    - name: Create AVD and generate snapshot for caching
+      if: matrix.e2e-tests == 'flutter-android' && steps.avd-cache.outputs.cache-hit != 'true'
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: ${{ env.API_LEVEL }}
+        arch: ${{ env.ARCH }}
+        target: google_apis
+        force-avd-creation: false
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+        disable-animations: false
+        script: echo "Generated AVD snapshot for caching."
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.12
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 'lts/*'
+
+    - name: Install Appium
+      run: npm install --location=global appium
+    
+    - name: Install Android drivers and Run Appium
+      if: matrix.e2e-tests == 'flutter-android'
+      run: |
+        appium driver install uiautomator2
+        appium driver install appium-flutter-integration-driver --source npm
+        nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_android.log &
+
+    - name: Run Android tests
+      if: matrix.e2e-tests == 'flutter-android'
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: ${{ env.API_LEVEL }}
+        arch: ${{ env.ARCH }}
+        script: |
+          pip install --upgrade pip
+          pip install --upgrade pipenv
+          pipenv lock --clear
+          pipenv install -d --system
+          export PLATFORM=android
+          pytest test/functional/flutter/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        target: google_apis
+        profile: Nexus 5X
+        disable-spellchecker: true
+        disable-animations: true
+
+    - name: Select Xcode
+      if: matrix.e2e-tests == 'flutter-ios'
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ${{ env.XCODE_VERSION }}
+    - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+
+    - uses: futureware-tech/simulator-action@v3
+      with:
+        # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
+        model: ${{ env.IPHONE_MODEL }}
+        os_version: ${{ env.IOS_VERSION }}
+
+    - name: install dependencies
+      if: matrix.e2e-tests == 'flutter-ios'
+      run: brew install ffmpeg
+
+    - name: Install IOS drivers and Run Appium
+      if: matrix.e2e-tests == 'flutter-ios'
+      run: |
+        appium driver install xcuitest
+        appium driver install appium-flutter-integration-driver --source npm
+        appium driver run xcuitest build-wda
+        nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_ios.log &
+
+    - name: Run IOS tests
+      if: matrix.e2e-tests == 'flutter-ios'
+      run: |
+        # Separate 'run' creates differnet pipenv env. Does them in one run for now.
+        pip install --upgrade pip
+        pip install --upgrade pipenv
+        pipenv lock --clear
+        pipenv install -d --system
+        export PLATFORM=ios
+        pytest test/functional/flutter/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html

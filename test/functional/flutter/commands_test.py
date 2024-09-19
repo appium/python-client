@@ -14,8 +14,6 @@
 
 import os
 
-import pytest
-
 from appium.webdriver.common.flutterby import FlutterBy
 from appium.webdriver.flutter_finder import FlutterFinder
 from test.functional.flutter.helper.test_helper import BaseTestCase
@@ -41,7 +39,6 @@ class TestFlutterCommands(BaseTestCase):
         self.flutter_command.wait_for_visible(message_field)
         assert len(self.driver.find_elements(*message_field_finder.as_strings())) == 1
      
-    @pytest.mark.skip 
     def test_scroll_till_visible_command(self):
         self.__open_screen('Vertical Swiping')
         
@@ -59,7 +56,6 @@ class TestFlutterCommands(BaseTestCase):
         assert second_element.get_attribute('displayed') == 'false'
         assert first_element.get_attribute('displayed') == 'true'
     
-    @pytest.mark.skip 
     def test_scroll_till_visible_with_scroll_params_command(self):
         self.__open_screen('Vertical Swiping')
         
@@ -72,7 +68,6 @@ class TestFlutterCommands(BaseTestCase):
         first_element = self.flutter_command.scroll_till_visible(FlutterFinder.by_flutter_text("Playwright"), **scroll_params)
         assert first_element.get_attribute('displayed') == 'true'
     
-    @pytest.mark.skip 
     def test_double_click_command(self):
         self.__open_screen('Double Tap')
 
@@ -88,7 +83,6 @@ class TestFlutterCommands(BaseTestCase):
         
         self.driver.find_element(FlutterBy.FLUTTER_TEXT, 'Ok').click()
     
-    @pytest.mark.skip  
     def test_long_press_command(self):
         self.__open_screen('Long Press')
         
@@ -99,7 +93,6 @@ class TestFlutterCommands(BaseTestCase):
         assert success_pop_up.text == 'It was a long press'
         assert success_pop_up.is_displayed() == True
     
-    @pytest.mark.skip      
     def test_drag_and_drop_command(self):
         self.__open_screen('Drag & Drop')
 
@@ -108,7 +101,6 @@ class TestFlutterCommands(BaseTestCase):
         self.flutter_command.perform_drag_and_drop(drag_element, drop_element)
         assert self.driver.find_element(FlutterBy.FLUTTER_TEXT,'The box is dropped').is_displayed() == True
     
-    @pytest.mark.skip 
     def test_camera_mocking(self):
         self.__open_screen('Image Picker')
         

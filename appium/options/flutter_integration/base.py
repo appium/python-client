@@ -16,6 +16,7 @@
 # under the License.
 
 from typing import Dict
+
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import AppiumOptions
 from appium.options.flutter_integration.flutter_element_wait_timeout_option import FlutterElementWaitTimeOutOption
@@ -29,12 +30,11 @@ class FlutterOptions(
     FlutterElementWaitTimeOutOption,
     FlutterEnableMockCameraOption,
     FlutterServerLaunchTimeOutOption,
-    FlutterSystemPortOption
+    FlutterSystemPortOption,
 ):
-    
+
     @property
     def default_capabilities(self) -> Dict:
         return {
             AUTOMATION_NAME: 'FlutterIntegration',
         }
-    

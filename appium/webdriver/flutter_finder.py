@@ -17,35 +17,35 @@
 
 from appium.webdriver.common.appiumby import AppiumBy
 
+
 class FlutterFinder:
-    
+
     def __init__(self, using: str, value: str) -> None:
         self.using = using
         self.value = value
-    
+
     @staticmethod
-    def by_flutter_key(value: str) -> 'FlutterFinder':
+    def by_key(value: str) -> 'FlutterFinder':
         return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_KEY, value)
-    
+
     @staticmethod
-    def by_flutter_text(value: str) -> 'FlutterFinder':
+    def by_text(value: str) -> 'FlutterFinder':
         return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_TEXT, value)
-    
+
     @staticmethod
-    def by_flutter_semantics_label(value: str) -> 'FlutterFinder':
+    def by_semantics_label(value: str) -> 'FlutterFinder':
         return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_SEMANTICS_LABEL, value)
-    
+
     @staticmethod
-    def by_flutter_type(value: str) -> 'FlutterFinder':
+    def by_type(value: str) -> 'FlutterFinder':
         return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_TYPE, value)
-    
+
     @staticmethod
-    def by_flutter_text_containing(value: str) -> 'FlutterFinder':
+    def by_text_containing(value: str) -> 'FlutterFinder':
         return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, value)
-    
+
     def to_dict(self) -> dict:
-        return { 'using': self.using, 'value': self.value} 
-    
+        return {'using': self.using, 'value': self.value}
+
     def as_args(self) -> tuple[str, str]:
         return self.using, self.value
-        

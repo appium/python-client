@@ -16,19 +16,19 @@
 # under the License.
 
 from typing import Optional
-from appium.options.common.supports_capabilities import SupportsCapabilities
 
+from appium.options.common.supports_capabilities import SupportsCapabilities
 
 FLUTTER_SYSTEM_PORT = 'flutterSystemPort'
 
 
 class FlutterSystemPortOption(SupportsCapabilities):
-    
+
     @property
     def flutter_system_port(self) -> Optional[int]:
         """
         Get flutter system port for Flutter integration tests.
-        
+
         Returns:
             int: returns the port number
         """

@@ -15,6 +15,7 @@
 import os
 from typing import Any, Dict
 
+
 def get_desired_capabilities(platform_name: str) -> Dict[str, Any]:
     desired_caps: Dict[str, Any] = {}
     if platform_name == 'android':

@@ -17,19 +17,19 @@
 
 from datetime import timedelta
 from typing import Optional, Union
+
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-
-FLUTTER_ELEMENT_WAIT_TIMEOUT= 'flutterElementWaitTimeout'
+FLUTTER_ELEMENT_WAIT_TIMEOUT = 'flutterElementWaitTimeout'
 
 
 class FlutterElementWaitTimeOutOption(SupportsCapabilities):
-    
+
     @property
     def flutter_element_wait_timeout(self) -> Optional[timedelta]:
         """
         Maximum timeout to wait for element for Flutter integration test
-        
+
         Returns:
             Optional[timedelta]: The timeout value as a `timedelta` object if set, or `None` if the timeout is not defined.
         """
@@ -46,6 +46,6 @@ class FlutterElementWaitTimeOutOption(SupportsCapabilities):
                 If provided as a `timedelta`, it will be converted to milliseconds.
         """
         self.set_capability(
-            FLUTTER_ELEMENT_WAIT_TIMEOUT, 
+            FLUTTER_ELEMENT_WAIT_TIMEOUT,
             int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
         )

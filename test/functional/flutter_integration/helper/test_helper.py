@@ -27,15 +27,15 @@ from . import desired_capabilities
 class BaseTestCase(object):
 
     def setup_method(self) -> None:
-        platform_name =  os.getenv('PLATFORM', 'android').lower()
-        
+        platform_name = os.getenv('PLATFORM', 'android').lower()
+
         # set flutter options
         flutterOptions = FlutterOptions()
         flutterOptions.flutter_system_port = 9999
         flutterOptions.flutter_enable_mock_camera = True
         flutterOptions.flutter_element_wait_timeout = 10000
         flutterOptions.flutter_server_launch_timeout = 120000
-        
+
         desired_caps = desired_capabilities.get_desired_capabilities(platform_name)
         self.driver = webdriver.Remote(SERVER_URL_BASE, options=flutterOptions.load_capabilities(desired_caps))
         self.flutter_command = FlutterCommand(self.driver)
@@ -44,4 +44,3 @@ class BaseTestCase(object):
         if not hasattr(self, 'driver'):
             return
         self.driver.quit()
-        

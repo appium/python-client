@@ -16,12 +16,13 @@ from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.flutter_finder import FlutterFinder
 from test.functional.flutter_integration.helper.test_helper import BaseTestCase
 
-LOGIN_BUTTON_FINDER = FlutterFinder.by_flutter_text('Login')
+
+LOGIN_BUTTON_FINDER = FlutterFinder.by_text('Login')
 
 class TestFlutterFinders(BaseTestCase):
 
     def test_by_flutter_key(self) -> None:
-        user_name_field_finder = FlutterFinder.by_flutter_key('username_text_field')
+        user_name_field_finder = FlutterFinder.by_key('username_text_field')
         user_name_field = self.driver.find_element(*user_name_field_finder.as_args())
         assert user_name_field.text == 'admin'
         
@@ -50,7 +51,7 @@ class TestFlutterFinders(BaseTestCase):
     def test_by_flutter_semantics_label(self) -> None:
         login_button = self.driver.find_element(*LOGIN_BUTTON_FINDER.as_args())
         login_button.click()
-        element = self.flutter_command.scroll_till_visible(FlutterFinder.by_flutter_text('Lazy Loading'))
+        element = self.flutter_command.scroll_till_visible(FlutterFinder.by_text('Lazy Loading'))
         element.click()
         message_field = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_SEMANTICS_LABEL, 'message_field')
         assert message_field.text == 'Hello world'

@@ -18,10 +18,10 @@
 from typing import Dict
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import AppiumOptions
-from appium.options.flutter.flutter_element_wait_timeout_option import FlutterElementWaitTimeOutOption
-from appium.options.flutter.flutter_enable_mock_camera_option import FlutterEnableMockCameraOption
-from appium.options.flutter.flutter_server_launch_timeout_option import FlutterServerLaunchTimeOutOption
-from appium.options.flutter.flutter_system_port_option import FlutterSystemPortOption
+from appium.options.flutter_integration.flutter_element_wait_timeout_option import FlutterElementWaitTimeOutOption
+from appium.options.flutter_integration.flutter_enable_mock_camera_option import FlutterEnableMockCameraOption
+from appium.options.flutter_integration.flutter_server_launch_timeout_option import FlutterServerLaunchTimeOutOption
+from appium.options.flutter_integration.flutter_system_port_option import FlutterSystemPortOption
 
 
 class FlutterOptions(

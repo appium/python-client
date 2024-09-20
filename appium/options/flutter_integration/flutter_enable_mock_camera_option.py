@@ -19,15 +19,28 @@ from typing import Optional
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
-FLUTTER_SYSTEM_PORT = 'flutterSystemPort'
+FLUTTER_ENABLE_MOCK_CAMERA = 'flutterEnableMockCamera'
 
 
-class FlutterSystemPortOption(SupportsCapabilities):
+class FlutterEnableMockCameraOption(SupportsCapabilities):
     
     @property
-    def flutter_system_port(self) -> Optional[int]:
-        return self.get_capability(FLUTTER_SYSTEM_PORT)
+    def flutter_enable_mock_camera(self) -> bool:
+        """
+        Get state of the mock camera for Flutter integration test
+        
+        Returns:
+            bool: A boolean indicating whether the mock camera is enabled (True) or disabled (False).
+        """
+        return self.get_capability(FLUTTER_ENABLE_MOCK_CAMERA)
 
-    @flutter_system_port.setter
-    def flutter_system_port(self, value: int) -> None:
-        self.set_capability(FLUTTER_SYSTEM_PORT, value)
+    @flutter_enable_mock_camera.setter
+    def flutter_enable_mock_camera(self, value: bool) -> None:
+        """        
+        Setter method enable or disable the mock camera for Flutter integration test
+        Default state is `False`
+
+        Args:
+            value (bool): A boolean value indicating whether to enable (True) or disable (False) the mock camera.
+        """
+        self.set_capability(FLUTTER_ENABLE_MOCK_CAMERA, value)

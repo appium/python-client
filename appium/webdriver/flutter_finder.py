@@ -15,9 +15,9 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from appium.webdriver.common.flutterby import FlutterBy
+from appium.webdriver.common.appiumby import AppiumBy
 
-class FlutterFinder():
+class FlutterFinder:
     
     def __init__(self, using: str, value: str) -> None:
         self.using = using
@@ -25,27 +25,27 @@ class FlutterFinder():
     
     @staticmethod
     def by_flutter_key(value: str) -> 'FlutterFinder':
-        return FlutterFinder(FlutterBy.FLUTTER_KEY,  value)
+        return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_KEY, value)
     
     @staticmethod
     def by_flutter_text(value: str) -> 'FlutterFinder':
-        return FlutterFinder(FlutterBy.FLUTTER_TEXT,  value)
+        return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_TEXT, value)
     
     @staticmethod
     def by_flutter_semantics_label(value: str) -> 'FlutterFinder':
-        return FlutterFinder(FlutterBy.FLUTTER_SEMANTICS_LABEL,  value)
+        return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_SEMANTICS_LABEL, value)
     
     @staticmethod
     def by_flutter_type(value: str) -> 'FlutterFinder':
-        return FlutterFinder(FlutterBy.FLUTTER_TYPE,  value)
+        return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_TYPE, value)
     
     @staticmethod
     def by_flutter_text_containing(value: str) -> 'FlutterFinder':
-        return FlutterFinder(FlutterBy.FLUTTER_TEXT_CONTAINING,  value)
+        return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, value)
     
-    def to_dict(self):
-        return { "using": self.using, "value": self.value} 
+    def to_dict(self) -> dict:
+        return { 'using': self.using, 'value': self.value} 
     
-    def as_strings(self) -> str:
+    def as_args(self) -> str:
         return self.using, self.value
         

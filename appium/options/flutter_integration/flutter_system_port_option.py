@@ -19,15 +19,28 @@ from typing import Optional
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
 
-FLUTTER_ELEMENT_WAIT_TIMEOUT= 'flutterElementWaitTimeout'
+FLUTTER_SYSTEM_PORT = 'flutterSystemPort'
 
 
-class FlutterElementWaitTimeOutOption(SupportsCapabilities):
+class FlutterSystemPortOption(SupportsCapabilities):
     
     @property
-    def flutter_element_wait_timeout(self) -> Optional[int]:
-        return self.get_capability(FLUTTER_ELEMENT_WAIT_TIMEOUT)
+    def flutter_system_port(self) -> Optional[int]:
+        """
+        Get flutter system port for Flutter integration tests.
+        
+        Returns:
+            int: returns the port number
+        """
+        return self.get_capability(FLUTTER_SYSTEM_PORT)
 
-    @flutter_element_wait_timeout.setter
-    def flutter_element_wait_timeout(self, time_in_millis: int) -> None:
-        self.set_capability(FLUTTER_ELEMENT_WAIT_TIMEOUT, time_in_millis)
+    @flutter_system_port.setter
+    def flutter_system_port(self, value: int) -> None:
+        """
+        Sets the system port for Flutter integration tests.
+        By default the first free port from 10000..11000 range is selected
+
+        Args:
+            value (int): The port number to be used for the Flutter server.
+        """
+        self.set_capability(FLUTTER_SYSTEM_PORT, value)

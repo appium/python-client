@@ -13,26 +13,28 @@
 # limitations under the License.
 
 import base64
+import os
 from typing import Any, Optional, Tuple, Union
+from appium.webdriver.extensions.flutter_integration.scroll_directions import ScrollDirection
 from appium.webdriver.flutter_finder import FlutterFinder
 from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.webelement import WebElement
 
 
-class FlutterCommand():
+class FlutterCommand:
     
     def __init__(self, driver: WebDriver) -> None:
         self.driver = driver
         
      # wait commands   
      
-    def wait_for_visible(self, locator: Union[WebElement, FlutterFinder], time_out: Optional[int] = None) -> None:
+    def wait_for_visible(self, locator: Union[WebElement, FlutterFinder], time_out: Optional[float] = None) -> None:
         """
         Waits for a element to become visible.
 
         Args:
-            locator: The element to wait for; can be a WebElement or a FlutterFinder.
-            time_out: Maximum wait time in seconds. Defaults to a predefined timeout if not specified.
+            locator (Union[WebElement, FlutterFinder]): The element to wait for; can be a WebElement or a FlutterFinder.
+            time_out (Optional[float]): Maximum wait time in seconds. Defaults to a predefined timeout if not specified.
             
         Returns: 
             None: 
@@ -45,13 +47,13 @@ class FlutterCommand():
         self.execute_flutter_command('waitForVisible', opts)
 
             
-    def wait_for_invisible(self, locator: Union[WebElement, FlutterFinder], time_out: Optional[int] = None) -> None:
+    def wait_for_invisible(self, locator: Union[WebElement, FlutterFinder], time_out: Optional[float] = None) -> None:
         """
         Waits for a element to become invisible.
 
         Args:
-            locator: The element to wait for; can be a WebElement or a FlutterFinder.
-            time_out: Maximum wait time in seconds. Defaults to a predefined timeout if not specified.
+            locator (Union[WebElement, FlutterFinder]): The element to wait for; can be a WebElement or a FlutterFinder.
+            time_out (Optional[float]): Maximum wait time in seconds. Defaults to a predefined timeout if not specified.
             
         Returns:
             None: 
@@ -70,14 +72,14 @@ class FlutterCommand():
         Performs a double-click on the given element, with an optional offset.
 
         Args:
-            element: The element to double-click on. This parameter is required.
-            offset: The x and y offsets from the element to click at. If not specified, the click is performed at the element's center.
+            element (WebElement): The element to double-click on. This parameter is required.
+            offset (Optional[Tuple[int, int]]): The x and y offsets from the element to click at. If not specified, the click is performed at the element's center.
             
         Returns:
             None:
         """
         opts = {'origin': element}
-        if offset:
+        if offset is not None:
             opts['offset'] = {'x': offset[0], 'y': offset[1]}
         self.execute_flutter_command('doubleClick', opts)
     
@@ -86,14 +88,14 @@ class FlutterCommand():
         Performs a long press on the given element, with an optional offset.
 
         Args:
-            element: The element to perform the long press on. This parameter is required.
-            offset: The x and y offsets from the element to perform the long press at. If not specified, the long press is performed at the element's center.
+            element (WebElement): The element to perform the long press on. This parameter is required.
+            offset (Optional[Tuple[int, int]]): The x and y offsets from the element to perform the long press at. If not specified, the long press is performed at the element's center.
             
         Returns:
             None:
         """
         opts = {'origin': element}
-        if offset:
+        if offset is not None:
             opts['offset'] = {'x': offset[0], 'y': offset[1]}
         self.execute_flutter_command('longPress', opts)
             
@@ -102,21 +104,21 @@ class FlutterCommand():
         Performs a drag-and-drop operation from a source element to a target element.
 
         Args:
-            source: The element to drag from.
-            target: The element to drop onto.
+            source (WebElement): The element to drag from.
+            target (WebElement): The element to drop onto.
             
         Returns:
             None:
         """
         self.execute_flutter_command('dragAndDrop', {'source': source, 'target': target})
         
-    def scroll_till_visible(self, scroll_to: FlutterFinder, scroll_direction: Optional[str] = 'down', **opts: Any) -> WebElement:
+    def scroll_till_visible(self, scroll_to: FlutterFinder, scroll_direction: Optional[ScrollDirection] = ScrollDirection.DOWN, **opts: Any) -> WebElement:
         """
         Scrolls until the specified element becomes visible.
 
         Args:
-            scroll_to: The Flutter element to scroll to.
-            scroll_direction: The direction to scroll up/down. Defaults to 'down'.
+            scroll_to (FlutterFinder): The Flutter element to scroll to.
+            scroll_direction (Optional[ScrollDirection]): The direction to scroll up or down. Defaults to `ScrollDirection.DOWN`.
                 
         KeywordArgs:
                 scrollView (str): The view of the scroll.
@@ -129,7 +131,7 @@ class FlutterCommand():
             Webelement: scrolled element
         """
         opts['finder'] = scroll_to.to_dict()
-        opts['scrollDirection'] = scroll_direction
+        opts['scrollDirection'] = scroll_direction.as_string()
         return self.execute_flutter_command('scrollTillVisible', opts)
         
     def inject_mock_image(self, value: str) -> str:
@@ -137,14 +139,13 @@ class FlutterCommand():
         Injects a mock image to the device. The input can be a file path or a base64-encoded string.
 
         Args:
-            value: The file path of the image or a base64-encoded string.
+            value (str): The file path of the image or a base64-encoded string.
             
         Returns:
             str: Image ID of the injected image.
         """
-        import os
         if os.path.isfile(value):        
-            with open(value, "rb") as image_file:
+            with open(value, 'rb') as image_file:
                 base64_encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
         else:
             base64_encoded_image = value
@@ -155,12 +156,24 @@ class FlutterCommand():
         Activates an injected image with image ID.
 
         Args:
-            image_id: The ID of the injected image to activate.
+            image_id (str): The ID of the injected image to activate.
 
         Returns:
             None:
         """
-        self.execute_flutter_command("activateInjectedImage", {'imageId': image_id})
+        self.execute_flutter_command('activateInjectedImage', {'imageId': image_id})
         
     def execute_flutter_command(self, scriptName: str, params: dict) -> Any:
+        """
+        Executes a Flutter command by sending a script and parameters to the flutter integration driver.
+
+        Args:
+            scriptName (str): The name of the Flutter command to execute. 
+                This will be prefixed with 'flutter:' when passed to the driver.
+            params (dict): A dictionary of parameters to be passed along with the Flutter command.
+
+        Returns:
+            Any: The result of the command execution. The return value depends on the 
+            specific Flutter command being executed.
+        """
         return self.driver.execute_script(f'flutter: {scriptName}', params)

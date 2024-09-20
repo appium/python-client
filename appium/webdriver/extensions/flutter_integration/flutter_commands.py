@@ -14,7 +14,7 @@
 
 import base64
 import os
-from typing import Any, Optional, Tuple, Union
+from typing import Any, Dict, Optional, Tuple, Union
 from appium.webdriver.extensions.flutter_integration.scroll_directions import ScrollDirection
 from appium.webdriver.flutter_finder import FlutterFinder
 from appium.webdriver.webdriver import WebDriver
@@ -39,10 +39,13 @@ class FlutterCommand:
         Returns: 
             None: 
         """
+        opts: Dict[str, Union[WebElement, Dict[str, str], float]] = {}
         if isinstance(locator, WebElement):
-            opts = {'element': locator, 'timeout': time_out}
+            opts['element'] = locator
         else:
-            opts = {'locator': locator.to_dict(), 'timeout': time_out}
+            opts['locator'] = locator.to_dict()
+        if time_out is not None:
+            opts['timeout'] = time_out
 
         self.execute_flutter_command('waitForVisible', opts)
 
@@ -58,10 +61,13 @@ class FlutterCommand:
         Returns:
             None: 
         """
+        opts: Dict[str, Union[WebElement, Dict[str, str], float]] = {}
         if isinstance(locator, WebElement):
-            opts = {'element': locator, 'timeout': time_out}
+            opts['element'] = locator
         else:
-            opts = {'locator': locator.to_dict(), 'timeout': time_out}
+            opts['locator'] = locator.to_dict()
+        if time_out is not None:
+            opts['timeout'] = time_out
         
         self.execute_flutter_command('waitForAbsent', opts)
 
@@ -78,7 +84,7 @@ class FlutterCommand:
         Returns:
             None:
         """
-        opts = {'origin': element}
+        opts: Dict[str, Union[WebElement, Dict[str, int]]] = {'origin': element}
         if offset is not None:
             opts['offset'] = {'x': offset[0], 'y': offset[1]}
         self.execute_flutter_command('doubleClick', opts)
@@ -94,7 +100,7 @@ class FlutterCommand:
         Returns:
             None:
         """
-        opts = {'origin': element}
+        opts: Dict[str, Union[WebElement, Dict[str, int]]]= {'origin': element}
         if offset is not None:
             opts['offset'] = {'x': offset[0], 'y': offset[1]}
         self.execute_flutter_command('longPress', opts)
@@ -112,13 +118,13 @@ class FlutterCommand:
         """
         self.execute_flutter_command('dragAndDrop', {'source': source, 'target': target})
         
-    def scroll_till_visible(self, scroll_to: FlutterFinder, scroll_direction: Optional[ScrollDirection] = ScrollDirection.DOWN, **opts: Any) -> WebElement:
+    def scroll_till_visible(self, scroll_to: FlutterFinder, scroll_direction: ScrollDirection = ScrollDirection.DOWN, **opts: Any) -> WebElement:
         """
         Scrolls until the specified element becomes visible.
 
         Args:
             scroll_to (FlutterFinder): The Flutter element to scroll to.
-            scroll_direction (Optional[ScrollDirection]): The direction to scroll up or down. Defaults to `ScrollDirection.DOWN`.
+            scroll_direction (ScrollDirection): The direction to scroll up or down. Defaults to `ScrollDirection.DOWN`.
                 
         KeywordArgs:
                 scrollView (str): The view of the scroll.

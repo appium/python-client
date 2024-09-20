@@ -20,7 +20,7 @@ LOGIN_BUTTON_FINDER = FlutterFinder.by_flutter_text('Login')
 
 class TestFlutterFinders(BaseTestCase):
 
-    def test_by_flutter_key(self):
+    def test_by_flutter_key(self) -> None:
         user_name_field_finder = FlutterFinder.by_flutter_key('username_text_field')
         user_name_field = self.driver.find_element(*user_name_field_finder.as_args())
         assert user_name_field.text == 'admin'
@@ -29,11 +29,11 @@ class TestFlutterFinders(BaseTestCase):
         user_name_field = self.driver.find_element(*user_name_field_finder.as_args()).send_keys('admin123')
         assert user_name_field.text == 'admin123'
         
-    def test_by_flutter_type(self):
+    def test_by_flutter_type(self) -> None:
         login_button = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TYPE,'ElevatedButton')
         assert login_button.find_element(AppiumBy.FLUTTER_INTEGRATION_TYPE, 'Text').text == 'Login'
         
-    def test_by_flutter_text(self):
+    def test_by_flutter_text(self) -> None:
         login_button = self.driver.find_element(*LOGIN_BUTTON_FINDER.as_args())
         assert login_button.text == 'Login'
         
@@ -41,13 +41,13 @@ class TestFlutterFinders(BaseTestCase):
         slider = self.driver.find_elements(AppiumBy.FLUTTER_INTEGRATION_TEXT, 'Slider')
         assert len(slider) == 1
 
-    def test_by_flutter_text_containing(self):
+    def test_by_flutter_text_containing(self) -> None:
         login_button = self.driver.find_element(*LOGIN_BUTTON_FINDER.as_args())
         login_button.click()
         vertical_swipe_label = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, 'Vertical')
         assert vertical_swipe_label.text == 'Vertical Swiping'
     
-    def test_by_flutter_semantics_label(self):
+    def test_by_flutter_semantics_label(self) -> None:
         login_button = self.driver.find_element(*LOGIN_BUTTON_FINDER.as_args())
         login_button.click()
         element = self.flutter_command.scroll_till_visible(FlutterFinder.by_flutter_text('Lazy Loading'))

@@ -46,6 +46,6 @@ class FlutterFinder:
     def to_dict(self) -> dict:
         return { 'using': self.using, 'value': self.value} 
     
-    def as_args(self) -> str:
+    def as_args(self) -> tuple[str, str]:
         return self.using, self.value
         

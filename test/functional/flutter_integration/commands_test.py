@@ -21,7 +21,7 @@ from test.functional.flutter_integration.helper.test_helper import BaseTestCase
 
 class TestFlutterCommands(BaseTestCase):
     
-    def test_wait_command(self):
+    def test_wait_command(self) -> None:
         self.__open_screen('Lazy Loading')
     
         message_field_finder = FlutterFinder.by_flutter_key('message_field')
@@ -40,7 +40,7 @@ class TestFlutterCommands(BaseTestCase):
         self.flutter_command.wait_for_visible(message_field)
         assert len(self.driver.find_elements(*message_field_finder.as_args())) == 1
      
-    def test_scroll_till_visible_command(self):
+    def test_scroll_till_visible_command(self) -> None:
         self.__open_screen('Vertical Swiping')
         
         java_text_finder = FlutterFinder.by_flutter_text('Java')
@@ -57,7 +57,7 @@ class TestFlutterCommands(BaseTestCase):
         assert second_element.get_attribute('displayed') == 'false'
         assert first_element.get_attribute('displayed') == 'true'
     
-    def test_scroll_till_visible_with_scroll_params_command(self):
+    def test_scroll_till_visible_with_scroll_params_command(self) -> None:
         self.__open_screen('Vertical Swiping')
         
         scroll_params = {'scrollView': FlutterFinder.by_flutter_type('Scrollable').to_dict(),
@@ -66,10 +66,10 @@ class TestFlutterCommands(BaseTestCase):
                          'settleBetweenScrollsTimeout': 5000,
                          'dragDuration': 35
                          }
-        first_element = self.flutter_command.scroll_till_visible(FlutterFinder.by_flutter_text('Playwright'), **scroll_params)
+        first_element = self.flutter_command.scroll_till_visible(FlutterFinder.by_flutter_text('Playwright'), scroll_direction=ScrollDirection.DOWN, **scroll_params)
         assert first_element.get_attribute('displayed') == 'true'
     
-    def test_double_click_command(self):
+    def test_double_click_command(self) -> None:
         self.__open_screen('Double Tap')
 
         double_tap_button = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_KEY, 'double_tap_button').find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT, 'Double Tap')
@@ -84,7 +84,7 @@ class TestFlutterCommands(BaseTestCase):
         
         self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT, 'Ok').click()
     
-    def test_long_press_command(self):
+    def test_long_press_command(self) -> None:
         self.__open_screen('Long Press')
         
         long_press_button = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_KEY, 'long_press_button')
@@ -94,7 +94,7 @@ class TestFlutterCommands(BaseTestCase):
         assert success_pop_up.text == 'It was a long press'
         assert success_pop_up.is_displayed() == True
     
-    def test_drag_and_drop_command(self):
+    def test_drag_and_drop_command(self) -> None:
         self.__open_screen('Drag & Drop')
 
         drag_element = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_KEY, 'drag_me')
@@ -102,7 +102,7 @@ class TestFlutterCommands(BaseTestCase):
         self.flutter_command.perform_drag_and_drop(drag_element, drop_element)
         assert self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT,'The box is dropped').is_displayed() == True
     
-    def test_camera_mocking(self):
+    def test_camera_mocking(self) -> None:
         self.__open_screen('Image Picker')
         
         success_qr_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'file', 'success_qr.png')

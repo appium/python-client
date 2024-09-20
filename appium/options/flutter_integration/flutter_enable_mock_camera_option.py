@@ -16,19 +16,19 @@
 # under the License.
 
 from typing import Optional
-from appium.options.common.supports_capabilities import SupportsCapabilities
 
+from appium.options.common.supports_capabilities import SupportsCapabilities
 
 FLUTTER_ENABLE_MOCK_CAMERA = 'flutterEnableMockCamera'
 
 
 class FlutterEnableMockCameraOption(SupportsCapabilities):
-    
+
     @property
     def flutter_enable_mock_camera(self) -> bool:
         """
         Get state of the mock camera for Flutter integration test
-        
+
         Returns:
             bool: A boolean indicating whether the mock camera is enabled (True) or disabled (False).
         """
@@ -36,7 +36,7 @@ class FlutterEnableMockCameraOption(SupportsCapabilities):
 
     @flutter_enable_mock_camera.setter
     def flutter_enable_mock_camera(self, value: bool) -> None:
-        """        
+        """
         Setter method enable or disable the mock camera for Flutter integration test
         Default state is `False`
 

@@ -19,13 +19,14 @@ from appium.webdriver.extensions.flutter_integration.scroll_directions import Sc
 from appium.webdriver.flutter_finder import FlutterFinder
 from test.functional.flutter_integration.helper.test_helper import BaseTestCase
 
+
 class TestFlutterCommands(BaseTestCase):
     
     def test_wait_command(self) -> None:
         self.__open_screen('Lazy Loading')
     
-        message_field_finder = FlutterFinder.by_flutter_key('message_field')
-        toggle_button_finder = FlutterFinder.by_flutter_key('toggle_button')
+        message_field_finder = FlutterFinder.by_key('message_field')
+        toggle_button_finder = FlutterFinder.by_key('toggle_button')
         
         message_field = self.driver.find_element(*message_field_finder.as_args())
         toggle_button = self.driver.find_element(*toggle_button_finder.as_args())
@@ -43,8 +44,8 @@ class TestFlutterCommands(BaseTestCase):
     def test_scroll_till_visible_command(self) -> None:
         self.__open_screen('Vertical Swiping')
         
-        java_text_finder = FlutterFinder.by_flutter_text('Java')
-        protractor_text_finder = FlutterFinder.by_flutter_text('Protractor')
+        java_text_finder = FlutterFinder.by_text('Java')
+        protractor_text_finder = FlutterFinder.by_text('Protractor')
         
         first_element = self.flutter_command.scroll_till_visible(java_text_finder)
         assert first_element.get_attribute('displayed') == 'true'
@@ -60,13 +61,13 @@ class TestFlutterCommands(BaseTestCase):
     def test_scroll_till_visible_with_scroll_params_command(self) -> None:
         self.__open_screen('Vertical Swiping')
         
-        scroll_params = {'scrollView': FlutterFinder.by_flutter_type('Scrollable').to_dict(),
+        scroll_params = {'scrollView': FlutterFinder.by_type('Scrollable').to_dict(),
                          'delta': 30,
                          'maxScrolls': 30,
                          'settleBetweenScrollsTimeout': 5000,
                          'dragDuration': 35
                          }
-        first_element = self.flutter_command.scroll_till_visible(FlutterFinder.by_flutter_text('Playwright'), scroll_direction=ScrollDirection.DOWN, **scroll_params)
+        first_element = self.flutter_command.scroll_till_visible(FlutterFinder.by_text('Playwright'), scroll_direction=ScrollDirection.DOWN, **scroll_params)
         assert first_element.get_attribute('displayed') == 'true'
     
     def test_double_click_command(self) -> None:
@@ -121,6 +122,6 @@ class TestFlutterCommands(BaseTestCase):
         
     def __open_screen(self, screen_name: str) -> None:
         self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT, 'Login').click()
-        element = self.flutter_command.scroll_till_visible(FlutterFinder.by_flutter_text(screen_name))
+        element = self.flutter_command.scroll_till_visible(FlutterFinder.by_text(screen_name))
         element.click()
 

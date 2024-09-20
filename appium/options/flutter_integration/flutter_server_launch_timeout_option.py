@@ -17,14 +17,14 @@
 
 from datetime import timedelta
 from typing import Optional, Union
+
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
-
-FLUTTER_SERVER_LAUNCH_TIMEOUT= 'flutterServerLaunchTimeout'
+FLUTTER_SERVER_LAUNCH_TIMEOUT = 'flutterServerLaunchTimeout'
 
 
 class FlutterServerLaunchTimeOutOption(SupportsCapabilities):
-    
+
     @property
     def flutter_server_launch_timeout(self) -> Optional[timedelta]:
         """
@@ -43,10 +43,10 @@ class FlutterServerLaunchTimeOutOption(SupportsCapabilities):
         Default timeout is 5000ms
 
         Args:
-            value (Union[timedelta, int]): The timeout value, either as a `timedelta` object or an integer in milliseconds. 
+            value (Union[timedelta, int]): The timeout value, either as a `timedelta` object or an integer in milliseconds.
                 If provided as a `timedelta`, it will be converted to milliseconds.
         """
         self.set_capability(
-            FLUTTER_SERVER_LAUNCH_TIMEOUT, 
+            FLUTTER_SERVER_LAUNCH_TIMEOUT,
             int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
         )

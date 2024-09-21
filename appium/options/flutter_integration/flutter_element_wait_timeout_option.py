@@ -47,5 +47,9 @@ class FlutterElementWaitTimeOutOption(SupportsCapabilities):
         """
         self.set_capability(
             FLUTTER_ELEMENT_WAIT_TIMEOUT,
-            int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
+            (
+                int(value.total_seconds() * 1000)
+                if isinstance(value, timedelta)
+                else value
+            ),
         )

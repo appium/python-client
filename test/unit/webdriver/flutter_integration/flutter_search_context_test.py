@@ -92,7 +92,9 @@ class TestFlutterSearchContext(object):
             appium_command('/session/1234567890/element'),
             body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "element-id"}}',
         )
-        el = driver.find_element(AppiumBy.FLUTTER_INTEGRATION_SEMANTICS_LABEL, 'Flutter UI Semantics Label')
+        el = driver.find_element(
+            AppiumBy.FLUTTER_INTEGRATION_SEMANTICS_LABEL, 'Flutter UI Semantics Label'
+        )
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['using'] == '-flutter semantics label'
@@ -108,7 +110,9 @@ class TestFlutterSearchContext(object):
             body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "child-element-id1"}, '
             '{"element-6066-11e4-a52e-4f735466cecf": "child-element-id2"}]}',
         )
-        els = driver.find_elements(AppiumBy.FLUTTER_INTEGRATION_SEMANTICS_LABEL, 'Flutter UI Semantics Label')
+        els = driver.find_elements(
+            AppiumBy.FLUTTER_INTEGRATION_SEMANTICS_LABEL, 'Flutter UI Semantics Label'
+        )
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['using'] == '-flutter semantics label'
@@ -156,7 +160,9 @@ class TestFlutterSearchContext(object):
             appium_command('/session/1234567890/element'),
             body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "element-id"}}',
         )
-        el = driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, 'Flutter UI Partial Text')
+        el = driver.find_element(
+            AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, 'Flutter UI Partial Text'
+        )
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['using'] == '-flutter text containing'
@@ -172,7 +178,10 @@ class TestFlutterSearchContext(object):
             body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "child-element-id1"}, '
             '{"element-6066-11e4-a52e-4f735466cecf": "child-element-id2"}]}',
         )
-        els = driver.find_elements(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, 'Flutter UI Partial Text',)
+        els = driver.find_elements(
+            AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING,
+            'Flutter UI Partial Text',
+        )
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['using'] == '-flutter text containing'

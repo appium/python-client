@@ -16,7 +16,9 @@ import os
 from typing import Any, Dict, Optional, Tuple, Union
 
 from appium.common.helper import encode_file_to_base64
-from appium.webdriver.extensions.flutter_integration.scroll_directions import ScrollDirection
+from appium.webdriver.extensions.flutter_integration.scroll_directions import (
+    ScrollDirection,
+)
 from appium.webdriver.flutter_finder import FlutterFinder
 from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.webelement import WebElement
@@ -29,7 +31,11 @@ class FlutterCommand:
 
     # wait commands
 
-    def wait_for_visible(self, locator: Union[WebElement, FlutterFinder], time_out: Optional[float] = None) -> None:
+    def wait_for_visible(
+        self,
+        locator: Union[WebElement, FlutterFinder],
+        time_out: Optional[float] = None,
+    ) -> None:
         """
         Waits for a element to become visible.
 
@@ -46,7 +52,11 @@ class FlutterCommand:
 
         self.execute_flutter_command('waitForVisible', opts)
 
-    def wait_for_invisible(self, locator: Union[WebElement, FlutterFinder], time_out: Optional[float] = None) -> None:
+    def wait_for_invisible(
+        self,
+        locator: Union[WebElement, FlutterFinder],
+        time_out: Optional[float] = None,
+    ) -> None:
         """
         Waits for a element to become invisible.
 
@@ -65,7 +75,9 @@ class FlutterCommand:
 
     # flutter action commands
 
-    def perform_double_click(self, element: WebElement, offset: Optional[Tuple[int, int]] = None) -> None:
+    def perform_double_click(
+        self, element: WebElement, offset: Optional[Tuple[int, int]] = None
+    ) -> None:
         """
         Performs a double-click on the given element, with an optional offset.
 
@@ -81,7 +93,9 @@ class FlutterCommand:
             opts['offset'] = {'x': offset[0], 'y': offset[1]}
         self.execute_flutter_command('doubleClick', opts)
 
-    def perform_long_press(self, element: WebElement, offset: Optional[Tuple[int, int]] = None) -> None:
+    def perform_long_press(
+        self, element: WebElement, offset: Optional[Tuple[int, int]] = None
+    ) -> None:
         """
         Performs a long press on the given element, with an optional offset.
 
@@ -108,9 +122,16 @@ class FlutterCommand:
         Returns:
             None:
         """
-        self.execute_flutter_command('dragAndDrop', {'source': source, 'target': target})
+        self.execute_flutter_command(
+            'dragAndDrop', {'source': source, 'target': target}
+        )
 
-    def scroll_till_visible(self, scroll_to: FlutterFinder, scroll_direction: ScrollDirection = ScrollDirection.DOWN, **opts: Any) -> WebElement:
+    def scroll_till_visible(
+        self,
+        scroll_to: FlutterFinder,
+        scroll_direction: ScrollDirection = ScrollDirection.DOWN,
+        **opts: Any,
+    ) -> WebElement:
         """
         Scrolls until the specified element becomes visible.
 
@@ -146,7 +167,9 @@ class FlutterCommand:
             base64_encoded_image = encode_file_to_base64(value)
         else:
             base64_encoded_image = value
-        return self.execute_flutter_command('injectImage', {'base64Image': base64_encoded_image})
+        return self.execute_flutter_command(
+            'injectImage', {'base64Image': base64_encoded_image}
+        )
 
     def activate_injected_image(self, image_id: str) -> None:
         """
@@ -174,7 +197,7 @@ class FlutterCommand:
             specific Flutter command being executed.
         """
         return self.driver.execute_script(f'flutter: {scriptName}', params)
-    
+
     def __get_locator_options(self, locator: Union[WebElement, 'FlutterFinder']) -> Dict[str, dict]:
         if isinstance(locator, WebElement):
             return {'element': locator}

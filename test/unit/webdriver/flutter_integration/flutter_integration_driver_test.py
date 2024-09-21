@@ -13,25 +13,26 @@
 # limitations under the License.
 
 import json
+
 import httpretty
 
 from appium import webdriver
 from appium.options.flutter_integration.base import FlutterOptions
 from test.helpers.constants import SERVER_URL_BASE
-    
-    
+
+
 class TestFlutterIntegrationDriver:
 
     @httpretty.activate
     def test_create_session(self):
-        
+
         # Set flutter options
         flutterOptions = FlutterOptions()
         flutterOptions.flutter_system_port = 9999
         flutterOptions.flutter_enable_mock_camera = True
         flutterOptions.flutter_element_wait_timeout = 10000
         flutterOptions.flutter_server_launch_timeout = 120000
-        
+
         httpretty.register_uri(
             httpretty.POST,
             f'{SERVER_URL_BASE}/session',

@@ -25,7 +25,7 @@ class AppiumBy(By):
     ACCESSIBILITY_ID = 'accessibility id'
     IMAGE = '-image'
     CUSTOM = '-custom'
-    
+
     # For Flutter integration usage https://github.com/AppiumTestDistribution/appium-flutter-integration-driver/tree/main
     FLUTTER_INTEGRATION_SEMANTICS_LABEL = '-flutter semantics label'
     FLUTTER_INTEGRATION_TYPE = '-flutter type'

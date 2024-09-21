@@ -19,24 +19,28 @@ from typing import Any, Dict
 def get_desired_capabilities(platform_name: str) -> Dict[str, Any]:
     desired_caps: Dict[str, Any] = {}
     if platform_name == 'android':
-        desired_caps.update({
-            'platformName': 'Android',
-            'deviceName': 'Android Emulator',
-            'newCommandTimeout': 240,
-            'uiautomator2ServerInstallTimeout': 120000,
-            'adbExecTimeout': 120000,
-            'app': os.getenv('FLUTTER_ANDROID_APP')
-        })
+        desired_caps.update(
+            {
+                'platformName': 'Android',
+                'deviceName': 'Android Emulator',
+                'newCommandTimeout': 240,
+                'uiautomator2ServerInstallTimeout': 120000,
+                'adbExecTimeout': 120000,
+                'app': os.getenv('FLUTTER_ANDROID_APP'),
+            }
+        )
     else:
-        desired_caps.update({
-            'deviceName': os.getenv('IPHONE_MODEL'),
-            'platformName': 'iOS',
-            'platformVersion': os.getenv('IOS_VERSION'),
-            'allowTouchIdEnroll': True,
-            'wdaLaunchTimeout': 240000,
-            'wdaLocalPort': 8100,
-            'eventTimings': True,
-            'app': os.getenv('FLUTTER_IOS_APP')
-        })
+        desired_caps.update(
+            {
+                'deviceName': os.getenv('IPHONE_MODEL'),
+                'platformName': 'iOS',
+                'platformVersion': os.getenv('IOS_VERSION'),
+                'allowTouchIdEnroll': True,
+                'wdaLaunchTimeout': 240000,
+                'wdaLocalPort': 8100,
+                'eventTimings': True,
+                'app': os.getenv('FLUTTER_IOS_APP'),
+            }
+        )
 
     return desired_caps

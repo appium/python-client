@@ -16,8 +16,8 @@ from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.flutter_finder import FlutterFinder
 from test.functional.flutter_integration.helper.test_helper import BaseTestCase
 
+LOGIN_BUTTON_FINDER = FlutterFinder.by_text("Login")
 
-LOGIN_BUTTON_FINDER = FlutterFinder.by_text('Login')
 
 class TestFlutterFinders(BaseTestCase):
 
@@ -25,19 +25,19 @@ class TestFlutterFinders(BaseTestCase):
         user_name_field_finder = FlutterFinder.by_key('username_text_field')
         user_name_field = self.driver.find_element(*user_name_field_finder.as_args())
         assert user_name_field.text == 'admin'
-        
+
         user_name_field.clear()
         user_name_field = self.driver.find_element(*user_name_field_finder.as_args()).send_keys('admin123')
         assert user_name_field.text == 'admin123'
-        
+
     def test_by_flutter_type(self) -> None:
         login_button = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TYPE,'ElevatedButton')
         assert login_button.find_element(AppiumBy.FLUTTER_INTEGRATION_TYPE, 'Text').text == 'Login'
-        
+
     def test_by_flutter_text(self) -> None:
         login_button = self.driver.find_element(*LOGIN_BUTTON_FINDER.as_args())
         assert login_button.text == 'Login'
-        
+
         login_button.click()
         slider = self.driver.find_elements(AppiumBy.FLUTTER_INTEGRATION_TEXT, 'Slider')
         assert len(slider) == 1
@@ -47,7 +47,7 @@ class TestFlutterFinders(BaseTestCase):
         login_button.click()
         vertical_swipe_label = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, 'Vertical')
         assert vertical_swipe_label.text == 'Vertical Swiping'
-    
+
     def test_by_flutter_semantics_label(self) -> None:
         login_button = self.driver.find_element(*LOGIN_BUTTON_FINDER.as_args())
         login_button.click()

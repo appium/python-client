@@ -247,7 +247,7 @@ jobs:
         key: avd-${{ env.API_LEVEL }}
 
     - name: Create AVD and generate snapshot for caching
-      if: matrix.e2e-tests == 'flutter-android' && steps.avd-cache.outputs.cache-hit != 'true'
+      if: matrix.e2e-tests == 'flutter-android'
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: ${{ env.API_LEVEL }}

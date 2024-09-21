@@ -35,6 +35,7 @@ def library_version() -> str:
 
     return appium_version.version
 
+
 def encode_file_to_base64(file_path: str) -> str:
     """Return base64 encoded string for given file"""
     with open(file_path, 'rb') as file:

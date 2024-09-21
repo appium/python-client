@@ -16,6 +16,7 @@
 # under the License.
 
 from typing import Tuple
+
 from appium.webdriver.common.appiumby import AppiumBy
 
 

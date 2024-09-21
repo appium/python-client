@@ -290,7 +290,7 @@ jobs:
           pipenv lock --clear
           pipenv install -d --system
           export PLATFORM=android
-          pytest test/functional/flutter/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: google_apis
         profile: Nexus 5X
         disable-spellchecker: true

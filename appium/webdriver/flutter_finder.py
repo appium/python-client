@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Tuple
 from appium.webdriver.common.appiumby import AppiumBy
 
 
@@ -47,5 +48,5 @@ class FlutterFinder:
     def to_dict(self) -> dict:
         return {'using': self.using, 'value': self.value}
 
-    def as_args(self) -> tuple[str, str]:
+    def as_args(self) -> Tuple[str, str]:
         return self.using, self.value

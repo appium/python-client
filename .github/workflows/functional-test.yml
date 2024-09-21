@@ -297,7 +297,7 @@ jobs:
         disable-animations: true
 
     - name: Save server output
-      if: always() && matrix.e2e-tests == 'android'
+      if: always() && matrix.e2e-tests == 'flutter-android'
       uses: actions/upload-artifact@master
       with:
         name: appium-flutter-android.log

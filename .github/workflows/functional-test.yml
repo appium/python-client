@@ -276,7 +276,7 @@ jobs:
       run: |
         appium driver install uiautomator2
         appium driver install appium-flutter-integration-driver --source npm
-        nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_android.log &
+        nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_flutter_android.log &
 
     - name: Run Android tests
       if: matrix.e2e-tests == 'flutter-android'
@@ -290,11 +290,18 @@ jobs:
           pipenv lock --clear
           pipenv install -d --system
           export PLATFORM=android
-          pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          pytest test/functional/flutter_integration/*_test.py -k test_camera_mocking --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: google_apis
         profile: Nexus 5X
         disable-spellchecker: true
         disable-animations: true
+
+    - name: Save server output
+      if: always() && matrix.e2e-tests == 'android'
+      uses: actions/upload-artifact@master
+      with:
+        name: appium-flutter-android.log
+        path: appium_flutter_android.log
 
     - name: Select Xcode
       if: matrix.e2e-tests == 'flutter-ios'

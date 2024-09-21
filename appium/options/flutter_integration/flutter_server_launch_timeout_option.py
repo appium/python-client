@@ -48,9 +48,5 @@ class FlutterServerLaunchTimeOutOption(SupportsCapabilities):
         """
         self.set_capability(
             FLUTTER_SERVER_LAUNCH_TIMEOUT,
-            (
-                int(value.total_seconds() * 1000)
-                if isinstance(value, timedelta)
-                else value
-            ),
+            (int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value),
         )

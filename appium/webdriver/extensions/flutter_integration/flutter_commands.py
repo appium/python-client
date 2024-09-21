@@ -16,9 +16,7 @@ import os
 from typing import Any, Dict, Optional, Tuple, Union
 
 from appium.common.helper import encode_file_to_base64
-from appium.webdriver.extensions.flutter_integration.scroll_directions import (
-    ScrollDirection,
-)
+from appium.webdriver.extensions.flutter_integration.scroll_directions import ScrollDirection
 from appium.webdriver.flutter_finder import FlutterFinder
 from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.webelement import WebElement
@@ -75,9 +73,7 @@ class FlutterCommand:
 
     # flutter action commands
 
-    def perform_double_click(
-        self, element: WebElement, offset: Optional[Tuple[int, int]] = None
-    ) -> None:
+    def perform_double_click(self, element: WebElement, offset: Optional[Tuple[int, int]] = None) -> None:
         """
         Performs a double-click on the given element, with an optional offset.
 
@@ -93,9 +89,7 @@ class FlutterCommand:
             opts['offset'] = {'x': offset[0], 'y': offset[1]}
         self.execute_flutter_command('doubleClick', opts)
 
-    def perform_long_press(
-        self, element: WebElement, offset: Optional[Tuple[int, int]] = None
-    ) -> None:
+    def perform_long_press(self, element: WebElement, offset: Optional[Tuple[int, int]] = None) -> None:
         """
         Performs a long press on the given element, with an optional offset.
 
@@ -122,9 +116,7 @@ class FlutterCommand:
         Returns:
             None:
         """
-        self.execute_flutter_command(
-            'dragAndDrop', {'source': source, 'target': target}
-        )
+        self.execute_flutter_command('dragAndDrop', {'source': source, 'target': target})
 
     def scroll_till_visible(
         self,
@@ -167,9 +159,7 @@ class FlutterCommand:
             base64_encoded_image = encode_file_to_base64(value)
         else:
             base64_encoded_image = value
-        return self.execute_flutter_command(
-            'injectImage', {'base64Image': base64_encoded_image}
-        )
+        return self.execute_flutter_command('injectImage', {'base64Image': base64_encoded_image})
 
     def activate_injected_image(self, image_id: str) -> None:
         """

@@ -31,13 +31,8 @@ class TestFlutterFinders(BaseTestCase):
         assert user_name_field.text == 'admin123'
 
     def test_by_flutter_type(self) -> None:
-        login_button = self.driver.find_element(
-            AppiumBy.FLUTTER_INTEGRATION_TYPE, 'ElevatedButton'
-        )
-        assert (
-            login_button.find_element(AppiumBy.FLUTTER_INTEGRATION_TYPE, 'Text').text
-            == 'Login'
-        )
+        login_button = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TYPE, 'ElevatedButton')
+        assert login_button.find_element(AppiumBy.FLUTTER_INTEGRATION_TYPE, 'Text').text == 'Login'
 
     def test_by_flutter_text(self) -> None:
         login_button = self.driver.find_element(*LOGIN_BUTTON_FINDER.as_args())
@@ -50,19 +45,13 @@ class TestFlutterFinders(BaseTestCase):
     def test_by_flutter_text_containing(self) -> None:
         login_button = self.driver.find_element(*LOGIN_BUTTON_FINDER.as_args())
         login_button.click()
-        vertical_swipe_label = self.driver.find_element(
-            AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, 'Vertical'
-        )
+        vertical_swipe_label = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, 'Vertical')
         assert vertical_swipe_label.text == 'Vertical Swiping'
 
     def test_by_flutter_semantics_label(self) -> None:
         login_button = self.driver.find_element(*LOGIN_BUTTON_FINDER.as_args())
         login_button.click()
-        element = self.flutter_command.scroll_till_visible(
-            FlutterFinder.by_text('Lazy Loading')
-        )
+        element = self.flutter_command.scroll_till_visible(FlutterFinder.by_text('Lazy Loading'))
         element.click()
-        message_field = self.driver.find_element(
-            AppiumBy.FLUTTER_INTEGRATION_SEMANTICS_LABEL, 'message_field'
-        )
+        message_field = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_SEMANTICS_LABEL, 'message_field')
         assert message_field.text == 'Hello world'

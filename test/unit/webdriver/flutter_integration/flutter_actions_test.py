@@ -87,7 +87,7 @@ class TestFlutterActions(object):
         assert arguments == expected_arguments
     
     @httpretty.activate
-    def test_scroll_till_visible_with_params(self):
+    def test_scroll_till_visible_with_kwargs(self):
         driver = flutter_w3c_driver()
         flutter = FlutterCommand(driver)
         

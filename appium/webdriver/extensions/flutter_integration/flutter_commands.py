@@ -16,8 +16,8 @@ import os
 from typing import Any, Dict, Optional, Tuple, Union
 
 from appium.common.helper import encode_file_to_base64
-from appium.webdriver.extensions.flutter_integration.scroll_directions import ScrollDirection
 from appium.webdriver.extensions.flutter_integration.flutter_finder import FlutterFinder
+from appium.webdriver.extensions.flutter_integration.scroll_directions import ScrollDirection
 from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.webelement import WebElement
 

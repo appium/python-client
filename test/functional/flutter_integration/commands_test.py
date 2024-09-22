@@ -15,8 +15,8 @@
 import os
 
 from appium.webdriver.common.appiumby import AppiumBy
-from appium.webdriver.extensions.flutter_integration.scroll_directions import ScrollDirection
 from appium.webdriver.extensions.flutter_integration.flutter_finder import FlutterFinder
+from appium.webdriver.extensions.flutter_integration.scroll_directions import ScrollDirection
 from test.functional.flutter_integration.helper.test_helper import BaseTestCase
 
 

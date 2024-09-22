@@ -284,7 +284,6 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: ${{ env.XCODE_VERSION }}
-    - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
     - uses: futureware-tech/simulator-action@v3
       if: matrix.e2e-tests == 'flutter-ios'

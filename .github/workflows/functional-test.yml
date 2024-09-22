@@ -236,28 +236,6 @@ jobs:
         sudo udevadm control --reload-rules
         sudo udevadm trigger --name-match=kvm
   
-    # - name: AVD cache
-    #   if: matrix.e2e-tests == 'flutter-android'
-    #   uses: actions/cache@v3
-    #   id: avd-cache
-    #   with:
-    #     path: |
-    #       ~/.android/avd/*
-    #       ~/.android/adb*
-    #     key: avd-${{ env.API_LEVEL }}
-
-    # - name: Create AVD and generate snapshot for caching
-    #   if: matrix.e2e-tests == 'flutter-android'
-    #   uses: reactivecircus/android-emulator-runner@v2
-    #   with:
-    #     api-level: ${{ env.API_LEVEL }}
-    #     arch: ${{ env.ARCH }}
-    #     target: google_apis
-    #     force-avd-creation: false
-    #     emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-    #     disable-animations: false
-    #     script: echo "Generated AVD snapshot for caching."
-
     - name: Set up Python 3.12
       uses: actions/setup-python@v3
       with:
@@ -289,7 +267,7 @@ jobs:
           pipenv lock --clear
           pipenv install -d --system
           export PLATFORM=android
-          pytest test/functional/flutter_integration/*_test.py -k test_camera_mocking --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: default
         disable-spellchecker: true
         disable-animations: true
@@ -309,6 +287,7 @@ jobs:
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
     - uses: futureware-tech/simulator-action@v3
+      if: matrix.e2e-tests == 'flutter-ios'
       with:
         # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
         model: ${{ env.IPHONE_MODEL }}

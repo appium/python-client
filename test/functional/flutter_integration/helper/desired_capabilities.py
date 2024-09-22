@@ -27,7 +27,7 @@ def get_desired_capabilities(platform_name: str) -> Dict[str, Any]:
                 'uiautomator2ServerInstallTimeout': 120000,
                 'adbExecTimeout': 120000,
                 'app': os.getenv('FLUTTER_ANDROID_APP'),
-                'autoGrantPermissions': True
+                'autoGrantPermissions': True,
             }
         )
     else:

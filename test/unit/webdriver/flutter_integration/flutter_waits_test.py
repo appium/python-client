@@ -15,7 +15,7 @@
 import httpretty
 
 from appium.webdriver.extensions.flutter_integration.flutter_commands import FlutterCommand
-from appium.webdriver.flutter_finder import FlutterFinder
+from appium.webdriver.extensions.flutter_integration.flutter_finder import FlutterFinder
 from appium.webdriver.webelement import WebElement as MobileWebElement
 from test.unit.helper.test_helper import appium_command, flutter_w3c_driver, get_httpretty_request_body
 

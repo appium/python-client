@@ -17,7 +17,7 @@ from typing import Any, Dict, Optional, Tuple, Union
 
 from appium.common.helper import encode_file_to_base64
 from appium.webdriver.extensions.flutter_integration.scroll_directions import ScrollDirection
-from appium.webdriver.flutter_finder import FlutterFinder
+from appium.webdriver.extensions.flutter_integration.flutter_finder import FlutterFinder
 from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.webelement import WebElement
 
@@ -135,8 +135,8 @@ class FlutterCommand:
                 scrollView (str): The view of the scroll. Default value is 'Scrollable'
                 delta (int): delta for the scroll. Default value is 64
                 maxScrolls (int): Max times to scroll. Default value is 15
-                settleBetweenScrollsTimeout (int): settle timeout in milliseconds. Default value is 5000ms
-                dragDuration (int): time gap between each scroll in milliseconds. Default value is 100ms
+                settleBetweenScrollsTimeout (float): settle timeout in milliseconds. Default value is 5000
+                dragDuration (float): time gap between each scroll in milliseconds. Default value is 100
 
         Returns:
             Webelement: scrolled element

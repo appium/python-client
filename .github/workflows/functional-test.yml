@@ -198,6 +198,7 @@ jobs:
         path: appium.log
 
   flutter_e2e_test:
+    # These flutter integration driver tests are maintained by: MummanaSubramanya
     strategy:
       fail-fast: false
       matrix:

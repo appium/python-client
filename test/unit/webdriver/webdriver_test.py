@@ -368,27 +368,22 @@ class TestWebDriverWebDriver:
 
         assert isinstance(driver.command_executor, CustomAppiumConnection)
 
-
     @httpretty.activate
     def test_extention_command_check(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
         )
-        assert driver.execute_script(
-            'mobile: startActivity',
-            {
-                'component': 'io.appium.android.apis/.accessibility.AccessibilityNodeProviderActivity'
-            }
-        ) is True
-
+        assert (
+            driver.execute_script(
+                'mobile: startActivity',
+                {'component': 'io.appium.android.apis/.accessibility.AccessibilityNodeProviderActivity'},
+            )
+            is True
+        )
         assert {
-            'args': [
-                {
-                    'component': 'io.appium.android.apis/.accessibility.AccessibilityNodeProviderActivity'
-                }
-            ],
-            'script': 'mobile: startActivity'
+            'args': [{'component': 'io.appium.android.apis/.accessibility.AccessibilityNodeProviderActivity'}],
+            'script': 'mobile: startActivity',
         }, get_httpretty_request_body(httpretty.last_request())
 
 

@@ -32,42 +32,42 @@ class FlutterCommand:
     def wait_for_visible(
         self,
         locator: Union[WebElement, FlutterFinder],
-        time_out: Optional[float] = None,
+        timeout: Optional[float] = None,
     ) -> None:
         """
         Waits for a element to become visible.
 
         Args:
             locator (Union[WebElement, FlutterFinder]): The element to wait for; can be a WebElement or a FlutterFinder.
-            time_out (Optional[float]): Maximum wait time in seconds. Defaults to a predefined timeout if not specified.
+            timeout (Optional[float]): Maximum wait time in seconds. Defaults to a predefined timeout if not specified.
 
         Returns:
             None:
         """
         opts: Dict[str, Any] = self.__get_locator_options(locator)
-        if time_out is not None:
-            opts['timeout'] = time_out
+        if timeout is not None:
+            opts['timeout'] = timeout
 
         self.execute_flutter_command('waitForVisible', opts)
 
     def wait_for_invisible(
         self,
         locator: Union[WebElement, FlutterFinder],
-        time_out: Optional[float] = None,
+        timeout: Optional[float] = None,
     ) -> None:
         """
         Waits for a element to become invisible.
 
         Args:
             locator (Union[WebElement, FlutterFinder]): The element to wait for; can be a WebElement or a FlutterFinder.
-            time_out (Optional[float]): Maximum wait time in seconds. Defaults to a predefined timeout if not specified.
+            timeout (Optional[float]): Maximum wait time in seconds. Defaults to a predefined timeout if not specified.
 
         Returns:
             None:
         """
         opts: Dict[str, Any] = self.__get_locator_options(locator)
-        if time_out is not None:
-            opts['timeout'] = time_out
+        if timeout is not None:
+            opts['timeout'] = timeout
 
         self.execute_flutter_command('waitForAbsent', opts)
 

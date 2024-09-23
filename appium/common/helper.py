@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import base64
 from typing import Any, Dict
 
 from appium import version as appium_version
@@ -33,3 +34,9 @@ def library_version() -> str:
     """Return a version of this python library"""
 
     return appium_version.version
+
+
+def encode_file_to_base64(file_path: str) -> str:
+    """Return base64 encoded string for given file"""
+    with open(file_path, 'rb') as file:
+        return base64.b64encode(file.read()).decode('utf-8')

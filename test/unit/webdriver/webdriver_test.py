@@ -384,7 +384,7 @@ class TestWebDriverWebDriver:
         assert {
             'args': [{'component': 'io.appium.android.apis/.accessibility.AccessibilityNodeProviderActivity'}],
             'script': 'mobile: startActivity',
-        }, get_httpretty_request_body(httpretty.last_request())
+        } == get_httpretty_request_body(httpretty.last_request())
 
 
 class SubWebDriver(WebDriver):

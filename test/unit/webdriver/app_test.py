@@ -23,84 +23,130 @@ class TestWebDriverApp(object):
     @httpretty.activate
     def test_install_app(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/install_app'), body='{"value": ""}'
-        )
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         result = driver.install_app('path/to/app')
 
-        assert {'app': 'path/to/app'}, get_httpretty_request_body(httpretty.last_request())
+        assert {
+            'args': [{'app': 'path/to/app', 'appPath': 'path/to/app'}],
+            'script': 'mobile: installApp',
+        } == get_httpretty_request_body(httpretty.last_request())
         assert isinstance(result, WebDriver)
 
     @httpretty.activate
     def test_remove_app(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/remove_app'), body='{"value": ""}'
-        )
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         result = driver.remove_app('com.app.id')
 
-        assert {'app': 'com.app.id'}, get_httpretty_request_body(httpretty.last_request())
+        assert {
+            'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
+            'script': 'mobile: removeApp',
+        } == get_httpretty_request_body(httpretty.last_request())
         assert isinstance(result, WebDriver)
 
     @httpretty.activate
     def test_app_installed(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/app_installed'), body='{"value": true}'
-        )
-        httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
         )
         result = driver.is_app_installed("com.app.id")
-        assert {'app': "com.app.id"}, get_httpretty_request_body(httpretty.last_request())
+
+        assert {
+            'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
+            'script': 'mobile: isAppInstalled',
+        } == get_httpretty_request_body(httpretty.last_request())
         assert result is True
 
     @httpretty.activate
     def test_terminate_app(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/terminate_app'), body='{"value": true}'
-        )
-        httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
         )
         result = driver.terminate_app("com.app.id")
-        assert {'app': "com.app.id"}, get_httpretty_request_body(httpretty.last_request())
+
+        assert {
+            'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
+            'script': 'mobile: terminateApp',
+        } == get_httpretty_request_body(httpretty.last_request())
         assert result is True
 
     @httpretty.activate
     def test_activate_app(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/activate_app'), body='{"value": ""}'
-        )
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         result = driver.activate_app("com.app.id")
 
-        assert {'app': 'com.app.id'}, get_httpretty_request_body(httpretty.last_request())
+        assert {
+            'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
+            'script': 'mobile: activateApp',
+        } == get_httpretty_request_body(httpretty.last_request())
         assert isinstance(result, WebDriver)
 
     @httpretty.activate
     def test_background_app(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/app/background'), body='{"value": ""}'
-        )
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         result = driver.background_app(0)
-        assert {'app': 0}, get_httpretty_request_body(httpretty.last_request())
+
+        assert {'args': [{'seconds': 0}], 'script': 'mobile: backgroundApp'} == get_httpretty_request_body(
+            httpretty.last_request()
+        )
         assert isinstance(result, WebDriver)
 
     @httpretty.activate
     def test_query_app_state(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/app_state'), body='{"value": 3 }'
-        )
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": 3}')
         result = driver.query_app_state('com.app.id')
 
-        assert {'app': 3}, get_httpretty_request_body(httpretty.last_request())
+        assert {
+            'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
+            'script': 'mobile: queryAppState',
+        } == get_httpretty_request_body(httpretty.last_request())
         assert result is ApplicationState.RUNNING_IN_BACKGROUND
+
+    @httpretty.activate
+    def test_app_strings(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+            body='{"value": {"monkey_wipe_data": "You can\'t wipe my data, you are a monkey!"} }',
+        )
+        result = driver.app_strings()
+
+        assert {'args': [{}], 'script': 'mobile: getAppStrings'} == get_httpretty_request_body(httpretty.last_request())
+        assert 'You can\'t wipe my data, you are a monkey!' == result['monkey_wipe_data'], result
+
+    @httpretty.activate
+    def test_app_strings_with_lang(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+            body='{"value": {"monkey_wipe_data": "You can\'t wipe my data, you are a monkey!"} }',
+        )
+        result = driver.app_strings('en')
+
+        assert {'args': [{'language': 'en'}], 'script': 'mobile: getAppStrings'} == get_httpretty_request_body(
+            httpretty.last_request()
+        )
+        assert 'You can\'t wipe my data, you are a monkey!' == result['monkey_wipe_data'], result
+
+    @httpretty.activate
+    def test_app_strings_with_lang_and_file(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+            body='{"value": {"monkey_wipe_data": "You can\'t wipe my data, you are a monkey!"} }',
+        )
+        result = driver.app_strings('en', 'some_file')
+
+        assert {
+            'args': [{'language': 'en', 'stringFile': 'some_file'}],
+            'script': 'mobile: getAppStrings',
+        } == get_httpretty_request_body(httpretty.last_request())
+        assert 'You can\'t wipe my data, you are a monkey!' == result['monkey_wipe_data'], result

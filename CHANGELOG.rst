@@ -2,6 +2,90 @@ Changelog
 =========
 
 
+v4.2.0 (2024-09-24)
+-------------------
+
+New
+~~~
+- Feat: Add flutter integration driver commands and tests (#1022)
+  [MummanaSubramanya]
+
+Fix
+~~~
+- Add missing __init__.py (#1029) [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Chore(deps-dev): update tox requirement from ~=4.19 to ~=4.20 (#1021)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.19.0...4.20.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.18 to ~=4.19 (#1020)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.18.0...4.19.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Update README.md. [Kazuaki Matsuo]
+- Chore(deps-dev): update pylint requirement from ~=3.2.6 to ~=3.2.7
+  (#1019) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pylint](https://github.com/pylint-dev/pylint) to permit the latest version.
+  - [Release notes](https://github.com/pylint-dev/pylint/releases)
+  - [Commits](https://github.com/pylint-dev/pylint/compare/v3.2.6...v3.2.7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pylint
+    dependency-type: direct:development
+  ...
+- Chore(deps): update selenium requirement from ~=4.23 to ~=4.24 (#1018)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.23.0...selenium-4.24.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update black requirement from <24.0.0 to <25.0.0
+  (#950) [Mykola Mokhnach, dependabot[bot], dependabot[bot]]
+
+  * chore(deps-dev): update black requirement from <24.0.0 to <25.0.0
+
+  Updates the requirements on [black](https://github.com/psf/black) to permit the latest version.
+  - [Release notes](https://github.com/psf/black/releases)
+  - [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+  - [Commits](https://github.com/psf/black/compare/18.3a0...24.1.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: black
+    dependency-type: direct:development
+  ...
+- Docs: modify readme. [Kazuaki Matsuo]
+- Update changelog for 4.1.0. [Kazuaki Matsuo]
+
+
 v4.1.0 (2024-08-17)
 -------------------
 

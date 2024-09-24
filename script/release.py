@@ -73,7 +73,7 @@ def tag_and_generate_changelog(new_version_num):
 
 
 def upload_sdist(new_version_num):
-    push_file = 'dist/Appium-Python-Client-{}.tar.gz'.format(new_version_num)
+    push_file = 'dist/appium_python_client-{}.tar.gz'.format(new_version_num)
     try:
         call_bash_script('twine upload "{}"'.format(push_file))
     except Exception as e:

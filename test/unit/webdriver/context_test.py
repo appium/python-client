@@ -42,7 +42,7 @@ class TestWebDriverContext(object):
 
         driver.switch_to.context(None)
 
-        assert {'name': None}, get_httpretty_request_body(httpretty.last_request())
+        assert {'name': None} == get_httpretty_request_body(httpretty.last_request())
 
     @httpretty.activate
     def test_switch_to_context_native_app(self):
@@ -51,4 +51,4 @@ class TestWebDriverContext(object):
 
         driver.switch_to.context('NATIVE_APP')
 
-        assert {'name': 'NATIVE_APP'}, get_httpretty_request_body(httpretty.last_request())
+        assert {'name': 'NATIVE_APP'} == get_httpretty_request_body(httpretty.last_request())

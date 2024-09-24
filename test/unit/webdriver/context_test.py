@@ -14,12 +14,41 @@
 
 import httpretty
 
-from test.unit.helper.test_helper import android_w3c_driver, appium_command
+from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
 class TestWebDriverContext(object):
     @httpretty.activate
+    def test_current_contexts(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET, appium_command('/session/1234567890/context'), body='{"value": "NATIVE_APP"}'
+        )
+        assert driver.current_context == 'NATIVE_APP'
+
+    @httpretty.activate
     def test_get_contexts(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890/context'), body='{"value": "NATIVE"}')
-        assert driver.current_context == 'NATIVE'
+        httpretty.register_uri(
+            httpretty.GET, appium_command('/session/1234567890/contexts'), body='{"value": ["NATIVE_APP", "CHROMIUM"]}'
+        )
+
+        assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
+
+    @httpretty.activate
+    def test_switch_to_context(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/context'), body='{"value": null}')
+
+        driver.switch_to.context(None)
+
+        assert {'name': None} == get_httpretty_request_body(httpretty.last_request())
+
+    @httpretty.activate
+    def test_switch_to_context_native_app(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/context'), body='{"value": null}')
+
+        driver.switch_to.context('NATIVE_APP')
+
+        assert {'name': 'NATIVE_APP'} == get_httpretty_request_body(httpretty.last_request())

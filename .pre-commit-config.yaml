@@ -1,18 +1,18 @@
 repos:
   - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
+    rev: 5.13.2
     hooks:
       - id: isort
         args: [ "." ]
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.4.1
+    rev: v1.10.0
     hooks:
       - id: mypy
         entry: mypy appium/ test/functional
         pass_filenames: false
         additional_dependencies: [types-python-dateutil==2.8.19.13]
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 24.4.2
     hooks:
       - id: black
         args: [ ".", "-l", "120", "-S" ]

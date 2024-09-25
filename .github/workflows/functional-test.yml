@@ -95,16 +95,12 @@ jobs:
             name: func_test_android1
           - target: test/functional/android/keyboard_tests.py test/functional/android/location_tests.py
             name: func_test_android2
-          - target: test/functional/android/appium_service_tests.py
+          - target: test/functional/android/appium_service_tests.py test/functional/android/chrome_tests.py
             name: func_test_android3
-          - target: test/functional/android/finger_print_tests.py test/functional/android/screen_record_tests.py test/functional/android/settings_tests.py test/functional/android/chrome_tests.py
+          - target: test/functional/android/finger_print_tests.py test/functional/android/screen_record_tests.py test/functional/android/settings_tests.py
             name: func_test_android4
-          - target: test/functional/android/remote_fs_tests.py
+          - target: test/functional/android/remote_fs_tests.py test/functional/android/log_event_tests.py
             name: func_test_android5
-          - target: test/functional/android/common_tests.py test/functional/android/webelement_tests.py
-            name: func_test_android6
-          - target: test/functional/android/network_connection_tests.py test/functional/android/log_event_tests.py test/functional/android/hw_actions_tests.py
-            name: func_test_android8
 
     runs-on: ubuntu-latest
 
@@ -234,7 +230,7 @@ jobs:
         echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
         sudo udevadm control --reload-rules
         sudo udevadm trigger --name-match=kvm
-  
+
     - name: Set up Python 3.12
       uses: actions/setup-python@v3
       with:
@@ -247,7 +243,7 @@ jobs:
 
     - name: Install Appium
       run: npm install --location=global appium
-    
+
     - name: Install Android drivers and Run Appium
       if: matrix.e2e-tests == 'flutter-android'
       run: |

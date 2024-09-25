@@ -15,16 +15,18 @@
 import httpretty
 
 from appium.webdriver.webdriver import WebDriver
-from test.unit.helper.test_helper import android_w3c_driver, appium_command
+from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
 class TestWebDriverCommon(object):
     @httpretty.activate
     def test_open_notifications(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/device/open_notifications'))
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         assert isinstance(driver.open_notifications(), WebDriver)
+        assert {'args': [], 'script': 'mobile: openNotifications'} == get_httpretty_request_body(
+            httpretty.last_request()
+        )
 
     @httpretty.activate
     def test_current_package(self):

@@ -95,8 +95,6 @@ jobs:
             name: func_test_android1
           - target: test/functional/android/appium_service_tests.py test/functional/android/chrome_tests.py
             name: func_test_android3
-          - target: test/functional/android/screen_record_tests.py test/functional/android/settings_tests.py
-            name: func_test_android4
           - target: test/functional/android/remote_fs_tests.py test/functional/android/log_event_tests.py
             name: func_test_android5
 

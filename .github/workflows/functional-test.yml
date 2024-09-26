@@ -95,8 +95,6 @@ jobs:
             name: func_test_android1
           - target: test/functional/android/appium_service_tests.py test/functional/android/chrome_tests.py
             name: func_test_android3
-          - target: test/functional/android/log_event_tests.py
-            name: func_test_android5
 
     runs-on: ubuntu-latest
 

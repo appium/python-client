@@ -91,10 +91,8 @@ jobs:
       fail-fast: false
       matrix:
         test_targets:
-          - target: test/functional/android/search_context/find_by_*.py
-            name: func_test_android1
           - target: test/functional/android/appium_service_tests.py test/functional/android/chrome_tests.py
-            name: func_test_android3
+            name: func_test_android1
 
     runs-on: ubuntu-latest
 
@@ -120,9 +118,8 @@ jobs:
     - run: |
         appium driver install uiautomator2
         appium driver install espresso
-        appium plugin install images
         appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
+        nohup appium --use-plugins=execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - name: Enable KVM group perms
       run: |

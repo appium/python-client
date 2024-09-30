@@ -131,3 +131,12 @@ class TestWebDriverKeyboardIOS(object):
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         driver.is_keyboard_shown(), WebDriver
         assert {'script': 'mobile: isKeyboardShown', 'args': []} == get_httpretty_request_body(httpretty.last_request())
+
+    @httpretty.activate
+    def test_press_button(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
+        driver.press_button('Home')
+        assert {'script': 'mobile: pressButton', 'args': [{'name': 'Home'}]} == get_httpretty_request_body(
+            httpretty.last_request()
+        )

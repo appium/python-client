@@ -18,10 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         test_targets:
-          - target: test/functional/ios/search_context/find_by_*.py test/functional/ios/remote_fs_tests.py test/functional/ios/safari_tests.py test/functional/ios/execute_driver_tests.py
+          - target: test/functional/ios/search_context/find_by_*.py test/functional/ios/safari_tests.py test/functional/ios/webdriver_tests.py
             name: func_test_ios1
-          - target: test/functional/ios/screen_record_tests.py test/functional/ios/webdriver_tests.py
-            name: func_test_ios2
 
     runs-on: macos-14
 

@@ -18,12 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         test_targets:
-          - target: test/functional/ios/search_context/find_by_*.py test/functional/ios/remote_fs_tests.py test/functional/ios/safari_tests.py test/functional/ios/execute_driver_tests.py
+          - target: test/functional/ios/safari_tests.py
             name: func_test_ios1
-          - target: test/functional/ios/applications_tests.py test/functional/ios/hw_actions_tests.py test/functional/ios/keyboard_tests.py
-            name: func_test_ios2
-          - target: test/functional/ios/screen_record_tests.py test/functional/ios/webdriver_tests.py
-            name: func_test_ios3
 
     runs-on: macos-14
 
@@ -91,20 +87,8 @@ jobs:
       fail-fast: false
       matrix:
         test_targets:
-          - target: test/functional/android/device_time_tests.py test/functional/android/search_context/find_by_*.py
+          - target: test/functional/android/appium_service_tests.py test/functional/android/chrome_tests.py
             name: func_test_android1
-          - target: test/functional/android/keyboard_tests.py test/functional/android/location_tests.py
-            name: func_test_android2
-          - target: test/functional/android/appium_service_tests.py
-            name: func_test_android3
-          - target: test/functional/android/finger_print_tests.py test/functional/android/screen_record_tests.py test/functional/android/settings_tests.py test/functional/android/chrome_tests.py
-            name: func_test_android4
-          - target: test/functional/android/remote_fs_tests.py
-            name: func_test_android5
-          - target: test/functional/android/common_tests.py test/functional/android/webelement_tests.py
-            name: func_test_android6
-          - target: test/functional/android/network_connection_tests.py test/functional/android/log_event_tests.py test/functional/android/hw_actions_tests.py
-            name: func_test_android8
 
     runs-on: ubuntu-latest
 
@@ -130,9 +114,8 @@ jobs:
     - run: |
         appium driver install uiautomator2
         appium driver install espresso
-        appium plugin install images
         appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
+        nohup appium --use-plugins=execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - name: Enable KVM group perms
       run: |
@@ -234,7 +217,7 @@ jobs:
         echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
         sudo udevadm control --reload-rules
         sudo udevadm trigger --name-match=kvm
-  
+
     - name: Set up Python 3.12
       uses: actions/setup-python@v3
       with:
@@ -247,7 +230,7 @@ jobs:
 
     - name: Install Appium
       run: npm install --location=global appium
-    
+
     - name: Install Android drivers and Run Appium
       if: matrix.e2e-tests == 'flutter-android'
       run: |

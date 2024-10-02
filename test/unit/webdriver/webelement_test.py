@@ -63,6 +63,14 @@ class TestWebElement(object):
         assert d['text'] == ''.join(d['value'])
 
     @httpretty.activate
+    def test_clear(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/element/element_id/clear'))
+
+        element = MobileWebElement(driver, 'element_id')
+        element.clear()
+
+    @httpretty.activate
     def test_get_attribute_with_dict(self):
         driver = android_w3c_driver()
         rect_dict = {'y': 200, 'x': 100, 'width': 300, 'height': 56}
@@ -79,3 +87,20 @@ class TestWebElement(object):
 
         assert isinstance(ef, dict)
         assert ef == rect_dict
+
+    @httpretty.activate
+    def test_element_location_in_view(self):
+        driver = android_w3c_driver()
+        location_in_view = {'y': 200, 'x': 100}
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/element/element_id/location_in_view'),
+            body=json.dumps({"value": location_in_view}),
+        )
+
+        element = MobileWebElement(driver, 'element_id')
+        loc = element.location_in_view
+
+        httpretty.last_request()
+
+        assert loc == location_in_view

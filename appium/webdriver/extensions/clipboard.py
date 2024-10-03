@@ -13,7 +13,12 @@
 # limitations under the License.
 
 import base64
-from typing import Optional, Self
+from typing import Optional
+
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 from selenium.common.exceptions import UnknownMethodException
 

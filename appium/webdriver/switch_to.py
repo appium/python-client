@@ -12,7 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional, Protocol, Self
+from typing import Optional, Protocol
+
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 from selenium.webdriver.remote.switch_to import SwitchTo
 

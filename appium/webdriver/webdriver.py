@@ -14,7 +14,12 @@
 
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
-from typing import Any, Callable, Dict, List, Optional, Self, Set, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
+
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 from selenium import webdriver
 from selenium.common.exceptions import (

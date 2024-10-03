@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Callable, Dict, List, Optional, Union
+from typing import Callable, Dict, List, Optional, Self, Union
 
 from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.remote.command import Command as RemoteCommand
@@ -143,7 +143,7 @@ class WebElement(SeleniumWebElement):
 
         return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS, {'using': by, 'value': value})['value']
 
-    def clear(self) -> 'WebElement':
+    def clear(self) -> Self:
         """Clears text.
 
         Override for Appium
@@ -173,7 +173,7 @@ class WebElement(SeleniumWebElement):
         return self._execute(Command.LOCATION_IN_VIEW)['value']
 
     # Override
-    def send_keys(self, *value: str) -> 'WebElement':
+    def send_keys(self, *value: str) -> Self:
         """Simulates typing into the element.
 
         Args:

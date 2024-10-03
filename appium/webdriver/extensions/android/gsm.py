@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, cast
+from typing import Self
 
 from selenium.common.exceptions import UnknownMethodException
 
@@ -22,9 +22,6 @@ from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 from appium.webdriver.mobilecommand import MobileCommand as Command
-
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
 
 
 class GsmCallActions:
@@ -53,7 +50,7 @@ class GsmVoiceState:
 
 
 class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
-    def make_gsm_call(self, phone_number: str, action: str) -> 'WebDriver':
+    def make_gsm_call(self, phone_number: str, action: str) -> Self:
         """Make GSM call (Emulator only)
 
         Android only.
@@ -82,9 +79,9 @@ class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
         except UnknownMethodException:
             # TODO: Remove the fallback
             self.mark_extension_absence(ext_name).execute(Command.MAKE_GSM_CALL, args)
-        return cast('WebDriver', self)
+        return self
 
-    def set_gsm_signal(self, strength: int) -> 'WebDriver':
+    def set_gsm_signal(self, strength: int) -> Self:
         """Set GSM signal strength (Emulator only)
 
         Android only.
@@ -113,9 +110,9 @@ class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
             self.mark_extension_absence(ext_name).execute(
                 Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength}
             )
-        return cast('WebDriver', self)
+        return self
 
-    def set_gsm_voice(self, state: str) -> 'WebDriver':
+    def set_gsm_voice(self, state: str) -> Self:
         """Set GSM voice state (Emulator only)
 
         Android only.
@@ -143,7 +140,7 @@ class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
         except UnknownMethodException:
             # TODO: Remove the fallback
             self.mark_extension_absence(ext_name).execute(Command.SET_GSM_VOICE, args)
-        return cast('WebDriver', self)
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, cast
+from typing import Self
 
 from selenium.common.exceptions import UnknownMethodException
 
@@ -21,12 +21,9 @@ from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
 
 class Sms(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
-    def send_sms(self, phone_number: str, message: str) -> 'WebDriver':
+    def send_sms(self, phone_number: str, message: str) -> Self:
         """Emulate send SMS event on the connected emulator.
 
         Android only.
@@ -48,7 +45,7 @@ class Sms(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
         except UnknownMethodException:
             # TODO: Remove the fallback
             self.mark_extension_absence(ext_name).execute(Command.SEND_SMS, args)
-        return cast('WebDriver', self)
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

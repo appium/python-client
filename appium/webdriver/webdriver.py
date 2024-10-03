@@ -14,7 +14,7 @@
 
 # pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
 
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Self, Set, Tuple, Union
 
 from selenium import webdriver
 from selenium.common.exceptions import (
@@ -472,7 +472,7 @@ class WebDriver(
         else:
             raise WebDriverException('You can only set the orientation to \'LANDSCAPE\' and \'PORTRAIT\'')
 
-    def assert_extension_exists(self, ext_name: str) -> 'WebDriver':
+    def assert_extension_exists(self, ext_name: str) -> Self:
         """
         Verifies if the given extension is not present in the list of absent extensions
         for the given driver instance.
@@ -486,7 +486,7 @@ class WebDriver(
             raise UnknownMethodException()
         return self
 
-    def mark_extension_absence(self, ext_name: str) -> 'WebDriver':
+    def mark_extension_absence(self, ext_name: str) -> Self:
         """
         Marks the given extension as absent for the given driver instance.
         This API is designed for private usage.

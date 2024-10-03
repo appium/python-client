@@ -16,11 +16,6 @@
 
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 
-try:
-    from typing import Self
-except (ImportError, AttributeError):
-    from typing_extensions import Self
-
 from selenium import webdriver
 from selenium.common.exceptions import (
     InvalidArgumentException,
@@ -31,6 +26,7 @@ from selenium.common.exceptions import (
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
+from typing_extensions import Self
 
 from appium.common.logger import logger
 from appium.options.common.base import AppiumOptions

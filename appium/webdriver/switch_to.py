@@ -14,12 +14,8 @@
 
 from typing import Optional, Protocol
 
-try:
-    from typing import Self
-except (ImportError, AttributeError):
-    from typing_extensions import Self
-
 from selenium.webdriver.remote.switch_to import SwitchTo
+from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 

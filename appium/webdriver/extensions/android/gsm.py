@@ -12,12 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-try:
-    from typing import Self
-except (ImportError, AttributeError):
-    from typing_extensions import Self
-
 from selenium.common.exceptions import UnknownMethodException
+from typing_extensions import Self
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger

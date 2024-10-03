@@ -15,12 +15,8 @@
 import base64
 from typing import Optional
 
-try:
-    from typing import Self
-except (ImportError, AttributeError):
-    from typing_extensions import Self
-
 from selenium.common.exceptions import InvalidArgumentException, UnknownMethodException
+from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts

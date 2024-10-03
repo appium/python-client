@@ -14,16 +14,12 @@
 
 from typing import TYPE_CHECKING, List, Optional, Tuple, cast
 
-try:
-    from typing import Self
-except (ImportError, AttributeError):
-    from typing_extensions import Self
-
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.mouse_button import MouseButton
 from selenium.webdriver.common.actions.pointer_input import PointerInput
+from typing_extensions import Self
 
 from appium.webdriver.webelement import WebElement
 

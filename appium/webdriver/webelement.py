@@ -14,14 +14,10 @@
 
 from typing import Callable, Dict, List, Optional, Union
 
-try:
-    from typing import Self
-except (ImportError, AttributeError):
-    from typing_extensions import Self
-
 from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
+from typing_extensions import Self
 
 from appium.webdriver.common.appiumby import AppiumBy
 

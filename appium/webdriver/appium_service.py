@@ -222,7 +222,7 @@ class AppiumService:
             raise AppiumServiceError(error_msg)
         return self._process
 
-    def stop(self, timeout: int = 5) -> bool:
+    def stop(self, timeout: float = 5) -> bool:
         """Stops Appium service if it is running.
 
         The call will be ignored if the service is not running

@@ -103,7 +103,7 @@ class AppiumService:
         if timeout_ms > 0:
             server_url = _make_server_url(args)
             try:
-                if not is_service_running(
+                if not is_service_listening(
                     server_url,
                     timeout=timeout_ms / 1000,
                     custom_validator=self._assert_is_running,
@@ -175,7 +175,7 @@ class AppiumService:
 
         assert self._cmd
         try:
-            return is_service_running(
+            return is_service_listening(
                 _make_server_url(self._cmd),
                 timeout=STATE_CHECK_INTERVAL_MS,
                 custom_validator=self._assert_is_running,
@@ -188,7 +188,7 @@ class AppiumService:
             raise AppiumStartupError()
 
 
-def is_service_running(url: str, timeout: float = 5, custom_validator: Optional[Callable[[], None]] = None) -> bool:
+def is_service_listening(url: str, timeout: float = 5, custom_validator: Optional[Callable[[], None]] = None) -> bool:
     """
     Check if the service is running
 

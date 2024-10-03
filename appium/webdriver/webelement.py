@@ -16,7 +16,7 @@ from typing import Callable, Dict, List, Optional, Union
 
 try:
     from typing import Self
-except ImportError:
+except (ImportError, AttributeError):
     from typing_extensions import Self
 
 from selenium.webdriver.common.utils import keys_to_typing

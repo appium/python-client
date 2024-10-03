@@ -16,7 +16,7 @@ from typing import Any, Dict
 
 try:
     from typing import Self
-except ImportError:
+except (ImportError, AttributeError):
     from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts

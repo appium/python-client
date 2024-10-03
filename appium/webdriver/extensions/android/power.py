@@ -14,7 +14,7 @@
 
 try:
     from typing import Self
-except ImportError:
+except (ImportError, AttributeError):
     from typing_extensions import Self
 
 from selenium.common.exceptions import UnknownMethodException

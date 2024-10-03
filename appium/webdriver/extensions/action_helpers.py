@@ -16,7 +16,7 @@ from typing import TYPE_CHECKING, List, Optional, Tuple, cast
 
 try:
     from typing import Self
-except ImportError:
+except (ImportError, AttributeError):
     from typing_extensions import Self
 
 from selenium.webdriver.common.action_chains import ActionChains

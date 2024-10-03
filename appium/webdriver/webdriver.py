@@ -18,7 +18,7 @@ from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 
 try:
     from typing import Self
-except ImportError:
+except (ImportError, AttributeError):
     from typing_extensions import Self
 
 from selenium import webdriver

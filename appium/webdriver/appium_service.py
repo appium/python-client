@@ -17,7 +17,7 @@ import re
 import subprocess as sp
 import sys
 import time
-from typing import Any, List, Optional, Set
+from typing import Any, List, Optional, Set, Callable
 
 from selenium.webdriver.remote.remote_connection import urllib3
 
@@ -126,22 +126,6 @@ class AppiumService:
         self._process: Optional[sp.Popen] = None
         self._cmd: Optional[List[str]] = None
 
-    def _poll_status(self, host: str, port: int, path: str, timeout_ms: int) -> bool:
-        time_started_sec = time.time()
-        conn = urllib3.PoolManager(timeout=1.0)
-        while time.time() < time_started_sec + timeout_ms / 1000.0:
-            if not self.is_running:
-                raise AppiumStartupError()
-            # noinspection PyUnresolvedReferences
-            try:
-                resp = conn.request('HEAD', f'http://{host}:{port}{path}')
-                if resp.status < 400:
-                    return True
-            except urllib3.exceptions.HTTPError:
-                pass
-            time.sleep(1.0)
-        return False
-
     def start(self, **kwargs: Any) -> sp.Popen:
         """Starts Appium service with given arguments.
 
@@ -203,7 +187,13 @@ class AppiumService:
         if timeout_ms > 0:
             status_url_path = make_status_url(args)
             try:
-                if not self._poll_status(parse_host(args), parse_port(args), status_url_path, timeout_ms):
+                if not is_service_running(
+                    host=parse_host(args),
+                    port=parse_port(args),
+                    path=status_url_path,
+                    timeout=timeout_ms / 1000,
+                    custom_validator=self._assert_is_running,
+                ):
                     error_msg = (
                         f'Appium server has started but is not listening on {status_url_path} '
                         f'within {timeout_ms}ms timeout. Make sure proper values have been provided '
@@ -215,6 +205,7 @@ class AppiumService:
             error_msg = startup_failure_msg
         if error_msg is not None:
             if stderr == sp.PIPE and self._process.stderr is not None:
+                # noinspection PyUnresolvedReferences
                 err_output = self._process.stderr.read()
                 if err_output:
                     error_msg += f'\nOriginal error: {str(err_output)}'
@@ -266,9 +257,52 @@ class AppiumService:
 
         assert self._cmd
         try:
-            return self._poll_status(parse_host(self._cmd), parse_port(self._cmd), make_status_url(self._cmd), 1000)
+            return is_service_running(
+                host=parse_host(self._cmd),
+                port=parse_port(self._cmd),
+                path=make_status_url(self._cmd),
+                timeout=1000,
+                custom_validator=self._assert_is_running,
+            )
         except AppiumStartupError:
             return False
+
+    def _assert_is_running(self) -> None:
+        if not self.is_running:
+            raise AppiumStartupError()
+
+
+def is_service_running(
+        host: str,
+        port: int,
+        path: str = '/',
+        timeout: float = 5,
+        custom_validator: Optional[Callable[[], None]] = None
+) -> bool:
+    """
+    Check if the service is running
+
+    :param host: Host name to check or IP address
+    :param port: Port number to check
+    :param path: Appium server base path
+    :param timeout: Timeout in float seconds
+    :param custom_validator: Custom callable method to be executed upon each validation loop before the timeout happens
+    :return: True if Appium server is running before the timeout
+    """
+    time_started_sec = time.perf_counter()
+    conn = urllib3.PoolManager(timeout=1.0)
+    while time.perf_counter() < time_started_sec + timeout:
+        if custom_validator is not None:
+            custom_validator()
+        # noinspection PyUnresolvedReferences
+        try:
+            resp = conn.request('HEAD', f'http://{host}:{port}{path}')
+            if resp.status < 400:
+                return True
+        except urllib3.exceptions.HTTPError:
+            pass
+        time.sleep(0.5)
+    return False
 
 
 if __name__ == '__main__':

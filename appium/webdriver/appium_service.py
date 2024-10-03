@@ -145,9 +145,7 @@ class AppiumService:
             try:
                 self._process.communicate(timeout=timeout)
             except sp.SubprocessError:
-                import signal
-
-                os.kill(self._process.pid, signal.SIGKILL)
+                self._process.kill()
         self._process = None
         self._cmd = None
         return was_running

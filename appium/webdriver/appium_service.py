@@ -145,7 +145,10 @@ class AppiumService:
             try:
                 self._process.communicate(timeout=timeout)
             except sp.SubprocessError:
-                self._process.kill()
+                if sys.platform == 'win32':
+                    sp.call(['taskkill', '/f', '/pid', str(self._process.pid)])
+                else:
+                    self._process.kill()
         self._process = None
         self._cmd = None
         return was_running

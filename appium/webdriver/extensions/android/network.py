@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, cast
-
 from selenium.common.exceptions import UnknownMethodException
+from typing_extensions import Self
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
@@ -22,9 +21,6 @@ from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 from appium.webdriver.mobilecommand import MobileCommand as Command
-
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
 
 
 class NetSpeed:
@@ -114,7 +110,7 @@ class Network(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresenc
                 Command.SET_NETWORK_CONNECTION, {'parameters': {'type': connection_type}}
             )['value']
 
-    def toggle_wifi(self) -> 'WebDriver':
+    def toggle_wifi(self) -> Self:
         """Toggle the wifi on the device, Android only.
         This API only works reliably on emulators (any version) and real devices
         since API level 31.
@@ -129,9 +125,9 @@ class Network(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresenc
             )
         except UnknownMethodException:
             self.mark_extension_absence(ext_name).execute(Command.TOGGLE_WIFI, {})
-        return cast('WebDriver', self)
+        return self
 
-    def set_network_speed(self, speed_type: str) -> 'WebDriver':
+    def set_network_speed(self, speed_type: str) -> Self:
         """Set the network speed emulation.
 
         Android Emulator only.
@@ -158,7 +154,7 @@ class Network(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresenc
         except UnknownMethodException:
             # TODO: Remove the fallback
             self.mark_extension_absence(ext_name).execute(Command.SET_NETWORK_SPEED, {'netspeed': speed_type})
-        return cast('WebDriver', self)
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

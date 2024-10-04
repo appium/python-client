@@ -12,14 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Dict, List, Union, cast
+from typing import Dict, List, Union
+
+from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
-
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
 
 
 class LogEvent(CanExecuteCommands):
@@ -46,7 +45,7 @@ class LogEvent(CanExecuteCommands):
             data['type'] = type
         return self.execute(Command.GET_EVENTS, data)['value']
 
-    def log_event(self, vendor: str, event: str) -> 'WebDriver':
+    def log_event(self, vendor: str, event: str) -> Self:
         """Log a custom event on the Appium server.
         (Since Appium 1.16.0)
 
@@ -62,7 +61,7 @@ class LogEvent(CanExecuteCommands):
         """
         data = {'vendor': vendor, 'event': event}
         self.execute(Command.LOG_EVENT, data)
-        return cast('WebDriver', self)
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

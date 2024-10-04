@@ -12,14 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, Dict, cast
+from typing import Any, Dict
+
+from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
-
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
 
 
 class Settings(CanExecuteCommands):
@@ -34,7 +33,7 @@ class Settings(CanExecuteCommands):
         """
         return self.execute(Command.GET_SETTINGS, {})['value']
 
-    def update_settings(self, settings: Dict[str, Any]) -> 'WebDriver':
+    def update_settings(self, settings: Dict[str, Any]) -> Self:
         """Set settings for the current session.
 
         For more on settings, see: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md
@@ -43,7 +42,7 @@ class Settings(CanExecuteCommands):
             settings: dictionary of settings to apply to the current test session
         """
         self.execute(Command.UPDATE_SETTINGS, {'settings': settings})
-        return cast('WebDriver', self)
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

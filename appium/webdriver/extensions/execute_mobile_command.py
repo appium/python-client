@@ -12,16 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, Dict, cast
+from typing import Any, Dict
+
+from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
 
 class ExecuteMobileCommand(CanExecuteScripts):
-    def press_button(self, button_name: str) -> 'WebDriver':
+    def press_button(self, button_name: str) -> Self:
         """Sends a physical button name to the device to simulate the user pressing.
 
         iOS only.
@@ -37,7 +36,7 @@ class ExecuteMobileCommand(CanExecuteScripts):
         """
         data = {'name': button_name}
         self.execute_script('mobile: pressButton', data)
-        return cast('WebDriver', self)
+        return self
 
     @property
     def battery_info(self) -> Dict[str, Any]:

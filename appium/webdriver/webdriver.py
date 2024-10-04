@@ -26,6 +26,7 @@ from selenium.common.exceptions import (
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
+from typing_extensions import Self
 
 from appium.common.logger import logger
 from appium.options.common.base import AppiumOptions
@@ -472,7 +473,7 @@ class WebDriver(
         else:
             raise WebDriverException('You can only set the orientation to \'LANDSCAPE\' and \'PORTRAIT\'')
 
-    def assert_extension_exists(self, ext_name: str) -> 'WebDriver':
+    def assert_extension_exists(self, ext_name: str) -> Self:
         """
         Verifies if the given extension is not present in the list of absent extensions
         for the given driver instance.
@@ -486,7 +487,7 @@ class WebDriver(
             raise UnknownMethodException()
         return self
 
-    def mark_extension_absence(self, ext_name: str) -> 'WebDriver':
+    def mark_extension_absence(self, ext_name: str) -> Self:
         """
         Marks the given extension as absent for the given driver instance.
         This API is designed for private usage.

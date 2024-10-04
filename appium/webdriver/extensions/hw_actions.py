@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Optional, cast
+from typing import Optional
 
 from selenium.common.exceptions import UnknownMethodException
+from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
@@ -22,12 +23,9 @@ from appium.protocols.webdriver.can_remember_extension_presence import CanRememb
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
 
 class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
-    def lock(self, seconds: Optional[int] = None) -> 'WebDriver':
+    def lock(self, seconds: Optional[int] = None) -> Self:
         """Lock the device. No changes are made if the device is already unlocked.
 
         Args:
@@ -46,9 +44,9 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
         except UnknownMethodException:
             # TODO: Remove the fallback
             self.mark_extension_absence(ext_name).execute(Command.LOCK, args)
-        return cast('WebDriver', self)
+        return self
 
-    def unlock(self) -> 'WebDriver':
+    def unlock(self) -> Self:
         """Unlock the device. No changes are made if the device is already locked.
 
         Returns:
@@ -57,12 +55,12 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
         ext_name = 'mobile: unlock'
         try:
             if not self.assert_extension_exists(ext_name).execute_script('mobile: isLocked'):
-                return cast('WebDriver', self)
+                return self
             self.execute_script(ext_name)
         except UnknownMethodException:
             # TODO: Remove the fallback
             self.mark_extension_absence(ext_name).execute(Command.UNLOCK)
-        return cast('WebDriver', self)
+        return self
 
     def is_locked(self) -> bool:
         """Checks whether the device is locked.
@@ -77,7 +75,7 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
             # TODO: Remove the fallback
             return self.mark_extension_absence(ext_name).execute(Command.IS_LOCKED)['value']
 
-    def shake(self) -> 'WebDriver':
+    def shake(self) -> Self:
         """Shake the device.
 
         Returns:
@@ -89,9 +87,9 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
         except UnknownMethodException:
             # TODO: Remove the fallback
             self.mark_extension_absence(ext_name).execute(Command.SHAKE)
-        return cast('WebDriver', self)
+        return self
 
-    def touch_id(self, match: bool) -> 'WebDriver':
+    def touch_id(self, match: bool) -> Self:
         """Simulate touchId on iOS Simulator
 
         Args:
@@ -107,9 +105,9 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
                 'match': match,
             },
         )
-        return cast('WebDriver', self)
+        return self
 
-    def toggle_touch_id_enrollment(self) -> 'WebDriver':
+    def toggle_touch_id_enrollment(self) -> Self:
         """Toggle enroll touchId on iOS Simulator
 
         Returns:
@@ -117,9 +115,9 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
         """
         is_enrolled = self.execute_script('mobile: isBiometricEnrolled')
         self.execute_script('mobile: enrollBiometric', {'isEnabled': not is_enrolled})
-        return cast('WebDriver', self)
+        return self
 
-    def finger_print(self, finger_id: int) -> 'WebDriver':
+    def finger_print(self, finger_id: int) -> Self:
         """Authenticate users by using their finger print scans on supported Android emulators.
 
         Args:
@@ -131,7 +129,7 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
             self.assert_extension_exists(ext_name).execute_script(ext_name, args)
         except UnknownMethodException:
             self.mark_extension_absence(ext_name).execute(Command.FINGER_PRINT, args)
-        return cast('WebDriver', self)
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

@@ -13,18 +13,16 @@
 # limitations under the License.
 
 import base64
-from typing import TYPE_CHECKING, Optional, cast
+from typing import Optional
 
 from selenium.common.exceptions import InvalidArgumentException, UnknownMethodException
+from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
 from ..mobilecommand import MobileCommand as Command
-
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
 
 
 class RemoteFS(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
@@ -62,7 +60,7 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
 
     def push_file(
         self, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None
-    ) -> 'WebDriver':
+    ) -> Self:
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
         Specify either `base64data` or `source_path`, if both specified default to `source_path`
@@ -106,7 +104,7 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
                     'data': base64data,
                 },
             )
-        return cast('WebDriver', self)
+        return self
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

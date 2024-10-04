@@ -13,9 +13,10 @@
 # limitations under the License.
 
 import base64
-from typing import TYPE_CHECKING, Optional, cast
+from typing import Optional
 
 from selenium.common.exceptions import UnknownMethodException
+from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
@@ -24,14 +25,11 @@ from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
 
 class Clipboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def set_clipboard(
         self, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
-    ) -> 'WebDriver':
+    ) -> Self:
         """Set the content of the system clipboard
 
         Args:
@@ -55,9 +53,9 @@ class Clipboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPrese
         except UnknownMethodException:
             # TODO: Remove the fallback
             self.mark_extension_absence(ext_name).execute(Command.SET_CLIPBOARD, options)
-        return cast('WebDriver', self)
+        return self
 
-    def set_clipboard_text(self, text: str, label: Optional[str] = None) -> 'WebDriver':
+    def set_clipboard_text(self, text: str, label: Optional[str] = None) -> Self:
         """Copies the given text to the system clipboard
 
         Args:

@@ -11,21 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from typing import TYPE_CHECKING, cast
 
 from selenium.common.exceptions import UnknownMethodException
+from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 from appium.webdriver.mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
 
 class Common(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
-    def open_notifications(self) -> 'WebDriver':
+    def open_notifications(self) -> Self:
         """Open notification shade in Android (API Level 18 and above)
 
         Returns:
@@ -37,7 +34,7 @@ class Common(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence
         except UnknownMethodException:
             # TODO: Remove the fallback
             self.mark_extension_absence(ext_name).execute(Command.OPEN_NOTIFICATIONS, {})
-        return cast('WebDriver', self)
+        return self
 
     @property
     def current_package(self) -> str:

@@ -12,21 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Dict, Union, cast
+from typing import Dict, Union
 
 from selenium.common.exceptions import UnknownMethodException
+from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 from ..mobilecommand import MobileCommand as Command
 
-if TYPE_CHECKING:
-    from appium.webdriver.webdriver import WebDriver
-
 
 class Location(CanExecuteCommands, CanExecuteScripts):
-    def toggle_location_services(self) -> 'WebDriver':
+    def toggle_location_services(self) -> Self:
         """Toggle the location services on the device.
         This API only reliably since Android 12 (API level 31)
 
@@ -40,7 +38,7 @@ class Location(CanExecuteCommands, CanExecuteScripts):
         except UnknownMethodException:
             # TODO: Remove the fallback
             self.execute(Command.TOGGLE_LOCATION_SERVICES)
-        return cast('WebDriver', self)
+        return self
 
     def set_location(
         self,
@@ -49,7 +47,7 @@ class Location(CanExecuteCommands, CanExecuteScripts):
         altitude: Union[float, str, None] = None,
         speed: Union[float, str, None] = None,
         satellites: Union[float, str, None] = None,
-    ) -> 'WebDriver':
+    ) -> Self:
         """Set the location of the device
 
         Args:
@@ -75,7 +73,7 @@ class Location(CanExecuteCommands, CanExecuteScripts):
         if satellites is not None:
             data['location']['satellites'] = satellites
         self.execute(Command.SET_LOCATION, data)
-        return cast('WebDriver', self)
+        return self
 
     @property
     def location(self) -> Dict[str, float]:

@@ -57,6 +57,7 @@ jobs:
     - run: npm install -g appium
     - run: |
         appium driver install xcuitest
+        appium driver run xcuitest build-wda --sdk=${{ env.IOS_VERSION }} --name='${{ env.IPHONE_MODEL }}'
         appium plugin install images
         appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &

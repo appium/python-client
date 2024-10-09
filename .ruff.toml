@@ -3,7 +3,7 @@ indent-width = 4
 
 [lint]
 select = [
-    # Pyfles
+    # Pyflakes
     "F",
     # Pylint
     "PL",

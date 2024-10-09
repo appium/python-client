@@ -19,8 +19,6 @@ select = [
     "E402"
 ]
 "**/{test,docs}/*" = [
-    # import violations
-    "E402",
     # https://docs.astral.sh/ruff/rules/magic-value-comparison/
     "PLR2004"
 ]

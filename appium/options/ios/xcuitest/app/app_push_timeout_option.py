@@ -39,6 +39,4 @@ class AppPushTimeoutOption(SupportsCapabilities):
         Works for real devices only.
         The default value is 30000ms.
         """
-        self.set_capability(
-            APP_PUSH_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
-        )
+        self.set_capability(APP_PUSH_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)

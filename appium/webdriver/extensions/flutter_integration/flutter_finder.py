@@ -21,7 +21,6 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 
 class FlutterFinder:
-
     def __init__(self, using: str, value: str) -> None:
         self.using = using
         self.value = value

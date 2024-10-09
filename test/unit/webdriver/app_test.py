@@ -47,10 +47,8 @@ class TestWebDriverAppAndroid(object):
     @httpretty.activate
     def test_app_installed(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
-        )
-        result = driver.is_app_installed("com.app.id")
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
+        result = driver.is_app_installed('com.app.id')
 
         assert {
             'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
@@ -61,10 +59,8 @@ class TestWebDriverAppAndroid(object):
     @httpretty.activate
     def test_terminate_app(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
-        )
-        result = driver.terminate_app("com.app.id")
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
+        result = driver.terminate_app('com.app.id')
 
         assert {
             'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
@@ -76,7 +72,7 @@ class TestWebDriverAppAndroid(object):
     def test_activate_app(self):
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
-        result = driver.activate_app("com.app.id")
+        result = driver.activate_app('com.app.id')
 
         assert {
             'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
@@ -118,7 +114,7 @@ class TestWebDriverAppAndroid(object):
         result = driver.app_strings()
 
         assert {'args': [{}], 'script': 'mobile: getAppStrings'} == get_httpretty_request_body(httpretty.last_request())
-        assert 'You can\'t wipe my data, you are a monkey!' == result['monkey_wipe_data'], result
+        assert "You can't wipe my data, you are a monkey!" == result['monkey_wipe_data'], result
 
     @httpretty.activate
     def test_app_strings_with_lang(self):
@@ -133,7 +129,7 @@ class TestWebDriverAppAndroid(object):
         assert {'args': [{'language': 'en'}], 'script': 'mobile: getAppStrings'} == get_httpretty_request_body(
             httpretty.last_request()
         )
-        assert 'You can\'t wipe my data, you are a monkey!' == result['monkey_wipe_data'], result
+        assert "You can't wipe my data, you are a monkey!" == result['monkey_wipe_data'], result
 
     @httpretty.activate
     def test_app_strings_with_lang_and_file(self):
@@ -149,7 +145,7 @@ class TestWebDriverAppAndroid(object):
             'args': [{'language': 'en', 'stringFile': 'some_file'}],
             'script': 'mobile: getAppStrings',
         } == get_httpretty_request_body(httpretty.last_request())
-        assert 'You can\'t wipe my data, you are a monkey!' == result['monkey_wipe_data'], result
+        assert "You can't wipe my data, you are a monkey!" == result['monkey_wipe_data'], result
 
 
 class TestWebDriverAppIOS(object):
@@ -180,10 +176,8 @@ class TestWebDriverAppIOS(object):
     @httpretty.activate
     def test_app_installed(self):
         driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
-        )
-        result = driver.is_app_installed("com.app.id")
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
+        result = driver.is_app_installed('com.app.id')
 
         assert {
             'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
@@ -194,10 +188,8 @@ class TestWebDriverAppIOS(object):
     @httpretty.activate
     def test_terminate_app(self):
         driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
-        )
-        result = driver.terminate_app("com.app.id")
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
+        result = driver.terminate_app('com.app.id')
 
         assert {
             'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
@@ -209,7 +201,7 @@ class TestWebDriverAppIOS(object):
     def test_activate_app(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
-        result = driver.activate_app("com.app.id")
+        result = driver.activate_app('com.app.id')
 
         assert {
             'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
@@ -251,7 +243,7 @@ class TestWebDriverAppIOS(object):
         result = driver.app_strings()
 
         assert {'args': [{}], 'script': 'mobile: getAppStrings'} == get_httpretty_request_body(httpretty.last_request())
-        assert 'You can\'t wipe my data, you are a monkey!' == result['monkey_wipe_data'], result
+        assert "You can't wipe my data, you are a monkey!" == result['monkey_wipe_data'], result
 
     @httpretty.activate
     def test_app_strings_with_lang(self):
@@ -266,7 +258,7 @@ class TestWebDriverAppIOS(object):
         assert {'args': [{'language': 'en'}], 'script': 'mobile: getAppStrings'} == get_httpretty_request_body(
             httpretty.last_request()
         )
-        assert 'You can\'t wipe my data, you are a monkey!' == result['monkey_wipe_data'], result
+        assert "You can't wipe my data, you are a monkey!" == result['monkey_wipe_data'], result
 
     @httpretty.activate
     def test_app_strings_with_lang_and_file(self):
@@ -282,4 +274,4 @@ class TestWebDriverAppIOS(object):
             'args': [{'language': 'en', 'stringFile': 'some_file'}],
             'script': 'mobile: getAppStrings',
         } == get_httpretty_request_body(httpretty.last_request())
-        assert 'You can\'t wipe my data, you are a monkey!' == result['monkey_wipe_data'], result
+        assert "You can't wipe my data, you are a monkey!" == result['monkey_wipe_data'], result

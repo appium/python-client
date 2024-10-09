@@ -23,7 +23,6 @@ from appium.webdriver.webelement import WebElement
 
 
 class FlutterCommand:
-
     def __init__(self, driver: WebDriver) -> None:
         self.driver = driver
 
@@ -84,7 +83,7 @@ class FlutterCommand:
         Returns:
             None:
         """
-        opts: Dict[str, Union[WebElement, Dict[str, int]]] = {"origin": element}
+        opts: Dict[str, Union[WebElement, Dict[str, int]]] = {'origin': element}
         if offset is not None:
             opts['offset'] = {'x': offset[0], 'y': offset[1]}
         self.execute_flutter_command('doubleClick', opts)

@@ -22,9 +22,7 @@ class TestWebDriverLockAndroid(object):
     @httpretty.activate
     def test_lock(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}')
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         driver.lock(1)
 
@@ -34,9 +32,7 @@ class TestWebDriverLockAndroid(object):
     @httpretty.activate
     def test_lock_no_args(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}')
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         driver.lock()
 
@@ -46,9 +42,7 @@ class TestWebDriverLockAndroid(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/is_locked'), body='{"value": false}'
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": false}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": false}')
         assert driver.is_locked() is False
 
     @httpretty.activate
@@ -57,9 +51,7 @@ class TestWebDriverLockAndroid(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/is_locked'), body='{"value": true}'
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
         assert driver.is_locked() is True
 
     @httpretty.activate
@@ -77,9 +69,7 @@ class TestWebDriverLockIOS(object):
     @httpretty.activate
     def test_lock(self):
         driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}')
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         driver.lock(1)
 
@@ -89,9 +79,7 @@ class TestWebDriverLockIOS(object):
     @httpretty.activate
     def test_lock_no_args(self):
         driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/device/lock'), body='{"value": ""}')
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
         driver.lock()
 
@@ -101,9 +89,7 @@ class TestWebDriverLockIOS(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/is_locked'), body='{"value": false}'
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": false}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": false}')
         assert driver.is_locked() is False
 
     @httpretty.activate
@@ -112,9 +98,7 @@ class TestWebDriverLockIOS(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/is_locked'), body='{"value": true}'
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
         assert driver.is_locked() is True
 
     @httpretty.activate
@@ -138,7 +122,7 @@ class TestWebDriverLockIOS(object):
         } == get_httpretty_request_body(httpretty.last_request())
 
     @httpretty.activate
-    def test_touch_id(self):
+    def test_enroll_biometric(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         assert isinstance(driver.toggle_touch_id_enrollment(), WebDriver)

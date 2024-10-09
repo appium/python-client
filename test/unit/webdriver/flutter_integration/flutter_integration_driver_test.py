@@ -22,10 +22,8 @@ from test.helpers.constants import SERVER_URL_BASE
 
 
 class TestFlutterIntegrationDriver:
-
     @httpretty.activate
     def test_create_session(self):
-
         # Set flutter options
         flutterOptions = FlutterOptions()
         flutterOptions.flutter_system_port = 9999

@@ -21,9 +21,7 @@ class TestWebDriverContext(object):
     @httpretty.activate
     def test_current_contexts(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.GET, appium_command('/session/1234567890/context'), body='{"value": "NATIVE_APP"}'
-        )
+        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890/context'), body='{"value": "NATIVE_APP"}')
         assert driver.current_context == 'NATIVE_APP'
 
     @httpretty.activate

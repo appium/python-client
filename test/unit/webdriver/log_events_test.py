@@ -53,7 +53,7 @@ class TestWebDriverLogEvents(object):
     @httpretty.activate
     def test_log_event(self):
         driver = ios_w3c_driver()
-        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/log_event'), body="")
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/log_event'), body='')
         vendor_name = 'appium'
         event_name = 'funEvent'
         assert isinstance(driver.log_event(vendor_name, event_name), WebDriver)

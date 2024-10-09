@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +22,6 @@ FLUTTER_ENABLE_MOCK_CAMERA = 'flutterEnableMockCamera'
 
 
 class FlutterEnableMockCameraOption(SupportsCapabilities):
-
     @property
     def flutter_enable_mock_camera(self) -> bool:
         """

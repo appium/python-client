@@ -29,7 +29,7 @@ class TestWebElement(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/status'),
-            body=json.dumps({"value": response}),
+            body=json.dumps({'value': response}),
         )
         s = driver.get_status()
 
@@ -77,7 +77,7 @@ class TestWebElement(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890/element/element_id/attribute/rect'),
-            body=json.dumps({"value": rect_dict}),
+            body=json.dumps({'value': rect_dict}),
         )
 
         element = MobileWebElement(driver, 'element_id')
@@ -95,7 +95,7 @@ class TestWebElement(object):
         httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890/element/element_id/location_in_view'),
-            body=json.dumps({"value": location_in_view}),
+            body=json.dumps({'value': location_in_view}),
         )
 
         element = MobileWebElement(driver, 'element_id')

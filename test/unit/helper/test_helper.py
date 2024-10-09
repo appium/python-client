@@ -146,9 +146,7 @@ def ios_w3c_driver_with_extensions(extensions) -> 'WebDriver':
         'automationName': 'XCUITest',
     }
 
-    driver = webdriver.Remote(
-        SERVER_URL_BASE, options=XCUITestOptions().load_capabilities(desired_caps), extensions=extensions
-    )
+    driver = webdriver.Remote(SERVER_URL_BASE, options=XCUITestOptions().load_capabilities(desired_caps), extensions=extensions)
     return driver
 
 

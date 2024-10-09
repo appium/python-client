@@ -23,7 +23,6 @@ FLUTTER_SYSTEM_PORT = 'flutterSystemPort'
 
 
 class FlutterSystemPortOption(SupportsCapabilities):
-
     @property
     def flutter_system_port(self) -> Optional[int]:
         """

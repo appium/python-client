@@ -24,9 +24,7 @@ class TestWebDriverCommon(object):
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         assert isinstance(driver.open_notifications(), WebDriver)
-        assert {'args': [], 'script': 'mobile: openNotifications'} == get_httpretty_request_body(
-            httpretty.last_request()
-        )
+        assert {'args': [], 'script': 'mobile: openNotifications'} == get_httpretty_request_body(httpretty.last_request())
 
     @httpretty.activate
     def test_current_package(self):

@@ -24,7 +24,6 @@ FLUTTER_ELEMENT_WAIT_TIMEOUT = 'flutterElementWaitTimeout'
 
 
 class FlutterElementWaitTimeOutOption(SupportsCapabilities):
-
     @property
     def flutter_element_wait_timeout(self) -> Optional[timedelta]:
         """

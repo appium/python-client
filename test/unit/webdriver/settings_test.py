@@ -34,7 +34,7 @@ class TestWebDriverSettings(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/settings'),
         )
-        assert isinstance(driver.update_settings({"sample": True}), WebDriver)
+        assert isinstance(driver.update_settings({'sample': True}), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['settings']['sample'] is True
@@ -54,7 +54,7 @@ class TestWebDriverSettings(object):
             httpretty.POST,
             appium_command('/session/1234567890/appium/settings'),
         )
-        assert isinstance(driver.update_settings({"sample": 'string'}), WebDriver)
+        assert isinstance(driver.update_settings({'sample': 'string'}), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['settings']['sample'] == 'string'

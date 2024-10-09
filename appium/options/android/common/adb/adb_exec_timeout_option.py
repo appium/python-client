@@ -38,6 +38,4 @@ class AdbExecTimeoutOption(SupportsCapabilities):
         Maximum time to wait until single ADB command is executed.
         20000 ms by default.
         """
-        self.set_capability(
-            ADB_EXEC_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
-        )
+        self.set_capability(ADB_EXEC_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)

@@ -38,6 +38,4 @@ class AvdReadyTimeoutOption(SupportsCapabilities):
         Maximum timeout to wait until Android Emulator is fully booted and is ready for usage.
         60000 ms by default
         """
-        self.set_capability(
-            AVD_READY_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
-        )
+        self.set_capability(AVD_READY_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)

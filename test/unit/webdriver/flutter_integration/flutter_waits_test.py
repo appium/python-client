@@ -21,7 +21,6 @@ from test.unit.helper.test_helper import appium_command, flutter_w3c_driver, get
 
 
 class TestFlutterWaits(object):
-
     @httpretty.activate
     def test_wait_for_visible_with_finder(self):
         driver = flutter_w3c_driver()

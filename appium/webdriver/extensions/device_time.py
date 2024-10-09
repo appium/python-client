@@ -60,9 +60,7 @@ class DeviceTime(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPres
         try:
             return self.assert_extension_exists(ext_name).execute_script(ext_name, {'format': format})
         except UnknownMethodException:
-            return self.mark_extension_absence(ext_name).execute(Command.GET_DEVICE_TIME_POST, {'format': format})[
-                'value'
-            ]
+            return self.mark_extension_absence(ext_name).execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences

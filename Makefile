@@ -16,6 +16,18 @@ lint:
 format:
 	python -m ruff format --check .
 
+.PHONY: fix
+fix: fix-lint fix-format
+
+.PHONY: fix-lint
+fix-lint:
+	python -m ruff check --fix .
+
+.PHONY: fix-format
+fix-format:
+	python -m ruff format .
+
+
 .PHONY: unittest
 unittest: ## Run unittest
 	python -m pytest $(ARGS) test/unit/

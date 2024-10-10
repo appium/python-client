@@ -5,9 +5,12 @@ check-all: ## Run all lint checks and unittest
 	@echo "[Notice] If you'd like to run commands with same env to CI, please run \`tox\`."
 	@bash ci.sh
 
-.PHONY: ruff
-ruff: ## Run ruff
+.PHONY: lint
+lint:
 	python -m ruff check .
+
+.PHONY: format
+format:
 	python -m ruff format --check .
 
 .PHONY: unittest

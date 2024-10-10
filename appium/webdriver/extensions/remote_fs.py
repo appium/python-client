@@ -58,9 +58,7 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
             # TODO: Remove the fallback
             return self.mark_extension_absence(ext_name).execute(Command.PULL_FOLDER, {'path': path})['value']
 
-    def push_file(
-        self, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None
-    ) -> Self:
+    def push_file(self, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None) -> Self:
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
 
         Specify either `base64data` or `source_path`, if both specified default to `source_path`

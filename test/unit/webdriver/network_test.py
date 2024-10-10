@@ -24,9 +24,7 @@ class TestWebDriverNetwork(object):
     @httpretty.activate
     def test_network_connection(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.GET, appium_command('/session/1234567890/network_connection'), body='{"value": 2}'
-        )
+        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890/network_connection'), body='{"value": 2}')
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
@@ -37,9 +35,7 @@ class TestWebDriverNetwork(object):
     @httpretty.activate
     def test_set_network_connection(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/network_connection'), body='{"value": ""}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/network_connection'), body='{"value": ""}')
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),

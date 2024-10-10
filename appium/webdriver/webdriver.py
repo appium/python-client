@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
-
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 
 from selenium import webdriver
@@ -212,11 +210,9 @@ class WebDriver(
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
     ):
         if strict_ssl is False:
-            # pylint: disable=E1101
             # noinspection PyPackageRequirements
             import urllib3
 
-            # pylint: disable=E1101
             # noinspection PyPackageRequirements
             import urllib3.exceptions
 
@@ -256,7 +252,7 @@ class WebDriver(
             instance = extension(self.execute)
             method_name = instance.method_name()
             if hasattr(WebDriver, method_name):
-                logger.debug(f'Overriding the method \'{method_name}\'')
+                logger.debug(f"Overriding the method '{method_name}'")
 
             # add a new method named 'instance.method_name()' and call it
             setattr(WebDriver, method_name, getattr(instance, method_name))
@@ -382,9 +378,7 @@ class WebDriver(
 
         return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
 
-    def find_elements(
-        self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None
-    ) -> Union[List[MobileWebElement], List]:
+    def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> Union[List[MobileWebElement], List]:
         """
         Find elements given a AppiumBy strategy and locator
 
@@ -471,7 +465,7 @@ class WebDriver(
         if value.upper() in allowed_values:
             self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value})
         else:
-            raise WebDriverException('You can only set the orientation to \'LANDSCAPE\' and \'PORTRAIT\'')
+            raise WebDriverException("You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'")
 
     def assert_extension_exists(self, ext_name: str) -> Self:
         """

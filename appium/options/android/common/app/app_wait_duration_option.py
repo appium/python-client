@@ -38,6 +38,4 @@ class AppWaitDurationOption(SupportsCapabilities):
         Maximum amount of time to wait until the application under test is started
         (e.g. an activity returns the control to the caller). 20000 ms by default.
         """
-        self.set_capability(
-            APP_WAIT_DURATION, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
-        )
+        self.set_capability(APP_WAIT_DURATION, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)

@@ -103,9 +103,7 @@ class ImagesComparison(CanExecuteCommands):
         }
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
-    def get_images_similarity(
-        self, base64_image1: bytes, base64_image2: bytes, **opts: Any
-    ) -> Dict[str, Union[bytes, Dict]]:
+    def get_images_similarity(self, base64_image1: bytes, base64_image2: bytes, **opts: Any) -> Dict[str, Union[bytes, Dict]]:
         """Performs images matching to calculate the similarity score between them.
 
         The flow there is similar to the one used in

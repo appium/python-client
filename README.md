@@ -5,8 +5,6 @@
 
 [![Functional Tests](https://github.com/appium/python-client/actions/workflows/functional-test.yml/badge.svg)](https://github.com/appium/python-client/actions/workflows/functional-test.yml)
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
 An extension library for adding [WebDriver Protocol](https://www.w3.org/TR/webdriver/) and Appium commands to the Selenium Python language binding for use with the mobile testing framework [Appium](https://appium.io).
 
 ## Getting the Appium Python client
@@ -355,7 +353,7 @@ driver = webdriver.Remote(custom_executor, options=options)
 ## Development
 
 - Code Style: [PEP-0008](https://www.python.org/dev/peps/pep-0008/)
-  - Apply `black`, `isort` and `mypy` as pre commit hook
+  - Apply `ruff` as pre commit hook
   - Run `make` command for development. See `make help` output for details
 - Docstring style: [Google Style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
 - `gitchangelog` generates `CHANGELOG.rst`

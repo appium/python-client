@@ -21,7 +21,6 @@ from test.functional.flutter_integration.helper.test_helper import BaseTestCase
 
 
 class TestFlutterCommands(BaseTestCase):
-
     def test_wait_command(self) -> None:
         self.__open_screen('Lazy Loading')
 
@@ -76,22 +75,20 @@ class TestFlutterCommands(BaseTestCase):
     def test_double_click_command(self) -> None:
         self.__open_screen('Double Tap')
 
-        double_tap_button = self.driver.find_element(
-            AppiumBy.FLUTTER_INTEGRATION_KEY, 'double_tap_button'
-        ).find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT, 'Double Tap')
+        double_tap_button = self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_KEY, 'double_tap_button').find_element(
+            AppiumBy.FLUTTER_INTEGRATION_TEXT, 'Double Tap'
+        )
         assert double_tap_button.text == 'Double Tap'
 
         self.flutter_command.perform_double_click(double_tap_button)
         assert (
-            self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, 'Successful').text
-            == 'Double Tap Successful'
+            self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, 'Successful').text == 'Double Tap Successful'
         )
 
         self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT, 'Ok').click()
         self.flutter_command.perform_double_click(double_tap_button, (10, 2))
         assert (
-            self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, 'Successful').text
-            == 'Double Tap Successful'
+            self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, 'Successful').text == 'Double Tap Successful'
         )
 
         self.driver.find_element(AppiumBy.FLUTTER_INTEGRATION_TEXT, 'Ok').click()

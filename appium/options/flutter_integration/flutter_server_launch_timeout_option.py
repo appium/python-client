@@ -24,7 +24,6 @@ FLUTTER_SERVER_LAUNCH_TIMEOUT = 'flutterServerLaunchTimeout'
 
 
 class FlutterServerLaunchTimeOutOption(SupportsCapabilities):
-
     @property
     def flutter_server_launch_timeout(self) -> Optional[timedelta]:
         """

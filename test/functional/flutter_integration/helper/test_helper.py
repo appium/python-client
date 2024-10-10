@@ -12,20 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import base64
 import os
 
 from appium import webdriver
 from appium.options.flutter_integration.base import FlutterOptions
 from appium.webdriver.extensions.flutter_integration.flutter_commands import FlutterCommand
-from test.functional.test_helper import is_ci
 from test.helpers.constants import SERVER_URL_BASE
 
 from . import desired_capabilities
 
 
 class BaseTestCase(object):
-
     def setup_method(self) -> None:
         platform_name = os.getenv('PLATFORM', 'android').lower()
 

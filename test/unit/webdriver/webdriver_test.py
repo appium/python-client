@@ -82,9 +82,7 @@ class TestWebDriverWebDriver:
             body='{ "value": "title on another session id"}',
         )
 
-        options = (
-            UiAutomator2Options().set_capability('deviceName', 'Android Emulator').set_capability('app', 'path/to/app')
-        )
+        options = UiAutomator2Options().set_capability('deviceName', 'Android Emulator').set_capability('app', 'path/to/app')
         driver = webdriver.Remote(SERVER_URL_BASE, options=options)
 
         # current session
@@ -198,7 +196,7 @@ class TestWebDriverWebDriver:
         assert events == {}
 
     @httpretty.activate
-    @patch("appium.webdriver.webdriver.logger.warning")
+    @patch('appium.webdriver.webdriver.logger.warning')
     def test_session_catches_error(self, mock_warning):
         def exceptionCallback(request, uri, headers):
             raise Exception()
@@ -301,9 +299,7 @@ class TestWebDriverWebDriver:
             remote_server_addr=SERVER_URL_BASE, init_args_for_pool_manager=init_args_for_pool_manager
         )
 
-        driver = webdriver.Remote(
-            custom_appium_connection, options=UiAutomator2Options().load_capabilities(desired_caps)
-        )
+        driver = webdriver.Remote(custom_appium_connection, options=UiAutomator2Options().load_capabilities(desired_caps))
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
@@ -347,9 +343,7 @@ class TestWebDriverWebDriver:
             init_args_for_pool_manager=init_args_for_pool_manager,
         )
 
-        driver = webdriver.Remote(
-            custom_appium_connection, options=UiAutomator2Options().load_capabilities(desired_caps)
-        )
+        driver = webdriver.Remote(custom_appium_connection, options=UiAutomator2Options().load_capabilities(desired_caps))
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
@@ -371,9 +365,7 @@ class TestWebDriverWebDriver:
     @httpretty.activate
     def test_extention_command_check(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
         assert (
             driver.execute_script(
                 'mobile: startActivity',

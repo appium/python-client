@@ -38,6 +38,4 @@ class AutoWebviewTimeoutOption(SupportsCapabilities):
         """
         Timeout to wait until a web view is available.
         """
-        self.set_capability(
-            AUTO_WEBVIEW_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
-        )
+        self.set_capability(AUTO_WEBVIEW_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)

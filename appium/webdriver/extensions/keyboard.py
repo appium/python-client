@@ -25,9 +25,7 @@ from ..mobilecommand import MobileCommand as Command
 
 
 class Keyboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
-    def hide_keyboard(
-        self, key_name: Optional[str] = None, key: Optional[str] = None, strategy: Optional[str] = None
-    ) -> Self:
+    def hide_keyboard(self, key_name: Optional[str] = None, key: Optional[str] = None, strategy: Optional[str] = None) -> Self:
         """Hides the software keyboard on the device.
 
         In iOS, use `key_name` to press

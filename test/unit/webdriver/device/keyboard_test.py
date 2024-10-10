@@ -32,9 +32,7 @@ class TestWebDriverKeyboardAndroid(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/press_keycode'), body='{"value": "86"}'
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": "86"}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": "86"}')
         driver.press_keycode(86)
         d = get_httpretty_request_body((httpretty.last_request()))
         assert d.get('keycode', d['args'][0]['keycode']) == 86
@@ -47,9 +45,7 @@ class TestWebDriverKeyboardAndroid(object):
             appium_command('/session/1234567890/appium/device/long_press_keycode'),
             body='{"value": "86"}',
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": "86"}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": "86"}')
         driver.long_press_keycode(86)
         d = get_httpretty_request_body((httpretty.last_request()))
         assert d.get('keycode', d['args'][0]['keycode']) == 86
@@ -60,9 +56,7 @@ class TestWebDriverKeyboardAndroid(object):
         httpretty.register_uri(
             httpretty.POST, appium_command('/session/1234567890/appium/device/keyevent'), body='{keycode: 86}'
         )
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": "86"}'
-        )
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": "86"}')
         assert isinstance(driver.keyevent(86), WebDriver)
 
     @httpretty.activate

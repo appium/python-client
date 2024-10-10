@@ -1,0 +1,31 @@
+line-length = 128
+indent-width = 4
+
+[lint]
+select = [
+    # Pyflakes
+    "F",
+    # Pylint
+    "PL",
+    # isort
+    "I",
+]
+
+[lint.per-file-ignores]
+"__init__.py" = [
+    # unused-import
+    "F401",
+    # import violations
+    "E402"
+]
+"**/{test,docs}/*" = [
+    # https://docs.astral.sh/ruff/rules/magic-value-comparison/
+    "PLR2004"
+]
+
+[lint.pylint]
+
+max-args = 6
+
+[format]
+quote-style = "single"

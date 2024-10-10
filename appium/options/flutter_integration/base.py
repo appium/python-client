@@ -32,7 +32,6 @@ class FlutterOptions(
     FlutterServerLaunchTimeOutOption,
     FlutterSystemPortOption,
 ):
-
     @property
     def default_capabilities(self) -> Dict:
         return {

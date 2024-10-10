@@ -25,7 +25,6 @@ from test.unit.helper.test_helper import appium_command, flutter_w3c_driver, get
 
 
 class TestFlutterActions(object):
-
     @httpretty.activate
     def test_double_click(self):
         driver = flutter_w3c_driver()

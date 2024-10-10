@@ -28,6 +28,7 @@ STATE_CHECK_INTERVAL_MS = 500
 MAIN_SCRIPT_PATH = 'appium/build/lib/main.js'
 STATUS_URL = '/status'
 DEFAULT_BASE_PATH = '/'
+HTTP_STATUS_ERROR = 400
 
 
 class AppiumServiceError(RuntimeError):
@@ -97,7 +98,7 @@ class AppiumService:
         error_msg: Optional[str] = None
         startup_failure_msg = (
             'Appium server process is unable to start. Make sure proper values have been '
-            f'provided to \'node\' ({node}), \'npm\' ({npm}) and \'main_script\' ({main_script}) '
+            f"provided to 'node' ({node}), 'npm' ({npm}) and 'main_script' ({main_script}) "
             f'method arguments.'
         )
         if timeout_ms > 0:
@@ -206,7 +207,7 @@ def is_service_listening(url: str, timeout: float = 5, custom_validator: Optiona
         # noinspection PyUnresolvedReferences
         try:
             resp = conn.request('HEAD', url)
-            if resp.status < 400:
+            if resp.status < HTTP_STATUS_ERROR:
                 return True
         except urllib3.exceptions.HTTPError:
             pass
@@ -235,9 +236,7 @@ def find_executable(executable: str) -> Optional[str]:
 def get_node() -> str:
     result = find_executable('node')
     if result is None:
-        raise AppiumServiceError(
-            'NodeJS main executable cannot be found. Make sure it is installed and present in PATH'
-        )
+        raise AppiumServiceError('NodeJS main executable cannot be found. Make sure it is installed and present in PATH')
     return result
 
 

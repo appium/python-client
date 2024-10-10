@@ -85,7 +85,7 @@ class Location(CanExecuteCommands, CanExecuteScripts):
                 - longitude (float)
                 - altitude (float)
         """
-        return self.execute(Command.GET_LOCATION)['value']  # pylint: disable=unsubscriptable-object
+        return self.execute(Command.GET_LOCATION)['value']
 
     def _add_commands(self) -> None:
         """Add location endpoints. They are not int w3c spec."""

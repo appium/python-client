@@ -38,6 +38,4 @@ class WdaLaunchTimeoutOption(SupportsCapabilities):
         Timeout to wait for WebDriverAgent to be pingable,
         after its building is finished. Defaults to 60000ms.
         """
-        self.set_capability(
-            WDA_LAUNCH_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value
-        )
+        self.set_capability(WDA_LAUNCH_TIMEOUT, int(value.total_seconds() * 1000) if isinstance(value, timedelta) else value)

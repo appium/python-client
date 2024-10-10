@@ -6,14 +6,14 @@ check-all: ## Run all lint checks and unittest
 	@bash ci.sh
 
 .PHONY: check
-check: lint format
+check: check-lint check-format
 
-.PHONY: lint
-lint:
+.PHONY: check-lint
+check-lint:
 	python -m ruff check .
 
-.PHONY: format
-format:
+.PHONY: check-format
+check-format:
 	python -m ruff format --check .
 
 .PHONY: fix

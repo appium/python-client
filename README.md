@@ -355,7 +355,7 @@ driver = webdriver.Remote(custom_executor, options=options)
 ## Development
 
 - Code Style: [PEP-0008](https://www.python.org/dev/peps/pep-0008/)
-  - Apply `black`, `isort` and `mypy` as pre commit hook
+  - Apply `ruff` as pre commit hook
   - Run `make` command for development. See `make help` output for details
 - Docstring style: [Google Style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
 - `gitchangelog` generates `CHANGELOG.rst`

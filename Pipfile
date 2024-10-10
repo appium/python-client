@@ -4,17 +4,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-black = "<25.0.0"
 httpretty = "~=1.1"
-isort = "<6.0"
-mypy = "<2.0"
 mock = "~=5.1"
 pre-commit = "~=2.21"
-pylint = "~=3.2.7"
-pylint-quotes = "~=0.2.3"
 pytest = "~=8.3"
 pytest-cov = "~=5.0"
 python-dateutil = "~=2.9"
+ruff = "~=0.6.9"
 tox = "~=4.21"
 types-python-dateutil = "~=2.9"
 

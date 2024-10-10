@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=too-many-lines,too-many-public-methods,too-many-statements,no-self-use
-
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 
 from selenium import webdriver
@@ -212,11 +210,9 @@ class WebDriver(
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
     ):
         if strict_ssl is False:
-            # pylint: disable=E1101
             # noinspection PyPackageRequirements
             import urllib3
 
-            # pylint: disable=E1101
             # noinspection PyPackageRequirements
             import urllib3.exceptions
 

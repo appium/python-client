@@ -5,8 +5,6 @@
 
 [![Functional Tests](https://github.com/appium/python-client/actions/workflows/functional-test.yml/badge.svg)](https://github.com/appium/python-client/actions/workflows/functional-test.yml)
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
 An extension library for adding [WebDriver Protocol](https://www.w3.org/TR/webdriver/) and Appium commands to the Selenium Python language binding for use with the mobile testing framework [Appium](https://appium.io).
 
 ## Getting the Appium Python client

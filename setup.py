@@ -49,5 +49,5 @@ setup(
         'Topic :: Software Development :: Quality Assurance',
         'Topic :: Software Development :: Testing',
     ],
-    install_requires=['selenium @ git+https://github.com/navin772/selenium.git@appium-python'],
+    install_requires=['selenium ~= 4.12'],
 )

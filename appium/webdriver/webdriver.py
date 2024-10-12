@@ -62,6 +62,11 @@ from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
 
+class AppiumLocatorConverter:
+    def convert(self, by, value):
+        return (by, value)
+
+
 class ExtensionBase:
     """
     Used to define an extension command as driver's methods.
@@ -226,6 +231,8 @@ class WebDriver(
         super().__init__(
             command_executor=command_executor,
             options=options,
+            locator_converter=AppiumLocatorConverter(),
+            web_element_cls=MobileWebElement,
         )
 
         if hasattr(self, 'command_executor'):
@@ -346,71 +353,38 @@ class WebDriver(
         """
         return self.execute(Command.GET_STATUS)['value']
 
-    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> MobileWebElement:
-        """
-        Find an element given a AppiumBy strategy and locator
+    # def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> MobileWebElement:
+    #     """
+    #     Find an element given a AppiumBy strategy and locator
 
-        Args:
-            by: The strategy
-            value: The locator
+    #     Args:
+    #         by: The strategy
+    #         value: The locator
 
-        Usage:
-            driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
+    #     Usage:
+    #         driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
 
-        Returns:
-            `appium.webdriver.webelement.WebElement`: The found element
+    #     Returns:
+    #         `appium.webdriver.webelement.WebElement`: The found element
 
-        """
-        # We prefer to patch locators in the client code
-        # Checking current context every time a locator is accessed could significantly slow down tests
-        # Check https://github.com/appium/python-client/pull/724 before submitting any issue
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
+    #     """
+    #     return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
 
-        return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
+    # def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> Union[List[MobileWebElement], List]:
+    #     """
+    #     Find elements given a AppiumBy strategy and locator
 
-    def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> Union[List[MobileWebElement], List]:
-        """
-        Find elements given a AppiumBy strategy and locator
+    #     Args:
+    #         by: The strategy
+    #         value: The locator
 
-        Args:
-            by: The strategy
-            value: The locator
+    #     Usage:
+    #         driver.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
 
-        Usage:
-            driver.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
-
-        Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
-        """
-        # We prefer to patch locators in the client code
-        # Checking current context every time a locator is accessed could significantly slow down tests
-        # Check https://github.com/appium/python-client/pull/724 before submitting any issue
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
-
-        # Return empty list if driver returns null
-        # See https://github.com/SeleniumHQ/selenium/issues/4555
-
-        return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
+    #     Returns:
+    #         :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
+    #     """
+    #     return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
 
     def create_web_element(self, element_id: Union[int, str]) -> MobileWebElement:
         """Creates a web element with the specified element_id.

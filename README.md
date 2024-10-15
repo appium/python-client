@@ -253,7 +253,7 @@ any | `appium.options.common.base.AppiumOptions`
 `mac2` | `appium.options.mac.Mac2Options`
 `windows` | `appium.options.WindowsOptions`
 `gecko` | `appium.options.GeckoOptions`
-`flutterintegration` | `appium.options.common.flutter_integration.FlutterOptions`
+`flutterintegration` | `appium.options.flutter_integration.FlutterOptions`
 
 ## Direct Connect URLs
 

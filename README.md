@@ -235,11 +235,12 @@ def test_android_click(appium_service, android_driver_factory):
         el.click()
 ```
 
-### Available `Options`
+### Available `options`
 
-Appium Python Client has a common options class named `AppiumOptions` but available commands are minimal.
-It does not have driver/automationName specific commands.
-Available options for each automation name below will help to check what options are already provided.
+Appium Python Client has a common options class named `AppiumOptions` but the available commands are minimal.
+It does not have driver/automationName specific commands unless adding commands with `add_command` method.
+
+Available options for each automation name below will help to check what options are already defined.
 Please use proper options for your automaiton usage.
 
 `automationName` | Package path

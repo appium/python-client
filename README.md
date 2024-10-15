@@ -246,14 +246,14 @@ Please use proper options for your automaiton usage.
 `automationName` | Package path
 |:---|:-----|
 any | `appium.options.common.base.AppiumOptions`
-`uiautomator2` | `appium.options.common.android.base.Uiautomator2Options`
-`espresso` | `appium.options.common.android.base.EspressoOptions`
-`xcuitest` | `appium.options.common.ios.base.XCUITestOptions`
-`mac2` | `appium.options.common.mac.base.Mac2Options`
-`windows` | `appium.options.common.windows.base.WindowsOptions`
-`gecko` | `appium.options.common.gecko.base.GeckoOptions`
-`safari` | `appium.options.common.safari.base.SafariOptions`
-`flutterintegration` | `appium.options.common.flutter_integration.base.FlutterOptions`
+`uiautomator2` | `appium.options.android.Uiautomator2Options`
+`espresso` | `appium.options.android.EspressoOptions`
+`xcuitest` | `appium.options.ios.XCUITestOptions`
+`safari` | `appium.options.ios.SafariOptions`
+`mac2` | `appium.options.mac.Mac2Options`
+`windows` | `appium.options.WindowsOptions`
+`gecko` | `appium.options.GeckoOptions`
+`flutterintegration` | `appium.options.common.flutter_integration.FlutterOptions`
 
 ## Direct Connect URLs
 

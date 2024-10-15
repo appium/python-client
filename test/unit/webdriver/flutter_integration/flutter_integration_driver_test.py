@@ -17,7 +17,7 @@ import json
 import httpretty
 
 from appium import webdriver
-from appium.options.flutter_integration import FlutterOptions
+from appium.options.flutter_integration.base import FlutterOptions
 from test.helpers.constants import SERVER_URL_BASE
 
 

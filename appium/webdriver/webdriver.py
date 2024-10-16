@@ -353,39 +353,6 @@ class WebDriver(
         """
         return self.execute(Command.GET_STATUS)['value']
 
-    # def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> MobileWebElement:
-    #     """
-    #     Find an element given a AppiumBy strategy and locator
-
-    #     Args:
-    #         by: The strategy
-    #         value: The locator
-
-    #     Usage:
-    #         driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
-
-    #     Returns:
-    #         `appium.webdriver.webelement.WebElement`: The found element
-
-    #     """
-    #     return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
-
-    # def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> Union[List[MobileWebElement], List]:
-    #     """
-    #     Find elements given a AppiumBy strategy and locator
-
-    #     Args:
-    #         by: The strategy
-    #         value: The locator
-
-    #     Usage:
-    #         driver.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
-
-    #     Returns:
-    #         :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
-    #     """
-    #     return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
-
     def create_web_element(self, element_id: Union[int, str]) -> MobileWebElement:
         """Creates a web element with the specified element_id.
 

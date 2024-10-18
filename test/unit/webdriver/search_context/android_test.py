@@ -23,6 +23,62 @@ from test.unit.helper.test_helper import android_w3c_driver, appium_command, get
 
 class TestWebDriverAndroidSearchContext(object):
     @httpretty.activate
+    def test_find_element_by_id(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/element'),
+            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "element-id"}}',
+        )
+        el = driver.find_element(
+            by=AppiumBy.ID,
+            value='id data',
+        )
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['using'] == 'id'
+        assert d['value'] == 'id data'
+        assert isinstance(el, MobileWebElement)
+
+    @httpretty.activate
+    def test_find_elements_by_id(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/elements'),
+            body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "element-id1"}, '
+            '{"element-6066-11e4-a52e-4f735466cecf": "element-id2"}]}',
+        )
+        els = driver.find_elements(
+            by=AppiumBy.ID,
+            value='id data',
+        )
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['using'] == 'id'
+        assert d['value'] == 'id data'
+        assert isinstance(els[0], MobileWebElement)
+
+    @httpretty.activate
+    def test_find_child_element_by_id(self):
+        driver = android_w3c_driver()
+        element = MobileWebElement(driver, 'element_id')
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/element/element_id/element'),
+            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "child-element-id"}}',
+        )
+        el = element.find_element(
+            by=AppiumBy.ID,
+            value='id data',
+        )
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['using'] == 'id'
+        assert d['value'] == 'id data'
+        assert isinstance(el, MobileWebElement)
+
+    @httpretty.activate
     def test_find_element_by_android_data_matcher(self):
         driver = android_w3c_driver()
         httpretty.register_uri(

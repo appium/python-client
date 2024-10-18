@@ -58,8 +58,6 @@ class Context(CanExecuteCommands):
         return self.current_context
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.CONTEXTS] = ('GET', '/session/$sessionId/contexts')
-        commands[Command.GET_CURRENT_CONTEXT] = ('GET', '/session/$sessionId/context')
-        commands[Command.SWITCH_TO_CONTEXT] = ('POST', '/session/$sessionId/context')
+        self.command_executor.extra_commands[Command.CONTEXTS] = ('GET', '/session/$sessionId/contexts')
+        self.command_executor.extra_commands[Command.GET_CURRENT_CONTEXT] = ('GET', '/session/$sessionId/context')
+        self.command_executor.extra_commands[Command.SWITCH_TO_CONTEXT] = ('POST', '/session/$sessionId/context')

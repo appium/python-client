@@ -235,6 +235,26 @@ def test_android_click(appium_service, android_driver_factory):
         el.click()
 ```
 
+### Available `options`
+
+Appium Python Client has a common options class named `AppiumOptions` but the available commands are minimal.
+It does not have driver/automationName specific commands unless adding commands with `add_command` method.
+
+Available options for each automation name below will help to check what options are already defined.
+Please use proper options for your automaiton usage.
+
+`automationName` | Package path
+|:---|:-----|
+any | `appium.options.common.base.AppiumOptions`
+`uiautomator2` | `appium.options.android.Uiautomator2Options`
+`espresso` | `appium.options.android.EspressoOptions`
+`xcuitest` | `appium.options.ios.XCUITestOptions`
+`safari` | `appium.options.ios.SafariOptions`
+`mac2` | `appium.options.mac.Mac2Options`
+`windows` | `appium.options.WindowsOptions`
+`gecko` | `appium.options.GeckoOptions`
+`flutterintegration` | `appium.options.flutter_integration.FlutterOptions`
+
 ## Direct Connect URLs
 
 If your Selenium/Appium server decorates the new session capabilities response with the following keys:

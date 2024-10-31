@@ -105,8 +105,6 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
         return self
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.PULL_FILE] = ('POST', '/session/$sessionId/appium/device/pull_file')
-        commands[Command.PULL_FOLDER] = ('POST', '/session/$sessionId/appium/device/pull_folder')
-        commands[Command.PUSH_FILE] = ('POST', '/session/$sessionId/appium/device/push_file')
+        self.command_executor.add_command(Command.PULL_FILE, 'POST', '/session/$sessionId/appium/device/pull_file')
+        self.command_executor.add_command(Command.PULL_FOLDER, 'POST', '/session/$sessionId/appium/device/pull_folder')
+        self.command_executor.add_command(Command.PUSH_FILE, 'POST', '/session/$sessionId/appium/device/push_file')

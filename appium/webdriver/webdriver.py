@@ -260,8 +260,7 @@ class WebDriver(
             # add a new method named 'instance.method_name()' and call it
             setattr(WebDriver, method_name, getattr(instance, method_name))
             method, url_cmd = instance.add_command()
-            # noinspection PyProtectedMember
-            self.command_executor._commands[method_name] = (method.upper(), url_cmd)  # type: ignore
+            self.command_executor.add_command(method_name, method.upper(), url_cmd)
 
     def delete_extensions(self) -> None:
         """Delete extensions added in the class with 'setattr'"""
@@ -440,31 +439,29 @@ class WebDriver(
                 if get_atter:
                     get_atter(self)
 
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-
-        commands[Command.GET_STATUS] = ('GET', '/status')
+        self.command_executor.add_command(Command.GET_STATUS, 'GET', '/status')
 
         # FIXME: remove after a while as MJSONWP
-        commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
-        commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
+        self.command_executor.add_command(Command.TOUCH_ACTION, 'POST', '/session/$sessionId/touch/perform')
+        self.command_executor.add_command(Command.MULTI_ACTION, 'POST', '/session/$sessionId/touch/multi/perform')
 
         # TODO Move commands for element to webelement
-        commands[Command.CLEAR] = ('POST', '/session/$sessionId/element/$id/clear')
-        commands[Command.LOCATION_IN_VIEW] = (
+        self.command_executor.add_command(Command.CLEAR, 'POST', '/session/$sessionId/element/$id/clear')
+        self.command_executor.add_command(
+            Command.LOCATION_IN_VIEW,
             'GET',
             '/session/$sessionId/element/$id/location_in_view',
         )
 
         # MJSONWP for Selenium v4
-        commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', '/session/$sessionId/element/$id/displayed')
-        commands[Command.GET_CAPABILITIES] = ('GET', '/session/$sessionId')
+        self.command_executor.add_command(Command.IS_ELEMENT_DISPLAYED, 'GET', '/session/$sessionId/element/$id/displayed')
+        self.command_executor.add_command(Command.GET_CAPABILITIES, 'GET', '/session/$sessionId')
 
-        commands[Command.GET_SCREEN_ORIENTATION] = ('GET', '/session/$sessionId/orientation')
-        commands[Command.SET_SCREEN_ORIENTATION] = ('POST', '/session/$sessionId/orientation')
+        self.command_executor.add_command(Command.GET_SCREEN_ORIENTATION, 'GET', '/session/$sessionId/orientation')
+        self.command_executor.add_command(Command.SET_SCREEN_ORIENTATION, 'POST', '/session/$sessionId/orientation')
 
         # override for Appium 1.x
         # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`
         # FIXME: remove after a while
-        commands[Command.GET_LOG] = ('POST', '/session/$sessionId/log')
-        commands[Command.GET_AVAILABLE_LOG_TYPES] = ('GET', '/session/$sessionId/log/types')
+        self.command_executor.add_command(Command.GET_LOG, 'POST', '/session/$sessionId/log')
+        self.command_executor.add_command(Command.GET_AVAILABLE_LOG_TYPES, 'GET', '/session/$sessionId/log/types')

@@ -195,13 +195,13 @@ class ScreenRecord(CanExecuteCommands):
         return self.execute(Command.STOP_RECORDING_SCREEN, {'options': options})['value']
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember
-        commands = self.command_executor._commands
-        commands[Command.START_RECORDING_SCREEN] = (
+        self.command_executor.add_command(
+            Command.START_RECORDING_SCREEN,
             'POST',
             '/session/$sessionId/appium/start_recording_screen',
         )
-        commands[Command.STOP_RECORDING_SCREEN] = (
+        self.command_executor.add_command(
+            Command.STOP_RECORDING_SCREEN,
             'POST',
             '/session/$sessionId/appium/stop_recording_screen',
         )

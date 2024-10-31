@@ -51,9 +51,8 @@ class SystemBars(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPres
             return self.mark_extension_absence(ext_name).execute(Command.GET_SYSTEM_BARS)['value']
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.GET_SYSTEM_BARS] = (
+        self.command_executor.add_command(
+            Command.GET_SYSTEM_BARS,
             'GET',
             '/session/$sessionId/appium/device/system_bars',
         )

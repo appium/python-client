@@ -57,6 +57,4 @@ class ExecuteDriver(CanExecuteCommands):
         return Result(response)
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.EXECUTE_DRIVER] = ('POST', '/session/$sessionId/appium/execute_driver')
+        self.command_executor.add_command(Command.EXECUTE_DRIVER, 'POST', '/session/$sessionId/appium/execute_driver')

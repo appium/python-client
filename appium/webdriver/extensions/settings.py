@@ -45,7 +45,5 @@ class Settings(CanExecuteCommands):
         return self
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.GET_SETTINGS] = ('GET', '/session/$sessionId/appium/settings')
-        commands[Command.UPDATE_SETTINGS] = ('POST', '/session/$sessionId/appium/settings')
+        self.command_executor.add_command(Command.GET_SETTINGS, 'GET', '/session/$sessionId/appium/settings')
+        self.command_executor.add_command(Command.UPDATE_SETTINGS, 'POST', '/session/$sessionId/appium/settings')

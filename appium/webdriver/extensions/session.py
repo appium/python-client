@@ -38,6 +38,4 @@ class Session(CanExecuteCommands):
             return {}
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.GET_SESSION] = ('GET', '/session/$sessionId')
+        self.command_executor.add_command(Command.GET_SESSION, 'GET', '/session/$sessionId')

@@ -132,18 +132,18 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
         return self
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.LOCK] = ('POST', '/session/$sessionId/appium/device/lock')
-        commands[Command.UNLOCK] = ('POST', '/session/$sessionId/appium/device/unlock')
-        commands[Command.IS_LOCKED] = ('POST', '/session/$sessionId/appium/device/is_locked')
-        commands[Command.SHAKE] = ('POST', '/session/$sessionId/appium/device/shake')
-        commands[Command.TOUCH_ID] = ('POST', '/session/$sessionId/appium/simulator/touch_id')
-        commands[Command.TOGGLE_TOUCH_ID_ENROLLMENT] = (
+        self.command_executor.add_command(Command.LOCK, 'POST', '/session/$sessionId/appium/device/lock')
+        self.command_executor.add_command(Command.UNLOCK, 'POST', '/session/$sessionId/appium/device/unlock')
+        self.command_executor.add_command(Command.IS_LOCKED, 'POST', '/session/$sessionId/appium/device/is_locked')
+        self.command_executor.add_command(Command.SHAKE, 'POST', '/session/$sessionId/appium/device/shake')
+        self.command_executor.add_command(Command.TOUCH_ID, 'POST', '/session/$sessionId/appium/simulator/touch_id')
+        self.command_executor.add_command(
+            Command.TOGGLE_TOUCH_ID_ENROLLMENT,
             'POST',
             '/session/$sessionId/appium/simulator/toggle_touch_id_enrollment',
         )
-        commands[Command.FINGER_PRINT] = (
+        self.command_executor.add_command(
+            Command.FINGER_PRINT,
             'POST',
             '/session/$sessionId/appium/device/finger_print',
         )

@@ -73,13 +73,13 @@ class Performance(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPre
             return self.mark_extension_absence(ext_name).execute(Command.GET_PERFORMANCE_DATA_TYPES)['value']
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.GET_PERFORMANCE_DATA] = (
+        self.command_executor.add_command(
+            Command.GET_PERFORMANCE_DATA,
             'POST',
             '/session/$sessionId/appium/getPerformanceData',
         )
-        commands[Command.GET_PERFORMANCE_DATA_TYPES] = (
+        self.command_executor.add_command(
+            Command.GET_PERFORMANCE_DATA_TYPES,
             'POST',
             '/session/$sessionId/appium/performanceData/types',
         )

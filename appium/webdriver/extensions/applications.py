@@ -248,25 +248,27 @@ class Applications(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPr
             return self.mark_extension_absence(ext_name).execute(Command.GET_APP_STRINGS, data)['value']
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.BACKGROUND] = ('POST', '/session/$sessionId/appium/app/background')
-        commands[Command.IS_APP_INSTALLED] = (
+        self.command_executor.add_command(Command.BACKGROUND, 'POST', '/session/$sessionId/appium/app/background')
+        self.command_executor.add_command(
+            Command.IS_APP_INSTALLED,
             'POST',
             '/session/$sessionId/appium/device/app_installed',
         )
-        commands[Command.INSTALL_APP] = ('POST', '/session/$sessionId/appium/device/install_app')
-        commands[Command.REMOVE_APP] = ('POST', '/session/$sessionId/appium/device/remove_app')
-        commands[Command.TERMINATE_APP] = (
+        self.command_executor.add_command(Command.INSTALL_APP, 'POST', '/session/$sessionId/appium/device/install_app')
+        self.command_executor.add_command(Command.REMOVE_APP, 'POST', '/session/$sessionId/appium/device/remove_app')
+        self.command_executor.add_command(
+            Command.TERMINATE_APP,
             'POST',
             '/session/$sessionId/appium/device/terminate_app',
         )
-        commands[Command.ACTIVATE_APP] = (
+        self.command_executor.add_command(
+            Command.ACTIVATE_APP,
             'POST',
             '/session/$sessionId/appium/device/activate_app',
         )
-        commands[Command.QUERY_APP_STATE] = (
+        self.command_executor.add_command(
+            Command.QUERY_APP_STATE,
             'POST',
             '/session/$sessionId/appium/device/app_state',
         )
-        commands[Command.GET_APP_STRINGS] = ('POST', '/session/$sessionId/appium/app/strings')
+        self.command_executor.add_command(Command.GET_APP_STRINGS, 'POST', '/session/$sessionId/appium/app/strings')

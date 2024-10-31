@@ -157,18 +157,19 @@ class Network(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresenc
         return self
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.TOGGLE_WIFI] = ('POST', '/session/$sessionId/appium/device/toggle_wifi')
-        commands[Command.GET_NETWORK_CONNECTION] = (
+        self.command_executor.add_command(Command.TOGGLE_WIFI, 'POST', '/session/$sessionId/appium/device/toggle_wifi')
+        self.command_executor.add_command(
+            Command.GET_NETWORK_CONNECTION,
             'GET',
             '/session/$sessionId/network_connection',
         )
-        commands[Command.SET_NETWORK_CONNECTION] = (
+        self.command_executor.add_command(
+            Command.SET_NETWORK_CONNECTION,
             'POST',
             '/session/$sessionId/network_connection',
         )
-        commands[Command.SET_NETWORK_SPEED] = (
+        self.command_executor.add_command(
+            Command.SET_NETWORK_SPEED,
             'POST',
             '/session/$sessionId/appium/device/network_speed',
         )

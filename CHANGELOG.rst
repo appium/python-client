@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+v4.2.1 (2024-10-31)
+-------------------
+- Bump 4.2.1. [Kazuaki Matsuo]
+- Update changelog for 4.1.1. [Kazuaki Matsuo]
+
+
 v4.1.1 (2024-10-31)
 -------------------
 

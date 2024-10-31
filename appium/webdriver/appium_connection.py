@@ -35,7 +35,7 @@ class AppiumConnection(RemoteConnection):
     def __init__(
         self,
         remote_server_addr: str,
-        keep_alive: Optional[bool] = True,
+        keep_alive: Optional[bool] = False,
         ignore_proxy: Optional[bool] = False,
         init_args_for_pool_manager: Union[Dict[str, Any], None] = None,
         client_config: Optional[ClientConfig] = None,

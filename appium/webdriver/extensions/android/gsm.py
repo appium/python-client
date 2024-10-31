@@ -143,10 +143,6 @@ class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
 
     def _add_commands(self) -> None:
         # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.MAKE_GSM_CALL] = ('POST', '/session/$sessionId/appium/device/gsm_call')
-        commands[Command.SET_GSM_SIGNAL] = (
-            'POST',
-            '/session/$sessionId/appium/device/gsm_signal',
-        )
-        commands[Command.SET_GSM_VOICE] = ('POST', '/session/$sessionId/appium/device/gsm_voice')
+        self.command_executor.add_command(Command.MAKE_GSM_CALL, 'POST', '/session/$sessionId/appium/device/gsm_call')
+        self.command_executor.add_command(Command.SET_GSM_SIGNAL, 'POST', '/session/$sessionId/appium/device/gsm_signal')
+        self.command_executor.add_command(Command.SET_GSM_VOICE, 'POST', '/session/$sessionId/appium/device/gsm_voice')

@@ -217,10 +217,11 @@ class WebDriver(
         client_config: Optional[ClientConfig] = None,
     ):
         if isinstance(command_executor, str):
-            command_executor = AppiumConnection(command_executor, keep_alive=keep_alive)
-
-        if client_config is None:
-            client_config = ClientConfig(remote_server_addr=command_executor, ignore_certificates=not strict_ssl)
+            client_config = client_config or ClientConfig(
+                remote_server_addr=command_executor, keep_alive=keep_alive, ignore_certificates=not strict_ssl
+            )
+            client_config.remote_server_addr = command_executor
+            command_executor = AppiumConnection(remote_server_addr=command_executor, client_config=client_config)
 
         super().__init__(
             command_executor=command_executor,

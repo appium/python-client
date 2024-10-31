@@ -4,12 +4,6 @@ Changelog
 
 v4.2.1 (2024-10-31)
 -------------------
-- Bump 4.2.1. [Kazuaki Matsuo]
-- Update changelog for 4.1.1. [Kazuaki Matsuo]
-
-
-v4.1.1 (2024-10-31)
--------------------
 
 New
 ~~~
@@ -45,7 +39,7 @@ Test
 
 Other
 ~~~~~
-- Bump 4.1.1. [Kazuaki Matsuo]
+- Bump 4.2.1. [Kazuaki Matsuo]
 - Chore: allow selenium binging up to 4.25 (#1055) [Kazuaki Matsuo]
 
   * chore: allow selenium binging up to 4.25

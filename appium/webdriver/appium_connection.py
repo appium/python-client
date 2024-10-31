@@ -62,3 +62,7 @@ class AppiumConnection(RemoteConnection):
             RemoteConnection.extra_headers = {}
 
         return headers
+
+    # TODO: remove after https://github.com/SeleniumHQ/selenium/pull/14692 merge
+    def _request(self, method, url, body=None):
+        return super()._request(method, url, body=body, timeout=self._client_config.timeout)

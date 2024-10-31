@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import uuid
-from typing import TYPE_CHECKING, Any, Dict, Optional
+from typing import TYPE_CHECKING, Any, Dict, Optional, Union
 
 from selenium.webdriver.remote.client_config import ClientConfig
 from selenium.webdriver.remote.remote_connection import RemoteConnection
@@ -34,14 +34,17 @@ class AppiumConnection(RemoteConnection):
 
     def __init__(
         self,
-        remote_server_addr: Optional[str] = None,
-        keep_alive: Optional[bool] = True,
-        init_args_for_pool_manager: Optional[dict] = None,
+        remote_server_addr: str,
+        keep_alive: bool = True,
+        ignore_proxy: Optional[bool] = False,
+        init_args_for_pool_manager: Union[Dict[str, Any], None] = None,
         client_config: Optional[ClientConfig] = None,
     ):
         if client_config is None:
             client_config = ClientConfig(remote_server_addr=remote_server_addr)
         client_config.keep_alive = keep_alive
+        if ignore_proxy is not None:
+            client_config.ignore_proxy = ignore_proxy
         if init_args_for_pool_manager is not None:
             client_config.init_args_for_pool_manager = init_args_for_pool_manager
 

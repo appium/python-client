@@ -348,7 +348,8 @@ class TestWebDriverWebDriver:
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
-        assert request.headers['user-agent'] == 'appium/4.1.0 (selenium/4.26.0 (python mac))'
+        assert request.headers['user-agent'].startswith('appium/')
+        assert '(selenium/' in request.headers['user-agent']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is not None

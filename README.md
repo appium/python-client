@@ -41,7 +41,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 
 |Appium Python Client| Selenium binding| Python version |
 |----|----|----|
-|`3.0.0` - `4.2.0` |`4.12.0` - `4.25.0` | 3.8+ |
+|`3.0.0` - `4.2.1` |`4.12.0` - `4.25.0` | 3.8+ |
 |`2.10.0` - `2.11.1` |`4.1.0` - `4.11.2` | 3.7+ |
 |`2.2.0` - `2.9.0` |`4.1.0` - `4.9.0` | 3.7+ |
 |`2.0.0` - `2.1.4` |`4.0.0` | 3.7+ |

@@ -2,6 +2,191 @@ Changelog
 =========
 
 
+v4.2.1 (2024-10-31)
+-------------------
+
+New
+~~~
+- Feat: Add a separate function for service startup validation (#1038)
+  [Mykola Mokhnach]
+
+Test
+~~~~
+- Test: cleanup func tests for ios more (#1036) [Kazuaki Matsuo]
+- Test: cleanup ios (#1034) [Kazuaki Matsuo]
+- Test: cleanup tests more (#1033) [Kazuaki Matsuo]
+
+  * test: remove some functional test which is tested in unit tets
+
+  * test: remvoe location tests
+
+  * remove finger
+
+  * remove more
+
+  * more
+
+  * more
+
+  * cleanup more
+- Test: cleanup test more (#1032) [Kazuaki Matsuo]
+
+  * test: cleanup duplicated tests more
+
+  * test: just remove existing ones
+- Test: cleanup functional tests and move to unit test to CI stable
+  (#1024) [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 4.2.1. [Kazuaki Matsuo]
+- Chore: allow selenium binging up to 4.25 (#1055) [Kazuaki Matsuo]
+
+  * chore: allow selenium binging up to 4.25
+
+  * use 4.25
+
+  * fix syntax
+- Docs: update selenium compatibility matrix. [Kazuaki Matsuo]
+- Docs: add options matrix in readme (#1046) [Kazuaki Matsuo]
+
+  * docs: add options matrix in readme
+
+  * chore: revert unnecessary change
+
+  * docs: add tweak pathds
+- Chore(deps-dev): update ruff requirement from ~=0.6.9 to ~=0.7.0
+  (#1049) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.6.9...0.7.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.22 to ~=4.23 (#1048)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.22.0...4.23.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.21 to ~=4.22 (#1047)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.21.0...4.22.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore: use ruff (isort, pylint and pyflakes) instead of individual
+  isort, pylint and black libraries (#1043) [Kazuaki Matsuo]
+
+  * apply ruff format and check --fix
+
+  * add .ruff.toml
+
+  * remove unused rule
+
+  * fix pypo
+
+  * remove pylint etc
+
+  * split lint and format
+
+  * add check to call lint and format
+
+  * add fix
+
+  * modify prefix
+
+  * tweak
+- Chore(deps): update sphinx-rtd-theme requirement from <3.0 to <4.0
+  (#1040) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [sphinx-rtd-theme](https://github.com/readthedocs/sphinx_rtd_theme) to permit the latest version.
+  - [Changelog](https://github.com/readthedocs/sphinx_rtd_theme/blob/master/docs/changelog.rst)
+  - [Commits](https://github.com/readthedocs/sphinx_rtd_theme/compare/0.1.8...3.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: sphinx-rtd-theme
+    dependency-type: direct:production
+  ...
+- Chore(deps): update selenium requirement from ~=4.24 to ~=4.25 (#1026)
+  [Mykola Mokhnach, dependabot[bot], dependabot[bot]]
+
+  * chore(deps): update selenium requirement from ~=4.24 to ~=4.25
+
+  Updates the requirements on [selenium](https://github.com/SeleniumHQ/Selenium) to permit the latest version.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.24.0...selenium-4.25.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update pytest-cov requirement from ~=4.1 to ~=5.0
+  (#975) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest-cov](https://github.com/pytest-dev/pytest-cov) to permit the latest version.
+  - [Changelog](https://github.com/pytest-dev/pytest-cov/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest-cov/compare/v4.1.0...v5.0.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest-cov
+    dependency-type: direct:development
+  ...
+- Chore(deps): update sphinx requirement from <7.0,>=4.0 to >=4.0,<9.0
+  (#1009) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [sphinx](https://github.com/sphinx-doc/sphinx) to permit the latest version.
+  - [Release notes](https://github.com/sphinx-doc/sphinx/releases)
+  - [Changelog](https://github.com/sphinx-doc/sphinx/blob/master/CHANGES.rst)
+  - [Commits](https://github.com/sphinx-doc/sphinx/compare/v4.0.0...v8.0.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: sphinx
+    dependency-type: direct:production
+  ...
+- Chore: Use proper type declarations for methods returning self
+  instances (#1039) [Mykola Mokhnach]
+- Chore(deps-dev): update tox requirement from ~=4.20 to ~=4.21 (#1037)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.20.0...4.21.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore: update precommit config. [Kazuaki Matsuo]
+- Chore: update release script. [Kazuaki Matsuo]
+- Update changelog for 4.2.0. [Kazuaki Matsuo]
+
+
 v4.2.0 (2024-09-24)
 -------------------
 

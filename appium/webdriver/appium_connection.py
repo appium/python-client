@@ -26,10 +26,10 @@ if TYPE_CHECKING:
 
 PREFIX_HEADER = 'appium/'
 
+_HEADER_IDEMOTENCY_KEY = 'X-Idempotency-Key'
+
 
 class AppiumConnection(RemoteConnection):
-    _proxy_url: Optional[str]
-
     RemoteConnection.user_agent = f'{PREFIX_HEADER}{library_version()} ({RemoteConnection.user_agent})'
 
     def __init__(
@@ -57,12 +57,8 @@ class AppiumConnection(RemoteConnection):
         headers = RemoteConnection.get_remote_connection_headers(parsed_url, keep_alive=keep_alive)
         if parsed_url.path.endswith('/session'):
             # https://github.com/appium/appium-base-driver/pull/400
-            RemoteConnection.extra_headers = {'X-Idempotency-Key': str(uuid.uuid4())}
-        else:
-            RemoteConnection.extra_headers = {}
+            RemoteConnection.extra_headers = {_HEADER_IDEMOTENCY_KEY: str(uuid.uuid4())}
+        elif _HEADER_IDEMOTENCY_KEY in RemoteConnection.extra_headers:
+            del RemoteConnection.extra_headers[_HEADER_IDEMOTENCY_KEY]
 
         return headers
-
-    # TODO: remove after https://github.com/SeleniumHQ/selenium/pull/14692 merge
-    def _request(self, method, url, body=None):
-        return super()._request(method, url, body=body, timeout=self._client_config.timeout)

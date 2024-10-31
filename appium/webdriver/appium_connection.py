@@ -15,6 +15,7 @@
 import uuid
 from typing import TYPE_CHECKING, Any, Dict, Optional
 
+from selenium.webdriver.remote.client_config import ClientConfig
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.helper import library_version
@@ -30,6 +31,21 @@ class AppiumConnection(RemoteConnection):
     _proxy_url: Optional[str]
 
     RemoteConnection.user_agent = f'{PREFIX_HEADER}{library_version()} ({RemoteConnection.user_agent})'
+
+    def __init__(
+        self,
+        remote_server_addr: Optional[str] = None,
+        keep_alive: Optional[bool] = True,
+        init_args_for_pool_manager: Optional[dict] = None,
+        client_config: Optional[ClientConfig] = None,
+    ):
+        if client_config is None:
+            client_config = ClientConfig(remote_server_addr=remote_server_addr)
+        client_config.keep_alive = keep_alive
+        if init_args_for_pool_manager is not None:
+            client_config.init_args_for_pool_manager = init_args_for_pool_manager
+
+        super().__init__(client_config=client_config)
 
     @classmethod
     def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> Dict[str, Any]:

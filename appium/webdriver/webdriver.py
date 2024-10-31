@@ -22,6 +22,7 @@ from selenium.common.exceptions import (
     WebDriverException,
 )
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.client_config import ClientConfig
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 from typing_extensions import Self
@@ -60,6 +61,11 @@ from .extensions.settings import Settings
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
+
+
+class AppiumLocatorConverter:
+    def convert(self, by, value):
+        return (by, value)
 
 
 class ExtensionBase:
@@ -200,7 +206,7 @@ class WebDriver(
     Sms,
     SystemBars,
 ):
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444/wd/hub',
         keep_alive: bool = True,
@@ -208,24 +214,20 @@ class WebDriver(
         extensions: Optional[List['WebDriver']] = None,
         strict_ssl: bool = True,
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
+        client_config: Optional[ClientConfig] = None,
     ):
-        if strict_ssl is False:
-            # noinspection PyPackageRequirements
-            import urllib3
-
-            # noinspection PyPackageRequirements
-            import urllib3.exceptions
-
-            # noinspection PyUnresolvedReferences
-            AppiumConnection.set_certificate_bundle_path(None)
-            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
         if isinstance(command_executor, str):
             command_executor = AppiumConnection(command_executor, keep_alive=keep_alive)
+
+        if client_config is None:
+            client_config = ClientConfig(remote_server_addr=command_executor, ignore_certificates=not strict_ssl)
 
         super().__init__(
             command_executor=command_executor,
             options=options,
+            locator_converter=AppiumLocatorConverter(),
+            web_element_cls=MobileWebElement,
+            client_config=client_config,
         )
 
         if hasattr(self, 'command_executor'):
@@ -345,72 +347,6 @@ class WebDriver(
 
         """
         return self.execute(Command.GET_STATUS)['value']
-
-    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> MobileWebElement:
-        """
-        Find an element given a AppiumBy strategy and locator
-
-        Args:
-            by: The strategy
-            value: The locator
-
-        Usage:
-            driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
-
-        Returns:
-            `appium.webdriver.webelement.WebElement`: The found element
-
-        """
-        # We prefer to patch locators in the client code
-        # Checking current context every time a locator is accessed could significantly slow down tests
-        # Check https://github.com/appium/python-client/pull/724 before submitting any issue
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
-
-        return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
-
-    def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> Union[List[MobileWebElement], List]:
-        """
-        Find elements given a AppiumBy strategy and locator
-
-        Args:
-            by: The strategy
-            value: The locator
-
-        Usage:
-            driver.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
-
-        Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
-        """
-        # We prefer to patch locators in the client code
-        # Checking current context every time a locator is accessed could significantly slow down tests
-        # Check https://github.com/appium/python-client/pull/724 before submitting any issue
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
-
-        # Return empty list if driver returns null
-        # See https://github.com/SeleniumHQ/selenium/issues/4555
-
-        return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
 
     def create_web_element(self, element_id: Union[int, str]) -> MobileWebElement:
         """Creates a web element with the specified element_id.

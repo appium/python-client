@@ -311,7 +311,8 @@ options.set_capability('browser_name', 'safari')
 driver = webdriver.Remote('http://127.0.0.1:4723', options=options, strict_ssl=False)
 ```
 
-Since Appium Python client v5, we recommend using ClientConfig instead.
+Since Appium Python client v4.3.0, we recommend using `selenium.webdriver.remote.client_config.ClientConfig`
+instead to configure the validation.
 
 ```python
 from appium import webdriver
@@ -379,6 +380,16 @@ driver = webdriver.Remote(custom_executor, options=options)
 ```
 
 The `AppiumConnection` can set `selenium.webdriver.remote.client_config.ClientConfig` as well.
+
+## Relaxing read timeout
+
+Appium Python Client has 120 seconds read timeout on each HTTP request since v4.3.0 as selenium bindings behavior change.
+You would get 120 seconds read timeout error in some test results.
+
+1. Set `GLOBAL_DEFAULT_TIMEOUT` environment variable
+2. Configure timeout via `selenium.webdriver.remote.client_config.ClientConfig`
+    - `timeout` argument or
+    - `init_args_for_pool_manager` argument for `urllib3.PoolManager`
 
 ## Documentation
 

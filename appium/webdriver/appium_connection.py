@@ -43,7 +43,9 @@ class AppiumConnection(RemoteConnection):
 
     @classmethod
     def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> Dict[str, Any]:
-        """Override get_remote_connection_headers in RemoteConnection"""
+        """Override get_remote_connection_headers in RemoteConnection to control the extra headers.
+        This method will be used in sending a request method in this class.
+        """
         headers = RemoteConnection.get_remote_connection_headers(parsed_url, keep_alive=keep_alive)
         if parsed_url.path.endswith('/session'):
             # https://github.com/appium/appium-base-driver/pull/400

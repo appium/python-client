@@ -291,8 +291,6 @@ driver = webdriver.Remote(
 
 ## Relax SSL validation
 
-TODO: add 'ClientConfig' method way.
-
 `strict_ssl` option allows you to send commands to an invalid certificate host like a self-signed one.
 
 ```python
@@ -313,9 +311,21 @@ options.set_capability('browser_name', 'safari')
 driver = webdriver.Remote('http://127.0.0.1:4723', options=options, strict_ssl=False)
 ```
 
-## Set custom `AppiumConnection`
+Since Appium Python client v5, we recommend using ClientConfig instead.
 
-TODO: add 'ClientConfig' example as well.
+```python
+from appium import webdriver
+
+from selenium.webdriver.remote.client_config import ClientConfig
+
+client_config = ClientConfig(
+    remote_server_addr='http://127.0.0.1:4723',
+    ignore_certificates=True
+)
+driver = webdriver.Remote(client_config.remote_server_addr, options=options, client_config=client_config)
+```
+
+## Set custom `AppiumConnection`
 
 The first argument of `webdriver.Remote` can set an arbitrary command executor for you.
 
@@ -368,6 +378,7 @@ driver = webdriver.Remote(custom_executor, options=options)
 
 ```
 
+The `AppiumConnection` can set `selenium.webdriver.remote.client_config.ClientConfig` as well.
 
 ## Documentation
 

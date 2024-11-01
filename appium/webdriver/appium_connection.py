@@ -39,18 +39,22 @@ class AppiumConnection(RemoteConnection):
             - https://github.com/appium/appium-base-driver/pull/400
     """
 
-    RemoteConnection.user_agent = f'{PREFIX_HEADER}{library_version()} ({RemoteConnection.user_agent})'
+    user_agent = f'{PREFIX_HEADER}{library_version()} ({RemoteConnection.user_agent})'
 
     @classmethod
     def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> Dict[str, Any]:
         """Override get_remote_connection_headers in RemoteConnection to control the extra headers.
         This method will be used in sending a request method in this class.
         """
-        headers = RemoteConnection.get_remote_connection_headers(parsed_url, keep_alive=keep_alive)
+
         if parsed_url.path.endswith('/session'):
             # https://github.com/appium/appium-base-driver/pull/400
-            RemoteConnection.extra_headers = {_HEADER_IDEMOTENCY_KEY: str(uuid.uuid4())}
-        elif _HEADER_IDEMOTENCY_KEY in RemoteConnection.extra_headers:
-            del RemoteConnection.extra_headers[_HEADER_IDEMOTENCY_KEY]
+            if cls.extra_headers is None:
+                cls.extra_headers = {_HEADER_IDEMOTENCY_KEY: str(uuid.uuid4())}
+            else:
+                cls.extra_headers[_HEADER_IDEMOTENCY_KEY] = str(uuid.uuid4())
+        elif cls.extra_headers is not None and _HEADER_IDEMOTENCY_KEY in cls.extra_headers:
+            del cls.extra_headers[_HEADER_IDEMOTENCY_KEY]
 
-        return headers
+        base_headers = super().get_remote_connection_headers(parsed_url, keep_alive=keep_alive)
+        return base_headers if cls.extra_headers is None else {**base_headers, **cls.extra_headers}

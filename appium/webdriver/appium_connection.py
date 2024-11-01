@@ -13,9 +13,8 @@
 # limitations under the License.
 
 import uuid
-from typing import TYPE_CHECKING, Any, Dict, Optional, Union
+from typing import TYPE_CHECKING, Any, Dict
 
-from selenium.webdriver.remote.client_config import ClientConfig
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.helper import library_version
@@ -30,26 +29,17 @@ _HEADER_IDEMOTENCY_KEY = 'X-Idempotency-Key'
 
 
 class AppiumConnection(RemoteConnection):
+    """
+    A subclass of selenium.webdriver.remote.remote_connection.Remoteconnection.
+
+    The changes are:
+        - The default user agent
+        - Adds 'X-Idempotency-Key' header in a new session request to avoid proceeding
+          the same request multiple times in the Appium server side.
+            - https://github.com/appium/appium-base-driver/pull/400
+    """
+
     RemoteConnection.user_agent = f'{PREFIX_HEADER}{library_version()} ({RemoteConnection.user_agent})'
-
-    def __init__(
-        self,
-        remote_server_addr: str,
-        keep_alive: Optional[bool] = False,
-        ignore_proxy: Optional[bool] = False,
-        init_args_for_pool_manager: Union[Dict[str, Any], None] = None,
-        client_config: Optional[ClientConfig] = None,
-    ):
-        if client_config is None:
-            client_config = ClientConfig(remote_server_addr=remote_server_addr)
-        if keep_alive is not None:
-            client_config.keep_alive = keep_alive
-        if ignore_proxy is not None:
-            client_config.ignore_proxy = ignore_proxy
-        if init_args_for_pool_manager is not None:
-            client_config.init_args_for_pool_manager = init_args_for_pool_manager
-
-        super().__init__(client_config=client_config)
 
     @classmethod
     def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> Dict[str, Any]:

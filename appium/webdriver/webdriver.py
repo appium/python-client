@@ -64,7 +64,14 @@ from .webelement import WebElement as MobileWebElement
 
 
 class AppiumLocatorConverter:
-    def convert(self, by, value):
+    """A custom locator converter in Appium.
+
+    Appium supports locators which are not defined in W3C WebDriver,
+    so Appium Python client wants to keep the given locators
+    to the Appium server as-is.
+    """
+
+    def convert(self, by: str, value: str) -> tuple[str, str]:
         return (by, value)
 
 
@@ -222,6 +229,11 @@ class WebDriver(
             )
             client_config.remote_server_addr = command_executor
             command_executor = AppiumConnection(remote_server_addr=command_executor, client_config=client_config)
+        elif isinstance(command_executor, AppiumConnection) and strict_ssl is False:
+            logger.warning(
+                "Please set 'ignore_certificates' in the given 'appium.webdriver.appium_connection.AppiumConnection' or "
+                "'selenium.webdriver.remote.client_config.ClientConfig' instead. Ignoring."
+            )
 
         super().__init__(
             command_executor=command_executor,

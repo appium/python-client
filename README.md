@@ -41,6 +41,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
 
 |Appium Python Client| Selenium binding| Python version |
 |----|----|----|
+|`4.3.0`+ |`4.26.0`+ | 3.8+ |
 |`3.0.0` - `4.2.1` |`4.12.0` - `4.25.0` | 3.8+ |
 |`2.10.0` - `2.11.1` |`4.1.0` - `4.11.2` | 3.7+ |
 |`2.2.0` - `2.9.0` |`4.1.0` - `4.9.0` | 3.7+ |
@@ -383,8 +384,9 @@ The `AppiumConnection` can set `selenium.webdriver.remote.client_config.ClientCo
 
 ## Relaxing read timeout
 
-Appium Python Client has 120 seconds read timeout on each HTTP request since v4.3.0 as selenium bindings behavior change.
-You would get 120 seconds read timeout error in some test results.
+Appium Python Client has `120` seconds read timeout on each HTTP request since the version v4.3.0 because of
+the corresponding selenium bindings set the read timeout by default.
+A couple of methods below would help to configure the timeout.
 
 1. Set `GLOBAL_DEFAULT_TIMEOUT` environment variable
 2. Configure timeout via `selenium.webdriver.remote.client_config.ClientConfig`

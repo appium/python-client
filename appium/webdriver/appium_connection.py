@@ -40,6 +40,7 @@ class AppiumConnection(RemoteConnection):
     """
 
     user_agent = f'{PREFIX_HEADER}{library_version()} ({RemoteConnection.user_agent})'
+    extra_headers = {}
 
     @classmethod
     def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> Dict[str, Any]:
@@ -49,12 +50,8 @@ class AppiumConnection(RemoteConnection):
 
         if parsed_url.path.endswith('/session'):
             # https://github.com/appium/appium-base-driver/pull/400
-            if cls.extra_headers is None:
-                cls.extra_headers = {_HEADER_IDEMOTENCY_KEY: str(uuid.uuid4())}
-            else:
-                cls.extra_headers[_HEADER_IDEMOTENCY_KEY] = str(uuid.uuid4())
-        elif cls.extra_headers is not None and _HEADER_IDEMOTENCY_KEY in cls.extra_headers:
+            cls.extra_headers[_HEADER_IDEMOTENCY_KEY] = str(uuid.uuid4())
+        elif _HEADER_IDEMOTENCY_KEY in cls.extra_headers:
             del cls.extra_headers[_HEADER_IDEMOTENCY_KEY]
 
-        base_headers = super().get_remote_connection_headers(parsed_url, keep_alive=keep_alive)
-        return base_headers if cls.extra_headers is None else {**base_headers, **cls.extra_headers}
+        return {**super().get_remote_connection_headers(parsed_url, keep_alive=keep_alive), **cls.extra_headers}

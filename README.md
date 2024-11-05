@@ -313,7 +313,7 @@ driver = webdriver.Remote('http://127.0.0.1:4723', options=options, strict_ssl=F
 ```
 
 Since Appium Python client v4.3.0, we recommend using `selenium.webdriver.remote.client_config.ClientConfig`
-instead to configure the validation.
+instead of giving `strict_ssl` as an argument of `webdriver.Remote` below to configure the validation.
 
 ```python
 from appium import webdriver

@@ -10,7 +10,7 @@ pre-commit = "~=3.5"
 pytest = "~=8.3"
 pytest-cov = "~=5.0"
 python-dateutil = "~=2.9"
-ruff = "~=0.7.2"
+ruff = "~=0.7.3"
 tox = "~=4.23"
 types-python-dateutil = "~=2.9"
 

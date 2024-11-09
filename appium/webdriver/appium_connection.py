@@ -28,7 +28,7 @@ PREFIX_HEADER = 'appium/'
 _HEADER_IDEMOTENCY_KEY = 'X-Idempotency-Key'
 
 
-def _get_new_headers(key: str, headers: dict[str, str]) -> dict[str, str]:
+def _get_new_headers(key: str, headers: Dict[str, str]) -> Dict[str, str]:
     """Return a new dictionary of heafers without the given key.
     The key match is case-insensitive."""
     new_headers = dict()

@@ -25,20 +25,14 @@ if TYPE_CHECKING:
 
 PREFIX_HEADER = 'appium/'
 
-_HEADER_IDEMOTENCY_KEY = 'X-Idempotency-Key'
+HEADER_IDEMOTENCY_KEY = 'X-Idempotency-Key'
 
 
 def _get_new_headers(key: str, headers: Dict[str, str]) -> Dict[str, str]:
     """Return a new dictionary of heafers without the given key.
     The key match is case-insensitive."""
-    new_headers = dict()
-
     key = key.lower()
-    for k, v in headers.items():
-        if k.lower() == key:
-            continue
-        new_headers[k] = v
-    return new_headers
+    return {k: v for k, v in headers.items() if k.lower() != key}
 
 
 class AppiumConnection(RemoteConnection):
@@ -63,8 +57,8 @@ class AppiumConnection(RemoteConnection):
 
         if parsed_url.path.endswith('/session'):
             # https://github.com/appium/appium-base-driver/pull/400
-            cls.extra_headers[_HEADER_IDEMOTENCY_KEY] = str(uuid.uuid4())
+            cls.extra_headers[HEADER_IDEMOTENCY_KEY] = str(uuid.uuid4())
         else:
-            cls.extra_headers = _get_new_headers(_HEADER_IDEMOTENCY_KEY, cls.extra_headers)
+            cls.extra_headers = _get_new_headers(HEADER_IDEMOTENCY_KEY, cls.extra_headers)
 
         return {**super().get_remote_connection_headers(parsed_url, keep_alive=keep_alive), **cls.extra_headers}

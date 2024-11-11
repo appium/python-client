@@ -58,21 +58,10 @@ from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.session import Session
 from .extensions.settings import Settings
+from .locator_converter import AppiumLocatorConverter
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
-
-
-class AppiumLocatorConverter:
-    """A custom locator converter in Appium.
-
-    Appium supports locators which are not defined in W3C WebDriver,
-    so Appium Python client wants to keep the given locators
-    to the Appium server as-is.
-    """
-
-    def convert(self, by: str, value: str) -> Tuple[str, str]:
-        return (by, value)
 
 
 class ExtensionBase:

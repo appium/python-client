@@ -31,8 +31,8 @@ HEADER_IDEMOTENCY_KEY = 'X-Idempotency-Key'
 def _get_new_headers(key: str, headers: Dict[str, str]) -> Dict[str, str]:
     """Return a new dictionary of heafers without the given key.
     The key match is case-insensitive."""
-    key = key.lower()
-    return {k: v for k, v in headers.items() if k.lower() != key}
+    lower_key = key.lower()
+    return {k: v for k, v in headers.items() if k.lower() != lower_key}
 
 
 class AppiumConnection(RemoteConnection):

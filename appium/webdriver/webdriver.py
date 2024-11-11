@@ -22,6 +22,7 @@ from selenium.common.exceptions import (
     WebDriverException,
 )
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.client_config import ClientConfig
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 from typing_extensions import Self
@@ -57,6 +58,7 @@ from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.session import Session
 from .extensions.settings import Settings
+from .locator_converter import AppiumLocatorConverter
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
@@ -200,7 +202,7 @@ class WebDriver(
     Sms,
     SystemBars,
 ):
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444/wd/hub',
         keep_alive: bool = True,
@@ -208,24 +210,26 @@ class WebDriver(
         extensions: Optional[List['WebDriver']] = None,
         strict_ssl: bool = True,
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
+        client_config: Optional[ClientConfig] = None,
     ):
-        if strict_ssl is False:
-            # noinspection PyPackageRequirements
-            import urllib3
-
-            # noinspection PyPackageRequirements
-            import urllib3.exceptions
-
-            # noinspection PyUnresolvedReferences
-            AppiumConnection.set_certificate_bundle_path(None)
-            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
         if isinstance(command_executor, str):
-            command_executor = AppiumConnection(command_executor, keep_alive=keep_alive)
+            client_config = client_config or ClientConfig(
+                remote_server_addr=command_executor, keep_alive=keep_alive, ignore_certificates=not strict_ssl
+            )
+            client_config.remote_server_addr = command_executor
+            command_executor = AppiumConnection(remote_server_addr=command_executor, client_config=client_config)
+        elif isinstance(command_executor, AppiumConnection) and strict_ssl is False:
+            logger.warning(
+                "Please set 'ignore_certificates' in the given 'appium.webdriver.appium_connection.AppiumConnection' or "
+                "'selenium.webdriver.remote.client_config.ClientConfig' instead. Ignoring."
+            )
 
         super().__init__(
             command_executor=command_executor,
             options=options,
+            locator_converter=AppiumLocatorConverter(),
+            web_element_cls=MobileWebElement,
+            client_config=client_config,
         )
 
         if hasattr(self, 'command_executor'):
@@ -257,8 +261,7 @@ class WebDriver(
             # add a new method named 'instance.method_name()' and call it
             setattr(WebDriver, method_name, getattr(instance, method_name))
             method, url_cmd = instance.add_command()
-            # noinspection PyProtectedMember
-            self.command_executor._commands[method_name] = (method.upper(), url_cmd)  # type: ignore
+            self.command_executor.add_command(method_name, method.upper(), url_cmd)
 
     def delete_extensions(self) -> None:
         """Delete extensions added in the class with 'setattr'"""
@@ -345,72 +348,6 @@ class WebDriver(
 
         """
         return self.execute(Command.GET_STATUS)['value']
-
-    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> MobileWebElement:
-        """
-        Find an element given a AppiumBy strategy and locator
-
-        Args:
-            by: The strategy
-            value: The locator
-
-        Usage:
-            driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
-
-        Returns:
-            `appium.webdriver.webelement.WebElement`: The found element
-
-        """
-        # We prefer to patch locators in the client code
-        # Checking current context every time a locator is accessed could significantly slow down tests
-        # Check https://github.com/appium/python-client/pull/724 before submitting any issue
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
-
-        return self.execute(RemoteCommand.FIND_ELEMENT, {'using': by, 'value': value})['value']
-
-    def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> Union[List[MobileWebElement], List]:
-        """
-        Find elements given a AppiumBy strategy and locator
-
-        Args:
-            by: The strategy
-            value: The locator
-
-        Usage:
-            driver.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value='accessibility_id')
-
-        Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`: The found elements
-        """
-        # We prefer to patch locators in the client code
-        # Checking current context every time a locator is accessed could significantly slow down tests
-        # Check https://github.com/appium/python-client/pull/724 before submitting any issue
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
-
-        # Return empty list if driver returns null
-        # See https://github.com/SeleniumHQ/selenium/issues/4555
-
-        return self.execute(RemoteCommand.FIND_ELEMENTS, {'using': by, 'value': value})['value'] or []
 
     def create_web_element(self, element_id: Union[int, str]) -> MobileWebElement:
         """Creates a web element with the specified element_id.
@@ -503,31 +440,29 @@ class WebDriver(
                 if get_atter:
                     get_atter(self)
 
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-
-        commands[Command.GET_STATUS] = ('GET', '/status')
+        self.command_executor.add_command(Command.GET_STATUS, 'GET', '/status')
 
         # FIXME: remove after a while as MJSONWP
-        commands[Command.TOUCH_ACTION] = ('POST', '/session/$sessionId/touch/perform')
-        commands[Command.MULTI_ACTION] = ('POST', '/session/$sessionId/touch/multi/perform')
+        self.command_executor.add_command(Command.TOUCH_ACTION, 'POST', '/session/$sessionId/touch/perform')
+        self.command_executor.add_command(Command.MULTI_ACTION, 'POST', '/session/$sessionId/touch/multi/perform')
 
         # TODO Move commands for element to webelement
-        commands[Command.CLEAR] = ('POST', '/session/$sessionId/element/$id/clear')
-        commands[Command.LOCATION_IN_VIEW] = (
+        self.command_executor.add_command(Command.CLEAR, 'POST', '/session/$sessionId/element/$id/clear')
+        self.command_executor.add_command(
+            Command.LOCATION_IN_VIEW,
             'GET',
             '/session/$sessionId/element/$id/location_in_view',
         )
 
         # MJSONWP for Selenium v4
-        commands[Command.IS_ELEMENT_DISPLAYED] = ('GET', '/session/$sessionId/element/$id/displayed')
-        commands[Command.GET_CAPABILITIES] = ('GET', '/session/$sessionId')
+        self.command_executor.add_command(Command.IS_ELEMENT_DISPLAYED, 'GET', '/session/$sessionId/element/$id/displayed')
+        self.command_executor.add_command(Command.GET_CAPABILITIES, 'GET', '/session/$sessionId')
 
-        commands[Command.GET_SCREEN_ORIENTATION] = ('GET', '/session/$sessionId/orientation')
-        commands[Command.SET_SCREEN_ORIENTATION] = ('POST', '/session/$sessionId/orientation')
+        self.command_executor.add_command(Command.GET_SCREEN_ORIENTATION, 'GET', '/session/$sessionId/orientation')
+        self.command_executor.add_command(Command.SET_SCREEN_ORIENTATION, 'POST', '/session/$sessionId/orientation')
 
         # override for Appium 1.x
         # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`
         # FIXME: remove after a while
-        commands[Command.GET_LOG] = ('POST', '/session/$sessionId/log')
-        commands[Command.GET_AVAILABLE_LOG_TYPES] = ('GET', '/session/$sessionId/log/types')
+        self.command_executor.add_command(Command.GET_LOG, 'POST', '/session/$sessionId/log')
+        self.command_executor.add_command(Command.GET_AVAILABLE_LOG_TYPES, 'GET', '/session/$sessionId/log/types')

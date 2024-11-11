@@ -56,9 +56,8 @@ class Activities(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPres
             return False
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.GET_CURRENT_ACTIVITY] = (
+        self.command_executor.add_command(
+            Command.GET_CURRENT_ACTIVITY,
             'GET',
             '/session/$sessionId/appium/device/current_activity',
         )

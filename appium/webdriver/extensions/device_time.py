@@ -63,13 +63,13 @@ class DeviceTime(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPres
             return self.mark_extension_absence(ext_name).execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.GET_DEVICE_TIME_GET] = (
+        self.command_executor.add_command(
+            Command.GET_DEVICE_TIME_GET,
             'GET',
             '/session/$sessionId/appium/device/system_time',
         )
-        commands[Command.GET_DEVICE_TIME_POST] = (
+        self.command_executor.add_command(
+            Command.GET_DEVICE_TIME_POST,
             'POST',
             '/session/$sessionId/appium/device/system_time',
         )

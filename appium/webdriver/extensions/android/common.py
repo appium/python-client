@@ -47,13 +47,13 @@ class Common(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence
             return self.mark_extension_absence(ext_name).execute(Command.GET_CURRENT_PACKAGE)['value']
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.GET_CURRENT_PACKAGE] = (
+        self.command_executor.add_command(
+            Command.GET_CURRENT_PACKAGE,
             'GET',
             '/session/$sessionId/appium/device/current_package',
         )
-        commands[Command.OPEN_NOTIFICATIONS] = (
+        self.command_executor.add_command(
+            Command.OPEN_NOTIFICATIONS,
             'POST',
             '/session/$sessionId/appium/device/open_notifications',
         )

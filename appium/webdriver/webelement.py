@@ -12,14 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Callable, Dict, List, Optional, Union
+from typing import Callable, Dict, Optional, Union
 
 from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
 from typing_extensions import Self
-
-from appium.webdriver.common.appiumby import AppiumBy
 
 from .mobilecommand import MobileCommand as Command
 
@@ -79,70 +77,6 @@ class WebElement(SeleniumWebElement):
         Override for Appium
         """
         return self._execute(Command.IS_ELEMENT_DISPLAYED)['value']
-
-    def find_element(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> 'WebElement':
-        """Find an element given a AppiumBy strategy and locator
-
-        Override for Appium
-
-        Prefer the find_element_by_* methods when possible.
-
-        Args:
-            by: The strategy
-            value: The locator
-
-        Usage:
-            element = element.find_element(AppiumBy.ID, 'foo')
-
-        Returns:
-            `appium.webdriver.webelement.WebElement`
-        """
-        # We prefer to patch locators in the client code
-        # Checking current context every time a locator is accessed could significantly slow down tests
-        # Check https://github.com/appium/python-client/pull/724 before submitting any issue
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
-
-        return self._execute(RemoteCommand.FIND_CHILD_ELEMENT, {'using': by, 'value': value})['value']
-
-    def find_elements(self, by: str = AppiumBy.ID, value: Union[str, Dict, None] = None) -> List['WebElement']:
-        """Find elements given a AppiumBy strategy and locator
-
-        Args:
-            by: The strategy
-            value: The locator
-
-        Usage:
-            element = element.find_elements(AppiumBy.CLASS_NAME, 'foo')
-
-        Returns:
-            :obj:`list` of :obj:`appium.webdriver.webelement.WebElement`
-        """
-        # We prefer to patch locators in the client code
-        # Checking current context every time a locator is accessed could significantly slow down tests
-        # Check https://github.com/appium/python-client/pull/724 before submitting any issue
-        # if by == By.ID:
-        #     by = By.CSS_SELECTOR
-        #     value = '[id="%s"]' % value
-        # elif by == By.TAG_NAME:
-        #     by = By.CSS_SELECTOR
-        # elif by == By.CLASS_NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = ".%s" % value
-        # elif by == By.NAME:
-        #     by = By.CSS_SELECTOR
-        #     value = '[name="%s"]' % value
-
-        return self._execute(RemoteCommand.FIND_CHILD_ELEMENTS, {'using': by, 'value': value})['value']
 
     def clear(self) -> Self:
         """Clears text.

@@ -129,6 +129,4 @@ class ImagesComparison(CanExecuteCommands):
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.COMPARE_IMAGES] = ('POST', '/session/$sessionId/appium/compare_images')
+        self.command_executor.add_command(Command.COMPARE_IMAGES, 'POST', '/session/$sessionId/appium/compare_images')

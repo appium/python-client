@@ -95,13 +95,13 @@ class Clipboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPrese
         return self.get_clipboard(ClipboardContentType.PLAINTEXT).decode('UTF-8')
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.SET_CLIPBOARD] = (
+        self.command_executor.add_command(
+            Command.SET_CLIPBOARD,
             'POST',
             '/session/$sessionId/appium/device/set_clipboard',
         )
-        commands[Command.GET_CLIPBOARD] = (
+        self.command_executor.add_command(
+            Command.GET_CLIPBOARD,
             'POST',
             '/session/$sessionId/appium/device/get_clipboard',
         )

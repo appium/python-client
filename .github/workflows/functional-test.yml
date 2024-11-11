@@ -29,6 +29,7 @@ jobs:
       XCODE_VERSION: 15.3
       IOS_VERSION: 17.4
       IPHONE_MODEL: iPhone 15 Plus
+      GLOBAL_DEFAULT_TIMEOUT: 600
 
     steps:
     - uses: actions/checkout@v3

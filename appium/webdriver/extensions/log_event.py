@@ -64,7 +64,5 @@ class LogEvent(CanExecuteCommands):
         return self
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.GET_EVENTS] = ('POST', '/session/$sessionId/appium/events')
-        commands[Command.LOG_EVENT] = ('POST', '/session/$sessionId/appium/log_event')
+        self.command_executor.add_command(Command.GET_EVENTS, 'POST', '/session/$sessionId/appium/events')
+        self.command_executor.add_command(Command.LOG_EVENT, 'POST', '/session/$sessionId/appium/log_event')

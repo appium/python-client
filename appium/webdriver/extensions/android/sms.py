@@ -47,6 +47,4 @@ class Sms(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
         return self
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.SEND_SMS] = ('POST', '/session/$sessionId/appium/device/send_sms')
+        self.command_executor.add_command(Command.SEND_SMS, 'POST', '/session/$sessionId/appium/device/send_sms')

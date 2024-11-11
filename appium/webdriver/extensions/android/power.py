@@ -72,10 +72,9 @@ class Power(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence)
         return self
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.SET_POWER_CAPACITY] = (
+        self.command_executor.add_command(
+            Command.SET_POWER_CAPACITY,
             'POST',
             '/session/$sessionId/appium/device/power_capacity',
         )
-        commands[Command.SET_POWER_AC] = ('POST', '/session/$sessionId/appium/device/power_ac')
+        self.command_executor.add_command(Command.SET_POWER_AC, 'POST', '/session/$sessionId/appium/device/power_ac')

@@ -145,22 +145,24 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
         return self
 
     def _add_commands(self) -> None:
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.HIDE_KEYBOARD] = (
+        self.command_executor.add_command(
+            Command.HIDE_KEYBOARD,
             'POST',
             '/session/$sessionId/appium/device/hide_keyboard',
         )
-        commands[Command.IS_KEYBOARD_SHOWN] = (
+        self.command_executor.add_command(
+            Command.IS_KEYBOARD_SHOWN,
             'GET',
             '/session/$sessionId/appium/device/is_keyboard_shown',
         )
-        commands[Command.KEY_EVENT] = ('POST', '/session/$sessionId/appium/device/keyevent')
-        commands[Command.PRESS_KEYCODE] = (
+        self.command_executor.add_command(Command.KEY_EVENT, 'POST', '/session/$sessionId/appium/device/keyevent')
+        self.command_executor.add_command(
+            Command.PRESS_KEYCODE,
             'POST',
             '/session/$sessionId/appium/device/press_keycode',
         )
-        commands[Command.LONG_PRESS_KEYCODE] = (
+        self.command_executor.add_command(
+            Command.LONG_PRESS_KEYCODE,
             'POST',
             '/session/$sessionId/appium/device/long_press_keycode',
         )

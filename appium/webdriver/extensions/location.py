@@ -89,11 +89,10 @@ class Location(CanExecuteCommands, CanExecuteScripts):
 
     def _add_commands(self) -> None:
         """Add location endpoints. They are not int w3c spec."""
-        # noinspection PyProtectedMember,PyUnresolvedReferences
-        commands = self.command_executor._commands
-        commands[Command.TOGGLE_LOCATION_SERVICES] = (
+        self.command_executor.add_command(
+            Command.TOGGLE_LOCATION_SERVICES,
             'POST',
             '/session/$sessionId/appium/device/toggle_location_services',
         )
-        commands[Command.GET_LOCATION] = ('GET', '/session/$sessionId/location')
-        commands[Command.SET_LOCATION] = ('POST', '/session/$sessionId/location')
+        self.command_executor.add_command(Command.GET_LOCATION, 'GET', '/session/$sessionId/location')
+        self.command_executor.add_command(Command.SET_LOCATION, 'POST', '/session/$sessionId/location')

@@ -13,9 +13,8 @@
 # limitations under the License.
 
 import uuid
-from typing import TYPE_CHECKING, Any, Dict, Optional, Union
+from typing import TYPE_CHECKING, Any, Dict
 
-import urllib3
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from appium.common.helper import library_version
@@ -26,55 +25,40 @@ if TYPE_CHECKING:
 
 PREFIX_HEADER = 'appium/'
 
+HEADER_IDEMOTENCY_KEY = 'X-Idempotency-Key'
+
+
+def _get_new_headers(key: str, headers: Dict[str, str]) -> Dict[str, str]:
+    """Return a new dictionary of heafers without the given key.
+    The key match is case-insensitive."""
+    lower_key = key.lower()
+    return {k: v for k, v in headers.items() if k.lower() != lower_key}
+
 
 class AppiumConnection(RemoteConnection):
-    _proxy_url: Optional[str]
+    """
+    A subclass of selenium.webdriver.remote.remote_connection.Remoteconnection.
 
-    def __init__(
-        self,
-        remote_server_addr: str,
-        keep_alive: bool = False,
-        ignore_proxy: Optional[bool] = False,
-        init_args_for_pool_manager: Union[Dict[str, Any], None] = None,
-    ):
-        # Need to call before super().__init__ in order to pass arguments for the pool manager in the super.
-        self._init_args_for_pool_manager = init_args_for_pool_manager or {}
+    The changes are:
+        - The default user agent
+        - Adds 'X-Idempotency-Key' header in a new session request to avoid proceeding
+          the same request multiple times in the Appium server side.
+            - https://github.com/appium/appium-base-driver/pull/400
+    """
 
-        super().__init__(remote_server_addr, keep_alive=keep_alive, ignore_proxy=ignore_proxy)
-
-    def _get_connection_manager(self) -> Union[urllib3.PoolManager, urllib3.ProxyManager]:
-        # https://github.com/SeleniumHQ/selenium/blob/0e0194b0e52a34e7df4b841f1ed74506beea5c3e/py/selenium/webdriver/remote/remote_connection.py#L134
-        pool_manager_init_args = {'timeout': self.get_timeout()}
-
-        if self._ca_certs:
-            pool_manager_init_args['cert_reqs'] = 'CERT_REQUIRED'
-            pool_manager_init_args['ca_certs'] = self._ca_certs
-        else:
-            # This line is necessary to disable certificate verification
-            pool_manager_init_args['cert_reqs'] = 'CERT_NONE'
-
-        pool_manager_init_args.update(self._init_args_for_pool_manager)
-
-        if self._proxy_url:
-            if self._proxy_url.lower().startswith('sock'):
-                from urllib3.contrib.socks import SOCKSProxyManager
-
-                return SOCKSProxyManager(self._proxy_url, **pool_manager_init_args)
-            if self._identify_http_proxy_auth():
-                self._proxy_url, self._basic_proxy_auth = self._separate_http_proxy_auth()
-                pool_manager_init_args['proxy_headers'] = urllib3.make_headers(proxy_basic_auth=self._basic_proxy_auth)
-            return urllib3.ProxyManager(self._proxy_url, **pool_manager_init_args)
-
-        return urllib3.PoolManager(**pool_manager_init_args)
+    user_agent = f'{PREFIX_HEADER}{library_version()} ({RemoteConnection.user_agent})'
+    extra_headers = {}
 
     @classmethod
     def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> Dict[str, Any]:
-        """Override get_remote_connection_headers in RemoteConnection"""
-        headers = RemoteConnection.get_remote_connection_headers(parsed_url, keep_alive=keep_alive)
-        # e.g. appium/0.49 (selenium/3.141.0 (python linux))
-        headers['User-Agent'] = f'{PREFIX_HEADER}{library_version()} ({headers["User-Agent"]})'
+        """Override get_remote_connection_headers in RemoteConnection to control the extra headers.
+        This method will be used in sending a request method in this class.
+        """
+
         if parsed_url.path.endswith('/session'):
             # https://github.com/appium/appium-base-driver/pull/400
-            headers['X-Idempotency-Key'] = str(uuid.uuid4())
+            cls.extra_headers[HEADER_IDEMOTENCY_KEY] = str(uuid.uuid4())
+        else:
+            cls.extra_headers = _get_new_headers(HEADER_IDEMOTENCY_KEY, cls.extra_headers)
 
-        return headers
+        return {**super().get_remote_connection_headers(parsed_url, keep_alive=keep_alive), **cls.extra_headers}

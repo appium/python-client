@@ -18,7 +18,6 @@ import httpretty
 import urllib3
 from mock import patch
 
-from appium import version as appium_version
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.appium_connection import AppiumConnection
@@ -54,7 +53,8 @@ class TestWebDriverWebDriver:
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
-        assert f'appium/{appium_version.version} (selenium' in request.headers['user-agent']
+        assert request.headers['user-agent'].startswith('appium/')
+        assert '(selenium/' in request.headers['user-agent']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is not None
@@ -130,7 +130,7 @@ class TestWebDriverWebDriver:
             direct_connection=True,
         )
 
-        assert 'http://localhost2:4800/special/path/wd/hub' == driver.command_executor._url
+        assert 'http://localhost2:4800/special/path/wd/hub' == driver.command_executor._client_config.remote_server_addr
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
         assert isinstance(driver.command_executor, AppiumConnection)
 
@@ -170,7 +170,7 @@ class TestWebDriverWebDriver:
             direct_connection=True,
         )
 
-        assert SERVER_URL_BASE == driver.command_executor._url
+        assert SERVER_URL_BASE == driver.command_executor._client_config.remote_server_addr
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
         assert isinstance(driver.command_executor, AppiumConnection)
 
@@ -303,7 +303,8 @@ class TestWebDriverWebDriver:
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
-        assert f'appium/{appium_version.version} (selenium' in request.headers['user-agent']
+        assert request.headers['user-agent'].startswith('appium/')
+        assert '(selenium/' in request.headers['user-agent']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is not None
@@ -347,7 +348,8 @@ class TestWebDriverWebDriver:
 
         request = httpretty.HTTPretty.latest_requests[0]
         assert request.headers['content-type'] == 'application/json;charset=UTF-8'
-        assert f'appium/{appium_version.version} (selenium' in request.headers['user-agent']
+        assert request.headers['user-agent'].startswith('appium/')
+        assert '(selenium/' in request.headers['user-agent']
 
         request_json = json.loads(httpretty.HTTPretty.latest_requests[0].body.decode('utf-8'))
         assert request_json.get('capabilities') is not None

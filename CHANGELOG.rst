@@ -2,7 +2,115 @@ Changelog
 =========
 
 
+v4.3.0 (2024-11-12)
+-------------------
+
+New
+~~~
+- Feat: support selenium 4.26+: support ClientConfig and refactoring
+  internal implementation (#1054) [Kazuaki Matsuo]
+
+  * feat: require selenium 4.26+
+
+  * update executor command
+
+  * add more code
+
+  * tweak the init
+
+  * tweak arguments
+
+  * fix test
+
+  * apply add_command
+
+  * use add_command
+
+  * add GLOBAL_DEFAULT_TIMEOUT
+
+  * add a workaround fix
+
+  * use 4.26.1
+
+  * remove possible redundant init
+
+  * add warning
+
+  * add todo
+
+  * add description more
+
+  * use Tuple or python 3.8 and lower
+
+  * add example of ClientConfig
+
+  * add read timeout example
+
+  * update readme
+
+  * correct headers
+
+  * more timeout
+
+  * simplify a bit
+
+  * tweak the readme
+
+  * docs: update the readme
+
+  * get new headers
+
+  * fix type for py3.8
+
+  * fix review
+
+  * fix review, extract locator_converter
+
+Other
+~~~~~
+- Bump 4.3.0. [Kazuaki Matsuo]
+- Chore(deps-dev): update ruff requirement from ~=0.7.2 to ~=0.7.3
+  (#1060) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.7.2...0.7.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore: update pre-commit (#1058) [Kazuaki Matsuo]
+
+  * chore: update pre-commit
+
+  * use proper pre-commit
+- Chore(deps-dev): update ruff requirement from ~=0.7.0 to ~=0.7.2
+  (#1057) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.7.0...0.7.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Docs: update CHANGELOG.rst. [Kazuaki Matsuo]
+- Update changelog for 4.2.1. [Kazuaki Matsuo]
+
+
 v4.2.1 (2024-10-31)
+-------------------
+- Bump 4.2.1. [Kazuaki Matsuo]
+- Update changelog for 4.1.1. [Kazuaki Matsuo]
+
+
+v4.1.1 (2024-10-31)
 -------------------
 
 New
@@ -39,7 +147,7 @@ Test
 
 Other
 ~~~~~
-- Bump 4.2.1. [Kazuaki Matsuo]
+- Bump 4.1.1. [Kazuaki Matsuo]
 - Chore: allow selenium binging up to 4.25 (#1055) [Kazuaki Matsuo]
 
   * chore: allow selenium binging up to 4.25

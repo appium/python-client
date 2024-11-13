@@ -1,0 +1,37 @@
+from appium import webdriver
+from appium.webdriver.common.appiumby import AppiumBy
+import time
+
+# Appium-Server-Konfiguration
+desired_caps = {
+    "platformName": "Android",
+    "deviceName": "Android Emulator",
+    "appPackage": "com.deinspielpaket",
+    "appActivity": "com.deinspielpaket.MainActivity",
+    "noReset": True
+}
+
+driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+
+def watch_ad_for_reward():
+    try:
+        # Suche nach dem Button zum Ansehen einer Anzeige
+        ad_button = driver.find_element(AppiumBy.XPATH, "//button[contains(text(), 'Belohnungsvideo ansehen')]")
+        ad_button.click()
+        print("Anzeige gestartet.")
+
+        # Wartezeit simulieren, während die Anzeige läuft
+        time.sleep(30)  # Die Dauer kann je nach Spiel und Anzeige variieren
+
+        # Suche und klicke den Schließen-Button
+        close_button = driver.find_element(AppiumBy.XPATH, "//button[contains(text(), 'Schließen') or contains(text(), 'X')]")
+        close_button.click()
+        print("Anzeige geschlossen und Belohnung erhalten.")
+    except Exception as e:
+        print("Fehler beim Ansehen der Anzeige:", e)
+
+# Starte die Routine
+for _ in range(5):  # Z.B. 5 Anzeigen nacheinander ansehen
+    watch_ad_for_reward()
+    time.sleep(5)  # Wartezeit zwischen Anzeigen
+driver.quit()

@@ -211,7 +211,7 @@ class WebDriver(
     ):
         if client_config is None:
             # TODO: when command_executor is not string
-            client_config = client_config or AppiumClientConfg(remote_server_addr=command_executor)
+            client_config = AppiumClientConfg(remote_server_addr=command_executor)
 
         if isinstance(command_executor, str):
             command_executor = AppiumConnection(remote_server_addr=command_executor, client_config=client_config)

@@ -21,6 +21,7 @@ from mock import patch
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.appium_connection import AppiumConnection
+from appium.webdriver.client_config import AppiumClientConfg
 from appium.webdriver.webdriver import ExtensionBase, WebDriver
 from test.helpers.constants import SERVER_URL_BASE
 from test.unit.helper.test_helper import (
@@ -124,10 +125,11 @@ class TestWebDriverWebDriver:
             'app': 'path/to/app',
             'automationName': 'UIAutomator2',
         }
+        client_config = AppiumClientConfg(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
         driver = webdriver.Remote(
             SERVER_URL_BASE,
             options=UiAutomator2Options().load_capabilities(desired_caps),
-            direct_connection=True,
+            client_config=client_config,
         )
 
         assert 'http://localhost2:4800/special/path/wd/hub' == driver.command_executor._client_config.remote_server_addr
@@ -164,10 +166,9 @@ class TestWebDriverWebDriver:
             'app': 'path/to/app',
             'automationName': 'UIAutomator2',
         }
+        client_config = AppiumClientConfg(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
         driver = webdriver.Remote(
-            SERVER_URL_BASE,
-            options=UiAutomator2Options().load_capabilities(desired_caps),
-            direct_connection=True,
+            SERVER_URL_BASE, options=UiAutomator2Options().load_capabilities(desired_caps), client_config=client_config
         )
 
         assert SERVER_URL_BASE == driver.command_executor._client_config.remote_server_addr
@@ -382,19 +383,17 @@ class TestWebDriverWebDriver:
 
 
 class SubWebDriver(WebDriver):
-    def __init__(self, command_executor, direct_connection=False, options=None):
+    def __init__(self, command_executor, options=None):
         super().__init__(
             command_executor=command_executor,
-            direct_connection=direct_connection,
             options=options,
         )
 
 
 class SubSubWebDriver(SubWebDriver):
-    def __init__(self, command_executor, direct_connection=False, options=None):
+    def __init__(self, command_executor, options=None):
         super().__init__(
             command_executor=command_executor,
-            direct_connection=direct_connection,
             options=options,
         )
 

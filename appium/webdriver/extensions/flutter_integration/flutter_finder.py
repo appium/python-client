@@ -17,11 +17,12 @@
 
 from typing import Tuple
 
-from appium.webdriver.common.appiumby import AppiumBy
+from appium.webdriver.common.appiumby.AppiumBy import By as AppiumBy
+from appium.webdriver.common.appiumby.AppiumBy import ByType
 
 
 class FlutterFinder:
-    def __init__(self, using: str, value: str) -> None:
+    def __init__(self, using: ByType, value: str) -> None:
         self.using = using
         self.value = value
 

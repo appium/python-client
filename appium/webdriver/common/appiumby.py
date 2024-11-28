@@ -35,18 +35,19 @@ class AppiumBy(By):
     FLUTTER_INTEGRATION_TEXT = '-flutter text'
     FLUTTER_INTEGRATION_TEXT_CONTAINING = '-flutter text containing'
 
+
 ByType = Literal[
-    "-ios predicate string",
-    "-ios class chain",
-    "-android uiautomator",
-    "-android viewtag",
-    "-android datamatcher",
-    "-android viewmatcher",
-    "accessibility id",
-    "-image",
-    "-custom",
-    "-flutter semantics label",
-    "-flutter type",
-    "-flutter key",
-    "-flutter text containing",
+    '-ios predicate string',
+    '-ios class chain',
+    '-android uiautomator',
+    '-android viewtag',
+    '-android datamatcher',
+    '-android viewmatcher',
+    'accessibility id',
+    '-image',
+    '-custom',
+    '-flutter semantics label',
+    '-flutter type',
+    '-flutter key',
+    '-flutter text containing',
 ]

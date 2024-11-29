@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Literal
+
 from selenium.webdriver.common.by import By
 
 
@@ -32,3 +34,20 @@ class AppiumBy(By):
     FLUTTER_INTEGRATION_KEY = '-flutter key'
     FLUTTER_INTEGRATION_TEXT = '-flutter text'
     FLUTTER_INTEGRATION_TEXT_CONTAINING = '-flutter text containing'
+
+
+ByType = Literal[
+    '-ios predicate string',
+    '-ios class chain',
+    '-android uiautomator',
+    '-android viewtag',
+    '-android datamatcher',
+    '-android viewmatcher',
+    'accessibility id',
+    '-image',
+    '-custom',
+    '-flutter semantics label',
+    '-flutter type',
+    '-flutter key',
+    '-flutter text containing',
+]

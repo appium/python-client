@@ -15,13 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Tuple
+from typing import Tuple, Union
+
+from selenium.webdriver.common.by import ByType as SeleniumByType
 
 from appium.webdriver.common.appiumby import AppiumBy
+from appium.webdriver.common.appiumby import ByType as AppiumByType
 
 
 class FlutterFinder:
-    def __init__(self, using: str, value: str) -> None:
+    def __init__(self, using: Union[SeleniumByType, AppiumByType], value: str) -> None:
         self.using = using
         self.value = value
 

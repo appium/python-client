@@ -17,9 +17,10 @@
 
 from typing import Tuple, Union
 
-from appium.webdriver.common.appiumby.AppiumBy import By as AppiumBy
-from appium.webdriver.common.appiumby.AppiumBy import ByType as AppiumByType
 from selenium.webdriver.common.by import ByType as SeleniumByType
+
+from appium.webdriver.common.appiumby import AppiumBy
+from appium.webdriver.common.appiumby import ByType as AppiumByType
 
 
 class FlutterFinder:

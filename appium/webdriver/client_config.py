@@ -13,7 +13,7 @@
 from selenium.webdriver.remote.client_config import ClientConfig
 
 
-class AppiumClientConfg(ClientConfig):
+class AppiumClientConfig(ClientConfig):
     def __init__(self, remote_server_addr: str, *args, **kwargs):
         self._direct_connection = kwargs.pop('direct_connection', False)
         super().__init__(remote_server_addr, *args, **kwargs)

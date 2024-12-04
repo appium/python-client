@@ -31,7 +31,7 @@ from appium.options.common.base import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
 
 from .appium_connection import AppiumConnection
-from .client_config import AppiumClientConfg
+from .client_config import AppiumClientConfig
 from .errorhandler import MobileErrorHandler
 from .extensions.action_helpers import ActionHelpers
 from .extensions.android.activities import Activities
@@ -204,17 +204,15 @@ class WebDriver(
 ):
     def __init__(  # noqa: PLR0913
         self,
-        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444/wd/hub',
+        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4723',
         extensions: Optional[List['WebDriver']] = None,
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
-        client_config: Optional[AppiumClientConfg] = None,
+        client_config: Optional[AppiumClientConfig] = None,
     ):
-        if client_config is None:
-            # TODO: when command_executor is not string
-            client_config = AppiumClientConfg(remote_server_addr=command_executor)
-
         if isinstance(command_executor, str):
-            command_executor = AppiumConnection(remote_server_addr=command_executor, client_config=client_config)
+            if client_config is None:
+                client_config = AppiumClientConfig(remote_server_addr=command_executor)
+            command_executor = AppiumConnection(client_config=client_config)
 
         super().__init__(
             command_executor=command_executor,

@@ -204,7 +204,7 @@ class WebDriver(
 ):
     def __init__(  # noqa: PLR0913
         self,
-        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4723',
+        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444',
         extensions: Optional[List['WebDriver']] = None,
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
         client_config: Optional[AppiumClientConfig] = None,

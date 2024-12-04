@@ -227,7 +227,7 @@ class WebDriver(
 
         self.error_handler = MobileErrorHandler()
 
-        if client_config.direct_connection:
+        if client_config and client_config.direct_connection:
             self._update_command_executor(keep_alive=client_config.keep_alive)
 
         # add new method to the `find_by_*` pantheon

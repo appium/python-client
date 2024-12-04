@@ -21,7 +21,7 @@ from mock import patch
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.appium_connection import AppiumConnection
-from appium.webdriver.client_config import AppiumClientConfg
+from appium.webdriver.client_config import AppiumClientConfig
 from appium.webdriver.webdriver import ExtensionBase, WebDriver
 from test.helpers.constants import SERVER_URL_BASE
 from test.unit.helper.test_helper import (
@@ -125,7 +125,7 @@ class TestWebDriverWebDriver:
             'app': 'path/to/app',
             'automationName': 'UIAutomator2',
         }
-        client_config = AppiumClientConfg(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
         driver = webdriver.Remote(
             SERVER_URL_BASE,
             options=UiAutomator2Options().load_capabilities(desired_caps),
@@ -166,7 +166,7 @@ class TestWebDriverWebDriver:
             'app': 'path/to/app',
             'automationName': 'UIAutomator2',
         }
-        client_config = AppiumClientConfg(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
         driver = webdriver.Remote(
             SERVER_URL_BASE, options=UiAutomator2Options().load_capabilities(desired_caps), client_config=client_config
         )

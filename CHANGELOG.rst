@@ -2,6 +2,67 @@ Changelog
 =========
 
 
+v4.4.0 (2024-11-29)
+-------------------
+
+New
+~~~
+- Feat: Added typing for AppiumBy (#1071) [Brijesh]
+
+  * feat: Added typing for AppiumBy types
+
+  * fix: using single quotes
+
+  * fix: adding selenium typing
+
+  * fix: pipeline
+
+Other
+~~~~~
+- Bump 4.4.0. [Kazuaki Matsuo]
+- Chore: dump ruff. [Kazuaki Matsuo]
+- Chore(deps): bump selenium from 4.27.0 to 4.27.1 (#1068)
+  [dependabot[bot], dependabot[bot]]
+
+  Bumps [selenium](https://github.com/SeleniumHQ/Selenium) from 4.27.0 to 4.27.1.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/commits)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+- Chore(deps): bump selenium from 4.26.1 to 4.27.0 (#1067)
+  [dependabot[bot], dependabot[bot]]
+
+  Bumps [selenium](https://github.com/SeleniumHQ/Selenium) from 4.26.1 to 4.27.0.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/commits/selenium-4.27.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.7.3 to ~=0.7.4
+  (#1063) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.7.3...0.7.4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Update changelog for 4.3.0. [Kazuaki Matsuo]
+
+
 v4.3.0 (2024-11-12)
 -------------------
 

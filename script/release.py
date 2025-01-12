@@ -76,7 +76,7 @@ def upload_sdist(new_version_num):
         call_bash_script('twine upload "{}"'.format(push_file))
     except Exception as e:
         print(
-            'Failed to upload {} to pypi. ' 'Please fix the original error and push it again later. Original error: {}'.format(
+            'Failed to upload {} to pypi. Please fix the original error and push it again later. Original error: {}'.format(
                 push_file, e
             )
         )

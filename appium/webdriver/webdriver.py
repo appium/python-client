@@ -282,7 +282,7 @@ class WebDriver(
         if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps)):
             message = 'Direct connect capabilities from server were:\n'
             for key in [direct_protocol, direct_host, direct_port, direct_path]:
-                message += f'{key}: \'{self.caps.get(key, "")}\' '
+                message += f"{key}: '{self.caps.get(key, '')}' "
             logger.debug(message)
             return
 
@@ -331,8 +331,7 @@ class WebDriver(
         session_id = get_response_value('sessionId')
         if not session_id:
             raise SessionNotCreatedException(
-                f'A valid W3C session creation response must contain a non-empty "sessionId" entry. '
-                f'Got "{response}" instead'
+                f'A valid W3C session creation response must contain a non-empty "sessionId" entry. Got "{response}" instead'
             )
         self.session_id = session_id
         self.caps = get_response_value('capabilities') or {}

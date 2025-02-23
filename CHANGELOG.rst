@@ -2,6 +2,121 @@ Changelog
 =========
 
 
+v4.5.0 (2025-01-22)
+-------------------
+- Bump 4.5.0. [Kazuaki Matsuo]
+- Chore: update tags. [Kazuaki Matsuo]
+- Chore(deps): bump selenium from 4.27.1 to 4.28.0 (#1084) [Kazuaki
+  Matsuo, dependabot[bot], dependabot[bot]]
+
+  * chore(deps): bump selenium from 4.27.1 to 4.28.0
+
+  Bumps [selenium](https://github.com/SeleniumHQ/Selenium) from 4.27.1 to 4.28.0.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/commits/selenium-4.28.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.9.1 to ~=0.9.2
+  (#1083) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.9.1...0.9.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.9.0 to ~=0.9.1
+  (#1082) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.9.0...0.9.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.8.6 to ~=0.9.0
+  (#1081) [Kazuaki Matsuo, dependabot[bot], dependabot[bot]]
+
+  * chore(deps-dev): update ruff requirement from ~=0.8.6 to ~=0.9.0
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.8.6...0.9.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.8.5 to ~=0.8.6
+  (#1080) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.8.5...0.8.6)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.8.4 to ~=0.8.5
+  (#1079) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/commits)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.8.3 to ~=0.8.4
+  (#1078) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.8.3...0.8.4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.8.1 to ~=0.8.3
+  (#1074) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.8.1...0.8.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Update changelog for 4.4.0. [Kazuaki Matsuo]
+
+
 v4.4.0 (2024-11-29)
 -------------------
 

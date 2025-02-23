@@ -76,12 +76,12 @@ For example, some changes in the Selenium binding could break the Appium client.
         # after
         from appium.webdriver.client_config import AppiumClientConfig
         client_config = AppiumClientConfig(
+            remote_server_addr=SERVER_URL_BASE,
             direct_connection=True,
             keep_alive=False,
             ignore_certificates=True,
         )
         driver = webdriver.Remote(
-            SERVER_URL_BASE,
             options=UiAutomator2Options().load_capabilities(desired_caps),
             client_config=client_config
         )

@@ -214,8 +214,6 @@ class WebDriver(
         if isinstance(command_executor, str):
             if client_config is None:
                 client_config = AppiumClientConfig(remote_server_addr=command_executor)
-            else:
-                client_config.remote_server_addr = command_executor
             # To prevent generating RemoteConnection in selenium
             command_executor = AppiumConnection(client_config=client_config)
 

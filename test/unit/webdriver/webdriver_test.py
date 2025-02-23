@@ -176,6 +176,45 @@ class TestWebDriverWebDriver:
         assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
+    def test_create_session_remote_server_addr_treatment_with_appiumclientconfig(self):
+        # remote server add in AppiumRemoteCong will be prior than the string of 'command_executor'
+        # as same as Selenium behavior.
+        httpretty.register_uri(
+            httpretty.POST,
+            f'{SERVER_URL_BASE}/session',
+            body=json.dumps(
+                {
+                    'sessionId': 'session-id',
+                    'capabilities': {
+                        'deviceName': 'Android Emulator',
+                    },
+                }
+            ),
+        )
+
+        httpretty.register_uri(
+            httpretty.GET,
+            f'{SERVER_URL_BASE}/session/session-id/contexts',
+            body=json.dumps({'value': ['NATIVE_APP', 'CHROMIUM']}),
+        )
+
+        desired_caps = {
+            'platformName': 'Android',
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+            'automationName': 'UIAutomator2',
+        }
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
+        driver = webdriver.Remote(
+            'http://localhost:8080/something/path',
+            options=UiAutomator2Options().load_capabilities(desired_caps),
+            client_config=client_config,
+        )
+
+        assert SERVER_URL_BASE == driver.command_executor._client_config.remote_server_addr
+        assert isinstance(driver.command_executor, AppiumConnection)
+
+    @httpretty.activate
     def test_get_events(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(

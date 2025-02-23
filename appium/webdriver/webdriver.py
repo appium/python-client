@@ -23,6 +23,7 @@ from selenium.common.exceptions import (
 )
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
+from selenium.webdriver.remote.file_detector import FileDetector
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 from typing_extensions import Self
 
@@ -204,18 +205,23 @@ class WebDriver(
 ):
     def __init__(  # noqa: PLR0913
         self,
-        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444',
+        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4723',
         extensions: Optional[List['WebDriver']] = None,
+        file_detector: Optional[FileDetector] = None,
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
         client_config: Optional[AppiumClientConfig] = None,
     ):
         if isinstance(command_executor, str):
             if client_config is None:
                 client_config = AppiumClientConfig(remote_server_addr=command_executor)
+            else:
+                client_config.remote_server_addr = command_executor
+            # To prevent generating RemoteConnection in selenium
             command_executor = AppiumConnection(client_config=client_config)
 
         super().__init__(
             command_executor=command_executor,
+            file_detector=file_detector,
             options=options,
             locator_converter=AppiumLocatorConverter(),
             web_element_cls=MobileWebElement,

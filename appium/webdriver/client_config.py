@@ -14,15 +14,25 @@ from selenium.webdriver.remote.client_config import ClientConfig
 
 
 class AppiumClientConfig(ClientConfig):
-    """ClientConfig class for Appium Python client."""
+    """ClientConfig class for Appium Python client.
+    This class inherits selenium.webdriver.remote.client_config.ClientConfig.
+    """
 
     def __init__(self, remote_server_addr: str, *args, **kwargs):
         """
-        TODO: add description
+        Please refer to selenium.webdriver.remote.client_config.ClientConfig documentation
+        about available arguments. Only 'direct_connection' below is AppiumClientConfig
+        specific argument.
+
+        Args:
+            direct_connection: If enables [directConnect](https://github.com/appium/python-client?tab=readme-ov-file#direct-connect-urls)
+            feature.
         """
         self._direct_connection = kwargs.pop('direct_connection', False)
         super().__init__(remote_server_addr, *args, **kwargs)
 
     @property
     def direct_connection(self) -> bool:
+        """Return if [directConnect](https://github.com/appium/python-client?tab=readme-ov-file#direct-connect-urls)
+        is enabled."""
         return self._direct_connection

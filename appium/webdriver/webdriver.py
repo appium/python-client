@@ -217,7 +217,7 @@ class WebDriver(
                 remote_server_addr=command_executor, keep_alive=keep_alive, ignore_certificates=not strict_ssl
             )
             client_config.remote_server_addr = command_executor
-            command_executor = AppiumConnection(remote_server_addr=command_executor, client_config=client_config)
+            command_executor = AppiumConnection(client_config=client_config)
         elif isinstance(command_executor, AppiumConnection) and strict_ssl is False:
             logger.warning(
                 "Please set 'ignore_certificates' in the given 'appium.webdriver.appium_connection.AppiumConnection' or "

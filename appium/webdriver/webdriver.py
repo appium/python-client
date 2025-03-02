@@ -22,8 +22,8 @@ from selenium.common.exceptions import (
     WebDriverException,
 )
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.client_config import ClientConfig
 from selenium.webdriver.remote.command import Command as RemoteCommand
+from selenium.webdriver.remote.file_detector import FileDetector
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 from typing_extensions import Self
 
@@ -32,6 +32,7 @@ from appium.options.common.base import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
 
 from .appium_connection import AppiumConnection
+from .client_config import AppiumClientConfig
 from .errorhandler import MobileErrorHandler
 from .extensions.action_helpers import ActionHelpers
 from .extensions.android.activities import Activities
@@ -204,28 +205,21 @@ class WebDriver(
 ):
     def __init__(  # noqa: PLR0913
         self,
-        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444/wd/hub',
-        keep_alive: bool = True,
-        direct_connection: bool = True,
+        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4723',
         extensions: Optional[List['WebDriver']] = None,
-        strict_ssl: bool = True,
+        file_detector: Optional[FileDetector] = None,
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
-        client_config: Optional[ClientConfig] = None,
+        client_config: Optional[AppiumClientConfig] = None,
     ):
         if isinstance(command_executor, str):
-            client_config = client_config or ClientConfig(
-                remote_server_addr=command_executor, keep_alive=keep_alive, ignore_certificates=not strict_ssl
-            )
-            client_config.remote_server_addr = command_executor
+            if client_config is None:
+                client_config = AppiumClientConfig(remote_server_addr=command_executor)
+            # To prevent generating RemoteConnection in selenium
             command_executor = AppiumConnection(client_config=client_config)
-        elif isinstance(command_executor, AppiumConnection) and strict_ssl is False:
-            logger.warning(
-                "Please set 'ignore_certificates' in the given 'appium.webdriver.appium_connection.AppiumConnection' or "
-                "'selenium.webdriver.remote.client_config.ClientConfig' instead. Ignoring."
-            )
 
         super().__init__(
             command_executor=command_executor,
+            file_detector=file_detector,
             options=options,
             locator_converter=AppiumLocatorConverter(),
             web_element_cls=MobileWebElement,
@@ -237,8 +231,8 @@ class WebDriver(
 
         self.error_handler = MobileErrorHandler()
 
-        if direct_connection:
-            self._update_command_executor(keep_alive=keep_alive)
+        if client_config and client_config.direct_connection:
+            self._update_command_executor(keep_alive=client_config.keep_alive)
 
         # add new method to the `find_by_*` pantheon
         By.IOS_PREDICATE = AppiumBy.IOS_PREDICATE

@@ -212,6 +212,7 @@ class WebDriver(
         client_config: Optional[AppiumClientConfig] = None,
     ):
         if isinstance(command_executor, str):
+            # Do not keep None to avoid warnings in Selenium which can prevent with ClientConfig instance usage.
             if client_config is None:
                 client_config = AppiumClientConfig(remote_server_addr=command_executor)
             # To prevent generating RemoteConnection in selenium

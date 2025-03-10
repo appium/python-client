@@ -2,6 +2,108 @@ Changelog
 =========
 
 
+v4.5.1 (2025-02-23)
+-------------------
+
+Fix
+~~~
+- Prevent warning log when initialize a webdriver using version 4.5.0
+  (selenium v4.26+) (#1098) [testerxiaodong]
+
+  Remove the parameter 'remote_ server _ addr' for initializing AppiumConnection at appium/webdriver/webdriver.py file line 220
+
+Test
+~~~~
+- Test: Pytest does not require test classes unless you need grouping or
+  fixtures with class scope. (#1094) [Dor Blayzer]
+- Test: use pytest without class-based structures, using
+  parameterization for better reusability. (#1095) [Dor Blayzer]
+
+Other
+~~~~~
+- Bump 4.5.1. [Kazuaki Matsuo]
+- Chore(deps): bump selenium from 4.28.1 to 4.29.0 (#1096)
+  [dependabot[bot], dependabot[bot]]
+
+  Bumps [selenium](https://github.com/SeleniumHQ/Selenium) from 4.28.1 to 4.29.0.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/commits)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.9.3 to ~=0.9.5
+  (#1092) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.9.3...0.9.5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pre-commit requirement from ~=3.5 to ~=4.1
+  (#1085) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v3.5.0...v4.1.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pre-commit
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.9.2 to ~=0.9.3
+  (#1089) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.9.2...0.9.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps): bump selenium from 4.28.0 to 4.28.1 (#1088)
+  [dependabot[bot], dependabot[bot]]
+
+  Bumps [selenium](https://github.com/SeleniumHQ/Selenium) from 4.28.0 to 4.28.1.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/commits)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+    update-type: version-update:semver-patch
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.23 to ~=4.24 (#1086)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.23.0...4.24.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Docs: update README.md. [Kazuaki Matsuo]
+- Update changelog for 4.5.0. [Kazuaki Matsuo]
+
+
 v4.5.0 (2025-01-22)
 -------------------
 - Bump 4.5.0. [Kazuaki Matsuo]

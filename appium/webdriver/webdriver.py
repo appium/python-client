@@ -203,7 +203,7 @@ class WebDriver(
     Sms,
     SystemBars,
 ):
-    def __init__(  # noqa: PLR0913
+    def __init__(
         self,
         command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4723',
         extensions: Optional[List['WebDriver']] = None,

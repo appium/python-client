@@ -86,7 +86,7 @@ For example, some changes in the Selenium binding could break the Appium client.
             client_config=client_config
         )
         ```
-- Use `http://127.0.0.1:4723` as the default server url instead of `http://127.0.0.1:4444`
+- Use `http://127.0.0.1:4723` as the default server url instead of `http://127.0.0.1:4444/wd/hub`
 
 ### Quick migration guide from v3 to v4
 - Removal

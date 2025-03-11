@@ -184,7 +184,8 @@ def _get_remote_connection_and_client_config(
     The custom command executor's one will be prior than the given client config.
     """
     if not isinstance(command_executor, str):
-        # Custom command executor will be prior than the given one.
+        # client config already defined in the custom command executor
+        # will be prior than the given one.
         return (command_executor, None)
 
     # command_executor is str

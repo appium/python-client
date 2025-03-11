@@ -22,7 +22,7 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.appium_connection import AppiumConnection
 from appium.webdriver.client_config import AppiumClientConfig
-from appium.webdriver.webdriver import ExtensionBase, WebDriver, _get_client_config_and_connection
+from appium.webdriver.webdriver import ExtensionBase, WebDriver, _get_remote_connection_and_client_config
 from test.helpers.constants import SERVER_URL_BASE
 from test.unit.helper.test_helper import (
     android_w3c_driver,
@@ -420,15 +420,40 @@ class TestWebDriverWebDriver:
             'script': 'mobile: startActivity',
         } == get_httpretty_request_body(httpretty.last_request())
 
-    def test_get_client_config_and_connection(self):
-        command_executor, client_config = _get_client_config_and_connection(
+    def test_get_client_config_and_connection_with_empty_config(self):
+        command_executor, client_config = _get_remote_connection_and_client_config(
             command_executor='http://127.0.0.1:4723', client_config=None
         )
 
         assert isinstance(command_executor, AppiumConnection)
-        assert command_executor._url == 'http://127.0.0.1:4723'
+        assert command_executor._client_config == client_config
         assert isinstance(client_config, AppiumClientConfig)
         assert client_config.remote_server_addr == 'http://127.0.0.1:4723'
+
+    def test_get_client_config_and_connection(self):
+        command_executor, client_config = _get_remote_connection_and_client_config(
+            command_executor='http://127.0.0.1:4723',
+            client_config=AppiumClientConfig(remote_server_addr='http://127.0.0.1:4723/wd/hub'),
+        )
+
+        assert isinstance(command_executor, AppiumConnection)
+        # the client config in the command_executor is the given client config.
+        assert command_executor._client_config == client_config
+        assert isinstance(client_config, AppiumClientConfig)
+        assert client_config.remote_server_addr == 'http://127.0.0.1:4723/wd/hub'
+
+    def test_get_client_config_and_connection_custom_appium_connection(self):
+        c_config = AppiumClientConfig(remote_server_addr='http://127.0.0.1:4723')
+        appium_connection = AppiumConnection(client_config=c_config)
+
+        command_executor, client_config = _get_remote_connection_and_client_config(
+            command_executor=appium_connection, client_config=AppiumClientConfig(remote_server_addr='http://127.0.0.1:4723')
+        )
+
+        assert isinstance(command_executor, AppiumConnection)
+        # client config already defined in the command_executor will be userd.
+        assert command_executor._client_config != client_config
+        assert client_config is None
 
 
 class SubWebDriver(WebDriver):

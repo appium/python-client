@@ -175,11 +175,17 @@ class ExtensionBase:
         raise NotImplementedError()
 
 
-def _get_client_config_and_connection(
+def _get_remote_connection_and_client_config(
     command_executor: Union[str, AppiumConnection], client_config: Optional[AppiumClientConfig]
 ) -> tuple[AppiumConnection, Optional[AppiumClientConfig]]:
-    if not isinstance(command_executor):
-        return (command_executor, client_config)
+    """Return the pair of command executor and client config.
+    If the given command executor is a custome one, returned client config will
+    be None since the custom command executor has its own client config already.
+    The custom command executor's one will be prior than the given client config.
+    """
+    if not isinstance(command_executor, str):
+        # Custom command executor will be prior than the given one.
+        return (command_executor, None)
 
     # command_executor is str
     if client_config is None:
@@ -225,7 +231,7 @@ class WebDriver(
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
         client_config: Optional[AppiumClientConfig] = None,
     ):
-        command_executor, client_config = _get_client_config_and_connection(
+        command_executor, client_config = _get_remote_connection_and_client_config(
             command_executor=command_executor, client_config=client_config
         )
         super().__init__(

@@ -175,6 +175,20 @@ class ExtensionBase:
         raise NotImplementedError()
 
 
+def _get_client_config_and_connection(
+    command_executor: Union[str, AppiumConnection], client_config: Optional[AppiumClientConfig]
+) -> tuple[AppiumConnection, Optional[AppiumClientConfig]]:
+    if not isinstance(command_executor):
+        return (command_executor, client_config)
+
+    # command_executor is str
+    if client_config is None:
+        # Do not keep None to avoid warnings in Selenium
+        # which can prevent with ClientConfig instance usage.
+        client_config = AppiumClientConfig(remote_server_addr=command_executor)
+    return (AppiumConnection(client_config=client_config), client_config)
+
+
 class WebDriver(
     webdriver.Remote,
     ActionHelpers,
@@ -211,13 +225,9 @@ class WebDriver(
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
         client_config: Optional[AppiumClientConfig] = None,
     ):
-        if isinstance(command_executor, str):
-            # Do not keep None to avoid warnings in Selenium which can prevent with ClientConfig instance usage.
-            if client_config is None:
-                client_config = AppiumClientConfig(remote_server_addr=command_executor)
-            # To prevent generating RemoteConnection in selenium
-            command_executor = AppiumConnection(client_config=client_config)
-
+        command_executor, client_config = _get_client_config_and_connection(
+            command_executor=command_executor, client_config=client_config
+        )
         super().__init__(
             command_executor=command_executor,
             file_detector=file_detector,

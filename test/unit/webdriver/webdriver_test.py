@@ -22,7 +22,7 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.appium_connection import AppiumConnection
 from appium.webdriver.client_config import AppiumClientConfig
-from appium.webdriver.webdriver import ExtensionBase, WebDriver
+from appium.webdriver.webdriver import ExtensionBase, WebDriver, _get_client_config_and_connection
 from test.helpers.constants import SERVER_URL_BASE
 from test.unit.helper.test_helper import (
     android_w3c_driver,
@@ -419,6 +419,16 @@ class TestWebDriverWebDriver:
             'args': [{'component': 'io.appium.android.apis/.accessibility.AccessibilityNodeProviderActivity'}],
             'script': 'mobile: startActivity',
         } == get_httpretty_request_body(httpretty.last_request())
+
+    def test_get_client_config_and_connection(self):
+        command_executor, client_config = _get_client_config_and_connection(
+            command_executor='http://127.0.0.1:4723', client_config=None
+        )
+
+        assert isinstance(command_executor, AppiumConnection)
+        assert command_executor._url == 'http://127.0.0.1:4723'
+        assert isinstance(client_config, AppiumClientConfig)
+        assert client_config.remote_server_addr == 'http://127.0.0.1:4723'
 
 
 class SubWebDriver(WebDriver):

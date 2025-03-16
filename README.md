@@ -60,7 +60,7 @@ For example, some changes in the Selenium binding could break the Appium client.
 
 
 ### Quick migration guide from v4 to v5
-- Please use `AppiumClientConfig` as `client_config` arguemnt in favor of client argument below
+- Please use `AppiumClientConfig` as `client_config` argument in favor of client argument below
     - `keep_alive`, `direct_connection` and `strict_ssl` arguments.
         ```python
         SERVER_URL_BASE = 'http://127.0.0.1:4723'

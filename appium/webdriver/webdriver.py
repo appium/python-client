@@ -178,7 +178,7 @@ def _get_remote_connection_and_client_config(
     command_executor: Union[str, AppiumConnection], client_config: Optional[AppiumClientConfig]
 ) -> tuple[AppiumConnection, Optional[AppiumClientConfig]]:
     """Return the pair of command executor and client config.
-    If the given command executor is a custome one, returned client config will
+    If the given command executor is a custom one, returned client config will
     be None since the custom command executor has its own client config already.
     The custom command executor's one will be prior than the given client config.
     """

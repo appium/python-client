@@ -175,7 +175,7 @@ class ExtensionBase:
 
 
 def _get_remote_connection_and_client_config(
-    command_executor: Union[str, AppiumConnection], client_config: Optional[AppiumClientConfig]
+    command_executor: Union[str, AppiumConnection], client_config: Optional[AppiumClientConfig] = None
 ) -> tuple[AppiumConnection, Optional[AppiumClientConfig]]:
     """Return the pair of command executor and client config.
     If the given command executor is a custom one, returned client config will

@@ -244,8 +244,7 @@ class WebDriver(
             client_config=client_config,
         )
 
-        if hasattr(self, 'command_executor'):
-            self._add_commands()
+        self._add_commands()
 
         self.error_handler = MobileErrorHandler()
 

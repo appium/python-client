@@ -60,8 +60,8 @@ For example, some changes in the Selenium binding could break the Appium client.
 
 
 ### Quick migration guide from v4 to v5
-- Please use `AppiumClientConfig` as `client_config` arguemnt in favor of client argument below
-    - `keep_alive`, `direct_connection` and `strict_ssl` arguments.
+- This change affecs only for a user who speficies `keep_alive`, `direct_connection` and `strict_ssl` arguments for `webdriver.Remote`:
+    - Please use `AppiumClientConfig` as `client_config` arguemnt as below:
         ```python
         SERVER_URL_BASE = 'http://127.0.0.1:4723'
         # before
@@ -86,6 +86,7 @@ For example, some changes in the Selenium binding could break the Appium client.
             client_config=client_config
         )
         ```
+        - Note that you can keep using `webdriver.Remote(url, options=options, client_config=client_config)` format as well. Then, the `remote_server_addr` in `AppiumClientConfig` will prior than the `url` specified via `webdriver.Remote`
 - Use `http://127.0.0.1:4723` as the default server url instead of `http://127.0.0.1:4444/wd/hub`
 
 ### Quick migration guide from v3 to v4

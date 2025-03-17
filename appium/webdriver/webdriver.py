@@ -23,7 +23,6 @@ from selenium.common.exceptions import (
 )
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
-from selenium.webdriver.remote.file_detector import FileDetector
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 from typing_extensions import Self
 
@@ -179,7 +178,7 @@ def _get_remote_connection_and_client_config(
     command_executor: Union[str, AppiumConnection], client_config: Optional[AppiumClientConfig]
 ) -> tuple[AppiumConnection, Optional[AppiumClientConfig]]:
     """Return the pair of command executor and client config.
-    If the given command executor is a custome one, returned client config will
+    If the given command executor is a custom one, returned client config will
     be None since the custom command executor has its own client config already.
     The custom command executor's one will be prior than the given client config.
     """
@@ -228,7 +227,6 @@ class WebDriver(
         self,
         command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4723',
         extensions: Optional[List['WebDriver']] = None,
-        file_detector: Optional[FileDetector] = None,
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
         client_config: Optional[AppiumClientConfig] = None,
     ):
@@ -237,7 +235,6 @@ class WebDriver(
         )
         super().__init__(
             command_executor=command_executor,
-            file_detector=file_detector,
             options=options,
             locator_converter=AppiumLocatorConverter(),
             web_element_cls=MobileWebElement,

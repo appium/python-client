@@ -451,7 +451,7 @@ class TestWebDriverWebDriver:
         )
 
         assert isinstance(command_executor, AppiumConnection)
-        # client config already defined in the command_executor will be userd.
+        # client config already defined in the command_executor will be used.
         assert command_executor._client_config != client_config
         assert client_config is None
 

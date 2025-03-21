@@ -188,11 +188,11 @@ def _get_remote_connection_and_client_config(
         return (command_executor, None)
 
     # command_executor is str
-    if client_config is None:
-        # Do not keep None to avoid warnings in Selenium
-        # which can prevent with ClientConfig instance usage.
-        client_config = AppiumClientConfig(remote_server_addr=command_executor)
-    return (AppiumConnection(client_config=client_config), client_config)
+
+    # Do not keep None to avoid warnings in Selenium
+    # which can prevent with ClientConfig instance usage.
+    new_client_config = AppiumClientConfig(remote_server_addr=command_executor) if client_config is None else client_config
+    return (AppiumConnection(client_config=new_client_config), new_client_config)
 
 
 class WebDriver(

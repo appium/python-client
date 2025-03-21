@@ -22,7 +22,6 @@ from selenium.common.exceptions import (
     WebDriverException,
 )
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.client_config import ClientConfig
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 from typing_extensions import Self
@@ -32,6 +31,7 @@ from appium.options.common.base import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
 
 from .appium_connection import AppiumConnection
+from .client_config import AppiumClientConfig
 from .errorhandler import MobileErrorHandler
 from .extensions.action_helpers import ActionHelpers
 from .extensions.android.activities import Activities
@@ -174,6 +174,27 @@ class ExtensionBase:
         raise NotImplementedError()
 
 
+def _get_remote_connection_and_client_config(
+    command_executor: Union[str, AppiumConnection], client_config: Optional[AppiumClientConfig] = None
+) -> tuple[AppiumConnection, Optional[AppiumClientConfig]]:
+    """Return the pair of command executor and client config.
+    If the given command executor is a custom one, returned client config will
+    be None since the custom command executor has its own client config already.
+    The custom command executor's one will be prior than the given client config.
+    """
+    if not isinstance(command_executor, str):
+        # client config already defined in the custom command executor
+        # will be prior than the given one.
+        return (command_executor, None)
+
+    # command_executor is str
+
+    # Do not keep None to avoid warnings in Selenium
+    # which can prevent with ClientConfig instance usage.
+    new_client_config = AppiumClientConfig(remote_server_addr=command_executor) if client_config is None else client_config
+    return (AppiumConnection(client_config=new_client_config), new_client_config)
+
+
 class WebDriver(
     webdriver.Remote,
     ActionHelpers,
@@ -202,28 +223,16 @@ class WebDriver(
     Sms,
     SystemBars,
 ):
-    def __init__(  # noqa: PLR0913
+    def __init__(
         self,
-        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4444/wd/hub',
-        keep_alive: bool = True,
-        direct_connection: bool = True,
+        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4723',
         extensions: Optional[List['WebDriver']] = None,
-        strict_ssl: bool = True,
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
-        client_config: Optional[ClientConfig] = None,
+        client_config: Optional[AppiumClientConfig] = None,
     ):
-        if isinstance(command_executor, str):
-            client_config = client_config or ClientConfig(
-                remote_server_addr=command_executor, keep_alive=keep_alive, ignore_certificates=not strict_ssl
-            )
-            client_config.remote_server_addr = command_executor
-            command_executor = AppiumConnection(client_config=client_config)
-        elif isinstance(command_executor, AppiumConnection) and strict_ssl is False:
-            logger.warning(
-                "Please set 'ignore_certificates' in the given 'appium.webdriver.appium_connection.AppiumConnection' or "
-                "'selenium.webdriver.remote.client_config.ClientConfig' instead. Ignoring."
-            )
-
+        command_executor, client_config = _get_remote_connection_and_client_config(
+            command_executor=command_executor, client_config=client_config
+        )
         super().__init__(
             command_executor=command_executor,
             options=options,
@@ -232,13 +241,12 @@ class WebDriver(
             client_config=client_config,
         )
 
-        if hasattr(self, 'command_executor'):
-            self._add_commands()
+        self._add_commands()
 
         self.error_handler = MobileErrorHandler()
 
-        if direct_connection:
-            self._update_command_executor(keep_alive=keep_alive)
+        if client_config and client_config.direct_connection:
+            self._update_command_executor(keep_alive=client_config.keep_alive)
 
         # add new method to the `find_by_*` pantheon
         By.IOS_PREDICATE = AppiumBy.IOS_PREDICATE

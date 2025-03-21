@@ -59,6 +59,37 @@ For example, some changes in the Selenium binding could break the Appium client.
 > to keep compatible version combinations.
 
 
+### Quick migration guide from v4 to v5
+- This change affects only for users who specify `keep_alive`, `direct_connection` and `strict_ssl` arguments for `webdriver.Remote`:
+    - Please use `AppiumClientConfig` as `client_config` argument similar to how it is specified below:
+        ```python
+        SERVER_URL_BASE = 'http://127.0.0.1:4723'
+        # before
+        driver = webdriver.Remote(
+            SERVER_URL_BASE,
+            options=UiAutomator2Options().load_capabilities(desired_caps),
+            direct_connection=True,
+            keep_alive=False,
+            strict_ssl=False
+        )
+
+        # after
+        from appium.webdriver.client_config import AppiumClientConfig
+        client_config = AppiumClientConfig(
+            remote_server_addr=SERVER_URL_BASE,
+            direct_connection=True,
+            keep_alive=False,
+            ignore_certificates=True,
+        )
+        driver = webdriver.Remote(
+            options=UiAutomator2Options().load_capabilities(desired_caps),
+            client_config=client_config
+        )
+        ```
+        - Note that you can keep using `webdriver.Remote(url, options=options, client_config=client_config)` format as well.
+        In such case the `remote_server_addr` argument of `AppiumClientConfig` constructor would have priority over the `url` argument of `webdriver.Remote` constructor.
+- Use `http://127.0.0.1:4723` as the default server url instead of `http://127.0.0.1:4444/wd/hub`
+
 ### Quick migration guide from v3 to v4
 - Removal
     - `MultiAction` and `TouchAction` are removed. Please use W3C WebDriver actions or `mobile:` extensions
@@ -274,6 +305,7 @@ from appium import webdriver
 # If you use an older client then switch to desired_capabilities
 # instead: https://github.com/appium/python-client/pull/720
 from appium.options.ios import XCUITestOptions
+from appium.webdriver.client_config import AppiumClientConfig
 
 # load_capabilities API could be used to
 # load options mapping stored in a dictionary
@@ -283,11 +315,16 @@ options = XCUITestOptions().load_capabilities({
     'app': '/full/path/to/app/UICatalog.app.zip',
 })
 
+client_config = AppiumClientConfig(
+    remote_server_addr='http://127.0.0.1:4723',
+    direct_connection=True
+)
+
 driver = webdriver.Remote(
     # Appium1 points to http://127.0.0.1:4723/wd/hub by default
     'http://127.0.0.1:4723',
     options=options,
-    direct_connection=True
+    client_config=client_config
 )
 ```
 

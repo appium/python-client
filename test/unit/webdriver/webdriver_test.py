@@ -21,7 +21,8 @@ from mock import patch
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.appium_connection import AppiumConnection
-from appium.webdriver.webdriver import ExtensionBase, WebDriver
+from appium.webdriver.client_config import AppiumClientConfig
+from appium.webdriver.webdriver import ExtensionBase, WebDriver, _get_remote_connection_and_client_config
 from test.helpers.constants import SERVER_URL_BASE
 from test.unit.helper.test_helper import (
     android_w3c_driver,
@@ -124,10 +125,11 @@ class TestWebDriverWebDriver:
             'app': 'path/to/app',
             'automationName': 'UIAutomator2',
         }
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
         driver = webdriver.Remote(
             SERVER_URL_BASE,
             options=UiAutomator2Options().load_capabilities(desired_caps),
-            direct_connection=True,
+            client_config=client_config,
         )
 
         assert 'http://localhost2:4800/special/path/wd/hub' == driver.command_executor._client_config.remote_server_addr
@@ -164,14 +166,52 @@ class TestWebDriverWebDriver:
             'app': 'path/to/app',
             'automationName': 'UIAutomator2',
         }
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
         driver = webdriver.Remote(
-            SERVER_URL_BASE,
-            options=UiAutomator2Options().load_capabilities(desired_caps),
-            direct_connection=True,
+            SERVER_URL_BASE, options=UiAutomator2Options().load_capabilities(desired_caps), client_config=client_config
         )
 
         assert SERVER_URL_BASE == driver.command_executor._client_config.remote_server_addr
         assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
+        assert isinstance(driver.command_executor, AppiumConnection)
+
+    @httpretty.activate
+    def test_create_session_remote_server_addr_treatment_with_appiumclientconfig(self):
+        # remote server add in AppiumRemoteCong will be prior than the string of 'command_executor'
+        # as same as Selenium behavior.
+        httpretty.register_uri(
+            httpretty.POST,
+            f'{SERVER_URL_BASE}/session',
+            body=json.dumps(
+                {
+                    'sessionId': 'session-id',
+                    'capabilities': {
+                        'deviceName': 'Android Emulator',
+                    },
+                }
+            ),
+        )
+
+        httpretty.register_uri(
+            httpretty.GET,
+            f'{SERVER_URL_BASE}/session/session-id/contexts',
+            body=json.dumps({'value': ['NATIVE_APP', 'CHROMIUM']}),
+        )
+
+        desired_caps = {
+            'platformName': 'Android',
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+            'automationName': 'UIAutomator2',
+        }
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
+        driver = webdriver.Remote(
+            'http://localhost:8080/something/path',
+            options=UiAutomator2Options().load_capabilities(desired_caps),
+            client_config=client_config,
+        )
+
+        assert SERVER_URL_BASE == driver.command_executor._client_config.remote_server_addr
         assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
@@ -380,21 +420,54 @@ class TestWebDriverWebDriver:
             'script': 'mobile: startActivity',
         } == get_httpretty_request_body(httpretty.last_request())
 
+    def test_get_client_config_and_connection_with_empty_config(self):
+        command_executor, client_config = _get_remote_connection_and_client_config(
+            command_executor='http://127.0.0.1:4723', client_config=None
+        )
+
+        assert isinstance(command_executor, AppiumConnection)
+        assert command_executor._client_config == client_config
+        assert isinstance(client_config, AppiumClientConfig)
+        assert client_config.remote_server_addr == 'http://127.0.0.1:4723'
+
+    def test_get_client_config_and_connection(self):
+        command_executor, client_config = _get_remote_connection_and_client_config(
+            command_executor='http://127.0.0.1:4723',
+            client_config=AppiumClientConfig(remote_server_addr='http://127.0.0.1:4723/wd/hub'),
+        )
+
+        assert isinstance(command_executor, AppiumConnection)
+        # the client config in the command_executor is the given client config.
+        assert command_executor._client_config == client_config
+        assert isinstance(client_config, AppiumClientConfig)
+        assert client_config.remote_server_addr == 'http://127.0.0.1:4723/wd/hub'
+
+    def test_get_client_config_and_connection_custom_appium_connection(self):
+        c_config = AppiumClientConfig(remote_server_addr='http://127.0.0.1:4723')
+        appium_connection = AppiumConnection(client_config=c_config)
+
+        command_executor, client_config = _get_remote_connection_and_client_config(
+            command_executor=appium_connection, client_config=AppiumClientConfig(remote_server_addr='http://127.0.0.1:4723')
+        )
+
+        assert isinstance(command_executor, AppiumConnection)
+        # client config already defined in the command_executor will be used.
+        assert command_executor._client_config != client_config
+        assert client_config is None
+
 
 class SubWebDriver(WebDriver):
-    def __init__(self, command_executor, direct_connection=False, options=None):
+    def __init__(self, command_executor, options=None):
         super().__init__(
             command_executor=command_executor,
-            direct_connection=direct_connection,
             options=options,
         )
 
 
 class SubSubWebDriver(SubWebDriver):
-    def __init__(self, command_executor, direct_connection=False, options=None):
+    def __init__(self, command_executor, options=None):
         super().__init__(
             command_executor=command_executor,
-            direct_connection=direct_connection,
             options=options,
         )
 

@@ -2,6 +2,134 @@ Changelog
 =========
 
 
+v5.0.0 (2025-03-23)
+-------------------
+
+New
+~~~
+- Feat: define AppiumClientConfig (#1070) [Copilot
+  <175728472+Copilot@users.noreply.github.com>  * update readme  *
+  remove redundant command_executor check  * modify a bit  * fix typo
+  and apply comment  * use new variable  ---------  Co-authored-by:
+  Copilot <175728472+Copilot@users.noreply.github.com>, Kazuaki Matsuo]
+
+  * initial implementation
+
+  * remove
+
+  * add appium/webdriver/client_config.py
+
+  * remove duplicated args
+
+  * remove duplicated args
+
+  * fix typo
+
+  * add file_detector and remove redundant config
+
+  * add test to check remote_server_addr priority
+
+  * remove PLR0913, address http://127.0.0.1:4723
+
+  * update the readme
+
+  * add comment
+
+  * fix typo
+
+  * extract
+
+  * extract and followed the selenium
+
+  * add comment
+
+  * Update webdriver.py
+
+  * Apply suggestions from code review
+
+Other
+~~~~~
+- Bump 5.0.0. [Kazuaki Matsuo]
+- Chore(deps-dev): update pre-commit requirement from ~=4.1 to ~=4.2
+  (#1104) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pre-commit](https://github.com/pre-commit/pre-commit) to permit the latest version.
+  - [Release notes](https://github.com/pre-commit/pre-commit/releases)
+  - [Changelog](https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/pre-commit/pre-commit/compare/v4.1.0...v4.2.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pre-commit
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.9.10 to ~=0.10.0
+  (#1102) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.9.10...0.10.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.9.9 to ~=0.9.10
+  (#1101) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.9.9...0.9.10)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update mock requirement from ~=5.1 to ~=5.2 (#1100)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [mock](https://github.com/testing-cabal/mock) to permit the latest version.
+  - [Changelog](https://github.com/testing-cabal/mock/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/testing-cabal/mock/compare/5.1.0...5.2.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: mock
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.9.7 to ~=0.9.9
+  (#1099) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.9.7...0.9.9)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.9.5 to ~=0.9.7
+  (#1097) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.9.5...0.9.7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Update changelog for 4.5.1. [Kazuaki Matsuo]
+
+
 v4.5.1 (2025-02-23)
 -------------------
 

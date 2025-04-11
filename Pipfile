@@ -16,4 +16,4 @@ types-python-dateutil = "~=2.9"
 
 [packages]
 selenium = "==4.31.0"
-typing-extensions = "~=4.13.1"
+typing-extensions = "~=4.13.2"

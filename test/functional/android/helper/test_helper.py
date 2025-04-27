@@ -18,6 +18,7 @@ import os
 
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
+from appium.webdriver.client_config import AppiumClientConfig
 from test.functional.test_helper import is_ci
 from test.helpers.constants import SERVER_URL_BASE
 
@@ -33,7 +34,9 @@ APIDEMO_PKG_NAME = 'io.appium.android.apis'
 class BaseTestCase:
     def setup_method(self, method) -> None:  # type: ignore
         caps = desired_capabilities.get_desired_capabilities('ApiDemos-debug.apk.zip')
-        self.driver = webdriver.Remote(SERVER_URL_BASE, options=UiAutomator2Options().load_capabilities(caps))
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
+        client_config.timeout = 600
+        self.driver = webdriver.Remote(options=UiAutomator2Options().load_capabilities(caps), client_config=client_config)
         if is_ci():
             self.driver.start_recording_screen()
 

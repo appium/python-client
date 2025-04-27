@@ -426,10 +426,11 @@ Appium Python Client has `120` seconds read timeout on each HTTP request since t
 the corresponding selenium binding version.
 You have two methods to extend the read timeout.
 
-1. Set `GLOBAL_DEFAULT_TIMEOUT` environment variable
-2. Configure timeout via `selenium.webdriver.remote.client_config.ClientConfig`
+1. **Recommend** Configure timeout via `appium.webdriver.client_config.AppiumClientConfig` or `selenium.webdriver.remote.client_config.ClientConfig`
     - `timeout` argument, or
     - `init_args_for_pool_manager` argument for `urllib3.PoolManager`
+2. Set `GLOBAL_DEFAULT_TIMEOUT` environment variable
+    - This env var will be removed from the selenium binding ([issue](https://github.com/SeleniumHQ/selenium/issues/15604))
 
 ## Documentation
 

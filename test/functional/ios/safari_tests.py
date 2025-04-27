@@ -16,6 +16,7 @@ import time
 
 from appium import webdriver
 from appium.options.common import AppiumOptions
+from appium.webdriver.client_config import AppiumClientConfig
 from test.helpers.constants import SERVER_URL_BASE
 
 from .helper.desired_capabilities import get_desired_capabilities
@@ -32,7 +33,9 @@ class TestSafari:
                 'webviewConnectTimeout': 100000,
             }
         )
-        self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
+        client_config.timeout = 600
+        self.driver = webdriver.Remote(options=AppiumOptions().load_capabilities(caps), client_config=client_config)
 
         # Fresh iOS 17.4 simulator may not show up the webview context with "safari"
         # after a fresh simlator instance creation.

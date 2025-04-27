@@ -14,6 +14,7 @@
 
 from appium import webdriver
 from appium.options.common import AppiumOptions
+from appium.webdriver.client_config import AppiumClientConfig
 from appium.webdriver.common.appiumby import AppiumBy
 from test.helpers.constants import SERVER_URL_BASE
 
@@ -22,9 +23,13 @@ from .helper.desired_capabilities import get_desired_capabilities
 
 class TestChrome(object):
     def setup_method(self) -> None:
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
+        client_config.timeout = 600
         caps = get_desired_capabilities()
         caps['browserName'] = 'Chrome'
-        self.driver = webdriver.Remote(SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps))
+        self.driver = webdriver.Remote(
+            SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps), client_config=client_config
+        )
 
     def teardown_method(self) -> None:
         self.driver.quit()

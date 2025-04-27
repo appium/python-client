@@ -17,6 +17,7 @@ import os
 
 from appium import webdriver
 from appium.options.ios import XCUITestOptions
+from appium.webdriver.client_config import AppiumClientConfig
 from test.functional.test_helper import is_ci
 from test.helpers.constants import SERVER_URL_BASE
 
@@ -28,7 +29,9 @@ class BaseTestCase(object):
 
     def setup_method(self) -> None:
         desired_caps = desired_capabilities.get_desired_capabilities('UICatalog.app.zip')
-        self.driver = webdriver.Remote(SERVER_URL_BASE, options=XCUITestOptions().load_capabilities(desired_caps))
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
+        client_config.timeout = 600
+        self.driver = webdriver.Remote(options=XCUITestOptions().load_capabilities(desired_caps), client_config=client_config)
         if is_ci():
             self.driver.start_recording_screen()
 

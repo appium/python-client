@@ -16,6 +16,7 @@ import os
 
 from appium import webdriver
 from appium.options.flutter_integration.base import FlutterOptions
+from appium.webdriver.client_config import AppiumClientConfig
 from appium.webdriver.extensions.flutter_integration.flutter_commands import FlutterCommand
 from test.helpers.constants import SERVER_URL_BASE
 
@@ -34,7 +35,11 @@ class BaseTestCase(object):
         flutterOptions.flutter_server_launch_timeout = 120000
 
         desired_caps = desired_capabilities.get_desired_capabilities(platform_name)
-        self.driver = webdriver.Remote(SERVER_URL_BASE, options=flutterOptions.load_capabilities(desired_caps))
+
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
+        client_config.timeout = 600
+
+        self.driver = webdriver.Remote(options=flutterOptions.load_capabilities(desired_caps), client_config=client_config)
         self.flutter_command = FlutterCommand(self.driver)
 
     def teardown_method(self) -> None:  # type: ignore

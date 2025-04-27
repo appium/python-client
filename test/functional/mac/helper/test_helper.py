@@ -14,6 +14,7 @@
 
 from appium import webdriver
 from appium.options.mac import Mac2Options
+from appium.webdriver.client_config import AppiumClientConfig
 from test.helpers.constants import SERVER_URL_BASE
 
 from .desired_capabilities import get_desired_capabilities
@@ -21,7 +22,11 @@ from .desired_capabilities import get_desired_capabilities
 
 class BaseTestCase(object):
     def setup_method(self) -> None:
-        self.driver = webdriver.Remote(SERVER_URL_BASE, options=Mac2Options().load_capabilities(get_desired_capabilities()))
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
+        client_config.timeout = 600
+        self.driver = webdriver.Remote(
+            SERVER_URL_BASE, options=Mac2Options().load_capabilities(get_desired_capabilities()), client_config=client_config
+        )
 
     def teardown_method(self, method) -> None:  # type: ignore
         if not hasattr(self, 'driver'):

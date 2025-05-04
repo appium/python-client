@@ -187,7 +187,7 @@ class FlutterCommand:
             text (Optional[str]): The text of the widget to filter by.
 
         Returns:
-            str: The render tree of the current screen.
+            List[Optional[Dict]]: A list of dictionaries or None values representing the render tree.
         """
         opts = {}
         if widget_type is not None:

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import os
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from appium.common.helper import encode_file_to_base64
 from appium.webdriver.extensions.flutter_integration.flutter_finder import FlutterFinder
@@ -171,6 +171,33 @@ class FlutterCommand:
             None:
         """
         self.execute_flutter_command('activateInjectedImage', {'imageId': image_id})
+
+    def get_render_tree(
+        self,
+        widget_type: Optional[str] = None,
+        key: Optional[str] = None,
+        text: Optional[str] = None,
+    ) -> List[Optional[Dict]]:
+        """
+        Returns the render tree of the root widget.
+
+        Args:
+            widget_type (Optional[str]): The type of the widget to primary filter by.
+            key (Optional[str]): The key of the widget to filter by.
+            text (Optional[str]): The text of the widget to filter by.
+
+        Returns:
+            str: The render tree of the current screen.
+        """
+        opts = {}
+        if widget_type is not None:
+            opts['widgetType'] = widget_type
+        if key is not None:
+            opts['key'] = key
+        if text is not None:
+            opts['text'] = text
+
+        return self.execute_flutter_command('renderTree', opts)
 
     def execute_flutter_command(self, scriptName: str, params: dict) -> Any:
         """

@@ -2,6 +2,163 @@ Changelog
 =========
 
 
+v5.1.0 (2025-05-05)
+-------------------
+
+New
+~~~
+- Feat: add method for interacting with the Flutter integration driver
+  (#1123) [Oleg Matskiv]
+
+Test
+~~~~
+- Test: use timeout in client_config instead of the global var (#1120)
+  [Kazuaki Matsuo]
+- Ci: Tune CC title script. [Mykola Mokhnach]
+
+Other
+~~~~~
+- Bump 5.1.0. [Kazuaki Matsuo]
+- Chore(deps-dev): update ruff requirement from ~=0.11.7 to ~=0.11.8
+  (#1122) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.11.7...0.11.8)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.11.8
+    dependency-type: direct:development
+  ...
+- Chore(deps): update typing-extensions requirement (#1115)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [typing-extensions](https://github.com/python/typing_extensions) to permit the latest version.
+  - [Release notes](https://github.com/python/typing_extensions/releases)
+  - [Changelog](https://github.com/python/typing_extensions/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/python/typing_extensions/compare/4.13.1...4.13.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: typing-extensions
+    dependency-version: 4.13.2
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.11.4 to ~=0.11.7
+  (#1118) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.11.4...0.11.7)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.11.7
+    dependency-type: direct:development
+  ...
+- Chore(deps): bump selenium from 4.30.0 to 4.31.0 (#1113)
+  [dependabot[bot], dependabot[bot]]
+
+  Bumps [selenium](https://github.com/SeleniumHQ/Selenium) from 4.30.0 to 4.31.0.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.30.0...selenium-4.31.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-version: 4.31.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.11.3 to ~=0.11.4
+  (#1114) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.11.3...0.11.4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.11.4
+    dependency-type: direct:development
+  ...
+- Chore(deps): update typing-extensions requirement (#1112)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [typing-extensions](https://github.com/python/typing_extensions) to permit the latest version.
+  - [Release notes](https://github.com/python/typing_extensions/releases)
+  - [Changelog](https://github.com/python/typing_extensions/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/python/typing_extensions/compare/4.12.2...4.13.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: typing-extensions
+    dependency-version: 4.13.1
+    dependency-type: direct:production
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.11.2 to ~=0.11.3
+  (#1111) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.11.2...0.11.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.11.3
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.10.0 to ~=0.11.2
+  (#1107) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.10.0...0.11.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.24 to ~=4.25 (#1109)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.24.0...4.25.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-type: direct:development
+  ...
+- Chore(deps): bump selenium from 4.29.0 to 4.30.0 (#1108)
+  [dependabot[bot], dependabot[bot]]
+
+  Bumps [selenium](https://github.com/SeleniumHQ/Selenium) from 4.29.0 to 4.30.0.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.29.0...selenium-4.30.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+- Update changelog for 5.0.0. [Kazuaki Matsuo]
+
+
 v5.0.0 (2025-03-23)
 -------------------
 

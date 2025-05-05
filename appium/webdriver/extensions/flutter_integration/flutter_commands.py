@@ -188,6 +188,77 @@ class FlutterCommand:
 
         Returns:
             List[Optional[Dict]]: A list of dictionaries or None values representing the render tree.
+
+            The result is a nested list of dictionaries representing each widget and its properties,
+            such as type, key, size, attribute, state, visual information, and hierarchy.
+
+            The example widget includes the following code, which is rendered as part of the widget tree:
+            ```dart
+            Semantics(
+              key: const Key('add_activity_semantics'),
+              label: 'add_activity_button',
+              button: true,
+              child: FloatingActionButton.small(
+                key: const Key('add_activity_button'),
+                tooltip: 'add_activity_button',
+                heroTag: 'add',
+                backgroundColor: const Color(0xFF2E2E3A),
+                onPressed: null,
+                child: Icon(
+                  Icons.add,
+                  size: 16,
+                  color: Colors.amber.shade200.withOpacity(0.5),
+                  semanticLabel: 'Add icon',
+                ),
+              ),
+            ),
+            ```
+            Example execute command:
+            >>> flutter_command = FlutterCommand(driver)  # noqa
+            >>> flutter_command.get_render_tree(widget_type='Semantics', key='add_activity_semantics')
+            output >> [
+                        {
+                            "type": "Semantics",
+                            "elementType": "SingleChildRenderObjectElement",
+                            "description": "Semantics-[<'add_activity_semantics'>]",
+                            "depth": 0,
+                            "key": "[<'add_activity_semantics'>]",
+                            "attributes": {
+                                "semanticsLabel": "add_activity_button"
+                            },
+                            "visual": {},
+                            "state": {},
+                            "rect": {
+                                "x": 0,
+                                "y": 0,
+                                "width": 48,
+                                "height": 48
+                            },
+                            "children": [
+                                {
+                                    "type": "FloatingActionButton",
+                                    "elementType": "StatelessElement",
+                                    "description": "FloatingActionButton-[<'add_activity_button'>]",
+                                    "depth": 1,
+                                    "key": "[<'add_activity_button'>]",
+                                    "attributes": {},
+                                    "visual": {},
+                                    "state": {},
+                                    "rect": {
+                                        "x": 0,
+                                        "y": 0,
+                                        "width": 48,
+                                        "height": 48
+                                    },
+                                    "children": [
+                                        {...},
+                                            "children": [...]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
         """
         opts = {}
         if widget_type is not None:

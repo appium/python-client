@@ -2,6 +2,30 @@ Changelog
 =========
 
 
+v5.1.1 (2025-05-07)
+-------------------
+- Bump 5.1.1. [Kazuaki Matsuo]
+- Docs: update README.md. [Kazuaki Matsuo]
+- Chore(deps): bump selenium from 4.31.0 to 4.32.0 (#1124) [Kazuaki
+  Matsuo, dependabot[bot], dependabot[bot]]
+
+  * chore(deps): bump selenium from 4.31.0 to 4.32.0
+
+  Bumps [selenium](https://github.com/SeleniumHQ/Selenium) from 4.31.0 to 4.32.0.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.31.0...selenium-4.32.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-version: 4.32.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+- Docs: update compatibility matrix. [Kazuaki Matsuo]
+- Update changelog for 5.1.0. [Kazuaki Matsuo]
+
+
 v5.1.0 (2025-05-05)
 -------------------
 

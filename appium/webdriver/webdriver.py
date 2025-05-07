@@ -54,6 +54,7 @@ from .extensions.images_comparison import ImagesComparison
 from .extensions.keyboard import Keyboard
 from .extensions.location import Location
 from .extensions.log_event import LogEvent
+from .extensions.logs import Logs
 from .extensions.remote_fs import RemoteFS
 from .extensions.screen_record import ScreenRecord
 from .extensions.session import Session
@@ -213,6 +214,7 @@ class WebDriver(
     Keyboard,
     Location,
     LogEvent,
+    Logs,
     Network,
     Performance,
     Power,
@@ -467,9 +469,3 @@ class WebDriver(
 
         self.command_executor.add_command(Command.GET_SCREEN_ORIENTATION, 'GET', '/session/$sessionId/orientation')
         self.command_executor.add_command(Command.SET_SCREEN_ORIENTATION, 'POST', '/session/$sessionId/orientation')
-
-        # override for Appium 1.x
-        # Appium 2.0 and Appium 1.22 work with `/se/log` and `/se/log/types`
-        # FIXME: remove after a while
-        self.command_executor.add_command(Command.GET_LOG, 'POST', '/session/$sessionId/log')
-        self.command_executor.add_command(Command.GET_AVAILABLE_LOG_TYPES, 'GET', '/session/$sessionId/log/types')

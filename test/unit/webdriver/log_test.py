@@ -24,7 +24,7 @@ def test_get_log_types():
     driver = ios_w3c_driver()
     httpretty.register_uri(
         httpretty.GET,
-        appium_command('/session/1234567890/log/types'),
+        appium_command('/session/1234567890/se/log/types'),
         body=json.dumps({'value': ['syslog']}),
     )
     log_types = driver.log_types
@@ -36,7 +36,7 @@ def test_get_log():
     driver = ios_w3c_driver()
     httpretty.register_uri(
         httpretty.POST,
-        appium_command('/session/1234567890/log'),
+        appium_command('/session/1234567890/se/log'),
         body=json.dumps({'value': ['logs as array']}),
     )
     log_types = driver.get_log('syslog')

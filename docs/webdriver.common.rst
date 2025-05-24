@@ -4,18 +4,18 @@ webdriver.common package
 Submodules
 ----------
 
-webdriver.common.mobileby module
+webdriver.common.appiumby module
 --------------------------------
 
-.. automodule:: webdriver.common.mobileby
+.. automodule:: webdriver.common.appiumby
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: webdriver.common
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

@@ -39,11 +39,12 @@ class AppiumConnection(RemoteConnection):
     """
     A subclass of selenium.webdriver.remote.remote_connection.Remoteconnection.
 
-    The changes are:
-        - The default user agent
-        - Adds 'X-Idempotency-Key' header in a new session request to avoid proceeding
-          the same request multiple times in the Appium server side.
-            - https://github.com/appium/appium-base-driver/pull/400
+    The changes are
+
+    * The default user agent
+    * Adds 'X-Idempotency-Key' header in a new session request to avoid proceeding
+        the same request multiple times in the Appium server side.
+        * https://github.com/appium/appium-base-driver/pull/400
     """
 
     user_agent = f'{PREFIX_HEADER}{library_version()} ({RemoteConnection.user_agent})'

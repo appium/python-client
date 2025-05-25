@@ -54,7 +54,7 @@ class AppiumService:
 
         The service will be forcefully restarted if it is already running.
 
-        Keyword Args:
+        Args:
             env (dict): Environment variables mapping. The default system environment,
                 which is inherited from the parent process, is assigned by default.
             node (str): The full path to the main NodeJS executable. The service will try
@@ -75,9 +75,10 @@ class AppiumService:
                 https://appium.io/docs/en/writing-running-appium/server-args/ for more details
                 about possible arguments and their values.
 
-        :return: You can use Popen.communicate interface or stderr/stdout properties
+        Returns: You can use Popen.communicate interface or stderr/stdout properties
             of the instance (stdout/stderr must not be set to None in such case) in order to retrieve the actual process
             output.
+
         """
         self.stop()
 
@@ -134,9 +135,11 @@ class AppiumService:
         The call will be ignored if the service is not running
         or has been already stopped.
 
-        :param timeout: The maximum time in float seconds to wait
-        for the server process to terminate
-        :return: `True` if the service was running before being stopped
+        Args:
+            timeout: The maximum time in float seconds to wait for the server process to terminate
+
+        Returns:
+            `True` if the service was running before being stopped
         """
         was_running = False
         if self.is_running:
@@ -170,7 +173,8 @@ class AppiumService:
         The default host/port/base path values can be customized by providing
         --address/--port/--base-path command line arguments while starting the service.
 
-        :return: `True` if the service is running and listening on the given/default host/port
+        Returns:
+            `True` if the service is running and listening on the given/default host/port
         """
         if not self.is_running:
             return False
@@ -194,10 +198,13 @@ def is_service_listening(url: str, timeout: float = 5, custom_validator: Optiona
     """
     Check if the service is running
 
-    :param url: Full server url
-    :param timeout: Timeout in float seconds
-    :param custom_validator: Custom callable method to be executed upon each validation loop before the timeout happens
-    :return: True if Appium server is running before the timeout
+    Args:
+        url: Full server url
+        timeout: Timeout in float seconds
+        custom_validator: Custom callable method to be executed upon each validation loop before the timeout happens
+
+    Returns:
+        True if Appium server is running before the timeout
     """
     time_started_sec = time.perf_counter()
     conn = urllib3.PoolManager(timeout=1.0)

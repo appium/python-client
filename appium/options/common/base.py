@@ -93,8 +93,11 @@ class AppiumOptions(
         """
         Formats given capabilities to a valid W3C session request object
 
-        :param capabilities: Capabilities mapping
-        :return: W3C session request object
+        Args:
+            capabilities: Capabilities mapping
+
+        Returns:
+            W3C session request object
         """
 
         def process_key(k: str) -> str:

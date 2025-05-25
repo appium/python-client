@@ -73,42 +73,52 @@ class ExtensionBase:
         When you want to add `example_command` which calls a get request to
         `session/$sessionId/path/to/your/custom/url`.
 
-        1. Defines an extension as a subclass of `ExtensionBase`
-            class YourCustomCommand(ExtensionBase):
-                def method_name(self):
-                    return 'custom_method_name'
+        #. Defines an extension as a subclass of `ExtensionBase`
+            .. code-block:: python
 
-                # Define a method with the name of `method_name`
-                def custom_method_name(self):
-                    # Generally the response of Appium follows `{ 'value': { data } }`
-                    # format.
-                    return self.execute()['value']
+                class YourCustomCommand(ExtensionBase):
+                    def method_name(self):
+                        return 'custom_method_name'
 
-                # Used to register the command pair as "Appium command" in this driver.
-                def add_command(self):
-                    return ('GET', 'session/$sessionId/path/to/your/custom/url')
+                    # Define a method with the name of `method_name`
+                    def custom_method_name(self):
+                        # Generally the response of Appium follows `{ 'value': { data } }`
+                        # format.
+                        return self.execute()['value']
 
-        2. Creates a session with the extension.
-            # Appium capabilities
-            options = AppiumOptions()
-            driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options,
-                extensions=[YourCustomCommand])
+                    # Used to register the command pair as "Appium command" in this driver.
+                    def add_command(self):
+                        return ('GET', 'session/$sessionId/path/to/your/custom/url')
 
-        3. Calls the custom command
-            # Then, the driver calls a get request against
-            # `session/$sessionId/path/to/your/custom/url`. `$sessionId` will be
-            # replaced properly in the driver. Then, the method returns
-            # the `value` part of the response.
-            driver.custom_method_name()
+        #. Creates a session with the extension.
+            .. code-block:: python
 
-        4. Remove added commands (if needed)
-            # New commands are added by `setattr`. They remain in the module,
-            # so you should explicitly delete them to define the same name method
-            # with different arguments or process in the method.
-            driver.delete_extensions()
+                # Appium capabilities
+                options = AppiumOptions()
+                driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options,
+                    extensions=[YourCustomCommand])
+
+        #. Calls the custom command
+            .. code-block:: python
+
+                # Then, the driver calls a get request against
+                # `session/$sessionId/path/to/your/custom/url`. `$sessionId` will be
+                # replaced properly in the driver. Then, the method returns
+                # the `value` part of the response.
+                driver.custom_method_name()
+
+        #. Remove added commands (if needed)
+            .. code-block:: python
+
+                # New commands are added by `setattr`. They remain in the module,
+                # so you should explicitly delete them to define the same name method
+                # with different arguments or process in the method.
+                driver.delete_extensions()
 
 
         You can give arbitrary arguments for the command like the below.
+
+        .. code-block:: python
 
             class YourCustomCommand(ExtensionBase):
                 def method_name(self):
@@ -130,6 +140,8 @@ class ExtensionBase:
 
         When you customize the URL dynamically with element id.
 
+        .. code-block:: python
+
             class CustomURLCommand(ExtensionBase):
                 def method_name(self):
                     return 'custom_method_name'
@@ -147,6 +159,7 @@ class ExtensionBase:
             # Then, the driver calls a get request to `session/$sessionId/path/to/your/custom/$id/url`
             # with replacing the `$id` with the given `element.id`
             driver.custom_method_name(element.id)
+
     """
 
     def __init__(self, execute: Callable[[str, Dict], Dict[str, Any]]):
@@ -352,8 +365,9 @@ class WebDriver(
 
         Usage:
             driver.get_status()
+
         Returns:
-            Dict: The status information
+            dict: The status information
 
         """
         return self.execute(Command.GET_STATUS)['value']
@@ -390,8 +404,11 @@ class WebDriver(
     def orientation(self) -> str:
         """
         Gets the current orientation of the device
-        :Usage:
-            ::
+
+        Example:
+
+            .. code-block:: python
+
                 orientation = driver.orientation
         """
         return self.execute(Command.GET_SCREEN_ORIENTATION)['value']
@@ -401,10 +418,13 @@ class WebDriver(
     def orientation(self, value: str) -> None:
         """
         Sets the current orientation of the device
-        :Args:
+
+        Args:
          - value: orientation to set it to.
-        :Usage:
-            ::
+
+        Example:
+            .. code-block:: python
+
                 driver.orientation = 'landscape'
         """
         allowed_values = ['LANDSCAPE', 'PORTRAIT']
@@ -419,9 +439,14 @@ class WebDriver(
         for the given driver instance.
         This API is designed for private usage.
 
-        :param ext_name: extension name
-        :return: self instance for chaining
-        :raise UnknownMethodException: If the extension has been marked as absent once
+        Args:
+            ext_name: extension name
+
+        Returns:
+            self instance for chaining
+
+        Raises:
+            UnknownMethodException: If the extension has been marked as absent once
         """
         if ext_name in self._absent_extensions:
             raise UnknownMethodException()
@@ -432,8 +457,11 @@ class WebDriver(
         Marks the given extension as absent for the given driver instance.
         This API is designed for private usage.
 
-        :param ext_name: extension name
-        :return: self instance for chaining
+        Args:
+            ext_name: extension name
+
+        Returns:
+            self instance for chaining
         """
         logger.debug(f'Marking driver extension "{ext_name}" as absent for the current instance')
         self._absent_extensions.add(ext_name)

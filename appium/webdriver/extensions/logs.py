@@ -26,25 +26,25 @@ class Logs(CanExecuteCommands):
         compliant browsers.
 
         Example:
-        --------
-        >>> driver.log_types
+            .. code-block:: python
+
+                driver.log_types
         """
         return self.execute(Command.GET_AVAILABLE_LOG_TYPES)['value']
 
     def get_log(self, log_type: str) -> List[Dict[str, Any]]:
         """Gets the log for a given log type.
 
-        Parameters:
-        ----------
-        log_type : str
-            - Type of log that which will be returned
+        Args:
+            log_type: Type of log that which will be returned
 
         Example:
-        --------
-        >>> driver.get_log('browser')
-        >>> driver.get_log('driver')
-        >>> driver.get_log('client')
-        >>> driver.get_log('server')
+            .. code-block:: python
+
+                driver.get_log('browser')
+                driver.get_log('driver')
+                driver.get_log('client')
+                driver.get_log('server')
         """
         return self.execute(Command.GET_LOG, {'type': log_type})['value']
 

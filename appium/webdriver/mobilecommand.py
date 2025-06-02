@@ -30,9 +30,6 @@ class MobileCommand:
     GET_CURRENT_CONTEXT = 'getCurrentContext'
     SWITCH_TO_CONTEXT = 'switchToContext'
 
-    TOUCH_ACTION = 'touchAction'
-    MULTI_ACTION = 'multiAction'
-
     BACKGROUND = 'background'
     GET_APP_STRINGS = 'getAppStrings'
 

@@ -867,7 +867,7 @@ class AndroidKey:
     TV_SATELLITE_SERVICE = 240
 
     # Key code constant: Toggle Network key.
-    # Toggles selecting broacast services.
+    # Toggles selecting broadcast services.
     TV_NETWORK = 241
 
     # Key code constant: Antenna/Cable key.

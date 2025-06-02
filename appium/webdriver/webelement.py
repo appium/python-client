@@ -88,7 +88,7 @@ class WebElement(SeleniumWebElement):
         """
 
         # NOTE: this method is overridden because the selenium client returned None instead of self.
-        # Appium python cleint would like to allow users to chain methods.
+        # Appium python client would like to allow users to chain methods.
         data = {'id': self.id}
         self._execute(Command.CLEAR, data)
         return self

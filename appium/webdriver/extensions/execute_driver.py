@@ -41,7 +41,7 @@ class ExecuteDriver(CanExecuteCommands):
             ExecuteDriver.Result: The result of the script. It has 'result' and 'logs' keys.
 
         Raises:
-            WebDriverException: If something error happenes in the script. The message has the original error message.
+            WebDriverException: If something error happens in the script. The message has the original error message.
         """
 
         class Result:

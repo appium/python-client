@@ -35,7 +35,7 @@ class LogcatFilterSpecsOption(SupportsCapabilities):
         """
         Series of tag[:priority] where tag is a log component tag (or * for all)
         and priority is: V Verbose, D Debug, I Info, W Warn, E Error, F Fatal,
-        S Silent (supress all output). '' means ':d' and tag by itself means tag:v.
+        S Silent (suppress all output). '' means ':d' and tag by itself means tag:v.
         If not specified on the commandline, filterspec is set from ANDROID_LOG_TAGS.
         If no filterspec is found, filter defaults to '*:I'.
         """

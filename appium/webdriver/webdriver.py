@@ -479,10 +479,6 @@ class WebDriver(
 
         self.command_executor.add_command(Command.GET_STATUS, 'GET', '/status')
 
-        # FIXME: remove after a while as MJSONWP
-        self.command_executor.add_command(Command.TOUCH_ACTION, 'POST', '/session/$sessionId/touch/perform')
-        self.command_executor.add_command(Command.MULTI_ACTION, 'POST', '/session/$sessionId/touch/multi/perform')
-
         # TODO Move commands for element to webelement
         self.command_executor.add_command(Command.CLEAR, 'POST', '/session/$sessionId/element/$id/clear')
         self.command_executor.add_command(

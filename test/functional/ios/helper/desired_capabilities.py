@@ -38,6 +38,11 @@ def get_desired_capabilities(app: Optional[str] = None) -> Dict[str, Any]:
     if app is not None:
         desired_caps['app'] = PATH(os.path.join('../../..', 'apps', app))
 
+    local_prebuilt_wda = os.getenv('LOCAL_PREBUILT_WDA')
+    if local_prebuilt_wda:
+        desired_caps['usePreinstalledWDA'] = True
+        desired_caps['prebuiltWDAPath'] = local_prebuilt_wda
+
     return desired_caps
 
 

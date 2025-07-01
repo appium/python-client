@@ -62,6 +62,10 @@ jobs:
         appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
+    - run: |
+        appium driver run xcuitest download-wda-sim  --platform=ios --outdir=${{ github.workspace }}/wda
+      name: Downloading prebuilt WDA
+
     - name: Set up Python 3.12
       uses: actions/setup-python@v5
       with:
@@ -74,6 +78,8 @@ jobs:
         pipenv lock --clear
         pipenv install -d --system
         pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+      env:
+        LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
 
     - name: Save server output
       if: ${{ always() }}

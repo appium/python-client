@@ -2,6 +2,192 @@ Changelog
 =========
 
 
+v5.1.2 (2025-07-24)
+-------------------
+
+Test
+~~~~
+- Ci: apply prebuilt wda (#1141) [Kazuaki Matsuo]
+
+Other
+~~~~~
+- Bump 5.1.2. [Kazuaki Matsuo]
+- Chore: inherit CanFindElements (#1148) [Kazuaki Matsuo]
+- Chore(deps-dev): update ruff requirement from ~=0.12.3 to ~=0.12.4
+  (#1146) [dependabot[bot], dependabot[bot]]
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.12.4
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.12.2 to ~=0.12.3
+  (#1144) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.12.2...0.12.3)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.12.3
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.12.1 to ~=0.12.2
+  (#1142) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.12.1...0.12.2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.12.2
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.11.13 to ~=0.12.1
+  (#1139) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.11.13...0.12.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.12.1
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.26 to ~=4.27 (#1138)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.26.0...4.27.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-version: 4.27.0
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.11.12 to ~=0.11.13
+  (#1135) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.11.12...0.11.13)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.11.13
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pytest requirement from ~=8.3 to ~=8.4 (#1134)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest](https://github.com/pytest-dev/pytest) to permit the latest version.
+  - [Release notes](https://github.com/pytest-dev/pytest/releases)
+  - [Changelog](https://github.com/pytest-dev/pytest/blob/main/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest/compare/8.3.0...8.4.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest
+    dependency-version: 8.4.0
+    dependency-type: direct:development
+  ...
+- Chore: fix typos (#1133) [Noritaka Kobayashi]
+- Chore: remove unused commands (#1132) [Kazuaki Matsuo]
+- Chore(deps-dev): update ruff requirement from ~=0.11.11 to ~=0.11.12
+  (#1131) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.11.11...0.11.12)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.11.12
+    dependency-type: direct:development
+  ...
+- Chore(deps): bump selenium from 4.32.0 to 4.33.0 (#1130)
+  [dependabot[bot], dependabot[bot]]
+
+  Bumps [selenium](https://github.com/SeleniumHQ/Selenium) from 4.32.0 to 4.33.0.
+  - [Release notes](https://github.com/SeleniumHQ/Selenium/releases)
+  - [Commits](https://github.com/SeleniumHQ/Selenium/compare/selenium-4.32.0...selenium-4.33.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: selenium
+    dependency-version: 4.33.0
+    dependency-type: direct:production
+    update-type: version-update:semver-minor
+  ...
+- Docs: re-run the gen code (#1129) [Kazuaki Matsuo]
+
+  * docs: re-run the gen code
+
+  * update
+
+  * fix syntax
+- Chore(deps-dev): update ruff requirement from ~=0.11.10 to ~=0.11.11
+  (#1128) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.11.10...0.11.11)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.11.11
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update tox requirement from ~=4.25 to ~=4.26 (#1126)
+  [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [tox](https://github.com/tox-dev/tox) to permit the latest version.
+  - [Release notes](https://github.com/tox-dev/tox/releases)
+  - [Changelog](https://github.com/tox-dev/tox/blob/main/docs/changelog.rst)
+  - [Commits](https://github.com/tox-dev/tox/compare/4.25.0...4.26.0)
+
+  ---
+  updated-dependencies:
+  - dependency-name: tox
+    dependency-version: 4.26.0
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update ruff requirement from ~=0.11.8 to ~=0.11.10
+  (#1127) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.11.8...0.11.10)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.11.10
+    dependency-type: direct:development
+  ...
+- Update changelog for 5.1.1. [Kazuaki Matsuo]
+
+
 v5.1.1 (2025-05-07)
 -------------------
 - Bump 5.1.1. [Kazuaki Matsuo]

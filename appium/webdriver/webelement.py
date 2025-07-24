@@ -19,10 +19,12 @@ from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
 from typing_extensions import Self
 
+from appium.protocols.webdriver.can_find_elements import CanFindElements
+
 from .mobilecommand import MobileCommand as Command
 
 
-class WebElement(SeleniumWebElement):
+class WebElement(SeleniumWebElement, CanFindElements):
     _execute: Callable
     _id: str
 

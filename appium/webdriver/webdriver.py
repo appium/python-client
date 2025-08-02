@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Set, Tuple, Type, Union
 
 from selenium import webdriver
 from selenium.common.exceptions import (
@@ -21,14 +21,12 @@ from selenium.common.exceptions import (
     UnknownMethodException,
     WebDriverException,
 )
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 from typing_extensions import Self
 
 from appium.common.logger import logger
 from appium.options.common.base import AppiumOptions
-from appium.webdriver.common.appiumby import AppiumBy
 
 from .appium_connection import AppiumConnection
 from .client_config import AppiumClientConfig
@@ -241,7 +239,7 @@ class WebDriver(
     def __init__(
         self,
         command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4723',
-        extensions: Optional[List['WebDriver']] = None,
+        extensions: Optional[List[Type['ExtensionBase']]] = None,
         options: Union[AppiumOptions, List[AppiumOptions], None] = None,
         client_config: Optional[AppiumClientConfig] = None,
     ):
@@ -250,11 +248,14 @@ class WebDriver(
         )
         super().__init__(
             command_executor=command_executor,
-            options=options,
+            options=options,  # type: ignore[arg-type]
             locator_converter=AppiumLocatorConverter(),
             web_element_cls=MobileWebElement,
             client_config=client_config,
         )
+
+        # to explicitly set type after the initialization
+        self.command_executor: RemoteConnection
 
         self._add_commands()
 
@@ -262,15 +263,6 @@ class WebDriver(
 
         if client_config and client_config.direct_connection:
             self._update_command_executor(keep_alive=client_config.keep_alive)
-
-        # add new method to the `find_by_*` pantheon
-        By.IOS_PREDICATE = AppiumBy.IOS_PREDICATE
-        By.IOS_CLASS_CHAIN = AppiumBy.IOS_CLASS_CHAIN
-        By.ANDROID_UIAUTOMATOR = AppiumBy.ANDROID_UIAUTOMATOR
-        By.ANDROID_VIEWTAG = AppiumBy.ANDROID_VIEWTAG
-        By.ACCESSIBILITY_ID = AppiumBy.ACCESSIBILITY_ID
-        By.IMAGE = AppiumBy.IMAGE
-        By.CUSTOM = AppiumBy.CUSTOM
 
         self._absent_extensions: Set[str] = set()
 
@@ -285,6 +277,14 @@ class WebDriver(
             setattr(WebDriver, method_name, getattr(instance, method_name))
             method, url_cmd = instance.add_command()
             self.command_executor.add_command(method_name, method.upper(), url_cmd)
+
+    if TYPE_CHECKING:
+
+        def find_element(self, by: str, value: Union[str, Dict, None] = None) -> 'MobileWebElement':  # type: ignore[override]
+            ...
+
+        def find_elements(self, by: str, value: Union[str, Dict, None] = None) -> List['MobileWebElement']:  # type: ignore[override]
+            ...
 
     def delete_extensions(self) -> None:
         """Delete extensions added in the class with 'setattr'"""

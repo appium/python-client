@@ -19,16 +19,14 @@ from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.webelement import WebElement as SeleniumWebElement
 from typing_extensions import Self
 
-from appium.protocols.webdriver.can_find_elements import CanFindElements
-
 from .mobilecommand import MobileCommand as Command
 
 
-class WebElement(SeleniumWebElement, CanFindElements):
+class WebElement(SeleniumWebElement):
     _execute: Callable
     _id: str
 
-    def get_attribute(self, name: str) -> Optional[Union[str, Dict]]:
+    def get_attribute(self, name: str) -> Optional[Union[str, Dict]]:  # type: ignore[override]
         """Gets the given attribute or property of the element.
 
         Override for Appium
@@ -80,7 +78,7 @@ class WebElement(SeleniumWebElement, CanFindElements):
         """
         return self._execute(Command.IS_ELEMENT_DISPLAYED)['value']
 
-    def clear(self) -> Self:
+    def clear(self) -> Self:  # type: ignore[override]
         """Clears text.
 
         Override for Appium

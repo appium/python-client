@@ -28,7 +28,6 @@ from typing_extensions import Self
 
 from appium.common.logger import logger
 from appium.options.common.base import AppiumOptions
-from appium.protocols.webdriver.can_find_elements import CanFindElements
 from appium.webdriver.common.appiumby import AppiumBy
 
 from .appium_connection import AppiumConnection
@@ -238,7 +237,6 @@ class WebDriver(
     Settings,
     Sms,
     SystemBars,
-    CanFindElements,
 ):
     def __init__(
         self,

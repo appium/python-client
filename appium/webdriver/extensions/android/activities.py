@@ -50,7 +50,9 @@ class Activities(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPres
             `True` if the target activity is shown
         """
         try:
-            WebDriverWait(self, timeout, interval).until(lambda d: d.current_activity == activity)
+            WebDriverWait(self, timeout, interval).until(  # type: ignore[type-var]
+                lambda d: d.current_activity == activity
+            )
             return True
         except TimeoutException:
             return False

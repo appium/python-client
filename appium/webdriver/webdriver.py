@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Set, Tuple, Union
 
 from selenium import webdriver
 from selenium.common.exceptions import (
@@ -250,11 +250,14 @@ class WebDriver(
         )
         super().__init__(
             command_executor=command_executor,
-            options=options,
+            options=options,  # type: ignore[arg-type]
             locator_converter=AppiumLocatorConverter(),
             web_element_cls=MobileWebElement,
             client_config=client_config,
         )
+
+        # to explicitly set type after the initialization
+        self.command_executor: RemoteConnection
 
         self._add_commands()
 
@@ -285,6 +288,14 @@ class WebDriver(
             setattr(WebDriver, method_name, getattr(instance, method_name))
             method, url_cmd = instance.add_command()
             self.command_executor.add_command(method_name, method.upper(), url_cmd)
+
+    if TYPE_CHECKING:
+
+        def find_element(self, by: str, value: Union[str, Dict, None] = None) -> 'MobileWebElement':  # type: ignore[override]
+            ...
+
+        def find_elements(self, by: str, value: Union[str, Dict, None] = None) -> List['MobileWebElement']:  # type: ignore[override]
+            ...
 
     def delete_extensions(self) -> None:
         """Delete extensions added in the class with 'setattr'"""

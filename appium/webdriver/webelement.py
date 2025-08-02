@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Callable, Dict, Optional, Union
+from typing import TYPE_CHECKING, Callable, Dict, Optional, Union
 
 from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.remote.command import Command as RemoteCommand
@@ -25,6 +25,14 @@ from .mobilecommand import MobileCommand as Command
 class WebElement(SeleniumWebElement):
     _execute: Callable
     _id: str
+
+    if TYPE_CHECKING:
+
+        def find_element(self, by: str, value: Union[str, Dict, None] = None) -> Self:  # type: ignore[override]
+            ...
+
+        def find_elements(self, by: str, value: Union[str, Dict, None] = None) -> Self:  # type: ignore[override]
+            ...
 
     def get_attribute(self, name: str) -> Optional[Union[str, Dict]]:  # type: ignore[override]
         """Gets the given attribute or property of the element.
@@ -108,7 +116,7 @@ class WebElement(SeleniumWebElement):
         return self._execute(Command.LOCATION_IN_VIEW)['value']
 
     # Override
-    def send_keys(self, *value: str) -> Self:
+    def send_keys(self, *value: str) -> Self:  # type: ignore[override]
         """Simulates typing into the element.
 
         Args:

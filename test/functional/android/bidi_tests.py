@@ -64,10 +64,9 @@ class TestChromeWithBiDi:
         self.driver.get_log('server')
 
         log_entries = []
+        bidi_log_param = {'events': ['log.entryAdded'], 'contexts': ['NATIVE_APP']}
 
-        self.driver.script.conn.execute(
-            command_builder('session.subscribe', {'events': ['log.entryAdded'], 'contexts': ['NATIVE_APP']})
-        )
+        self.driver.script.conn.execute(command_builder('session.subscribe', bidi_log_param))
 
         def _log(entry: AppiumLogEntry):
             # e.g. {'type': 'syslog', 'level': 'info', 'source': {'realm': ''}, 'text': '08-05 13:30:32.617 29677 29709 I appium  : channel read: GET /session/d7c38859-8930-4eb0-960a-8f917c9e6a38/source', 'timestamp': 1754368241565}
@@ -77,3 +76,4 @@ class TestChromeWithBiDi:
         self.driver.page_source
         assert len(log_entries) != 0
         self.driver.script.conn.remove_callback(AppiumLogEntry, callback_id)
+        self.driver.script.conn.execute(command_builder('session.unsubscribe', bidi_log_param))

@@ -61,8 +61,6 @@ class TestChromeWithBiDi:
         self.driver.quit()
 
     def test_bidi_log(self) -> None:
-        self.driver.get_log('server')
-
         log_entries = []
         bidi_log_param = {'events': ['log.entryAdded'], 'contexts': ['NATIVE_APP']}
 

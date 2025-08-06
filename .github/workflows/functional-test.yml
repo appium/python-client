@@ -76,8 +76,7 @@ jobs:
 
     - name: Run Tests
       run: |
-        uv run pytest ${{ matrix.test_targets.target}} \
-          --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        uv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
       env:
         LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
 
@@ -162,8 +161,7 @@ jobs:
         arch: ${{ env.ARCH }}
         script: |
           make install-uv
-          uv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml \
-            --cov=com --cov-report=xml --cov-report=html
+          uv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: google_apis
         profile: Nexus 5X
         disable-spellchecker: true
@@ -249,8 +247,7 @@ jobs:
         api-level: ${{ env.API_LEVEL }}
         script: |
           make install-uv
-          uv run pytest test/functional/flutter_integration/*_test.py \
-            --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          uv run pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: default
         disable-spellchecker: true
         disable-animations: true
@@ -292,5 +289,4 @@ jobs:
       run: |
         make install-uv
         export PLATFORM=ios
-        uv run pytest test/functional/flutter_integration/*_test.py \
-          --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        uv run pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html

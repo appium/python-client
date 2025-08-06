@@ -56,8 +56,8 @@ the Selenium Python binding update might affect the Appium Python Client behavio
 For example, some changes in the Selenium binding could break the Appium client.
 
 > **Note**
-> We strongly recommend you manage dependencies with version management tools such as Pipenv and requirements.txt
-> to keep compatible version combinations.
+> We strongly recommend you manage dependencies with version management tools such as 
+> [uv](https://docs.astral.sh/uv/) to keep compatible version combinations.
 
 
 ### Quick migration guide from v4 to v5
@@ -448,18 +448,18 @@ You have two methods to extend the read timeout.
 
 ### Setup
 
-- `pip install --user pipenv`
-- `python -m pipenv lock --clear`
-  - If you experience `Locking Failed! unknown locale: UTF-8` error, then refer [pypa/pipenv#187](https://github.com/pypa/pipenv/issues/187) to solve it.
-- `python -m pipenv install --dev --system`
-- `pre-commit install`
+```bash
+make install-uv
+exec $SHELL 
+make sync-dev
+```
 
 ### Run tests
 
 You can run all of the tests running on CI via `tox` in your local.
 
 ```bash
-$ tox
+$ uv run tox
 ```
 
 You also can run particular tests like below.
@@ -467,29 +467,28 @@ You also can run particular tests like below.
 #### Unit
 
 ```bash
-$ pytest test/unit
+$ uv run pytest test/unit
 ```
 
 Run with `pytest-xdist`
 
 ```bash
-$ pytest -n 2 test/unit
+$ uv run pytest -n 2 test/unit
 ```
 
 #### Functional
 
 ```bash
-$ pytest test/functional/ios/search_context/find_by_ios_class_chain_tests.py
+$ uv run pytest test/functional/ios/search_context/find_by_ios_class_chain_tests.py
 ```
 
 #### In parallel for iOS
 
 1. Create simulators named 'iPhone X - 8100' and 'iPhone X - 8101'
-2. Install test libraries via pip, `pip install pytest pytest-xdist`
-3. Run tests
+1. Run tests
 
 ```bash
-$ pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_tests.py
+$ uv run pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_tests.py
 ```
 
 ## Release

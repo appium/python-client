@@ -24,8 +24,7 @@ __pycache__
 
 # Virtual Environments
 venv*
+.venv
 .tox
-
-Pipfile.lock
 
 .coverage

@@ -488,19 +488,19 @@ export "PATH=/venv/root/folder/bin:$PATH"
 #### Unit
 
 ```bash
-$ uv run pytest test/unit
+uv run pytest test/unit
 ```
 
 Run in parallel (2 threads)
 
 ```bash
-$ uv run pytest -n 2 test/unit
+uv run pytest -n 2 test/unit
 ```
 
 #### Functional
 
 ```bash
-$ uv run pytest test/functional/ios/search_context/find_by_ios_class_chain_tests.py
+uv run pytest test/functional/ios/search_context/find_by_ios_class_chain_tests.py
 ```
 
 #### In parallel for iOS
@@ -509,7 +509,7 @@ $ uv run pytest test/functional/ios/search_context/find_by_ios_class_chain_tests
 1. Run tests
 
 ```bash
-$ uv run pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_tests.py
+uv run pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_tests.py
 ```
 
 ## Release
@@ -517,12 +517,13 @@ $ uv run pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_
 Follow the below steps.
 
 ```bash
-$ pip install twine
-$ pip install git+git://github.com/vaab/gitchangelog.git # Getting via GitHub repository is necessary for Python 3.7
+uv pip install setuptools
+uv pip install twine
+uv pip install git+https://github.com/vaab/gitchangelog.git # Getting via GitHub repository is necessary for Python 3.7
 # Type the new version number and 'yes' if you can publish it
 # You can test the command with DRY_RUN
-$ DRY_RUN=1 ./release.sh
-$ ./release.sh # release
+DRY_RUN=1 ./release.sh
+./release.sh # release
 ```
 
 If the `pypi` was not able to publish with user name and password, please try out `-u` and `-p` option by yourself with `twine` such as `twine upload -u <name> -p <pass> dist/Appium-Python-Client-4.1.0.tar.gz`.

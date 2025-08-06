@@ -1,9 +1,18 @@
 [project]
 name = "Appium-Python-Client"
-dynamic = ["version"]
+dynamic = [
+  "version",
+  "description",
+  "readme",
+  "license",
+  "authors",
+  "maintainers",
+  "keywords",
+  "classifiers"
+]
 requires-python = ">=3.9"
 dependencies = [
-  "selenium==4.33.0",
+  "selenium>=4.26,<5.0",
   "typing-extensions~=4.13.2",
 ]
 

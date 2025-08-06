@@ -454,7 +454,36 @@ exec $SHELL
 make sync-dev
 ```
 
-You can run the following tests:
+Running above commands should automatically setup the virtual environment for the project
+using the default system Python version and put it into the `.venv` folder under the project root.
+If you'd like to customize the Python version then run the following command before `make sync-dev`:
+
+```bash
+uv venv --python <V>
+```
+
+where `<V>` is the actual Python version, for example `3.12`.
+
+If you want to customize the folder where uv stores the virtual environment by default
+(e.g. `.venv`) then add an argument containing the destination folder path to the above command:
+
+```bash
+uv venv /venv/root/folder
+```
+
+In order to activate the newly created virtual environment you may either source it:
+
+```bash
+source /venv/root/folder/bin/activate
+```
+
+or add it to PATH:
+
+```bash
+export "PATH=/venv/root/folder/bin:$PATH"
+```
+
+### Testing
 
 #### Unit
 

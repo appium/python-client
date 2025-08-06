@@ -454,15 +454,7 @@ exec $SHELL
 make sync-dev
 ```
 
-### Run tests
-
-You can run all of the tests running on CI via `tox` in your local.
-
-```bash
-$ uv run tox
-```
-
-You also can run particular tests like below.
+You can run the following tests:
 
 #### Unit
 
@@ -470,7 +462,7 @@ You also can run particular tests like below.
 $ uv run pytest test/unit
 ```
 
-Run with `pytest-xdist`
+Run in parallel (2 threads)
 
 ```bash
 $ uv run pytest -n 2 test/unit

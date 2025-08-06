@@ -20,7 +20,6 @@ dev = [
     { name = "pytest-xdist" },
     { name = "python-dateutil" },
     { name = "ruff" },
-    { name = "tox" },
     { name = "types-python-dateutil" },
 ]
 
@@ -40,7 +39,6 @@ dev = [
     { name = "pytest-xdist", specifier = "~=3.8" },
     { name = "python-dateutil", specifier = "~=2.9" },
     { name = "ruff", specifier = "~=0.12.7" },
-    { name = "tox", specifier = "~=4.27" },
     { name = "types-python-dateutil", specifier = "~=2.9" },
 ]
 
@@ -51,15 +49,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/5a/b0/1367933a8532ee6ff8d63537de4f1177af4bff9f3e829baf7331f595bb24/attrs-25.3.0.tar.gz", hash = "sha256:75d7cefc7fb576747b2c81b4442d4d4a1ce0900973527c011d1030fd3bf4af1b", size = 812032, upload-time = "2025-03-13T11:10:22.779Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/77/06/bb80f5f86020c4551da315d78b3ab75e8228f89f0162f2c3a819e407941a/attrs-25.3.0-py3-none-any.whl", hash = "sha256:427318ce031701fea540783410126f03899a97ffc6f61596ad581ac2e40e3bc3", size = 63815, upload-time = "2025-03-13T11:10:21.14Z" },
-]
-
-[[package]]
-name = "cachetools"
-version = "6.1.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/8a/89/817ad5d0411f136c484d535952aef74af9b25e0d99e90cdffbe121e6d628/cachetools-6.1.0.tar.gz", hash = "sha256:b4c4f404392848db3ce7aac34950d17be4d864da4b8b66911008e430bc544587", size = 30714, upload-time = "2025-06-16T18:51:03.07Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/00/f0/2ef431fe4141f5e334759d73e81120492b23b2824336883a91ac04ba710b/cachetools-6.1.0-py3-none-any.whl", hash = "sha256:1c7bb3cf9193deaf3508b7c5f2a79986c13ea38965c5adcff1f84519cf39163e", size = 11189, upload-time = "2025-06-16T18:51:01.514Z" },
 ]
 
 [[package]]
@@ -99,15 +88,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/11/74/539e56497d9bd1d484fd863dd69cbbfa653cd2aa27abfe35653494d85e94/cfgv-3.4.0.tar.gz", hash = "sha256:e52591d4c5f5dead8e0f673fb16db7949d2cfb3f7da4582893288f0ded8fe560", size = 7114, upload-time = "2023-08-12T20:38:17.776Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c5/55/51844dd50c4fc7a33b653bfaba4c2456f06955289ca770a5dbd5fd267374/cfgv-3.4.0-py2.py3-none-any.whl", hash = "sha256:b7265b1f29fd3316bfcd2b330d63d024f2bfd8bcb8b0272f8e19a504856c48f9", size = 7249, upload-time = "2023-08-12T20:38:16.269Z" },
-]
-
-[[package]]
-name = "chardet"
-version = "5.2.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f3/0d/f7b6ab21ec75897ed80c17d79b15951a719226b9fababf1e40ea74d69079/chardet-5.2.0.tar.gz", hash = "sha256:1b3b6ff479a8c414bc3fa2c0852995695c4a026dcd6d0633b2dd092ca39c1cf7", size = 2069618, upload-time = "2023-08-01T19:23:02.662Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/38/6f/f5fbc992a329ee4e0f288c1fe0e2ad9485ed064cac731ed2fe47dcc38cbf/chardet-5.2.0-py3-none-any.whl", hash = "sha256:e1cf59446890a00105fe7b7912492ea04b6e6f06d4b742b2c788469e34c82970", size = 199385, upload-time = "2023-08-01T19:23:00.661Z" },
 ]
 
 [[package]]
@@ -392,19 +372,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pyproject-api"
-version = "1.9.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "packaging" },
-    { name = "tomli", marker = "python_full_version < '3.11'" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/19/fd/437901c891f58a7b9096511750247535e891d2d5a5a6eefbc9386a2b41d5/pyproject_api-1.9.1.tar.gz", hash = "sha256:43c9918f49daab37e302038fc1aed54a8c7a91a9fa935d00b9a485f37e0f5335", size = 22710, upload-time = "2025-05-12T14:41:58.025Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/ef/e6/c293c06695d4a3ab0260ef124a74ebadba5f4c511ce3a4259e976902c00b/pyproject_api-1.9.1-py3-none-any.whl", hash = "sha256:7d6238d92f8962773dd75b5f0c4a6a27cce092a14b623b811dba656f3b628948", size = 13158, upload-time = "2025-05-12T14:41:56.217Z" },
-]
-
-[[package]]
 name = "pysocks"
 version = "1.7.1"
 source = { registry = "https://pypi.org/simple" }
@@ -629,28 +596,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/5b/b9/1ed31d167be802da0fc95020d04cd27b7d7065cc6fbefdd2f9186f60d7bd/tomli-2.2.1-cp313-cp313-win32.whl", hash = "sha256:d3f5614314d758649ab2ab3a62d4f2004c825922f9e370b29416484086b264ec", size = 98724, upload-time = "2024-11-27T22:38:32.837Z" },
     { url = "https://files.pythonhosted.org/packages/c7/32/b0963458706accd9afcfeb867c0f9175a741bf7b19cd424230714d722198/tomli-2.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:a38aa0308e754b0e3c67e344754dff64999ff9b513e691d0e786265c93583c69", size = 109383, upload-time = "2024-11-27T22:38:34.455Z" },
     { url = "https://files.pythonhosted.org/packages/6e/c2/61d3e0f47e2b74ef40a68b9e6ad5984f6241a942f7cd3bbfbdbd03861ea9/tomli-2.2.1-py3-none-any.whl", hash = "sha256:cb55c73c5f4408779d0cf3eef9f762b9c9f147a77de7b258bef0a5628adc85cc", size = 14257, upload-time = "2024-11-27T22:38:35.385Z" },
-]
-
-[[package]]
-name = "tox"
-version = "4.27.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "cachetools" },
-    { name = "chardet" },
-    { name = "colorama" },
-    { name = "filelock" },
-    { name = "packaging" },
-    { name = "platformdirs" },
-    { name = "pluggy" },
-    { name = "pyproject-api" },
-    { name = "tomli", marker = "python_full_version < '3.11'" },
-    { name = "typing-extensions", marker = "python_full_version < '3.11'" },
-    { name = "virtualenv" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/a5/b7/19c01717747076f63c54d871ada081cd711a7c9a7572f2225675c3858b94/tox-4.27.0.tar.gz", hash = "sha256:b97d5ecc0c0d5755bcc5348387fef793e1bfa68eb33746412f4c60881d7f5f57", size = 198351, upload-time = "2025-06-17T15:17:50.585Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c1/3a/30889167f41ecaffb957ec4409e1cbc1d5d558a5bbbdfb734a5b9911930f/tox-4.27.0-py3-none-any.whl", hash = "sha256:2b8a7fb986b82aa2c830c0615082a490d134e0626dbc9189986da46a313c4f20", size = 173441, upload-time = "2025-06-17T15:17:48.689Z" },
 ]
 
 [[package]]

@@ -14,7 +14,6 @@
 """Release script to publish release module to pipy."""
 
 import glob
-import io
 import os
 import shutil
 import subprocess

@@ -21,7 +21,6 @@ import subprocess
 import sys
 from typing import List
 
-VERSION_FILE_PATH = os.path.join(os.path.dirname('__file__'), 'appium', 'version.py')
 CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.rst')
 
 APPIUM_DIR_PATH = os.path.join(os.path.dirname('__file__'), 'appium')

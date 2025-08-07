@@ -2,12 +2,15 @@
 name = "Appium-Python-Client"
 description = "Python client for Appium"
 readme = "README.md"
-license = {text = "Apache 2.0"}
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 authors = [
     {name = "Isaac Murchie", email = "isaac@saucelabs.com"},
 ]
 maintainers = [
-    {name = "Kazuaki Matsuo, Mykola Mokhnach, Mori Atsushi"},
+    {name = "Kazuaki Matsuo"},
+    {name = "Mykola Mokhnach"},
+    {name = "Mori Atsushi"},
 ]
 keywords = ["appium", "selenium", "python client", "mobile automation"]
 classifiers = [
@@ -31,6 +34,8 @@ dynamic = ["version"]
 [project.urls]
 Homepage = "http://appium.io/"
 Repository = "https://github.com/appium/python-client"
+Issues = "https://github.com/appium/python-client/issues"
+Changelog = "https://github.com/appium/python-client/blob/master/CHANGELOG.rst"
 
 [tool.uv]
 dev-dependencies = [

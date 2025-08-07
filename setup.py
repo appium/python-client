@@ -37,7 +37,7 @@ setup(
     keywords=project['keywords'],
     author=project['authors'][0]['name'],
     author_email=project['authors'][0]['email'],
-    maintainer=project['maintainers'][0]['name'],
+    maintainer=", ".join([maintainer["name"] for maintainer in project['maintainers']]),
     url=project['urls']['Homepage'],
     package_data={'appium': ['py.typed']},
     packages=find_packages(include=['appium*']),

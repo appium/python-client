@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# FIXME: Remove this setup.py completely
+
 try:
     # Python 3.11+
     import tomllib

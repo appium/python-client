@@ -2,6 +2,79 @@ Changelog
 =========
 
 
+v5.2.0 (2025-08-07)
+-------------------
+
+New
+~~~
+- Feat: Switch package management from pipenv to uv (#1155) [Mykola
+  Mokhnach]
+
+  * feat: Switch package management from pipenv to uv
+
+  * line break
+
+  * Get rid of tox
+
+  * Update readme
+
+  * setup
+
+Fix
+~~~
+- Restore mypy linting (#1156) [Mykola Mokhnach]
+
+  * fix: Restore mypy linting
+
+  * update ci
+
+  * delete extra
+
+  * Update readme
+
+Test
+~~~~
+- Ci: Add a script to automatically update uv.lock upon dependabot
+  updates (#1158) [Mykola Mokhnach]
+
+Other
+~~~~~
+- Bump 5.2.0. [Kazuaki Matsuo]
+- Chore: use uv for version (#1160) [Kazuaki Matsuo]
+
+  * chore: use version via uv
+
+  * chore: update uv version
+
+  * ruff
+
+  * remove unused line
+
+  * fix ruff
+
+  * fix ruff
+
+  * fix naming
+
+  * rename
+- Chore: use uv build to build the package (#1159) [Kazuaki Matsuo]
+
+  * use uv build
+
+  * add comment
+
+  * add comment
+
+  * remove a new line
+
+  * reformat
+
+  * update review, metadatas
+
+  * fix format
+- Update changelog for 5.1.3. [Kazuaki Matsuo]
+
+
 v5.1.3 (2025-08-07)
 -------------------
 

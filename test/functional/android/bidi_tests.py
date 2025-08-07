@@ -48,6 +48,8 @@ class AppiumLogEntry:
 
 
 class TestChromeWithBiDi:
+    """This test requires selenium python client which supports 'command_builder'"""
+
     def setup_method(self) -> None:
         client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
         client_config.timeout = 600
@@ -70,8 +72,10 @@ class TestChromeWithBiDi:
             # e.g. {'type': 'syslog', 'level': 'info', 'source': {'realm': ''}, 'text': '08-05 13:30:32.617 29677 29709 I appium  : channel read: GET /session/d7c38859-8930-4eb0-960a-8f917c9e6a38/source', 'timestamp': 1754368241565}
             log_entries.append(entry.json)
 
-        callback_id = self.driver.script.conn.add_callback(AppiumLogEntry, _log)
-        self.driver.page_source
-        assert len(log_entries) != 0
-        self.driver.script.conn.remove_callback(AppiumLogEntry, callback_id)
-        self.driver.script.conn.execute(command_builder('session.unsubscribe', bidi_log_param))
+        try:
+            callback_id = self.driver.script.conn.add_callback(AppiumLogEntry, _log)
+            self.driver.page_source
+            assert len(log_entries) != 0
+            self.driver.script.conn.remove_callback(AppiumLogEntry, callback_id)
+        finally:
+            self.driver.script.conn.execute(command_builder('session.unsubscribe', bidi_log_param))

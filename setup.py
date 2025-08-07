@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# FIXME: Remove this setup.py completely
+# FIXME: Remove this setup.py completely.
+# Then, we should bump the major version since the package will not include setup.py.
 
 try:
     # Python 3.11+

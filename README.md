@@ -483,6 +483,20 @@ or add it to PATH:
 export "PATH=/venv/root/folder/bin:$PATH"
 ```
 
+### Linting And Formatting
+
+Run linter and format checks
+
+```bash
+make check
+```
+
+Address autofixable linter and formatting issues
+
+```bash
+make fix
+```
+
 ### Testing
 
 #### Unit

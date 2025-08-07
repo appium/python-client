@@ -33,9 +33,7 @@ MESSAGE_YELLOW = '\033[1;33m{}\033[0m'
 
 
 def get_current_version():
-    current = io.open(os.path.join(os.path.dirname('__file__'), 'appium', 'version.py'), encoding='utf-8').read().rstrip()
-    print('The current version is {}, type a new one'.format(MESSAGE_YELLOW.format(current)))
-    return current
+    call_bash_script('uv version')
 
 
 def get_new_version():
@@ -48,9 +46,7 @@ VERSION_FORMAT = "version = '{}'\n"
 
 
 def update_version_file(version):
-    new_version = VERSION_FORMAT.format(version)
-    with open(VERSION_FILE_PATH, 'w') as f:
-        f.write(new_version)
+    call_bash_script(f"uv version {version}")
 
 
 def call_bash_script(cmd):

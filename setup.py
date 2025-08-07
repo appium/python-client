@@ -28,11 +28,9 @@ with open('pyproject.toml', 'rb') as f:
 
 from setuptools import find_packages, setup
 
-from appium.common.helper import library_version
-
 setup(
     name=project['name'],
-    version=library_version(),
+    version=project['version'],
     description=project['description'],
     keywords=project['keywords'],
     author=project['authors'][0]['name'],

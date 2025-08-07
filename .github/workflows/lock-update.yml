@@ -1,0 +1,31 @@
+name: Update uv.lock
+
+on:
+  pull_request:
+    types: [ opened, synchronize ]
+    paths:
+      - 'pyproject.toml'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  uv-lock-update:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.head_ref }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Install uv
+        run: make install-uv
+      - run: uv lock
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: Refresh uv.lock"

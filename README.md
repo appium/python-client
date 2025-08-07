@@ -56,8 +56,8 @@ the Selenium Python binding update might affect the Appium Python Client behavio
 For example, some changes in the Selenium binding could break the Appium client.
 
 > **Note**
-> We strongly recommend you manage dependencies with version management tools such as Pipenv and requirements.txt
-> to keep compatible version combinations.
+> We strongly recommend you manage dependencies with version management tools such as 
+> [uv](https://docs.astral.sh/uv/) to keep compatible version combinations.
 
 
 ### Quick migration guide from v4 to v5
@@ -448,48 +448,68 @@ You have two methods to extend the read timeout.
 
 ### Setup
 
-- `pip install --user pipenv`
-- `python -m pipenv lock --clear`
-  - If you experience `Locking Failed! unknown locale: UTF-8` error, then refer [pypa/pipenv#187](https://github.com/pypa/pipenv/issues/187) to solve it.
-- `python -m pipenv install --dev --system`
-- `pre-commit install`
-
-### Run tests
-
-You can run all of the tests running on CI via `tox` in your local.
-
 ```bash
-$ tox
+make install-uv
+exec $SHELL 
+make sync-dev
 ```
 
-You also can run particular tests like below.
+Running above commands should automatically setup the virtual environment for the project
+using the default system Python version and put it into the `.venv` folder under the project root.
+If you'd like to customize the Python version then run the following command before `make sync-dev`:
+
+```bash
+uv venv --python <V>
+```
+
+where `<V>` is the actual Python version, for example `3.12`.
+
+If you want to customize the folder where uv stores the virtual environment by default
+(e.g. `.venv`) then add an argument containing the destination folder path to the above command:
+
+```bash
+uv venv /venv/root/folder
+```
+
+In order to activate the newly created virtual environment you may either source it:
+
+```bash
+source /venv/root/folder/bin/activate
+```
+
+or add it to PATH:
+
+```bash
+export "PATH=/venv/root/folder/bin:$PATH"
+```
+
+### Testing
 
 #### Unit
 
 ```bash
-$ pytest test/unit
+uv run pytest test/unit
 ```
 
-Run with `pytest-xdist`
+Run in parallel (2 threads)
 
 ```bash
-$ pytest -n 2 test/unit
+uv run pytest -n 2 test/unit
 ```
 
 #### Functional
 
 ```bash
-$ pytest test/functional/ios/search_context/find_by_ios_class_chain_tests.py
+uv run pytest test/functional/ios/search_context/find_by_ios_class_chain_tests.py
 ```
 
 #### In parallel for iOS
 
 1. Create simulators named 'iPhone X - 8100' and 'iPhone X - 8101'
-2. Install test libraries via pip, `pip install pytest pytest-xdist`
-3. Run tests
+1. Run tests
 
 ```bash
-$ pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_tests.py
+uv run pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_tests.py
 ```
 
 ## Release
@@ -497,12 +517,13 @@ $ pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_tests.p
 Follow the below steps.
 
 ```bash
-$ pip install twine
-$ pip install git+git://github.com/vaab/gitchangelog.git # Getting via GitHub repository is necessary for Python 3.7
+uv pip install setuptools
+uv pip install twine
+uv pip install git+https://github.com/vaab/gitchangelog.git # Getting via GitHub repository is necessary for Python 3.7
 # Type the new version number and 'yes' if you can publish it
 # You can test the command with DRY_RUN
-$ DRY_RUN=1 ./release.sh
-$ ./release.sh # release
+DRY_RUN=1 ./release.sh
+./release.sh # release
 ```
 
 If the `pypi` was not able to publish with user name and password, please try out `-u` and `-p` option by yourself with `twine` such as `twine upload -u <name> -p <pass> dist/Appium-Python-Client-4.1.0.tar.gz`.

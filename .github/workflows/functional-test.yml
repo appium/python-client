@@ -71,13 +71,12 @@ jobs:
       with:
         python-version: 3.12
 
-    - run: |
-        # Separate 'run' creates differnet pipenv env. Does them in one run for now.
-        pip install --upgrade pip
-        pip install --upgrade pipenv
-        pipenv lock --clear
-        pipenv install -d --system
-        pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+    - name: Install uv
+      run: make install-uv
+
+    - name: Run Tests
+      run: |
+        uv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
       env:
         LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
 
@@ -161,12 +160,8 @@ jobs:
         api-level: ${{ env.API_LEVEL }}
         arch: ${{ env.ARCH }}
         script: |
-          # Separate 'run' creates differnet pipenv env. Does them in one run for now.
-          pip install --upgrade pip
-          pip install --upgrade pipenv
-          pipenv lock --clear
-          pipenv install -d --system
-          pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          make install-uv
+          uv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: google_apis
         profile: Nexus 5X
         disable-spellchecker: true
@@ -251,12 +246,8 @@ jobs:
       with:
         api-level: ${{ env.API_LEVEL }}
         script: |
-          pip install --upgrade pip
-          pip install --upgrade pipenv
-          pipenv lock --clear
-          pipenv install -d --system
-          export PLATFORM=android
-          pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          make install-uv
+          uv run pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: default
         disable-spellchecker: true
         disable-animations: true
@@ -296,10 +287,6 @@ jobs:
     - name: Run IOS tests
       if: matrix.e2e-tests == 'flutter-ios'
       run: |
-        # Separate 'run' creates differnet pipenv env. Does them in one run for now.
-        pip install --upgrade pip
-        pip install --upgrade pipenv
-        pipenv lock --clear
-        pipenv install -d --system
+        make install-uv
         export PLATFORM=ios
-        pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        uv run pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html

@@ -3,13 +3,7 @@
 set -e
 set -o pipefail
 
-if [ -z "$PYTHON_BIN_PATH" ]; then
-  PYTHON_BIN_PATH=$(which python || true)
-fi
-
-export PYTHON_BIN_PATH
-
 CONFIGURE_DIR=$(dirname "$0")
-"$PYTHON_BIN_PATH" "${CONFIGURE_DIR}/script/release.py" "$@"
+uv run python "${CONFIGURE_DIR}/script/release.py" "$@"
 
 echo "Finish release process"

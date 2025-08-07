@@ -66,14 +66,14 @@ def commit_version_code(new_version_num):
 
 def tag_and_generate_changelog(new_version_num):
     call_bash_script('git tag "v{}"'.format(new_version_num))
-    call_bash_script('gitchangelog > {}'.format(CHANGELOG_PATH))
+    call_bash_script('uv run gitchangelog > {}'.format(CHANGELOG_PATH))
     call_bash_script('git commit {} -m "Update changelog for {}"'.format(CHANGELOG_PATH, new_version_num))
 
 
 def upload_sdist(new_version_num):
     push_file = 'dist/appium_python_client-{}.tar.gz'.format(new_version_num)
     try:
-        call_bash_script('twine upload "{}"'.format(push_file))
+        call_bash_script('uv run twine upload "{}"'.format(push_file))
     except Exception as e:
         print(
             'Failed to upload {} to pypi. Please fix the original error and push it again later. Original error: {}'.format(
@@ -99,21 +99,12 @@ def ensure_publication(new_version_num):
 
 
 def build_sdist():
-    call_bash_script('{} setup.py sdist'.format(sys.executable))
-
-
-def validate_release_env():
-    if os.system('which twine') != 0:
-        sys.exit("Please get twine via 'pip install twine'")
-    if os.system('which gitchangelog') != 0:
-        sys.exit(
-            "Please get twine via 'pip install gitchangelog' or 'pip install git+git://github.com/vaab/gitchangelog.git' for Python 3.7"
-        )
+    call_bash_script('uv run python setup.py sdist')
 
 
 def build() -> None:
     shutil.rmtree(BUILT_APPIUM_DIR_PATH, ignore_errors=True)
-    status, output = subprocess.getstatusoutput('{} setup.py install'.format(os.getenv('PYTHON_BIN_PATH')))
+    status, output = subprocess.getstatusoutput('uv run python setup.py install')
     if status != 0:
         sys.exit(f'Failed to build the package:\n{output}')
 
@@ -149,8 +140,6 @@ def assert_files_count_in_package() -> None:
 
 
 def main():
-    validate_release_env()
-
     get_current_version()
     new_version = get_new_version()
 

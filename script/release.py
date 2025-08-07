@@ -46,7 +46,7 @@ VERSION_FORMAT = "version = '{}'\n"
 
 
 def update_version_file(version):
-    call_bash_script(f"uv version {version}")
+    call_bash_script(f'uv version {version}')
 
 
 def call_bash_script(cmd):

@@ -1,9 +1,7 @@
 .PHONY: Commands for developers
 
 .PHONY: check-all
-check-all: ## Run all lint checks and unittest
-	@echo "[Notice] If you'd like to run commands with same env to CI, please run \`tox\`."
-	@bash ci.sh
+check-all: check unittest
 
 .PHONY: check
 check: check-lint check-format

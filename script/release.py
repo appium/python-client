@@ -14,14 +14,12 @@
 """Release script to publish release module to pipy."""
 
 import glob
-import io
 import os
 import shutil
 import subprocess
 import sys
 from typing import List
 
-VERSION_FILE_PATH = os.path.join(os.path.dirname('__file__'), 'appium', 'version.py')
 CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.rst')
 
 APPIUM_DIR_PATH = os.path.join(os.path.dirname('__file__'), 'appium')
@@ -32,10 +30,8 @@ MESSAGE_GREEN = '\033[1;32m{}\033[0m'
 MESSAGE_YELLOW = '\033[1;33m{}\033[0m'
 
 
-def get_current_version():
-    current = io.open(os.path.join(os.path.dirname('__file__'), 'appium', 'version.py'), encoding='utf-8').read().rstrip()
-    print('The current version is {}, type a new one'.format(MESSAGE_YELLOW.format(current)))
-    return current
+def print_current_version():
+    os.system('uv version')
 
 
 def get_new_version():
@@ -48,9 +44,7 @@ VERSION_FORMAT = "version = '{}'\n"
 
 
 def update_version_file(version):
-    new_version = VERSION_FORMAT.format(version)
-    with open(VERSION_FILE_PATH, 'w') as f:
-        f.write(new_version)
+    call_bash_script(f'uv version {version}')
 
 
 def call_bash_script(cmd):
@@ -61,7 +55,7 @@ def call_bash_script(cmd):
 
 
 def commit_version_code(new_version_num):
-    call_bash_script('git commit {} -m "Bump {}"'.format(VERSION_FILE_PATH, new_version_num))
+    call_bash_script('git commit pyproject.toml uv.lock -m "Bump {}"'.format(new_version_num))
 
 
 def tag_and_generate_changelog(new_version_num):
@@ -141,7 +135,7 @@ def assert_files_count_in_package() -> None:
 
 
 def main():
-    get_current_version()
+    print_current_version()
     new_version = get_new_version()
 
     update_version_file(new_version)

@@ -71,9 +71,10 @@ def tag_and_generate_changelog(new_version_num):
 
 
 def upload_sdist(new_version_num):
+    wheel_file = 'dist/appium_python_client-{}-py3-none-any.whl'.format(new_version_num)
     push_file = 'dist/appium_python_client-{}.tar.gz'.format(new_version_num)
     try:
-        call_bash_script('uv run twine upload "{}"'.format(push_file))
+        call_bash_script(f"uv run twine upload '{wheel_file}' '{push_file}'")
     except Exception as e:
         print(
             'Failed to upload {} to pypi. Please fix the original error and push it again later. Original error: {}'.format(
@@ -99,7 +100,7 @@ def ensure_publication(new_version_num):
 
 
 def build_sdist():
-    call_bash_script('uv run python setup.py sdist')
+    call_bash_script('uv build')
 
 
 def build() -> None:

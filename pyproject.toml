@@ -1,20 +1,41 @@
 [project]
 name = "Appium-Python-Client"
-dynamic = [
-  "version",
-  "description",
-  "readme",
-  "license",
-  "authors",
-  "maintainers",
-  "keywords",
-  "classifiers"
+description = "Python client for Appium"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [
+    {name = "Isaac Murchie", email = "isaac@saucelabs.com"},
+]
+maintainers = [
+    {name = "Kazuaki Matsuo"},
+    {name = "Mykola Mokhnach"},
+    {name = "Mori Atsushi"},
+]
+keywords = ["appium", "selenium", "python client", "mobile automation"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Environment :: Console",
+    "License :: OSI Approved :: Apache Software License",
+    "Topic :: Software Development :: Testing",
 ]
 requires-python = ">=3.9"
 dependencies = [
   "selenium>=4.26,<5.0",
   "typing-extensions~=4.13",
 ]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "http://appium.io/"
+Repository = "https://github.com/appium/python-client"
+Issues = "https://github.com/appium/python-client/issues"
+Changelog = "https://github.com/appium/python-client/blob/master/CHANGELOG.rst"
 
 [tool.uv]
 dev-dependencies = [
@@ -38,6 +59,13 @@ build-backend = "hatchling.build"
 source = "regex"
 path = "appium/version.py"
 pattern = "(?P<version>\\d+\\.\\d+\\.\\d+)"
+
+[tool.hatch.build]
+exclude = [
+  "test/",
+  "script/",
+  "release.sh"
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["appium"]

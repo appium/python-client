@@ -56,7 +56,7 @@ the Selenium Python binding update might affect the Appium Python Client behavio
 For example, some changes in the Selenium binding could break the Appium client.
 
 > **Note**
-> We strongly recommend you manage dependencies with version management tools such as 
+> We strongly recommend you manage dependencies with version management tools such as
 > [uv](https://docs.astral.sh/uv/) to keep compatible version combinations.
 
 
@@ -450,7 +450,7 @@ You have two methods to extend the read timeout.
 
 ```bash
 make install-uv
-exec $SHELL 
+exec $SHELL
 make sync-dev
 ```
 
@@ -533,7 +533,7 @@ Follow the below steps.
 ```bash
 uv pip install setuptools
 uv pip install twine
-uv pip install git+https://github.com/vaab/gitchangelog.git # Getting via GitHub repository is necessary for Python 3.7
+uv pip install gitchangelog
 # Type the new version number and 'yes' if you can publish it
 # You can test the command with DRY_RUN
 DRY_RUN=1 ./release.sh

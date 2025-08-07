@@ -49,5 +49,6 @@ ByType = Literal[
     '-flutter semantics label',
     '-flutter type',
     '-flutter key',
+    '-flutter text',
     '-flutter text containing',
 ]

@@ -290,7 +290,7 @@ class FlutterCommand:
         """
         return self.driver.execute_script(f'flutter: {scriptName}', params)
 
-    def __get_locator_options(self, locator: Union[WebElement, 'FlutterFinder']) -> Dict[str, dict]:
+    def __get_locator_options(self, locator: Union[WebElement, 'FlutterFinder']) -> Dict[str, Union[dict, WebElement]]:
         if isinstance(locator, WebElement):
             return {'element': locator}
         return {'locator': locator.to_dict()}

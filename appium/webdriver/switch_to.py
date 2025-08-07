@@ -12,21 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional, Protocol
+from typing import Optional
 
 from selenium.webdriver.remote.switch_to import SwitchTo
 from typing_extensions import Self
 
-from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
-
 from .mobilecommand import MobileCommand
 
 
-class HasDriver(Protocol):
-    _driver: CanExecuteCommands
-
-
-class MobileSwitchTo(SwitchTo, HasDriver):
+class MobileSwitchTo(SwitchTo):
     def context(self, context_name: Optional[str]) -> Self:
         """Sets the context for the current session.
         Passing `None` is equal to switching to native context.

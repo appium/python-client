@@ -483,18 +483,32 @@ or add it to PATH:
 export "PATH=/venv/root/folder/bin:$PATH"
 ```
 
+### Linting And Formatting
+
+Run linter and format checks
+
+```bash
+make check
+```
+
+Address autofixable linter and formatting issues
+
+```bash
+make fix
+```
+
 ### Testing
 
 #### Unit
 
 ```bash
-uv run pytest test/unit
+make unittest
 ```
 
 Run in parallel (2 threads)
 
 ```bash
-uv run pytest -n 2 test/unit
+make unittest ARGS="-n 2"
 ```
 
 #### Functional

@@ -30,7 +30,7 @@ MESSAGE_GREEN = '\033[1;32m{}\033[0m'
 MESSAGE_YELLOW = '\033[1;33m{}\033[0m'
 
 
-def get_current_version():
+def print_current_version():
     os.system('uv version')
 
 
@@ -135,7 +135,7 @@ def assert_files_count_in_package() -> None:
 
 
 def main():
-    get_current_version()
+    print_current_version()
     new_version = get_new_version()
 
     update_version_file(new_version)

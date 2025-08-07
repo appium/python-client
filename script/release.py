@@ -71,7 +71,7 @@ def tag_and_generate_changelog(new_version_num):
 
 
 def upload_sdist(new_version_num):
-    wheel_file = 'dist/appium_python_client-{}3-py3-none-any.whl'.format(new_version_num)
+    wheel_file = 'dist/appium_python_client-{}-py3-none-any.whl'.format(new_version_num)
     push_file = 'dist/appium_python_client-{}.tar.gz'.format(new_version_num)
     try:
         call_bash_script(f"uv run twine upload '{wheel_file}' '{push_file}'")

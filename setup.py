@@ -30,7 +30,6 @@ from setuptools import find_packages, setup
 
 from appium.common.helper import library_version
 
-
 setup(
     name=project["name"],
     version=library_version(),

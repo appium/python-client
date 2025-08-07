@@ -31,7 +31,7 @@ class WebElement(SeleniumWebElement):
         def find_element(self, by: str, value: Union[str, Dict, None] = None) -> Self:  # type: ignore[override]
             ...
 
-        def find_elements(self, by: str, value: Union[str, Dict, None] = None) -> Self:  # type: ignore[override]
+        def find_elements(self, by: str, value: Union[str, Dict, None] = None) -> List[Self]:  # type: ignore[override]
             ...
 
     def get_attribute(self, name: str) -> Optional[Union[str, Dict]]:  # type: ignore[override]

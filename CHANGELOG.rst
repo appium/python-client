@@ -2,6 +2,70 @@ Changelog
 =========
 
 
+v5.1.3 (2025-08-07)
+-------------------
+
+Test
+~~~~
+- Test: add bidi example in test (#1154) [Kazuaki Matsuo]
+
+  * test: add bidi log example test
+
+  * add ci
+
+  * add ubsubscribe
+
+  * run it first
+
+  * remove redundant log
+
+  * run at the end
+
+  * add comment
+
+Other
+~~~~~
+- Bump 5.1.3. [Kazuaki Matsuo]
+- Chore: fix some mypy errors (#1153) [Kazuaki Matsuo]
+
+  * chore: fix some mypy
+- Chore: wrong usage of CanFindElements #1148 (#1152) [Kazuaki Matsuo]
+
+  * chore: revert protocol
+
+  * add doc
+- Chore(deps-dev): update ruff requirement from ~=0.12.5 to ~=0.12.7
+  (#1151) [dependabot[bot]]
+- Chore(deps-dev): update ruff requirement from ~=0.12.4 to ~=0.12.5
+  (#1149) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [ruff](https://github.com/astral-sh/ruff) to permit the latest version.
+  - [Release notes](https://github.com/astral-sh/ruff/releases)
+  - [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/astral-sh/ruff/compare/0.12.4...0.12.5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: ruff
+    dependency-version: 0.12.5
+    dependency-type: direct:development
+  ...
+- Chore(deps-dev): update pytest-cov requirement from ~=5.0 to ~=6.2
+  (#1136) [dependabot[bot], dependabot[bot]]
+
+  Updates the requirements on [pytest-cov](https://github.com/pytest-dev/pytest-cov) to permit the latest version.
+  - [Changelog](https://github.com/pytest-dev/pytest-cov/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/pytest-dev/pytest-cov/compare/v5.0.0...v6.2.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: pytest-cov
+    dependency-version: 6.2.1
+    dependency-type: direct:development
+  ...
+- Update changelog for 5.1.2. [Kazuaki Matsuo]
+
+
 v5.1.2 (2025-07-24)
 -------------------
 

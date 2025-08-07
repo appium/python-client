@@ -11,44 +11,35 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import io
-import os
+
+try:
+    # Python 3.11+
+    import tomllib
+except Exception:
+    # for older versions
+    import tomli as tomllib
+
+with open("pyproject.toml", "rb") as f:
+    pyproject = tomllib.load(f)
+    project = pyproject["project"]
 
 from setuptools import find_packages, setup
 
 from appium.common.helper import library_version
 
+
 setup(
-    name='Appium-Python-Client',
+    name=project["name"],
     version=library_version(),
-    description='Python client for Appium',
-    long_description=io.open(os.path.join(os.path.dirname('__file__'), 'README.md'), encoding='utf-8').read(),
-    long_description_content_type='text/markdown',
-    keywords=['appium', 'selenium', 'selenium 4', 'python client', 'mobile automation'],
-    author='Isaac Murchie',
-    author_email='isaac@saucelabs.com',
-    maintainer='Kazuaki Matsuo, Mykola Mokhnach, Mori Atsushi',
-    url='http://appium.io/',
+    description=project["description"],
+    keywords=project["keywords"],
+    author=project["authors"][0]["name"],
+    author_email=project["authors"][0]["email"],
+    maintainer=project["maintainers"][0]["name"],
+    url=project["urls"]["Homepage"],
     package_data={'appium': ['py.typed']},
     packages=find_packages(include=['appium*']),
-    license='Apache 2.0',
-    classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.11',
-        'Programming Language :: Python :: 3.12',
-        'Programming Language :: Python :: 3.13',
-        'Environment :: Console',
-        'Environment :: MacOS X',
-        'Environment :: Win32 (MS Windows)',
-        'Intended Audience :: Developers',
-        'Intended Audience :: Other Audience',
-        'License :: OSI Approved :: Apache Software License',
-        'Operating System :: OS Independent',
-        'Topic :: Software Development :: Quality Assurance',
-        'Topic :: Software Development :: Testing',
-    ],
-    install_requires=['selenium ~= 4.26, < 5.0'],
+    license=project["license"]["text"],
+    classifiers=project['classifiers'],
+    install_requires=project['dependencies'],
 )

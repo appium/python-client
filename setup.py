@@ -22,26 +22,26 @@ except Exception:
     # for older versions
     import tomli as tomllib
 
-with open("pyproject.toml", "rb") as f:
+with open('pyproject.toml', 'rb') as f:
     pyproject = tomllib.load(f)
-    project = pyproject["project"]
+    project = pyproject['project']
 
 from setuptools import find_packages, setup
 
 from appium.common.helper import library_version
 
 setup(
-    name=project["name"],
+    name=project['name'],
     version=library_version(),
-    description=project["description"],
-    keywords=project["keywords"],
-    author=project["authors"][0]["name"],
-    author_email=project["authors"][0]["email"],
-    maintainer=project["maintainers"][0]["name"],
-    url=project["urls"]["Homepage"],
+    description=project['description'],
+    keywords=project['keywords'],
+    author=project['authors'][0]['name'],
+    author_email=project['authors'][0]['email'],
+    maintainer=project['maintainers'][0]['name'],
+    url=project['urls']['Homepage'],
     package_data={'appium': ['py.typed']},
     packages=find_packages(include=['appium*']),
-    license=project["license"]["text"],
+    license=project['license']['text'],
     classifiers=project['classifiers'],
     install_requires=project['dependencies'],
 )

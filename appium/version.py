@@ -14,7 +14,9 @@
 
 from importlib.metadata import version
 
+
 def _get_version():
     return version('Appium-Python-Client')
+
 
 version = _get_version()

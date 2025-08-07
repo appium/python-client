@@ -11,6 +11,7 @@ check: check-lint check-format
 .PHONY: check-lint
 check-lint:
 	uv run ruff check .
+	uv run mypy appium
 
 .PHONY: check-format
 check-format:

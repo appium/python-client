@@ -13,19 +13,20 @@ dynamic = [
 requires-python = ">=3.9"
 dependencies = [
   "selenium>=4.26,<5.0",
-  "typing-extensions~=4.13.2",
+  "typing-extensions~=4.13",
 ]
 
 [tool.uv]
 dev-dependencies = [
   "httpretty~=1.1",
   "mock~=5.2",
+  "mypy~=1.17",
   "pre-commit~=4.2",
   "pytest~=8.4",
   "pytest-cov~=6.2",
   "pytest-xdist~=3.8",
   "python-dateutil~=2.9",
-  "ruff~=0.12.7",
+  "ruff~=0.12",
   "types-python-dateutil~=2.9",
 ]
 

@@ -94,7 +94,7 @@ jobs:
       fail-fast: false
       matrix:
         test_targets:
-          - target: test/functional/android/bidi_tests.py test/functional/android/appium_service_tests.py test/functional/android/chrome_tests.py
+          - target: test/functional/android/appium_service_tests.py test/functional/android/chrome_tests.py test/functional/android/bidi_tests.py
             name: func_test_android1
 
     runs-on: ubuntu-latest

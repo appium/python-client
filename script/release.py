@@ -33,7 +33,7 @@ MESSAGE_YELLOW = '\033[1;33m{}\033[0m'
 
 
 def get_current_version():
-    call_bash_script('uv version')
+    os.system('uv version')
 
 
 def get_new_version():
@@ -57,7 +57,7 @@ def call_bash_script(cmd):
 
 
 def commit_version_code(new_version_num):
-    call_bash_script('git commit {} -m "Bump {}"'.format(VERSION_FILE_PATH, new_version_num))
+    call_bash_script('git commit pyproject.toml uv.lock -m "Bump {}"'.format(new_version_num))
 
 
 def tag_and_generate_changelog(new_version_num):

@@ -22,7 +22,6 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Environment :: Console",
-    "License :: OSI Approved :: Apache Software License",
     "Topic :: Software Development :: Testing",
 ]
 requires-python = ">=3.9"

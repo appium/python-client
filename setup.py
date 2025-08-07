@@ -39,7 +39,7 @@ setup(
     url=project['urls']['Homepage'],
     package_data={'appium': ['py.typed']},
     packages=find_packages(include=['appium*']),
-    license=project['license']['text'],
+    license=project['license'],
     classifiers=project['classifiers'],
     install_requires=project['dependencies'],
 )

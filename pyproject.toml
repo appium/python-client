@@ -48,6 +48,11 @@ dev-dependencies = [
   "python-dateutil~=2.9",
   "ruff~=0.12",
   "types-python-dateutil~=2.9",
+
+  # for documentation
+  "sphinx>=4.0,<9.0",
+  "sphinx_rtd_theme~=3.0",
+  "sphinxcontrib-apidoc~=0.6",
 ]
 
 [build-system]

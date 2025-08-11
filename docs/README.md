@@ -2,7 +2,6 @@
 
 ```bash
 $cd python-client/docs
-$pip install -r requirements.txt
 $bash generate.sh
 $cd python-client/docs/_build/html
 $python -m http.server 1234

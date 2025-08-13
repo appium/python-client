@@ -93,8 +93,7 @@ tag_format = "v{version}"
 version_toml = ["pyproject.toml:project.version"]
 
 [tool.semantic_release.branches.main]
-# TODO: remove 'semantic-release' after the initial release with this.
-match = "(main|master|semantic-release)"
+match = "(main|master)"
 prerelease_token = "rc"
 prerelease = false
 

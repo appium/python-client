@@ -444,7 +444,6 @@ You have two methods to extend the read timeout.
   - Apply `ruff` as pre commit hook
   - Run `make` command for development. See `make help` output for details
 - Docstring style: [Google Style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
-- `gitchangelog` generates `CHANGELOG.rst`
 
 ### Setup
 
@@ -533,7 +532,6 @@ Follow the below steps.
 ```bash
 uv pip install setuptools
 uv pip install twine
-uv pip install gitchangelog
 # Type the new version number and 'yes' if you can publish it
 # You can test the command with DRY_RUN
 DRY_RUN=1 ./release.sh

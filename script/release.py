@@ -20,7 +20,7 @@ import subprocess
 import sys
 from typing import List
 
-CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.rst')
+CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.md')
 
 APPIUM_DIR_PATH = os.path.join(os.path.dirname('__file__'), 'appium')
 BUILT_APPIUM_DIR_PATH = os.path.join(os.path.dirname('__file__'), 'build', 'lib', 'appium')
@@ -60,7 +60,7 @@ def commit_version_code(new_version_num):
 
 def tag_and_generate_changelog(new_version_num):
     call_bash_script('git tag "v{}"'.format(new_version_num))
-    call_bash_script('uv run gitchangelog > {}'.format(CHANGELOG_PATH))
+    call_bash_script('uv run semantic-release changelog')
     call_bash_script('git commit {} -m "Update changelog for {}"'.format(CHANGELOG_PATH, new_version_num))
 
 

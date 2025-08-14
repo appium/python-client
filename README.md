@@ -541,6 +541,9 @@ uv run semantic-release version --patch|--minor|--major
 
 # this 'release' script now has pushing built modules to pypi only.
 ./release.sh # and type the target version.
+
+# to push built modules in 'dist' directory to the GH release page.
+uv run semantic-release publish
 ```
 
 If the `pypi` was not able to publish with user name and password, please try out `-u` and `-p` option by yourself with `twine` such as `twine upload -u <name> -p <pass> dist/Appium-Python-Client-4.1.0.tar.gz`.

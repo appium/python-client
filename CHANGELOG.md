@@ -27,24 +27,6 @@
   [`f6c4687`](https://github.com/appium/python-client/commit/f6c46878c12ae0a8a9ff82e1e9755f325eb8e7cf))
 
 
-## Unreleased
-
-### Chores
-
-- Revert version created by release script checking
-  ([#1164](https://github.com/appium/python-client/pull/1164),
-  [`04a8580`](https://github.com/appium/python-client/commit/04a8580f999843bc9d121c1ed4ce872761350f31))
-
-- Use semantic release changelog instead of gitchangelog
-  ([#1163](https://github.com/appium/python-client/pull/1163),
-  [`dd3709e`](https://github.com/appium/python-client/commit/dd3709e084e802d6534d51151be1bd45456a4ebd))
-
-### Documentation
-
-- Manage sphinx stuff via uv ([#1162](https://github.com/appium/python-client/pull/1162),
-  [`df66645`](https://github.com/appium/python-client/commit/df66645ab284193f8f673d491c8daddcce381a71))
-
-
 ## v5.2.0 (2025-08-07)
 
 ### Bug Fixes

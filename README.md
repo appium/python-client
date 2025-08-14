@@ -537,7 +537,7 @@ uv pip install twine
 
 rm -rf dist
 # bumping the version, building a package and creating a tag.
-uv run semantic-release version
+uv run semantic-release version --patch|--minor|--major
 
 # this 'release' script now has pushing built modules to pypi only.
 ./release.sh # and type the target version.

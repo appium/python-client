@@ -42,6 +42,7 @@ def call_bash_script(cmd):
     else:
         os.system(cmd)
 
+
 def upload_sdist(new_version_num):
     wheel_file = 'dist/appium_python_client-{}-py3-none-any.whl'.format(new_version_num)
     push_file = 'dist/appium_python_client-{}.tar.gz'.format(new_version_num)
@@ -54,15 +55,21 @@ def upload_sdist(new_version_num):
             )
         )
 
+
 def ensure_publication(new_version_num):
     if os.environ.get('DRY_RUN') is not None:
         print('Run with {} mode.'.format(MESSAGE_RED.format('[DRY_RUN]')))
 
-    print('Are you sure to publish a new built modules in dist directory as {}?[y/n]'.format(MESSAGE_YELLOW.format(new_version_num)))
+    print(
+        'Are you sure to publish a new built modules in dist directory as {}?[y/n]'.format(
+            MESSAGE_YELLOW.format(new_version_num)
+        )
+    )
     for line in sys.stdin:
         if line.rstrip().lower() == 'y':
             return
         sys.exit('Canceled release process.')
+
 
 def main():
     print_current_version()

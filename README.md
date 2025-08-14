@@ -529,6 +529,8 @@ uv run pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_te
 
 Follow the below steps.
 
+Set `GH_TOKEN` env var to update the GitHub contents.
+
 ```bash
 # Used to publish the package to pypi
 uv pip install twine

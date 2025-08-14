@@ -13,12 +13,8 @@
 # limitations under the License.
 """Release script to publish release module to pipy."""
 
-import glob
 import os
-import shutil
-import subprocess
 import sys
-from typing import List
 
 CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.md')
 
@@ -35,16 +31,9 @@ def print_current_version():
 
 
 def get_new_version():
-    print(MESSAGE_GREEN.format('new version:'))
+    print(MESSAGE_GREEN.format('Pushing version:'))
     for line in sys.stdin:
         return line.rstrip()
-
-
-VERSION_FORMAT = "version = '{}'\n"
-
-
-def update_version_file(version):
-    call_bash_script(f'uv version {version}')
 
 
 def call_bash_script(cmd):
@@ -52,16 +41,6 @@ def call_bash_script(cmd):
         print('{} Calls: {}'.format(MESSAGE_RED.format('[DRY_RUN]'), cmd))
     else:
         os.system(cmd)
-
-
-def commit_version_code(new_version_num):
-    call_bash_script('git commit pyproject.toml uv.lock -m "Bump {}"'.format(new_version_num))
-
-
-def tag_and_generate_changelog(new_version_num):
-    call_bash_script('git tag "v{}"'.format(new_version_num))
-    call_bash_script('uv run semantic-release changelog')
-    call_bash_script('git commit {} -m "Update changelog for {}"'.format(CHANGELOG_PATH, new_version_num))
 
 
 def upload_sdist(new_version_num):
@@ -77,81 +56,28 @@ def upload_sdist(new_version_num):
         )
 
 
-def push_changes_to_master(new_version_num):
-    call_bash_script('git push origin master')
-    call_bash_script('git push origin "v{}"'.format(new_version_num))
-
-
 def ensure_publication(new_version_num):
     if os.environ.get('DRY_RUN') is not None:
         print('Run with {} mode.'.format(MESSAGE_RED.format('[DRY_RUN]')))
 
-    print('Are you sure to release as {}?[y/n]'.format(MESSAGE_YELLOW.format(new_version_num)))
+    print(
+        'Are you sure to publish a new built modules in dist directory as {}?[y/n]'.format(
+            MESSAGE_YELLOW.format(new_version_num)
+        )
+    )
     for line in sys.stdin:
         if line.rstrip().lower() == 'y':
             return
         sys.exit('Canceled release process.')
 
 
-def build_sdist():
-    call_bash_script('uv build')
-
-
-def build() -> None:
-    shutil.rmtree(BUILT_APPIUM_DIR_PATH, ignore_errors=True)
-    status, output = subprocess.getstatusoutput('uv run python setup.py install')
-    if status != 0:
-        sys.exit(f'Failed to build the package:\n{output}')
-
-
-def get_py_files_in_dir(root_dir: str) -> List[str]:
-    return [
-        file_path[len(root_dir) :]
-        for file_path in glob.glob(f'{root_dir}/**/*.py', recursive=True) + glob.glob(f'{root_dir}/**/*.typed', recursive=True)
-    ]
-
-
-def assert_files_count_in_package() -> None:
-    original_files = get_py_files_in_dir(APPIUM_DIR_PATH)
-    built_files = get_py_files_in_dir(BUILT_APPIUM_DIR_PATH)
-
-    if len(original_files) != len(built_files):
-        print(f"The count of files in '{APPIUM_DIR_PATH}' and '{BUILT_APPIUM_DIR_PATH}' were different.")
-
-        original_files_set = set(original_files)
-        built_files_set = set(built_files)
-
-        diff = original_files_set.difference(built_files_set)
-        if diff:
-            print(f"'{APPIUM_DIR_PATH}' has '{diff}' files than {BUILT_APPIUM_DIR_PATH}")
-        diff = built_files_set.difference(original_files_set)
-        if diff:
-            print(f'{BUILT_APPIUM_DIR_PATH} has {diff} files than {APPIUM_DIR_PATH}')
-
-        sys.exit(
-            f"Python files in '{BUILT_APPIUM_DIR_PATH}' may differ from '{APPIUM_DIR_PATH}'. "
-            'Please make sure setup.py is configured properly.'
-        )
-
-
 def main():
     print_current_version()
     new_version = get_new_version()
 
-    update_version_file(new_version)
-
-    build()
-    assert_files_count_in_package()
-
     ensure_publication(new_version)
 
-    commit_version_code(new_version)
-    build_sdist()
-
-    tag_and_generate_changelog(new_version)
-
     upload_sdist(new_version)
-    push_changes_to_master(new_version)
 
 
 if __name__ == '__main__':

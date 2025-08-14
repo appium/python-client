@@ -102,7 +102,7 @@ prerelease = false
 [tool.semantic_release.changelog]
 exclude_commit_patterns = []
 mode = "update"
-insertion_flag = "=========\nCHANGELOG\n========="
+insertion_flag = "<!-- version list -->"
 template_dir = "templates"
 
 [tool.semantic_release.changelog.default_templates]

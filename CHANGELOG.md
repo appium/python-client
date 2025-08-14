@@ -1,12 +1,18 @@
 # CHANGELOG
 
+<!-- version list -->
 
 ## Unreleased
 
 ### Chores
 
-- Add python-semantic-release as the deps
-  ([`0a2ffad`](https://github.com/appium/python-client/commit/0a2ffad9f3fb37f7ef5ef6632514f07e1fc97359))
+- Revert version created by release script checking
+  ([#1164](https://github.com/appium/python-client/pull/1164),
+  [`04a8580`](https://github.com/appium/python-client/commit/04a8580f999843bc9d121c1ed4ce872761350f31))
+
+- Use semantic release changelog instead of gitchangelog
+  ([#1163](https://github.com/appium/python-client/pull/1163),
+  [`dd3709e`](https://github.com/appium/python-client/commit/dd3709e084e802d6534d51151be1bd45456a4ebd))
 
 ### Documentation
 

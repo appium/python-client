@@ -530,12 +530,17 @@ uv run pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_te
 Follow the below steps.
 
 ```bash
-uv pip install setuptools
+# Used to publish the package to pypi
 uv pip install twine
-# Type the new version number and 'yes' if you can publish it
-# You can test the command with DRY_RUN
-DRY_RUN=1 ./release.sh
+
+rm -rf dist
+# bumping the version, building a package and creating a tag.
+uv run semantic-release version --patch|--minor|--major
+
+# this 'release' script now has pushing built modules to pypi only.
 ./release.sh # release
+
+# input the same version
 ```
 
 If the `pypi` was not able to publish with user name and password, please try out `-u` and `-p` option by yourself with `twine` such as `twine upload -u <name> -p <pass> dist/Appium-Python-Client-4.1.0.tar.gz`.

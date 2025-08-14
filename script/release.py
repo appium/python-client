@@ -13,10 +13,8 @@
 # limitations under the License.
 """Release script to publish release module to pipy."""
 
-import glob
 import os
 import sys
-from typing import List
 
 CHANGELOG_PATH = os.path.join(os.path.dirname('__file__'), 'CHANGELOG.md')
 
@@ -36,13 +34,6 @@ def get_new_version():
     print(MESSAGE_GREEN.format('Pushing version:'))
     for line in sys.stdin:
         return line.rstrip()
-
-
-VERSION_FORMAT = "version = '{}'\n"
-
-
-def update_version_file(version):
-    call_bash_script(f'uv version {version}')
 
 
 def call_bash_script(cmd):
@@ -67,17 +58,11 @@ def ensure_publication(new_version_num):
     if os.environ.get('DRY_RUN') is not None:
         print('Run with {} mode.'.format(MESSAGE_RED.format('[DRY_RUN]')))
 
-    print('Are you sure to release as {}?[y/n]'.format(MESSAGE_YELLOW.format(new_version_num)))
+    print('Are you sure to publish a new built modules in dist directory as {}?[y/n]'.format(MESSAGE_YELLOW.format(new_version_num)))
     for line in sys.stdin:
         if line.rstrip().lower() == 'y':
             return
         sys.exit('Canceled release process.')
-
-def get_py_files_in_dir(root_dir: str) -> List[str]:
-    return [
-        file_path[len(root_dir) :]
-        for file_path in glob.glob(f'{root_dir}/**/*.py', recursive=True) + glob.glob(f'{root_dir}/**/*.typed', recursive=True)
-    ]
 
 def main():
     print_current_version()

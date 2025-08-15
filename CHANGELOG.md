@@ -2,6 +2,22 @@
 
 <!-- version list -->
 
+## v5.2.2 (2025-08-15)
+
+### Chores
+
+- Remvoe unnecessary lines in the changelog and readme
+  ([`840e958`](https://github.com/appium/python-client/commit/840e95831176f80b5a48921c711f62b5457652bf))
+
+- Stop using existing release script ([#1166](https://github.com/appium/python-client/pull/1166),
+  [`a6238e2`](https://github.com/appium/python-client/commit/a6238e278452a23227cef8d6b4896d259b357ffc))
+
+### Documentation
+
+- Add one more step
+  ([`d99f699`](https://github.com/appium/python-client/commit/d99f6995e8b2b5295180b7c6b8d54e79fe05bf46))
+
+
 ## v5.2.1 (2025-08-14)
 
 ### Chores

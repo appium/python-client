@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import binascii
+
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -15,6 +15,8 @@ import binascii
 from typing import Any, Dict, Union
 
 import base64
+
+import binascii
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 

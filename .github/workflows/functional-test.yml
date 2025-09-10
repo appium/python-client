@@ -21,14 +21,14 @@ jobs:
           - target: test/functional/ios/safari_tests.py
             name: func_test_ios1
 
-    runs-on: macos-14
+    runs-on: macos-15
 
     # Please make sure the available Xcode versions and iOS versions
     # on the runner images. https://github.com/actions/runner-images
     env:
-      XCODE_VERSION: 15.3
-      IOS_VERSION: 17.4
-      IPHONE_MODEL: iPhone 15 Plus
+      XCODE_VERSION: 16.4
+      IOS_VERSION: 18.5
+      IPHONE_MODEL: iPhone 16 Plus
 
     steps:
     - uses: actions/checkout@v4
@@ -186,7 +186,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: macos-14
+          - platform: macos-15
             e2e-tests: flutter-ios
           - platform: ubuntu-latest
             e2e-tests: flutter-android
@@ -197,9 +197,9 @@ jobs:
       API_LEVEL: 28
       ARCH: x86
       CI: true
-      XCODE_VERSION: 15.4
-      IOS_VERSION: 17.5
-      IPHONE_MODEL: iPhone 15
+      XCODE_VERSION: 16.4
+      IOS_VERSION: 18.5
+      IPHONE_MODEL: iPhone 16
       FLUTTER_ANDROID_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/latest/download/app-debug.apk"
       FLUTTER_IOS_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/latest/download/ios.zip"
 
@@ -231,12 +231,12 @@ jobs:
         node-version: 'lts/*'
 
     - name: Install Appium
-      run: npm install --location=global appium
+      run: npm install --location=global appium@2.19.0
 
     - name: Install Android drivers and Run Appium
       if: matrix.e2e-tests == 'flutter-android'
       run: |
-        appium driver install uiautomator2
+        appium driver install uiautomator2@4.2.9
         appium driver install appium-flutter-integration-driver --source npm
         nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_flutter_android.log &
 
@@ -279,7 +279,7 @@ jobs:
     - name: Install IOS drivers and Run Appium
       if: matrix.e2e-tests == 'flutter-ios'
       run: |
-        appium driver install xcuitest
+        appium driver install xcuitest@9.10.5
         appium driver install appium-flutter-integration-driver --source npm
         appium driver run xcuitest build-wda
         nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_ios.log &

@@ -2,6 +2,20 @@
 
 <!-- version list -->
 
+## v5.2.3 (2025-09-09)
+
+### Bug Fixes
+
+- Adjust images payload for image comparison API
+  ([#1170](https://github.com/appium/python-client/pull/1170),
+  [`b471a05`](https://github.com/appium/python-client/commit/b471a050833c59bb5cacf0872013bd5dc1f24491))
+
+### Continuous Integration
+
+- Update CI config ([#1171](https://github.com/appium/python-client/pull/1171),
+  [`f867ea5`](https://github.com/appium/python-client/commit/f867ea580c86e043b5fbb586149a18ad87d08239))
+
+
 ## v5.2.2 (2025-08-15)
 
 ### Chores

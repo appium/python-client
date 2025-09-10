@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import binascii
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -13,6 +13,8 @@
 # limitations under the License.
 
 from typing import Any, Dict, Union
+
+import base64
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
@@ -147,4 +149,13 @@ class ImagesComparison(CanExecuteCommands):
 
 
 def _adjust_image_payload(payload: Base64Payload) -> str:
-    return payload if isinstance(payload, str) else payload.decode('utf-8')
+    if isinstance(payload, str):
+        return payload
+    try:
+        b64_str = payload.decode('ascii')
+        base64.b64decode(payload,validate=True)
+        return b64_str
+    except (UnicodeDecodeError, binascii.Error):
+        return base64.b64encode(payload).decode('ascii')
+
+

@@ -14,10 +14,6 @@
 
 from typing import Any, Dict, Union
 
-import base64
-
-import binascii
-
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
@@ -151,13 +147,8 @@ class ImagesComparison(CanExecuteCommands):
 
 
 def _adjust_image_payload(payload: Base64Payload) -> str:
-    if isinstance(payload, str):
-        return payload
     try:
-        b64_str = payload.decode('ascii')
-        base64.b64decode(payload,validate=True)
-        return b64_str
-    except (UnicodeDecodeError, binascii.Error):
-        return base64.b64encode(payload).decode('ascii')
-
+        return payload if isinstance(payload, str) else payload.decode('utf-8') 
+    except UnicodeDecodeError as e: 
+        raise ValueError('The image payload cannot be serialized to a string. Make sure to base64-encode it first')
 

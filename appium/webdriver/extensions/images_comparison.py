@@ -147,4 +147,7 @@ class ImagesComparison(CanExecuteCommands):
 
 
 def _adjust_image_payload(payload: Base64Payload) -> str:
-    return payload if isinstance(payload, str) else payload.decode('utf-8')
+    try:
+        return payload if isinstance(payload, str) else payload.decode('utf-8')
+    except UnicodeDecodeError as e:
+        raise ValueError('The image payload cannot be serialized to a string. Make sure to base64-encode it first') from e

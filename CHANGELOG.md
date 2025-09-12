@@ -10,24 +10,6 @@
   ([#1172](https://github.com/appium/python-client/pull/1172),
   [`dc301ec`](https://github.com/appium/python-client/commit/dc301ec5303f6d5fa6af0ec4370d1ffe88ef1f1d))
 
-### Code Style
-
-- Move import binascii ([#1172](https://github.com/appium/python-client/pull/1172),
-  [`dc301ec`](https://github.com/appium/python-client/commit/dc301ec5303f6d5fa6af0ec4370d1ffe88ef1f1d))
-
-- Ruff formatting ([#1172](https://github.com/appium/python-client/pull/1172),
-  [`dc301ec`](https://github.com/appium/python-client/commit/dc301ec5303f6d5fa6af0ec4370d1ffe88ef1f1d))
-
-### Refactoring
-
-- Add from e ([#1172](https://github.com/appium/python-client/pull/1172),
-  [`dc301ec`](https://github.com/appium/python-client/commit/dc301ec5303f6d5fa6af0ec4370d1ffe88ef1f1d))
-
-- Raise helpful ValueError on UnicodeDecodeError
-  ([#1172](https://github.com/appium/python-client/pull/1172),
-  [`dc301ec`](https://github.com/appium/python-client/commit/dc301ec5303f6d5fa6af0ec4370d1ffe88ef1f1d))
-
-
 ## v5.2.3 (2025-09-09)
 
 ### Bug Fixes

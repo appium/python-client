@@ -54,7 +54,11 @@ jobs:
     - run: brew install ffmpeg
 
     # Start Appium
-    - run: npm install --location=global appium
+    - run: |
+        npm install --location=global appium
+        echo "Appium location: $(which appium)"
+        echo "Node location: $(which node)"
+        npm list -g --depth=0
     - run: |
         appium driver install xcuitest
         appium plugin install images

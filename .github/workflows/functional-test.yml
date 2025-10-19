@@ -231,12 +231,12 @@ jobs:
         node-version: 'lts/*'
 
     - name: Install Appium
-      run: npm install --location=global appium@2.19.0
+      run: npm install --location=global appium
 
     - name: Install Android drivers and Run Appium
       if: matrix.e2e-tests == 'flutter-android'
       run: |
-        appium driver install uiautomator2@4.2.9
+        appium driver install uiautomator2
         appium driver install appium-flutter-integration-driver --source npm
         nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_flutter_android.log &
 
@@ -279,7 +279,7 @@ jobs:
     - name: Install IOS drivers and Run Appium
       if: matrix.e2e-tests == 'flutter-ios'
       run: |
-        appium driver install xcuitest@9.10.5
+        appium driver install xcuitest
         appium driver install appium-flutter-integration-driver --source npm
         appium driver run xcuitest build-wda
         nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_ios.log &

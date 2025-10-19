@@ -55,6 +55,9 @@ class AppiumOptions(
             'setWindowRect',
             'timeouts',
             'unhandledPromptBehavior',
+            'strictFileInteractability',  # WebDriver spec v2 https://www.w3.org/TR/webdriver2/
+            'userAgent',  # WebDriver spec v2 https://www.w3.org/TR/webdriver2/
+            'webSocketUrl',  # WebDriver BiDi
         ]
     )
     _OSS_W3C_CONVERSION = {

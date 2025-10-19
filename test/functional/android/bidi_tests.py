@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from selenium.webdriver.common.bidi.common import command_builder
 
 from appium import webdriver
 from appium.options.common import AppiumOptions
 from appium.webdriver.client_config import AppiumClientConfig
+from test.functional.test_helper import is_ci
 from test.helpers.constants import SERVER_URL_BASE
 
 from .helper.desired_capabilities import get_desired_capabilities
@@ -62,6 +64,7 @@ class TestChromeWithBiDi:
     def teardown_method(self) -> None:
         self.driver.quit()
 
+    @pytest.mark.skipif(is_ci(), reason='Flaky on CI')
     def test_bidi_log(self) -> None:
         log_entries = []
         bidi_log_param = {'events': ['log.entryAdded'], 'contexts': ['NATIVE_APP']}

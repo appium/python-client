@@ -18,10 +18,9 @@ from typing import Optional
 
 from appium.options.ios import XCUITestOptions
 
-# Returns abs path relative to this file and not cwd
-
 
 def PATH(p: str) -> str:
+    """Get the absolute path of a file relative to the folder where this file is located."""
     return os.path.abspath(os.path.join(os.path.dirname(__file__), p))
 
 
@@ -37,7 +36,7 @@ def make_options(app: Optional[str] = None) -> XCUITestOptions:
     options.simple_is_visible_check = True
 
     if app is not None:
-        options.app = PATH(os.path.join('../../..', 'apps', app))
+        options.app = PATH(os.path.join('..', '..', '..', 'apps', app))
 
     local_prebuilt_wda = os.getenv('LOCAL_PREBUILT_WDA')
     if local_prebuilt_wda:

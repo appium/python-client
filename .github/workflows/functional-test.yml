@@ -10,6 +10,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+env:
+  APPIUM_TEST_SERVER_PORT: '4723'
+  APPIUM_TEST_SERVER_HOST: '127.0.0.1'
+
 jobs:
   ios_test:
     strategy:
@@ -28,8 +32,6 @@ jobs:
       IOS_VERSION: '18.5'
       IPHONE_MODEL: 'iPhone 16 Plus'
       PREBUILT_WDA_PATH: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
-      APPIUM_TEST_SERVER_PORT: '4723'
-      APPIUM_TEST_SERVER_HOST: '127.0.0.1'
 
     steps:
     - uses: actions/checkout@v4
@@ -54,41 +56,17 @@ jobs:
         wait_for_boot: true
         shutdown_after_job: false
 
-    - name: Start Appium server
+    - name: Install Appium and drivers
       run: |
         npm install -g appium
         appium driver install xcuitest
-        nohup appium server \
-          --port=$APPIUM_TEST_SERVER_PORT \
-          --address=$APPIUM_TEST_SERVER_HOST \
-          --relaxed-security \
-          --log-no-colors \
-          --log-timestamp \
-          --keep-alive-timeout 1200 \
-          2>&1 > appium.log &
 
-        TIMEOUT_SEC=25
-        INTERVAL_SEC=1
-
-        start_time=$(date +%s)
-        while true; do
-          current_time=$(date +%s)
-          elapsed=$((current_time - start_time))
-
-          if nc -z $APPIUM_TEST_SERVER_HOST $APPIUM_TEST_SERVER_PORT; then
-            echo "Appium server is running after $elapsed seconds"
-            cat appium.log
-            exit 0
-          fi
-
-          if [[ "$elapsed" -ge "$TIMEOUT_SEC" ]]; then
-            echo "${elapsed} seconds timeout reached: Appium server is NOT running"
-            exit 1
-          fi
-
-          echo "Waiting $elapsed seconds for Appium server to start..."
-          sleep "$INTERVAL_SEC"
-        done
+    - name: Start Appium server
+      uses: ./.github/actions/setup-appium-server
+      with:
+        port: ${{ env.APPIUM_TEST_SERVER_PORT }}
+        host: ${{ env.APPIUM_TEST_SERVER_HOST }}
+        server_args: '--relaxed-security'
 
     - name: Downloading prebuilt WDA
       run: |
@@ -98,6 +76,16 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: 3.12
+
+    - name: Cache uv modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/uv
+          .venv
+        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-shared-
 
     - name: Install uv
       run: make install-uv
@@ -148,13 +136,19 @@ jobs:
       with:
         node-version: 'lts/*'
 
-    # Start Appium
-    - run: npm install -g appium
-    - run: |
+    - name: Install Appium and drivers
+      run: |
+        npm install -g appium
         appium driver install uiautomator2
         appium driver install espresso
         appium plugin install execute-driver
-        nohup appium --use-plugins=execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
+
+    - name: Start Appium server
+      uses: ./.github/actions/setup-appium-server
+      with:
+        port: ${{ env.APPIUM_TEST_SERVER_PORT }}
+        host: ${{ env.APPIUM_TEST_SERVER_HOST }}
+        server_args: '--relaxed-security --use-plugins=execute-driver'
 
     - name: Enable KVM group perms
       run: |
@@ -193,6 +187,11 @@ jobs:
         api-level: ${{ env.API_LEVEL }}
         arch: ${{ env.ARCH }}
         script: |
+          # Cache uv modules
+          mkdir -p ~/.cache/uv
+          if [ -d ~/.cache/uv ]; then
+            echo "uv cache directory exists"
+          fi
           make install-uv
           uv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: google_apis
@@ -263,15 +262,32 @@ jobs:
       with:
         node-version: 'lts/*'
 
-    - name: Install Appium
-      run: npm install --location=global appium
-
-    - name: Install Android drivers and Run Appium
+    - name: Install Appium and drivers
       if: matrix.e2e-tests == 'flutter-android'
       run: |
+        npm install --location=global appium
         appium driver install uiautomator2
         appium driver install appium-flutter-integration-driver --source npm
-        nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_flutter_android.log &
+
+    - name: Start Appium server for Android
+      if: matrix.e2e-tests == 'flutter-android'
+      uses: ./.github/actions/setup-appium-server
+      with:
+        port: ${{ env.APPIUM_TEST_SERVER_PORT }}
+        host: ${{ env.APPIUM_TEST_SERVER_HOST }}
+        server_args: '--relaxed-security'
+        log_file: 'appium_flutter_android.log'
+
+    - name: Cache uv modules for Flutter Android
+      if: matrix.e2e-tests == 'flutter-android'
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/uv
+          .venv
+        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-shared-
 
     - name: Run Android tests
       if: matrix.e2e-tests == 'flutter-android'
@@ -304,18 +320,40 @@ jobs:
         # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
         model: ${{ env.IPHONE_MODEL }}
         os_version: ${{ env.IOS_VERSION }}
+        wait_for_boot: true
+        shutdown_after_job: false
 
     - name: install dependencies
       if: matrix.e2e-tests == 'flutter-ios'
       run: brew install ffmpeg
 
-    - name: Install IOS drivers and Run Appium
+    - name: Install Appium and drivers
       if: matrix.e2e-tests == 'flutter-ios'
       run: |
+        npm install --location=global appium
         appium driver install xcuitest
         appium driver install appium-flutter-integration-driver --source npm
         appium driver run xcuitest build-wda
-        nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_ios.log &
+
+    - name: Start Appium server for iOS
+      if: matrix.e2e-tests == 'flutter-ios'
+      uses: ./.github/actions/setup-appium-server
+      with:
+        port: ${{ env.APPIUM_TEST_SERVER_PORT }}
+        host: ${{ env.APPIUM_TEST_SERVER_HOST }}
+        server_args: '--relaxed-security'
+        log_file: 'appium_ios.log'
+
+    - name: Cache uv modules for Flutter iOS
+      if: matrix.e2e-tests == 'flutter-ios'
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/uv
+          .venv
+        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-shared-
 
     - name: Run IOS tests
       if: matrix.e2e-tests == 'flutter-ios'

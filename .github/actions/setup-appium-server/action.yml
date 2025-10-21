@@ -1,0 +1,65 @@
+name: 'Start Appium Server'
+description: 'Start Appium server with configurable arguments and wait for startup'
+
+inputs:
+  port:
+    description: 'Appium server port'
+    required: false
+    default: '4723'
+  host:
+    description: 'Appium server host'
+    required: false
+    default: '127.0.0.1'
+  timeout:
+    description: 'Timeout in seconds to wait for server startup'
+    required: false
+    default: '25'
+  server_args:
+    description: 'Additional server arguments (space-separated)'
+    required: false
+    default: ''
+  log_file:
+    description: 'Log file name'
+    required: false
+    default: 'appium.log'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Start Appium server
+      shell: bash
+      run: |
+        nohup appium server \
+          --port=${{ inputs.port }} \
+          --address=${{ inputs.host }} \
+          --log-no-colors \
+          --log-timestamp \
+          --keep-alive-timeout 1200 \
+          ${{ inputs.server_args }} \
+          2>&1 > ${{ inputs.log_file }} &
+
+    - name: Wait for Appium server to start
+      shell: bash
+      run: |
+        TIMEOUT_SEC=${{ inputs.timeout }}
+        INTERVAL_SEC=1
+
+        start_time=$(date +%s)
+        while true; do
+          current_time=$(date +%s)
+          elapsed=$((current_time - start_time))
+
+          if nc -z ${{ inputs.host }} ${{ inputs.port }}; then
+            echo "Appium server is running after $elapsed seconds"
+            cat ${{ inputs.log_file }}
+            exit 0
+          fi
+
+          if [[ "$elapsed" -ge "$TIMEOUT_SEC" ]]; then
+            echo "${elapsed} seconds timeout reached: Appium server is NOT running"
+            exit 1
+          fi
+
+          echo "Waiting $elapsed seconds for Appium server to start..."
+          sleep "$INTERVAL_SEC"
+        done

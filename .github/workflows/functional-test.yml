@@ -327,10 +327,6 @@ jobs:
         wait_for_boot: true
         shutdown_after_job: false
 
-    - name: install dependencies
-      if: matrix.e2e-tests == 'flutter-ios'
-      run: brew install ffmpeg
-
     - name: Install Appium and drivers
       if: matrix.e2e-tests == 'flutter-ios'
       run: |
@@ -353,4 +349,9 @@ jobs:
       run: |
         make install-uv
         export PLATFORM=ios
-        uv run pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        uv run pytest test/functional/flutter_integration/*_test.py \
+          --doctest-modules \
+          --junitxml=junit/test-results.xml \
+          --cov=com \
+          --cov-report=xml \
+          --cov-report=html

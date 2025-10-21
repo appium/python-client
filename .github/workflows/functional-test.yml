@@ -3,8 +3,6 @@ name: Functional Tests
 on:
   # Run by manual at this time
   workflow_dispatch:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -29,6 +27,9 @@ jobs:
       XCODE_VERSION: 16.4
       IOS_VERSION: 18.5
       IPHONE_MODEL: iPhone 16 Plus
+      PREBUILT_WDA_PATH: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
+      APPIUM_TEST_SERVER_PORT: '4723'
+      APPIUM_TEST_SERVER_HOST: '127.0.0.1'
 
     steps:
     - uses: actions/checkout@v4
@@ -51,12 +52,44 @@ jobs:
         os_version: ${{ env.IOS_VERSION }}
 
     # Start Appium
-    - run: npm install -g appium
     - run: |
+        npm install -g appium
         appium driver install xcuitest
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
+        nohup appium server \
+          --port=$APPIUM_TEST_SERVER_PORT \
+          --address=$APPIUM_TEST_SERVER_HOST \
+          --relaxed-security \
+          --log-no-colors \
+          --log-timestamp \
+          --keep-alive-timeout 1200 \
+          2>&1 > appium.log &
 
-    - run: appium driver run xcuitest download-wda-sim  --platform=ios --outdir=${{ github.workspace }}/wda
+        TIMEOUT_SEC=15
+        INTERVAL_SEC=1
+
+        start_time=$(date +%s)
+        while true; do
+          current_time=$(date +%s)
+          elapsed=$((current_time - start_time))
+
+          if nc -z $APPIUM_TEST_SERVER_HOST $APPIUM_TEST_SERVER_PORT; then
+            echo "Appium server is running after $elapsed seconds"
+            popd
+            cat appium.log
+            exit 0
+          fi
+
+          if [[ "$elapsed" -ge "$TIMEOUT_SEC" ]]; then
+            echo "${elapsed} seconds timeout reached: Appium server is NOT running"
+            exit 1
+          fi
+
+          echo "Waiting $elapsed seconds for Appium server to start..."
+          sleep "$INTERVAL_SEC"
+        done
+
+    - run: |
+        appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
       name: Downloading prebuilt WDA
 
     - name: Set up Python
@@ -69,9 +102,14 @@ jobs:
 
     - name: Run Tests
       run: |
-        uv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        uv run pytest ${{ matrix.test_targets.target}} \
+          --doctest-modules \
+          --junitxml=junit/test-results.xml \
+          --cov=com \
+          --cov-report=xml \
+          --cov-report=html
       env:
-        LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
+        LOCAL_PREBUILT_WDA: ${{ env.PREBUILT_WDA_PATH }}
 
     - name: Save server output
       if: ${{ always() }}

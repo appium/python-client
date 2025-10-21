@@ -50,23 +50,16 @@ jobs:
         model: ${{ env.IPHONE_MODEL }}
         os_version: ${{ env.IOS_VERSION }}
 
-    # needed?
-    - run: brew install ffmpeg
-
     # Start Appium
     - run: npm install -g appium
     - run: |
         appium driver install xcuitest
-        appium driver run xcuitest build-wda --sdk=${{ env.IOS_VERSION }} --name='${{ env.IPHONE_MODEL }}'
-        appium plugin install images
-        appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
-    - run: |
-        appium driver run xcuitest download-wda-sim  --platform=ios --outdir=${{ github.workspace }}/wda
+    - run: appium driver run xcuitest download-wda-sim  --platform=ios --outdir=${{ github.workspace }}/wda
       name: Downloading prebuilt WDA
 
-    - name: Set up Python 3.12
+    - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: 3.12

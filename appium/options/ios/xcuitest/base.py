@@ -72,6 +72,7 @@ from .wda.keychain_password_option import KeychainPasswordOption
 from .wda.keychain_path_option import KeychainPathOption
 from .wda.max_typing_frequency_option import MaxTypingFrequencyOption
 from .wda.mjpeg_server_port_option import MjpegServerPortOption
+from .wda.prebuilt_wda_path_option import PrebuiltWdaPathOption
 from .wda.process_arguments_option import ProcessArgumentsOption
 from .wda.result_bundle_path_option import ResultBundlePathOption
 from .wda.screenshot_quality_option import ScreenshotQualityOption
@@ -83,6 +84,7 @@ from .wda.updated_wda_bundle_id_option import UpdatedWdaBundleIdOption
 from .wda.use_native_caching_strategy_option import UseNativeCachingStrategyOption
 from .wda.use_new_wda_option import UseNewWdaOption
 from .wda.use_prebuilt_wda_option import UsePrebuiltWdaOption
+from .wda.use_preinstalled_wda_option import UsePreinstalledWdaOption
 from .wda.use_simple_build_test_option import UseSimpleBuildTestOption
 from .wda.use_xctestrun_file_option import UseXctestrunFileOption
 from .wda.wait_for_idle_timeout_option import WaitForIdleTimeoutOption
@@ -171,6 +173,7 @@ class XCUITestOptions(
     KeychainPathOption,
     MaxTypingFrequencyOption,
     MjpegServerPortOption,
+    PrebuiltWdaPathOption,
     ProcessArgumentsOption,
     ResultBundlePathOption,
     ScreenshotQualityOption,
@@ -182,6 +185,7 @@ class XCUITestOptions(
     UseNativeCachingStrategyOption,
     UseNewWdaOption,
     UsePrebuiltWdaOption,
+    UsePreinstalledWdaOption,
     UseSimpleBuildTestOption,
     UseXctestrunFileOption,
     WaitForIdleTimeoutOption,

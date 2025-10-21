@@ -40,7 +40,7 @@ install-uv:
 
 .PHONY: sync-dev
 sync-dev:
-	uv sync
+	uv sync --dev
 
 .PHONY: unittest
 unittest: ## Run unittest

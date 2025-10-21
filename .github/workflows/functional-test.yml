@@ -3,14 +3,16 @@ name: Functional Tests
 on:
   # Run by manual at this time
   workflow_dispatch:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
+
+env:
+  APPIUM_TEST_SERVER_PORT: '4723'
+  APPIUM_TEST_SERVER_HOST: '127.0.0.1'
 
 jobs:
   ios_test:
@@ -26,9 +28,10 @@ jobs:
     # Please make sure the available Xcode versions and iOS versions
     # on the runner images. https://github.com/actions/runner-images
     env:
-      XCODE_VERSION: 16.4
-      IOS_VERSION: 18.5
-      IPHONE_MODEL: iPhone 16 Plus
+      XCODE_VERSION: '16.4'
+      IOS_VERSION: '18.5'
+      IPHONE_MODEL: 'iPhone 16 Plus'
+      PREBUILT_WDA_PATH: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
 
     steps:
     - uses: actions/checkout@v4
@@ -42,43 +45,61 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: ${{ env.XCODE_VERSION }}
+
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
-    - uses: futureware-tech/simulator-action@v3
+    - name: Prepare iOS simulator
+      uses: futureware-tech/simulator-action@v4
       with:
-        # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
         model: ${{ env.IPHONE_MODEL }}
         os_version: ${{ env.IOS_VERSION }}
+        wait_for_boot: true
+        shutdown_after_job: false
 
-    # needed?
-    - run: brew install ffmpeg
-
-    # Start Appium
-    - run: npm install -g appium
-    - run: |
+    - name: Install Appium and drivers
+      run: |
+        npm install -g appium
         appium driver install xcuitest
-        appium driver run xcuitest build-wda --sdk=${{ env.IOS_VERSION }} --name='${{ env.IPHONE_MODEL }}'
-        appium plugin install images
-        appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
-    - run: |
-        appium driver run xcuitest download-wda-sim  --platform=ios --outdir=${{ github.workspace }}/wda
-      name: Downloading prebuilt WDA
+    - name: Start Appium server
+      uses: ./.github/actions/setup-appium-server
+      with:
+        port: ${{ env.APPIUM_TEST_SERVER_PORT }}
+        host: ${{ env.APPIUM_TEST_SERVER_HOST }}
+        server_args: '--relaxed-security'
 
-    - name: Set up Python 3.12
+    - name: Downloading prebuilt WDA
+      run: |
+        appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
+
+    - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: 3.12
+
+    - name: Cache uv modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/uv
+          .venv
+        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-shared-
 
     - name: Install uv
       run: make install-uv
 
     - name: Run Tests
       run: |
-        uv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        uv run pytest ${{ matrix.test_targets.target}} \
+          --doctest-modules \
+          --junitxml=junit/test-results.xml \
+          --cov=com \
+          --cov-report=xml \
+          --cov-report=html
       env:
-        LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
+        LOCAL_PREBUILT_WDA: ${{ env.PREBUILT_WDA_PATH }}
 
     - name: Save server output
       if: ${{ always() }}
@@ -115,13 +136,19 @@ jobs:
       with:
         node-version: 'lts/*'
 
-    # Start Appium
-    - run: npm install -g appium
-    - run: |
+    - name: Install Appium and drivers
+      run: |
+        npm install -g appium
         appium driver install uiautomator2
         appium driver install espresso
         appium plugin install execute-driver
-        nohup appium --use-plugins=execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
+
+    - name: Start Appium server
+      uses: ./.github/actions/setup-appium-server
+      with:
+        port: ${{ env.APPIUM_TEST_SERVER_PORT }}
+        host: ${{ env.APPIUM_TEST_SERVER_HOST }}
+        server_args: '--relaxed-security --use-plugins=execute-driver'
 
     - name: Enable KVM group perms
       run: |
@@ -153,6 +180,16 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: 3.12
+
+    - name: Cache uv modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/uv
+          .venv
+        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-shared-
 
     - name: run tests
       uses: reactivecircus/android-emulator-runner@v2
@@ -230,15 +267,31 @@ jobs:
       with:
         node-version: 'lts/*'
 
-    - name: Install Appium
-      run: npm install --location=global appium
-
-    - name: Install Android drivers and Run Appium
+    - name: Install Appium and drivers
       if: matrix.e2e-tests == 'flutter-android'
       run: |
+        npm install --location=global appium
         appium driver install uiautomator2
         appium driver install appium-flutter-integration-driver --source npm
-        nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_flutter_android.log &
+
+    - name: Start Appium server for Android
+      if: matrix.e2e-tests == 'flutter-android'
+      uses: ./.github/actions/setup-appium-server
+      with:
+        port: ${{ env.APPIUM_TEST_SERVER_PORT }}
+        host: ${{ env.APPIUM_TEST_SERVER_HOST }}
+        server_args: '--relaxed-security'
+        log_file: 'appium_flutter_android.log'
+
+    - name: Cache uv modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/uv
+          .venv
+        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-shared-
 
     - name: Run Android tests
       if: matrix.e2e-tests == 'flutter-android'
@@ -265,28 +318,40 @@ jobs:
       with:
         xcode-version: ${{ env.XCODE_VERSION }}
 
-    - uses: futureware-tech/simulator-action@v3
+    - uses: futureware-tech/simulator-action@v4
       if: matrix.e2e-tests == 'flutter-ios'
       with:
         # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
         model: ${{ env.IPHONE_MODEL }}
         os_version: ${{ env.IOS_VERSION }}
+        wait_for_boot: true
+        shutdown_after_job: false
 
-    - name: install dependencies
-      if: matrix.e2e-tests == 'flutter-ios'
-      run: brew install ffmpeg
-
-    - name: Install IOS drivers and Run Appium
+    - name: Install Appium and drivers
       if: matrix.e2e-tests == 'flutter-ios'
       run: |
+        npm install --location=global appium
         appium driver install xcuitest
         appium driver install appium-flutter-integration-driver --source npm
         appium driver run xcuitest build-wda
-        nohup appium --allow-insecure=adb_shell --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium_ios.log &
+
+    - name: Start Appium server for iOS
+      if: matrix.e2e-tests == 'flutter-ios'
+      uses: ./.github/actions/setup-appium-server
+      with:
+        port: ${{ env.APPIUM_TEST_SERVER_PORT }}
+        host: ${{ env.APPIUM_TEST_SERVER_HOST }}
+        server_args: '--relaxed-security'
+        log_file: 'appium_ios.log'
 
     - name: Run IOS tests
       if: matrix.e2e-tests == 'flutter-ios'
       run: |
         make install-uv
         export PLATFORM=ios
-        uv run pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        uv run pytest test/functional/flutter_integration/*_test.py \
+          --doctest-modules \
+          --junitxml=junit/test-results.xml \
+          --cov=com \
+          --cov-report=xml \
+          --cov-report=html

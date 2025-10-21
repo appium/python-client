@@ -13,62 +13,67 @@
 # limitations under the License.
 
 import time
+from typing import TYPE_CHECKING, Generator
+
+import pytest
 
 from appium import webdriver
-from appium.options.common import AppiumOptions
 from appium.webdriver.client_config import AppiumClientConfig
 from test.helpers.constants import SERVER_URL_BASE
 
-from .helper.desired_capabilities import get_desired_capabilities
+from .helper.options import make_options
+
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
-class TestSafari:
-    def setup_method(self) -> None:
-        caps = get_desired_capabilities()
-        caps.update(
-            {
-                'bundleId': 'com.apple.mobilesafari',
-                'nativeWebTap': True,
-                'safariIgnoreFraudWarning': True,
-                'webviewConnectTimeout': 100000,
-            }
-        )
-        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
-        client_config.timeout = 600
-        self.driver = webdriver.Remote(options=AppiumOptions().load_capabilities(caps), client_config=client_config)
+@pytest.fixture
+def driver() -> Generator['WebDriver', None, None]:
+    """Create and configure Safari driver for testing."""
+    options = make_options()
+    options.bundle_id = 'com.apple.mobilesafari'
+    options.native_web_tap = True
+    options.safari_ignore_fraud_warning = True
+    options.webview_connect_timeout = 100000
 
-        # Fresh iOS 17.4 simulator may not show up the webview context with "safari"
-        # after a fresh simlator instance creation.
-        # Re-launch the process could be a workaround in my debugging.
-        self.driver.terminate_app('com.apple.mobilesafari')
-        self.driver.activate_app('com.apple.mobilesafari')
+    client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
+    client_config.timeout = 600
+    driver = webdriver.Remote(options=options, client_config=client_config)
 
-    def teardown_method(self) -> None:
-        self.driver.quit()
+    # Fresh iOS 17.4 simulator may not show up the webview context with "safari"
+    # after a fresh simlator instance creation.
+    # Re-launch the process could be a workaround in my debugging.
+    driver.terminate_app('com.apple.mobilesafari')
+    driver.activate_app('com.apple.mobilesafari')
 
-    def test_context(self) -> None:
-        contexts = self.driver.contexts
-        assert 'NATIVE_APP' == contexts[0]
-        assert contexts[1].startswith('WEBVIEW_')
-        self.driver.switch_to.context(contexts[1])
-        assert 'WEBVIEW_' in self.driver.current_context
+    yield driver
 
-    def test_get(self) -> None:
-        ok = False
-        contexts = self.driver.contexts
-        for context in contexts:
-            if context.startswith('WEBVIEW_'):
-                self.driver.switch_to.context(context)
-                ok = True
-                break
+    driver.quit()
 
-        if ok is False:
-            assert False, 'Could not set WEBVIEW context'
 
-        self.driver.get('http://google.com')
-        for _ in range(5):
-            time.sleep(0.5)
-            if 'Google' == self.driver.title:
-                return
+def test_context(driver: 'WebDriver') -> None:
+    """Test Safari context switching."""
+    contexts = driver.contexts
+    assert 'NATIVE_APP' == contexts[0]
+    assert contexts[1].startswith('WEBVIEW_')
+    driver.switch_to.context(contexts[1])
+    assert 'WEBVIEW_' in driver.current_context
 
-        assert False, 'The title was wrong'
+
+def test_navigation(driver: 'WebDriver') -> None:
+    """Test Safari navigation to Google."""
+    contexts = driver.contexts
+    for context in contexts:
+        if context.startswith('WEBVIEW_'):
+            driver.switch_to.context(context)
+            break
+    else:
+        pytest.fail('Could not set WEBVIEW context')
+
+    driver.get('http://google.com')
+    for _ in range(5):
+        time.sleep(0.5)
+        if 'Google' == driver.title:
+            return
+
+    pytest.fail('The title was wrong')

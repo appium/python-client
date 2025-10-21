@@ -75,5 +75,5 @@ def test_navigation(driver: 'WebDriver') -> None:
         time.sleep(0.5)
         if 'Google' == driver.title:
             return
-    else:
-        pytest.fail('The title was wrong')
+
+    pytest.fail('The title was wrong')

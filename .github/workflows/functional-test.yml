@@ -24,9 +24,9 @@ jobs:
     # Please make sure the available Xcode versions and iOS versions
     # on the runner images. https://github.com/actions/runner-images
     env:
-      XCODE_VERSION: 16.4
-      IOS_VERSION: 18.5
-      IPHONE_MODEL: iPhone 16 Plus
+      XCODE_VERSION: '16.4'
+      IOS_VERSION: '18.5'
+      IPHONE_MODEL: 'iPhone 16 Plus'
       PREBUILT_WDA_PATH: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
       APPIUM_TEST_SERVER_PORT: '4723'
       APPIUM_TEST_SERVER_HOST: '127.0.0.1'
@@ -43,16 +43,19 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: ${{ env.XCODE_VERSION }}
+
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
-    - uses: futureware-tech/simulator-action@v3
+    - name: Prepare iOS simulator
+      uses: futureware-tech/simulator-action@v4
       with:
-        # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
         model: ${{ env.IPHONE_MODEL }}
         os_version: ${{ env.IOS_VERSION }}
+        wait_for_boot: true
+        shutdown_after_job: false
 
-    # Start Appium
-    - run: |
+    - name: Start Appium server
+      run: |
         npm install -g appium
         appium driver install xcuitest
         nohup appium server \
@@ -64,7 +67,7 @@ jobs:
           --keep-alive-timeout 1200 \
           2>&1 > appium.log &
 
-        TIMEOUT_SEC=15
+        TIMEOUT_SEC=25
         INTERVAL_SEC=1
 
         start_time=$(date +%s)
@@ -74,7 +77,6 @@ jobs:
 
           if nc -z $APPIUM_TEST_SERVER_HOST $APPIUM_TEST_SERVER_PORT; then
             echo "Appium server is running after $elapsed seconds"
-            popd
             cat appium.log
             exit 0
           fi
@@ -88,9 +90,9 @@ jobs:
           sleep "$INTERVAL_SEC"
         done
 
-    - run: |
+    - name: Downloading prebuilt WDA
+      run: |
         appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
-      name: Downloading prebuilt WDA
 
     - name: Set up Python
       uses: actions/setup-python@v5

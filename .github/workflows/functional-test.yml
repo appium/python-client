@@ -181,17 +181,22 @@ jobs:
       with:
         python-version: 3.12
 
+    - name: Cache uv modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/uv
+          .venv
+        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-shared-
+
     - name: run tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: ${{ env.API_LEVEL }}
         arch: ${{ env.ARCH }}
         script: |
-          # Cache uv modules
-          mkdir -p ~/.cache/uv
-          if [ -d ~/.cache/uv ]; then
-            echo "uv cache directory exists"
-          fi
           make install-uv
           uv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: google_apis
@@ -278,8 +283,7 @@ jobs:
         server_args: '--relaxed-security'
         log_file: 'appium_flutter_android.log'
 
-    - name: Cache uv modules for Flutter Android
-      if: matrix.e2e-tests == 'flutter-android'
+    - name: Cache uv modules
       uses: actions/cache@v4
       with:
         path: |
@@ -314,7 +318,7 @@ jobs:
       with:
         xcode-version: ${{ env.XCODE_VERSION }}
 
-    - uses: futureware-tech/simulator-action@v3
+    - uses: futureware-tech/simulator-action@v4
       if: matrix.e2e-tests == 'flutter-ios'
       with:
         # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
@@ -343,17 +347,6 @@ jobs:
         host: ${{ env.APPIUM_TEST_SERVER_HOST }}
         server_args: '--relaxed-security'
         log_file: 'appium_ios.log'
-
-    - name: Cache uv modules for Flutter iOS
-      if: matrix.e2e-tests == 'flutter-ios'
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.cache/uv
-          .venv
-        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-uv-shared-
 
     - name: Run IOS tests
       if: matrix.e2e-tests == 'flutter-ios'

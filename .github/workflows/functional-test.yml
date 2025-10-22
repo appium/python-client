@@ -48,7 +48,8 @@ jobs:
         xcode-version: ${{ env.XCODE_VERSION }}
 
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
-
+    - name: Start iOS Simulator UI
+      run: open -Fn "$(xcode-select --print-path)/Applications/Simulator.app"
     - name: Prepare iOS simulator
       uses: futureware-tech/simulator-action@v4
       with:
@@ -165,7 +166,7 @@ jobs:
           ~/.android/avd/*
           ~/.android/adb*
         key: avd-${{ env.API_LEVEL }}
-    - name: create AVD and generate snapshot for caching
+    - name: Create AVD and generate snapshot for caching
       if: steps.avd-cache.outputs.cache-hit != 'true'
       uses: reactivecircus/android-emulator-runner@v2
       with:
@@ -192,7 +193,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-uv-shared-
 
-    - name: run tests
+    - name: Run tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: ${{ env.API_LEVEL }}
@@ -319,6 +320,10 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: ${{ env.XCODE_VERSION }}
+
+    - name: Start iOS Simulator UI
+      if: matrix.e2e-tests == 'flutter-ios'
+      run: open -Fn "$(xcode-select --print-path)/Applications/Simulator.app"
 
     - uses: futureware-tech/simulator-action@v4
       if: matrix.e2e-tests == 'flutter-ios'

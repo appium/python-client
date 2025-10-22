@@ -12,37 +12,37 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
+from typing import TYPE_CHECKING, Generator
+
+import pytest
 
 from appium import webdriver
-from appium.options.flutter_integration.base import FlutterOptions
 from appium.webdriver.client_config import AppiumClientConfig
 from appium.webdriver.extensions.flutter_integration.flutter_commands import FlutterCommand
 from test.helpers.constants import SERVER_URL_BASE
 
-from . import desired_capabilities
+from .options import make_options
+
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
-class BaseTestCase(object):
-    def setup_method(self) -> None:
-        platform_name = os.getenv('PLATFORM', 'android').lower()
+@pytest.fixture
+def driver() -> Generator['WebDriver', None, None]:
+    """Create and configure Flutter driver for testing."""
+    options = make_options()
 
-        # set flutter options
-        flutterOptions = FlutterOptions()
-        flutterOptions.flutter_system_port = 9999
-        flutterOptions.flutter_enable_mock_camera = True
-        flutterOptions.flutter_element_wait_timeout = 10000
-        flutterOptions.flutter_server_launch_timeout = 120000
+    client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
+    client_config.timeout = 600
 
-        desired_caps = desired_capabilities.get_desired_capabilities(platform_name)
+    driver = webdriver.Remote(options=options, client_config=client_config)
 
-        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
-        client_config.timeout = 600
+    yield driver
 
-        self.driver = webdriver.Remote(options=flutterOptions.load_capabilities(desired_caps), client_config=client_config)
-        self.flutter_command = FlutterCommand(self.driver)
+    driver.quit()
 
-    def teardown_method(self) -> None:  # type: ignore
-        if not hasattr(self, 'driver'):
-            return
-        self.driver.quit()
+
+@pytest.fixture
+def flutter_command(driver: 'WebDriver') -> FlutterCommand:
+    """Create FlutterCommand instance for the driver."""
+    return FlutterCommand(driver)

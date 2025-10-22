@@ -13,10 +13,10 @@
 # limitations under the License.
 
 import os
-from dataclasses import dataclass
 from typing import Optional
 
 from appium.options.ios import XCUITestOptions
+from test.functional.test_helper import get_wda_port, get_worker_info
 
 
 def PATH(p: str) -> str:
@@ -32,7 +32,7 @@ def make_options(app: Optional[str] = None) -> XCUITestOptions:
     options.device_name = iphone_device_name()
     options.platform_version = os.getenv('IOS_VERSION') or '17.4'
     options.allow_touch_id_enroll = True
-    options.wda_local_port = wda_port()
+    options.wda_local_port = get_wda_port()
     options.simple_is_visible_check = True
 
     if app is not None:
@@ -46,60 +46,16 @@ def make_options(app: Optional[str] = None) -> XCUITestOptions:
     return options
 
 
-@dataclass
-class WorkerInfo:
-    """Information about the current test worker in parallel execution."""
-
-    worker_number: Optional[int]
-    total_workers: Optional[int]
-
-    @property
-    def is_parallel(self) -> bool:
-        """Check if running in parallel mode."""
-        return self.worker_number is not None and self.total_workers is not None
-
-
-def _get_worker_info() -> WorkerInfo:
-    """
-    Get current worker number and total worker count from pytest-xdist environment variables.
-
-    Returns:
-        WorkerInfo: Worker information or None values if not running in parallel
-    """
-    worker_number = os.getenv('PYTEST_XDIST_WORKER')
-    worker_count = os.getenv('PYTEST_XDIST_WORKER_COUNT')
-
-    if worker_number and worker_count:
-        # Extract number from worker string like 'gw0', 'gw1', etc.
-        try:
-            worker_num = int(worker_number.replace('gw', ''))
-            total_workers = int(worker_count)
-            return WorkerInfo(worker_number=worker_num, total_workers=total_workers)
-        except (ValueError, AttributeError):
-            pass
-
-    return WorkerInfo(worker_number=None, total_workers=None)
-
-
-def wda_port() -> int:
-    """
-    Get a unique WDA port for the current worker.
-    Uses base port 8100 and increments by worker number.
-    """
-    worker_info = _get_worker_info()
-    return 8100 + (worker_info.worker_number or 0)
-
-
 def iphone_device_name() -> str:
     """
     Get a unique device name for the current worker.
     Uses the base device name and appends the port number for uniqueness.
     """
     prefix = os.getenv('IPHONE_MODEL') or 'iPhone 15 Plus'
-    worker_info = _get_worker_info()
+    worker_info = get_worker_info()
 
     if worker_info.is_parallel:
-        port = wda_port()
+        port = get_wda_port()
         return f'{prefix} - {port}'
 
     return prefix

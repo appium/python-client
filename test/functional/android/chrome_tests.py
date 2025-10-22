@@ -12,31 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import TYPE_CHECKING, Generator
+
+import pytest
+
 from appium import webdriver
-from appium.options.common import AppiumOptions
 from appium.webdriver.client_config import AppiumClientConfig
 from appium.webdriver.common.appiumby import AppiumBy
 from test.helpers.constants import SERVER_URL_BASE
 
-from .helper.desired_capabilities import get_desired_capabilities
+from .options import make_options
+
+if TYPE_CHECKING:
+    from appium.webdriver.webdriver import WebDriver
 
 
-class TestChrome(object):
-    def setup_method(self) -> None:
-        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
-        client_config.timeout = 600
-        caps = get_desired_capabilities()
-        caps['browserName'] = 'Chrome'
-        self.driver = webdriver.Remote(
-            SERVER_URL_BASE, options=AppiumOptions().load_capabilities(caps), client_config=client_config
-        )
+@pytest.fixture
+def driver() -> Generator['WebDriver', None, None]:
+    """Create and configure Chrome driver for testing."""
+    client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
+    client_config.timeout = 600
+    options = make_options()
+    options.browser_name = 'Chrome'
+    driver = webdriver.Remote(SERVER_URL_BASE, options=options, client_config=client_config)
 
-    def teardown_method(self) -> None:
-        self.driver.quit()
+    yield driver
 
-    def test_find_single_element(self) -> None:
-        e = self.driver.find_element(by=AppiumBy.XPATH, value='//body')
-        assert e.text == ''
+    driver.quit()
 
-        # Chrome browser's default page
-        assert '<html><head></head><body></body></html>' in self.driver.page_source
+
+def test_find_single_element(driver: 'WebDriver') -> None:
+    """Test finding a single element in Chrome browser."""
+    e = driver.find_element(by=AppiumBy.XPATH, value='//body')
+    assert e.text == ''
+
+    # Chrome browser's default page
+    assert '<html><head></head><body></body></html>' in driver.page_source

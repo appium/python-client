@@ -21,7 +21,7 @@ from appium.webdriver.client_config import AppiumClientConfig
 from appium.webdriver.extensions.flutter_integration.flutter_commands import FlutterCommand
 from test.helpers.constants import SERVER_URL_BASE
 
-from .options import make_options
+from .helper.options import make_options
 
 if TYPE_CHECKING:
     from appium.webdriver.webdriver import WebDriver

@@ -271,6 +271,12 @@ jobs:
       with:
         node-version: 'lts/*'
 
+    - name: Select Xcode
+      if: matrix.e2e-tests == 'flutter-ios'
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ${{ env.XCODE_VERSION }}
+
     - name: Install Appium and drivers
       if: matrix.e2e-tests == 'flutter-android'
       run: |
@@ -278,14 +284,21 @@ jobs:
         appium driver install uiautomator2
         appium driver install appium-flutter-integration-driver --source npm
 
-    - name: Start Appium server for Android
-      if: matrix.e2e-tests == 'flutter-android'
+    - name: Install Appium and drivers
+      if: matrix.e2e-tests == 'flutter-ios'
+      run: |
+        npm install --location=global appium
+        appium driver install xcuitest
+        appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
+        appium driver install appium-flutter-integration-driver --source npm
+
+    - name: Start Appium server
       uses: ./.github/actions/setup-appium-server
       with:
         port: ${{ env.APPIUM_TEST_SERVER_PORT }}
         host: ${{ env.APPIUM_TEST_SERVER_HOST }}
         server_args: '--relaxed-security'
-        log_file: 'appium_flutter_android.log'
+        log_file: appium-${{ matrix.e2e-tests }}.log
 
     - name: Cache uv modules
       uses: actions/cache@v4
@@ -308,36 +321,6 @@ jobs:
         target: default
         disable-spellchecker: true
         disable-animations: true
-
-    - name: Save server output
-      if: always() && matrix.e2e-tests == 'flutter-android'
-      uses: actions/upload-artifact@master
-      with:
-        name: appium-flutter-android.log
-        path: appium_flutter_android.log
-
-    - name: Select Xcode
-      if: matrix.e2e-tests == 'flutter-ios'
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: ${{ env.XCODE_VERSION }}
-
-    - name: Install Appium and drivers
-      if: matrix.e2e-tests == 'flutter-ios'
-      run: |
-        npm install --location=global appium
-        appium driver install xcuitest
-        appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
-        appium driver install appium-flutter-integration-driver --source npm
-
-    - name: Start Appium server for iOS
-      if: matrix.e2e-tests == 'flutter-ios'
-      uses: ./.github/actions/setup-appium-server
-      with:
-        port: ${{ env.APPIUM_TEST_SERVER_PORT }}
-        host: ${{ env.APPIUM_TEST_SERVER_HOST }}
-        server_args: '--relaxed-security'
-        log_file: 'appium_ios.log'
 
     - name: Start iOS Simulator UI
       if: matrix.e2e-tests == 'flutter-ios'
@@ -371,3 +354,10 @@ jobs:
           --cov-report=html
       env:
         LOCAL_PREBUILT_WDA: ${{ env.PREBUILT_WDA_PATH }}
+
+    - name: Save server output
+      if: ${{ always() }}
+      uses: actions/upload-artifact@master
+      with:
+        name: appium-${{ matrix.e2e-tests }}.log
+        path: appium-${{ matrix.e2e-tests }}.log

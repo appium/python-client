@@ -22,6 +22,7 @@ from appium.webdriver.appium_service import AppiumService
 
 @pytest.fixture
 def appium_service() -> Generator[AppiumService, None, None]:
+    """Create and configure Appium service for testing."""
     service = AppiumService()
     service.start(
         args=[
@@ -33,12 +34,13 @@ def appium_service() -> Generator[AppiumService, None, None]:
             '/wd/hub',
         ]
     )
-    try:
-        yield service
-    finally:
-        service.stop()
+
+    yield service
+
+    service.stop()
 
 
 def test_appium_service(appium_service: AppiumService) -> None:
+    """Test that Appium service is running and listening."""
     assert appium_service.is_running
     assert appium_service.is_listening

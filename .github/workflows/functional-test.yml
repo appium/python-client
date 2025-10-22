@@ -72,6 +72,9 @@ jobs:
         wait_for_boot: true
         shutdown_after_job: false
 
+    - name: Finalize iOS simulator boot
+      run: xcrun --sdk iphonesimulator --show-sdk-version
+
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -92,7 +95,7 @@ jobs:
 
     - name: Run Tests
       run: |
-        uv run pytest ${{ matrix.test_targets.target}} \
+        uv run pytest -v ${{ matrix.test_targets.target}} \
           --doctest-modules \
           --junitxml=junit/test-results.xml \
           --cov=com \
@@ -198,7 +201,7 @@ jobs:
         arch: ${{ env.ARCH }}
         script: |
           make install-uv
-          uv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          uv run pytest -v ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: google_apis
         profile: Nexus 5X
         disable-spellchecker: true
@@ -350,6 +353,10 @@ jobs:
         os_version: ${{ env.IOS_VERSION }}
         wait_for_boot: true
         shutdown_after_job: false
+
+    - name: Finalize iOS simulator boot
+      if: matrix.e2e-tests == 'flutter-ios'
+      run: xcrun --sdk iphonesimulator --show-sdk-version
 
     - name: Run IOS tests
       if: matrix.e2e-tests == 'flutter-ios'

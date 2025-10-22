@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import os
-from typing import Optional
+from typing import Any, Dict
 
 from appium.options.flutter_integration.base import FlutterOptions
 from test.functional.test_helper import get_wda_port, get_worker_info
@@ -38,7 +38,7 @@ def get_flutter_system_port() -> int:
     return 9999 + (worker_info.worker_number or 0)
 
 
-def make_options(app: Optional[str] = None) -> FlutterOptions:
+def make_options() -> FlutterOptions:
     """Get Flutter options configured for testing with parallel execution support."""
     options = FlutterOptions()
 
@@ -48,34 +48,30 @@ def make_options(app: Optional[str] = None) -> FlutterOptions:
     options.flutter_element_wait_timeout = 10000
     options.flutter_server_launch_timeout = 120000
 
-    # Set platform-specific capabilities
-    if is_platform_android():
-        options.platform_name = 'Android'
-        options.device_name = device_name()
-        options.new_command_timeout = 120
-        options.uiautomator2_server_install_timeout = 120000
-        options.adb_exec_timeout = 120000
-        options.auto_grant_permissions = True
+    caps: Dict[str, Any] = (
+        {
+            'platformName': 'Android',
+            'deviceName': device_name(),
+            'newCommandTimeout': 120,
+            'uiautomator2ServerInstallTimeout': 120000,
+            'adbExecTimeout': 120000,
+            'app': os.getenv('FLUTTER_ANDROID_APP'),
+            'autoGrantPermissions': True,
+        }
+        if is_platform_android()
+        else {
+            'deviceName': device_name(),
+            'platformName': 'iOS',
+            'platformVersion': os.getenv('IOS_VERSION'),
+            'allowTouchIdEnroll': True,
+            'wdaLaunchTimeout': 240000,
+            'wdaLocalPort': 8100,
+            'eventTimings': True,
+            'app': os.getenv('FLUTTER_IOS_APP'),
+        }
+    )
 
-        if app is not None:
-            options.app = PATH(os.path.join('..', '..', '..', 'apps', app))
-        elif os.getenv('FLUTTER_ANDROID_APP'):
-            options.app = os.getenv('FLUTTER_ANDROID_APP')
-    else:  # iOS
-        options.platform_name = 'iOS'
-        options.device_name = device_name()
-        options.platform_version = os.getenv('IOS_VERSION') or '17.4'
-        options.allow_touch_id_enroll = True
-        options.wda_launch_timeout = 240000
-        options.wda_local_port = get_wda_port()
-        options.event_timings = True
-
-        if app is not None:
-            options.app = PATH(os.path.join('..', '..', '..', 'apps', app))
-        elif os.getenv('FLUTTER_IOS_APP'):
-            options.app = os.getenv('FLUTTER_IOS_APP')
-
-    return options
+    return options.load_capabilities(caps)
 
 
 def device_name() -> str:

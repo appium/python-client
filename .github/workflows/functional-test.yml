@@ -13,6 +13,7 @@ concurrency:
 env:
   APPIUM_TEST_SERVER_PORT: '4723'
   APPIUM_TEST_SERVER_HOST: '127.0.0.1'
+  PYTHONUNBUFFERED: 1
 
 jobs:
   ios_test:
@@ -239,6 +240,7 @@ jobs:
       IPHONE_MODEL: iPhone 16
       FLUTTER_ANDROID_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/latest/download/app-debug.apk"
       FLUTTER_IOS_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/latest/download/ios.zip"
+      PREBUILT_WDA_PATH: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
 
     steps:
 
@@ -300,7 +302,7 @@ jobs:
         api-level: ${{ env.API_LEVEL }}
         script: |
           make install-uv
-          uv run pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          uv run pytest -v test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: default
         disable-spellchecker: true
         disable-animations: true
@@ -332,8 +334,8 @@ jobs:
       run: |
         npm install --location=global appium
         appium driver install xcuitest
+        appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
         appium driver install appium-flutter-integration-driver --source npm
-        appium driver run xcuitest build-wda
 
     - name: Start Appium server for iOS
       if: matrix.e2e-tests == 'flutter-ios'
@@ -349,9 +351,11 @@ jobs:
       run: |
         make install-uv
         export PLATFORM=ios
-        uv run pytest test/functional/flutter_integration/*_test.py \
+        uv run pytest -v test/functional/flutter_integration/*_test.py \
           --doctest-modules \
           --junitxml=junit/test-results.xml \
           --cov=com \
           --cov-report=xml \
           --cov-report=html
+      env:
+        LOCAL_PREBUILT_WDA: ${{ env.PREBUILT_WDA_PATH }}

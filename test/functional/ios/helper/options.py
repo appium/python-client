@@ -38,8 +38,7 @@ def make_options(app: Optional[str] = None) -> XCUITestOptions:
     if app is not None:
         options.app = PATH(os.path.join('..', '..', '..', 'apps', app))
 
-    local_prebuilt_wda = os.getenv('LOCAL_PREBUILT_WDA')
-    if local_prebuilt_wda:
+    if local_prebuilt_wda := os.getenv('LOCAL_PREBUILT_WDA'):
         options.use_preinstalled_wda = True
         options.prebuilt_wda_path = local_prebuilt_wda
 

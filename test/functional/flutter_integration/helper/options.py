@@ -19,11 +19,6 @@ from appium.options.flutter_integration.base import FlutterOptions
 from test.functional.test_helper import get_wda_port, get_worker_info
 
 
-def PATH(p: str) -> str:
-    """Get the absolute path of a file relative to the folder where this file is located."""
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), p))
-
-
 def is_platform_android() -> bool:
     """Check if the current platform is Android."""
     return os.getenv('PLATFORM', 'android').lower() == 'android'
@@ -55,21 +50,29 @@ def make_options() -> FlutterOptions:
             'newCommandTimeout': 120,
             'uiautomator2ServerInstallTimeout': 120000,
             'adbExecTimeout': 120000,
-            'app': os.getenv('FLUTTER_ANDROID_APP'),
+            'app': os.environ['FLUTTER_ANDROID_APP'],
             'autoGrantPermissions': True,
         }
         if is_platform_android()
         else {
             'deviceName': device_name(),
             'platformName': 'iOS',
-            'platformVersion': os.getenv('IOS_VERSION'),
+            'platformVersion': os.environ['IOS_VERSION'],
             'allowTouchIdEnroll': True,
             'wdaLaunchTimeout': 240000,
             'wdaLocalPort': get_wda_port(),
             'eventTimings': True,
-            'app': os.getenv('FLUTTER_IOS_APP'),
+            'app': os.environ['FLUTTER_IOS_APP'],
         }
     )
+
+    if local_prebuilt_wda := os.getenv('LOCAL_PREBUILT_WDA'):
+        caps.update(
+            {
+                'usePreinstalledWDA': True,
+                'prebuiltWDAPath': local_prebuilt_wda,
+            }
+        )
 
     return options.load_capabilities(caps)
 
@@ -82,7 +85,7 @@ def device_name() -> str:
     if is_platform_android():
         prefix = 'Android Emulator'
     else:
-        prefix = os.getenv('IPHONE_MODEL') or 'iPhone 15 Plus'
+        prefix = os.environ['IPHONE_MODEL']
 
     worker_info = get_worker_info()
 

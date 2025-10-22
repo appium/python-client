@@ -13,6 +13,7 @@ concurrency:
 env:
   APPIUM_TEST_SERVER_PORT: '4723'
   APPIUM_TEST_SERVER_HOST: '127.0.0.1'
+  PYTHONUNBUFFERED: 1
 
 jobs:
   ios_test:
@@ -46,20 +47,11 @@ jobs:
       with:
         xcode-version: ${{ env.XCODE_VERSION }}
 
-    - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
-
-    - name: Prepare iOS simulator
-      uses: futureware-tech/simulator-action@v4
-      with:
-        model: ${{ env.IPHONE_MODEL }}
-        os_version: ${{ env.IOS_VERSION }}
-        wait_for_boot: true
-        shutdown_after_job: false
-
     - name: Install Appium and drivers
       run: |
         npm install -g appium
         appium driver install xcuitest
+        appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
 
     - name: Start Appium server
       uses: ./.github/actions/setup-appium-server
@@ -68,9 +60,20 @@ jobs:
         host: ${{ env.APPIUM_TEST_SERVER_HOST }}
         server_args: '--relaxed-security'
 
-    - name: Downloading prebuilt WDA
+    - name: Start iOS Simulator UI
       run: |
-        appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
+        defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+        open -Fn "$(xcode-select --print-path)/Applications/Simulator.app"
+    - name: Prepare iOS simulator
+      uses: futureware-tech/simulator-action@v4
+      with:
+        model: ${{ env.IPHONE_MODEL }}
+        os_version: ${{ env.IOS_VERSION }}
+        wait_for_boot: true
+        shutdown_after_job: false
+
+    - name: Finalize iOS simulator boot
+      run: xcrun --sdk iphonesimulator --show-sdk-version
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -92,7 +95,7 @@ jobs:
 
     - name: Run Tests
       run: |
-        uv run pytest ${{ matrix.test_targets.target}} \
+        uv run pytest -v ${{ matrix.test_targets.target}} \
           --doctest-modules \
           --junitxml=junit/test-results.xml \
           --cov=com \
@@ -164,7 +167,7 @@ jobs:
           ~/.android/avd/*
           ~/.android/adb*
         key: avd-${{ env.API_LEVEL }}
-    - name: create AVD and generate snapshot for caching
+    - name: Create AVD and generate snapshot for caching
       if: steps.avd-cache.outputs.cache-hit != 'true'
       uses: reactivecircus/android-emulator-runner@v2
       with:
@@ -191,14 +194,14 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-uv-shared-
 
-    - name: run tests
+    - name: Run tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: ${{ env.API_LEVEL }}
         arch: ${{ env.ARCH }}
         script: |
           make install-uv
-          uv run pytest ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          uv run pytest -v ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: google_apis
         profile: Nexus 5X
         disable-spellchecker: true
@@ -239,6 +242,7 @@ jobs:
       IPHONE_MODEL: iPhone 16
       FLUTTER_ANDROID_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/latest/download/app-debug.apk"
       FLUTTER_IOS_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/latest/download/ios.zip"
+      PREBUILT_WDA_PATH: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
 
     steps:
 
@@ -267,6 +271,12 @@ jobs:
       with:
         node-version: 'lts/*'
 
+    - name: Select Xcode
+      if: matrix.e2e-tests == 'flutter-ios'
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ${{ env.XCODE_VERSION }}
+
     - name: Install Appium and drivers
       if: matrix.e2e-tests == 'flutter-android'
       run: |
@@ -274,14 +284,21 @@ jobs:
         appium driver install uiautomator2
         appium driver install appium-flutter-integration-driver --source npm
 
-    - name: Start Appium server for Android
-      if: matrix.e2e-tests == 'flutter-android'
+    - name: Install Appium and drivers
+      if: matrix.e2e-tests == 'flutter-ios'
+      run: |
+        npm install --location=global appium
+        appium driver install xcuitest
+        appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
+        appium driver install appium-flutter-integration-driver --source npm
+
+    - name: Start Appium server
       uses: ./.github/actions/setup-appium-server
       with:
         port: ${{ env.APPIUM_TEST_SERVER_PORT }}
         host: ${{ env.APPIUM_TEST_SERVER_HOST }}
         server_args: '--relaxed-security'
-        log_file: 'appium_flutter_android.log'
+        log_file: appium-${{ matrix.e2e-tests }}.log
 
     - name: Cache uv modules
       uses: actions/cache@v4
@@ -300,23 +317,16 @@ jobs:
         api-level: ${{ env.API_LEVEL }}
         script: |
           make install-uv
-          uv run pytest test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          uv run pytest -v test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
         target: default
         disable-spellchecker: true
         disable-animations: true
 
-    - name: Save server output
-      if: always() && matrix.e2e-tests == 'flutter-android'
-      uses: actions/upload-artifact@master
-      with:
-        name: appium-flutter-android.log
-        path: appium_flutter_android.log
-
-    - name: Select Xcode
+    - name: Start iOS Simulator UI
       if: matrix.e2e-tests == 'flutter-ios'
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: ${{ env.XCODE_VERSION }}
+      run: |
+        defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+        open -Fn "$(xcode-select --print-path)/Applications/Simulator.app"
 
     - uses: futureware-tech/simulator-action@v4
       if: matrix.e2e-tests == 'flutter-ios'
@@ -327,31 +337,27 @@ jobs:
         wait_for_boot: true
         shutdown_after_job: false
 
-    - name: Install Appium and drivers
+    - name: Finalize iOS simulator boot
       if: matrix.e2e-tests == 'flutter-ios'
-      run: |
-        npm install --location=global appium
-        appium driver install xcuitest
-        appium driver install appium-flutter-integration-driver --source npm
-        appium driver run xcuitest build-wda
-
-    - name: Start Appium server for iOS
-      if: matrix.e2e-tests == 'flutter-ios'
-      uses: ./.github/actions/setup-appium-server
-      with:
-        port: ${{ env.APPIUM_TEST_SERVER_PORT }}
-        host: ${{ env.APPIUM_TEST_SERVER_HOST }}
-        server_args: '--relaxed-security'
-        log_file: 'appium_ios.log'
+      run: xcrun --sdk iphonesimulator --show-sdk-version
 
     - name: Run IOS tests
       if: matrix.e2e-tests == 'flutter-ios'
       run: |
         make install-uv
         export PLATFORM=ios
-        uv run pytest test/functional/flutter_integration/*_test.py \
+        uv run pytest -v test/functional/flutter_integration/*_test.py \
           --doctest-modules \
           --junitxml=junit/test-results.xml \
           --cov=com \
           --cov-report=xml \
           --cov-report=html
+      env:
+        LOCAL_PREBUILT_WDA: ${{ env.PREBUILT_WDA_PATH }}
+
+    - name: Save server output
+      if: ${{ always() }}
+      uses: actions/upload-artifact@master
+      with:
+        name: appium-${{ matrix.e2e-tests }}.log
+        path: appium-${{ matrix.e2e-tests }}.log

@@ -1,8 +1,9 @@
 import os
 import socket
 import time
+from dataclasses import dataclass
 from time import sleep
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any, Callable, Optional
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -95,3 +96,47 @@ def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout_sec:
         The found WebElement
     """
     return WebDriverWait(driver, timeout_sec).until(EC.presence_of_element_located((locator, value)))
+
+
+@dataclass
+class WorkerInfo:
+    """Information about the current test worker in parallel execution."""
+
+    worker_number: Optional[int]
+    total_workers: Optional[int]
+
+    @property
+    def is_parallel(self) -> bool:
+        """Check if running in parallel mode."""
+        return self.worker_number is not None and self.total_workers is not None
+
+
+def get_worker_info() -> WorkerInfo:
+    """
+    Get current worker number and total worker count from pytest-xdist environment variables.
+
+    Returns:
+        WorkerInfo: Worker information or None values if not running in parallel
+    """
+    worker_number = os.getenv('PYTEST_XDIST_WORKER')
+    worker_count = os.getenv('PYTEST_XDIST_WORKER_COUNT')
+
+    if worker_number and worker_count:
+        # Extract number from worker string like 'gw0', 'gw1', etc.
+        try:
+            worker_num = int(worker_number.replace('gw', ''))
+            total_workers = int(worker_count)
+            return WorkerInfo(worker_number=worker_num, total_workers=total_workers)
+        except (ValueError, AttributeError):
+            pass
+
+    return WorkerInfo(worker_number=None, total_workers=None)
+
+
+def get_wda_port() -> int:
+    """
+    Get a unique WDA port for the current worker.
+    Uses base port 8100 and increments by worker number.
+    """
+    worker_info = get_worker_info()
+    return 8100 + (worker_info.worker_number or 0)

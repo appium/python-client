@@ -35,7 +35,7 @@ jobs:
       PREBUILT_WDA_PATH: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Install Node.js
       uses: actions/setup-node@v4
@@ -127,7 +127,7 @@ jobs:
       ARCH: x86
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - uses: actions/setup-java@v4
       with:
@@ -251,7 +251,7 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - uses: actions/setup-java@v4
       if: matrix.e2e-tests == 'flutter-android'

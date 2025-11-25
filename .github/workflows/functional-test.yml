@@ -129,7 +129,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 
-    - uses: actions/setup-java@v4
+    - uses: actions/setup-java@v5
       with:
         distribution: 'temurin'
         java-version: '17'
@@ -253,7 +253,7 @@ jobs:
 
     - uses: actions/checkout@v6
 
-    - uses: actions/setup-java@v4
+    - uses: actions/setup-java@v5
       if: matrix.e2e-tests == 'flutter-android'
       with:
         distribution: 'zulu'

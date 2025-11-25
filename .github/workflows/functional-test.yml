@@ -76,7 +76,7 @@ jobs:
       run: xcrun --sdk iphonesimulator --show-sdk-version
 
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: 3.12
 
@@ -185,7 +185,7 @@ jobs:
         script: echo "Generated AVD snapshot for caching."
 
     - name: Set up Python 3.12
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: 3.12
 
@@ -267,7 +267,7 @@ jobs:
         sudo udevadm trigger --name-match=kvm
 
     - name: Set up Python 3.12
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: 3.12
 

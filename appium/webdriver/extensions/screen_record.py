@@ -126,8 +126,8 @@ class ScreenRecord(CanExecuteCommands):
                 The default value is the device's native display resolution (if supported),
                 1280x720 if not. For best results, use a size supported by your device's
                 Advanced Video Coding (AVC) encoder.
-            bitRate (int): [Android] The video bit rate for the video, in megabits per second.
-                The default value is 4. You can increase the bit rate to improve video quality,
+            bitRate (int): [Android] The video bit rate for the video, in bits per second.
+                The default value is 4000000 (4 Mbit/s). You can increase the bit rate to improve video quality,
                 but doing so results in larger movie files.
             bugReport (str): [Android] Makes the recorder to display an additional information on the video overlay,
                 such as a timestamp, that is helpful in videos captured to illustrate bugs.

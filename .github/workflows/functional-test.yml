@@ -81,7 +81,7 @@ jobs:
         python-version: 3.12
 
     - name: Cache uv modules
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: |
           ~/.cache/uv
@@ -165,7 +165,7 @@ jobs:
         sudo udevadm trigger --name-match=kvm
 
     - name: AVD cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: avd-cache
       with:
         path: |
@@ -190,7 +190,7 @@ jobs:
         python-version: 3.12
 
     - name: Cache uv modules
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: |
           ~/.cache/uv
@@ -306,7 +306,7 @@ jobs:
         log_file: appium-${{ matrix.e2e-tests }}.log
 
     - name: Cache uv modules
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: |
           ~/.cache/uv

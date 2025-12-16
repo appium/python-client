@@ -12,3 +12,6 @@ updates:
     interval: weekly
     time: "11:00"
   open-pull-requests-limit: 10
+  commit-message:
+    prefix: "ci"
+    include: "scope"

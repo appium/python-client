@@ -401,7 +401,7 @@ class WebDriver(
 
     # MJSONWP for Selenium v4
     @property
-    def orientation(self) -> str:
+    def orientation(self) -> Any:
         """
         Gets the current orientation of the device
 

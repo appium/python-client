@@ -36,10 +36,9 @@ Repository = "https://github.com/appium/python-client"
 Issues = "https://github.com/appium/python-client/issues"
 Changelog = "https://github.com/appium/python-client/blob/master/CHANGELOG.md"
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
   "httpretty~=1.1",
-  "mock~=5.2",
   "mypy~=1.17",
   "pre-commit~=4.2",
   "pytest~=8.4",

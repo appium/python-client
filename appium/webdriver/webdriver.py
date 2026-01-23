@@ -400,8 +400,8 @@ class WebDriver(
         return MobileSwitchTo(self)
 
     # MJSONWP for Selenium v4
-    @property
-    def orientation(self) -> str:  # type: ignore[override]
+    @property  # type: ignore[override]
+    def orientation(self) -> str:
         """
         Gets the current orientation of the device
 

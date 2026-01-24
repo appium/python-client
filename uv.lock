@@ -88,7 +88,7 @@ dev = [
     { name = "pytest-cov", specifier = "~=6.2" },
     { name = "pytest-xdist", specifier = "~=3.8" },
     { name = "python-dateutil", specifier = "~=2.9" },
-    { name = "python-semantic-release", specifier = "~=10.3.1" },
+    { name = "python-semantic-release", specifier = ">=10.3.1,<10.6.0" },
     { name = "ruff", specifier = "~=0.12" },
     { name = "sphinx", specifier = ">=4.0,<9.0" },
     { name = "sphinx-rtd-theme", specifier = "~=3.0" },
@@ -1458,7 +1458,7 @@ wheels = [
 
 [[package]]
 name = "python-semantic-release"
-version = "10.3.2"
+version = "10.5.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -1475,9 +1475,9 @@ dependencies = [
     { name = "shellingham" },
     { name = "tomlkit" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c7/3a/7e2680d3fb700c463e2a3c2d755db3f6a9fe85361058f46fc90b74a81ee8/python_semantic_release-10.3.2.tar.gz", hash = "sha256:c171d610c04f7c42ccf3e39073ec76afc98e0bd2ed704872790035fea1256e61", size = 331923, upload-time = "2025-09-06T16:17:27.533Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/19/3a/7332b822825ed0e902c6e950e0d1e90e8f666fd12eb27855d1c8b6677eff/python_semantic_release-10.5.3.tar.gz", hash = "sha256:de4da78635fa666e5774caaca2be32063cae72431eb75e2ac23b9f2dfd190785", size = 618034, upload-time = "2025-12-14T22:37:29.782Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/fe/38/d3f8a5129518a16518738d74f0938170b589527e47538932f8bb78bcffeb/python_semantic_release-10.3.2-py3-none-any.whl", hash = "sha256:d41d48efc56933b90c718bdfe2a235a986f06b8b371bd6598c8f18c05fe22517", size = 142051, upload-time = "2025-09-06T16:17:26.001Z" },
+    { url = "https://files.pythonhosted.org/packages/6b/01/ada29a1215df601bded0a2efd3b6d53864a0a9e0a9ea52aeaebe14fd03fd/python_semantic_release-10.5.3-py3-none-any.whl", hash = "sha256:1be0e07c36fa1f1ec9da4f438c1f6bbd7bc10eb0d6ac0089b0643103708c2823", size = 152716, upload-time = "2025-12-14T22:37:28.089Z" },
 ]
 
 [[package]]
@@ -1997,11 +1997,11 @@ wheels = [
 
 [[package]]
 name = "tomlkit"
-version = "0.14.0"
+version = "0.13.3"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/c3/af/14b24e41977adb296d6bd1fb59402cf7d60ce364f90c890bd2ec65c43b5a/tomlkit-0.14.0.tar.gz", hash = "sha256:cf00efca415dbd57575befb1f6634c4f42d2d87dbba376128adb42c121b87064", size = 187167, upload-time = "2026-01-13T01:14:53.304Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/cc/18/0bbf3884e9eaa38819ebe46a7bd25dcd56b67434402b66a58c4b8e552575/tomlkit-0.13.3.tar.gz", hash = "sha256:430cf247ee57df2b94ee3fbe588e71d362a941ebb545dec29b53961d61add2a1", size = 185207, upload-time = "2025-06-05T07:13:44.947Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b5/11/87d6d29fb5d237229d67973a6c9e06e048f01cf4994dee194ab0ea841814/tomlkit-0.14.0-py3-none-any.whl", hash = "sha256:592064ed85b40fa213469f81ac584f67a4f2992509a7c3ea2d632208623a3680", size = 39310, upload-time = "2026-01-13T01:14:51.965Z" },
+    { url = "https://files.pythonhosted.org/packages/bd/75/8539d011f6be8e29f339c42e633aae3cb73bffa95dd0f9adec09b9c58e85/tomlkit-0.13.3-py3-none-any.whl", hash = "sha256:c89c649d79ee40629a9fda55f8ace8c6a1b42deb912b2a8fd8d942ddadb606b0", size = 38901, upload-time = "2025-06-05T07:13:43.546Z" },
 ]
 
 [[package]]

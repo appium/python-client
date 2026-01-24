@@ -43,7 +43,7 @@ wheels = [
 
 [[package]]
 name = "appium-python-client"
-version = "5.2.4"
+version = "5.2.5"
 source = { editable = "." }
 dependencies = [
     { name = "selenium", version = "4.36.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },

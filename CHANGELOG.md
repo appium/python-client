@@ -2,6 +2,99 @@
 
 <!-- version list -->
 
+## v5.2.5 (2026-01-24)
+
+### Chores
+
+- Add a few new caps in the standard ([#1175](https://github.com/appium/python-client/pull/1175),
+  [`b22b031`](https://github.com/appium/python-client/commit/b22b0316b18e551695344d11e25e940a7f7ec297))
+
+- Enable dependabot for uv ([#1181](https://github.com/appium/python-client/pull/1181),
+  [`fd138de`](https://github.com/appium/python-client/commit/fd138deb519b5ed7cd2a4a80a639294ec8b42ad4))
+
+- Update iOS e2e tests ([#1178](https://github.com/appium/python-client/pull/1178),
+  [`3677e0c`](https://github.com/appium/python-client/commit/3677e0c3e347a457f3f72b204b0644403725be3b))
+
+- **deps**: Bump actions/cache from 3 to 4
+  ([#1184](https://github.com/appium/python-client/pull/1184),
+  [`936e146`](https://github.com/appium/python-client/commit/936e146c05216fe1c620efb7c5e34892ae7e7dcc))
+
+- **deps**: Bump actions/cache from 4 to 5
+  ([#1191](https://github.com/appium/python-client/pull/1191),
+  [`aa41b80`](https://github.com/appium/python-client/commit/aa41b80ebfd6c05f3f5b45dbc66ec41b12200040))
+
+- **deps**: Bump actions/checkout from 4 to 6
+  ([#1186](https://github.com/appium/python-client/pull/1186),
+  [`7ce850b`](https://github.com/appium/python-client/commit/7ce850bfff817a748dc63ea27c00774c333e76c6))
+
+- **deps**: Bump actions/setup-java from 4 to 5
+  ([#1183](https://github.com/appium/python-client/pull/1183),
+  [`91e1855`](https://github.com/appium/python-client/commit/91e18558f78f048a423ea69ededea97596685abe))
+
+- **deps**: Bump actions/setup-node from 4 to 6
+  ([#1188](https://github.com/appium/python-client/pull/1188),
+  [`3f8eeec`](https://github.com/appium/python-client/commit/3f8eeec1f499efbe7e82007b22bed7d8a687a316))
+
+- **deps**: Bump actions/setup-python from 4 to 6
+  ([#1187](https://github.com/appium/python-client/pull/1187),
+  [`7708ebe`](https://github.com/appium/python-client/commit/7708ebe35761969cb5fad80e9a1a709553a119d1))
+
+- **deps**: Bump selenium from 4.33.0 to 4.36.0
+  ([#1182](https://github.com/appium/python-client/pull/1182),
+  [`64c0119`](https://github.com/appium/python-client/commit/64c011926cf804dc8edf27e7c15ffeb2568a45f5))
+
+- **deps**: Bump stefanzweifel/git-auto-commit-action from 5 to 7
+  ([#1185](https://github.com/appium/python-client/pull/1185),
+  [`8389732`](https://github.com/appium/python-client/commit/8389732af5392254325a1616a00ea42df22b6bbe))
+
+- **deps-dev**: Bump pytest-cov from 6.3.0 to 7.0.0
+  ([#1194](https://github.com/appium/python-client/pull/1194),
+  [`32aca30`](https://github.com/appium/python-client/commit/32aca304057ee68bb2f1a3c0495054d245e4b955))
+
+- **deps-dev**: Bump python-semantic-release from 10.3.2 to 10.5.3
+  ([#1195](https://github.com/appium/python-client/pull/1195),
+  [`4844534`](https://github.com/appium/python-client/commit/48445348e313f6d256bdee5b9229772e87674470))
+
+### Continuous Integration
+
+- Add commit message configuration for Dependabot
+  ([`b68fa61`](https://github.com/appium/python-client/commit/b68fa6158e7c1f7df5479b50af50b937b1d2511d))
+
+- Add GitHub Actions to Dependabot configuration
+  ([`c2edb68`](https://github.com/appium/python-client/commit/c2edb6874da805f8a4e7ba345f31303a51ba4fb6))
+
+- Use py 3.14 ([#1193](https://github.com/appium/python-client/pull/1193),
+  [`3bb2021`](https://github.com/appium/python-client/commit/3bb20212f67cdbe73d72ff8ff9541a5f57cc8393))
+
+- Use the central repo's workflow
+  ([`e59b853`](https://github.com/appium/python-client/commit/e59b853497ae04706137cf252bfa3b92e6a1e229))
+
+- Use the latest appium flutter integration driver on CI
+  ([#1176](https://github.com/appium/python-client/pull/1176),
+  [`f61c059`](https://github.com/appium/python-client/commit/f61c059d189f19e01ca6bd11670e6d07c550ec31))
+
+### Documentation
+
+- Clean up CHANGELOG by removing old sections
+  ([`d4f3e16`](https://github.com/appium/python-client/commit/d4f3e16d33cdc22651e99f1f161ff8e79f78328e))
+
+- Fix the units for bitRate value
+  ([`4634378`](https://github.com/appium/python-client/commit/4634378e8e1fe78b962b0d5280a6bf1b05b9b15d))
+
+### Testing
+
+- Fix accidental missing deps
+  ([`b04f65e`](https://github.com/appium/python-client/commit/b04f65e58ca7d86bc3b5a2cf2d3a8f61dd225f81))
+
+- Update Android tests to the canonical pytest format
+  ([#1180](https://github.com/appium/python-client/pull/1180),
+  [`b9564c7`](https://github.com/appium/python-client/commit/b9564c78bc22d1fc4b0e345199c9ede7584ad1c3))
+
+- Update flutter tests to canonic pytest format
+  ([#1179](https://github.com/appium/python-client/pull/1179),
+  [`ed27b1f`](https://github.com/appium/python-client/commit/ed27b1fad14467b15779abb2942627373977f243))
+
+
 ## v5.2.4 (2025-09-11)
 
 ### Chores

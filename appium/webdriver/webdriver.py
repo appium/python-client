@@ -348,8 +348,8 @@ class WebDriver(
         # Due to a W3C spec parsing misconception some servers
         # pack the createSession response stuff into 'value' dictionary and
         # some other put it to the top level of the response JSON nesting hierarchy
-        get_response_value: Callable[[str], Optional[Any]] = lambda key: response.get(key) or (
-            response['value'].get(key) if isinstance(response.get('value'), dict) else None
+        get_response_value: Callable[[str], Optional[Any]] = lambda key: (
+            response.get(key) or (response['value'].get(key) if isinstance(response.get('value'), dict) else None)
         )
         session_id = get_response_value('sessionId')
         if not session_id:

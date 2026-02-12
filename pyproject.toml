@@ -7,7 +7,7 @@ license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [
     {name = "Kazuaki Matsuo", email = "kazucocoa1117@gmail.com"},
-    {name = "Isaac Murchie", email = "isaac@saucelabs.com"},    
+    {name = "Isaac Murchie"},    
 ]
 maintainers = [
     {name = "Kazuaki Matsuo"},

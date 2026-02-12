@@ -6,7 +6,8 @@ readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [
-    {name = "Isaac Murchie", email = "isaac@saucelabs.com"},
+    {name = "Kazuaki Matsuo", email = "kazucocoa1117@gmail.com"},
+    {name = "Isaac Murchie", email = "isaac@saucelabs.com"},    
 ]
 maintainers = [
     {name = "Kazuaki Matsuo"},
@@ -21,6 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Environment :: Console",
     "Topic :: Software Development :: Testing",
 ]

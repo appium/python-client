@@ -2,6 +2,32 @@
 
 <!-- version list -->
 
+## v5.2.6 (2026-02-12)
+
+### Bug Fixes
+
+- Update readme and to kick a release to test out auto release
+  ([`a4cda69`](https://github.com/appium/python-client/commit/a4cda696bc872f3879a2e7d36df852471f672211))
+
+### Chores
+
+- **deps-dev**: Bump ruff from 0.14.14 to 0.15.0
+  ([#1198](https://github.com/appium/python-client/pull/1198),
+  [`1114b10`](https://github.com/appium/python-client/commit/1114b1033865cf0112da0877f56f68e910daac28))
+
+- **deps-dev**: Bump types-python-dateutil
+  ([#1197](https://github.com/appium/python-client/pull/1197),
+  [`ae2802e`](https://github.com/appium/python-client/commit/ae2802ef16d4337e81dd01cf6dcc4360a60a8509))
+
+### Continuous Integration
+
+- Add skip to publish if not package was made
+  ([`bb8b4b3`](https://github.com/appium/python-client/commit/bb8b4b35cd3ece54c857568005168b9d0b6e19a8))
+
+- Create automatic release action ([#1196](https://github.com/appium/python-client/pull/1196),
+  [`208c35c`](https://github.com/appium/python-client/commit/208c35c27da10b78bfd346c3ecdd34d78b920473))
+
+
 ## v5.2.5 (2026-01-24)
 
 ### Chores

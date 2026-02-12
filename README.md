@@ -527,9 +527,7 @@ uv run pytest -n 2 test/functional/ios/search_context/find_by_ios_class_chain_te
 
 ## Release
 
-Follow the below steps.
-
-Set `GH_TOKEN` env var to update the GitHub contents.
+In case you need to release a version manually.
 
 ```bash
 rm -rf dist

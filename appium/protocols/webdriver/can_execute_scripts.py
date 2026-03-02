@@ -12,14 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, List, Optional, Protocol
+from typing import Any, List, Optional, Protocol, TYPE_CHECKING
+from warings import deprecated
 
 
 class CanExecuteScripts(Protocol):
     def execute_script(self, script: str, *args: Any) -> Any: ...
 
-    # TODO: Implement them later
-    # def pin_script(self, script: str, script_key: Optional[Any] = None) -> Any: ...
-    # def unpin(self, script_key: Any) -> None: ...
-    # def get_pinned_scripts(self) -> List[str]: ...
-    # def execute_async_script(self, script: str, *args: Any) -> Any: ...
+    # TODO: remove `if not TYPE_CHECKING` guard after properly implement them
+    # The use of these methods will produce DeprecationWarnings at runtime
+    if not TYPE_CHECKING:
+        @deprecated("pin_script is not yet implemented")
+        def pin_script(self, script: str, script_key: Optional[Any] = None) -> Any: ...
+
+        @deprecated("unpin is not yet implemented")
+        def unpin(self, script_key: Any) -> None: ...
+
+        @deprecated("get_pinned_scripts is not yet implemented")
+        def get_pinned_scripts(self) -> List[str]: ...
+
+        @deprecated("execute_async_script is not yet implemented")
+        def execute_async_script(self, script: str, *args: Any) -> Any: ...

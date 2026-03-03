@@ -14,7 +14,6 @@
 
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Set, Tuple, Type, Union
 
-from selenium import webdriver
 from selenium.common.exceptions import (
     InvalidArgumentException,
     SessionNotCreatedException,
@@ -23,6 +22,8 @@ from selenium.common.exceptions import (
 )
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
+# `selenium.webdriver.Remote` could be used instead, but Pyright wouldn't locate the class properly.
+from selenium.webdriver.remote.webdriver import WebDriver as Remote
 from typing_extensions import Self
 
 from appium.common.logger import logger
@@ -208,7 +209,7 @@ def _get_remote_connection_and_client_config(
 
 
 class WebDriver(
-    webdriver.Remote,
+    Remote,
     ActionHelpers,
     Activities,
     Applications,

@@ -167,6 +167,24 @@ from appium import webdriver
 
 From there much of your test code will work with no change.
 
+### Pylance/Pyright note users
+
+Some previously released versions of `Appium-Python-Client` may show false-positive diagnostics with strict type checking:
+
+- `"Remote" is not exported from module "appium.webdriver"` (`reportPrivateImportUsage`)
+- `Cannot instantiate abstract class "WebDriver"` (`reportAbstractUsage`)
+
+You can reproduce this with [script/pylance_repro_79895384.py](script/pylance_repro_79895384.py).
+
+```shell
+pyright script/pylance_repro_79895384.py
+```
+
+The current source in this repository includes a type-checking fix for the
+`reportAbstractUsage` false positive. For older released versions, a practical
+workaround is demonstrated in
+[script/pylance_repro_79895384_workaround.py](script/pylance_repro_79895384_workaround.py).
+
 As a base for the following code examples, the following set up the [UnitTest](https://docs.python.org/3/library/unittest.html)
 environment:
 

@@ -7,7 +7,7 @@ license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [
     {name = "Kazuaki Matsuo", email = "kazucocoa1117@gmail.com"},
-    {name = "Isaac Murchie"},    
+    {name = "Isaac Murchie"},
 ]
 maintainers = [
     {name = "Kazuaki Matsuo"},
@@ -63,6 +63,10 @@ dev = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
 
 [tool.hatch.version]
 source = "regex"

@@ -16,7 +16,7 @@
 Appium Python Client: WebDriver module
 """
 
-__all__ = ["Remote", "WebElement"]
+__all__ = ['Remote', 'WebElement']
 
 from .webdriver import WebDriver as Remote
 from .webelement import WebElement

@@ -22,6 +22,7 @@ from selenium.common.exceptions import (
 )
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
+
 # `selenium.webdriver.Remote` could be used instead, but Pyright wouldn't locate the class properly.
 from selenium.webdriver.remote.webdriver import WebDriver as Remote
 from typing_extensions import Self

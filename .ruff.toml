@@ -13,8 +13,6 @@ select = [
 
 [lint.per-file-ignores]
 "__init__.py" = [
-    # unused-import
-    "F401",
     # import violations
     "E402"
 ]

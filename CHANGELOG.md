@@ -2,6 +2,42 @@
 
 <!-- version list -->
 
+## v5.2.7 (2026-03-05)
+
+### Bug Fixes
+
+- Fix type checker errors for pyright ([#1203](https://github.com/appium/python-client/pull/1203),
+  [`cd4699a`](https://github.com/appium/python-client/commit/cd4699a786fe65edd0ce525eadf36d944c01c2d5))
+
+### Chores
+
+- Modify metadata ([#1199](https://github.com/appium/python-client/pull/1199),
+  [`e993461`](https://github.com/appium/python-client/commit/e9934619131f757e51faf484bfdea3ca491b2ecf))
+
+- Remove issac's email as invalid one ([#1199](https://github.com/appium/python-client/pull/1199),
+  [`e993461`](https://github.com/appium/python-client/commit/e9934619131f757e51faf484bfdea3ca491b2ecf))
+
+- **deps-dev**: Bump ruff from 0.15.0 to 0.15.1
+  ([#1200](https://github.com/appium/python-client/pull/1200),
+  [`13bf27b`](https://github.com/appium/python-client/commit/13bf27bc3247221fab9fdf173e30ba3b998dd9fa))
+
+- **deps-dev**: Bump ruff from 0.15.1 to 0.15.2
+  ([#1201](https://github.com/appium/python-client/pull/1201),
+  [`3c33eae`](https://github.com/appium/python-client/commit/3c33eae0ed5e5c2c555fd02e4a011c4377a1103d))
+
+- **deps-dev**: Bump ruff from 0.15.2 to 0.15.4
+  ([#1202](https://github.com/appium/python-client/pull/1202),
+  [`2a14455`](https://github.com/appium/python-client/commit/2a14455f0e85f99f6a520783b4e95dfcfc5abdb5))
+
+### Continuous Integration
+
+- Enable auto release to master
+  ([`52203a4`](https://github.com/appium/python-client/commit/52203a4613e3a3694e1cba5c34a45fb7b2e2fda4))
+
+- Update the trigger ([#1199](https://github.com/appium/python-client/pull/1199),
+  [`e993461`](https://github.com/appium/python-client/commit/e9934619131f757e51faf484bfdea3ca491b2ecf))
+
+
 ## v5.2.6 (2026-02-12)
 
 ### Bug Fixes

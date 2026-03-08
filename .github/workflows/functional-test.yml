@@ -65,7 +65,7 @@ jobs:
         defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
         open -Fn "$(xcode-select --print-path)/Applications/Simulator.app"
     - name: Prepare iOS simulator
-      uses: futureware-tech/simulator-action@v4
+      uses: futureware-tech/simulator-action@v5
       with:
         model: ${{ env.IPHONE_MODEL }}
         os_version: ${{ env.IOS_VERSION }}
@@ -333,7 +333,7 @@ jobs:
         defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
         open -Fn "$(xcode-select --print-path)/Applications/Simulator.app"
 
-    - uses: futureware-tech/simulator-action@v4
+    - uses: futureware-tech/simulator-action@v5
       if: matrix.e2e-tests == 'flutter-ios'
       with:
         # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md

@@ -13,8 +13,10 @@
 # limitations under the License.
 
 
-from appium.webdriver.extensions.android.nativekey import AndroidKey, AndroidKeyMetastate
-
+from appium.webdriver.extensions.android.nativekey import (
+    AndroidKey,
+    AndroidKeyMetastate,
+)
 
 class TestAndroidKey:
     def test_has_some_codes(self):

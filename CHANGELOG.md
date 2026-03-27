@@ -44,7 +44,6 @@
   ([#1211](https://github.com/appium/python-client/pull/1211),
   [`ad8c5c9`](https://github.com/appium/python-client/commit/ad8c5c9ce33e85d6b417f2545df83b32e56c7fd0))
 
-
 ## v5.2.7 (2026-03-05)
 
 ### Bug Fixes

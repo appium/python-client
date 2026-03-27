@@ -30,9 +30,7 @@ class TestAndroidKey:
         assert AndroidKeyMetastate.NONE == 0
         assert AndroidKeyMetastate.META_SHIFT_ON == 0x00000001
         assert AndroidKeyMetastate.META_NUM_LOCK_ON == 0x00200000
-        assert (
-            AndroidKeyMetastate.META_SHIFT_ON | AndroidKeyMetastate.META_NUM_LOCK_ON
-        ) == 0x00000001 | 0x00200000
+        assert (AndroidKeyMetastate.META_SHIFT_ON | AndroidKeyMetastate.META_NUM_LOCK_ON) == 0x00000001 | 0x00200000
 
     def test_is_gamepad_key(self):
         assert AndroidKey.is_gamepad_button(AndroidKey.BUTTON_8)

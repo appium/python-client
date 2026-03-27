@@ -18,6 +18,7 @@ from appium.webdriver.extensions.android.nativekey import (
     AndroidKeyMetastate,
 )
 
+
 class TestAndroidKey:
     def test_has_some_codes(self):
         assert AndroidKey.ENTER == 66

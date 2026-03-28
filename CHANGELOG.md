@@ -2,6 +2,49 @@
 
 <!-- version list -->
 
+## v5.3.0 (2026-03-28)
+
+### Bug Fixes
+
+- **test**: Simplify assertion for AndroidKeyMetastate in test_has_some_metastates
+  ([#1211](https://github.com/appium/python-client/pull/1211),
+  [`ad8c5c9`](https://github.com/appium/python-client/commit/ad8c5c9ce33e85d6b417f2545df83b32e56c7fd0))
+
+### Chores
+
+- **deps-dev**: Bump pytest-cov from 7.0.0 to 7.1.0
+  ([#1209](https://github.com/appium/python-client/pull/1209),
+  [`8466c27`](https://github.com/appium/python-client/commit/8466c27b8759fc18169a48d7f7ae49cc33fce0a9))
+
+- **deps-dev**: Bump ruff from 0.15.4 to 0.15.5
+  ([#1205](https://github.com/appium/python-client/pull/1205),
+  [`628a731`](https://github.com/appium/python-client/commit/628a73111c315860754a7e0cc88f3b68917f3fc2))
+
+- **deps-dev**: Bump ruff from 0.15.5 to 0.15.6
+  ([#1207](https://github.com/appium/python-client/pull/1207),
+  [`9b81d2a`](https://github.com/appium/python-client/commit/9b81d2a42fbca4d4c4c4f2d54ce183c627479f85))
+
+- **deps-dev**: Bump ruff from 0.15.6 to 0.15.7
+  ([#1208](https://github.com/appium/python-client/pull/1208),
+  [`339fff9`](https://github.com/appium/python-client/commit/339fff93d0ac7472140e7869790e203f5160ad60))
+
+### Continuous Integration
+
+- **deps**: Bump futureware-tech/simulator-action from 4 to 5
+  ([#1206](https://github.com/appium/python-client/pull/1206),
+  [`a3c13dc`](https://github.com/appium/python-client/commit/a3c13dc98e9d50fb19bd1e37bdbdf86887587144))
+
+### Features
+
+- Add AndroidKeyMetastate class for keyboard metastate constants
+  ([#1211](https://github.com/appium/python-client/pull/1211),
+  [`ad8c5c9`](https://github.com/appium/python-client/commit/ad8c5c9ce33e85d6b417f2545df83b32e56c7fd0))
+
+- **android**: Add AndroidKeyMetastate class for keyboard metastate constants
+  ([#1211](https://github.com/appium/python-client/pull/1211),
+  [`ad8c5c9`](https://github.com/appium/python-client/commit/ad8c5c9ce33e85d6b417f2545df83b32e56c7fd0))
+
+
 ## v5.2.7 (2026-03-05)
 
 ### Bug Fixes

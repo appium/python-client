@@ -13,6 +13,50 @@
 # limitations under the License.
 
 
+class AndroidKeyMetastate:
+    """Keyboard metastate constants for Android key events.
+
+    These constants can be combined with bitwise OR and passed to
+    Keyboard.press_keycode or Keyboard.long_press_keycode as metastate.
+    Values are based on android.view.KeyEvent.
+    https://developer.android.com/reference/android/view/KeyEvent
+    """
+
+    # No modifiers.
+    NONE = 0
+
+    # This mask is used to check whether one of the SHIFT meta keys is pressed.
+    META_SHIFT_ON = 0x01
+    META_SHIFT_LEFT_ON = 0x40
+    META_SHIFT_RIGHT_ON = 0x80
+
+    # This mask is used to check whether one of the ALT meta keys is pressed.
+    META_ALT_ON = 0x02
+    META_ALT_LEFT_ON = 0x10
+    META_ALT_RIGHT_ON = 0x20
+
+    # This mask is used to check whether one of the SYM meta keys is pressed.
+    META_SYM_ON = 0x04
+
+    # This mask is used to check whether the FUNCTION meta key is pressed.
+    META_FUNCTION_ON = 0x08
+
+    # This mask is used to check whether one of the CTRL meta keys is pressed.
+    META_CTRL_ON = 0x1000
+    META_CTRL_LEFT_ON = 0x2000
+    META_CTRL_RIGHT_ON = 0x4000
+
+    # This mask is used to check whether one of the META meta keys is pressed.
+    META_META_ON = 0x10000
+    META_META_LEFT_ON = 0x20000
+    META_META_RIGHT_ON = 0x40000
+
+    # Lock key states.
+    META_CAPS_LOCK_ON = 0x100000
+    META_NUM_LOCK_ON = 0x200000
+    META_SCROLL_LOCK_ON = 0x400000
+
+
 class AndroidKey:
     # Key code constant: Unknown key code.
     UNKNOWN = 0

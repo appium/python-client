@@ -14,6 +14,7 @@
 
 import httpretty
 
+from appium.webdriver.extensions.android.nativekey import AndroidKeyMetastate
 from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body, ios_w3c_driver
 
@@ -71,7 +72,11 @@ class TestWebDriverKeyboardAndroid(object):
         # metastate is META_SHIFT_ON and META_NUM_LOCK_ON
         # flags is CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE, FLAG_FROM_SYSTEM
         assert isinstance(
-            driver.press_keycode(86, metastate=0x00000001 | 0x00200000, flags=0x20 | 0x00000004 | 0x00000008),
+            driver.press_keycode(
+                86,
+                metastate=AndroidKeyMetastate.META_SHIFT_ON | AndroidKeyMetastate.META_NUM_LOCK_ON,
+                flags=0x20 | 0x00000004 | 0x00000008,
+            ),
             WebDriver,
         )
 
@@ -87,7 +92,11 @@ class TestWebDriverKeyboardAndroid(object):
         # metastate is META_SHIFT_ON and META_NUM_LOCK_ON
         # flags is CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE, FLAG_FROM_SYSTEM
         assert isinstance(
-            driver.long_press_keycode(86, metastate=0x00000001 | 0x00200000, flags=0x20 | 0x00000004 | 0x00000008),
+            driver.long_press_keycode(
+                86,
+                metastate=AndroidKeyMetastate.META_SHIFT_ON | AndroidKeyMetastate.META_NUM_LOCK_ON,
+                flags=0x20 | 0x00000004 | 0x00000008,
+            ),
             WebDriver,
         )
 

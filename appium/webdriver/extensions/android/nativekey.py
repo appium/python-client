@@ -19,6 +19,7 @@ class AndroidKeyMetastate:
     These constants can be combined with bitwise OR and passed to
     Keyboard.press_keycode or Keyboard.long_press_keycode as metastate.
     Values are based on android.view.KeyEvent.
+    https://developer.android.com/reference/android/view/KeyEvent
     """
 
     # No modifiers.

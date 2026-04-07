@@ -12,11 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from importlib import metadata
-
-
-def _get_version():
-    return metadata.version('Appium-Python-Client')
-
-
-version = _get_version()
+version = '6.0.0'

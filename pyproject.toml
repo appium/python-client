@@ -1,7 +1,7 @@
 [project]
 name = "Appium-Python-Client"
 description = "Python client for Appium"
-version = "5.3.0"
+version = "6.0.0"
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
@@ -64,11 +64,6 @@ dev = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.hatch.version]
-source = "regex"
-path = "appium/version.py"
-pattern = "(?P<version>\\d+\\.\\d+\\.\\d+)"
-
 [tool.hatch.build]
 exclude = [
   "test/",
@@ -94,7 +89,7 @@ major_on_zero = true
 allow_zero_version = false
 no_git_verify = false
 tag_format = "v{version}"
-version_toml = ["pyproject.toml:project.version"]
+version_toml = ["pyproject.toml:project.version", "appium/version.py:version"]
 
 [tool.semantic_release.branches.main]
 match = "(main|master)"

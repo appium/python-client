@@ -2,6 +2,16 @@
 
 <!-- version list -->
 
+## v6.0.0 (2026-04-06)
+
+### Breaking Changes
+
+- Remove `setup.py` completely.
+
+### Chores
+
+- Bump the major version to v6.0.0.
+
 ## v5.3.0 (2026-03-28)
 
 ### Bug Fixes

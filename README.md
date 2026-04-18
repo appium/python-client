@@ -26,7 +26,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
     ```shell
     tar -xvf Appium-Python-Client-X.X.tar.gz
     cd Appium-Python-Client-X.X
-    python setup.py install
+    pip install .
     ```
 
 3. Install from source via [GitHub](https://github.com/appium/python-client).
@@ -34,7 +34,7 @@ download and unarchive the source tarball (Appium-Python-Client-X.X.tar.gz).
     ```shell
     git clone git@github.com:appium/python-client.git
     cd python-client
-    python setup.py install
+    pip install .
     ```
 
 ## Compatibility Matrix

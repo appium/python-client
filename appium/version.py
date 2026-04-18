@@ -14,5 +14,4 @@
 
 from importlib.metadata import version as _metadata_version
 
-
 version = _metadata_version('Appium-Python-Client')

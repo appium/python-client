@@ -12,14 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from importlib import metadata
+from importlib.metadata import PackageNotFoundError, version as _metadata_version
 
 
-def _get_version():
-    try:
-        return metadata.version('Appium-Python-Client')
-    except metadata.PackageNotFoundError:
-        return 'unknown'
-
-
-version = _get_version()
+version = _metadata_version('Appium-Python-Client')

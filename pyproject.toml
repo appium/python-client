@@ -64,11 +64,6 @@ dev = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.hatch.version]
-source = "regex"
-path = "appium/version.py"
-pattern = "(?P<version>\\d+\\.\\d+\\.\\d+)"
-
 [tool.hatch.build]
 exclude = [
   "test/",

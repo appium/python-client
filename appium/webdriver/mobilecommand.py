@@ -78,9 +78,7 @@ class MobileCommand:
     GET_AVAILABLE_LOG_TYPES = 'getAvailableLogTypes'
 
     # Android
-    OPEN_NOTIFICATIONS = 'openNotifications'
     GET_CURRENT_ACTIVITY = 'getCurrentActivity'
-    GET_CURRENT_PACKAGE = 'getCurrentPackage'
     GET_SYSTEM_BARS = 'getSystemBars'
     GET_DISPLAY_DENSITY = 'getDisplayDensity'
     TOGGLE_WIFI = 'toggleWiFi'

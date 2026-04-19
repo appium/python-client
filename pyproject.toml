@@ -89,7 +89,7 @@ major_on_zero = true
 allow_zero_version = false
 no_git_verify = false
 tag_format = "v{version}"
-version_toml = ["pyproject.toml:project.version", "appium/version.py:version"]
+version_toml = ["pyproject.toml:project.version"]
 
 [tool.semantic_release.branches.main]
 match = "(main|master)"

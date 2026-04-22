@@ -30,13 +30,9 @@ class TestWebDriverCommon(object):
     def test_current_package(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.GET,
-            appium_command('/session/1234567890/appium/device/current_package'),
-            body='{"value": ".ExamplePackage"}',
-        )
-        httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
             body='{"value": ".ExamplePackage"}',
         )
         assert driver.current_package == '.ExamplePackage'
+        assert {'args': [], 'script': 'mobile: getCurrentPackage'} == get_httpretty_request_body(httpretty.last_request())

@@ -2,6 +2,33 @@
 
 <!-- version list -->
 
+## v5.3.1 (2026-04-19)
+
+### Bug Fixes
+
+- Replace assert with ValueError for state validation
+  ([#1219](https://github.com/appium/python-client/pull/1219),
+  [`2193837`](https://github.com/appium/python-client/commit/2193837fc0af579231f08315431c6a2347bc2b65))
+
+### Chores
+
+- **deps-dev**: Bump ruff from 0.15.10 to 0.15.11
+  ([#1217](https://github.com/appium/python-client/pull/1217),
+  [`30dad44`](https://github.com/appium/python-client/commit/30dad44a9ab991c14134119b876ca80c21d10e88))
+
+- **deps-dev**: Bump ruff from 0.15.7 to 0.15.8
+  ([#1210](https://github.com/appium/python-client/pull/1210),
+  [`7181b20`](https://github.com/appium/python-client/commit/7181b201d0cd94561fe5f07e8bcb0bf03b8ca0e0))
+
+- **deps-dev**: Bump ruff from 0.15.8 to 0.15.9
+  ([#1214](https://github.com/appium/python-client/pull/1214),
+  [`21fdecb`](https://github.com/appium/python-client/commit/21fdecbdf975515087e4c88e04c3356b288f5ac6))
+
+- **deps-dev**: Bump ruff from 0.15.9 to 0.15.10
+  ([#1216](https://github.com/appium/python-client/pull/1216),
+  [`9016e94`](https://github.com/appium/python-client/commit/9016e9431dd9e8c0218e1499c516dcf70642b7e4))
+
+
 ## v5.3.0 (2026-03-28)
 
 ### Bug Fixes

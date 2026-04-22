@@ -1,7 +1,7 @@
 [project]
 name = "Appium-Python-Client"
 description = "Python client for Appium"
-version = "5.3.0"
+version = "5.3.1"
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
@@ -63,11 +63,6 @@ dev = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-
-[tool.hatch.version]
-source = "regex"
-path = "appium/version.py"
-pattern = "(?P<version>\\d+\\.\\d+\\.\\d+)"
 
 [tool.hatch.build]
 exclude = [

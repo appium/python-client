@@ -241,11 +241,7 @@ class Applications(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPr
             data['language'] = language
         if string_file is not None:
             data['stringFile'] = string_file
-        try:
-            return self.assert_extension_exists(ext_name).execute_script(ext_name, data)
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            return self.mark_extension_absence(ext_name).execute(Command.GET_APP_STRINGS, data)['value']
+        return self.assert_extension_exists(ext_name).execute_script(ext_name, data)
 
     def _add_commands(self) -> None:
         self.command_executor.add_command(Command.BACKGROUND, 'POST', '/session/$sessionId/appium/app/background')
@@ -271,4 +267,3 @@ class Applications(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPr
             'POST',
             '/session/$sessionId/appium/device/app_state',
         )
-        self.command_executor.add_command(Command.GET_APP_STRINGS, 'POST', '/session/$sessionId/appium/app/strings')

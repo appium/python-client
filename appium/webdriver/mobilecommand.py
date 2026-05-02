@@ -31,7 +31,6 @@ class MobileCommand:
     SWITCH_TO_CONTEXT = 'switchToContext'
 
     BACKGROUND = 'background'
-    GET_APP_STRINGS = 'getAppStrings'
 
     IS_LOCKED = 'isLocked'
     LOCK = 'lock'

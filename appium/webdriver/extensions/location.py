@@ -14,7 +14,6 @@
 
 from typing import Dict, Union
 
-from selenium.common.exceptions import UnknownMethodException
 from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
@@ -33,11 +32,7 @@ class Location(CanExecuteCommands, CanExecuteScripts):
         Returns:
             Union['WebDriver', 'Location']: Self instance
         """
-        try:
-            self.execute_script('mobile: toggleGps')
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            self.execute(Command.TOGGLE_LOCATION_SERVICES)
+        self.execute_script('mobile: toggleGps')
         return self
 
     def set_location(
@@ -89,10 +84,5 @@ class Location(CanExecuteCommands, CanExecuteScripts):
 
     def _add_commands(self) -> None:
         """Add location endpoints. They are not int w3c spec."""
-        self.command_executor.add_command(
-            Command.TOGGLE_LOCATION_SERVICES,
-            'POST',
-            '/session/$sessionId/appium/device/toggle_location_services',
-        )
         self.command_executor.add_command(Command.GET_LOCATION, 'GET', '/session/$sessionId/location')
         self.command_executor.add_command(Command.SET_LOCATION, 'POST', '/session/$sessionId/location')

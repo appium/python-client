@@ -84,7 +84,6 @@ class MobileCommand:
     GET_SYSTEM_BARS = 'getSystemBars'
     GET_DISPLAY_DENSITY = 'getDisplayDensity'
     TOGGLE_WIFI = 'toggleWiFi'
-    TOGGLE_LOCATION_SERVICES = 'toggleLocationServices'
     GET_PERFORMANCE_DATA_TYPES = 'getPerformanceDataTypes'
     GET_PERFORMANCE_DATA = 'getPerformanceData'
     GET_NETWORK_CONNECTION = 'getNetworkConnection'

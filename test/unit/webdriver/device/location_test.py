@@ -24,9 +24,11 @@ class TestWebDriverLocation(object):
     @httpretty.activate
     def test_toggle_location_services(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/device/toggle_location_services'))
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         assert isinstance(driver.toggle_location_services(), WebDriver)
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['script'] == 'mobile: toggleGps'
 
     @httpretty.activate
     def test_set_location_float(self):

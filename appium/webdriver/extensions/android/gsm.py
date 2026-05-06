@@ -12,15 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from selenium.common.exceptions import UnknownMethodException
 from typing_extensions import Self
 
 from appium.common.helper import extract_const_attributes
 from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
-from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
-from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
 class GsmCallActions:
@@ -48,7 +45,7 @@ class GsmVoiceState:
     ON = 'on'
 
 
-class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+class Gsm(CanExecuteCommands, CanExecuteScripts):
     def make_gsm_call(self, phone_number: str, action: str) -> Self:
         """Make GSM call (Emulator only)
 
@@ -73,11 +70,7 @@ class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
                 f'(e.g. {GsmCallActions.__name__}.CALL)'
             )
         args = {'phoneNumber': phone_number, 'action': action}
-        try:
-            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            self.mark_extension_absence(ext_name).execute(Command.MAKE_GSM_CALL, args)
+        self.execute_script(ext_name, args)
         return self
 
     def set_gsm_signal(self, strength: int) -> Self:
@@ -102,13 +95,7 @@ class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
                 f'{strength} is out of range. Consider using one of {list(constants.keys())} constants. '
                 f'(e.g. {GsmSignalStrength.__name__}.GOOD)'
             )
-        try:
-            self.assert_extension_exists(ext_name).execute_script(ext_name, {'strength': strength})
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            self.mark_extension_absence(ext_name).execute(
-                Command.SET_GSM_SIGNAL, {'signalStrength': strength, 'signalStrengh': strength}
-            )
+        self.execute_script(ext_name, {'strength': strength})
         return self
 
     def set_gsm_voice(self, state: str) -> Self:
@@ -134,14 +121,8 @@ class Gsm(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
                 f'(e.g. {GsmVoiceState.__name__}.HOME)'
             )
         args = {'state': state}
-        try:
-            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            self.mark_extension_absence(ext_name).execute(Command.SET_GSM_VOICE, args)
+        self.execute_script(ext_name, args)
         return self
 
     def _add_commands(self) -> None:
-        self.command_executor.add_command(Command.MAKE_GSM_CALL, 'POST', '/session/$sessionId/appium/device/gsm_call')
-        self.command_executor.add_command(Command.SET_GSM_SIGNAL, 'POST', '/session/$sessionId/appium/device/gsm_signal')
-        self.command_executor.add_command(Command.SET_GSM_VOICE, 'POST', '/session/$sessionId/appium/device/gsm_voice')
+        pass

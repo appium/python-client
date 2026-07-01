@@ -48,7 +48,7 @@ dev = [
   "pytest-cov>=6.2,<8.0",
   "pytest-xdist~=3.8",
   "python-dateutil~=2.9",
-  "ruff~=0.12",
+  "ruff~=0.15",
   "types-python-dateutil~=2.9",
 
   # for release

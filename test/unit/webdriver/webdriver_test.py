@@ -472,7 +472,7 @@ class SubSubWebDriver(SubWebDriver):
         )
 
 
-class TestSubModuleWebDriver(object):
+class TestSubModuleWebDriver:
     def android_w3c_driver(self, driver_class):
         response_body_json = json.dumps(
             {

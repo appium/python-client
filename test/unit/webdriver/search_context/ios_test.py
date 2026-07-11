@@ -19,7 +19,7 @@ from appium.webdriver.webelement import WebElement as MobileWebElement
 from test.unit.helper.test_helper import appium_command, get_httpretty_request_body, ios_w3c_driver
 
 
-class TestWebDriverIOSSearchContext(object):
+class TestWebDriverIOSSearchContext:
     @httpretty.activate
     def test_find_element_by_ios_predicate(self):
         driver = ios_w3c_driver()

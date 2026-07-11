@@ -20,7 +20,7 @@ from test.helpers.constants import SERVER_URL_BASE
 from .desired_capabilities import get_desired_capabilities
 
 
-class BaseTestCase(object):
+class BaseTestCase:
     def setup_method(self) -> None:
         client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
         client_config.timeout = 600

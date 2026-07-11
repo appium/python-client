@@ -20,7 +20,7 @@ from appium.webdriver.webelement import WebElement as MobileWebElement
 from test.unit.helper.test_helper import appium_command, flutter_w3c_driver, get_httpretty_request_body
 
 
-class TestFlutterWaits(object):
+class TestFlutterWaits:
     @httpretty.activate
     def test_wait_for_visible_with_finder(self):
         driver = flutter_w3c_driver()

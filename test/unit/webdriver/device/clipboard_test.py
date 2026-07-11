@@ -18,7 +18,7 @@ from appium.webdriver.clipboard_content_type import ClipboardContentType
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body, ios_w3c_driver
 
 
-class TestWebDriverClipboard(object):
+class TestWebDriverClipboard:
     @httpretty.activate
     def test_set_clipboard_with_url(self):
         driver = android_w3c_driver()

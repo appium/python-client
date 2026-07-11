@@ -18,7 +18,7 @@ from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body, ios_w3c_driver
 
 
-class TestWebDriverLockAndroid(object):
+class TestWebDriverLockAndroid:
     @httpretty.activate
     def test_lock(self):
         driver = android_w3c_driver()
@@ -65,7 +65,7 @@ class TestWebDriverLockAndroid(object):
         assert isinstance(driver.unlock(), WebDriver)
 
 
-class TestWebDriverLockIOS(object):
+class TestWebDriverLockIOS:
     @httpretty.activate
     def test_lock(self):
         driver = ios_w3c_driver()

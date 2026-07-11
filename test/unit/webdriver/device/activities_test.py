@@ -17,7 +17,7 @@ import httpretty
 from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
-class TestWebDriverActivities(object):
+class TestWebDriverActivities:
     @httpretty.activate
     def test_current_activity(self):
         driver = android_w3c_driver()

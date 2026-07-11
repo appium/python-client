@@ -19,7 +19,7 @@ from appium.webdriver.webdriver import WebDriver
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body, ios_w3c_driver
 
 
-class TestWebDriverKeyboardAndroid(object):
+class TestWebDriverKeyboardAndroid:
     @httpretty.activate
     def test_hide_keyboard(self):
         driver = android_w3c_driver()
@@ -101,7 +101,7 @@ class TestWebDriverKeyboardAndroid(object):
         )
 
 
-class TestWebDriverKeyboardIOS(object):
+class TestWebDriverKeyboardIOS:
     @httpretty.activate
     def test_hide_keyboard(self):
         driver = ios_w3c_driver()

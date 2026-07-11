@@ -18,7 +18,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 from test.unit.helper.test_helper import appium_command, flutter_w3c_driver, get_httpretty_request_body
 
 
-class TestFlutterSearchContext(object):
+class TestFlutterSearchContext:
     @httpretty.activate
     def test_find_element_by_flutter_key(self):
         driver = flutter_w3c_driver()

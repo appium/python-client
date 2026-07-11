@@ -12,7 +12,7 @@ import httpretty
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body, ios_w3c_driver
 
 
-class TestWebDriverScreenRecordAndroid(object):
+class TestWebDriverScreenRecordAndroid:
     @httpretty.activate
     def test_start_recording_screen(self):
         driver = android_w3c_driver()
@@ -43,7 +43,7 @@ class TestWebDriverScreenRecordAndroid(object):
         assert 'password' not in d['options'].keys()
 
 
-class TestWebDriverScreenRecordIOS(object):
+class TestWebDriverScreenRecordIOS:
     @httpretty.activate
     def test_start_recording_screen(self):
         driver = ios_w3c_driver()

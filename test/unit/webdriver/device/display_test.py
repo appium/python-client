@@ -17,7 +17,7 @@ import httpretty
 from test.unit.helper.test_helper import android_w3c_driver, appium_command
 
 
-class TestWebDriverDisplay(object):
+class TestWebDriverDisplay:
     @httpretty.activate
     def test_get_display_density(self):
         driver = android_w3c_driver()

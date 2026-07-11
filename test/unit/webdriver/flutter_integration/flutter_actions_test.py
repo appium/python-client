@@ -24,7 +24,7 @@ from appium.webdriver.webelement import WebElement as MobileWebElement
 from test.unit.helper.test_helper import appium_command, flutter_w3c_driver, get_httpretty_request_body
 
 
-class TestFlutterActions(object):
+class TestFlutterActions:
     @httpretty.activate
     def test_double_click(self):
         driver = flutter_w3c_driver()

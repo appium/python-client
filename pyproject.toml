@@ -17,7 +17,6 @@ maintainers = [
 keywords = ["appium", "selenium", "python client", "mobile automation"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -26,7 +25,7 @@ classifiers = [
     "Environment :: Console",
     "Topic :: Software Development :: Testing",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
   "selenium>=4.26,<5.0",
   "typing-extensions~=4.13",

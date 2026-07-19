@@ -106,9 +106,7 @@ class Network(CanExecuteCommands, CanExecuteScripts):
             Union['WebDriver', 'Network']: Self instance
         """
         ext_name = 'mobile: setConnectivity'
-        self.execute_script(
-            ext_name, {'wifi': not (self.network_connection & NetworkMask.WIFI)}
-        )
+        self.execute_script(ext_name, {'wifi': not (self.network_connection & NetworkMask.WIFI)})
         return self
 
     def set_network_speed(self, speed_type: str) -> Self:

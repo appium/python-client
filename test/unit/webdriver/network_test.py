@@ -39,9 +39,10 @@ class TestWebDriverNetwork:
             appium_command('/session/1234567890/execute/sync'),
             body='{"value": {"wifi": true, "data": false, "airplaneMode": false}}',
         )
-        driver.set_network_connection(2)
+        assert driver.set_network_connection(2) == 2
 
-        d = get_httpretty_request_body(httpretty.last_request())
+        d = get_httpretty_request_body(httpretty.latest_requests()[-4])
+        assert d['script'] == 'mobile: setConnectivity'
         assert d['args'][0]['wifi'] is True
 
     @httpretty.activate

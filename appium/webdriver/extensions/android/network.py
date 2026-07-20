@@ -88,7 +88,7 @@ class Network(CanExecuteCommands, CanExecuteScripts):
             int: Set network connection type
         """
         ext_name = 'mobile: setConnectivity'
-        return self.execute_script(
+        self.execute_script(
             ext_name,
             {
                 'wifi': bool(connection_type & NetworkMask.WIFI),
@@ -96,6 +96,7 @@ class Network(CanExecuteCommands, CanExecuteScripts):
                 'airplaneMode': bool(connection_type & NetworkMask.AIRPLANE_MODE),
             },
         )
+        return self.network_connection
 
     def toggle_wifi(self) -> Self:
         """Toggle the wifi on the device, Android only.

@@ -32,7 +32,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "http://appium.io/"
+Homepage = "https://appium.io/"
 Repository = "https://github.com/appium/python-client"
 Issues = "https://github.com/appium/python-client/issues"
 Changelog = "https://github.com/appium/python-client/blob/master/CHANGELOG.md"

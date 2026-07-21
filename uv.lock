@@ -1599,11 +1599,11 @@ wheels = [
 
 [[package]]
 name = "types-python-dateutil"
-version = "2.9.0.20260124"
+version = "2.9.0.20260716"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/fe/41/4f8eb1ce08688a9e3e23709ed07089ccdeaf95b93745bfb768c6da71197d/types_python_dateutil-2.9.0.20260124.tar.gz", hash = "sha256:7d2db9f860820c30e5b8152bfe78dbdf795f7d1c6176057424e8b3fdd1f581af", size = 16596, upload-time = "2026-01-24T03:18:42.975Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/df/9a/aefb9f80ff79641d36149352afe66ca835c5e6894deb518418f786f4b8ad/types_python_dateutil-2.9.0.20260716.tar.gz", hash = "sha256:1d55d1c3024bdb4861bb6a6622c9ec800c433d87bdc5b16fb84cdd0eed4ef2cb", size = 17516, upload-time = "2026-07-16T04:48:06.604Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5a/c2/aa5e3f4103cc8b1dcf92432415dde75d70021d634ecfd95b2e913cf43e17/types_python_dateutil-2.9.0.20260124-py3-none-any.whl", hash = "sha256:f802977ae08bf2260142e7ca1ab9d4403772a254409f7bbdf652229997124951", size = 18266, upload-time = "2026-01-24T03:18:42.155Z" },
+    { url = "https://files.pythonhosted.org/packages/16/85/cff97326a81e7e8877803e78e3ea56c840b85bb811934b9c936f7c40f185/types_python_dateutil-2.9.0.20260716-py3-none-any.whl", hash = "sha256:1ae41d51a5c5f6bbeeb7f1f34df7086d55ff1605cf88d2ed71a7a276e1a7794e", size = 18443, upload-time = "2026-07-16T04:48:05.793Z" },
 ]
 
 [[package]]

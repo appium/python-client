@@ -28,6 +28,8 @@ class Clipboard(CanExecuteCommands, CanExecuteScripts):
     ) -> Self:
         """Set the content of the system clipboard
 
+        Requires the Appium driver to support the `mobile: setClipboard` execute method.
+
         Args:
             content: The content to be set as bytearray string
             content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
@@ -50,6 +52,8 @@ class Clipboard(CanExecuteCommands, CanExecuteScripts):
     def set_clipboard_text(self, text: str, label: Optional[str] = None) -> Self:
         """Copies the given text to the system clipboard
 
+        Requires the Appium driver to support the `mobile: setClipboard` execute method.
+
         Args:
             text: The text to be set
             label:label argument, which only works for Android
@@ -61,6 +65,8 @@ class Clipboard(CanExecuteCommands, CanExecuteScripts):
 
     def get_clipboard(self, content_type: str = ClipboardContentType.PLAINTEXT) -> bytes:
         """Receives the content of the system clipboard
+
+        Requires the Appium driver to support the `mobile: getClipboard` execute method.
 
         Args:
             content_type: One of ClipboardContentType items. Only ClipboardContentType.PLAINTEXT
@@ -76,6 +82,8 @@ class Clipboard(CanExecuteCommands, CanExecuteScripts):
 
     def get_clipboard_text(self) -> str:
         """Receives the text of the system clipboard
+
+        Requires the Appium driver to support the `mobile: getClipboard` execute method.
 
         Returns:
             The actual clipboard text or an empty string if the clipboard is empty

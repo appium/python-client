@@ -26,6 +26,8 @@ class Power(CanExecuteCommands, CanExecuteScripts):
 
         Android only.
 
+        Requires the Appium driver to support the `mobile: powerCapacity` execute method.
+
         Args:
             percent: The power capacity to be set. Can be set from 0 to 100
 
@@ -44,6 +46,8 @@ class Power(CanExecuteCommands, CanExecuteScripts):
         """Emulate power state change on the connected emulator.
 
         Android only.
+
+        Requires the Appium driver to support the `mobile: powerAC` execute method.
 
         Args:
             ac_state: The power ac state to be set. Use `Power.AC_OFF`, `Power.AC_ON`

@@ -23,6 +23,8 @@ class DeviceTime(CanExecuteCommands, CanExecuteScripts):
     def device_time(self) -> str:
         """Returns the date and time from the device.
 
+        Requires the Appium driver to support the `mobile: getDeviceTime` execute method.
+
         Return:
             str: The date and time
         """
@@ -31,6 +33,8 @@ class DeviceTime(CanExecuteCommands, CanExecuteScripts):
 
     def get_device_time(self, format: Optional[str] = None) -> str:
         """Returns the date and time from the device.
+
+        Requires the Appium driver to support the `mobile: getDeviceTime` execute method.
 
         Args:
             format:  The set of format specifiers. Read https://momentjs.com/docs/

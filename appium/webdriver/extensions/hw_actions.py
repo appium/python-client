@@ -22,7 +22,9 @@ from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 class HardwareActions(CanExecuteCommands, CanExecuteScripts):
     def lock(self, seconds: Optional[int] = None) -> Self:
-        """Lock the device. No changes are made if the device is already unlocked.
+        """Lock the device. No changes are made if the device is already locked.
+
+        Requires the Appium driver to support the `mobile: lock` execute method.
 
         Args:
             seconds: The duration to lock the device, in seconds.
@@ -39,7 +41,9 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts):
         return self
 
     def unlock(self) -> Self:
-        """Unlock the device. No changes are made if the device is already locked.
+        """Unlock the device. No changes are made if the device is already unlocked.
+
+        Requires the Appium driver to support the `mobile: isLocked` and `mobile: unlock` execute methods.
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
@@ -53,6 +57,8 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts):
     def is_locked(self) -> bool:
         """Checks whether the device is locked.
 
+        Requires the Appium driver to support the `mobile: isLocked` execute method.
+
         Returns:
             `True` if the device is locked
         """
@@ -61,6 +67,8 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts):
 
     def shake(self) -> Self:
         """Shake the device.
+
+        Requires the Appium driver to support the `mobile: shake` execute method.
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
@@ -98,10 +106,15 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts):
         return self
 
     def finger_print(self, finger_id: int) -> Self:
-        """Authenticate users by using their finger print scans on supported Android emulators.
+        """Authenticate users using a fingerprint scan on supported Android emulators.
+
+        Requires the Appium driver to support the `mobile: fingerprint` execute method.
 
         Args:
-            finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
+            finger_id: Fingerprint identifier stored in the Android Keystore system (from 1 to 10)
+
+        Returns:
+            Union['WebDriver', 'HardwareActions']: Self instance
         """
         ext_name = 'mobile: fingerprint'
         args = {'fingerprintId': finger_id}

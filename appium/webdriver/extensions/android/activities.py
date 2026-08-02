@@ -24,6 +24,8 @@ class Activities(CanExecuteCommands, CanExecuteScripts):
     def current_activity(self) -> str:
         """Retrieves the current activity running on the device.
 
+        Requires the Appium driver to support the `mobile: getCurrentActivity` execute method.
+
         Returns:
             str: The current activity name running on the device
         """
@@ -34,6 +36,8 @@ class Activities(CanExecuteCommands, CanExecuteScripts):
         """Wait for an activity: block until target activity presents or time out.
 
         This is an Android-only method.
+
+        Requires the Appium driver to support the `mobile: getCurrentActivity` execute method.
 
         Args:
             activity: target activity

@@ -24,6 +24,8 @@ class Sms(CanExecuteCommands, CanExecuteScripts):
 
         Android only.
 
+        Requires the Appium driver to support the `mobile: sendSms` execute method.
+
         Args:
             phone_number: The phone number of message sender
             message: The message to send

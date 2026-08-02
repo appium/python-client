@@ -24,13 +24,15 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts):
     def hide_keyboard(self, key_name: Optional[str] = None, key: Optional[str] = None, strategy: Optional[str] = None) -> Self:
         """Hides the software keyboard on the device.
 
-        In iOS, use `key_name` to press
-        a particular key, or `strategy`. In Android, no parameters are used.
+        On iOS, use `key_name` or `key` to provide a keyboard key name.
+        On Android, no parameters are used. `strategy` is retained for compatibility and ignored.
+
+        Requires the Appium driver to support the `mobile: hideKeyboard` execute method.
 
         Args:
-            key_name: key to press
-            key:
-            strategy: strategy for closing the keyboard (e.g., `tapOutside`)
+            key_name: Keyboard key name to use on iOS
+            key: Alias for `key_name`
+            strategy: Legacy argument retained for compatibility; ignored by `mobile: hideKeyboard`
 
         Returns:
             Union['WebDriver', 'Keyboard']: Self instance
@@ -41,6 +43,8 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts):
 
     def is_keyboard_shown(self) -> bool:
         """Attempts to detect whether a software keyboard is present
+
+        Requires the Appium driver to support the `mobile: isKeyboardShown` execute method.
 
         Returns:
             `True` if keyboard is shown
@@ -53,6 +57,8 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts):
 
         Android only.
         Possible keycodes can be found in http://developer.android.com/reference/android/view/KeyEvent.html.
+
+        Requires the Appium driver to support the `mobile: pressKey` execute method.
 
         Args:
             keycode: the keycode to be sent to the device
@@ -68,6 +74,8 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts):
 
         Android only. Possible keycodes can be found
         in http://developer.android.com/reference/android/view/KeyEvent.html.
+
+        Requires the Appium driver to support the `mobile: pressKey` execute method.
 
         Args:
             keycode: the keycode to be sent to the device
@@ -91,6 +99,8 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts):
 
         Android only. Possible keycodes can be found in
         http://developer.android.com/reference/android/view/KeyEvent.html.
+
+        Requires the Appium driver to support the `mobile: pressKey` execute method.
 
         Args:
             keycode: the keycode to be sent to the device

@@ -20,6 +20,8 @@ class Display(CanExecuteCommands, CanExecuteScripts):
     def get_display_density(self) -> int:
         """Get the display density, Android only
 
+        Requires the Appium driver to support the `mobile: getDisplayDensity` execute method.
+
         Returns:
             The display density of the Android device(dpi)
 

@@ -24,6 +24,8 @@ class SystemBars(CanExecuteCommands, CanExecuteScripts):
 
         Android only.
 
+        Requires the Appium driver to support the `mobile: getSystemBars` execute method.
+
         Returns:
             A dictionary whose keys are
                - statusBar

@@ -27,12 +27,15 @@ class Performance(CanExecuteCommands, CanExecuteScripts):
 
         Android only.
 
+        Requires the Appium driver to support the `mobile: getPerformanceData` execute method.
+
         Args:
             package_name: The package name of the application
             data_type: The type of system state which wants to read.
                 It should be one of the supported performance data types.
                 Check :func:`.get_performance_data_types` for supported types
-            data_read_timeout: The number of attempts to read
+            data_read_timeout: Legacy parameter retained for compatibility; ignored by
+                `mobile: getPerformanceData`
 
         Usage:
             self.driver.get_performance_data('my.app.package', 'cpuinfo', 5)
@@ -48,6 +51,8 @@ class Performance(CanExecuteCommands, CanExecuteScripts):
         """Returns the information types of the system state
         which is supported to read as like cpu, memory, network traffic, and battery.
         Android only.
+
+        Requires the Appium driver to support the `mobile: getPerformanceDataTypes` execute method.
 
         Usage:
             self.driver.get_performance_data_types()

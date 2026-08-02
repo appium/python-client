@@ -107,6 +107,3 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts):
         args = {'fingerprintId': finger_id}
         self.execute_script(ext_name, args)
         return self
-
-    def _add_commands(self) -> None:
-        pass

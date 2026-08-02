@@ -114,6 +114,3 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts):
             },
         )
         return self
-
-    def _add_commands(self) -> None:
-        pass

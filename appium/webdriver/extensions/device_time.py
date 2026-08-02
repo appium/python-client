@@ -49,6 +49,3 @@ class DeviceTime(CanExecuteCommands, CanExecuteScripts):
         if format is None:
             return self.device_time
         return self.execute_script(ext_name, {'format': format})
-
-    def _add_commands(self) -> None:
-        pass

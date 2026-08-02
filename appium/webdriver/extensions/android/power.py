@@ -59,6 +59,3 @@ class Power(CanExecuteCommands, CanExecuteScripts):
         args = {'state': ac_state}
         self.execute_script(ext_name, args)
         return self
-
-    def _add_commands(self) -> None:
-        pass

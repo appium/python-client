@@ -50,6 +50,3 @@ class Activities(CanExecuteCommands, CanExecuteScripts):
             return True
         except TimeoutException:
             return False
-
-    def _add_commands(self) -> None:
-        pass

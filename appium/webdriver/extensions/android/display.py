@@ -31,6 +31,3 @@ class Display(CanExecuteCommands, CanExecuteScripts):
         """
         ext_name = 'mobile: getDisplayDensity'
         return self.execute_script(ext_name)
-
-    def _add_commands(self) -> None:
-        pass

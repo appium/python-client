@@ -38,6 +38,3 @@ class Sms(CanExecuteCommands, CanExecuteScripts):
         args = {'phoneNumber': phone_number, 'message': message}
         self.execute_script(ext_name, args)
         return self
-
-    def _add_commands(self) -> None:
-        pass

@@ -57,6 +57,3 @@ class Performance(CanExecuteCommands, CanExecuteScripts):
         """
         ext_name = 'mobile: getPerformanceDataTypes'
         return self.execute_script(ext_name)
-
-    def _add_commands(self) -> None:
-        pass

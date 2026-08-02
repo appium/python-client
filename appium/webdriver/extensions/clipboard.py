@@ -81,6 +81,3 @@ class Clipboard(CanExecuteCommands, CanExecuteScripts):
             The actual clipboard text or an empty string if the clipboard is empty
         """
         return self.get_clipboard(ClipboardContentType.PLAINTEXT).decode('UTF-8')
-
-    def _add_commands(self) -> None:
-        pass

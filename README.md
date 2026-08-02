@@ -71,21 +71,19 @@ For example, some changes in the Selenium binding could break the Appium client.
             options=UiAutomator2Options().load_capabilities(desired_caps),
             direct_connection=True,
             keep_alive=False,
-            strict_ssl=False
+            strict_ssl=False,
         )
 
         # after
         from appium.webdriver.client_config import AppiumClientConfig
+
         client_config = AppiumClientConfig(
             remote_server_addr=SERVER_URL_BASE,
             direct_connection=True,
             keep_alive=False,
             ignore_certificates=True,
         )
-        driver = webdriver.Remote(
-            options=UiAutomator2Options().load_capabilities(desired_caps),
-            client_config=client_config
-        )
+        driver = webdriver.Remote(options=UiAutomator2Options().load_capabilities(desired_caps), client_config=client_config)
         ```
         - Note that you can keep using `webdriver.Remote(url, options=options, client_config=client_config)` format as well.
         In such case the `remote_server_addr` argument of `AppiumClientConfig` constructor would have priority over the `url` argument of `webdriver.Remote` constructor.
@@ -138,7 +136,7 @@ from selenium.webdriver.common.actions.pointer_input import PointerInput
 
 actions = ActionChains(driver)
 # override as 'touch' pointer action
-actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, 'touch'))
 actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
 actions.w3c_actions.pointer_action.pointer_down()
 actions.w3c_actions.pointer_action.pause(2)
@@ -173,6 +171,7 @@ environment:
 import pytest
 
 from appium import webdriver
+
 # Options are only available since client version 2.3.0
 # If you use an older client then switch to desired_capabilities
 # instead: https://github.com/appium/python-client/pull/720
@@ -200,7 +199,7 @@ def appium_service():
     service.stop()
 
 
-def create_ios_driver(custom_opts = None):
+def create_ios_driver(custom_opts=None):
     options = XCUITestOptions()
     options.platformVersion = '13.4'
     options.udid = '123456789ABC'
@@ -210,7 +209,7 @@ def create_ios_driver(custom_opts = None):
     return webdriver.Remote(f'http://{APPIUM_HOST}:{APPIUM_PORT}', options=options)
 
 
-def create_android_driver(custom_opts = None):
+def create_android_driver(custom_opts=None):
     options = UiAutomator2Options()
     options.platformVersion = '10'
     options.udid = '123456789ABC'
@@ -249,9 +248,7 @@ def android_driver():
 def test_ios_click(appium_service, ios_driver_factory):
     # Usage of the context manager ensures the driver session is closed properly
     # after the test completes. Otherwise, make sure to call `driver.quit()` on teardown.
-    with ios_driver_factory({
-        'appium:app': '/path/to/app/UICatalog.app.zip'
-    }) as driver:
+    with ios_driver_factory({'appium:app': '/path/to/app/UICatalog.app.zip'}) as driver:
         el = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
         el.click()
 
@@ -259,10 +256,12 @@ def test_ios_click(appium_service, ios_driver_factory):
 def test_android_click(appium_service, android_driver_factory):
     # Usage of the context manager ensures the driver session is closed properly
     # after the test completes. Otherwise, make sure to call `driver.quit()` on teardown.
-    with android_driver_factory({
-        'appium:app': '/path/to/app/test-app.apk',
-        'appium:udid': '567890',
-    }) as driver:
+    with android_driver_factory(
+        {
+            'appium:app': '/path/to/app/test-app.apk',
+            'appium:udid': '567890',
+        }
+    ) as driver:
         el = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
         el.click()
 ```
@@ -300,6 +299,7 @@ Then python client will switch its endpoint to the one specified by the values o
 
 ```python
 from appium import webdriver
+
 # Options are only available since client version 2.3.0
 # If you use an older client then switch to desired_capabilities
 # instead: https://github.com/appium/python-client/pull/720
@@ -308,22 +308,21 @@ from appium.webdriver.client_config import AppiumClientConfig
 
 # load_capabilities API could be used to
 # load options mapping stored in a dictionary
-options = XCUITestOptions().load_capabilities({
-    'platformVersion': '13.4',
-    'deviceName': 'iPhone Simulator',
-    'app': '/full/path/to/app/UICatalog.app.zip',
-})
-
-client_config = AppiumClientConfig(
-    remote_server_addr='http://127.0.0.1:4723',
-    direct_connection=True
+options = XCUITestOptions().load_capabilities(
+    {
+        'platformVersion': '13.4',
+        'deviceName': 'iPhone Simulator',
+        'app': '/full/path/to/app/UICatalog.app.zip',
+    }
 )
+
+client_config = AppiumClientConfig(remote_server_addr='http://127.0.0.1:4723', direct_connection=True)
 
 driver = webdriver.Remote(
     # Appium1 points to http://127.0.0.1:4723/wd/hub by default
     'http://127.0.0.1:4723',
     options=options,
-    client_config=client_config
+    client_config=client_config,
 )
 ```
 
@@ -333,6 +332,7 @@ driver = webdriver.Remote(
 
 ```python
 from appium import webdriver
+
 # Options are only available since client version 2.3.0
 # If you use an older client then switch to desired_capabilities
 # instead: https://github.com/appium/python-client/pull/720
@@ -357,10 +357,7 @@ from appium import webdriver
 
 from selenium.webdriver.remote.client_config import ClientConfig
 
-client_config = ClientConfig(
-    remote_server_addr='http://127.0.0.1:4723',
-    ignore_certificates=True
-)
+client_config = ClientConfig(remote_server_addr='http://127.0.0.1:4723', ignore_certificates=True)
 driver = webdriver.Remote(client_config.remote_server_addr, options=options, client_config=client_config)
 ```
 
@@ -378,12 +375,9 @@ import urllib3
 from appium.webdriver.appium_connection import AppiumConnection
 
 # Retry connection error up to 3 times.
-init_args_for_pool_manage = {
-    'retries': urllib3.util.retry.Retry(total=3, connect=3, read=False)
-}
+init_args_for_pool_manage = {'retries': urllib3.util.retry.Retry(total=3, connect=3, read=False)}
 appium_executor = AppiumConnection(
-    remote_server_addr='http://127.0.0.1:4723',
-    init_args_for_pool_manage=init_args_for_pool_manage
+    remote_server_addr='http://127.0.0.1:4723', init_args_for_pool_manage=init_args_for_pool_manage
 )
 
 options = XCUITestOptions()
@@ -402,19 +396,22 @@ from appium.options.ios import XCUITestOptions
 
 from appium.webdriver.appium_connection import AppiumConnection
 
+
 class CustomAppiumConnection(AppiumConnection):
     # Can add your own methods for the custom class
     pass
 
+
 custom_executor = CustomAppiumConnection(remote_server_addr='http://127.0.0.1:4723')
 
-options = XCUITestOptions().load_capabilities({
-    'platformVersion': '13.4',
-    'deviceName': 'iPhone Simulator',
-    'app': '/full/path/to/app/UICatalog.app.zip',
-})
+options = XCUITestOptions().load_capabilities(
+    {
+        'platformVersion': '13.4',
+        'deviceName': 'iPhone Simulator',
+        'app': '/full/path/to/app/UICatalog.app.zip',
+    }
+)
 driver = webdriver.Remote(custom_executor, options=options)
-
 ```
 
 The `AppiumConnection` can set `selenium.webdriver.remote.client_config.ClientConfig` as well.

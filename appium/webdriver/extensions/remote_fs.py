@@ -15,17 +15,14 @@
 import base64
 from typing import Optional
 
-from selenium.common.exceptions import InvalidArgumentException, UnknownMethodException
+from selenium.common.exceptions import InvalidArgumentException
 from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
-from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
-
-from ..mobilecommand import MobileCommand as Command
 
 
-class RemoteFS(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+class RemoteFS(CanExecuteCommands, CanExecuteScripts):
     def pull_file(self, path: str) -> str:
         """Retrieves the file at `path`.
 
@@ -36,11 +33,7 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
             The file's contents encoded as Base64.
         """
         ext_name = 'mobile: pullFile'
-        try:
-            return self.assert_extension_exists(ext_name).execute_script(ext_name, {'remotePath': path})
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            return self.mark_extension_absence(ext_name).execute(Command.PULL_FILE, {'path': path})['value']
+        return self.execute_script(ext_name, {'remotePath': path})
 
     def pull_folder(self, path: str) -> str:
         """Retrieves a folder at `path`.
@@ -52,11 +45,7 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
             The folder's contents zipped and encoded as Base64.
         """
         ext_name = 'mobile: pullFolder'
-        try:
-            return self.assert_extension_exists(ext_name).execute_script(ext_name, {'remotePath': path})
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            return self.mark_extension_absence(ext_name).execute(Command.PULL_FOLDER, {'path': path})['value']
+        return self.execute_script(ext_name, {'remotePath': path})
 
     def push_file(self, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None) -> Self:
         """Puts the data from the file at `source_path`, encoded as Base64, in the file specified as `path`.
@@ -85,26 +74,14 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
             base64data = base64.b64encode(file_data).decode('utf-8')
 
         ext_name = 'mobile: pushFile'
-        try:
-            self.assert_extension_exists(ext_name).execute_script(
-                ext_name,
-                {
-                    'remotePath': destination_path,
-                    'payload': base64data,
-                },
-            )
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            self.mark_extension_absence(ext_name).execute(
-                Command.PUSH_FILE,
-                {
-                    'path': destination_path,
-                    'data': base64data,
-                },
-            )
+        self.execute_script(
+            ext_name,
+            {
+                'remotePath': destination_path,
+                'payload': base64data,
+            },
+        )
         return self
 
     def _add_commands(self) -> None:
-        self.command_executor.add_command(Command.PULL_FILE, 'POST', '/session/$sessionId/appium/device/pull_file')
-        self.command_executor.add_command(Command.PULL_FOLDER, 'POST', '/session/$sessionId/appium/device/pull_folder')
-        self.command_executor.add_command(Command.PUSH_FILE, 'POST', '/session/$sessionId/appium/device/push_file')
+        pass

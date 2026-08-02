@@ -14,15 +14,11 @@
 
 from typing import Dict, List, Union
 
-from selenium.common.exceptions import UnknownMethodException
-
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
-from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
-from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
-class Performance(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+class Performance(CanExecuteCommands, CanExecuteScripts):
     def get_performance_data(
         self, package_name: str, data_type: str, data_read_timeout: Union[int, None] = None
     ) -> List[List[str]]:
@@ -46,13 +42,7 @@ class Performance(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPre
         """
         ext_name = 'mobile: getPerformanceData'
         args: Dict[str, Union[str, int]] = {'packageName': package_name, 'dataType': data_type}
-        try:
-            return self.assert_extension_exists(ext_name).execute_script(ext_name, args)
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            if data_read_timeout is not None:
-                args['dataReadTimeout'] = data_read_timeout
-            return self.mark_extension_absence(ext_name).execute(Command.GET_PERFORMANCE_DATA, args)['value']
+        return self.execute_script(ext_name, args)
 
     def get_performance_data_types(self) -> List[str]:
         """Returns the information types of the system state
@@ -66,20 +56,7 @@ class Performance(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPre
             Available data types
         """
         ext_name = 'mobile: getPerformanceDataTypes'
-        try:
-            return self.assert_extension_exists(ext_name).execute_script(ext_name)
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            return self.mark_extension_absence(ext_name).execute(Command.GET_PERFORMANCE_DATA_TYPES)['value']
+        return self.execute_script(ext_name)
 
     def _add_commands(self) -> None:
-        self.command_executor.add_command(
-            Command.GET_PERFORMANCE_DATA,
-            'POST',
-            '/session/$sessionId/appium/getPerformanceData',
-        )
-        self.command_executor.add_command(
-            Command.GET_PERFORMANCE_DATA_TYPES,
-            'POST',
-            '/session/$sessionId/appium/performanceData/types',
-        )
+        pass

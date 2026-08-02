@@ -23,9 +23,6 @@ class TestWebDriverClipboard:
     def test_set_clipboard_with_url(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/set_clipboard'), body='{"value": ""}'
-        )
-        httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
             body='{"value": ""}',
@@ -40,9 +37,6 @@ class TestWebDriverClipboard:
     @httpretty.activate
     def test_set_clipboard_text(self):
         driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST, appium_command('/session/1234567890/appium/device/set_clipboard'), body='{"value": ""}'
-        )
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),

@@ -25,10 +25,6 @@ class TestWebDriverShake:
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/shake'),
-        )
-        httpretty.register_uri(
-            httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
         )
         assert isinstance(driver.shake(), WebDriver)

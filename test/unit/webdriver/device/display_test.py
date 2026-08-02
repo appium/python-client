@@ -21,8 +21,5 @@ class TestWebDriverDisplay:
     @httpretty.activate
     def test_get_display_density(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.GET, appium_command('/session/1234567890/appium/device/display_density'), body='{"value": 560}'
-        )
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": 560}')
         assert driver.get_display_density() == 560

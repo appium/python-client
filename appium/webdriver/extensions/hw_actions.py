@@ -14,17 +14,13 @@
 
 from typing import Optional
 
-from selenium.common.exceptions import UnknownMethodException
 from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
-from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
-
-from ..mobilecommand import MobileCommand as Command
 
 
-class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+class HardwareActions(CanExecuteCommands, CanExecuteScripts):
     def lock(self, seconds: Optional[int] = None) -> Self:
         """Lock the device. No changes are made if the device is already unlocked.
 
@@ -39,11 +35,7 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
         """
         ext_name = 'mobile: lock'
         args = {'seconds': seconds or 0}
-        try:
-            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            self.mark_extension_absence(ext_name).execute(Command.LOCK, args)
+        self.execute_script(ext_name, args)
         return self
 
     def unlock(self) -> Self:
@@ -53,13 +45,9 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         ext_name = 'mobile: unlock'
-        try:
-            if not self.assert_extension_exists(ext_name).execute_script('mobile: isLocked'):
-                return self
-            self.execute_script(ext_name)
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            self.mark_extension_absence(ext_name).execute(Command.UNLOCK)
+        if not self.execute_script('mobile: isLocked'):
+            return self
+        self.execute_script(ext_name)
         return self
 
     def is_locked(self) -> bool:
@@ -69,11 +57,7 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
             `True` if the device is locked
         """
         ext_name = 'mobile: isLocked'
-        try:
-            return self.assert_extension_exists(ext_name).execute_script('mobile: isLocked')
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            return self.mark_extension_absence(ext_name).execute(Command.IS_LOCKED)['value']
+        return self.execute_script(ext_name)
 
     def shake(self) -> Self:
         """Shake the device.
@@ -82,11 +66,7 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         ext_name = 'mobile: shake'
-        try:
-            self.assert_extension_exists(ext_name).execute_script(ext_name)
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            self.mark_extension_absence(ext_name).execute(Command.SHAKE)
+        self.execute_script(ext_name)
         return self
 
     def touch_id(self, match: bool) -> Self:
@@ -125,25 +105,8 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensio
         """
         ext_name = 'mobile: fingerprint'
         args = {'fingerprintId': finger_id}
-        try:
-            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
-        except UnknownMethodException:
-            self.mark_extension_absence(ext_name).execute(Command.FINGER_PRINT, args)
+        self.execute_script(ext_name, args)
         return self
 
     def _add_commands(self) -> None:
-        self.command_executor.add_command(Command.LOCK, 'POST', '/session/$sessionId/appium/device/lock')
-        self.command_executor.add_command(Command.UNLOCK, 'POST', '/session/$sessionId/appium/device/unlock')
-        self.command_executor.add_command(Command.IS_LOCKED, 'POST', '/session/$sessionId/appium/device/is_locked')
-        self.command_executor.add_command(Command.SHAKE, 'POST', '/session/$sessionId/appium/device/shake')
-        self.command_executor.add_command(Command.TOUCH_ID, 'POST', '/session/$sessionId/appium/simulator/touch_id')
-        self.command_executor.add_command(
-            Command.TOGGLE_TOUCH_ID_ENROLLMENT,
-            'POST',
-            '/session/$sessionId/appium/simulator/toggle_touch_id_enrollment',
-        )
-        self.command_executor.add_command(
-            Command.FINGER_PRINT,
-            'POST',
-            '/session/$sessionId/appium/device/finger_print',
-        )
+        pass

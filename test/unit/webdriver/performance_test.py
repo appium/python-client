@@ -23,28 +23,19 @@ class TestWebDriverPerformance:
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/getPerformanceData'),
-            body='{"value": [["user", "kernel"], ["2.5", "1.3"]]}',
-        )
-        httpretty.register_uri(
-            httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
             body='{"value": [["user", "kernel"], ["2.5", "1.3"]]}',
         )
         assert driver.get_performance_data('my.app.package', 'cpuinfo', 5) == [['user', 'kernel'], ['2.5', '1.3']]
 
         d = get_httpretty_request_body(httpretty.last_request())
+        assert d['script'] == 'mobile: getPerformanceData'
         assert d['args'][0]['packageName'] == 'my.app.package'
         assert d['args'][0]['dataType'] == 'cpuinfo'
 
     @httpretty.activate
     def test_get_performance_data_types(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.POST,
-            appium_command('/session/1234567890/appium/performanceData/types'),
-            body='{"value": ["cpuinfo", "memoryinfo", "batteryinfo", "networkinfo"]}',
-        )
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),

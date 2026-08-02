@@ -14,15 +14,11 @@
 
 from typing import Dict, Union
 
-from selenium.common.exceptions import UnknownMethodException
-
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
-from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
-from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
-class SystemBars(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+class SystemBars(CanExecuteCommands, CanExecuteScripts):
     def get_system_bars(self) -> Dict[str, Dict[str, Union[int, bool]]]:
         """Retrieve visibility and bounds information of the status and navigation bars.
 
@@ -44,15 +40,7 @@ class SystemBars(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPres
                    - height
         """
         ext_name = 'mobile: getSystemBars'
-        try:
-            return self.assert_extension_exists(ext_name).execute_script(ext_name)
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            return self.mark_extension_absence(ext_name).execute(Command.GET_SYSTEM_BARS)['value']
+        return self.execute_script(ext_name)
 
     def _add_commands(self) -> None:
-        self.command_executor.add_command(
-            Command.GET_SYSTEM_BARS,
-            'GET',
-            '/session/$sessionId/appium/device/system_bars',
-        )
+        pass

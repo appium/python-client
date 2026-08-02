@@ -190,6 +190,3 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
         if string_file is not None:
             data['stringFile'] = string_file
         return self.execute_script(ext_name, data)
-
-    def _add_commands(self) -> None:
-        pass

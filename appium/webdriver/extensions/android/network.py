@@ -134,6 +134,3 @@ class Network(CanExecuteCommands, CanExecuteScripts):
         ext_name = 'mobile: networkSpeed'
         self.execute_script(ext_name, {'speed': speed_type})
         return self
-
-    def _add_commands(self) -> None:
-        pass

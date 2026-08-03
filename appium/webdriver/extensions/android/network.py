@@ -48,6 +48,11 @@ class Network(CanExecuteCommands, CanExecuteScripts):
 
         This API only works reliably on emulators (any version) and real devices
         since API level 31.
+
+        Requires the Appium driver to support the `mobile: getConnectivity` execute method.
+
+        Returns:
+            The current network connection bitmask
         """
         ext_name = 'mobile: getConnectivity'
         result_map = self.execute_script(ext_name)
@@ -81,11 +86,14 @@ class Network(CanExecuteCommands, CanExecuteScripts):
         This API only works reliably on emulators (any version) and real devices
         since API level 31.
 
+        Requires the Appium driver to support the `mobile: setConnectivity` and
+        `mobile: getConnectivity` execute methods.
+
         Args:
             connection_type: a member of the enum `appium.webdriver.ConnectionType`
 
-        Return:
-            int: Set network connection type
+        Returns:
+            The current network connection bitmask after applying the change
         """
         ext_name = 'mobile: setConnectivity'
         self.execute_script(
@@ -103,6 +111,9 @@ class Network(CanExecuteCommands, CanExecuteScripts):
         This API only works reliably on emulators (any version) and real devices
         since API level 31.
 
+        Requires the Appium driver to support the `mobile: getConnectivity` and
+        `mobile: setConnectivity` execute methods.
+
         Returns:
             Union['WebDriver', 'Network']: Self instance
         """
@@ -114,6 +125,8 @@ class Network(CanExecuteCommands, CanExecuteScripts):
         """Set the network speed emulation.
 
         Android Emulator only.
+
+        Requires the Appium driver to support the `mobile: networkSpeed` execute method.
 
         Args:
             speed_type: The network speed type.
@@ -134,6 +147,3 @@ class Network(CanExecuteCommands, CanExecuteScripts):
         ext_name = 'mobile: networkSpeed'
         self.execute_script(ext_name, {'speed': speed_type})
         return self
-
-    def _add_commands(self) -> None:
-        pass

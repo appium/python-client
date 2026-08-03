@@ -12,68 +12,53 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, Optional
+from typing import Optional
 
-from selenium.common.exceptions import UnknownMethodException
 from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
-from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
-
-from ..mobilecommand import MobileCommand as Command
 
 
-class Keyboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+class Keyboard(CanExecuteCommands, CanExecuteScripts):
     def hide_keyboard(self, key_name: Optional[str] = None, key: Optional[str] = None, strategy: Optional[str] = None) -> Self:
         """Hides the software keyboard on the device.
 
-        In iOS, use `key_name` to press
-        a particular key, or `strategy`. In Android, no parameters are used.
+        On iOS, use `key_name` or `key` to provide a keyboard key name.
+        On Android, no parameters are used. `strategy` is retained for compatibility and ignored.
+
+        Requires the Appium driver to support the `mobile: hideKeyboard` execute method.
 
         Args:
-            key_name: key to press
-            key:
-            strategy: strategy for closing the keyboard (e.g., `tapOutside`)
+            key_name: Keyboard key name to use on iOS
+            key: Alias for `key_name`
+            strategy: Legacy argument retained for compatibility; ignored by `mobile: hideKeyboard`
 
         Returns:
             Union['WebDriver', 'Keyboard']: Self instance
         """
         ext_name = 'mobile: hideKeyboard'
-        try:
-            self.assert_extension_exists(ext_name).execute_script(
-                ext_name, {**({'keys': [key or key_name]} if key or key_name else {})}
-            )
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            data: Dict[str, Optional[str]] = {}
-            if key_name is not None:
-                data['keyName'] = key_name
-            elif key is not None:
-                data['key'] = key
-            elif strategy is None:
-                strategy = 'tapOutside'
-            data['strategy'] = strategy
-            self.mark_extension_absence(ext_name).execute(Command.HIDE_KEYBOARD, data)
+        self.execute_script(ext_name, {**({'keys': [key or key_name]} if key or key_name else {})})
         return self
 
     def is_keyboard_shown(self) -> bool:
         """Attempts to detect whether a software keyboard is present
 
+        Requires the Appium driver to support the `mobile: isKeyboardShown` execute method.
+
         Returns:
             `True` if keyboard is shown
         """
         ext_name = 'mobile: isKeyboardShown'
-        try:
-            return self.assert_extension_exists(ext_name).execute_script(ext_name)
-        except UnknownMethodException:
-            return self.mark_extension_absence(ext_name).execute(Command.IS_KEYBOARD_SHOWN)['value']
+        return self.execute_script(ext_name)
 
     def keyevent(self, keycode: int, metastate: Optional[int] = None) -> Self:
         """Sends a keycode to the device.
 
         Android only.
         Possible keycodes can be found in http://developer.android.com/reference/android/view/KeyEvent.html.
+
+        Requires the Appium driver to support the `mobile: pressKey` execute method.
 
         Args:
             keycode: the keycode to be sent to the device
@@ -90,6 +75,8 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
         Android only. Possible keycodes can be found
         in http://developer.android.com/reference/android/view/KeyEvent.html.
 
+        Requires the Appium driver to support the `mobile: pressKey` execute method.
+
         Args:
             keycode: the keycode to be sent to the device
             metastate: meta information about the keycode being sent
@@ -104,11 +91,7 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
             args['metastate'] = metastate
         if flags is not None:
             args['flags'] = flags
-        try:
-            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            self.mark_extension_absence(ext_name).execute(Command.PRESS_KEYCODE, args)
+        self.execute_script(ext_name, args)
         return self
 
     def long_press_keycode(self, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> Self:
@@ -117,6 +100,8 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
         Android only. Possible keycodes can be found in
         http://developer.android.com/reference/android/view/KeyEvent.html.
 
+        Requires the Appium driver to support the `mobile: pressKey` execute method.
+
         Args:
             keycode: the keycode to be sent to the device
             metastate: meta information about the keycode being sent
@@ -131,38 +116,11 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresen
             args['metastate'] = metastate
         if flags is not None:
             args['flags'] = flags
-        try:
-            self.assert_extension_exists(ext_name).execute_script(
-                ext_name,
-                {
-                    **args,
-                    'isLongPress': True,
-                },
-            )
-        except UnknownMethodException:
-            # TODO: Remove the fallback
-            self.mark_extension_absence(ext_name).execute(Command.LONG_PRESS_KEYCODE, args)
+        self.execute_script(
+            ext_name,
+            {
+                **args,
+                'isLongPress': True,
+            },
+        )
         return self
-
-    def _add_commands(self) -> None:
-        self.command_executor.add_command(
-            Command.HIDE_KEYBOARD,
-            'POST',
-            '/session/$sessionId/appium/device/hide_keyboard',
-        )
-        self.command_executor.add_command(
-            Command.IS_KEYBOARD_SHOWN,
-            'GET',
-            '/session/$sessionId/appium/device/is_keyboard_shown',
-        )
-        self.command_executor.add_command(Command.KEY_EVENT, 'POST', '/session/$sessionId/appium/device/keyevent')
-        self.command_executor.add_command(
-            Command.PRESS_KEYCODE,
-            'POST',
-            '/session/$sessionId/appium/device/press_keycode',
-        )
-        self.command_executor.add_command(
-            Command.LONG_PRESS_KEYCODE,
-            'POST',
-            '/session/$sessionId/appium/device/long_press_keycode',
-        )

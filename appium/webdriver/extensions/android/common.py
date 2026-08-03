@@ -33,6 +33,3 @@ class Common(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence
     def current_package(self) -> str:
         """Retrieves the current package running on the device."""
         return self.execute_script('mobile: getCurrentPackage')
-
-    def _add_commands(self) -> None:
-        pass

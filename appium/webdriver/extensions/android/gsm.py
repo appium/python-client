@@ -123,6 +123,3 @@ class Gsm(CanExecuteCommands, CanExecuteScripts):
         args = {'state': state}
         self.execute_script(ext_name, args)
         return self
-
-    def _add_commands(self) -> None:
-        pass

@@ -436,40 +436,6 @@ class WebDriver(
         else:
             raise WebDriverException("You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'")
 
-    def assert_extension_exists(self, ext_name: str) -> Self:
-        """
-        Verifies if the given extension is not present in the list of absent extensions
-        for the given driver instance.
-        This API is designed for private usage.
-
-        Args:
-            ext_name: extension name
-
-        Returns:
-            self instance for chaining
-
-        Raises:
-            UnknownMethodException: If the extension has been marked as absent once
-        """
-        if ext_name in self._absent_extensions:
-            raise UnknownMethodException()
-        return self
-
-    def mark_extension_absence(self, ext_name: str) -> Self:
-        """
-        Marks the given extension as absent for the given driver instance.
-        This API is designed for private usage.
-
-        Args:
-            ext_name: extension name
-
-        Returns:
-            self instance for chaining
-        """
-        logger.debug(f'Marking driver extension "{ext_name}" as absent for the current instance')
-        self._absent_extensions.add(ext_name)
-        return self
-
     def _add_commands(self) -> None:
         # call the overridden command binders from all mixin classes except for
         # appium.webdriver.webdriver.WebDriver and its sub-classes

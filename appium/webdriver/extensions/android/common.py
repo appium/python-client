@@ -16,10 +16,9 @@ from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
-from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
 
-class Common(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+class Common(CanExecuteCommands, CanExecuteScripts):
     def open_notifications(self) -> Self:
         """Open notification shade in Android (API Level 18 and above)
 

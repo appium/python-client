@@ -2,6 +2,213 @@
 
 <!-- version list -->
 
+## v6.0.0 (2026-08-08)
+
+### Bug Fixes
+
+- Return int bitmask from set_network_connection
+  ([#1258](https://github.com/appium/python-client/pull/1258),
+  [`9097a5a`](https://github.com/appium/python-client/commit/9097a5ab864140b5374d800cf9e60036a1e63a68))
+
+### Chores
+
+- Add a blank line before version v5.2.7 in CHANGELOG.md
+  ([`dc47ec4`](https://github.com/appium/python-client/commit/dc47ec414f4ae0ffadfdeb02147458f2fe90260a))
+
+- Remove setup.py ([#1218](https://github.com/appium/python-client/pull/1218),
+  [`0f549c3`](https://github.com/appium/python-client/commit/0f549c3d2addbf0c8cc2853731de6e17a85e522f))
+
+- Unify ruff version in pyproject.toml and pre-commit-config.yaml
+  ([#1241](https://github.com/appium/python-client/pull/1241),
+  [`16a3429`](https://github.com/appium/python-client/commit/16a34294af3fad32fc2bd5578b6331a6bf918f92))
+
+- **deps**: Bump gitpython from 3.1.46 to 3.1.47
+  ([#1222](https://github.com/appium/python-client/pull/1222),
+  [`a712427`](https://github.com/appium/python-client/commit/a71242723b1847c53c8d99fc477afa85bff35df4))
+
+- **deps**: Bump gitpython from 3.1.54 to 3.1.57
+  ([#1270](https://github.com/appium/python-client/pull/1270),
+  [`ad193d1`](https://github.com/appium/python-client/commit/ad193d168f151d16ca74dc1a0a028138d15b58b0))
+
+- **deps**: Bump idna from 3.11 to 3.15 ([#1229](https://github.com/appium/python-client/pull/1229),
+  [`f268e84`](https://github.com/appium/python-client/commit/f268e84784289c7490a68b4ccd4dbe019e652930))
+
+- **deps**: Bump pygments from 2.19.2 to 2.20.0
+  ([#1213](https://github.com/appium/python-client/pull/1213),
+  [`064aeaf`](https://github.com/appium/python-client/commit/064aeaf03b1f287debfdf744c9e6ecf3a07a01c1))
+
+- **deps-dev**: Bump ruff from 0.15.11 to 0.15.12
+  ([#1223](https://github.com/appium/python-client/pull/1223),
+  [`15b94bd`](https://github.com/appium/python-client/commit/15b94bd450af92b1abb30850752150edaab52eab))
+
+- **deps-dev**: Bump ruff from 0.15.12 to 0.15.13
+  ([#1228](https://github.com/appium/python-client/pull/1228),
+  [`afbface`](https://github.com/appium/python-client/commit/afbface1ea1494d7f0a4bbb6330926b70bd8b216))
+
+- **deps-dev**: Bump ruff from 0.15.13 to 0.15.14
+  ([#1231](https://github.com/appium/python-client/pull/1231),
+  [`e374b78`](https://github.com/appium/python-client/commit/e374b78068b6165b68e80c6e0499dff2a2e37da3))
+
+- **deps-dev**: Bump ruff from 0.15.14 to 0.15.15
+  ([#1232](https://github.com/appium/python-client/pull/1232),
+  [`2a05afc`](https://github.com/appium/python-client/commit/2a05afce980e5cf4465f9d8705669780962f2469))
+
+- **deps-dev**: Bump ruff from 0.15.15 to 0.15.16
+  ([#1234](https://github.com/appium/python-client/pull/1234),
+  [`5389384`](https://github.com/appium/python-client/commit/53893843f75fc66edfe3c71555d1fe3bc9a60249))
+
+- **deps-dev**: Bump ruff from 0.15.16 to 0.15.17
+  ([#1235](https://github.com/appium/python-client/pull/1235),
+  [`00325db`](https://github.com/appium/python-client/commit/00325dbcfa29620a818929e69f764ce6fc16cb37))
+
+- **deps-dev**: Bump ruff from 0.16.0 to 0.16.1
+  ([#1268](https://github.com/appium/python-client/pull/1268),
+  [`a65dc2b`](https://github.com/appium/python-client/commit/a65dc2b5372dab3cce8ac7db87f9eda45a0342b8))
+
+### Continuous Integration
+
+- Disable auto release to release breaking changes in one release
+  ([`9034ad6`](https://github.com/appium/python-client/commit/9034ad65517b2659f4df1c8aa82eaa2e848a4814))
+
+- **deps**: Bump actions/cache from 5 to 6
+  ([#1240](https://github.com/appium/python-client/pull/1240),
+  [`e4e7a79`](https://github.com/appium/python-client/commit/e4e7a798e281dae431f91cd4f21a682fbed788d8))
+
+- **deps**: Bump actions/checkout from 6 to 7
+  ([#1237](https://github.com/appium/python-client/pull/1237),
+  [`c3c844f`](https://github.com/appium/python-client/commit/c3c844f01ace39089be6559c1f84c3fa259fe074))
+
+- **deps**: Bump actions/setup-java from 5 to 5.6.0
+  ([#1265](https://github.com/appium/python-client/pull/1265),
+  [`e3cf4f5`](https://github.com/appium/python-client/commit/e3cf4f507976817a23dfc54aaa06cef722e92543))
+
+- **deps**: Bump actions/setup-node from 6 to 7
+  ([#1250](https://github.com/appium/python-client/pull/1250),
+  [`48201f7`](https://github.com/appium/python-client/commit/48201f753c80cab0e79bcf7fd64cc2f7d77535ca))
+
+- **deps**: Bump actions/setup-python from 6 to 7
+  ([#1264](https://github.com/appium/python-client/pull/1264),
+  [`247bfba`](https://github.com/appium/python-client/commit/247bfbaf39106c79fb347861a354283129767873))
+
+- **deps**: Bump gitpython from 3.1.47 to 3.1.54
+  ([#1262](https://github.com/appium/python-client/pull/1262),
+  [`3b0ae42`](https://github.com/appium/python-client/commit/3b0ae42c85930df775c23808fae47cbf8671ce02))
+
+- **deps**: Bump requests from 2.32.5 to 2.33.0
+  ([#1266](https://github.com/appium/python-client/pull/1266),
+  [`f119477`](https://github.com/appium/python-client/commit/f119477ec64323bec2d32e107a25bac7f4734c70))
+
+- **deps**: Bump selenium from 4.40.0 to 4.46.0
+  ([#1251](https://github.com/appium/python-client/pull/1251),
+  [`37b5118`](https://github.com/appium/python-client/commit/37b51180de2f49deb4dc160b5e3f36879e441d97))
+
+- **deps**: Bump setuptools from 80.10.1 to 83.0.0
+  ([#1263](https://github.com/appium/python-client/pull/1263),
+  [`f92311d`](https://github.com/appium/python-client/commit/f92311d26df3b14fcff5cd0ed18d41b5e468d7df))
+
+- **deps**: Bump typing-extensions from 4.15.0 to 4.16.0
+  ([#1242](https://github.com/appium/python-client/pull/1242),
+  [`ceb843a`](https://github.com/appium/python-client/commit/ceb843af03ce0158179252d7ed97d8c83d3924a0))
+
+- **deps**: Bump urllib3 from 2.6.3 to 2.7.0
+  ([#1257](https://github.com/appium/python-client/pull/1257),
+  [`e155a73`](https://github.com/appium/python-client/commit/e155a736982e9890471b04f2ce8fe016732017d6))
+
+- **deps-dev**: Bump mypy from 1.19.1 to 2.3.0
+  ([#1253](https://github.com/appium/python-client/pull/1253),
+  [`21f73eb`](https://github.com/appium/python-client/commit/21f73ebbb3f0ff6ae3145c58ccae1433a2a1c03a))
+
+- **deps-dev**: Bump pre-commit from 4.5.1 to 4.6.0
+  ([#1252](https://github.com/appium/python-client/pull/1252),
+  [`8480f9c`](https://github.com/appium/python-client/commit/8480f9c817605d16202f223230f8ff9e3c643ce7))
+
+- **deps-dev**: Bump pre-commit from 4.6.0 to 4.6.1
+  ([#1259](https://github.com/appium/python-client/pull/1259),
+  [`3439428`](https://github.com/appium/python-client/commit/34394283e9befc559e63fe470a20f361e975e576))
+
+- **deps-dev**: Bump pytest from 8.4.2 to 9.1.1
+  ([#1255](https://github.com/appium/python-client/pull/1255),
+  [`9e76329`](https://github.com/appium/python-client/commit/9e76329cd0a4d2924512449c8c6210239a64b87a))
+
+- **deps-dev**: Bump python-semantic-release from 10.5.3 to 10.6.1
+  ([#1244](https://github.com/appium/python-client/pull/1244),
+  [`0c14656`](https://github.com/appium/python-client/commit/0c146565685436bd32ba729012bc650f87b09f71))
+
+- **deps-dev**: Bump ruff from 0.15.17 to 0.15.19
+  ([#1238](https://github.com/appium/python-client/pull/1238),
+  [`b989a00`](https://github.com/appium/python-client/commit/b989a003a8dc8f0e51c0e3240c316fac87ffcc9a))
+
+- **deps-dev**: Bump ruff from 0.15.19 to 0.15.20
+  ([#1239](https://github.com/appium/python-client/pull/1239),
+  [`ef6b6f2`](https://github.com/appium/python-client/commit/ef6b6f2824ebe095ff3b50ae1e9613be90eabdb4))
+
+- **deps-dev**: Bump ruff from 0.15.20 to 0.15.21
+  ([#1245](https://github.com/appium/python-client/pull/1245),
+  [`bafdbf7`](https://github.com/appium/python-client/commit/bafdbf72ddfba0fc2d69841938462297b4b26bff))
+
+- **deps-dev**: Bump ruff from 0.15.21 to 0.15.22
+  ([#1249](https://github.com/appium/python-client/pull/1249),
+  [`136b1e4`](https://github.com/appium/python-client/commit/136b1e46abf1ee7c57d4ab29113e20424549cc7c))
+
+- **deps-dev**: Bump ruff from 0.15.22 to 0.16.0
+  ([#1261](https://github.com/appium/python-client/pull/1261),
+  [`7c741e6`](https://github.com/appium/python-client/commit/7c741e68a05dad0ee4a2d7adf932aee2a00b0fa7))
+
+- **deps-dev**: Bump types-python-dateutil
+  ([#1254](https://github.com/appium/python-client/pull/1254),
+  [`c7c1240`](https://github.com/appium/python-client/commit/c7c1240a38594508e2814217626a70ce379e8df0))
+
+### Documentation
+
+- Drop appiumpro links as the top domain no longer maintained
+  ([`34111e0`](https://github.com/appium/python-client/commit/34111e02d6fa1ce5466335363f490ff671e876d5))
+
+- Move http -> https in Homepage url ([#1256](https://github.com/appium/python-client/pull/1256),
+  [`f1d0f1c`](https://github.com/appium/python-client/commit/f1d0f1c6aee4e4257e6f2b1d9c6af6e903c2a881))
+
+### Features
+
+- Drop CanRememberExtensionPresence ([#1269](https://github.com/appium/python-client/pull/1269),
+  [`e33851f`](https://github.com/appium/python-client/commit/e33851fcfae8f3aa96b1bd4a067ca5cf8a6d9c7c))
+
+### Refactoring
+
+- Network extension to remove legacy command fallbacks
+  ([#1258](https://github.com/appium/python-client/pull/1258),
+  [`9097a5a`](https://github.com/appium/python-client/commit/9097a5ab864140b5374d800cf9e60036a1e63a68))
+
+- Remove legacy command fallbacks in Applications extension
+  ([#1233](https://github.com/appium/python-client/pull/1233),
+  [`4707ff7`](https://github.com/appium/python-client/commit/4707ff7a9a362b4ff39b85a600432d8cfb3bc4a5))
+
+- Remove legacy fallback for `mobile: getAppStrings`
+  ([`dc47ec4`](https://github.com/appium/python-client/commit/dc47ec414f4ae0ffadfdeb02147458f2fe90260a))
+
+- Remove legacy fallback for network commands
+  ([#1258](https://github.com/appium/python-client/pull/1258),
+  [`9097a5a`](https://github.com/appium/python-client/commit/9097a5ab864140b5374d800cf9e60036a1e63a68))
+
+- Remove legacy fallback in toggle_location_services
+  ([#1224](https://github.com/appium/python-client/pull/1224),
+  [`ed9eaff`](https://github.com/appium/python-client/commit/ed9eaff74dba57f9c700674bfde35bdca4096529))
+
+- Remove legacy fallback logic for android extensions
+  ([#1220](https://github.com/appium/python-client/pull/1220),
+  [`23278d9`](https://github.com/appium/python-client/commit/23278d9571a5c301dfa607d6dd91172fb18e9b02))
+
+- Remove legacy gsm fallback logic ([#1225](https://github.com/appium/python-client/pull/1225),
+  [`3b91340`](https://github.com/appium/python-client/commit/3b91340f0080003c82dbf22ec6e4de4c14594bdf))
+
+- Remove legacy implementation ([#1267](https://github.com/appium/python-client/pull/1267),
+  [`5b7f352`](https://github.com/appium/python-client/commit/5b7f3527f7dcb2886c3af6ba5fa36d471b6aeb5b))
+
+### Testing
+
+- Remove (object) inheritance to align with pytest style (#644)
+  ([#1246](https://github.com/appium/python-client/pull/1246),
+  [`d9b5cc9`](https://github.com/appium/python-client/commit/d9b5cc98c11ec188bf4578c65ee298462dfce8c5))
+
+
 ## v5.3.1 (2026-04-19)
 
 ### Bug Fixes

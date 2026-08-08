@@ -4,6 +4,13 @@
 
 ## v6.0.0 (2026-08-08)
 
+### Breaking Changes
+
+- Removed legacy Appium endpoint calls from commands which can be replaced with extensions
+    - This should not affect anything for users who use newer Appium such as Appium v2/3 based drivers
+    - References: [#1258](https://github.com/appium/python-client/pull/1258), [#1233](https://github.com/appium/python-client/pull/1233), [#1258](https://github.com/appium/python-client/pull/1258), [#1224](https://github.com/appium/python-client/pull/1224), [#1220](https://github.com/appium/python-client/pull/1220), [#1225](https://github.com/appium/python-client/pull/1225), [#1267](https://github.com/appium/python-client/pull/1267)
+- Removed CanRememberExtensionPresence used only for the legacy endpoint support [#1269](https://github.com/appium/python-client/pull/1269)
+
 ### Bug Fixes
 
 - Return int bitmask from set_network_connection

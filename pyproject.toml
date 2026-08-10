@@ -27,8 +27,8 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-  "selenium>=4.26,<5.0",
-  "typing-extensions~=4.13",
+  "selenium>=4.37.0,<5.0",
+  "typing-extensions~=4.16",
 ]
 
 [project.urls]

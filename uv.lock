@@ -55,8 +55,8 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "selenium", specifier = ">=4.26,<5.0" },
-    { name = "typing-extensions", specifier = "~=4.13" },
+    { name = "selenium", specifier = ">=4.37.0,<5.0" },
+    { name = "typing-extensions", specifier = "~=4.16" },
 ]
 
 [package.metadata.requires-dev]

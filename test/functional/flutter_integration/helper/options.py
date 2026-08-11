@@ -82,10 +82,7 @@ def device_name() -> str:
     Get a unique device name for the current worker.
     Uses the base device name and appends the port number for uniqueness.
     """
-    if is_platform_android():
-        prefix = 'Android Emulator'
-    else:
-        prefix = os.environ['IPHONE_MODEL']
+    prefix = 'Android Emulator' if is_platform_android() else os.environ['IPHONE_MODEL']
 
     worker_info = get_worker_info()
 

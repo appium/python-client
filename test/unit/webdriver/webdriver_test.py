@@ -132,8 +132,8 @@ class TestWebDriverWebDriver:
             client_config=client_config,
         )
 
-        assert 'http://localhost2:4800/special/path/wd/hub' == driver.command_executor._client_config.remote_server_addr
-        assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
+        assert driver.command_executor._client_config.remote_server_addr == 'http://localhost2:4800/special/path/wd/hub'
+        assert driver.contexts == ['NATIVE_APP', 'CHROMIUM']
         assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
@@ -171,8 +171,8 @@ class TestWebDriverWebDriver:
             SERVER_URL_BASE, options=UiAutomator2Options().load_capabilities(desired_caps), client_config=client_config
         )
 
-        assert SERVER_URL_BASE == driver.command_executor._client_config.remote_server_addr
-        assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
+        assert driver.command_executor._client_config.remote_server_addr == SERVER_URL_BASE
+        assert driver.contexts == ['NATIVE_APP', 'CHROMIUM']
         assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
@@ -211,7 +211,7 @@ class TestWebDriverWebDriver:
             client_config=client_config,
         )
 
-        assert SERVER_URL_BASE == driver.command_executor._client_config.remote_server_addr
+        assert driver.command_executor._client_config.remote_server_addr == SERVER_URL_BASE
         assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
@@ -415,10 +415,10 @@ class TestWebDriverWebDriver:
             )
             is True
         )
-        assert {
+        assert get_httpretty_request_body(httpretty.last_request()) == {
             'args': [{'component': 'io.appium.android.apis/.accessibility.AccessibilityNodeProviderActivity'}],
             'script': 'mobile: startActivity',
-        } == get_httpretty_request_body(httpretty.last_request())
+        }
 
     def test_get_client_config_and_connection_with_empty_config(self):
         command_executor, client_config = _get_remote_connection_and_client_config(

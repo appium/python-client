@@ -43,4 +43,4 @@ def test_get_log():
     assert log_types == ['logs as array']
 
     d = get_httpretty_request_body(httpretty.last_request())
-    assert {'type': 'syslog'} == d
+    assert d == {'type': 'syslog'}

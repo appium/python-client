@@ -42,12 +42,12 @@ dev = [
   "httpretty~=1.1",
   "mock~=5.2",
   "mypy>=1.17,<3.0",
-  "pre-commit~=4.2",
+  "pre-commit~=4.6",
   "pytest>=8.4,<10.0",
   "pytest-cov>=6.2,<8.0",
   "pytest-xdist~=3.8",
   "python-dateutil~=2.9",
-  "ruff~=0.15",
+  "ruff~=0.16",
   "types-python-dateutil~=2.9",
 
   # for release

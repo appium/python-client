@@ -82,14 +82,14 @@ class AppiumService:
         """
         self.stop()
 
-        env = kwargs['env'] if 'env' in kwargs else None
+        env = kwargs.get('env')
         node: str = kwargs.get('node') or get_node()
         npm: str = kwargs.get('npm') or get_npm()
         main_script: str = kwargs.get('main_script') or get_main_script(node, npm)
         # A workaround for https://github.com/appium/python-client/issues/534
         default_std = sp.DEVNULL if sys.platform == 'win32' else sp.PIPE
-        stdout = kwargs['stdout'] if 'stdout' in kwargs else default_std
-        stderr = kwargs['stderr'] if 'stderr' in kwargs else default_std
+        stdout = kwargs.get('stdout', default_std)
+        stderr = kwargs.get('stderr', default_std)
         timeout_ms = int(kwargs['timeout_ms']) if 'timeout_ms' in kwargs else STARTUP_TIMEOUT_MS
         args: List[str] = [node, main_script]
         if 'args' in kwargs:

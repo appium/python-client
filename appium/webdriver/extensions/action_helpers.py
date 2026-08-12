@@ -113,12 +113,10 @@ class ActionHelpers:
             actions.w3c_actions.pointer_action.release()
             actions.perform()
         else:
-            finger = 0
             actions = ActionChains(cast('WebDriver', self))
             actions.w3c_actions.devices = []
 
-            for position in positions:
-                finger += 1
+            for finger, position in enumerate(positions, start=1):
                 x = position[0]
                 y = position[1]
 

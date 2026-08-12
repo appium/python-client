@@ -54,7 +54,7 @@ def driver() -> Generator['WebDriver', None, None]:
 def test_context(driver: 'WebDriver') -> None:
     """Test Safari context switching."""
     contexts = driver.contexts
-    assert 'NATIVE_APP' == contexts[0]
+    assert contexts[0] == 'NATIVE_APP'
     assert contexts[1].startswith('WEBVIEW_')
     driver.switch_to.context(contexts[1])
     assert 'WEBVIEW_' in driver.current_context
@@ -73,7 +73,7 @@ def test_navigation(driver: 'WebDriver') -> None:
     driver.get('http://google.com')
     for _ in range(5):
         time.sleep(0.5)
-        if 'Google' == driver.title:
+        if driver.title == 'Google':
             return
 
     pytest.fail('The title was wrong')

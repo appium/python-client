@@ -3,12 +3,12 @@ indent-width = 4
 
 [lint]
 select = [
-    # Pyflakes
-    "F",
-    # Pylint
-    "PL",
-    # isort
-    "I",
+    "F",    # Pyflakes
+    "PL",   # Pylint
+    "I",    # isort
+    "PERF", # perflint
+    "FURB", # Refurb
+    "SIM"   # Simplify
 ]
 
 [lint.per-file-ignores]

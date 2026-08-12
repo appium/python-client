@@ -25,7 +25,7 @@ class TestWebDriverScreenRecordAndroid:
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['options']['user'] == 'userA'
         assert d['options']['pass'] == '12345'
-        assert 'password' not in d['options'].keys()
+        assert 'password' not in d['options']
 
     @httpretty.activate
     def test_stop_recording_screen(self):
@@ -40,7 +40,7 @@ class TestWebDriverScreenRecordAndroid:
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['options']['user'] == 'userA'
         assert d['options']['pass'] == '12345'
-        assert 'password' not in d['options'].keys()
+        assert 'password' not in d['options']
 
 
 class TestWebDriverScreenRecordIOS:
@@ -56,7 +56,7 @@ class TestWebDriverScreenRecordIOS:
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['options']['user'] == 'userA'
         assert d['options']['pass'] == '12345'
-        assert 'password' not in d['options'].keys()
+        assert 'password' not in d['options']
 
     @httpretty.activate
     def test_stop_recording_screen(self):
@@ -71,4 +71,4 @@ class TestWebDriverScreenRecordIOS:
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['options']['user'] == 'userA'
         assert d['options']['pass'] == '12345'
-        assert 'password' not in d['options'].keys()
+        assert 'password' not in d['options']

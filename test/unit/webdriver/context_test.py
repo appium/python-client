@@ -31,7 +31,7 @@ class TestWebDriverContext:
             httpretty.GET, appium_command('/session/1234567890/contexts'), body='{"value": ["NATIVE_APP", "CHROMIUM"]}'
         )
 
-        assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
+        assert driver.contexts == ['NATIVE_APP', 'CHROMIUM']
 
     @httpretty.activate
     def test_switch_to_context(self):
@@ -40,7 +40,7 @@ class TestWebDriverContext:
 
         driver.switch_to.context(None)
 
-        assert {'name': None} == get_httpretty_request_body(httpretty.last_request())
+        assert get_httpretty_request_body(httpretty.last_request()) == {'name': None}
 
     @httpretty.activate
     def test_switch_to_context_native_app(self):
@@ -49,4 +49,4 @@ class TestWebDriverContext:
 
         driver.switch_to.context('NATIVE_APP')
 
-        assert {'name': 'NATIVE_APP'} == get_httpretty_request_body(httpretty.last_request())
+        assert get_httpretty_request_body(httpretty.last_request()) == {'name': 'NATIVE_APP'}

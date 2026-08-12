@@ -154,10 +154,7 @@ class FlutterCommand:
         Returns:
             str: Image ID of the injected image.
         """
-        if os.path.isfile(value):
-            base64_encoded_image = encode_file_to_base64(value)
-        else:
-            base64_encoded_image = value
+        base64_encoded_image = encode_file_to_base64(value) if os.path.isfile(value) else value
         return self.execute_flutter_command('injectImage', {'base64Image': base64_encoded_image})
 
     def activate_injected_image(self, image_id: str) -> None:

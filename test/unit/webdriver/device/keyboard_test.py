@@ -88,16 +88,17 @@ class TestWebDriverKeyboardIOS:
         driver = ios_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         assert isinstance(driver.hide_keyboard(), WebDriver)
-        assert {'args': [{}], 'script': 'mobile: hideKeyboard'} == get_httpretty_request_body(httpretty.last_request())
+        assert get_httpretty_request_body(httpretty.last_request()) == {'args': [{}], 'script': 'mobile: hideKeyboard'}
 
     @httpretty.activate
     def test_hide_keyboard_with_key(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         assert isinstance(driver.hide_keyboard(key_name='Done'), WebDriver)
-        assert {'args': [{'keys': ['Done']}], 'script': 'mobile: hideKeyboard'} == get_httpretty_request_body(
-            httpretty.last_request()
-        )
+        assert get_httpretty_request_body(httpretty.last_request()) == {
+            'args': [{'keys': ['Done']}],
+            'script': 'mobile: hideKeyboard',
+        }
 
     @httpretty.activate
     def test_hide_keyboard_with_key_and_strategy(self):
@@ -105,22 +106,24 @@ class TestWebDriverKeyboardIOS:
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         assert isinstance(driver.hide_keyboard(strategy='pressKey', key='Done'), WebDriver)
         # only 'keys' works
-        assert {'args': [{'keys': ['Done']}], 'script': 'mobile: hideKeyboard'} == get_httpretty_request_body(
-            httpretty.last_request()
-        )
+        assert get_httpretty_request_body(httpretty.last_request()) == {
+            'args': [{'keys': ['Done']}],
+            'script': 'mobile: hideKeyboard',
+        }
 
     @httpretty.activate
     def test_is_keyboard_shown(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         driver.is_keyboard_shown(), WebDriver
-        assert {'script': 'mobile: isKeyboardShown', 'args': []} == get_httpretty_request_body(httpretty.last_request())
+        assert get_httpretty_request_body(httpretty.last_request()) == {'script': 'mobile: isKeyboardShown', 'args': []}
 
     @httpretty.activate
     def test_press_button(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'))
         driver.press_button('Home')
-        assert {'script': 'mobile: pressButton', 'args': [{'name': 'Home'}]} == get_httpretty_request_body(
-            httpretty.last_request()
-        )
+        assert get_httpretty_request_body(httpretty.last_request()) == {
+            'script': 'mobile: pressButton',
+            'args': [{'name': 'Home'}],
+        }

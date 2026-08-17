@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ RESET_ON_SESSION_START_ONLY = 'resetOnSessionStartOnly'
 
 class ResetOnSessionStartOnlyOption(SupportsCapabilities):
     @property
-    def reset_on_session_start_only(self) -> Optional[bool]:
+    def reset_on_session_start_only(self) -> bool | None:
         """
         Whether to perform Simulator reset on test session finish (false) or not (true).
         """

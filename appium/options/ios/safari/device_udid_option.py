@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ DEVICE_UDID = 'safari:deviceUDID'
 
 class DeviceUdidOption(SupportsCapabilities):
     @property
-    def device_udid(self) -> Optional[str]:
+    def device_udid(self) -> str | None:
         """
         String representing the UDID of the device.
         """

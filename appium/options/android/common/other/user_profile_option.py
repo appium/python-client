@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ USER_PROFILE = 'userProfile'
 
 class UserProfileOption(SupportsCapabilities):
     @property
-    def user_profile(self) -> Optional[int]:
+    def user_profile(self) -> int | None:
         """
         Integer identifier of a user profile.
         """

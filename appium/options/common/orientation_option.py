@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ ORIENTATION = 'orientation'
 
 class OrientationOption(SupportsCapabilities):
     @property
-    def orientation(self) -> Optional[str]:
+    def orientation(self) -> str | None:
         """
         The orientation of the device's screen.
         Usually this is either 'PORTRAIT' or 'LANDSCAPE'.

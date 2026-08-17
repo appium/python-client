@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT = 'uiautomator2ServerLaunchTimeout'
 
 class Uiautomator2ServerLaunchTimeoutOption(SupportsCapabilities):
     @property
-    def uiautomator2_server_launch_timeout(self) -> Optional[timedelta]:
+    def uiautomator2_server_launch_timeout(self) -> timedelta | None:
         """
         Maximum timeout to wait until UiAutomator2 server is listening on the device.
         """
@@ -33,7 +32,7 @@ class Uiautomator2ServerLaunchTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @uiautomator2_server_launch_timeout.setter
-    def uiautomator2_server_launch_timeout(self, value: Union[timedelta, int]) -> None:
+    def uiautomator2_server_launch_timeout(self, value: timedelta | int) -> None:
         """
         Set the maximum timeout to wait util UiAutomator2Server is listening on
         the device. 30000 ms by default

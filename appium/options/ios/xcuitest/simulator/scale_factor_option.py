@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SCALE_FACTOR = 'scaleFactor'
 
 class ScaleFactorOption(SupportsCapabilities):
     @property
-    def scale_factor(self) -> Optional[str]:
+    def scale_factor(self) -> str | None:
         """
         Simulator scale factor.
         """

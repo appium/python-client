@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ AUTO_ACCEPT_ALERTS = 'autoAcceptAlerts'
 
 class AutoAcceptAlertsOption(SupportsCapabilities):
     @property
-    def auto_accept_alerts(self) -> Optional[bool]:
+    def auto_accept_alerts(self) -> bool | None:
         """
         Whether to accept all alerts automatically.
         """

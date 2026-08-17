@@ -12,14 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, Union
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 
 class SystemBars(CanExecuteCommands, CanExecuteScripts):
-    def get_system_bars(self) -> Dict[str, Dict[str, Union[int, bool]]]:
+    def get_system_bars(self) -> dict[str, dict[str, int | bool]]:
         """Retrieve visibility and bounds information of the status and navigation bars.
 
         Android only.

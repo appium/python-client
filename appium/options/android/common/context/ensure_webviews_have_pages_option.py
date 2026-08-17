@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ ENSURE_WEBVIEWS_HAVE_PAGES = 'ensureWebviewsHavePages'
 
 class EnsureWebviewsHavePagesOption(SupportsCapabilities):
     @property
-    def ensure_webviews_have_pages(self) -> Optional[bool]:
+    def ensure_webviews_have_pages(self) -> bool | None:
         """
         Whether to ensure if web views have pages.
         """

@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Set, Tuple, Type, Union
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any
 
 from selenium.common.exceptions import (
     InvalidArgumentException,
@@ -160,10 +161,10 @@ class ExtensionBase:
 
     """
 
-    def __init__(self, execute: Callable[[str, Dict], Dict[str, Any]]):
+    def __init__(self, execute: Callable[[str, dict], dict[str, Any]]):
         self._execute = execute
 
-    def execute(self, parameters: Union[Dict[str, Any], None] = None) -> Any:
+    def execute(self, parameters: dict[str, Any] | None = None) -> Any:
         param = {}
         if parameters:
             param = parameters
@@ -179,7 +180,7 @@ class ExtensionBase:
         """
         raise NotImplementedError()
 
-    def add_command(self) -> Tuple[str, str]:
+    def add_command(self) -> tuple[str, str]:
         """
         Expected to define the pair of HTTP method and its URL.
         """
@@ -187,8 +188,8 @@ class ExtensionBase:
 
 
 def _get_remote_connection_and_client_config(
-    command_executor: Union[str, AppiumConnection], client_config: Optional[AppiumClientConfig] = None
-) -> tuple[AppiumConnection, Optional[AppiumClientConfig]]:
+    command_executor: str | AppiumConnection, client_config: AppiumClientConfig | None = None
+) -> tuple[AppiumConnection, AppiumClientConfig | None]:
     """Return the pair of command executor and client config.
     If the given command executor is a custom one, returned client config will
     be None since the custom command executor has its own client config already.
@@ -238,10 +239,10 @@ class WebDriver(
 ):
     def __init__(
         self,
-        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4723',
-        extensions: Optional[List[Type['ExtensionBase']]] = None,
-        options: Union[AppiumOptions, List[AppiumOptions], None] = None,
-        client_config: Optional[AppiumClientConfig] = None,
+        command_executor: str | AppiumConnection = 'http://127.0.0.1:4723',
+        extensions: list[type['ExtensionBase']] | None = None,
+        options: AppiumOptions | list[AppiumOptions] | None = None,
+        client_config: AppiumClientConfig | None = None,
     ):
         command_executor, client_config = _get_remote_connection_and_client_config(
             command_executor=command_executor, client_config=client_config
@@ -264,7 +265,7 @@ class WebDriver(
         if client_config and client_config.direct_connection:
             self._update_command_executor(keep_alive=client_config.keep_alive)
 
-        self._absent_extensions: Set[str] = set()
+        self._absent_extensions: set[str] = set()
 
         self._extensions = extensions or []
         for extension in self._extensions:
@@ -280,10 +281,10 @@ class WebDriver(
 
     if TYPE_CHECKING:
 
-        def find_element(self, by: str, value: Union[str, Dict, None] = None) -> 'MobileWebElement':  # type: ignore[override]
+        def find_element(self, by: str, value: str | dict | None = None) -> 'MobileWebElement':  # type: ignore[override]
             ...
 
-        def find_elements(self, by: str, value: Union[str, Dict, None] = None) -> List['MobileWebElement']:  # type: ignore[override]
+        def find_elements(self, by: str, value: str | dict | None = None) -> list['MobileWebElement']:  # type: ignore[override]
             ...
 
     def delete_extensions(self) -> None:
@@ -326,7 +327,7 @@ class WebDriver(
 
     # https://github.com/SeleniumHQ/selenium/blob/06fdf2966df6bca47c0ae45e8201cd30db9b9a49/py/selenium/webdriver/remote/webdriver.py#L277
     # noinspection PyAttributeOutsideInit
-    def start_session(self, capabilities: Union[Dict, AppiumOptions], browser_profile: Optional[str] = None) -> None:
+    def start_session(self, capabilities: dict | AppiumOptions, browser_profile: str | None = None) -> None:
         """Creates a new session with the desired capabilities.
 
         Override for Appium
@@ -349,7 +350,7 @@ class WebDriver(
         # Due to a W3C spec parsing misconception some servers
         # pack the createSession response stuff into 'value' dictionary and
         # some other put it to the top level of the response JSON nesting hierarchy
-        get_response_value: Callable[[str], Optional[Any]] = lambda key: (
+        get_response_value: Callable[[str], Any | None] = lambda key: (
             response.get(key) or (response['value'].get(key) if isinstance(response.get('value'), dict) else None)
         )
         session_id = get_response_value('sessionId')
@@ -360,7 +361,7 @@ class WebDriver(
         self.session_id = session_id
         self.caps = get_response_value('capabilities') or {}
 
-    def get_status(self) -> Dict:
+    def get_status(self) -> dict:
         """
         Get the Appium server status
 
@@ -373,7 +374,7 @@ class WebDriver(
         """
         return self.execute(Command.GET_STATUS)['value']
 
-    def create_web_element(self, element_id: Union[int, str]) -> MobileWebElement:
+    def create_web_element(self, element_id: int | str) -> MobileWebElement:
         """Creates a web element with the specified element_id.
 
         Overrides method in Selenium WebDriver in order to always give them

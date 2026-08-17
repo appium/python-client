@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SAFARI_LOG_ALL_COMMUNICATION = 'safariLogAllCommunication'
 
 class SafariLogAllCommunicationOption(SupportsCapabilities):
     @property
-    def safari_log_all_communication(self) -> Optional[bool]:
+    def safari_log_all_communication(self) -> bool | None:
         """
         Whether to log of plists sent to and received from the Web Inspector.
         """

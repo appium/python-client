@@ -17,7 +17,8 @@ import re
 import subprocess as sp
 import sys
 import time
-from typing import Any, Callable, List, Optional, Set
+from collections.abc import Callable
+from typing import Any
 
 from selenium.webdriver.remote.remote_connection import urllib3
 
@@ -41,8 +42,8 @@ class AppiumStartupError(RuntimeError):
 
 class AppiumService:
     def __init__(self) -> None:
-        self._process: Optional[sp.Popen] = None
-        self._cmd: Optional[List[str]] = None
+        self._process: sp.Popen | None = None
+        self._cmd: list[str] | None = None
 
     def start(self, **kwargs: Any) -> sp.Popen:
         """Starts Appium service with given arguments.
@@ -91,12 +92,12 @@ class AppiumService:
         stdout = kwargs.get('stdout', default_std)
         stderr = kwargs.get('stderr', default_std)
         timeout_ms = int(kwargs['timeout_ms']) if 'timeout_ms' in kwargs else STARTUP_TIMEOUT_MS
-        args: List[str] = [node, main_script]
+        args: list[str] = [node, main_script]
         if 'args' in kwargs:
             args.extend(kwargs['args'])
         self._cmd = args
         self._process = sp.Popen(args=args, stdout=stdout, stderr=stderr, env=env)
-        error_msg: Optional[str] = None
+        error_msg: str | None = None
         startup_failure_msg = (
             'Appium server process is unable to start. Make sure proper values have been '
             f"provided to 'node' ({node}), 'npm' ({npm}) and 'main_script' ({main_script}) "
@@ -194,7 +195,7 @@ class AppiumService:
             raise AppiumStartupError()
 
 
-def is_service_listening(url: str, timeout: float = 5, custom_validator: Optional[Callable[[], None]] = None) -> bool:
+def is_service_listening(url: str, timeout: float = 5, custom_validator: Callable[[], None] | None = None) -> bool:
     """
     Check if the service is running
 
@@ -222,7 +223,7 @@ def is_service_listening(url: str, timeout: float = 5, custom_validator: Optiona
     return False
 
 
-def find_executable(executable: str) -> Optional[str]:
+def find_executable(executable: str) -> str | None:
     path = os.environ['PATH']
     paths = path.split(os.pathsep)
     _, ext = os.path.splitext(executable)
@@ -256,8 +257,8 @@ def get_npm() -> str:
     return result
 
 
-def get_main_script(node: Optional[str], npm: Optional[str]) -> str:
-    result: Optional[str] = None
+def get_main_script(node: str | None, npm: str | None) -> str:
+    result: str | None = None
     npm_path = npm or get_npm()
     for args in [['root', '-g'], ['root']]:
         try:
@@ -281,26 +282,26 @@ def get_main_script(node: Optional[str], npm: Optional[str]) -> str:
     return result
 
 
-def _parse_arg_value(args: List[str], arg_names: Set[str], default: str) -> str:
+def _parse_arg_value(args: list[str], arg_names: set[str], default: str) -> str:
     for idx, arg in enumerate(args):
         if arg in arg_names and idx < len(args) - 1:
             return args[idx + 1]
     return default
 
 
-def _parse_port(args: List[str]) -> int:
+def _parse_port(args: list[str]) -> int:
     return int(_parse_arg_value(args, {'--port', '-p'}, str(DEFAULT_PORT)))
 
 
-def _parse_base_path(args: List[str]) -> str:
+def _parse_base_path(args: list[str]) -> str:
     return _parse_arg_value(args, {'--base-path', '-pa'}, DEFAULT_BASE_PATH)
 
 
-def _parse_host(args: List[str]) -> str:
+def _parse_host(args: list[str]) -> str:
     return _parse_arg_value(args, {'--address', '-a'}, DEFAULT_HOST)
 
 
-def _parse_protocol(args: List[str]) -> str:
+def _parse_protocol(args: list[str]) -> str:
     return (
         'https'
         if _parse_arg_value(args, {'--ssl-cert-path'}, '') and _parse_arg_value(args, {'--ssl-key-path'}, '')
@@ -308,12 +309,12 @@ def _parse_protocol(args: List[str]) -> str:
     )
 
 
-def _make_status_path(args: List[str]) -> str:
+def _make_status_path(args: list[str]) -> str:
     base_path = _parse_base_path(args)
     return STATUS_URL if base_path == DEFAULT_BASE_PATH else f'{re.sub(r"/+$", "", base_path)}{STATUS_URL}'
 
 
-def _make_server_url(args: List[str]) -> str:
+def _make_server_url(args: list[str]) -> str:
     return f'{_parse_protocol(args)}://{_parse_host(args)}:{_parse_port(args)}{_make_status_path(args)}'
 
 

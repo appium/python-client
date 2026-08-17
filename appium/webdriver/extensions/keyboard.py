@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional
 
 from typing_extensions import Self
 
@@ -21,7 +20,7 @@ from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 
 class Keyboard(CanExecuteCommands, CanExecuteScripts):
-    def hide_keyboard(self, key_name: Optional[str] = None, key: Optional[str] = None, strategy: Optional[str] = None) -> Self:
+    def hide_keyboard(self, key_name: str | None = None, key: str | None = None, strategy: str | None = None) -> Self:
         """Hides the software keyboard on the device.
 
         On iOS, use `key_name` or `key` to provide a keyboard key name.
@@ -52,7 +51,7 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts):
         ext_name = 'mobile: isKeyboardShown'
         return self.execute_script(ext_name)
 
-    def keyevent(self, keycode: int, metastate: Optional[int] = None) -> Self:
+    def keyevent(self, keycode: int, metastate: int | None = None) -> Self:
         """Sends a keycode to the device.
 
         Android only.
@@ -69,7 +68,7 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts):
         """
         return self.press_keycode(keycode=keycode, metastate=metastate)
 
-    def press_keycode(self, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> Self:
+    def press_keycode(self, keycode: int, metastate: int | None = None, flags: int | None = None) -> Self:
         """Sends a keycode to the device.
 
         Android only. Possible keycodes can be found
@@ -94,7 +93,7 @@ class Keyboard(CanExecuteCommands, CanExecuteScripts):
         self.execute_script(ext_name, args)
         return self
 
-    def long_press_keycode(self, keycode: int, metastate: Optional[int] = None, flags: Optional[int] = None) -> Self:
+    def long_press_keycode(self, keycode: int, metastate: int | None = None, flags: int | None = None) -> Self:
         """Sends a long press of keycode to the device.
 
         Android only. Possible keycodes can be found in

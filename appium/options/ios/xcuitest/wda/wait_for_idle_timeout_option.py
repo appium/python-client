@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ WAIT_FOR_IDLE_TIMEOUT = 'waitForIdleTimeout'
 
 class WaitForIdleTimeoutOption(SupportsCapabilities):
     @property
-    def wait_for_idle_timeout(self) -> Optional[timedelta]:
+    def wait_for_idle_timeout(self) -> timedelta | None:
         """
         Maximum timeout to wait until WDA responds to HTTP requests.
         """
@@ -33,7 +32,7 @@ class WaitForIdleTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(seconds=value)
 
     @wait_for_idle_timeout.setter
-    def wait_for_idle_timeout(self, value: Union[timedelta, float]) -> None:
+    def wait_for_idle_timeout(self, value: timedelta | float) -> None:
         """
         The time to wait until the application under test is idling.
         XCTest requires the app's main thread to be idling in order to execute any action on it,

@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ WDA_EVENTLOOP_IDLE_DELAY = 'wdaEventloopIdleDelay'
 
 class WdaEventloopIdleDelayOption(SupportsCapabilities):
     @property
-    def wda_eventloop_idle_delay(self) -> Optional[timedelta]:
+    def wda_eventloop_idle_delay(self) -> timedelta | None:
         """
         Event loop idle delay.
         """
@@ -33,7 +32,7 @@ class WdaEventloopIdleDelayOption(SupportsCapabilities):
         return None if value is None else timedelta(seconds=value)
 
     @wda_eventloop_idle_delay.setter
-    def wda_eventloop_idle_delay(self, value: Union[timedelta, float]) -> None:
+    def wda_eventloop_idle_delay(self, value: timedelta | float) -> None:
         """
         Delays the invocation of -[XCUIApplicationProcess setEventLoopHasIdled:] by the
         duration specified with this capability. This can help quiescence apps

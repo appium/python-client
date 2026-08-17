@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ WDA_LAUNCH_TIMEOUT = 'wdaLaunchTimeout'
 
 class WdaLaunchTimeoutOption(SupportsCapabilities):
     @property
-    def wda_launch_timeout(self) -> Optional[timedelta]:
+    def wda_launch_timeout(self) -> timedelta | None:
         """
         Maximum timeout to wait until WDA is listening.
         """
@@ -33,7 +32,7 @@ class WdaLaunchTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @wda_launch_timeout.setter
-    def wda_launch_timeout(self, value: Union[timedelta, int]) -> None:
+    def wda_launch_timeout(self, value: timedelta | int) -> None:
         """
         Timeout to wait for WebDriverAgent to be pingable,
         after its building is finished. Defaults to 60000ms.

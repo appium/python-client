@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ LANGUAGE = 'language'
 
 class LanguageOption(SupportsCapabilities):
     @property
-    def language(self) -> Optional[str]:
+    def language(self) -> str | None:
         """
         Language abbreviation to use in a test session.
         """

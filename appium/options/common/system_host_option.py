@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SYSTEM_HOST = 'systemHost'
 
 class SystemHostOption(SupportsCapabilities):
     @property
-    def system_host(self) -> Optional[str]:
+    def system_host(self) -> str | None:
         """
         The name of the host for the internal server to listen on.
         """

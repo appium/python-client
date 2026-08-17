@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SHOW_GRADLE_LOG = 'showGradleLog'
 
 class ShowGradleLogOption(SupportsCapabilities):
     @property
-    def show_gradle_log(self) -> Optional[bool]:
+    def show_gradle_log(self) -> bool | None:
         """
         Whether to include Gradle log to the regular server log.
         """

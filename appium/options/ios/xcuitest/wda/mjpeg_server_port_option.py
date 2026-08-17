@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ MJPEG_SERVER_PORT = 'mjpegServerPort'
 
 class MjpegServerPortOption(SupportsCapabilities):
     @property
-    def mjpeg_server_port(self) -> Optional[int]:
+    def mjpeg_server_port(self) -> int | None:
         """
         Port number on which WDA broadcasts screenshots stream encoded into MJPEG
         format from the device under test.

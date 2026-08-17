@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ GPS_ENABLED = 'gpsEnabled'
 
 class GpsEnabledOption(SupportsCapabilities):
     @property
-    def gps_enabled(self) -> Optional[bool]:
+    def gps_enabled(self) -> bool | None:
         """
         State of the GPS service on emulator.
         """

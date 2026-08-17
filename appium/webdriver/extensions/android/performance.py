@@ -12,16 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List, Union
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 
 class Performance(CanExecuteCommands, CanExecuteScripts):
-    def get_performance_data(
-        self, package_name: str, data_type: str, data_read_timeout: Union[int, None] = None
-    ) -> List[List[str]]:
+    def get_performance_data(self, package_name: str, data_type: str, data_read_timeout: int | None = None) -> list[list[str]]:
         """Returns the information of the system state
         which is supported to read as like cpu, memory, network traffic, and battery.
 
@@ -44,10 +41,10 @@ class Performance(CanExecuteCommands, CanExecuteScripts):
             The data along to `data_type`
         """
         ext_name = 'mobile: getPerformanceData'
-        args: Dict[str, Union[str, int]] = {'packageName': package_name, 'dataType': data_type}
+        args: dict[str, str | int] = {'packageName': package_name, 'dataType': data_type}
         return self.execute_script(ext_name, args)
 
-    def get_performance_data_types(self) -> List[str]:
+    def get_performance_data_types(self) -> list[str]:
         """Returns the information types of the system state
         which is supported to read as like cpu, memory, network traffic, and battery.
         Android only.

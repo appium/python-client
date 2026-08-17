@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SAFARI_IGNORE_FRAUD_WARNING = 'safariIgnoreFraudWarning'
 
 class SafariIgnoreFraudWarningOption(SupportsCapabilities):
     @property
-    def safari_ignore_fraud_warning(self) -> Optional[bool]:
+    def safari_ignore_fraud_warning(self) -> bool | None:
         """
         Whether to prevent Safari from showing a fraudulent website warning.
         """

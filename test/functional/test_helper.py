@@ -1,9 +1,10 @@
 import os
 import socket
 import time
+from collections.abc import Callable
 from dataclasses import dataclass
 from time import sleep
-from typing import TYPE_CHECKING, Any, Callable, Optional
+from typing import TYPE_CHECKING, Any
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -102,8 +103,8 @@ def wait_for_element(driver: 'WebDriver', locator: str, value: str, timeout_sec:
 class WorkerInfo:
     """Information about the current test worker in parallel execution."""
 
-    worker_number: Optional[int]
-    total_workers: Optional[int]
+    worker_number: int | None
+    total_workers: int | None
 
     @property
     def is_parallel(self) -> bool:

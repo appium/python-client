@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict
+from typing import Any
 
 
-def get_desired_capabilities() -> Dict[str, Any]:
-    desired_caps: Dict[str, Any] = {'platformName': 'mac', 'automationName': 'Mac2', 'bundleId': 'com.apple.TextEdit'}
+def get_desired_capabilities() -> dict[str, Any]:
+    desired_caps: dict[str, Any] = {'platformName': 'mac', 'automationName': 'Mac2', 'bundleId': 'com.apple.TextEdit'}
 
     return desired_caps

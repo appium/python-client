@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ XCODE_ORG_ID = 'xcodeOrgId'
 
 class XcodeOrgIdOption(SupportsCapabilities):
     @property
-    def xcode_org_id(self) -> Optional[str]:
+    def xcode_org_id(self) -> str | None:
         """
         Signing certificate organization id for WebDriverAgent compilation.
         """

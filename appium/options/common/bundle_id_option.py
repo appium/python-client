@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ BUNDLE_ID = 'bundleId'
 
 class BundleIdOption(SupportsCapabilities):
     @property
-    def bundle_id(self) -> Optional[str]:
+    def bundle_id(self) -> str | None:
         """
         The bundle identifier of the application to automate.
         """

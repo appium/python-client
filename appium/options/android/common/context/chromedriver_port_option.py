@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ CHROMEDRIVER_PORT = 'chromedriverPort'
 
 class ChromedriverPortOption(SupportsCapabilities):
     @property
-    def chromedriver_port(self) -> Optional[int]:
+    def chromedriver_port(self) -> int | None:
         """
         Local port number to use for Chromedriver communication.
         """

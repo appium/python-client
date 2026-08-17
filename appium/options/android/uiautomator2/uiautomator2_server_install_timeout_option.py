@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT = 'uiautomator2ServerInstallTimeout'
 
 class Uiautomator2ServerInstallTimeoutOption(SupportsCapabilities):
     @property
-    def uiautomator2_server_install_timeout(self) -> Optional[timedelta]:
+    def uiautomator2_server_install_timeout(self) -> timedelta | None:
         """
         Maximum timeout to wait until UiAutomator2 server is installed on the device.
         """
@@ -33,7 +32,7 @@ class Uiautomator2ServerInstallTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @uiautomator2_server_install_timeout.setter
-    def uiautomator2_server_install_timeout(self, value: Union[timedelta, int]) -> None:
+    def uiautomator2_server_install_timeout(self, value: timedelta | int) -> None:
         """
         Set the maximum timeout to wait util UiAutomator2 server is installed on the device.
         20000 ms by default

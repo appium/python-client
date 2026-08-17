@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ CREATE_SESSION_TIMEOUT = 'createSessionTimeout'
 
 class CreateSessionTimeoutOption(SupportsCapabilities):
     @property
-    def create_session_timeout(self) -> Optional[timedelta]:
+    def create_session_timeout(self) -> timedelta | None:
         """
         Timeout used to retry Appium Windows Driver session startup.
         """
@@ -33,7 +32,7 @@ class CreateSessionTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @create_session_timeout.setter
-    def create_session_timeout(self, value: Union[timedelta, int]) -> None:
+    def create_session_timeout(self, value: timedelta | int) -> None:
         """
         Set the timeout used to retry Appium Windows Driver session startup.
         This capability could be used as a workaround for the long startup times

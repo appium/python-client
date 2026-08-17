@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ KEYCHAINS_EXCLUDE_PATTERNS = 'keychainsExcludePatterns'
 
 class KeychainsExcludePatternsOption(SupportsCapabilities):
     @property
-    def keychains_exclude_patterns(self) -> Optional[str]:
+    def keychains_exclude_patterns(self) -> str | None:
         """
         Keychains exclude patterns.
         """

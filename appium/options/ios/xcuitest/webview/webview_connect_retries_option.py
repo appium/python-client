@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ WEBVIEW_CONNECT_RETRIES = 'webviewConnectRetries'
 
 class WebviewConnectRetriesOption(SupportsCapabilities):
     @property
-    def webview_connect_retries(self) -> Optional[int]:
+    def webview_connect_retries(self) -> int | None:
         """
         Number of retries to send connection message to remote debugger,
         to get a webview.

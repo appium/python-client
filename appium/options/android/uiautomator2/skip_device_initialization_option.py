@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SKIP_DEVICE_INITIALIZATION = 'skipDeviceInitialization'
 
 class SkipDeviceInitializationOption(SupportsCapabilities):
     @property
-    def skip_device_initialization(self) -> Optional[bool]:
+    def skip_device_initialization(self) -> bool | None:
         """
         Whether initial device startup checks by the server are disabled.
         """

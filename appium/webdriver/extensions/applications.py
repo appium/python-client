@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from typing import Any, Dict, Union
+from typing import Any
 
 from typing_extensions import Self
 
@@ -172,7 +172,7 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
             },
         )
 
-    def app_strings(self, language: Union[str, None] = None, string_file: Union[str, None] = None) -> Dict[str, str]:
+    def app_strings(self, language: str | None = None, string_file: str | None = None) -> dict[str, str]:
         """Returns the application strings from the device for the specified
         language.
 

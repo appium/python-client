@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List, Union
 
 from typing_extensions import Self
 
@@ -22,7 +21,7 @@ from ..mobilecommand import MobileCommand as Command
 
 
 class LogEvent(CanExecuteCommands):
-    def get_events(self, type: Union[List[str], None] = None) -> Dict[str, Union[str, int]]:
+    def get_events(self, type: list[str] | None = None) -> dict[str, str | int]:
         """Retrieves events information from the current session
         (Since Appium 1.16.0)
 

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ UPDATED_WDA_BUNDLE_ID = 'updatedWDABundleId'
 
 class UpdatedWdaBundleIdOption(SupportsCapabilities):
     @property
-    def updated_wda_bundle_id(self) -> Optional[str]:
+    def updated_wda_bundle_id(self) -> str | None:
         """
         WDA bundle identifier.
         """

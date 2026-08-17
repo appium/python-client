@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SAFARI_IGNORE_WEB_HOSTNAMES = 'safariIgnoreWebHostnames'
 
 class SafariIgnoreWebHostnamesOption(SupportsCapabilities):
     @property
-    def safari_ignore_web_hostnames(self) -> Optional[str]:
+    def safari_ignore_web_hostnames(self) -> str | None:
         """
         Comma-separated list of host names to be ignored.
         """

@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
@@ -31,7 +30,7 @@ class DeviceTime(CanExecuteCommands, CanExecuteScripts):
         ext_name = 'mobile: getDeviceTime'
         return self.execute_script(ext_name)
 
-    def get_device_time(self, format: Optional[str] = None) -> str:
+    def get_device_time(self, format: str | None = None) -> str:
         """Returns the date and time from the device.
 
         Requires the Appium driver to support the `mobile: getDeviceTime` execute method.

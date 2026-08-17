@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SKIP_LOGCAT_CAPTURE = 'skipLogcatCapture'
 
 class SkipLogcatCaptureOption(SupportsCapabilities):
     @property
-    def skip_logcat_capture(self) -> Optional[bool]:
+    def skip_logcat_capture(self) -> bool | None:
         """
         Whether to delete all the existing logs in the
         device buffer before starting a new test.

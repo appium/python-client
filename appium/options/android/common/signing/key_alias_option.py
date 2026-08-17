@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ KEY_ALIAS = 'keyAlias'
 
 class KeyAliasOption(SupportsCapabilities):
     @property
-    def key_alias(self) -> Optional[str]:
+    def key_alias(self) -> str | None:
         """
         Keystore key alias.
         """

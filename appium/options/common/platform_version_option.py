@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ PLATFORM_VERSION = 'platformVersion'
 
 class PlatformVersionOption(SupportsCapabilities):
     @property
-    def platform_version(self) -> Optional[str]:
+    def platform_version(self) -> str | None:
         """
         The platform version of an emulator or a real device.
         This capability is used for device autodetection if udid is not provided.

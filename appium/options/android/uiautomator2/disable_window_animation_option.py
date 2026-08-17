@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ DISABLE_WINDOWS_ANIMATION = 'disableWindowAnimation'
 
 class DisableWindowAnimationOption(SupportsCapabilities):
     @property
-    def disable_window_animation(self) -> Optional[bool]:
+    def disable_window_animation(self) -> bool | None:
         """
         Whether window animations when starting the instrumentation process
         are disabled.

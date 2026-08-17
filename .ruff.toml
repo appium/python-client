@@ -8,7 +8,8 @@ select = [
     "I",    # isort
     "PERF", # perflint
     "FURB", # Refurb
-    "SIM"   # Simplify
+    "SIM",  # Simplify
+    "UP",   # Upgrade
 ]
 
 [lint.per-file-ignores]
@@ -22,7 +23,6 @@ select = [
 ]
 
 [lint.pylint]
-
 max-args = 6
 
 [format]

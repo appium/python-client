@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SHOULD_USE_SINGLETON_TEST_MANAGER = 'shouldUseSingletonTestManager'
 
 class ShouldUseSingletonTestManagerOption(SupportsCapabilities):
     @property
-    def should_use_singleton_test_manager(self) -> Optional[bool]:
+    def should_use_singleton_test_manager(self) -> bool | None:
         """
         Whether to use the default proxy for test management within WebDriverAgent.
         """

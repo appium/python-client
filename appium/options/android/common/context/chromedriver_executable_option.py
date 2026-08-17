@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ CHROMEDRIVER_EXECUTABLE = 'chromedriverExecutable'
 
 class ChromedriverExecutableOption(SupportsCapabilities):
     @property
-    def chromedriver_executable(self) -> Optional[str]:
+    def chromedriver_executable(self) -> str | None:
         """
         Path to the chromedriver executable on the server file system.
         """

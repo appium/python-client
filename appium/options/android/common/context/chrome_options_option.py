@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +24,14 @@ CHROME_OPTIONS = 'chromeOptions'
 
 class ChromeOptionsOption(SupportsCapabilities):
     @property
-    def chrome_options(self) -> Optional[Dict[str, Any]]:
+    def chrome_options(self) -> dict[str, Any] | None:
         """
         Chrome options.
         """
         return self.get_capability(CHROME_OPTIONS)
 
     @chrome_options.setter
-    def chrome_options(self, value: Dict[str, Any]) -> None:
+    def chrome_options(self, value: dict[str, Any]) -> None:
         """
         A mapping, that allows to customize chromedriver options.
         See https://chromedriver.chromium.org/capabilities for the list

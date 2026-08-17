@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Union
+from typing import Any
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
@@ -20,7 +20,7 @@ from ..mobilecommand import MobileCommand as Command
 
 
 class ScreenRecord(CanExecuteCommands):
-    def start_recording_screen(self, **options: Any) -> Union[bytes, str]:
+    def start_recording_screen(self, **options: Any) -> bytes | str:
         """Start asynchronous screen recording process.
 
         +--------------+-----+---------+-----+-------+

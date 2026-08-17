@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional
 
 from typing_extensions import Self
 
@@ -21,7 +20,7 @@ from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
 
 
 class HardwareActions(CanExecuteCommands, CanExecuteScripts):
-    def lock(self, seconds: Optional[int] = None) -> Self:
+    def lock(self, seconds: int | None = None) -> Self:
         """Lock the device. No changes are made if the device is already locked.
 
         Requires the Appium driver to support the `mobile: lock` execute method.

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ WDA_LOCAL_PORT = 'wdaLocalPort'
 
 class WdaLocalPortOption(SupportsCapabilities):
     @property
-    def wda_local_port(self) -> Optional[int]:
+    def wda_local_port(self) -> int | None:
         """
         Local port number where the WDA traffic is being forwarded.
         """

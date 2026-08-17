@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict
+from typing import Any
 
 from typing_extensions import Self
 
@@ -22,7 +22,7 @@ from ..mobilecommand import MobileCommand as Command
 
 
 class Settings(CanExecuteCommands):
-    def get_settings(self) -> Dict[str, Any]:
+    def get_settings(self) -> dict[str, Any]:
         """Returns the appium server Settings for the current session.
 
         Do not get Settings confused with Desired Capabilities, they are
@@ -33,7 +33,7 @@ class Settings(CanExecuteCommands):
         """
         return self.execute(Command.GET_SETTINGS, {})['value']
 
-    def update_settings(self, settings: Dict[str, Any]) -> Self:
+    def update_settings(self, settings: dict[str, Any]) -> Self:
         """Set settings for the current session.
 
         For more on settings, see: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/settings.md

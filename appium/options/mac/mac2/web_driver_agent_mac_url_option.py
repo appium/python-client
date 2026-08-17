@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ WEB_DRIVER_ARGENT_MAC_URL = 'webDriverAgentMacUrl'
 
 class WebDriverAgentMacUrlOption(SupportsCapabilities):
     @property
-    def web_driver_agent_mac_url(self) -> Optional[str]:
+    def web_driver_agent_mac_url(self) -> str | None:
         """
         The URL Appium will connect to an existing WebDriverAgentMac instance.
         """

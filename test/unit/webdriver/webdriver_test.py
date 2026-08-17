@@ -13,10 +13,10 @@
 # limitations under the License.
 
 import json
+from unittest.mock import patch
 
 import httpretty
 import urllib3
-from mock import patch
 
 from appium import webdriver
 from appium.options.android import UiAutomator2Options

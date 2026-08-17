@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SAFARI_WEB_INSPECTOR_MAX_FRAME_LENGTH = 'safariWebInspectorMaxFrameLength'
 
 class SafariWebInspectorMaxFrameLengthOption(SupportsCapabilities):
     @property
-    def safari_web_inspector_max_frame_length(self) -> Optional[int]:
+    def safari_web_inspector_max_frame_length(self) -> int | None:
         """
         Maximum size in bytes of a single data frame for the Web Inspector.
         """

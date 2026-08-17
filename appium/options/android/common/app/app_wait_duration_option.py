@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ APP_WAIT_DURATION = 'appWaitDuration'
 
 class AppWaitDurationOption(SupportsCapabilities):
     @property
-    def app_wait_duration(self) -> Optional[timedelta]:
+    def app_wait_duration(self) -> timedelta | None:
         """
         Identifier of the app package to wait for.
         """
@@ -33,7 +32,7 @@ class AppWaitDurationOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @app_wait_duration.setter
-    def app_wait_duration(self, value: Union[timedelta, int]) -> None:
+    def app_wait_duration(self, value: timedelta | int) -> None:
         """
         Maximum amount of time to wait until the application under test is started
         (e.g. an activity returns the control to the caller). 20000 ms by default.

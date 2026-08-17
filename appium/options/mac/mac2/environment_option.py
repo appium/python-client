@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +23,14 @@ ENVIRONMENT = 'environment'
 
 class EnvironmentOption(SupportsCapabilities):
     @property
-    def environment(self) -> Optional[Dict[str, str]]:
+    def environment(self) -> dict[str, str] | None:
         """
         Application environment variables mapping.
         """
         return self.get_capability(ENVIRONMENT)
 
     @environment.setter
-    def environment(self, value: Dict[str, str]) -> None:
+    def environment(self, value: dict[str, str]) -> None:
         """
         Set the dictionary of environment variables (name-&gt;value) that are going to be passed
         to the application under test on top of environment variables inherited from

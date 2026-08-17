@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SYSTEM_PORT = 'systemPort'
 
 class SystemPortOption(SupportsCapabilities):
     @property
-    def system_port(self) -> Optional[int]:
+    def system_port(self) -> int | None:
         """
         The number of the port for the internal server to listen on.
         """

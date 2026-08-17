@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SHOULD_TERMINATE_APP = 'shouldTerminateApp'
 
 class ShouldTerminateAppOption(SupportsCapabilities):
     @property
-    def should_terminate_app(self) -> Optional[bool]:
+    def should_terminate_app(self) -> bool | None:
         """
         Whether to enforce app termination on session quit.
         """

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ VERBOSITY = 'verbosity'
 
 class VerbosityOption(SupportsCapabilities):
     @property
-    def verbosity(self) -> Optional[str]:
+    def verbosity(self) -> str | None:
         """
         The verbosity level of driver logging.
         """

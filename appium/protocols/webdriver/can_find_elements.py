@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Dict, List, Protocol, Union, runtime_checkable
+from typing import TYPE_CHECKING, Protocol, runtime_checkable
 
 if TYPE_CHECKING:
     from appium.webdriver.webelement import WebElement
@@ -27,6 +27,6 @@ class CanFindElements(Protocol):
     - find_elements(by, value): Find multiple elements
     """
 
-    def find_element(self, by: str, value: Union[str, Dict, None] = None) -> 'WebElement': ...
+    def find_element(self, by: str, value: str | dict | None = None) -> 'WebElement': ...
 
-    def find_elements(self, by: str, value: Union[str, Dict, None] = None) -> List['WebElement']: ...
+    def find_elements(self, by: str, value: str | dict | None = None) -> list['WebElement']: ...

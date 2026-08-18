@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +24,14 @@ FIREFOX_OPTIONS = 'moz:firefoxOptions'
 
 class FirefoxOptionsOption(SupportsCapabilities):
     @property
-    def firefox_options(self) -> Optional[Dict[str, Any]]:
+    def firefox_options(self) -> dict[str, Any] | None:
         """
         Firefox options mapping.
         """
         return self.get_capability(FIREFOX_OPTIONS)
 
     @firefox_options.setter
-    def firefox_options(self, value: Dict[str, Any]) -> None:
+    def firefox_options(self, value: dict[str, Any]) -> None:
         """
         See https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions
         """

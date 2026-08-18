@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ OPTIONAL_INTENT_ARGUMENTS = 'optionalIntentArguments'
 
 class OptionalIntentArgumentsOption(SupportsCapabilities):
     @property
-    def optional_intent_arguments(self) -> Optional[str]:
+    def optional_intent_arguments(self) -> str | None:
         """
         Intent arguments to be applied when
         starting the given appActivity by Activity Manager.

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SUPPRESS_KILL_SERVER = 'suppressKillServer'
 
 class SuppressKillServerOption(SupportsCapabilities):
     @property
-    def suppress_kill_server(self) -> Optional[bool]:
+    def suppress_kill_server(self) -> bool | None:
         """
         Prevents the driver from ever killing the ADB server explicitly.
         """

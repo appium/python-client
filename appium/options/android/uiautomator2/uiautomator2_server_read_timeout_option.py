@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ UIAUTOMATOR2_SERVER_READ_TIMEOUT = 'uiautomator2ServerReadTimeout'
 
 class Uiautomator2ServerReadTimeoutOption(SupportsCapabilities):
     @property
-    def uiautomator2_server_read_timeout(self) -> Optional[timedelta]:
+    def uiautomator2_server_read_timeout(self) -> timedelta | None:
         """
         Maximum timeout to wait for an HTTP response from UiAutomator2Server.
         """
@@ -33,7 +32,7 @@ class Uiautomator2ServerReadTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @uiautomator2_server_read_timeout.setter
-    def uiautomator2_server_read_timeout(self, value: Union[timedelta, int]) -> None:
+    def uiautomator2_server_read_timeout(self, value: timedelta | int) -> None:
         """
         Set the maximum timeout to wait for a HTTP response from UiAutomator2Server.
         Only values greater than zero are accepted. If the given value is too low

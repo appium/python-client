@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ ENABLE_PERFORMANCE_LOGGING = 'enablePerformanceLogging'
 
 class EnablePerformanceLoggingOption(SupportsCapabilities):
     @property
-    def enable_performance_logging(self) -> Optional[bool]:
+    def enable_performance_logging(self) -> bool | None:
         """
         Whether to enable additional performance logging.
         """

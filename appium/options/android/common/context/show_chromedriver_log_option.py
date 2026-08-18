@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SHOW_CHROMEDRIVER_LOG = 'showChromedriverLog'
 
 class ShowChromedriverLogOption(SupportsCapabilities):
     @property
-    def show_chromedriver_log(self) -> Optional[bool]:
+    def show_chromedriver_log(self) -> bool | None:
         """
         Whether to forward chromedriver output to the Appium server log.
         """

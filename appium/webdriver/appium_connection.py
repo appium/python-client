@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import uuid
-from typing import TYPE_CHECKING, Any, Dict
+from typing import TYPE_CHECKING, Any
 
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
@@ -28,7 +28,7 @@ PREFIX_HEADER = 'appium/'
 HEADER_IDEMOTENCY_KEY = 'X-Idempotency-Key'
 
 
-def _get_new_headers(key: str, headers: Dict[str, str]) -> Dict[str, str]:
+def _get_new_headers(key: str, headers: dict[str, str]) -> dict[str, str]:
     """Return a new dictionary of heafers without the given key.
     The key match is case-insensitive."""
     lower_key = key.lower()
@@ -51,7 +51,7 @@ class AppiumConnection(RemoteConnection):
     extra_headers = {}
 
     @classmethod
-    def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> Dict[str, Any]:
+    def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> dict[str, Any]:
         """Override get_remote_connection_headers in RemoteConnection to control the extra headers.
         This method will be used in sending a request method in this class.
         """

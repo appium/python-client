@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ PLATFORM_BUILD_VERSION = 'safari:platformBuildVersion'
 
 class PlatformBuildVersionOption(SupportsCapabilities):
     @property
-    def platform_build_version(self) -> Optional[str]:
+    def platform_build_version(self) -> str | None:
         """
         String representing the platform build version.
         """

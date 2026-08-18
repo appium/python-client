@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +24,14 @@ WEBKIT_WEBRTC = 'webkit:WebRTC'
 
 class WebkitWebrtcOption(SupportsCapabilities):
     @property
-    def webkit_webrtc(self) -> Optional[Dict[str, Any]]:
+    def webkit_webrtc(self) -> dict[str, Any] | None:
         """
         WebRTC policies.
         """
         return self.get_capability(WEBKIT_WEBRTC)
 
     @webkit_webrtc.setter
-    def webkit_webrtc(self, value: Dict[str, Any]) -> None:
+    def webkit_webrtc(self, value: dict[str, Any]) -> None:
         """
         This option allows a test to temporarily change Safari's policies
         for WebRTC and Media Capture.

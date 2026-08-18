@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import base64
-from typing import Optional
 
 from selenium.common.exceptions import InvalidArgumentException
 from typing_extensions import Self
@@ -51,7 +50,7 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts):
         ext_name = 'mobile: pullFolder'
         return self.execute_script(ext_name, {'remotePath': path})
 
-    def push_file(self, destination_path: str, base64data: Optional[str] = None, source_path: Optional[str] = None) -> Self:
+    def push_file(self, destination_path: str, base64data: str | None = None, source_path: str | None = None) -> Self:
         """Puts the data from the file at `source_path`, encoded as Base64, at `destination_path`.
 
         Specify either `base64data` or `source_path`. If both are provided, `source_path` takes precedence.
@@ -74,7 +73,7 @@ class RemoteFS(CanExecuteCommands, CanExecuteScripts):
             try:
                 with open(source_path, 'rb') as f:
                     file_data = f.read()
-            except IOError as e:
+            except OSError as e:
                 message = f'source_path "{source_path}" could not be found. Are you sure the file exists?'
                 raise InvalidArgumentException(message) from e
             base64data = base64.b64encode(file_data).decode('utf-8')

@@ -13,13 +13,12 @@
 # limitations under the License.
 
 import os
-from typing import Optional
 
 from appium.options.android import UiAutomator2Options
 from test.functional.test_helper import get_worker_info
 
 
-def make_options(app: Optional[str] = None) -> UiAutomator2Options:
+def make_options(app: str | None = None) -> UiAutomator2Options:
     """Get UiAutomator2 options configured for Android testing with parallel execution support."""
     options = UiAutomator2Options()
 

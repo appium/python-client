@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ LOGCAT_FORMAT = 'logcatFormat'
 
 class LogcatFormatOption(SupportsCapabilities):
     @property
-    def logcat_format(self) -> Optional[str]:
+    def logcat_format(self) -> str | None:
         """
         Log print format.
         """

@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import base64
-from typing import Optional
 
 from typing_extensions import Self
 
@@ -24,7 +23,7 @@ from appium.webdriver.clipboard_content_type import ClipboardContentType
 
 class Clipboard(CanExecuteCommands, CanExecuteScripts):
     def set_clipboard(
-        self, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: Optional[str] = None
+        self, content: bytes, content_type: str = ClipboardContentType.PLAINTEXT, label: str | None = None
     ) -> Self:
         """Set the content of the system clipboard
 
@@ -49,7 +48,7 @@ class Clipboard(CanExecuteCommands, CanExecuteScripts):
         self.execute_script(ext_name, options)
         return self
 
-    def set_clipboard_text(self, text: str, label: Optional[str] = None) -> Self:
+    def set_clipboard_text(self, text: str, label: str | None = None) -> Self:
         """Copies the given text to the system clipboard
 
         Requires the Appium driver to support the `mobile: setClipboard` execute method.

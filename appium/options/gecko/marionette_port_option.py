@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ MARIONETTE_PORT = 'marionettePort'
 
 class MarionettePortOption(SupportsCapabilities):
     @property
-    def marionette_port(self) -> Optional[int]:
+    def marionette_port(self) -> int | None:
         """
         The number of the port for the Marionette server to listen on.
         """

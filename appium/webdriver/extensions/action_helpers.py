@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, List, Optional, Tuple, cast
+from typing import TYPE_CHECKING, cast
 
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.actions import interaction
@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 
 
 class ActionHelpers:
-    def scroll(self, origin_el: WebElement, destination_el: WebElement, duration: Optional[int] = None) -> Self:
+    def scroll(self, origin_el: WebElement, destination_el: WebElement, duration: int | None = None) -> Self:
         """Scrolls from one element to another
 
         Args:
@@ -63,7 +63,7 @@ class ActionHelpers:
         actions.perform()
         return self
 
-    def drag_and_drop(self, origin_el: WebElement, destination_el: WebElement, pause: Optional[float] = None) -> Self:
+    def drag_and_drop(self, origin_el: WebElement, destination_el: WebElement, pause: float | None = None) -> Self:
         """Drag the origin element to the destination element
 
         Args:
@@ -84,7 +84,7 @@ class ActionHelpers:
         actions.perform()
         return self
 
-    def tap(self, positions: List[Tuple[int, int]], duration: Optional[int] = None) -> Self:
+    def tap(self, positions: list[tuple[int, int]], duration: int | None = None) -> Self:
         """Taps on an particular place with up to five fingers, holding for a
         certain time
 

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ ANDROID_STORAGE = 'androidStorage'
 
 class AndroidStorageOption(SupportsCapabilities):
     @property
-    def android_storage(self) -> Optional[str]:
+    def android_storage(self) -> str | None:
         """
         The currently set storage type.
         """

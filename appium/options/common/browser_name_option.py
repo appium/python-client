@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ BROWSER_NAME = 'browserName'
 
 class BrowserNameOption(SupportsCapabilities):
     @property
-    def browser_name(self) -> Optional[str]:
+    def browser_name(self) -> str | None:
         """
         The name of the browser to run the test on.
         """

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import os
-from typing import Any, Dict
+from typing import Any
 
 from appium.options.flutter_integration.base import FlutterOptions
 from test.functional.test_helper import get_wda_port, get_worker_info
@@ -43,7 +43,7 @@ def make_options() -> FlutterOptions:
     options.flutter_element_wait_timeout = 10000
     options.flutter_server_launch_timeout = 120000
 
-    caps: Dict[str, Any] = (
+    caps: dict[str, Any] = (
         {
             'platformName': 'Android',
             'deviceName': device_name(),

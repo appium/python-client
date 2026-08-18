@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ CONNECT_HARDWARE_KEYBOARD = 'connectHardwareKeyboard'
 
 class ConnectHardwareKeyboardOption(SupportsCapabilities):
     @property
-    def connect_hardware_keyboard(self) -> Optional[bool]:
+    def connect_hardware_keyboard(self) -> bool | None:
         """
         Whether to connect hardware keyboard to Simulator.
         """

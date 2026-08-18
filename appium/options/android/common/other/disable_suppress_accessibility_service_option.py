@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ DISABLE_SUPPRESS_ACCESSIBILITY_SERVICE = 'disableSuppressAccessibilityService'
 
 class DisableSuppressAccessibilityServiceOption(SupportsCapabilities):
     @property
-    def disable_suppress_accessibility_service(self) -> Optional[bool]:
+    def disable_suppress_accessibility_service(self) -> bool | None:
         """
         Whether to suppress accessibility services.
         """

@@ -16,7 +16,6 @@
 # under the License.
 
 import json
-from typing import Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ PERMISSIONS = 'permissions'
 
 class PermissionsOption(SupportsCapabilities):
     @property
-    def permissions(self) -> Optional[Dict[str, Dict[str, str]]]:
+    def permissions(self) -> dict[str, dict[str, str]] | None:
         """
         Get Simulator permissions.
         """
@@ -33,7 +32,7 @@ class PermissionsOption(SupportsCapabilities):
         return None if value is None else json.loads(value)
 
     @permissions.setter
-    def permissions(self, value: Dict[str, Dict[str, str]]) -> None:
+    def permissions(self, value: dict[str, dict[str, str]]) -> None:
         """
         Allows setting of permissions for the specified application bundle on
         Simulator only.

@@ -31,7 +31,7 @@ class TestWebDriverKeyboardAndroid:
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": "86"}')
         driver.press_keycode(86)
-        d = get_httpretty_request_body((httpretty.last_request()))
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['script'] == 'mobile: pressKey'
         assert d['args'][0]['keycode'] == 86
 
@@ -40,7 +40,7 @@ class TestWebDriverKeyboardAndroid:
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": "86"}')
         driver.long_press_keycode(86)
-        d = get_httpretty_request_body((httpretty.last_request()))
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['script'] == 'mobile: pressKey'
         assert d['args'][0]['keycode'] == 86
         assert d['args'][0]['isLongPress'] is True

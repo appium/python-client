@@ -16,7 +16,6 @@
 # under the License.
 
 from os import PathLike, fspath
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,14 +24,14 @@ APP_PATH = 'appPath'
 
 class AppPathOption(SupportsCapabilities):
     @property
-    def app_path(self) -> Optional[str]:
+    def app_path(self) -> str | None:
         """
         The path of the application to automate.
         """
         return self.get_capability(APP_PATH)
 
     @app_path.setter
-    def app_path(self, value: Union[str, PathLike]) -> None:
+    def app_path(self, value: str | PathLike) -> None:
         """
         Set the path of the application to automate.
         """

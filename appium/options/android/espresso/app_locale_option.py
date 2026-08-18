@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +23,14 @@ APP_LOCALE = 'appLocale'
 
 class AppLocaleOption(SupportsCapabilities):
     @property
-    def app_locale(self) -> Optional[Dict[str, str]]:
+    def app_locale(self) -> dict[str, str] | None:
         """
         Locale for the app under test.
         """
         return self.get_capability(APP_LOCALE)
 
     @app_locale.setter
-    def app_locale(self, value: Dict[str, str]) -> None:
+    def app_locale(self, value: dict[str, str]) -> None:
         """
         Sets the locale for the app under test. The main difference between this option
         and the above ones is that this option only changes the locale for the application

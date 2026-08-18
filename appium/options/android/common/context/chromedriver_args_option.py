@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import List, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +23,14 @@ CHROMEDRIVER_ARGS = 'chromedriverArgs'
 
 class ChromedriverArgsOption(SupportsCapabilities):
     @property
-    def chromedriver_args(self) -> Optional[List[str]]:
+    def chromedriver_args(self) -> list[str] | None:
         """
         Array of chromedriver CLI arguments.
         """
         return self.get_capability(CHROMEDRIVER_ARGS)
 
     @chromedriver_args.setter
-    def chromedriver_args(self, value: List[str]) -> None:
+    def chromedriver_args(self, value: list[str]) -> None:
         """
         Array of chromedriver [command line
         arguments](http://www.assertselenium.com/java/list-of-chrome-driver-command-line-arguments/).

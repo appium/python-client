@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ SERVER_STARTUP_TIMEOUT = 'serverStartupTimeout'
 
 class ServerStartupTimeoutOption(SupportsCapabilities):
     @property
-    def server_startup_timeout(self) -> Optional[timedelta]:
+    def server_startup_timeout(self) -> timedelta | None:
         """
         Get the timeout to wait util the WebDriverAgentMac
         project is built and started.
@@ -34,7 +33,7 @@ class ServerStartupTimeoutOption(SupportsCapabilities):
         return None if value_ms is None else timedelta(milliseconds=value_ms)
 
     @server_startup_timeout.setter
-    def server_startup_timeout(self, value: Union[int, timedelta]) -> None:
+    def server_startup_timeout(self, value: int | timedelta) -> None:
         """
         Set the timeout to wait util the WebDriverAgentMac
         project is built and started.

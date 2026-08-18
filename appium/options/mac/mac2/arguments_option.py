@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import List, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +23,14 @@ ARGUMENTS = 'arguments'
 
 class ArgumentsOption(SupportsCapabilities):
     @property
-    def arguments(self) -> Optional[List[str]]:
+    def arguments(self) -> list[str] | None:
         """
         Array of application command line arguments.
         """
         return self.get_capability(ARGUMENTS)
 
     @arguments.setter
-    def arguments(self, value: List[str]) -> None:
+    def arguments(self, value: list[str]) -> None:
         """
         Set the array of application command line arguments. This capability is
         only going to be applied if the application is not running on session startup.

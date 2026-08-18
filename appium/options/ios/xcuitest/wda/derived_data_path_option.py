@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ DERIVED_DATA_PATH = 'derivedDataPath'
 
 class DerivedDataPathOption(SupportsCapabilities):
     @property
-    def derived_data_path(self) -> Optional[str]:
+    def derived_data_path(self) -> str | None:
         """
         Path to the derived data WDA folder.
         """

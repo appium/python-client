@@ -13,3 +13,26 @@ repos:
         entry: uv run ruff format
         language: system
         types_or: [python, pyi]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-ast
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: check-illegal-windows-names
+      - id: check-symlinks
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: debug-statements
+      - id: destroyed-symlinks
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: pretty-format-json
+        args: ['--autofix', '--indent=2']
+      - id: trailing-whitespace
+      - id: name-tests-test
+        args: ['--pytest-test-first']

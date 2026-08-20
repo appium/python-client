@@ -10,6 +10,8 @@ check: check-lint check-format
 check-lint:
 	uv run ruff check .
 	uv run mypy appium
+	uv run pre-commit validate-config
+	uv run pre-commit validate-manifest
 
 .PHONY: check-format
 check-format:

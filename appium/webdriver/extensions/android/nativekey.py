@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import ClassVar
+
 
 class AndroidKeyMetastate:
     """Keyboard metastate constants for Android key events.
@@ -1054,7 +1056,7 @@ class AndroidKey:
     # Key code constant: Copy key.
     COPY = 278
 
-    gamepad_buttons = [
+    gamepad_buttons: ClassVar[list[int]] = [
         BUTTON_A,
         BUTTON_B,
         BUTTON_C,
@@ -1093,14 +1095,14 @@ class AndroidKey:
         """Returns true if the specified nativekey is a gamepad button."""
         return code in AndroidKey.gamepad_buttons
 
-    confirm_buttons = [DPAD_CENTER, ENTER, SPACE, NUMPAD_ENTER]
+    confirm_buttons: ClassVar[list[int]] = [DPAD_CENTER, ENTER, SPACE, NUMPAD_ENTER]
 
     @staticmethod
     def is_confirm_key(code: int) -> bool:
         """Returns true if the key will, by default, trigger a click on the focused view."""
         return code in AndroidKey.confirm_buttons
 
-    media_buttons = [
+    media_buttons: ClassVar[list[int]] = [
         MEDIA_PLAY,
         MEDIA_PAUSE,
         MEDIA_PLAY_PAUSE,
@@ -1120,7 +1122,7 @@ class AndroidKey:
         interested in media key events."""
         return code in AndroidKey.media_buttons
 
-    system_buttons = [
+    system_buttons: ClassVar[list[int]] = [
         MENU,
         SOFT_RIGHT,
         HOME,
@@ -1155,7 +1157,7 @@ class AndroidKey:
         """Returns true if the key is a system key, System keys can not be used for menu shortcuts."""
         return code in AndroidKey.system_buttons
 
-    wake_buttons = [BACK, MENU, WAKEUP, PAIRING, STEM_1, STEM_2, STEM_3]
+    wake_buttons: ClassVar[list[int]] = [BACK, MENU, WAKEUP, PAIRING, STEM_1, STEM_2, STEM_3]
 
     @staticmethod
     def is_wake_key(code: int) -> bool:

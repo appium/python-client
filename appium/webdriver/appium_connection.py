@@ -48,7 +48,7 @@ class AppiumConnection(RemoteConnection):
     """
 
     user_agent = f'{PREFIX_HEADER}{library_version()} ({RemoteConnection.user_agent})'
-    extra_headers = {}
+    extra_headers = {}  # noqa: RUF012
 
     @classmethod
     def get_remote_connection_headers(cls, parsed_url: 'ParseResult', keep_alive: bool = True) -> dict[str, Any]:

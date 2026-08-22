@@ -32,7 +32,7 @@ class MarionettePortOption(SupportsCapabilities):
     @marionette_port.setter
     def marionette_port(self, value: int) -> None:
         """
-        Selects the port for Geckodriver’s connection to the Marionette
+        Selects the port for Geckodriver's connection to the Marionette
         remote protocol. The existing Firefox instance must have Marionette
         enabled. To enable the remote protocol in Firefox, you can pass the
         -marionette flag. Unless the marionette.port preference has been

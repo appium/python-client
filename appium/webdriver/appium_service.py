@@ -125,7 +125,7 @@ class AppiumService:
                 # noinspection PyUnresolvedReferences
                 err_output = self._process.stderr.read()
                 if err_output:
-                    error_msg += f'\nOriginal error: {str(err_output)}'
+                    error_msg += f'\nOriginal error: {err_output!s}'
             self.stop()
             raise AppiumServiceError(error_msg)
         return self._process
@@ -262,7 +262,7 @@ def get_main_script(node: str | None, npm: str | None) -> str:
     npm_path = npm or get_npm()
     for args in [['root', '-g'], ['root']]:
         try:
-            modules_root = sp.check_output([npm_path] + args).strip().decode('utf-8')
+            modules_root = sp.check_output([npm_path, *args]).strip().decode('utf-8')
             full_path = os.path.join(modules_root, *MAIN_SCRIPT_PATH.split('/'))
             if os.path.exists(full_path):
                 result = full_path

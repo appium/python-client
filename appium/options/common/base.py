@@ -16,7 +16,7 @@
 # under the License.
 
 import copy
-from typing import Any, TypeVar
+from typing import Any, ClassVar, TypeVar
 
 from selenium.webdriver.common.options import BaseOptions
 
@@ -60,7 +60,7 @@ class AppiumOptions(
             'webSocketUrl',  # WebDriver BiDi
         ]
     )
-    _OSS_W3C_CONVERSION = {
+    _OSS_W3C_CONVERSION: ClassVar[dict[str, str]] = {
         'acceptSslCerts': 'acceptInsecureCerts',
         'version': 'browserVersion',
         'platform': PLATFORM_NAME,

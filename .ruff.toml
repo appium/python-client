@@ -10,6 +10,7 @@ select = [
     "FURB", # Refurb
     "SIM",  # Simplify
     "UP",   # Upgrade
+    "RUF",  # Ruff-specific rules
 ]
 
 [lint.per-file-ignores]

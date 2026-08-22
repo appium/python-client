@@ -59,7 +59,7 @@ class TestFlutterWaits:
         request_body = get_httpretty_request_body(httpretty.last_request())
         arguments = request_body['args'][0]
         assert request_body['script'] == 'flutter: waitForVisible'
-        assert list(arguments['element'].values())[0] == 'element_id'
+        assert next(iter(arguments['element'].values())) == 'element_id'
         assert arguments['timeout'] == 5
 
     @httpretty.activate
@@ -100,5 +100,5 @@ class TestFlutterWaits:
         request_body = get_httpretty_request_body(httpretty.last_request())
         arguments = request_body['args'][0]
         assert request_body['script'] == 'flutter: waitForAbsent'
-        assert list(arguments['element'].values())[0] == 'element_id'
+        assert next(iter(arguments['element'].values())) == 'element_id'
         assert arguments['timeout'] == 5

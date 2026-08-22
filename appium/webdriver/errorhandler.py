@@ -56,7 +56,7 @@ ERROR_TO_EXC_MAPPING: dict[str, type[sel_exceptions.WebDriverException]] = {
 }
 
 
-def format_stacktrace(original: None | str | Sequence) -> list[str]:
+def format_stacktrace(original: str | Sequence | None) -> list[str]:
     if not original:
         return []
     if isinstance(original, str):

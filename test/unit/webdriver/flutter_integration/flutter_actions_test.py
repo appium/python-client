@@ -41,7 +41,7 @@ class TestFlutterActions:
         request_body = get_httpretty_request_body(httpretty.last_request())
         arguments = request_body['args'][0]
         assert request_body['script'] == 'flutter: doubleClick'
-        assert list(arguments['origin'].values())[0] == 'element_id'
+        assert next(iter(arguments['origin'].values())) == 'element_id'
         assert arguments['offset'] == {'x': 10, 'y': 20}
 
     @httpretty.activate
@@ -61,8 +61,8 @@ class TestFlutterActions:
         request_body = get_httpretty_request_body(httpretty.last_request())
         arguments = request_body['args'][0]
         assert request_body['script'] == 'flutter: dragAndDrop'
-        assert list(arguments['source'].values())[0] == 'element_id1'
-        assert list(arguments['target'].values())[0] == 'element_id2'
+        assert next(iter(arguments['source'].values())) == 'element_id1'
+        assert next(iter(arguments['target'].values())) == 'element_id2'
 
     @httpretty.activate
     def test_scroll_till_visible(self):

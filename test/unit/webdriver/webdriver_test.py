@@ -487,6 +487,21 @@ class TestWebDriverWebDriver:
         }
 
     @httpretty.activate
+    def test_orientation_setter_normalizes_case(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/orientation'), body='{"value": ""}')
+
+        driver.orientation = 'landscape'
+        assert get_httpretty_request_body(httpretty.last_request()) == {
+            'orientation': 'LANDSCAPE',
+        }
+
+        driver.orientation = 'portrait'
+        assert get_httpretty_request_body(httpretty.last_request()) == {
+            'orientation': 'PORTRAIT',
+        }
+
+    @httpretty.activate
     def test_orientation_setter_invalid(self):
         driver = android_w3c_driver()
 

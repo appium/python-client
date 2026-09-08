@@ -286,6 +286,9 @@ def _parse_arg_value(args: list[str], arg_names: set[str], default: str) -> str:
     for idx, arg in enumerate(args):
         if arg in arg_names and idx < len(args) - 1:
             return args[idx + 1]
+        name, separator, value = arg.partition('=')
+        if separator and name in arg_names:
+            return value
     return default
 
 

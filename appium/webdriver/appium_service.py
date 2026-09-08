@@ -315,7 +315,10 @@ def _make_status_path(args: list[str]) -> str:
 
 
 def _make_server_url(args: list[str]) -> str:
-    return f'{_parse_protocol(args)}://{_parse_host(args)}:{_parse_port(args)}{_make_status_path(args)}'
+    host = _parse_host(args)
+    if ':' in host and not host.startswith('['):
+        host = f'[{host}]'
+    return f'{_parse_protocol(args)}://{host}:{_parse_port(args)}{_make_status_path(args)}'
 
 
 if __name__ == '__main__':

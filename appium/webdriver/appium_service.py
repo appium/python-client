@@ -18,6 +18,7 @@ import subprocess as sp
 import sys
 import time
 from collections.abc import Callable
+from ipaddress import AddressValueError, IPv6Address
 from typing import Any
 
 from selenium.webdriver.remote.remote_connection import urllib3
@@ -316,7 +317,11 @@ def _make_status_path(args: list[str]) -> str:
 
 def _make_server_url(args: list[str]) -> str:
     host = _parse_host(args)
-    if ':' in host and not host.startswith('['):
+    try:
+        IPv6Address(host)
+    except AddressValueError:
+        pass
+    else:
         host = f'[{host}]'
     return f'{_parse_protocol(args)}://{host}:{_parse_port(args)}{_make_status_path(args)}'
 

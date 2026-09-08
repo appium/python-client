@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from unittest.mock import Mock
+from unittest.mock import Mock, call
 
 import pytest
 
@@ -25,10 +25,12 @@ class TestAppiumService:
         assert AppiumService()
 
     @pytest.mark.parametrize(
-        ('status', 'expected_result', 'expected_elapsed'),
-        [(200, True, 0.0), (503, False, 0.5)],
+        ('status', 'expected_result', 'expected_elapsed', 'expected_requests'),
+        [(200, True, 0.0, 1), (503, False, 5.0, 10)],
     )
-    def test_is_listening_uses_short_polling_timeout(self, monkeypatch, status, expected_result, expected_elapsed):
+    def test_is_listening_uses_five_second_polling_timeout(
+        self, monkeypatch, status, expected_result, expected_elapsed, expected_requests
+    ):
         process = Mock()
         process.poll.return_value = None
         monkeypatch.setattr(appium_service.sp, 'Popen', Mock(return_value=process))
@@ -50,4 +52,4 @@ class TestAppiumService:
 
         assert service.is_listening is expected_result
         assert clock.perf_counter.return_value == expected_elapsed
-        connection.request.assert_called_once_with('HEAD', 'http://127.0.0.1:4723/status')
+        assert connection.request.call_args_list == [call('HEAD', 'http://127.0.0.1:4723/status')] * expected_requests

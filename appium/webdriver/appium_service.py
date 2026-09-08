@@ -184,7 +184,7 @@ class AppiumService:
         try:
             return is_service_listening(
                 _make_server_url(self._cmd),
-                timeout=STATE_CHECK_INTERVAL_MS / 1000.0,
+                timeout=STATE_CHECK_INTERVAL_MS / 100.0,  # 5 seconds
                 custom_validator=self._assert_is_running,
             )
         except AppiumStartupError:

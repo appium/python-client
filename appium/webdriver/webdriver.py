@@ -20,6 +20,7 @@ from selenium.common.exceptions import (
     SessionNotCreatedException,
     WebDriverException,
 )
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
@@ -281,10 +282,10 @@ class WebDriver(
 
     if TYPE_CHECKING:
 
-        def find_element(self, by: str, value: str | dict | None = None) -> 'MobileWebElement':  # type: ignore[override]
+        def find_element(self, by: str = By.ID, value: str | dict | None = None) -> 'MobileWebElement':  # type: ignore[override]
             ...
 
-        def find_elements(self, by: str, value: str | dict | None = None) -> list['MobileWebElement']:  # type: ignore[override]
+        def find_elements(self, by: str = By.ID, value: str | dict | None = None) -> list['MobileWebElement']:  # type: ignore[override]
             ...
 
     def delete_extensions(self) -> None:

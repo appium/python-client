@@ -2,6 +2,25 @@
 
 <!-- version list -->
 
+## v6.0.2 (2026-09-08)
+
+### Bug Fixes
+
+- Parse inline Appium service arguments ([#1294](https://github.com/appium/python-client/pull/1294),
+  [`2f3c83f`](https://github.com/appium/python-client/commit/2f3c83f1f717baa6455908338acf12666a9cd476))
+
+### Chores
+
+- Check up to 5 sec ([#1297](https://github.com/appium/python-client/pull/1297),
+  [`d931a8c`](https://github.com/appium/python-client/commit/d931a8c63a98e16bbb00577f32618e899f4930a8))
+
+### Testing
+
+- Cover inline service argument status URLs
+  ([#1294](https://github.com/appium/python-client/pull/1294),
+  [`2f3c83f`](https://github.com/appium/python-client/commit/2f3c83f1f717baa6455908338acf12666a9cd476))
+
+
 ## v6.0.1 (2026-09-08)
 
 ### Bug Fixes

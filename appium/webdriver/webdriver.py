@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 
@@ -244,6 +245,12 @@ class WebDriver(
         options: AppiumOptions | list[AppiumOptions] | None = None,
         client_config: AppiumClientConfig | None = None,
     ):
+        if isinstance(options, list):
+            # Normalize before Selenium separates common and alternative capabilities.
+            options = [
+                AppiumOptions().load_capabilities(AppiumOptions.as_w3c(option.to_capabilities())['capabilities']['alwaysMatch'])
+                for option in options
+            ]
         command_executor, client_config = _get_remote_connection_and_client_config(
             command_executor=command_executor, client_config=client_config
         )
@@ -340,7 +347,17 @@ class WebDriver(
         if not isinstance(capabilities, (dict, AppiumOptions)):
             raise InvalidArgumentException('Capabilities must be a dictionary or AppiumOptions instance')
 
-        w3c_caps = AppiumOptions.as_w3c(capabilities) if isinstance(capabilities, dict) else capabilities.to_w3c()
+        if isinstance(capabilities, AppiumOptions):
+            w3c_caps = capabilities.to_w3c()
+        elif (
+            set(capabilities) == {'capabilities'}
+            and isinstance(capabilities['capabilities'], dict)
+            and {'alwaysMatch', 'firstMatch'}.issubset(capabilities['capabilities'])
+        ):
+            # Selenium already creates the W3C envelope when given a list of options.
+            w3c_caps = copy.deepcopy(capabilities)
+        else:
+            w3c_caps = AppiumOptions.as_w3c(capabilities)
         response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
         # https://w3c.github.io/webdriver/#new-session
         if not isinstance(response, dict):

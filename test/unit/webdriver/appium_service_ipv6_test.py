@@ -22,7 +22,9 @@ from appium.webdriver.appium_service import _make_server_url
     [
         ('::1', '[::1]'),
         ('2001:db8::1', '[2001:db8::1]'),
+        ('fe80::1%en0', '[fe80::1%en0]'),
         ('[::1]', '[::1]'),
+        ('2001:db8::g', '2001:db8::g'),
         ('127.0.0.1', '127.0.0.1'),
         ('appium.test', 'appium.test'),
     ],

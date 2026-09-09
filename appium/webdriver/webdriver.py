@@ -20,7 +20,6 @@ from selenium.common.exceptions import (
     SessionNotCreatedException,
     WebDriverException,
 )
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command as RemoteCommand
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
@@ -63,6 +62,9 @@ from .locator_converter import AppiumLocatorConverter
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
+
+if TYPE_CHECKING:
+    from selenium.webdriver.common.by import By
 
 
 class ExtensionBase:

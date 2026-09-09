@@ -2,6 +2,29 @@
 
 <!-- version list -->
 
+## v6.0.3 (2026-09-09)
+
+### Bug Fixes
+
+- Bracket IPv6 hosts in service status URLs
+  ([#1295](https://github.com/appium/python-client/pull/1295),
+  [`a47ddd0`](https://github.com/appium/python-client/commit/a47ddd06938de8cce586727ddcbc8d4c27f8c802))
+
+- Validate IPv6 service hosts with ipaddress
+  ([#1295](https://github.com/appium/python-client/pull/1295),
+  [`a47ddd0`](https://github.com/appium/python-client/commit/a47ddd06938de8cce586727ddcbc8d4c27f8c802))
+
+### Testing
+
+- Cover IPv6 service status URL formatting
+  ([#1295](https://github.com/appium/python-client/pull/1295),
+  [`a47ddd0`](https://github.com/appium/python-client/commit/a47ddd06938de8cce586727ddcbc8d4c27f8c802))
+
+- Cover scoped and invalid IPv6 service hosts
+  ([#1295](https://github.com/appium/python-client/pull/1295),
+  [`a47ddd0`](https://github.com/appium/python-client/commit/a47ddd06938de8cce586727ddcbc8d4c27f8c802))
+
+
 ## v6.0.2 (2026-09-08)
 
 ### Bug Fixes

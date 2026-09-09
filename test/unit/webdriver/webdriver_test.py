@@ -137,6 +137,63 @@ class TestWebDriverWebDriver:
         assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
+    def test_create_session_register_uridirect_keeps_client_config(self):
+        """The client configuration given by a user must survive the direct connect switch.
+        https://github.com/appium/python-client/issues/855
+        """
+        httpretty.register_uri(
+            httpretty.POST,
+            f'{SERVER_URL_BASE}/session',
+            body=json.dumps(
+                {
+                    'sessionId': 'session-id',
+                    'capabilities': {
+                        'deviceName': 'Android Emulator',
+                        'directConnectProtocol': 'http',
+                        'directConnectHost': 'localhost2',
+                        'directConnectPort': 4800,
+                        'directConnectPath': '/special/path/wd/hub',
+                    },
+                }
+            ),
+        )
+
+        desired_caps = {
+            'platformName': 'Android',
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+            'automationName': 'UIAutomator2',
+        }
+        client_config = AppiumClientConfig(
+            remote_server_addr=SERVER_URL_BASE,
+            direct_connection=True,
+            timeout=5,
+            username='user',
+            password='pass',
+            user_agent='custom-agent',
+            init_args_for_pool_manager={'init_args_for_pool_manager': {'retries': 3}},
+        )
+        driver = webdriver.Remote(
+            SERVER_URL_BASE,
+            options=UiAutomator2Options().load_capabilities(desired_caps),
+            client_config=client_config,
+        )
+
+        new_client_config = driver.command_executor.client_config
+        assert isinstance(new_client_config, AppiumClientConfig)
+        assert new_client_config.remote_server_addr == 'http://localhost2:4800/special/path/wd/hub'
+        assert new_client_config.timeout == 5
+        assert new_client_config.username == 'user'
+        assert new_client_config.password == 'pass'
+        assert new_client_config.user_agent == 'custom-agent'
+        assert new_client_config.init_args_for_pool_manager == {'init_args_for_pool_manager': {'retries': 3}}
+        assert new_client_config.direct_connection
+        assert new_client_config.keep_alive == client_config.keep_alive
+
+        # the configuration instance given by a user must not be modified in-place
+        assert client_config.remote_server_addr == SERVER_URL_BASE
+
+    @httpretty.activate
     def test_create_session_register_uridirect_no_direct_connect_path(self):
         httpretty.register_uri(
             httpretty.POST,

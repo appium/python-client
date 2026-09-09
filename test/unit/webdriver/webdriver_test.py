@@ -16,7 +16,9 @@ import json
 from unittest.mock import patch
 
 import httpretty
+import pytest
 import urllib3
+from selenium.common.exceptions import WebDriverException
 
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
@@ -460,6 +462,38 @@ class TestWebDriverWebDriver:
         assert driver.session_id == 'session-id'
 
         assert isinstance(driver.command_executor, CustomAppiumConnection)
+
+    @httpretty.activate
+    def test_orientation_getter(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890/orientation'), body='{"value": "LANDSCAPE"}')
+        assert driver.orientation == 'LANDSCAPE'
+
+    @httpretty.activate
+    def test_orientation_setter(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/orientation'), body='{"value": ""}')
+
+        driver.orientation = 'LANDSCAPE'
+
+        assert get_httpretty_request_body(httpretty.last_request()) == {
+            'orientation': 'LANDSCAPE',
+        }
+
+        driver.orientation = 'PORTRAIT'
+
+        assert get_httpretty_request_body(httpretty.last_request()) == {
+            'orientation': 'PORTRAIT',
+        }
+
+    @httpretty.activate
+    def test_orientation_setter_invalid(self):
+        driver = android_w3c_driver()
+
+        with pytest.raises(WebDriverException) as excinfo:
+            driver.orientation = 'INVALID'
+
+        assert "You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'" in str(excinfo.value)
 
     @httpretty.activate
     def test_extention_command_check(self):

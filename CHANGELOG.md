@@ -2,6 +2,25 @@
 
 <!-- version list -->
 
+## v6.0.4 (2026-09-09)
+
+### Bug Fixes
+
+- Keep user client config when switching to direct connect endpoint
+  ([#1291](https://github.com/appium/python-client/pull/1291),
+  [`d47b730`](https://github.com/appium/python-client/commit/d47b730ea5d769368bfdca1f92948ae459a344d8))
+
+### Continuous Integration
+
+- **deps**: Bump gitpython from 3.1.58 to 3.1.59
+  ([#1299](https://github.com/appium/python-client/pull/1299),
+  [`2edf2d7`](https://github.com/appium/python-client/commit/2edf2d7026725b1216c98d9e1e3375052f4a0817))
+
+- **deps-dev**: Bump ruff from 0.16.5 to 0.16.6
+  ([#1292](https://github.com/appium/python-client/pull/1292),
+  [`f8997fd`](https://github.com/appium/python-client/commit/f8997fd373dc26e0e2c340431d997a4de1cc7644))
+
+
 ## v6.0.3 (2026-09-09)
 
 ### Bug Fixes

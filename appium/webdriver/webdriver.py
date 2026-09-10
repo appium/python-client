@@ -64,6 +64,9 @@ from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
 
+if TYPE_CHECKING:
+    from selenium.webdriver.common.by import By
+
 
 class ExtensionBase:
     """
@@ -282,10 +285,10 @@ class WebDriver(
 
     if TYPE_CHECKING:
 
-        def find_element(self, by: str, value: str | dict | None = None) -> 'MobileWebElement':  # type: ignore[override]
+        def find_element(self, by: str = By.ID, value: str | dict | None = None) -> 'MobileWebElement':  # type: ignore[override]
             ...
 
-        def find_elements(self, by: str, value: str | dict | None = None) -> list['MobileWebElement']:  # type: ignore[override]
+        def find_elements(self, by: str = By.ID, value: str | dict | None = None) -> list['MobileWebElement']:  # type: ignore[override]
             ...
 
     def delete_extensions(self) -> None:

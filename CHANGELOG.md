@@ -2,6 +2,32 @@
 
 <!-- version list -->
 
+## v6.0.5 (2026-09-10)
+
+### Bug Fixes
+
+- Preserve default locator strategy in WebDriver type hints
+  ([#1298](https://github.com/appium/python-client/pull/1298),
+  [`0bbe39c`](https://github.com/appium/python-client/commit/0bbe39cf6f2139d85d7d1535efc4bef507c9a9fb))
+
+### Code Style
+
+- Preserve existing source line endings ([#1298](https://github.com/appium/python-client/pull/1298),
+  [`0bbe39c`](https://github.com/appium/python-client/commit/0bbe39cf6f2139d85d7d1535efc4bef507c9a9fb))
+
+### Refactoring
+
+- Import By under TYPE_CHECKING and drop type-hint test
+  ([#1298](https://github.com/appium/python-client/pull/1298),
+  [`0bbe39c`](https://github.com/appium/python-client/commit/0bbe39cf6f2139d85d7d1535efc4bef507c9a9fb))
+
+### Testing
+
+- Cover default and explicit WebDriver locator type hints
+  ([#1298](https://github.com/appium/python-client/pull/1298),
+  [`0bbe39c`](https://github.com/appium/python-client/commit/0bbe39cf6f2139d85d7d1535efc4bef507c9a9fb))
+
+
 ## v6.0.4 (2026-09-09)
 
 ### Bug Fixes

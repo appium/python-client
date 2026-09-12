@@ -2,6 +2,33 @@
 
 <!-- version list -->
 
+## v6.0.6 (2026-09-12)
+
+### Bug Fixes
+
+- Preserve capability alternatives from option lists
+  ([#1296](https://github.com/appium/python-client/pull/1296),
+  [`aa4492e`](https://github.com/appium/python-client/commit/aa4492ef25d8bee4b8ef763f088f7745d6a4d07e))
+
+### Continuous Integration
+
+- **deps**: Bump actions/setup-java from 6.0.0 to 6.0.1
+  ([#1301](https://github.com/appium/python-client/pull/1301),
+  [`d555d77`](https://github.com/appium/python-client/commit/d555d779a63a74d1c03d92a15daca31a5e2e4e79))
+
+### Documentation
+
+- Add 2026 year in copyright and actualization packageVersion
+  ([#1300](https://github.com/appium/python-client/pull/1300),
+  [`392dd39`](https://github.com/appium/python-client/commit/392dd3947453c99d2b62917cd09562d2f21d9d97))
+
+### Testing
+
+- Cover W3C alternatives from option lists
+  ([#1296](https://github.com/appium/python-client/pull/1296),
+  [`aa4492e`](https://github.com/appium/python-client/commit/aa4492ef25d8bee4b8ef763f088f7745d6a4d07e))
+
+
 ## v6.0.5 (2026-09-10)
 
 ### Bug Fixes

@@ -48,11 +48,19 @@ class TestWebDriverLockAndroid:
         assert driver.is_locked() is True
 
     @httpretty.activate
-    def test_unlock(self):
+    def test_unlock_when_locked(self):
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
         assert isinstance(driver.unlock(), WebDriver)
+        assert get_httpretty_request_body(httpretty.latest_requests()[-4])['script'] == 'mobile: isLocked'
         assert get_httpretty_request_body(httpretty.last_request())['script'] == 'mobile: unlock'
+
+    @httpretty.activate
+    def test_unlock_when_unlocked(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": false}')
+        assert isinstance(driver.unlock(), WebDriver)
+        assert get_httpretty_request_body(httpretty.last_request())['script'] == 'mobile: isLocked'
 
 
 class TestWebDriverLockIOS:
@@ -85,11 +93,19 @@ class TestWebDriverLockIOS:
         assert driver.is_locked() is True
 
     @httpretty.activate
-    def test_unlock(self):
+    def test_unlock_when_locked(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
         assert isinstance(driver.unlock(), WebDriver)
+        assert get_httpretty_request_body(httpretty.latest_requests()[-4])['script'] == 'mobile: isLocked'
         assert get_httpretty_request_body(httpretty.last_request())['script'] == 'mobile: unlock'
+
+    @httpretty.activate
+    def test_unlock_when_unlocked(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": false}')
+        assert isinstance(driver.unlock(), WebDriver)
+        assert get_httpretty_request_body(httpretty.last_request())['script'] == 'mobile: isLocked'
 
     @httpretty.activate
     def test_touch_id(self):

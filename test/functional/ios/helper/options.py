@@ -29,6 +29,7 @@ def make_options(app: Optional[str] = None) -> XCUITestOptions:
     options.allow_touch_id_enroll = True
     options.wda_local_port = get_wda_port()
     options.simple_is_visible_check = True
+    options.wda_launch_timeout = 240000
 
     if app is not None:
         options.app = app

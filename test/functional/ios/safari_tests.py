@@ -35,9 +35,10 @@ def driver() -> Generator['WebDriver', None, None]:
     options.native_web_tap = True
     options.safari_ignore_fraud_warning = True
     options.webview_connect_timeout = 100000
+    options.new_command_timeout = 600
 
     client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
-    client_config.timeout = 600
+    client_config.timeout = 1200
     driver = webdriver.Remote(options=options, client_config=client_config)
 
     # Fresh iOS 17.4 simulator may not show up the webview context with "safari"

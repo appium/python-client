@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Dict
 
 from appium.options.common.app_option import AppOption
 from appium.options.common.auto_web_view_option import AutoWebViewOption
@@ -219,7 +220,7 @@ class XCUITestOptions(
     WebviewConnectTimeoutOption,
 ):
     @property
-    def default_capabilities(self) -> dict:
+    def default_capabilities(self) -> Dict:
         return {
             AUTOMATION_NAME: 'XCUITest',
             PLATFORM_NAME: 'iOS',

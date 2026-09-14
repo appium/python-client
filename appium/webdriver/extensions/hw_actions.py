@@ -12,18 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Optional
 
+from selenium.common.exceptions import UnknownMethodException
 from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
+
+from ..mobilecommand import MobileCommand as Command
 
 
-class HardwareActions(CanExecuteCommands, CanExecuteScripts):
-    def lock(self, seconds: int | None = None) -> Self:
-        """Lock the device. No changes are made if the device is already locked.
-
-        Requires the Appium driver to support the `mobile: lock` execute method.
+class HardwareActions(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
+    def lock(self, seconds: Optional[int] = None) -> Self:
+        """Lock the device. No changes are made if the device is already unlocked.
 
         Args:
             seconds: The duration to lock the device, in seconds.
@@ -36,44 +39,54 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts):
         """
         ext_name = 'mobile: lock'
         args = {'seconds': seconds or 0}
-        self.execute_script(ext_name, args)
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.LOCK, args)
         return self
 
     def unlock(self) -> Self:
-        """Unlock the device. No changes are made if the device is already unlocked.
-
-        Requires the Appium driver to support the `mobile: isLocked` and `mobile: unlock` execute methods.
+        """Unlock the device. No changes are made if the device is already locked.
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         ext_name = 'mobile: unlock'
-        if not self.execute_script('mobile: isLocked'):
-            return self
-        self.execute_script(ext_name)
+        try:
+            if not self.assert_extension_exists(ext_name).execute_script('mobile: isLocked'):
+                return self
+            self.execute_script(ext_name)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.UNLOCK)
         return self
 
     def is_locked(self) -> bool:
         """Checks whether the device is locked.
 
-        Requires the Appium driver to support the `mobile: isLocked` execute method.
-
         Returns:
             `True` if the device is locked
         """
         ext_name = 'mobile: isLocked'
-        return self.execute_script(ext_name)
+        try:
+            return self.assert_extension_exists(ext_name).execute_script('mobile: isLocked')
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            return self.mark_extension_absence(ext_name).execute(Command.IS_LOCKED)['value']
 
     def shake(self) -> Self:
         """Shake the device.
-
-        Requires the Appium driver to support the `mobile: shake` execute method.
 
         Returns:
             Union['WebDriver', 'HardwareActions']: Self instance
         """
         ext_name = 'mobile: shake'
-        self.execute_script(ext_name)
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            self.mark_extension_absence(ext_name).execute(Command.SHAKE)
         return self
 
     def touch_id(self, match: bool) -> Self:
@@ -105,17 +118,32 @@ class HardwareActions(CanExecuteCommands, CanExecuteScripts):
         return self
 
     def finger_print(self, finger_id: int) -> Self:
-        """Authenticate users using a fingerprint scan on supported Android emulators.
-
-        Requires the Appium driver to support the `mobile: fingerprint` execute method.
+        """Authenticate users by using their finger print scans on supported Android emulators.
 
         Args:
-            finger_id: Fingerprint identifier stored in the Android Keystore system (from 1 to 10)
-
-        Returns:
-            Union['WebDriver', 'HardwareActions']: Self instance
+            finger_id: Finger prints stored in Android Keystore system (from 1 to 10)
         """
         ext_name = 'mobile: fingerprint'
         args = {'fingerprintId': finger_id}
-        self.execute_script(ext_name, args)
+        try:
+            self.assert_extension_exists(ext_name).execute_script(ext_name, args)
+        except UnknownMethodException:
+            self.mark_extension_absence(ext_name).execute(Command.FINGER_PRINT, args)
         return self
+
+    def _add_commands(self) -> None:
+        self.command_executor.add_command(Command.LOCK, 'POST', '/session/$sessionId/appium/device/lock')
+        self.command_executor.add_command(Command.UNLOCK, 'POST', '/session/$sessionId/appium/device/unlock')
+        self.command_executor.add_command(Command.IS_LOCKED, 'POST', '/session/$sessionId/appium/device/is_locked')
+        self.command_executor.add_command(Command.SHAKE, 'POST', '/session/$sessionId/appium/device/shake')
+        self.command_executor.add_command(Command.TOUCH_ID, 'POST', '/session/$sessionId/appium/simulator/touch_id')
+        self.command_executor.add_command(
+            Command.TOGGLE_TOUCH_ID_ENROLLMENT,
+            'POST',
+            '/session/$sessionId/appium/simulator/toggle_touch_id_enrollment',
+        )
+        self.command_executor.add_command(
+            Command.FINGER_PRINT,
+            'POST',
+            '/session/$sessionId/appium/device/finger_print',
+        )

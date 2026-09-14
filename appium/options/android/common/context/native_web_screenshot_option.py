@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ NATIVE_WEB_SCREENSHOT = 'nativeWebScreenshot'
 
 class NativeWebScreenshotOption(SupportsCapabilities):
     @property
-    def native_web_screenshot(self) -> bool | None:
+    def native_web_screenshot(self) -> Optional[bool]:
         """
         Whether to use native screenshots in web view context.
         """

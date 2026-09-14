@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ REDUCE_MOTION = 'reduceMotion'
 
 class ReduceMotionOption(SupportsCapabilities):
     @property
-    def reduce_motion(self) -> bool | None:
+    def reduce_motion(self) -> Optional[bool]:
         """
         Whether to reduce motion accessibility preference.
         """

@@ -16,6 +16,7 @@
 # under the License.
 
 from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +25,14 @@ WAIT_FOR_QUIESCENCE = 'waitForQuiescence'
 
 class WaitForQuiescenceOption(SupportsCapabilities):
     @property
-    def wait_for_quiescence(self) -> bool | None:
+    def wait_for_quiescence(self) -> Optional[bool]:
         """
         Whether to wait for application quiescence.
         """
         return self.get_capability(WAIT_FOR_QUIESCENCE)
 
     @wait_for_quiescence.setter
-    def wait_for_quiescence(self, value: timedelta | float) -> None:
+    def wait_for_quiescence(self, value: Union[timedelta, float]) -> None:
         """
         It allows to turn on/off waiting for application quiescence in WebDriverAgent,
         while performing queries. The default value is true. You can avoid this kind

@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ ALLOW_DELAY_ADB = 'allowDelayAdb'
 
 class AllowDelayAdbOption(SupportsCapabilities):
     @property
-    def allow_delay_adb(self) -> bool | None:
+    def allow_delay_adb(self) -> Optional[bool]:
         """
         Whether to prevent the emulator to use -delay-adb feature.
         """

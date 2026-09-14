@@ -16,6 +16,7 @@
 # under the License.
 
 from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +25,7 @@ FLUTTER_SERVER_LAUNCH_TIMEOUT = 'flutterServerLaunchTimeout'
 
 class FlutterServerLaunchTimeOutOption(SupportsCapabilities):
     @property
-    def flutter_server_launch_timeout(self) -> timedelta | None:
+    def flutter_server_launch_timeout(self) -> Optional[timedelta]:
         """
         Gets the current timeout for launching the Flutter server in a Flutter application.
 
@@ -35,7 +36,7 @@ class FlutterServerLaunchTimeOutOption(SupportsCapabilities):
         return self.get_capability(FLUTTER_SERVER_LAUNCH_TIMEOUT)
 
     @flutter_server_launch_timeout.setter
-    def flutter_server_launch_timeout(self, value: timedelta | int) -> None:
+    def flutter_server_launch_timeout(self, value: Union[timedelta, int]) -> None:
         """
         Sets the timeout for launching the Flutter server in Flutter application.
         Default timeout is 5000ms

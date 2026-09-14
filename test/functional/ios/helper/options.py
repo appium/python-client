@@ -13,12 +13,13 @@
 # limitations under the License.
 
 import os
+from typing import Optional
 
 from appium.options.ios import XCUITestOptions
 from test.functional.test_helper import get_wda_port, get_worker_info
 
 
-def make_options(app: str | None = None) -> XCUITestOptions:
+def make_options(app: Optional[str] = None) -> XCUITestOptions:
     """Get XCUITest options configured for iOS testing with parallel execution support."""
     options = XCUITestOptions()
 

@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ AUTO_GRANT_PERMISSIONS = 'autoGrantPermissions'
 
 class AutoGrantPermissionsOption(SupportsCapabilities):
     @property
-    def auto_grant_permissions(self) -> bool | None:
+    def auto_grant_permissions(self) -> Optional[bool]:
         """
         Whether to grant all the requested application permissions
         automatically when a test starts.

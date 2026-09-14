@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ AUTOMATIC_PROFILING = 'safari:automaticProfiling'
 
 class AutomaticProfilingOption(SupportsCapabilities):
     @property
-    def automatic_profiling(self) -> bool | None:
+    def automatic_profiling(self) -> Optional[bool]:
         """
         Whether to use automatic profiling.
         """

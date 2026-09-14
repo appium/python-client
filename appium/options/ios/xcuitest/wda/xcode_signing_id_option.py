@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ XCODE_SIGNING_ID = 'xcodeSigningId'
 
 class XcodeSigningIdOption(SupportsCapabilities):
     @property
-    def xcode_signing_id(self) -> str | None:
+    def xcode_signing_id(self) -> Optional[str]:
         """
         Signing certificate for WebDriverAgent compilation.
         """

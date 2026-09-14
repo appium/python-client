@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Dict
 
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
@@ -51,7 +52,7 @@ class Mac2Options(
     WebDriverAgentMacUrlOption,
 ):
     @PrerunOption.prerun.setter  # type: ignore
-    def prerun(self, value: dict[str, str]) -> None:
+    def prerun(self, value: Dict[str, str]) -> None:
         """
         A mapping containing either 'script' or 'command' key. The value of
         each key must be a valid AppleScript script or command to be
@@ -62,7 +63,7 @@ class Mac2Options(
         PrerunOption.prerun.fset(self, value)  # type: ignore
 
     @PostrunOption.postrun.setter  # type: ignore
-    def postrun(self, value: dict[str, str]) -> None:
+    def postrun(self, value: Dict[str, str]) -> None:
         """
         A mapping containing either 'script' or 'command' key. The value of
         each key must be a valid AppleScript script or command to be
@@ -105,7 +106,7 @@ class Mac2Options(
         BundleIdOption.bundle_id.fset(self, value)  # type: ignore
 
     @property
-    def default_capabilities(self) -> dict:
+    def default_capabilities(self) -> Dict:
         return {
             AUTOMATION_NAME: 'Mac2',
             PLATFORM_NAME: 'Mac',

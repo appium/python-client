@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ BUILD_TOOLS_VERSION = 'buildToolsVersion'
 
 class BuildToolsVersionOption(SupportsCapabilities):
     @property
-    def build_tools_version(self) -> str | None:
+    def build_tools_version(self) -> Optional[str]:
         """
         Version of Android build tools to use.
         """

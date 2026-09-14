@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ SHOW_XCODE_LOG = 'showXcodeLog'
 
 class ShowXcodeLogOption(SupportsCapabilities):
     @property
-    def show_xcode_log(self) -> bool | None:
+    def show_xcode_log(self) -> Optional[bool]:
         """
         Whether to display the output of the Xcode command used to run the tests.
         """

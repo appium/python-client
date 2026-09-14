@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ LOGCAT_FILTER_SPECS = 'logcatFilterSpecs'
 
 class LogcatFilterSpecsOption(SupportsCapabilities):
     @property
-    def logcat_filter_specs(self) -> str | None:
+    def logcat_filter_specs(self) -> Optional[str]:
         """
         Logcat filter format.
         """

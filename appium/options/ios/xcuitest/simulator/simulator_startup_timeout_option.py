@@ -16,6 +16,7 @@
 # under the License.
 
 from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +25,7 @@ SIMULATOR_STARTUP_TIMEOUT = 'simulatorStartupTimeout'
 
 class SimulatorStartupTimeoutOption(SupportsCapabilities):
     @property
-    def simulator_startup_timeout(self) -> timedelta | None:
+    def simulator_startup_timeout(self) -> Optional[timedelta]:
         """
         Simulator startup timeout.
         """
@@ -32,7 +33,7 @@ class SimulatorStartupTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @simulator_startup_timeout.setter
-    def simulator_startup_timeout(self, value: timedelta | int) -> None:
+    def simulator_startup_timeout(self, value: Union[timedelta, int]) -> None:
         """
         Allows to change the default timeout for Simulator startup.
         By default, this value is set to 120000ms (2 minutes),

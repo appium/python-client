@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ SIMULATOR_TRACE_POINTER = 'simulatorTracePointer'
 
 class SimulatorTracePointerOption(SupportsCapabilities):
     @property
-    def simulator_trace_pointer(self) -> bool | None:
+    def simulator_trace_pointer(self) -> Optional[bool]:
         """
         Whether to highlight pointer moves in the Simulator window.
         """

@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ CHROMEDRIVER_USE_SYSTEM_EXECUTABLE = 'chromedriverUseSystemExecutable'
 
 class ChromedriverUseSystemExecutableOption(SupportsCapabilities):
     @property
-    def chromedriver_use_system_executable(self) -> bool | None:
+    def chromedriver_use_system_executable(self) -> Optional[bool]:
         """
         Whether to use the system chromedriver.
         """

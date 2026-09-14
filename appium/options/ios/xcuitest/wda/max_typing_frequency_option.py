@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ MAX_TYPING_FREQUENCY = 'maxTypingFrequency'
 
 class MaxTypingFrequencyOption(SupportsCapabilities):
     @property
-    def max_typing_frequency(self) -> int | None:
+    def max_typing_frequency(self) -> Optional[int]:
         """
         The number of keystrokes per minute.
         """

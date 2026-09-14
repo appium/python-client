@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ CHROMEDRIVER_DISABLE_BUILD_CHECK = 'chromedriverDisableBuildCheck'
 
 class ChromedriverDisableBuildCheckOption(SupportsCapabilities):
     @property
-    def chromedriver_disable_build_check(self) -> bool | None:
+    def chromedriver_disable_build_check(self) -> Optional[bool]:
         """
         Whether to disable the compatibility validation between the current
         chromedriver and the destination browser/web view.

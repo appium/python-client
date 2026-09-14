@@ -13,8 +13,7 @@
 # limitations under the License.
 
 import time
-from collections.abc import Generator
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Generator
 
 import pytest
 
@@ -55,7 +54,7 @@ def driver() -> Generator['WebDriver', None, None]:
 def test_context(driver: 'WebDriver') -> None:
     """Test Safari context switching."""
     contexts = driver.contexts
-    assert contexts[0] == 'NATIVE_APP'
+    assert 'NATIVE_APP' == contexts[0]
     assert contexts[1].startswith('WEBVIEW_')
     driver.switch_to.context(contexts[1])
     assert 'WEBVIEW_' in driver.current_context
@@ -74,7 +73,7 @@ def test_navigation(driver: 'WebDriver') -> None:
     driver.get('http://google.com')
     for _ in range(5):
         time.sleep(0.5)
-        if driver.title == 'Google':
+        if 'Google' == driver.title:
             return
 
     pytest.fail('The title was wrong')

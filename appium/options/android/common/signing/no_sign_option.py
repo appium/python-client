@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ NO_SIGN = 'noSign'
 
 class NoSignOption(SupportsCapabilities):
     @property
-    def no_sign(self) -> bool | None:
+    def no_sign(self) -> Optional[bool]:
         """
         Whether to skip application signing.
         """

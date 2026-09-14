@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ NO_RESET = 'noReset'
 
 class NoResetOption(SupportsCapabilities):
     @property
-    def no_reset(self) -> bool | None:
+    def no_reset(self) -> Optional[bool]:
         """
         Whether the driver should not perform a reset.
         """

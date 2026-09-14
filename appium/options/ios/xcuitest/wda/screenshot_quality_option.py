@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ SCREENSHOT_QUALITY = 'screenshotQuality'
 
 class ScreenshotQualityOption(SupportsCapabilities):
     @property
-    def screenshot_quality(self) -> int | None:
+    def screenshot_quality(self) -> Optional[int]:
         """
         Screenshot quality value.
         """

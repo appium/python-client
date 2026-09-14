@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ UNLOCK_STRATEGY = 'unlockStrategy'
 
 class UnlockStrategyOption(SupportsCapabilities):
     @property
-    def unlock_strategy(self) -> str | None:
+    def unlock_strategy(self) -> Optional[str]:
         """
         Unlock strategy name.
         """

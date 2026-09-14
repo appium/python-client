@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ CLEAR_DEVICE_LOGS_ON_START = 'clearDeviceLogsOnStart'
 
 class ClearDeviceLogsOnStartOption(SupportsCapabilities):
     @property
-    def clear_device_logs_on_start(self) -> bool | None:
+    def clear_device_logs_on_start(self) -> Optional[bool]:
         """
         Makes the driver to delete all the existing logs in the
         device buffer before starting a new test.

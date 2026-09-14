@@ -13,15 +13,14 @@
 # limitations under the License.
 
 import json
-from collections.abc import Sequence
-from typing import Any
+from typing import Any, Dict, List, Sequence, Type, Union
 
 import selenium.common.exceptions as sel_exceptions
 from selenium.webdriver.remote import errorhandler
 
 import appium.common.exceptions as appium_exceptions
 
-ERROR_TO_EXC_MAPPING: dict[str, type[sel_exceptions.WebDriverException]] = {
+ERROR_TO_EXC_MAPPING: Dict[str, Type[sel_exceptions.WebDriverException]] = {
     'element click intercepted': sel_exceptions.ElementClickInterceptedException,
     'element not interactable': sel_exceptions.ElementNotInteractableException,
     'insecure certificate': sel_exceptions.InsecureCertificateException,
@@ -56,13 +55,13 @@ ERROR_TO_EXC_MAPPING: dict[str, type[sel_exceptions.WebDriverException]] = {
 }
 
 
-def format_stacktrace(original: None | str | Sequence) -> list[str]:
+def format_stacktrace(original: Union[None, str, Sequence]) -> List[str]:
     if not original:
         return []
     if isinstance(original, str):
         return original.split('\n')
 
-    result: list[str] = []
+    result: List[str] = []
     try:
         for frame in original:
             if not isinstance(frame, dict):
@@ -82,7 +81,7 @@ def format_stacktrace(original: None | str | Sequence) -> list[str]:
 
 
 class MobileErrorHandler(errorhandler.ErrorHandler):
-    def check_response(self, response: dict[str, Any]) -> None:
+    def check_response(self, response: Dict[str, Any]) -> None:
         """
         https://www.w3.org/TR/webdriver/#errors
         """
@@ -108,7 +107,7 @@ class MobileErrorHandler(errorhandler.ErrorHandler):
         # In theory, we should also be checking HTTP status codes.
         # Java client, for example, prints a warning if the actual `error`
         # value does not match to the response's HTTP status code.
-        exception_class: type[sel_exceptions.WebDriverException] = ERROR_TO_EXC_MAPPING.get(
+        exception_class: Type[sel_exceptions.WebDriverException] = ERROR_TO_EXC_MAPPING.get(
             error, sel_exceptions.WebDriverException
         )
         if exception_class is sel_exceptions.WebDriverException and message:

@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Dict
 
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import AppiumOptions
@@ -44,7 +45,7 @@ class GeckoOptions(
         SystemPortOption.system_port.fset(self, value)  # type: ignore
 
     @property
-    def default_capabilities(self) -> dict:
+    def default_capabilities(self) -> Dict:
         return {
             AUTOMATION_NAME: 'Gecko',
         }

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import List
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
@@ -20,7 +21,7 @@ from ..mobilecommand import MobileCommand as Command
 
 class Context(CanExecuteCommands):
     @property
-    def contexts(self) -> list[str]:
+    def contexts(self) -> List[str]:
         """Returns the contexts within the current session.
 
         Usage:

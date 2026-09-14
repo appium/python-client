@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ INTENT_FLAGS = 'intentFlags'
 
 class IntentFlagsOption(SupportsCapabilities):
     @property
-    def intent_flags(self) -> str | None:
+    def intent_flags(self) -> Optional[str]:
         """
         Intent flags to be applied when
         starting the given appActivity by Activity Manager.

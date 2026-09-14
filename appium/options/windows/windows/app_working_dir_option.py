@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ APP_WORKING_DIR = 'appWorkingDir'
 
 class AppWorkingDirOption(SupportsCapabilities):
     @property
-    def app_working_dir(self) -> str | None:
+    def app_working_dir(self) -> Optional[str]:
         """
         Full path to the folder, which is going to be set as the working
         dir for the application under test.

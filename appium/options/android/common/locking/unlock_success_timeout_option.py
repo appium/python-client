@@ -16,6 +16,7 @@
 # under the License.
 
 from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +25,7 @@ UNLOCK_SUCCESS_TIMEOUT = 'unlockSuccessTimeout'
 
 class UnlockSuccessTimeoutOption(SupportsCapabilities):
     @property
-    def unlock_success_timeout(self) -> timedelta | None:
+    def unlock_success_timeout(self) -> Optional[timedelta]:
         """
         Timeout to wait until the device is unlocked.
         """
@@ -32,7 +33,7 @@ class UnlockSuccessTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @unlock_success_timeout.setter
-    def unlock_success_timeout(self, value: timedelta | int) -> None:
+    def unlock_success_timeout(self, value: Union[timedelta, int]) -> None:
         """
         Maximum timeout to wait until the device is unlocked.
         2000 ms by default.

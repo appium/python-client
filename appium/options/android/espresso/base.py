@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Dict
 
 from appium.options.android.common.adb.adb_exec_timeout_option import AdbExecTimeoutOption
 from appium.options.android.common.adb.adb_port_option import AdbPortOption
@@ -213,7 +214,7 @@ class EspressoOptions(
     AppLocaleOption,
 ):
     @property
-    def default_capabilities(self) -> dict:
+    def default_capabilities(self) -> Dict:
         return {
             AUTOMATION_NAME: 'Espresso',
             PLATFORM_NAME: 'Android',

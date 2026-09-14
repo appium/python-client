@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ DISABLE_AUTOMATIC_SCREENSHOTS = 'disableAutomaticScreenshots'
 
 class DisableAutomaticScreenshotsOption(SupportsCapabilities):
     @property
-    def disable_automatic_screenshots(self) -> bool | None:
+    def disable_automatic_screenshots(self) -> Optional[bool]:
         """
         Whether to disable automatic XCTest screenshots.
         """

@@ -28,6 +28,10 @@ class TestWebDriverRemoteFs:
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
+            appium_command('/session/1234567890/appium/device/push_file'),
+        )
+        httpretty.register_uri(
+            httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
         )
         dest_path = '/path/to/file.txt'
@@ -36,13 +40,16 @@ class TestWebDriverRemoteFs:
         assert isinstance(driver.push_file(dest_path, data), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['script'] == 'mobile: pushFile'
-        assert d['args'][0]['remotePath'] == dest_path
-        assert d['args'][0]['payload'] == str(data)
+        assert d.get('path', d['args'][0]['remotePath']) == dest_path
+        assert d.get('data', d['args'][0]['payload']) == str(data)
 
     @httpretty.activate
     def test_push_file_invalid_arg_exception_without_src_path_and_base64data(self):
         driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/push_file'),
+        )
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
@@ -55,6 +62,14 @@ class TestWebDriverRemoteFs:
     @httpretty.activate
     def test_push_file_invalid_arg_exception_with_src_file_not_found(self):
         driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/push_file'),
+        )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/push_file'),
+        )
         dest_path = '/dest_path/to/file.txt'
         src_path = '/src_path/to/file.txt'
 
@@ -66,6 +81,11 @@ class TestWebDriverRemoteFs:
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
+            appium_command('/session/1234567890/appium/device/pull_file'),
+            body='{"value": "SGVsbG9Xb3JsZA=="}',
+        )
+        httpretty.register_uri(
+            httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
             body='{"value": "SGVsbG9Xb3JsZA=="}',
         )
@@ -74,12 +94,16 @@ class TestWebDriverRemoteFs:
         assert driver.pull_file(dest_path) == str(base64.b64encode(bytes('HelloWorld', 'utf-8')).decode('utf-8'))
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['script'] == 'mobile: pullFile'
-        assert d['args'][0]['remotePath'] == dest_path
+        assert d.get('path', d['args'][0]['remotePath']) == dest_path
 
     @httpretty.activate
     def test_pull_folder(self):
         driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/pull_folder'),
+            body='{"value": "base64EncodedZippedFolderData"}',
+        )
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
@@ -90,5 +114,4 @@ class TestWebDriverRemoteFs:
         assert driver.pull_folder(dest_path) == 'base64EncodedZippedFolderData'
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['script'] == 'mobile: pullFolder'
-        assert d['args'][0]['remotePath'] == dest_path
+        assert d.get('path', d['args'][0]['remotePath']) == dest_path

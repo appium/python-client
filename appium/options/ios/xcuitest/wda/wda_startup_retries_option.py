@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ WDA_STARTUP_RETRIES = 'wdaStartupRetries'
 
 class WdaStartupRetriesOption(SupportsCapabilities):
     @property
-    def wda_startup_retries(self) -> int | None:
+    def wda_startup_retries(self) -> Optional[int]:
         """
         Number of retries before to fail WDA deployment.
         """

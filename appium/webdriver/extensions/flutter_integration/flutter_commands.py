@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import os
-from typing import Any, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from appium.common.helper import encode_file_to_base64
 from appium.webdriver.extensions.flutter_integration.flutter_finder import FlutterFinder
@@ -30,8 +30,8 @@ class FlutterCommand:
 
     def wait_for_visible(
         self,
-        locator: WebElement | FlutterFinder,
-        timeout: float | None = None,
+        locator: Union[WebElement, FlutterFinder],
+        timeout: Optional[float] = None,
     ) -> None:
         """
         Waits for a element to become visible.
@@ -43,7 +43,7 @@ class FlutterCommand:
         Returns:
             None
         """
-        opts: dict[str, Any] = self.__get_locator_options(locator)
+        opts: Dict[str, Any] = self.__get_locator_options(locator)
         if timeout is not None:
             opts['timeout'] = timeout
 
@@ -51,8 +51,8 @@ class FlutterCommand:
 
     def wait_for_invisible(
         self,
-        locator: WebElement | FlutterFinder,
-        timeout: float | None = None,
+        locator: Union[WebElement, FlutterFinder],
+        timeout: Optional[float] = None,
     ) -> None:
         """
         Waits for a element to become invisible.
@@ -64,7 +64,7 @@ class FlutterCommand:
         Returns:
             None:
         """
-        opts: dict[str, Any] = self.__get_locator_options(locator)
+        opts: Dict[str, Any] = self.__get_locator_options(locator)
         if timeout is not None:
             opts['timeout'] = timeout
 
@@ -72,7 +72,7 @@ class FlutterCommand:
 
     # flutter action commands
 
-    def perform_double_click(self, element: WebElement, offset: tuple[int, int] | None = None) -> None:
+    def perform_double_click(self, element: WebElement, offset: Optional[Tuple[int, int]] = None) -> None:
         """
         Performs a double-click on the given element, with an optional offset.
 
@@ -83,12 +83,12 @@ class FlutterCommand:
         Returns:
             None:
         """
-        opts: dict[str, WebElement | dict[str, int]] = {'origin': element}
+        opts: Dict[str, Union[WebElement, Dict[str, int]]] = {'origin': element}
         if offset is not None:
             opts['offset'] = {'x': offset[0], 'y': offset[1]}
         self.execute_flutter_command('doubleClick', opts)
 
-    def perform_long_press(self, element: WebElement, offset: tuple[int, int] | None = None) -> None:
+    def perform_long_press(self, element: WebElement, offset: Optional[Tuple[int, int]] = None) -> None:
         """
         Performs a long press on the given element, with an optional offset.
 
@@ -99,7 +99,7 @@ class FlutterCommand:
         Returns:
             None:
         """
-        opts: dict[str, WebElement | dict[str, int]] = {'origin': element}
+        opts: Dict[str, Union[WebElement, Dict[str, int]]] = {'origin': element}
         if offset is not None:
             opts['offset'] = {'x': offset[0], 'y': offset[1]}
         self.execute_flutter_command('longPress', opts)
@@ -154,7 +154,10 @@ class FlutterCommand:
         Returns:
             str: Image ID of the injected image.
         """
-        base64_encoded_image = encode_file_to_base64(value) if os.path.isfile(value) else value
+        if os.path.isfile(value):
+            base64_encoded_image = encode_file_to_base64(value)
+        else:
+            base64_encoded_image = value
         return self.execute_flutter_command('injectImage', {'base64Image': base64_encoded_image})
 
     def activate_injected_image(self, image_id: str) -> None:
@@ -171,10 +174,10 @@ class FlutterCommand:
 
     def get_render_tree(
         self,
-        widget_type: str | None = None,
-        key: str | None = None,
-        text: str | None = None,
-    ) -> list[dict | None]:
+        widget_type: Optional[str] = None,
+        key: Optional[str] = None,
+        text: Optional[str] = None,
+    ) -> List[Optional[Dict]]:
         """
         Returns the render tree of the root widget.
 
@@ -287,7 +290,7 @@ class FlutterCommand:
         """
         return self.driver.execute_script(f'flutter: {scriptName}', params)
 
-    def __get_locator_options(self, locator: Union[WebElement, 'FlutterFinder']) -> dict[str, dict | WebElement]:
+    def __get_locator_options(self, locator: Union[WebElement, 'FlutterFinder']) -> Dict[str, Union[dict, WebElement]]:
         if isinstance(locator, WebElement):
             return {'element': locator}
         return {'locator': locator.to_dict()}

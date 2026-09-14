@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ USE_PREBUILT_WDA = 'usePrebuiltWDA'
 
 class UsePrebuiltWdaOption(SupportsCapabilities):
     @property
-    def use_prebuilt_wda(self) -> bool | None:
+    def use_prebuilt_wda(self) -> Optional[bool]:
         """
         Whether to skip the build phase of running the WDA app.
         """

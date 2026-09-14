@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ SKIP_APP_KILL = 'skipAppKill'
 
 class SkipAppKillOption(SupportsCapabilities):
     @property
-    def skip_app_kill(self) -> bool | None:
+    def skip_app_kill(self) -> Optional[bool]:
         """
         Whether to skip the termination of the application under test.
         """

@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from collections.abc import Callable
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Union
 
 from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.remote.command import Command as RemoteCommand
@@ -29,13 +28,13 @@ class WebElement(SeleniumWebElement):
 
     if TYPE_CHECKING:
 
-        def find_element(self, by: str, value: str | dict | None = None) -> Self:  # type: ignore[override]
+        def find_element(self, by: str, value: Union[str, Dict, None] = None) -> Self:  # type: ignore[override]
             ...
 
-        def find_elements(self, by: str, value: str | dict | None = None) -> list[Self]:  # type: ignore[override]
+        def find_elements(self, by: str, value: Union[str, Dict, None] = None) -> List[Self]:  # type: ignore[override]
             ...
 
-    def get_attribute(self, name: str) -> str | dict | None:  # type: ignore[override]
+    def get_attribute(self, name: str) -> Optional[Union[str, Dict]]:  # type: ignore[override]
         """Gets the given attribute or property of the element.
 
         Override for Appium
@@ -103,7 +102,7 @@ class WebElement(SeleniumWebElement):
         return self
 
     @property
-    def location_in_view(self) -> dict[str, int]:
+    def location_in_view(self) -> Dict[str, int]:
         """Gets the location of an element relative to the view.
 
         Usage:

@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ SAFARI_LOG_ALL_COMMUNICATION_HEX_DUMP = 'safariLogAllCommunicationHexDump'
 
 class SafariLogAllCommunicationHexDumpOption(SupportsCapabilities):
     @property
-    def safari_log_all_communication_hex_dump(self) -> bool | None:
+    def safari_log_all_communication_hex_dump(self) -> Optional[bool]:
         """
         Whether to log of plists sent to and received from the Web Inspector
         in hex dump format.

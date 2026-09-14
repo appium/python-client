@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ CUSTOM_SSL_CERT = 'customSSLCert'
 
 class CustomSslCertOption(SupportsCapabilities):
     @property
-    def custom_ssl_cert(self) -> str | None:
+    def custom_ssl_cert(self) -> Optional[str]:
         """
         SSL certificate content.
         """

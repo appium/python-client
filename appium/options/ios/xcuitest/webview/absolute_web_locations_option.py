@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ ABSOLUTE_WEB_LOCATIONS = 'absoluteWebLocations'
 
 class AbsoluteWebLocationsOption(SupportsCapabilities):
     @property
-    def absolute_web_locations(self) -> bool | None:
+    def absolute_web_locations(self) -> Optional[bool]:
         """
         Whether Get Element Location returns coordinates
         relative to the page origin for web view elements.

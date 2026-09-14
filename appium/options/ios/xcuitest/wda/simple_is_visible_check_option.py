@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ SIMPLE_IS_VISIBLE_CHECK = 'simpleIsVisibleCheck'
 
 class SimpleIsVisibleCheckOption(SupportsCapabilities):
     @property
-    def simple_is_visible_check(self) -> bool | None:
+    def simple_is_visible_check(self) -> Optional[bool]:
         """
         Whether to use native methods for determining visibility of elements.
         """

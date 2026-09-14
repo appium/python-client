@@ -2,6 +2,213 @@
 
 <!-- version list -->
 
+## v6.0.6 (2026-09-12)
+
+### Bug Fixes
+
+- Preserve capability alternatives from option lists
+  ([#1296](https://github.com/appium/python-client/pull/1296),
+  [`aa4492e`](https://github.com/appium/python-client/commit/aa4492ef25d8bee4b8ef763f088f7745d6a4d07e))
+
+### Continuous Integration
+
+- **deps**: Bump actions/setup-java from 6.0.0 to 6.0.1
+  ([#1301](https://github.com/appium/python-client/pull/1301),
+  [`d555d77`](https://github.com/appium/python-client/commit/d555d779a63a74d1c03d92a15daca31a5e2e4e79))
+
+### Documentation
+
+- Add 2026 year in copyright and actualization packageVersion
+  ([#1300](https://github.com/appium/python-client/pull/1300),
+  [`392dd39`](https://github.com/appium/python-client/commit/392dd3947453c99d2b62917cd09562d2f21d9d97))
+
+### Testing
+
+- Cover W3C alternatives from option lists
+  ([#1296](https://github.com/appium/python-client/pull/1296),
+  [`aa4492e`](https://github.com/appium/python-client/commit/aa4492ef25d8bee4b8ef763f088f7745d6a4d07e))
+
+
+## v6.0.5 (2026-09-10)
+
+### Bug Fixes
+
+- Preserve default locator strategy in WebDriver type hints
+  ([#1298](https://github.com/appium/python-client/pull/1298),
+  [`0bbe39c`](https://github.com/appium/python-client/commit/0bbe39cf6f2139d85d7d1535efc4bef507c9a9fb))
+
+### Code Style
+
+- Preserve existing source line endings ([#1298](https://github.com/appium/python-client/pull/1298),
+  [`0bbe39c`](https://github.com/appium/python-client/commit/0bbe39cf6f2139d85d7d1535efc4bef507c9a9fb))
+
+### Refactoring
+
+- Import By under TYPE_CHECKING and drop type-hint test
+  ([#1298](https://github.com/appium/python-client/pull/1298),
+  [`0bbe39c`](https://github.com/appium/python-client/commit/0bbe39cf6f2139d85d7d1535efc4bef507c9a9fb))
+
+### Testing
+
+- Cover default and explicit WebDriver locator type hints
+  ([#1298](https://github.com/appium/python-client/pull/1298),
+  [`0bbe39c`](https://github.com/appium/python-client/commit/0bbe39cf6f2139d85d7d1535efc4bef507c9a9fb))
+
+
+## v6.0.4 (2026-09-09)
+
+### Bug Fixes
+
+- Keep user client config when switching to direct connect endpoint
+  ([#1291](https://github.com/appium/python-client/pull/1291),
+  [`d47b730`](https://github.com/appium/python-client/commit/d47b730ea5d769368bfdca1f92948ae459a344d8))
+
+### Continuous Integration
+
+- **deps**: Bump gitpython from 3.1.58 to 3.1.59
+  ([#1299](https://github.com/appium/python-client/pull/1299),
+  [`2edf2d7`](https://github.com/appium/python-client/commit/2edf2d7026725b1216c98d9e1e3375052f4a0817))
+
+- **deps-dev**: Bump ruff from 0.16.5 to 0.16.6
+  ([#1292](https://github.com/appium/python-client/pull/1292),
+  [`f8997fd`](https://github.com/appium/python-client/commit/f8997fd373dc26e0e2c340431d997a4de1cc7644))
+
+
+## v6.0.3 (2026-09-09)
+
+### Bug Fixes
+
+- Bracket IPv6 hosts in service status URLs
+  ([#1295](https://github.com/appium/python-client/pull/1295),
+  [`a47ddd0`](https://github.com/appium/python-client/commit/a47ddd06938de8cce586727ddcbc8d4c27f8c802))
+
+- Validate IPv6 service hosts with ipaddress
+  ([#1295](https://github.com/appium/python-client/pull/1295),
+  [`a47ddd0`](https://github.com/appium/python-client/commit/a47ddd06938de8cce586727ddcbc8d4c27f8c802))
+
+### Testing
+
+- Cover IPv6 service status URL formatting
+  ([#1295](https://github.com/appium/python-client/pull/1295),
+  [`a47ddd0`](https://github.com/appium/python-client/commit/a47ddd06938de8cce586727ddcbc8d4c27f8c802))
+
+- Cover scoped and invalid IPv6 service hosts
+  ([#1295](https://github.com/appium/python-client/pull/1295),
+  [`a47ddd0`](https://github.com/appium/python-client/commit/a47ddd06938de8cce586727ddcbc8d4c27f8c802))
+
+
+## v6.0.2 (2026-09-08)
+
+### Bug Fixes
+
+- Parse inline Appium service arguments ([#1294](https://github.com/appium/python-client/pull/1294),
+  [`2f3c83f`](https://github.com/appium/python-client/commit/2f3c83f1f717baa6455908338acf12666a9cd476))
+
+### Chores
+
+- Check up to 5 sec ([#1297](https://github.com/appium/python-client/pull/1297),
+  [`d931a8c`](https://github.com/appium/python-client/commit/d931a8c63a98e16bbb00577f32618e899f4930a8))
+
+### Testing
+
+- Cover inline service argument status URLs
+  ([#1294](https://github.com/appium/python-client/pull/1294),
+  [`2f3c83f`](https://github.com/appium/python-client/commit/2f3c83f1f717baa6455908338acf12666a9cd476))
+
+
+## v6.0.1 (2026-09-08)
+
+### Bug Fixes
+
+- Use seconds for service listening polling timeout
+  ([#1293](https://github.com/appium/python-client/pull/1293),
+  [`c440732`](https://github.com/appium/python-client/commit/c4407328be30d84e1587e5868d6cddf323ee657a))
+
+### Chores
+
+- Add PERF, FURB, SIM ruff rules ([#1275](https://github.com/appium/python-client/pull/1275),
+  [`c36240e`](https://github.com/appium/python-client/commit/c36240eeaa69e61c56d617fc98c90dc213deb2e3))
+
+- Add UP ruff rules and delete old typings
+  ([#1278](https://github.com/appium/python-client/pull/1278),
+  [`9622c1e`](https://github.com/appium/python-client/commit/9622c1e2fb92e67a7983b1b5bb96f674201bbb47))
+
+- Up minimum selenium_version and doc it
+  ([#1273](https://github.com/appium/python-client/pull/1273),
+  [`a7f909c`](https://github.com/appium/python-client/commit/a7f909ca26872cb635ef33b9a0f36e6466d233b4))
+
+- **deps**: Bump gitpython from 3.1.57 to 3.1.58
+  ([#1271](https://github.com/appium/python-client/pull/1271),
+  [`7c11ab0`](https://github.com/appium/python-client/commit/7c11ab08e0bb4eada90d34d067cd3b3a90caa6e1))
+
+### Continuous Integration
+
+- Enable auto release again
+  ([`4f7e38d`](https://github.com/appium/python-client/commit/4f7e38d217a88b225205e5a21580556f079caf1b))
+
+- Fix url for the flutter test app ([#1281](https://github.com/appium/python-client/pull/1281),
+  [`2d5edbe`](https://github.com/appium/python-client/commit/2d5edbe3dba1816d109f882257db327e6bb47b7b))
+
+- **deps**: Bump actions/setup-java from 5.6.0 to 5.7.0
+  ([#1272](https://github.com/appium/python-client/pull/1272),
+  [`534fe7d`](https://github.com/appium/python-client/commit/534fe7df33cf9b3716becaaa93c420ab5498168b))
+
+- **deps**: Bump actions/setup-java from 5.7.0 to 6.0.0
+  ([#1285](https://github.com/appium/python-client/pull/1285),
+  [`54251be`](https://github.com/appium/python-client/commit/54251be816c7e0a306581a94db04f7b1ff24b1b0))
+
+- **deps**: Bump selenium from 4.46.0 to 4.47.0
+  ([#1277](https://github.com/appium/python-client/pull/1277),
+  [`a6dd793`](https://github.com/appium/python-client/commit/a6dd7936a916017bead677e8c6cb7008a67dcacb))
+
+- **deps**: Bump selenium from 4.47.0 to 4.48.0
+  ([#1287](https://github.com/appium/python-client/pull/1287),
+  [`cdaf108`](https://github.com/appium/python-client/commit/cdaf10881fa2786f70ef0dee05b30fd301a7814f))
+
+- **deps-dev**: Bump mypy from 2.3.0 to 2.3.1
+  ([#1280](https://github.com/appium/python-client/pull/1280),
+  [`41b6158`](https://github.com/appium/python-client/commit/41b6158f36a9c9eea5fcfaead1e1bb091a747426))
+
+- **deps-dev**: Bump python-semantic-release from 10.6.1 to 10.6.2
+  ([#1288](https://github.com/appium/python-client/pull/1288),
+  [`6d775af`](https://github.com/appium/python-client/commit/6d775af39a06ca7b3755b50f3c840926e70c80e8))
+
+- **deps-dev**: Bump ruff from 0.16.1 to 0.16.2
+  ([#1276](https://github.com/appium/python-client/pull/1276),
+  [`abdb347`](https://github.com/appium/python-client/commit/abdb347cbbab4d63ccd1aa96f6541de7375b2058))
+
+- **deps-dev**: Bump ruff from 0.16.2 to 0.16.3
+  ([#1279](https://github.com/appium/python-client/pull/1279),
+  [`4cd8822`](https://github.com/appium/python-client/commit/4cd882294a4c1e077f04f572beebf6bbcdd32a66))
+
+- **deps-dev**: Bump ruff from 0.16.3 to 0.16.4
+  ([#1284](https://github.com/appium/python-client/pull/1284),
+  [`8f32c8b`](https://github.com/appium/python-client/commit/8f32c8b21a659010b7f82cdffc52bf90ec325edc))
+
+- **deps-dev**: Bump ruff from 0.16.4 to 0.16.5
+  ([#1286](https://github.com/appium/python-client/pull/1286),
+  [`bca93b5`](https://github.com/appium/python-client/commit/bca93b59222089bba79ff137c6e22782eba04a21))
+
+- **deps-dev**: Bump types-python-dateutil
+  ([#1274](https://github.com/appium/python-client/pull/1274),
+  [`a974755`](https://github.com/appium/python-client/commit/a974755b56e2576bd606eefb31189a7c2ad7620b))
+
+### Documentation
+
+- Add breaking change note in the changelog
+  ([`5096f41`](https://github.com/appium/python-client/commit/5096f4103bee0aba8a321c084d23626ac8107d63))
+
+- Add usage examples for screen recording methods
+  ([#1290](https://github.com/appium/python-client/pull/1290),
+  [`0fe6d91`](https://github.com/appium/python-client/commit/0fe6d914bc17d7a383347a96b3948d1291b57fcb))
+
+### Testing
+
+- Cover the service listening polling budget
+  ([#1293](https://github.com/appium/python-client/pull/1293),
+  [`c440732`](https://github.com/appium/python-client/commit/c4407328be30d84e1587e5868d6cddf323ee657a))
+
+
 ## v6.0.0 (2026-08-08)
 
 ### Breaking Changes

@@ -327,6 +327,10 @@ driver = webdriver.Remote(
 )
 ```
 
+Only the endpoint the client talks to is replaced. The rest of the given `client_config`,
+such as `timeout`, `init_args_for_pool_manager`, proxy, certificates and authentication
+settings, keeps being applied to the requests sent to the direct connect endpoint.
+
 ## Relax SSL validation
 
 `strict_ssl` option allows you to send commands to an invalid certificate host like a self-signed one.

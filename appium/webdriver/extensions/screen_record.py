@@ -151,6 +151,9 @@ class ScreenRecord(CanExecuteCommands):
                 Possible values are 'ultrafast', 'superfast', 'veryfast'(default), 'faster', 'fast', 'medium', 'slow',
                 'slower', 'veryslow'
 
+        Usage:
+            driver.start_recording_screen()
+
         Returns:
             bytes: Base-64 encoded content of the recorded media
                 if `stop_recording_screen` isn't called after previous `start_recording_screen`.
@@ -183,6 +186,12 @@ class ScreenRecord(CanExecuteCommands):
             formFields (dict): [multipart/form-data requests] Additional form fields mapping. If any entry has
                 the same key as `fileFieldName` then it is going to be ignored. (Since Appium 1.18.0)
             headers (dict): [multipart/form-data requests] Headers mapping (Since Appium 1.18.0)
+
+        Usage:
+            payload = driver.stop_recording_screen()
+            with open('media.mp4', "wb") as fd:
+                import base64
+                fd.write(base64.b64decode(payload))
 
         Returns:
             bytes: Base-64 encoded content of the recorded media file or an empty string

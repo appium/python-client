@@ -18,6 +18,7 @@ import subprocess as sp
 import sys
 import time
 from collections.abc import Callable
+from ipaddress import AddressValueError, IPv6Address
 from typing import Any
 
 from selenium.webdriver.remote.remote_connection import urllib3
@@ -184,7 +185,7 @@ class AppiumService:
         try:
             return is_service_listening(
                 _make_server_url(self._cmd),
-                timeout=STATE_CHECK_INTERVAL_MS,
+                timeout=STATE_CHECK_INTERVAL_MS / 100.0,  # 5 seconds
                 custom_validator=self._assert_is_running,
             )
         except AppiumStartupError:
@@ -286,6 +287,9 @@ def _parse_arg_value(args: list[str], arg_names: set[str], default: str) -> str:
     for idx, arg in enumerate(args):
         if arg in arg_names and idx < len(args) - 1:
             return args[idx + 1]
+        name, separator, value = arg.partition('=')
+        if separator and name in arg_names:
+            return value
     return default
 
 
@@ -315,7 +319,14 @@ def _make_status_path(args: list[str]) -> str:
 
 
 def _make_server_url(args: list[str]) -> str:
-    return f'{_parse_protocol(args)}://{_parse_host(args)}:{_parse_port(args)}{_make_status_path(args)}'
+    host = _parse_host(args)
+    try:
+        IPv6Address(host)
+    except AddressValueError:
+        pass
+    else:
+        host = f'[{host}]'
+    return f'{_parse_protocol(args)}://{host}:{_parse_port(args)}{_make_status_path(args)}'
 
 
 if __name__ == '__main__':

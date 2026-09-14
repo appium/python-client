@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 
@@ -62,6 +63,9 @@ from .locator_converter import AppiumLocatorConverter
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
+
+if TYPE_CHECKING:
+    from selenium.webdriver.common.by import By
 
 
 class ExtensionBase:
@@ -244,6 +248,12 @@ class WebDriver(
         options: AppiumOptions | list[AppiumOptions] | None = None,
         client_config: AppiumClientConfig | None = None,
     ):
+        if isinstance(options, list):
+            # Normalize before Selenium separates common and alternative capabilities.
+            options = [
+                AppiumOptions().load_capabilities(AppiumOptions.as_w3c(option.to_capabilities())['capabilities']['alwaysMatch'])
+                for option in options
+            ]
         command_executor, client_config = _get_remote_connection_and_client_config(
             command_executor=command_executor, client_config=client_config
         )
@@ -281,10 +291,10 @@ class WebDriver(
 
     if TYPE_CHECKING:
 
-        def find_element(self, by: str, value: str | dict | None = None) -> 'MobileWebElement':  # type: ignore[override]
+        def find_element(self, by: str = By.ID, value: str | dict | None = None) -> 'MobileWebElement':  # type: ignore[override]
             ...
 
-        def find_elements(self, by: str, value: str | dict | None = None) -> list['MobileWebElement']:  # type: ignore[override]
+        def find_elements(self, by: str = By.ID, value: str | dict | None = None) -> list['MobileWebElement']:  # type: ignore[override]
             ...
 
     def delete_extensions(self) -> None:
@@ -304,11 +314,10 @@ class WebDriver(
 
         if not self.caps:
             raise ValueError('Driver capabilities must be defined')
-        if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps)):
-            message = 'Direct connect capabilities from server were:\n'
-            for key in [direct_protocol, direct_host, direct_port, direct_path]:
-                message += f"{key}: '{self.caps.get(key, '')}' "
-            logger.debug(message)
+        keys = (direct_protocol, direct_host, direct_port, direct_path)
+        if not set(keys).issubset(self.caps):
+            details = ' '.join(f"{key}: '{self.caps.get(key, '')}'" for key in keys)
+            logger.debug(f'Direct connect capabilities from server were:\n{details} ')
             return
 
         protocol = self.caps[direct_protocol]
@@ -318,11 +327,19 @@ class WebDriver(
         executor = f'{protocol}://{hostname}:{port}{path}'
 
         logger.debug('Updated request endpoint to %s', executor)
+
         # Override command executor.
+        # The client configuration given by a user, e.g. the read timeout, the proxy or
+        # the authentication credentials, must be kept as-is. Only the endpoint the client
+        # talks to changes, thus a copy of the current configuration is reused instead of
+        # building a brand-new one out of the endpoint URL.
+        client_config = copy.copy(self.command_executor.client_config)
+        client_config.remote_server_addr = executor
+        client_config.keep_alive = keep_alive
         if isinstance(self.command_executor, AppiumConnection):  # type: ignore
-            self.command_executor = AppiumConnection(executor, keep_alive=keep_alive)
+            self.command_executor = AppiumConnection(client_config=client_config)
         else:
-            self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
+            self.command_executor = RemoteConnection(client_config=client_config)
         self._add_commands()
 
     # https://github.com/SeleniumHQ/selenium/blob/06fdf2966df6bca47c0ae45e8201cd30db9b9a49/py/selenium/webdriver/remote/webdriver.py#L277
@@ -340,7 +357,17 @@ class WebDriver(
         if not isinstance(capabilities, (dict, AppiumOptions)):
             raise InvalidArgumentException('Capabilities must be a dictionary or AppiumOptions instance')
 
-        w3c_caps = AppiumOptions.as_w3c(capabilities) if isinstance(capabilities, dict) else capabilities.to_w3c()
+        if isinstance(capabilities, AppiumOptions):
+            w3c_caps = capabilities.to_w3c()
+        elif (
+            set(capabilities) == {'capabilities'}
+            and isinstance(capabilities['capabilities'], dict)
+            and {'alwaysMatch', 'firstMatch'}.issubset(capabilities['capabilities'])
+        ):
+            # Selenium already creates the W3C envelope when given a list of options.
+            w3c_caps = copy.deepcopy(capabilities)
+        else:
+            w3c_caps = AppiumOptions.as_w3c(capabilities)
         response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
         # https://w3c.github.io/webdriver/#new-session
         if not isinstance(response, dict):

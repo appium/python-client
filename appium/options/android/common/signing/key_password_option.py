@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ KEY_PASSWORD = 'keyPassword'
 
 class KeyPasswordOption(SupportsCapabilities):
     @property
-    def key_password(self) -> Optional[str]:
+    def key_password(self) -> str | None:
         """
         Keystore key password.
         """

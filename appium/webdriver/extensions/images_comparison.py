@@ -12,17 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict, Union
+from typing import Any
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
 from ..mobilecommand import MobileCommand as Command
 
-Base64Payload = Union[str, bytes]
+Base64Payload = str | bytes
 
 
 class ImagesComparison(CanExecuteCommands):
-    def match_images_features(self, base64_image1: Base64Payload, base64_image2: Base64Payload, **opts: Any) -> Dict[str, Any]:
+    def match_images_features(self, base64_image1: Base64Payload, base64_image2: Base64Payload, **opts: Any) -> dict[str, Any]:
         """Performs images matching by features.
 
         Read
@@ -78,7 +78,7 @@ class ImagesComparison(CanExecuteCommands):
 
     def find_image_occurrence(
         self, base64_full_image: Base64Payload, base64_partial_image: Base64Payload, **opts: Any
-    ) -> Dict[str, Union[bytes, Dict]]:
+    ) -> dict[str, bytes | dict]:
         """Performs images matching by template to find possible occurrence of the partial image
         in the full image.
 
@@ -112,7 +112,7 @@ class ImagesComparison(CanExecuteCommands):
 
     def get_images_similarity(
         self, base64_image1: Base64Payload, base64_image2: Base64Payload, **opts: Any
-    ) -> Dict[str, Union[bytes, Dict]]:
+    ) -> dict[str, bytes | dict]:
         """Performs images matching to calculate the similarity score between them.
 
         The flow there is similar to the one used in

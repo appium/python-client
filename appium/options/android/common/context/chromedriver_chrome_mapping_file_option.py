@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ CHROMEDRIVER_CHROME_MAPPING_FILE = 'chromedriverChromeMappingFile'
 
 class ChromedriverChromeMappingFileOption(SupportsCapabilities):
     @property
-    def chromedriver_chrome_mapping_file(self) -> Optional[str]:
+    def chromedriver_chrome_mapping_file(self) -> str | None:
         """
         Full path to the chromedrivers mapping file is located.
         """

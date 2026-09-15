@@ -13,12 +13,12 @@
 # limitations under the License.
 
 import base64
-from typing import Any, Dict
+from typing import Any
 
 from appium import version as appium_version
 
 
-def extract_const_attributes(cls: type) -> Dict[str, Any]:
+def extract_const_attributes(cls: type) -> dict[str, Any]:
     """Return dict with constants attributes and values in the class(e.g. {'VAL1': 1, 'VAL2': 2})
 
     Args:

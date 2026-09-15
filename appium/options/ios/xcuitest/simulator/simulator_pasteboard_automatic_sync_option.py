@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SIMULATOR_PASTEBOARD_AUTOMATIC_SYNC = 'simulatorPasteboardAutomaticSync'
 
 class SimulatorPasteboardAutomaticSyncOption(SupportsCapabilities):
     @property
-    def simulator_pasteboard_automatic_sync(self) -> Optional[bool]:
+    def simulator_pasteboard_automatic_sync(self) -> bool | None:
         """
         Pasteboard automation sync state.
         """

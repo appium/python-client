@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ RECREATE_CHROME_DRIVER_SESSIONS = 'recreateChromeDriverSessions'
 
 class RecreateChromeDriverSessionsOption(SupportsCapabilities):
     @property
-    def recreate_chrome_driver_sessions(self) -> Optional[bool]:
+    def recreate_chrome_driver_sessions(self) -> bool | None:
         """
         Whether chromedriver sessions should be killed and then recreated instead
         of just suspending it on context switch.

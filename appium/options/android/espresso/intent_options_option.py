@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +24,14 @@ INTENT_OPTIONS = 'intentOptions'
 
 class IntentOptionsOption(SupportsCapabilities):
     @property
-    def intent_options(self) -> Optional[Dict[str, Any]]:
+    def intent_options(self) -> dict[str, Any] | None:
         """
         Intent options.
         """
         return self.get_capability(INTENT_OPTIONS)
 
     @intent_options.setter
-    def intent_options(self, value: Dict[str, Any]) -> None:
+    def intent_options(self, value: dict[str, Any]) -> None:
         """
         The mapping of custom options for the intent that is going to be passed
         to the main app activity. Check

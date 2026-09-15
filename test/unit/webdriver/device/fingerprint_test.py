@@ -24,11 +24,6 @@ class TestWebDriverFingerprint:
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
-            appium_command('/session/1234567890/appium/device/finger_print'),
-            # body is None
-        )
-        httpretty.register_uri(
-            httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
             # body is None
         )
@@ -36,4 +31,5 @@ class TestWebDriverFingerprint:
         assert isinstance(driver.finger_print(1), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d.get('fingerprintId', d['args'][0]['fingerprintId']) == 1
+        assert d['script'] == 'mobile: fingerprint'
+        assert d['args'][0]['fingerprintId'] == 1

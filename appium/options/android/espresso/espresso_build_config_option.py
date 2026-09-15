@@ -16,7 +16,7 @@
 # under the License.
 
 import json
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +25,7 @@ ESPRESSO_BUILD_CONFIG = 'espressoBuildConfig'
 
 class EspressoBuildConfigOption(SupportsCapabilities):
     @property
-    def espresso_build_config(self) -> Optional[Union[Dict[str, Any], str]]:
+    def espresso_build_config(self) -> dict[str, Any] | str | None:
         """
         Espresso build config.
         """
@@ -36,7 +36,7 @@ class EspressoBuildConfigOption(SupportsCapabilities):
             return value
 
     @espresso_build_config.setter
-    def espresso_build_config(self, value: Union[Dict[str, Any], str]) -> None:
+    def espresso_build_config(self, value: dict[str, Any] | str) -> None:
         """
         This config allows to customize several important properties of
         Espresso server. Refer to

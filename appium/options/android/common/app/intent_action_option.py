@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ INTENT_ACTION = 'intentAction'
 
 class IntentActionOption(SupportsCapabilities):
     @property
-    def intent_action(self) -> Optional[str]:
+    def intent_action(self) -> str | None:
         """
         Intent action to be applied when
         starting the given appActivity by Activity Manager.

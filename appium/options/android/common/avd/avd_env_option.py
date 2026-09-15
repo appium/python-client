@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +23,14 @@ AVD_ENV = 'avdEnv'
 
 class AvdEnvOption(SupportsCapabilities):
     @property
-    def avd_env(self) -> Optional[Dict[str, str]]:
+    def avd_env(self) -> dict[str, str] | None:
         """
         Mapping of emulator environment variables.
         """
         return self.get_capability(AVD_ENV)
 
     @avd_env.setter
-    def avd_env(self, value: Dict[str, str]) -> None:
+    def avd_env(self, value: dict[str, str]) -> None:
         """
         Set the mapping of emulator environment variables.
         """

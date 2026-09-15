@@ -26,10 +26,10 @@ def test_install_app(driver_func):
     httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
     result = driver.install_app('path/to/app')
 
-    assert {
+    assert get_httpretty_request_body(httpretty.last_request()) == {
         'args': [{'app': 'path/to/app', 'appPath': 'path/to/app'}],
         'script': 'mobile: installApp',
-    } == get_httpretty_request_body(httpretty.last_request())
+    }
     assert isinstance(result, WebDriver)
 
 
@@ -40,10 +40,10 @@ def test_remove_app(driver_func):
     httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
     result = driver.remove_app('com.app.id')
 
-    assert {
+    assert get_httpretty_request_body(httpretty.last_request()) == {
         'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
         'script': 'mobile: removeApp',
-    } == get_httpretty_request_body(httpretty.last_request())
+    }
     assert isinstance(result, WebDriver)
 
 
@@ -54,10 +54,10 @@ def test_app_installed(driver_func):
     httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
     result = driver.is_app_installed('com.app.id')
 
-    assert {
+    assert get_httpretty_request_body(httpretty.last_request()) == {
         'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
         'script': 'mobile: isAppInstalled',
-    } == get_httpretty_request_body(httpretty.last_request())
+    }
     assert result is True
 
 
@@ -68,10 +68,10 @@ def test_terminate_app(driver_func):
     httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
     result = driver.terminate_app('com.app.id')
 
-    assert {
+    assert get_httpretty_request_body(httpretty.last_request()) == {
         'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
         'script': 'mobile: terminateApp',
-    } == get_httpretty_request_body(httpretty.last_request())
+    }
     assert result is True
 
 
@@ -82,10 +82,10 @@ def test_activate_app(driver_func):
     httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
     result = driver.activate_app('com.app.id')
 
-    assert {
+    assert get_httpretty_request_body(httpretty.last_request()) == {
         'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
         'script': 'mobile: activateApp',
-    } == get_httpretty_request_body(httpretty.last_request())
+    }
     assert isinstance(result, WebDriver)
 
 
@@ -96,7 +96,7 @@ def test_background_app(driver_func):
     httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": ""}')
     result = driver.background_app(0)
 
-    assert {'args': [{'seconds': 0}], 'script': 'mobile: backgroundApp'} == get_httpretty_request_body(httpretty.last_request())
+    assert get_httpretty_request_body(httpretty.last_request()) == {'args': [{'seconds': 0}], 'script': 'mobile: backgroundApp'}
     assert isinstance(result, WebDriver)
 
 
@@ -107,10 +107,10 @@ def test_query_app_state(driver_func):
     httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": 3}')
     result = driver.query_app_state('com.app.id')
 
-    assert {
+    assert get_httpretty_request_body(httpretty.last_request()) == {
         'args': [{'appId': 'com.app.id', 'bundleId': 'com.app.id'}],
         'script': 'mobile: queryAppState',
-    } == get_httpretty_request_body(httpretty.last_request())
+    }
     assert result is ApplicationState.RUNNING_IN_BACKGROUND
 
 
@@ -125,8 +125,8 @@ def test_app_strings(driver_func):
     )
     result = driver.app_strings()
 
-    assert {'args': [{}], 'script': 'mobile: getAppStrings'} == get_httpretty_request_body(httpretty.last_request())
-    assert "You can't wipe my data, you are a monkey!" == result['monkey_wipe_data'], result
+    assert get_httpretty_request_body(httpretty.last_request()) == {'args': [{}], 'script': 'mobile: getAppStrings'}
+    assert result['monkey_wipe_data'] == "You can't wipe my data, you are a monkey!", result
 
 
 @pytest.mark.parametrize('driver_func', [android_w3c_driver, ios_w3c_driver])
@@ -140,10 +140,11 @@ def test_app_strings_with_lang(driver_func):
     )
     result = driver.app_strings('en')
 
-    assert {'args': [{'language': 'en'}], 'script': 'mobile: getAppStrings'} == get_httpretty_request_body(
-        httpretty.last_request()
-    )
-    assert "You can't wipe my data, you are a monkey!" == result['monkey_wipe_data'], result
+    assert get_httpretty_request_body(httpretty.last_request()) == {
+        'args': [{'language': 'en'}],
+        'script': 'mobile: getAppStrings',
+    }
+    assert result['monkey_wipe_data'] == "You can't wipe my data, you are a monkey!", result
 
 
 @pytest.mark.parametrize('driver_func', [android_w3c_driver, ios_w3c_driver])
@@ -157,8 +158,8 @@ def test_app_strings_with_lang_and_file(driver_func):
     )
     result = driver.app_strings('en', 'some_file')
 
-    assert {
+    assert get_httpretty_request_body(httpretty.last_request()) == {
         'args': [{'language': 'en', 'stringFile': 'some_file'}],
         'script': 'mobile: getAppStrings',
-    } == get_httpretty_request_body(httpretty.last_request())
-    assert "You can't wipe my data, you are a monkey!" == result['monkey_wipe_data'], result
+    }
+    assert result['monkey_wipe_data'] == "You can't wipe my data, you are a monkey!", result

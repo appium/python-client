@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import json
-from typing import TYPE_CHECKING, Any, Dict
+from typing import TYPE_CHECKING, Any
 
 import httpretty
 
@@ -199,6 +199,6 @@ def flutter_w3c_driver() -> 'WebDriver':
     return driver
 
 
-def get_httpretty_request_body(request: 'HTTPrettyRequestEmpty') -> Dict[str, Any]:
+def get_httpretty_request_body(request: 'HTTPrettyRequestEmpty') -> dict[str, Any]:
     """Returns utf-8 decoded request body"""
     return json.loads(request.body.decode('utf-8'))

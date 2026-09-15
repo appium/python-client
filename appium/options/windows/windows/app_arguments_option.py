@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ APP_ARGUMENTS = 'appArguments'
 
 class AppArgumentsOption(SupportsCapabilities):
     @property
-    def app_arguments(self) -> Optional[str]:
+    def app_arguments(self) -> str | None:
         """
         Application arguments string, for example `/?`.
         """

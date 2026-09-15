@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ ALLOW_PROVISIONING_DEVICE_REGISTRATION = 'allowProvisioningDeviceRegistration'
 
 class AllowProvisioningDeviceRegistrationOption(SupportsCapabilities):
     @property
-    def allow_provisioning_device_registration(self) -> Optional[bool]:
+    def allow_provisioning_device_registration(self) -> bool | None:
         """
         Whether to allow xcodebuild to register your destination device on the developer portal.
         """

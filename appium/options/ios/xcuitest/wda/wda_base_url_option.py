@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ WDA_BASE_URL = 'wdaBaseUrl'
 
 class WdaBaseUrlOption(SupportsCapabilities):
     @property
-    def wda_base_url(self) -> Optional[str]:
+    def wda_base_url(self) -> str | None:
         """
         Prefix to build a custom WebDriverAgent URL.
         """

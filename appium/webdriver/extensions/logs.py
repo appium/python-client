@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict, List
+from typing import Any
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
@@ -21,7 +21,7 @@ from ..mobilecommand import MobileCommand as Command
 
 class Logs(CanExecuteCommands):
     @property
-    def log_types(self) -> List[str]:
+    def log_types(self) -> list[str]:
         """Gets a list of the available log types. This only works with w3c
         compliant browsers.
 
@@ -32,7 +32,7 @@ class Logs(CanExecuteCommands):
         """
         return self.execute(Command.GET_AVAILABLE_LOG_TYPES)['value']
 
-    def get_log(self, log_type: str) -> List[Dict[str, Any]]:
+    def get_log(self, log_type: str) -> list[dict[str, Any]]:
         """Gets the log for a given log type.
 
         Args:

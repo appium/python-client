@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ BOOTSTRAP_ROOT = 'bootstrapRoot'
 
 class BootstrapRootOption(SupportsCapabilities):
     @property
-    def bootstrap_root(self) -> Optional[str]:
+    def bootstrap_root(self) -> str | None:
         """
         The full path to WebDriverAgentMac root folder where Xcode project
         of the server sources lives.

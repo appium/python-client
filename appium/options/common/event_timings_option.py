@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ EVENT_TIMINGS = 'eventTimings'
 
 class EventTimingsOption(SupportsCapabilities):
     @property
-    def event_timings(self) -> Optional[bool]:
+    def event_timings(self) -> bool | None:
         """
         Whether the driver should to report the timings
         for various Appium-internal events.

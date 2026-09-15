@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ MJPEG_SCREENSHOT_URL = 'mjpegScreenshotUrl'
 
 class MjpegScreenshotUrlOption(SupportsCapabilities):
     @property
-    def mjpeg_screenshot_url(self) -> Optional[str]:
+    def mjpeg_screenshot_url(self) -> str | None:
         """
         URL of a service that provides realtime device screenshots in MJPEG format.
         """

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SKIP_SERVER_INSTALLATION = 'skipServerInstallation'
 
 class SkipServerInstallationOption(SupportsCapabilities):
     @property
-    def skip_server_installation(self) -> Optional[bool]:
+    def skip_server_installation(self) -> bool | None:
         """
         Whether to skip the server components installation
         on the device under test and all the related checks.

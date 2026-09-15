@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
 
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import PLATFORM_NAME, AppiumOptions
@@ -44,7 +43,7 @@ class SafariOptions(
     WebkitWebrtcOption,
 ):
     @property
-    def default_capabilities(self) -> Dict:
+    def default_capabilities(self) -> dict:
         return {
             PLATFORM_NAME: 'iOS',
             AUTOMATION_NAME: 'Safari',

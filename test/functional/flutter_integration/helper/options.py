@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import os
-from typing import Any, Dict
+from typing import Any
 
 from appium.options.flutter_integration.base import FlutterOptions
 from test.functional.test_helper import get_wda_port, get_worker_info
@@ -43,7 +43,7 @@ def make_options() -> FlutterOptions:
     options.flutter_element_wait_timeout = 10000
     options.flutter_server_launch_timeout = 120000
 
-    caps: Dict[str, Any] = (
+    caps: dict[str, Any] = (
         {
             'platformName': 'Android',
             'deviceName': device_name(),
@@ -82,10 +82,7 @@ def device_name() -> str:
     Get a unique device name for the current worker.
     Uses the base device name and appends the port number for uniqueness.
     """
-    if is_platform_android():
-        prefix = 'Android Emulator'
-    else:
-        prefix = os.environ['IPHONE_MODEL']
+    prefix = 'Android Emulator' if is_platform_android() else os.environ['IPHONE_MODEL']
 
     worker_info = get_worker_info()
 

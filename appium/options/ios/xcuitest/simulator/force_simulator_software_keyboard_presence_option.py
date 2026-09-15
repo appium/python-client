@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ FORCE_SIMULATOR_SOFTWARE_KEYBOARD_PRESENCE = 'forceSimulatorSoftwareKeyboardPres
 
 class ForceSimulatorSoftwareKeyboardPresenceOption(SupportsCapabilities):
     @property
-    def force_simulator_software_keyboard_presence(self) -> Optional[bool]:
+    def force_simulator_software_keyboard_presence(self) -> bool | None:
         """
         Whether to enforce software keyboard presence.
         """

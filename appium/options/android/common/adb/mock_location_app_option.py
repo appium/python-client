@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ MOCK_LOCATION_APP = 'mockLocationApp'
 
 class MockLocationAppOption(SupportsCapabilities):
     @property
-    def mock_location_app(self) -> Optional[str]:
+    def mock_location_app(self) -> str | None:
         """
         Identifier of the app, which is used as a system mock location provider.
         """

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ UNLOCK_TYPE = 'unlockType'
 
 class UnlockTypeOption(SupportsCapabilities):
     @property
-    def unlock_type(self) -> Optional[str]:
+    def unlock_type(self) -> str | None:
         """
         Unlock type.
         """

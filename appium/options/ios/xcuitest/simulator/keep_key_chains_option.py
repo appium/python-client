@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ KEEP_KEY_CHAINS = 'keepKeyChains'
 
 class KeepKeyChainsOption(SupportsCapabilities):
     @property
-    def keep_key_chains(self) -> Optional[bool]:
+    def keep_key_chains(self) -> bool | None:
         """
         Whether to preserve Simulator keychains after full reset.
         """

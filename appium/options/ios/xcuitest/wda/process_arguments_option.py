@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, List, Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +23,14 @@ PROCESS_ARGUMENTS = 'processArguments'
 
 class ProcessArgumentsOption(SupportsCapabilities):
     @property
-    def process_arguments(self) -> Optional[Dict[str, Union[List[str], Dict[str, str]]]]:
+    def process_arguments(self) -> dict[str, list[str] | dict[str, str]] | None:
         """
         Command line arguments and/or environment variables of the application under test.
         """
         return self.get_capability(PROCESS_ARGUMENTS)
 
     @process_arguments.setter
-    def process_arguments(self, value: Dict[str, Union[List[str], Dict[str, str]]]) -> None:
+    def process_arguments(self, value: dict[str, list[str] | dict[str, str]]) -> None:
         """
         Provides process arguments and environment which will be sent
         to the WebDriverAgent server. Acceptable dictionary keys are 'env'

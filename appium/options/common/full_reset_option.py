@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ FULL_RESET = 'fullReset'
 
 class FullResetOption(SupportsCapabilities):
     @property
-    def full_reset(self) -> Optional[bool]:
+    def full_reset(self) -> bool | None:
         """
         Whether the driver should perform a full reset.
         """

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ APP_TOP_LEVEL_WINDOW = 'appTopLevelWindow'
 
 class AppTopLevelWindowOption(SupportsCapabilities):
     @property
-    def app_top_level_window(self) -> Optional[str]:
+    def app_top_level_window(self) -> str | None:
         """
         Hexadecimal handle of an existing application top level window to attach to.
         """

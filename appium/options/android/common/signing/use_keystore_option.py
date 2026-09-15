@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ USE_KEYSTORE = 'useKeystore'
 
 class UseKeystoreOption(SupportsCapabilities):
     @property
-    def use_keystore(self) -> Optional[bool]:
+    def use_keystore(self) -> bool | None:
         """
         Whether to use custom keystore.
         """

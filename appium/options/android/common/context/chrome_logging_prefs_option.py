@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +24,14 @@ CHROME_LOGGING_PREFS = 'chromeLoggingPrefs'
 
 class ChromeLoggingPrefsOption(SupportsCapabilities):
     @property
-    def chrome_logging_prefs(self) -> Optional[Dict[str, Any]]:
+    def chrome_logging_prefs(self) -> dict[str, Any] | None:
         """
         Chrome logging preferences.
         """
         return self.get_capability(CHROME_LOGGING_PREFS)
 
     @chrome_logging_prefs.setter
-    def chrome_logging_prefs(self, value: Dict[str, Any]) -> None:
+    def chrome_logging_prefs(self, value: dict[str, Any]) -> None:
         """
         Chrome logging preferences mapping. Basically the same as
         [goog:loggingPrefs](https://newbedev.com/

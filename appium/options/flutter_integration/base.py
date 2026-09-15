@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
 
 from appium.options.common.automation_name_option import AUTOMATION_NAME
 from appium.options.common.base import AppiumOptions
@@ -33,7 +32,7 @@ class FlutterOptions(
     FlutterSystemPortOption,
 ):
     @property
-    def default_capabilities(self) -> Dict:
+    def default_capabilities(self) -> dict:
         return {
             AUTOMATION_NAME: 'FlutterIntegration',
         }

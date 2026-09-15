@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ LAUNCH_WITH_IDB = 'launchWithIDB'
 
 class LaunchWithIdbOption(SupportsCapabilities):
     @property
-    def launch_with_idb(self) -> Optional[bool]:
+    def launch_with_idb(self) -> bool | None:
         """
         Whether to launch WebDriverAgentRunner with idb instead of xcodebuild.
         """

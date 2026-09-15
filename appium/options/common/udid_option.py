@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ UDID = 'udid'
 
 class UdidOption(SupportsCapabilities):
     @property
-    def udid(self) -> Optional[str]:
+    def udid(self) -> str | None:
         """
         The unique identifier of the device under test.
         """

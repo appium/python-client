@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ WDA_CONNECTION_TIMEOUT = 'wdaConnectionTimeout'
 
 class WdaConnectionTimeoutOption(SupportsCapabilities):
     @property
-    def wda_connection_timeout(self) -> Optional[timedelta]:
+    def wda_connection_timeout(self) -> timedelta | None:
         """
         Maximum timeout to wait until WDA responds to HTTP requests.
         """
@@ -33,7 +32,7 @@ class WdaConnectionTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @wda_connection_timeout.setter
-    def wda_connection_timeout(self, value: Union[timedelta, int]) -> None:
+    def wda_connection_timeout(self, value: timedelta | int) -> None:
         """
         Connection timeout to wait for a response from WebDriverAgent.
         Defaults to 240000ms.

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ IGNORE_HIDDEN_API_POLICY_ERROR = 'ignoreHiddenApiPolicyError'
 
 class IgnoreHiddenApiPolicyErrorOption(SupportsCapabilities):
     @property
-    def ignore_hidden_api_policy_error(self) -> Optional[bool]:
+    def ignore_hidden_api_policy_error(self) -> bool | None:
         """
         Whether to ignore a failure while changing hidden API access policies.
         """

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ AUTOMATIC_INSPECTION = 'safari:automaticInspection'
 
 class AutomaticInspectionOption(SupportsCapabilities):
     @property
-    def automatic_inspection(self) -> Optional[bool]:
+    def automatic_inspection(self) -> bool | None:
         """
         Whether to use automatic inspection.
         """

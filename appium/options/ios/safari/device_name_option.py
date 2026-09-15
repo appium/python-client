@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ DEVICE_NAME = 'safari:deviceName'
 
 class DeviceNameOption(SupportsCapabilities):
     @property
-    def device_name(self) -> Optional[str]:
+    def device_name(self) -> str | None:
         """
         String representing the name of the device.
         """

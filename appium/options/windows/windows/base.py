@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
 
 from appium.options.common.app_option import AppOption
 from appium.options.common.automation_name_option import AUTOMATION_NAME
@@ -58,7 +57,7 @@ class WindowsOptions(
         AppOption.app.fset(self, value)  # type: ignore
 
     @PrerunOption.prerun.setter  # type: ignore
-    def prerun(self, value: Dict[str, str]) -> None:
+    def prerun(self, value: dict[str, str]) -> None:
         """
         A mapping containing either 'script' or 'command' key. The value of
         each key must be a valid PowerShell script or command to be
@@ -69,7 +68,7 @@ class WindowsOptions(
         PrerunOption.prerun.fset(self, value)  # type: ignore
 
     @PostrunOption.postrun.setter  # type: ignore
-    def postrun(self, value: Dict[str, str]) -> None:
+    def postrun(self, value: dict[str, str]) -> None:
         """
         A mapping containing either 'script' or 'command' key. The value of
         each key must be a valid PowerShell script or command to be
@@ -90,7 +89,7 @@ class WindowsOptions(
         SystemPortOption.system_port.fset(self, value)  # type: ignore
 
     @property
-    def default_capabilities(self) -> Dict:
+    def default_capabilities(self) -> dict:
         return {
             AUTOMATION_NAME: 'Windows',
             PLATFORM_NAME: 'Windows',

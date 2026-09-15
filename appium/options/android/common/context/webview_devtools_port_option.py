@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ WEBVIEW_DEVTOOLS_PORT = 'webviewDevtoolsPort'
 
 class WebviewDevtoolsPortOption(SupportsCapabilities):
     @property
-    def webview_devtools_port(self) -> Optional[int]:
+    def webview_devtools_port(self) -> int | None:
         """
         Local port number to use for devtools communication.
         """

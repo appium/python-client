@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ ENFORCE_APP_INSTALL = 'enforceAppInstall'
 
 class EnforceAppInstallOption(SupportsCapabilities):
     @property
-    def enforce_app_install(self) -> Optional[bool]:
+    def enforce_app_install(self) -> bool | None:
         """
         Whether the application under test is always reinstalled even
         if a newer version of it already exists on the device under test.

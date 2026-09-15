@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ RESULT_BUNDLE_PATH = 'resultBundlePath'
 
 class ResultBundlePathOption(SupportsCapabilities):
     @property
-    def result_bundle_path(self) -> Optional[str]:
+    def result_bundle_path(self) -> str | None:
         """
         Path where the resulting XCTest bundle should be stored.
         """

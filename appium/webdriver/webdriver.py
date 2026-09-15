@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Set, Tuple, Type, Union
+import copy
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any
 
 from selenium.common.exceptions import (
     InvalidArgumentException,
     SessionNotCreatedException,
-    UnknownMethodException,
     WebDriverException,
 )
 from selenium.webdriver.remote.command import Command as RemoteCommand
@@ -25,7 +26,6 @@ from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 # `selenium.webdriver.Remote` could be used instead, but Pyright wouldn't locate the class properly.
 from selenium.webdriver.remote.webdriver import WebDriver as Remote
-from typing_extensions import Self
 
 from appium.common.logger import logger
 from appium.options.common.base import AppiumOptions
@@ -63,6 +63,9 @@ from .locator_converter import AppiumLocatorConverter
 from .mobilecommand import MobileCommand as Command
 from .switch_to import MobileSwitchTo
 from .webelement import WebElement as MobileWebElement
+
+if TYPE_CHECKING:
+    from selenium.webdriver.common.by import By
 
 
 class ExtensionBase:
@@ -162,10 +165,10 @@ class ExtensionBase:
 
     """
 
-    def __init__(self, execute: Callable[[str, Dict], Dict[str, Any]]):
+    def __init__(self, execute: Callable[[str, dict], dict[str, Any]]):
         self._execute = execute
 
-    def execute(self, parameters: Union[Dict[str, Any], None] = None) -> Any:
+    def execute(self, parameters: dict[str, Any] | None = None) -> Any:
         param = {}
         if parameters:
             param = parameters
@@ -181,7 +184,7 @@ class ExtensionBase:
         """
         raise NotImplementedError()
 
-    def add_command(self) -> Tuple[str, str]:
+    def add_command(self) -> tuple[str, str]:
         """
         Expected to define the pair of HTTP method and its URL.
         """
@@ -189,8 +192,8 @@ class ExtensionBase:
 
 
 def _get_remote_connection_and_client_config(
-    command_executor: Union[str, AppiumConnection], client_config: Optional[AppiumClientConfig] = None
-) -> tuple[AppiumConnection, Optional[AppiumClientConfig]]:
+    command_executor: str | AppiumConnection, client_config: AppiumClientConfig | None = None
+) -> tuple[AppiumConnection, AppiumClientConfig | None]:
     """Return the pair of command executor and client config.
     If the given command executor is a custom one, returned client config will
     be None since the custom command executor has its own client config already.
@@ -240,11 +243,17 @@ class WebDriver(
 ):
     def __init__(
         self,
-        command_executor: Union[str, AppiumConnection] = 'http://127.0.0.1:4723',
-        extensions: Optional[List[Type['ExtensionBase']]] = None,
-        options: Union[AppiumOptions, List[AppiumOptions], None] = None,
-        client_config: Optional[AppiumClientConfig] = None,
+        command_executor: str | AppiumConnection = 'http://127.0.0.1:4723',
+        extensions: list[type['ExtensionBase']] | None = None,
+        options: AppiumOptions | list[AppiumOptions] | None = None,
+        client_config: AppiumClientConfig | None = None,
     ):
+        if isinstance(options, list):
+            # Normalize before Selenium separates common and alternative capabilities.
+            options = [
+                AppiumOptions().load_capabilities(AppiumOptions.as_w3c(option.to_capabilities())['capabilities']['alwaysMatch'])
+                for option in options
+            ]
         command_executor, client_config = _get_remote_connection_and_client_config(
             command_executor=command_executor, client_config=client_config
         )
@@ -266,7 +275,7 @@ class WebDriver(
         if client_config and client_config.direct_connection:
             self._update_command_executor(keep_alive=client_config.keep_alive)
 
-        self._absent_extensions: Set[str] = set()
+        self._absent_extensions: set[str] = set()
 
         self._extensions = extensions or []
         for extension in self._extensions:
@@ -282,10 +291,10 @@ class WebDriver(
 
     if TYPE_CHECKING:
 
-        def find_element(self, by: str, value: Union[str, Dict, None] = None) -> 'MobileWebElement':  # type: ignore[override]
+        def find_element(self, by: str = By.ID, value: str | dict | None = None) -> 'MobileWebElement':  # type: ignore[override]
             ...
 
-        def find_elements(self, by: str, value: Union[str, Dict, None] = None) -> List['MobileWebElement']:  # type: ignore[override]
+        def find_elements(self, by: str = By.ID, value: str | dict | None = None) -> list['MobileWebElement']:  # type: ignore[override]
             ...
 
     def delete_extensions(self) -> None:
@@ -305,11 +314,10 @@ class WebDriver(
 
         if not self.caps:
             raise ValueError('Driver capabilities must be defined')
-        if not {direct_protocol, direct_host, direct_port, direct_path}.issubset(set(self.caps)):
-            message = 'Direct connect capabilities from server were:\n'
-            for key in [direct_protocol, direct_host, direct_port, direct_path]:
-                message += f"{key}: '{self.caps.get(key, '')}' "
-            logger.debug(message)
+        keys = (direct_protocol, direct_host, direct_port, direct_path)
+        if not set(keys).issubset(self.caps):
+            details = ' '.join(f"{key}: '{self.caps.get(key, '')}'" for key in keys)
+            logger.debug(f'Direct connect capabilities from server were:\n{details} ')
             return
 
         protocol = self.caps[direct_protocol]
@@ -319,16 +327,24 @@ class WebDriver(
         executor = f'{protocol}://{hostname}:{port}{path}'
 
         logger.debug('Updated request endpoint to %s', executor)
+
         # Override command executor.
+        # The client configuration given by a user, e.g. the read timeout, the proxy or
+        # the authentication credentials, must be kept as-is. Only the endpoint the client
+        # talks to changes, thus a copy of the current configuration is reused instead of
+        # building a brand-new one out of the endpoint URL.
+        client_config = copy.copy(self.command_executor.client_config)
+        client_config.remote_server_addr = executor
+        client_config.keep_alive = keep_alive
         if isinstance(self.command_executor, AppiumConnection):  # type: ignore
-            self.command_executor = AppiumConnection(executor, keep_alive=keep_alive)
+            self.command_executor = AppiumConnection(client_config=client_config)
         else:
-            self.command_executor = RemoteConnection(executor, keep_alive=keep_alive)
+            self.command_executor = RemoteConnection(client_config=client_config)
         self._add_commands()
 
     # https://github.com/SeleniumHQ/selenium/blob/06fdf2966df6bca47c0ae45e8201cd30db9b9a49/py/selenium/webdriver/remote/webdriver.py#L277
     # noinspection PyAttributeOutsideInit
-    def start_session(self, capabilities: Union[Dict, AppiumOptions], browser_profile: Optional[str] = None) -> None:
+    def start_session(self, capabilities: dict | AppiumOptions, browser_profile: str | None = None) -> None:
         """Creates a new session with the desired capabilities.
 
         Override for Appium
@@ -341,7 +357,17 @@ class WebDriver(
         if not isinstance(capabilities, (dict, AppiumOptions)):
             raise InvalidArgumentException('Capabilities must be a dictionary or AppiumOptions instance')
 
-        w3c_caps = AppiumOptions.as_w3c(capabilities) if isinstance(capabilities, dict) else capabilities.to_w3c()
+        if isinstance(capabilities, AppiumOptions):
+            w3c_caps = capabilities.to_w3c()
+        elif (
+            set(capabilities) == {'capabilities'}
+            and isinstance(capabilities['capabilities'], dict)
+            and {'alwaysMatch', 'firstMatch'}.issubset(capabilities['capabilities'])
+        ):
+            # Selenium already creates the W3C envelope when given a list of options.
+            w3c_caps = copy.deepcopy(capabilities)
+        else:
+            w3c_caps = AppiumOptions.as_w3c(capabilities)
         response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
         # https://w3c.github.io/webdriver/#new-session
         if not isinstance(response, dict):
@@ -351,7 +377,7 @@ class WebDriver(
         # Due to a W3C spec parsing misconception some servers
         # pack the createSession response stuff into 'value' dictionary and
         # some other put it to the top level of the response JSON nesting hierarchy
-        get_response_value: Callable[[str], Optional[Any]] = lambda key: (
+        get_response_value: Callable[[str], Any | None] = lambda key: (
             response.get(key) or (response['value'].get(key) if isinstance(response.get('value'), dict) else None)
         )
         session_id = get_response_value('sessionId')
@@ -362,7 +388,7 @@ class WebDriver(
         self.session_id = session_id
         self.caps = get_response_value('capabilities') or {}
 
-    def get_status(self) -> Dict:
+    def get_status(self) -> dict:
         """
         Get the Appium server status
 
@@ -375,7 +401,7 @@ class WebDriver(
         """
         return self.execute(Command.GET_STATUS)['value']
 
-    def create_web_element(self, element_id: Union[int, str]) -> MobileWebElement:
+    def create_web_element(self, element_id: int | str) -> MobileWebElement:
         """Creates a web element with the specified element_id.
 
         Overrides method in Selenium WebDriver in order to always give them
@@ -432,43 +458,9 @@ class WebDriver(
         """
         allowed_values = ['LANDSCAPE', 'PORTRAIT']
         if value.upper() in allowed_values:
-            self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value.upper()})
+            self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value})
         else:
             raise WebDriverException("You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'")
-
-    def assert_extension_exists(self, ext_name: str) -> Self:
-        """
-        Verifies if the given extension is not present in the list of absent extensions
-        for the given driver instance.
-        This API is designed for private usage.
-
-        Args:
-            ext_name: extension name
-
-        Returns:
-            self instance for chaining
-
-        Raises:
-            UnknownMethodException: If the extension has been marked as absent once
-        """
-        if ext_name in self._absent_extensions:
-            raise UnknownMethodException()
-        return self
-
-    def mark_extension_absence(self, ext_name: str) -> Self:
-        """
-        Marks the given extension as absent for the given driver instance.
-        This API is designed for private usage.
-
-        Args:
-            ext_name: extension name
-
-        Returns:
-            self instance for chaining
-        """
-        logger.debug(f'Marking driver extension "{ext_name}" as absent for the current instance')
-        self._absent_extensions.add(ext_name)
-        return self
 
     def _add_commands(self) -> None:
         # call the overridden command binders from all mixin classes except for

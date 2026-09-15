@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ KEYSTORE_PATH = 'keystorePath'
 
 class KeystorePathOption(SupportsCapabilities):
     @property
-    def keystore_path(self) -> Optional[str]:
+    def keystore_path(self) -> str | None:
         """
         The path to keystore.
         """

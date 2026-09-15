@@ -13,12 +13,10 @@
 # limitations under the License.
 
 import json
+from unittest.mock import patch
 
 import httpretty
-import pytest
 import urllib3
-from mock import patch
-from selenium.common.exceptions import WebDriverException
 
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
@@ -134,9 +132,66 @@ class TestWebDriverWebDriver:
             client_config=client_config,
         )
 
-        assert 'http://localhost2:4800/special/path/wd/hub' == driver.command_executor._client_config.remote_server_addr
-        assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
+        assert driver.command_executor._client_config.remote_server_addr == 'http://localhost2:4800/special/path/wd/hub'
+        assert driver.contexts == ['NATIVE_APP', 'CHROMIUM']
         assert isinstance(driver.command_executor, AppiumConnection)
+
+    @httpretty.activate
+    def test_create_session_register_uridirect_keeps_client_config(self):
+        """The client configuration given by a user must survive the direct connect switch.
+        https://github.com/appium/python-client/issues/855
+        """
+        httpretty.register_uri(
+            httpretty.POST,
+            f'{SERVER_URL_BASE}/session',
+            body=json.dumps(
+                {
+                    'sessionId': 'session-id',
+                    'capabilities': {
+                        'deviceName': 'Android Emulator',
+                        'directConnectProtocol': 'http',
+                        'directConnectHost': 'localhost2',
+                        'directConnectPort': 4800,
+                        'directConnectPath': '/special/path/wd/hub',
+                    },
+                }
+            ),
+        )
+
+        desired_caps = {
+            'platformName': 'Android',
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+            'automationName': 'UIAutomator2',
+        }
+        client_config = AppiumClientConfig(
+            remote_server_addr=SERVER_URL_BASE,
+            direct_connection=True,
+            timeout=5,
+            username='user',
+            password='pass',
+            user_agent='custom-agent',
+            init_args_for_pool_manager={'init_args_for_pool_manager': {'retries': 3}},
+        )
+        driver = webdriver.Remote(
+            SERVER_URL_BASE,
+            options=UiAutomator2Options().load_capabilities(desired_caps),
+            client_config=client_config,
+        )
+
+        new_client_config = driver.command_executor.client_config
+        assert isinstance(new_client_config, AppiumClientConfig)
+        assert new_client_config.remote_server_addr == 'http://localhost2:4800/special/path/wd/hub'
+        assert new_client_config.timeout == 5
+        assert new_client_config.username == 'user'
+        assert new_client_config.password == 'pass'
+        assert new_client_config.user_agent == 'custom-agent'
+        assert new_client_config.init_args_for_pool_manager == {'init_args_for_pool_manager': {'retries': 3}}
+        assert new_client_config.direct_connection
+        assert new_client_config.keep_alive == client_config.keep_alive
+
+        # the configuration instance given by a user must not be modified in-place
+        assert client_config.remote_server_addr == SERVER_URL_BASE
 
     @httpretty.activate
     def test_create_session_register_uridirect_no_direct_connect_path(self):
@@ -173,8 +228,8 @@ class TestWebDriverWebDriver:
             SERVER_URL_BASE, options=UiAutomator2Options().load_capabilities(desired_caps), client_config=client_config
         )
 
-        assert SERVER_URL_BASE == driver.command_executor._client_config.remote_server_addr
-        assert ['NATIVE_APP', 'CHROMIUM'] == driver.contexts
+        assert driver.command_executor._client_config.remote_server_addr == SERVER_URL_BASE
+        assert driver.contexts == ['NATIVE_APP', 'CHROMIUM']
         assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
@@ -213,7 +268,7 @@ class TestWebDriverWebDriver:
             client_config=client_config,
         )
 
-        assert SERVER_URL_BASE == driver.command_executor._client_config.remote_server_addr
+        assert driver.command_executor._client_config.remote_server_addr == SERVER_URL_BASE
         assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
@@ -407,38 +462,6 @@ class TestWebDriverWebDriver:
         assert isinstance(driver.command_executor, CustomAppiumConnection)
 
     @httpretty.activate
-    def test_orientation_getter(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890/orientation'), body='{"value": "LANDSCAPE"}')
-        assert driver.orientation == 'LANDSCAPE'
-
-    @httpretty.activate
-    def test_orientation_setter(self):
-        driver = android_w3c_driver()
-        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/orientation'), body='{"value": ""}')
-
-        driver.orientation = 'LANDSCAPE'
-
-        assert {
-            'orientation': 'LANDSCAPE',
-        } == get_httpretty_request_body(httpretty.last_request())
-
-        driver.orientation = 'PORTRAIT'
-
-        assert {
-            'orientation': 'PORTRAIT',
-        } == get_httpretty_request_body(httpretty.last_request())
-
-    @httpretty.activate
-    def test_orientation_setter_invalid(self):
-        driver = android_w3c_driver()
-
-        with pytest.raises(WebDriverException) as excinfo:
-            driver.orientation = 'INVALID'
-
-        assert "You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'" in str(excinfo.value)
-
-    @httpretty.activate
     def test_extention_command_check(self):
         driver = android_w3c_driver()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/execute/sync'), body='{"value": true}')
@@ -449,10 +472,10 @@ class TestWebDriverWebDriver:
             )
             is True
         )
-        assert {
+        assert get_httpretty_request_body(httpretty.last_request()) == {
             'args': [{'component': 'io.appium.android.apis/.accessibility.AccessibilityNodeProviderActivity'}],
             'script': 'mobile: startActivity',
-        } == get_httpretty_request_body(httpretty.last_request())
+        }
 
     def test_get_client_config_and_connection_with_empty_config(self):
         command_executor, client_config = _get_remote_connection_and_client_config(

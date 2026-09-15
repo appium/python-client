@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict
 
 from appium.options.android.common.adb.adb_exec_timeout_option import AdbExecTimeoutOption
 from appium.options.android.common.adb.adb_port_option import AdbPortOption
@@ -214,7 +213,7 @@ class UiAutomator2Options(
     UserProfileOption,
 ):
     @property
-    def default_capabilities(self) -> Dict:
+    def default_capabilities(self) -> dict:
         return {
             AUTOMATION_NAME: 'UIAutomator2',
             PLATFORM_NAME: 'Android',

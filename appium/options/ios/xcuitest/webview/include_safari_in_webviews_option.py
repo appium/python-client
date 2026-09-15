@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ INCLUDE_SAFARI_IN_WEBVIEWS = 'includeSafariInWebviews'
 
 class IncludeSafariInWebviewsOption(SupportsCapabilities):
     @property
-    def include_safari_in_webviews(self) -> Optional[bool]:
+    def include_safari_in_webviews(self) -> bool | None:
         """
         Whether to add Safari web views to the list of contexts available
         during a native/webview app test.

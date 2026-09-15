@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ APP = 'app'
 
 class AppOption(SupportsCapabilities):
     @property
-    def app(self) -> Optional[str]:
+    def app(self) -> str | None:
         """
         String representing app location.
         """

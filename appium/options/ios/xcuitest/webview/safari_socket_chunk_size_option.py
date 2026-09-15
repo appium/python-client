@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SAFARI_SOCKET_CHUNK_SIZE = 'safariSocketChunkSize'
 
 class SafariSocketChunkSizeOption(SupportsCapabilities):
     @property
-    def safari_socket_chunk_size(self) -> Optional[int]:
+    def safari_socket_chunk_size(self) -> int | None:
         """
         Get the size of a single remote debugger socket chunk.
         """

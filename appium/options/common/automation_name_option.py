@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ AUTOMATION_NAME = 'automationName'
 
 class AutomationNameOption(SupportsCapabilities):
     @property
-    def automation_name(self) -> Optional[str]:
+    def automation_name(self) -> str | None:
         """
         String representing the name of the automation engine name.
         """

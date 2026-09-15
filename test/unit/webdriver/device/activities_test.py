@@ -22,11 +22,6 @@ class TestWebDriverActivities:
     def test_current_activity(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
-            httpretty.GET,
-            appium_command('/session/1234567890/appium/device/current_activity'),
-            body='{"value": ".ExampleActivity"}',
-        )
-        httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
             body='{"value": ".ExampleActivity"}',
@@ -36,11 +31,6 @@ class TestWebDriverActivities:
     @httpretty.activate
     def test_wait_activity(self):
         driver = android_w3c_driver()
-        httpretty.register_uri(
-            httpretty.GET,
-            appium_command('/session/1234567890/appium/device/current_activity'),
-            body='{"value": ".ExampleActivity"}',
-        )
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),

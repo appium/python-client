@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ APP_PACKAGE = 'appPackage'
 
 class AppPackageOption(SupportsCapabilities):
     @property
-    def app_package(self) -> Optional[str]:
+    def app_package(self) -> str | None:
         """
         App package identifier.
         """

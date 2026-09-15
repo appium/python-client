@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ CALENDAR_ACCESS_AUTHORIZED = 'calendarAccessAuthorized'
 
 class CalendarAccessAuthorizedOption(SupportsCapabilities):
     @property
-    def calendar_access_authorized(self) -> Optional[bool]:
+    def calendar_access_authorized(self) -> bool | None:
         """
         Whether to enable calendar access on IOS Simulator.
         """

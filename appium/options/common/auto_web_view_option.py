@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ AUTO_WEB_VIEW = 'autoWebView'
 
 class AutoWebViewOption(SupportsCapabilities):
     @property
-    def auto_web_view(self) -> Optional[bool]:
+    def auto_web_view(self) -> bool | None:
         """
         Whether the driver should try to automatically switch
         to a web view context after the session is started.

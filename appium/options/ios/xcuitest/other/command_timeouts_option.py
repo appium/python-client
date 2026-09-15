@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Dict, Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ COMMAND_TIMEOUTS = 'commandTimeouts'
 
 class CommandTimeoutsOption(SupportsCapabilities):
     @property
-    def command_timeouts(self) -> Optional[Union[Dict[str, timedelta], timedelta]]:
+    def command_timeouts(self) -> dict[str, timedelta] | timedelta | None:
         """
         Custom timeout(s) for WDA backend commands execution.
         """
@@ -37,7 +36,7 @@ class CommandTimeoutsOption(SupportsCapabilities):
         return timedelta(milliseconds=int(value))
 
     @command_timeouts.setter
-    def command_timeouts(self, value: Union[Dict[str, timedelta], timedelta, int]) -> None:
+    def command_timeouts(self, value: dict[str, timedelta] | timedelta | int) -> None:
         """
         Custom timeout for all WDA backend commands execution.
         This might be useful if WDA backend freezes unexpectedly or requires too

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ APP_WAIT_ACTIVITY = 'appWaitActivity'
 
 class AppWaitActivityOption(SupportsCapabilities):
     @property
-    def app_wait_activity(self) -> Optional[str]:
+    def app_wait_activity(self) -> str | None:
         """
         Name of the app activity to wait for.
         """

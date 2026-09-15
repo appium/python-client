@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ AUTO_DISMISS_ALERTS = 'autoDismissAlerts'
 
 class AutoDismissAlertsOption(SupportsCapabilities):
     @property
-    def auto_dismiss_alerts(self) -> Optional[bool]:
+    def auto_dismiss_alerts(self) -> bool | None:
         """
         Whether to dismiss all alerts automatically.
         """

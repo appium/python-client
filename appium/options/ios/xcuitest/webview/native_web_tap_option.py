@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ NATIVE_WEB_TAP = 'nativeWebTap'
 
 class NativeWebTapOption(SupportsCapabilities):
     @property
-    def native_web_tap(self) -> Optional[bool]:
+    def native_web_tap(self) -> bool | None:
         """
         Whether to enable native taps in web view mode.
         """

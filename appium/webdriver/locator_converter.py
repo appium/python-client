@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Tuple
 
 from selenium.webdriver.remote.locator_converter import LocatorConverter
 
@@ -25,5 +24,5 @@ class AppiumLocatorConverter(LocatorConverter):
     to the Appium server as-is.
     """
 
-    def convert(self, by: str, value: str) -> Tuple[str, str]:
+    def convert(self, by: str, value: str) -> tuple[str, str]:
         return (by, value)

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ UNINSTALL_OTHER_PACKAGES = 'uninstallOtherPackages'
 
 class UninstallOtherPackagesOption(SupportsCapabilities):
     @property
-    def uninstall_other_packages(self) -> Optional[str]:
+    def uninstall_other_packages(self) -> str | None:
         """
         Identifiers of packages to be uninstalled from the device before a test starts.
         """

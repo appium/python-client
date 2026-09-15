@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ FORCE_APP_LAUNCH = 'forceAppLaunch'
 
 class ForceAppLaunchOption(SupportsCapabilities):
     @property
-    def force_app_launch(self) -> Optional[bool]:
+    def force_app_launch(self) -> bool | None:
         """
         Whether to enforce app restart on session startup.
         """

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SAFARI_INITIAL_URL = 'safariInitialUrl'
 
 class SafariInitialUrlOption(SupportsCapabilities):
     @property
-    def safari_initial_url(self) -> Optional[str]:
+    def safari_initial_url(self) -> str | None:
         """
         The initial safari url.
         """

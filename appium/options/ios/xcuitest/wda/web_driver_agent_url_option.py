@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ WEB_DRIVER_AGENT_URL = 'webDriverAgentUrl'
 
 class WebDriverAgentUrlOption(SupportsCapabilities):
     @property
-    def web_driver_agent_url(self) -> Optional[str]:
+    def web_driver_agent_url(self) -> str | None:
         """
         WedDriverAgent URL.
         """

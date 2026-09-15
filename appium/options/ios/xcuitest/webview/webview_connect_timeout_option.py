@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ WEBVIEW_CONNECT_TIMEOUT = 'webviewConnectTimeout'
 
 class WebviewConnectTimeoutOption(SupportsCapabilities):
     @property
-    def webview_connect_timeout(self) -> Optional[timedelta]:
+    def webview_connect_timeout(self) -> timedelta | None:
         """
         Timeout to wait for the initial presence of webviews.
         """
@@ -33,7 +32,7 @@ class WebviewConnectTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @webview_connect_timeout.setter
-    def webview_connect_timeout(self, value: Union[timedelta, int]) -> None:
+    def webview_connect_timeout(self, value: timedelta | int) -> None:
         """
         The time to wait for the initial presence of webviews in
         MobileSafari or hybrid apps. Defaults to 0ms.

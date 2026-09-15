@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
@@ -21,7 +21,7 @@ from ..mobilecommand import MobileCommand as Command
 
 class ExecuteDriver(CanExecuteCommands):
     # TODO Inner class case
-    def execute_driver(self, script: str, script_type: str = 'webdriverio', timeout_ms: Optional[int] = None) -> Any:
+    def execute_driver(self, script: str, script_type: str = 'webdriverio', timeout_ms: int | None = None) -> Any:
         """Run a set of script against the current session, allowing execution of many commands in one Appium request.
         Please read http://appium.io/docs/en/commands/session/execute-driver for more details about the acceptable
         scripts and the output format.
@@ -45,11 +45,11 @@ class ExecuteDriver(CanExecuteCommands):
         """
 
         class Result:
-            def __init__(self, res: Dict):
+            def __init__(self, res: dict):
                 self.result = res['result']
                 self.logs = res['logs']
 
-        option: Dict[str, Union[str, int]] = {'script': script, 'type': script_type}
+        option: dict[str, str | int] = {'script': script, 'type': script_type}
         if timeout_ms is not None:
             option['timeout'] = timeout_ms
 

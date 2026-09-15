@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ USE_JSON_SOURCE = 'useJSONSource'
 
 class UseJsonSourceOption(SupportsCapabilities):
     @property
-    def use_json_source(self) -> Optional[bool]:
+    def use_json_source(self) -> bool | None:
         """
         Whether to get JSON source from WDA and transform it to XML on the driver side.
         """

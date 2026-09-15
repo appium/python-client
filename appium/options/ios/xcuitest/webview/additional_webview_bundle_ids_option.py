@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import List, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +23,14 @@ ADDITIONAL_WEBVIEW_BUNDLE_IDS = 'additionalWebviewBundleIds'
 
 class AdditionalWebviewBundleIdsOption(SupportsCapabilities):
     @property
-    def additional_webview_bundle_ids(self) -> Optional[List[str]]:
+    def additional_webview_bundle_ids(self) -> list[str] | None:
         """
         Array of possible bundle identifiers for webviews.
         """
         return self.get_capability(ADDITIONAL_WEBVIEW_BUNDLE_IDS)
 
     @additional_webview_bundle_ids.setter
-    def additional_webview_bundle_ids(self, value: List[str]) -> None:
+    def additional_webview_bundle_ids(self, value: list[str]) -> None:
         """
         Array of possible bundle identifiers for webviews. This is sometimes
         necessary if the Web Inspector is found to be returning a modified

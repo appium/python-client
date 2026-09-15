@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional
 
 from selenium.webdriver.remote.switch_to import SwitchTo
 from typing_extensions import Self
@@ -21,7 +20,7 @@ from .mobilecommand import MobileCommand
 
 
 class MobileSwitchTo(SwitchTo):
-    def context(self, context_name: Optional[str]) -> Self:
+    def context(self, context_name: str | None) -> Self:
         """Sets the context for the current session.
         Passing `None` is equal to switching to native context.
 

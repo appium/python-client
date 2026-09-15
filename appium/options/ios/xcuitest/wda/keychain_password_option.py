@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ KEYCHAIN_PASSWORD = 'keychainPassword'
 
 class KeychainPasswordOption(SupportsCapabilities):
     @property
-    def keychain_password(self) -> Optional[str]:
+    def keychain_password(self) -> str | None:
         """
         Custom keychain password.
         """

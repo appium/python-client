@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SHOW_IOS_LOG = 'showIOSLog'
 
 class ShowIosLogOption(SupportsCapabilities):
     @property
-    def show_ios_log(self) -> Optional[bool]:
+    def show_ios_log(self) -> bool | None:
         """
         Whether to show any logs captured from a device in the appium logs.
         """

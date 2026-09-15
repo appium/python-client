@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ CLEAR_SYSTEM_FILES = 'clearSystemFiles'
 
 class ClearSystemFilesOption(SupportsCapabilities):
     @property
-    def clear_system_files(self) -> Optional[bool]:
+    def clear_system_files(self) -> bool | None:
         """
         Whether the driver should delete generated files at the end of a session.
         """

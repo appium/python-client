@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ ADB_EXEC_TIMEOUT = 'adbExecTimeout'
 
 class AdbExecTimeoutOption(SupportsCapabilities):
     @property
-    def adb_exec_timeout(self) -> Optional[timedelta]:
+    def adb_exec_timeout(self) -> timedelta | None:
         """
         Maximum time to wait until single ADB command is executed.
         """
@@ -33,7 +32,7 @@ class AdbExecTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @adb_exec_timeout.setter
-    def adb_exec_timeout(self, value: Union[timedelta, int]) -> None:
+    def adb_exec_timeout(self, value: timedelta | int) -> None:
         """
         Maximum time to wait until single ADB command is executed.
         20000 ms by default.

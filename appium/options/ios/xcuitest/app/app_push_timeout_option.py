@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ APP_PUSH_TIMEOUT = 'appPushTimeout'
 
 class AppPushTimeoutOption(SupportsCapabilities):
     @property
-    def app_push_timeout(self) -> Optional[timedelta]:
+    def app_push_timeout(self) -> timedelta | None:
         """
         Maximum timeout for application upload.
         """
@@ -33,7 +32,7 @@ class AppPushTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @app_push_timeout.setter
-    def app_push_timeout(self, value: Union[timedelta, int]) -> None:
+    def app_push_timeout(self, value: timedelta | int) -> None:
         """
         The timeout for application upload.
         Works for real devices only.

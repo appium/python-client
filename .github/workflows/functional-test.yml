@@ -14,9 +14,11 @@ env:
   APPIUM_TEST_SERVER_PORT: '4723'
   APPIUM_TEST_SERVER_HOST: '127.0.0.1'
   PYTHONUNBUFFERED: 1
+  UV_LOCKED: 'true'
 
 jobs:
   ios_test:
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -76,43 +78,41 @@ jobs:
       run: xcrun --sdk iphonesimulator --show-sdk-version
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version: 3.14
 
-    - name: Cache uv modules
-      uses: actions/cache@v6
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v10.1.0
       with:
-        path: |
-          ~/.cache/uv
-          .venv
-        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-uv-shared-
-
-    - name: Install uv
-      run: make install-uv
+        enable-cache: true
+        python-version: '3.14'
 
     - name: Run Tests
       run: |
         uv run pytest -v ${{ matrix.test_targets.target}} \
           --doctest-modules \
           --junitxml=junit/test-results.xml \
-          --cov=com \
+          --cov=appium \
           --cov-report=xml \
           --cov-report=html
       env:
         LOCAL_PREBUILT_WDA: ${{ env.PREBUILT_WDA_PATH }}
 
-    - name: Save server output
+    - name: Save test diagnostics
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-ios-${{matrix.test_targets.name}}.log
-        path: appium.log
+        name: appium-ios-${{matrix.test_targets.name}}-diagnostics
+        path: |
+          appium.log
+          junit/
+          coverage.xml
+          htmlcov/
 
 
   android_test:
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -129,7 +129,7 @@ jobs:
     steps:
     - uses: actions/checkout@v7
 
-    - uses: actions/setup-java@v5
+    - uses: actions/setup-java@v6.0.1
       with:
         distribution: 'temurin'
         java-version: '17'
@@ -185,19 +185,15 @@ jobs:
         script: echo "Generated AVD snapshot for caching."
 
     - name: Set up Python 3.14
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version: 3.14
 
-    - name: Cache uv modules
-      uses: actions/cache@v6
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v10.1.0
       with:
-        path: |
-          ~/.cache/uv
-          .venv
-        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-uv-shared-
+        enable-cache: true
+        python-version: '3.14'
 
     - name: Run tests
       uses: reactivecircus/android-emulator-runner@v2
@@ -205,8 +201,7 @@ jobs:
         api-level: ${{ env.API_LEVEL }}
         arch: ${{ env.ARCH }}
         script: |
-          make install-uv
-          uv run pytest -v ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          uv run pytest -v ${{ matrix.test_targets.target}} --doctest-modules --junitxml=junit/test-results.xml --cov=appium --cov-report=xml --cov-report=html
         target: google_apis
         profile: Nexus 5X
         disable-spellchecker: true
@@ -218,14 +213,19 @@ jobs:
         IGNORE_VERSION_SKIP: true
         CI: true
 
-    - name: Save server output
+    - name: Save test diagnostics
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-android-${{matrix.test_targets.name}}.log
-        path: appium.log
+        name: appium-android-${{matrix.test_targets.name}}-diagnostics
+        path: |
+          appium.log
+          junit/
+          coverage.xml
+          htmlcov/
 
   flutter_e2e_test:
+    timeout-minutes: 60
     # These flutter integration driver tests are maintained by: MummanaSubramanya
     strategy:
       fail-fast: false
@@ -245,15 +245,15 @@ jobs:
       XCODE_VERSION: 16.4
       IOS_VERSION: 18.5
       IPHONE_MODEL: iPhone 16
-      FLUTTER_ANDROID_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/download/0.0.32/app-debug.apk"
-      FLUTTER_IOS_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/download/0.0.32/ios.zip"
+      FLUTTER_ANDROID_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/download/0.0.33/app-debug.apk"
+      FLUTTER_IOS_APP: "https://github.com/AppiumTestDistribution/appium-flutter-server/releases/download/0.0.33/ios.zip"
       PREBUILT_WDA_PATH: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
 
     steps:
 
     - uses: actions/checkout@v7
 
-    - uses: actions/setup-java@v5
+    - uses: actions/setup-java@v6.0.1
       if: matrix.e2e-tests == 'flutter-android'
       with:
         distribution: 'zulu'
@@ -267,7 +267,7 @@ jobs:
         sudo udevadm trigger --name-match=kvm
 
     - name: Set up Python 3.14
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version: 3.14
 
@@ -305,15 +305,11 @@ jobs:
         server_args: '--relaxed-security'
         log_file: appium-${{ matrix.e2e-tests }}.log
 
-    - name: Cache uv modules
-      uses: actions/cache@v6
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v10.1.0
       with:
-        path: |
-          ~/.cache/uv
-          .venv
-        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-uv-shared-
+        enable-cache: true
+        python-version: '3.14'
 
     - name: Run Android tests
       if: matrix.e2e-tests == 'flutter-android'
@@ -321,8 +317,7 @@ jobs:
       with:
         api-level: ${{ env.API_LEVEL }}
         script: |
-          make install-uv
-          uv run pytest -v test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          uv run pytest -v test/functional/flutter_integration/*_test.py --doctest-modules --junitxml=junit/test-results.xml --cov=appium --cov-report=xml --cov-report=html
         target: default
         disable-spellchecker: true
         disable-animations: true
@@ -349,20 +344,23 @@ jobs:
     - name: Run IOS tests
       if: matrix.e2e-tests == 'flutter-ios'
       run: |
-        make install-uv
         export PLATFORM=ios
         uv run pytest -v test/functional/flutter_integration/*_test.py \
           --doctest-modules \
           --junitxml=junit/test-results.xml \
-          --cov=com \
+          --cov=appium \
           --cov-report=xml \
           --cov-report=html
       env:
         LOCAL_PREBUILT_WDA: ${{ env.PREBUILT_WDA_PATH }}
 
-    - name: Save server output
+    - name: Save test diagnostics
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-${{ matrix.e2e-tests }}.log
-        path: appium-${{ matrix.e2e-tests }}.log
+        name: appium-${{ matrix.e2e-tests }}-diagnostics
+        path: |
+          appium-${{ matrix.e2e-tests }}.log
+          junit/
+          coverage.xml
+          htmlcov/

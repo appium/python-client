@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ REMOTE_ADB_HOST = 'remoteAdbHost'
 
 class RemoteAdbHostOption(SupportsCapabilities):
     @property
-    def remote_adb_host(self) -> Optional[str]:
+    def remote_adb_host(self) -> str | None:
         """
         Address of the host where ADB is running.
         """

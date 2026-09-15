@@ -33,7 +33,7 @@ class TestWebDriverLogEvents:
         assert events['appium:funEvent'] == [12347]
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert 'type' not in d.keys()
+        assert 'type' not in d
 
     @httpretty.activate
     def test_get_events_args(self):

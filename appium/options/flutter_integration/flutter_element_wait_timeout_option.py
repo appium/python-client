@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ FLUTTER_ELEMENT_WAIT_TIMEOUT = 'flutterElementWaitTimeout'
 
 class FlutterElementWaitTimeOutOption(SupportsCapabilities):
     @property
-    def flutter_element_wait_timeout(self) -> Optional[timedelta]:
+    def flutter_element_wait_timeout(self) -> timedelta | None:
         """
         Maximum timeout to wait for element for Flutter integration test
 
@@ -35,7 +34,7 @@ class FlutterElementWaitTimeOutOption(SupportsCapabilities):
         return self.get_capability(FLUTTER_ELEMENT_WAIT_TIMEOUT)
 
     @flutter_element_wait_timeout.setter
-    def flutter_element_wait_timeout(self, value: Union[timedelta, int]) -> None:
+    def flutter_element_wait_timeout(self, value: timedelta | int) -> None:
         """
         Sets the maximum timeout to wait for a Flutter element in an integration test.
         Default timeout is 5000ms

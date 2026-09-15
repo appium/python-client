@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SHUTDOWN_OTHER_SIMULATORS = 'shutdownOtherSimulators'
 
 class ShutdownOtherSimulatorsOption(SupportsCapabilities):
     @property
-    def shutdown_other_simulators(self) -> Optional[bool]:
+    def shutdown_other_simulators(self) -> bool | None:
         """
         Whether to shut down of other booted simulators except of the current one.
         """

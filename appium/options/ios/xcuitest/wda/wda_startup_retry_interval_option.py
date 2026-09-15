@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ WDA_STARTUP_RETRY_INTERVAL = 'wdaStartupRetryInterval'
 
 class WdaStartupRetryIntervalOption(SupportsCapabilities):
     @property
-    def wda_startup_retry_interval(self) -> Optional[timedelta]:
+    def wda_startup_retry_interval(self) -> timedelta | None:
         """
         Interval to wait between tries to build and launch WebDriverAgent.
         """
@@ -33,7 +32,7 @@ class WdaStartupRetryIntervalOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @wda_startup_retry_interval.setter
-    def wda_startup_retry_interval(self, value: Union[timedelta, int]) -> None:
+    def wda_startup_retry_interval(self, value: timedelta | int) -> None:
         """
         Time interval to wait between tries to build and launch WebDriverAgent.
         Defaults to 10000ms.

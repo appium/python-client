@@ -16,7 +16,7 @@
 # under the License.
 
 import copy
-from typing import Any, Dict, TypeVar
+from typing import Any, TypeVar
 
 from selenium.webdriver.common.options import BaseOptions
 
@@ -43,7 +43,7 @@ class AppiumOptions(
     FullResetOption,
     NewCommandTimeoutOption,
 ):
-    _caps: Dict
+    _caps: dict
     W3C_CAPABILITY_NAMES = frozenset(
         [
             'acceptInsecureCerts',
@@ -85,14 +85,14 @@ class AppiumOptions(
         """Fetches capability value or None if the capability is not set"""
         return self._caps[name] if name in self._caps else self._caps.get(f'{APPIUM_PREFIX}{name}')
 
-    def load_capabilities(self: T, caps: Dict[str, Any]) -> T:
+    def load_capabilities(self: T, caps: dict[str, Any]) -> T:
         """Sets multiple capabilities"""
         for name, value in caps.items():
             self.set_capability(name, value)
         return self
 
     @staticmethod
-    def as_w3c(capabilities: Dict) -> Dict:
+    def as_w3c(capabilities: dict) -> dict:
         """
         Formats given capabilities to a valid W3C session request object
 
@@ -112,7 +112,7 @@ class AppiumOptions(
         processed_caps = {process_key(k): v for k, v in copy.deepcopy(capabilities).items()}
         return {'capabilities': {'firstMatch': [{}], 'alwaysMatch': processed_caps}}
 
-    def to_w3c(self) -> Dict:
+    def to_w3c(self) -> dict:
         """
         Formats the instance to a valid W3C session request object
 
@@ -120,9 +120,9 @@ class AppiumOptions(
         """
         return self.as_w3c(self.to_capabilities())
 
-    def to_capabilities(self) -> Dict:
+    def to_capabilities(self) -> dict:
         return copy.copy(self._caps)
 
     @property
-    def default_capabilities(self) -> Dict:
+    def default_capabilities(self) -> dict:
         return {}

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ FORCE_ESPRESSO_REBUILD = 'forceEspressoRebuild'
 
 class ForceEspressoRebuildOption(SupportsCapabilities):
     @property
-    def force_espresso_rebuild(self) -> Optional[bool]:
+    def force_espresso_rebuild(self) -> bool | None:
         """
         Whether to force Espresso server rebuild on a new session startup.
         """

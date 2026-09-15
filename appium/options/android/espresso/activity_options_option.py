@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,14 +23,14 @@ ACTIVITY_OPTIONS = 'activityOptions'
 
 class ActivityOptionsOption(SupportsCapabilities):
     @property
-    def activity_options(self) -> Optional[Dict]:
+    def activity_options(self) -> dict | None:
         """
         Activity options.
         """
         return self.get_capability(ACTIVITY_OPTIONS)
 
     @activity_options.setter
-    def activity_options(self, value: Dict) -> None:
+    def activity_options(self, value: dict) -> None:
         """
         The mapping of custom options for the main app activity that is going to
         be started. Check

@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ UNLOCK_KEY = 'unlockKey'
 
 class UnlockKeyOption(SupportsCapabilities):
     @property
-    def unlock_key(self) -> Optional[str]:
+    def unlock_key(self) -> str | None:
         """
         Unlock key.
         """

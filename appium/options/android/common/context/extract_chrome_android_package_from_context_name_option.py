@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ EXTRACT_CHROME_ANDROID_PACKAGE_FROM_CONTEXT_NAME = 'extractChromeAndroidPackageF
 
 class ExtractChromeAndroidPackageFromContextNameOption(SupportsCapabilities):
     @property
-    def extract_chrome_android_package_from_context_name(self) -> Optional[bool]:
+    def extract_chrome_android_package_from_context_name(self) -> bool | None:
         """
         Whether to use the android package identifier associated with the context name.
         """

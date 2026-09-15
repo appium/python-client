@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ OTHER_APPS = 'otherApps'
 
 class OtherAppsOption(SupportsCapabilities):
     @property
-    def other_apps(self) -> Optional[str]:
+    def other_apps(self) -> str | None:
         """
         Locations of apps to install before running a test.
         """

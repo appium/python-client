@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ SHOW_SERVER_LOGS = 'showServerLogs'
 
 class ShowServerLogsOption(SupportsCapabilities):
     @property
-    def show_server_logs(self) -> Optional[bool]:
+    def show_server_logs(self) -> bool | None:
         """
         Whether to show WDA server logs in the Appium log.
         """

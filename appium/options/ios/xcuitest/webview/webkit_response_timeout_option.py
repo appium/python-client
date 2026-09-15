@@ -16,7 +16,6 @@
 # under the License.
 
 from datetime import timedelta
-from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -25,7 +24,7 @@ WEBKIT_RESPONSE_TIMEOUT = 'webkitResponseTimeout'
 
 class WebkitResponseTimeoutOption(SupportsCapabilities):
     @property
-    def webkit_response_timeout(self) -> Optional[timedelta]:
+    def webkit_response_timeout(self) -> timedelta | None:
         """
         Time to wait for a response from WebKit in a Safari session.
         """
@@ -33,7 +32,7 @@ class WebkitResponseTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @webkit_response_timeout.setter
-    def webkit_response_timeout(self, value: Union[timedelta, int]) -> None:
+    def webkit_response_timeout(self, value: timedelta | int) -> None:
         """
         (Real device only) Set the time to wait for a response from
         WebKit in a Safari session. Defaults to 5000ms.

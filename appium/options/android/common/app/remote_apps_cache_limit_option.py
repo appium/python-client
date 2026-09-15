@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +23,7 @@ REMOTE_APPS_CACHE_LIMIT = 'remoteAppsCacheLimit'
 
 class RemoteAppsCacheLimitOption(SupportsCapabilities):
     @property
-    def remote_apps_cache_limit(self) -> Optional[int]:
+    def remote_apps_cache_limit(self) -> int | None:
         """
         Maximum amount of apps that could be cached on the remote device.
         """

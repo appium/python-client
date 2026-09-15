@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ EXPERIMENTAL_WEB_DRIVER = 'ms:experimental-webdriver'
 
 class ExperimentalWebDriverOption(SupportsCapabilities):
     @property
-    def experimental_webdriver(self) -> bool | None:
+    def experimental_webdriver(self) -> Optional[bool]:
         """
         Whether to enable experimental features and optimizations.
         """

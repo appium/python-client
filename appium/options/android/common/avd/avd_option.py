@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ AVD = 'avd'
 
 class AvdOption(SupportsCapabilities):
     @property
-    def avd(self) -> str | None:
+    def avd(self) -> Optional[str]:
         """
         Name of Android emulator to run the test on.
         """

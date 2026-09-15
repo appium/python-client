@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ USE_SIMPLE_BUILD_TEST = 'useSimpleBuildTest'
 
 class UseSimpleBuildTestOption(SupportsCapabilities):
     @property
-    def use_simple_build_test(self) -> bool | None:
+    def use_simple_build_test(self) -> Optional[bool]:
         """
         Whether to enforce app termination on session quit.
         """

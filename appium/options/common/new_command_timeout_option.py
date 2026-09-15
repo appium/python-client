@@ -16,6 +16,7 @@
 # under the License.
 
 from datetime import timedelta
+from typing import Optional, Union
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -24,7 +25,7 @@ NEW_COMMAND_TIMEOUT = 'newCommandTimeout'
 
 class NewCommandTimeoutOption(SupportsCapabilities):
     @property
-    def new_command_timeout(self) -> timedelta | None:
+    def new_command_timeout(self) -> Optional[timedelta]:
         """
         The allowed time before seeing a new server command.
         """
@@ -32,7 +33,7 @@ class NewCommandTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(seconds=value)
 
     @new_command_timeout.setter
-    def new_command_timeout(self, value: timedelta | int) -> None:
+    def new_command_timeout(self, value: Union[timedelta, int]) -> None:
         """
         Set the allowed time before seeing a new server command.
         The value could either be provided as timedelta instance or an integer number of seconds.

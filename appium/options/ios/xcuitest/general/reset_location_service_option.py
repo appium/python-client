@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ RESET_LOCATION_SERVICE = 'resetLocationService'
 
 class ResetLocationServiceOption(SupportsCapabilities):
     @property
-    def reset_location_service(self) -> bool | None:
+    def reset_location_service(self) -> Optional[bool]:
         """
         Whether to reset the location service in the session deletion on real devices.
         """

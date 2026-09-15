@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ SAFARI_OPEN_LINKS_IN_BACKGROUND = 'safariOpenLinksInBackground'
 
 class SafariOpenLinksInBackgroundOption(SupportsCapabilities):
     @property
-    def safari_open_links_in_background(self) -> bool | None:
+    def safari_open_links_in_background(self) -> Optional[bool]:
         """
         Whether Safari should allow links to open in new windows.
         """

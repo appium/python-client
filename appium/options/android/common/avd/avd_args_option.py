@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ AVD_ARGS = 'avdArgs'
 
 class AvdArgsOption(SupportsCapabilities):
     @property
-    def avd_args(self) -> str | None:
+    def avd_args(self) -> Optional[str]:
         """
         Emulator command line arguments.
         """

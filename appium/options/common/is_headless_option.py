@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ IS_HEADLESS = 'isHeadless'
 
 class IsHeadlessOption(SupportsCapabilities):
     @property
-    def is_headless(self) -> bool | None:
+    def is_headless(self) -> Optional[bool]:
         """
         Whether the driver should start emulator/simulator in headless mode.
         """

@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ PRINT_PAGE_SOURCE_ON_FIND_FAILURE = 'printPageSourceOnFindFailure'
 
 class PrintPageSourceOnFindFailureOption(SupportsCapabilities):
     @property
-    def print_page_source_on_find_failure(self) -> bool | None:
+    def print_page_source_on_find_failure(self) -> Optional[bool]:
         """
         Whether the driver should print the page source to the log
         if a find failure occurs.

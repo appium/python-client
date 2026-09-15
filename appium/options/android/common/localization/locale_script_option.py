@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ LOCALE_SCRIPT = 'localeScript'
 
 class LocaleScriptOption(SupportsCapabilities):
     @property
-    def locale_script(self) -> str | None:
+    def locale_script(self) -> Optional[str]:
         """
         Canonical name of the locale to be set for the app under test.
         """

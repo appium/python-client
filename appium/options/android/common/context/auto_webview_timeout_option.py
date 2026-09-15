@@ -16,6 +16,7 @@
 # under the License.
 
 from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +25,7 @@ AUTO_WEBVIEW_TIMEOUT = 'autoWebviewTimeout'
 
 class AutoWebviewTimeoutOption(SupportsCapabilities):
     @property
-    def auto_webview_timeout(self) -> timedelta | None:
+    def auto_webview_timeout(self) -> Optional[timedelta]:
         """
         Set the maximum timeout to wait until a web view is
         available if autoWebview capability is set to true. 2000 ms by default.
@@ -33,7 +34,7 @@ class AutoWebviewTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @auto_webview_timeout.setter
-    def auto_webview_timeout(self, value: timedelta | int) -> None:
+    def auto_webview_timeout(self, value: Union[timedelta, int]) -> None:
         """
         Timeout to wait until a web view is available.
         """

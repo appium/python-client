@@ -28,8 +28,6 @@ runs:
   steps:
     - name: Start Appium server
       shell: bash
-      env:
-        LOG_FILE: ${{ inputs.log_file }}
       run: |
         nohup appium server \
           --port=${{ inputs.port }} \
@@ -38,12 +36,10 @@ runs:
           --log-timestamp \
           --keep-alive-timeout 1200 \
           ${{ inputs.server_args }} \
-          > "$LOG_FILE" 2>&1 &
+          2>&1 > ${{ inputs.log_file }} &
 
     - name: Wait for Appium server to start
       shell: bash
-      env:
-        LOG_FILE: ${{ inputs.log_file }}
       run: |
         TIMEOUT_SEC=${{ inputs.timeout }}
         INTERVAL_SEC=1
@@ -55,13 +51,12 @@ runs:
 
           if nc -z ${{ inputs.host }} ${{ inputs.port }}; then
             echo "Appium server is running after $elapsed seconds"
-            cat "$LOG_FILE"
+            cat ${{ inputs.log_file }}
             exit 0
           fi
 
           if [[ "$elapsed" -ge "$TIMEOUT_SEC" ]]; then
             echo "${elapsed} seconds timeout reached: Appium server is NOT running"
-            cat "$LOG_FILE"
             exit 1
           fi
 

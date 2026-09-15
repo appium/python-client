@@ -49,12 +49,15 @@ class TestWebElement:
     @httpretty.activate
     def test_send_key_with_file(self):
         driver = android_w3c_driver()
+        # Should not send this file
+        tmp_f = tempfile.NamedTemporaryFile()
         httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/element/element_id/value'))
 
-        # Should not send this file
-        with tempfile.NamedTemporaryFile() as tmp_f:
+        try:
             element = MobileWebElement(driver, 'element_id')
             element.send_keys(tmp_f.name)
+        finally:
+            tmp_f.close()
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['text'] == ''.join(d['value'])

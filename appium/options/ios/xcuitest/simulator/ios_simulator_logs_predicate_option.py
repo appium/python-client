@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ IOS_SIMULATOR_LOGS_PREDICATE = 'iosSimulatorLogsPredicate'
 
 class IosSimulatorLogsPredicateOption(SupportsCapabilities):
     @property
-    def ios_simulator_logs_predicate(self) -> bool | None:
+    def ios_simulator_logs_predicate(self) -> Optional[bool]:
         """
         Get Simulator log filtering predicate.
         """

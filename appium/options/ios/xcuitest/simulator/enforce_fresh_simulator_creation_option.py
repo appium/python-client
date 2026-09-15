@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ ENFORCE_FRESH_SIMULATOR_CREATION = 'enforceFreshSimulatorCreation'
 
 class EnforceFreshSimulatorCreationOption(SupportsCapabilities):
     @property
-    def enforce_fresh_simulator_creation(self) -> bool | None:
+    def enforce_fresh_simulator_creation(self) -> Optional[bool]:
         """
         Whether to create a new simulator for each new test session.
         """

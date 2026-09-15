@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ NETWORK_SPEED = 'networkSpeed'
 
 class NetworkSpeedOption(SupportsCapabilities):
     @property
-    def network_speed(self) -> str | None:
+    def network_speed(self) -> Optional[str]:
         """
         Desired network speed limit for the emulator.
         """

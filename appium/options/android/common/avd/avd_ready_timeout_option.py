@@ -16,6 +16,7 @@
 # under the License.
 
 from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +25,7 @@ AVD_READY_TIMEOUT = 'avdReadyTimeout'
 
 class AvdReadyTimeoutOption(SupportsCapabilities):
     @property
-    def avd_ready_timeout(self) -> timedelta | None:
+    def avd_ready_timeout(self) -> Optional[timedelta]:
         """
         Timeout to wait until Android Emulator is fully booted and is ready for usage.
         """
@@ -32,7 +33,7 @@ class AvdReadyTimeoutOption(SupportsCapabilities):
         return None if value is None else timedelta(milliseconds=value)
 
     @avd_ready_timeout.setter
-    def avd_ready_timeout(self, value: timedelta | int) -> None:
+    def avd_ready_timeout(self, value: Union[timedelta, int]) -> None:
         """
         Maximum timeout to wait until Android Emulator is fully booted and is ready for usage.
         60000 ms by default

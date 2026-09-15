@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ USE_XCTESTRUN_FILE = 'useXctestrunFile'
 
 class UseXctestrunFileOption(SupportsCapabilities):
     @property
-    def use_xctestrun_file(self) -> bool | None:
+    def use_xctestrun_file(self) -> Optional[bool]:
         """
         Whether to use of .xctestrun file to launch WDA.
         """

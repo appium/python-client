@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ SAFARI_GARBAGE_COLLECT = 'safariGarbageCollect'
 
 class SafariGarbageCollectOption(SupportsCapabilities):
     @property
-    def safari_garbage_collect(self) -> bool | None:
+    def safari_garbage_collect(self) -> Optional[bool]:
         """
         Whether to turn on garbage collection when executing scripts on Safari.
         """

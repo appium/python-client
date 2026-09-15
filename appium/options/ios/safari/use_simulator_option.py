@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ USE_SIMULATOR = 'safari:useSimulator'
 
 class UseSimulatorOption(SupportsCapabilities):
     @property
-    def use_simulator(self) -> bool | None:
+    def use_simulator(self) -> Optional[bool]:
         """
         Whether to use iOS Simulator.
         """

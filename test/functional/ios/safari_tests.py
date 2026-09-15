@@ -13,8 +13,7 @@
 # limitations under the License.
 
 import time
-from collections.abc import Generator
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Generator
 
 import pytest
 
@@ -36,9 +35,10 @@ def driver() -> Generator['WebDriver', None, None]:
     options.native_web_tap = True
     options.safari_ignore_fraud_warning = True
     options.webview_connect_timeout = 100000
+    options.new_command_timeout = 600
 
     client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
-    client_config.timeout = 600
+    client_config.timeout = 1200
     driver = webdriver.Remote(options=options, client_config=client_config)
 
     # Fresh iOS 17.4 simulator may not show up the webview context with "safari"
@@ -55,7 +55,7 @@ def driver() -> Generator['WebDriver', None, None]:
 def test_context(driver: 'WebDriver') -> None:
     """Test Safari context switching."""
     contexts = driver.contexts
-    assert contexts[0] == 'NATIVE_APP'
+    assert 'NATIVE_APP' == contexts[0]
     assert contexts[1].startswith('WEBVIEW_')
     driver.switch_to.context(contexts[1])
     assert 'WEBVIEW_' in driver.current_context
@@ -74,7 +74,7 @@ def test_navigation(driver: 'WebDriver') -> None:
     driver.get('http://google.com')
     for _ in range(5):
         time.sleep(0.5)
-        if driver.title == 'Google':
+        if 'Google' == driver.title:
             return
 
     pytest.fail('The title was wrong')

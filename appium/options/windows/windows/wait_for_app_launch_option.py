@@ -16,6 +16,7 @@
 # under the License.
 
 from datetime import timedelta
+from typing import Optional, Union
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -24,7 +25,7 @@ WAIT_FOR_APP_LAUNCH = 'ms:waitForAppLaunch'
 
 class WaitForAppLaunchOption(SupportsCapabilities):
     @property
-    def wait_for_app_launch(self) -> timedelta | None:
+    def wait_for_app_launch(self) -> Optional[timedelta]:
         """
         Timeout used to retry Appium Windows Driver session startup.
         """
@@ -32,7 +33,7 @@ class WaitForAppLaunchOption(SupportsCapabilities):
         return None if value is None else timedelta(seconds=value)
 
     @wait_for_app_launch.setter
-    def wait_for_app_launch(self, value: timedelta | int) -> None:
+    def wait_for_app_launch(self, value: Union[timedelta, int]) -> None:
         """
         Similar to createSessionTimeout, but is
         applied on the server side. Enables Appium Windows Driver to wait for

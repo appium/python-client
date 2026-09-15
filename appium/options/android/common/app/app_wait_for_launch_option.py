@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ APP_WAIT_FOR_LAUNCH = 'appWaitForLaunch'
 
 class AppWaitForLaunchOption(SupportsCapabilities):
     @property
-    def app_wait_for_launch(self) -> bool | None:
+    def app_wait_for_launch(self) -> Optional[bool]:
         """
         Whether to block until the app under test returns the control to the
         caller after its activity has been started by Activity Manager.

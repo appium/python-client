@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ INCLUDE_DEVICE_CAPS_TO_SESSION_INFO = 'includeDeviceCapsToSessionInfo'
 
 class IncludeDeviceCapsToSessionInfoOption(SupportsCapabilities):
     @property
-    def include_device_caps_to_session_info(self) -> bool | None:
+    def include_device_caps_to_session_info(self) -> Optional[bool]:
         """
         Whether to include screen information as the result of Get Session Capabilities.
         """

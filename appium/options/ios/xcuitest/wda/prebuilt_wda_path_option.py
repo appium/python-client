@@ -15,6 +15,7 @@
 # language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ PREBUILT_WDA_PATH = 'prebuiltWDAPath'
 
 class PrebuiltWdaPathOption(SupportsCapabilities):
     @property
-    def prebuilt_wda_path(self) -> str | None:
+    def prebuilt_wda_path(self) -> Optional[str]:
         """
         The path to the prebuilt WebDriverAgent.
         """

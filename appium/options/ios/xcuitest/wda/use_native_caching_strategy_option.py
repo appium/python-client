@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ USE_NATIVE_CACHING_STRATEGY = 'useNativeCachingStrategy'
 
 class UseNativeCachingStrategyOption(SupportsCapabilities):
     @property
-    def use_native_caching_strategy(self) -> bool | None:
+    def use_native_caching_strategy(self) -> Optional[bool]:
         """
         Whether to use the native caching strategy.
         """

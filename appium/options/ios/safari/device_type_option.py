@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ DEVICE_TYPE = 'safari:deviceType'
 
 class DeviceTypeOption(SupportsCapabilities):
     @property
-    def device_type(self) -> str | None:
+    def device_type(self) -> Optional[str]:
         """
         String representing the type of the device.
         """

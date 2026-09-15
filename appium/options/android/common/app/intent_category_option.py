@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ INTENT_CATEGORY = 'intentCategory'
 
 class IntentCategoryOption(SupportsCapabilities):
     @property
-    def intent_category(self) -> str | None:
+    def intent_category(self) -> Optional[str]:
         """
         Intent category to be applied when
         starting the given appActivity by Activity Manager.

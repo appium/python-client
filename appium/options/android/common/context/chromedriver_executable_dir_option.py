@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ CHROMEDRIVER_EXECUTABLE_DIR = 'chromedriverExecutableDir'
 
 class ChromedriverExecutableDirOption(SupportsCapabilities):
     @property
-    def chromedriver_executable_dir(self) -> str | None:
+    def chromedriver_executable_dir(self) -> Optional[str]:
         """
         Full path to the folder where chromedriver executables are located.
         """

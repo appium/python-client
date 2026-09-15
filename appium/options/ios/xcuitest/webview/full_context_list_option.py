@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ FULL_CONTEXT_LIST = 'fullContextList'
 
 class FullContextListOption(SupportsCapabilities):
     @property
-    def full_context_list(self) -> bool | None:
+    def full_context_list(self) -> Optional[bool]:
         """
         Whether to return the detailed information on contexts for the get available
         context command.

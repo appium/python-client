@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ SIMULATOR_DEVICES_SET_PATH = 'simulatorDevicesSetPath'
 
 class SimulatorDevicesSetPathOption(SupportsCapabilities):
     @property
-    def simulator_devices_set_path(self) -> str | None:
+    def simulator_devices_set_path(self) -> Optional[str]:
         """
         Alternative path to the simulator devices set.
         """

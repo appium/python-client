@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ USE_NEW_WDA = 'useNewWDA'
 
 class UseNewWdaOption(SupportsCapabilities):
     @property
-    def use_new_wda(self) -> bool | None:
+    def use_new_wda(self) -> Optional[bool]:
         """
         Whether whether to uninstall of any existing WebDriverAgent app
         on the device under test.

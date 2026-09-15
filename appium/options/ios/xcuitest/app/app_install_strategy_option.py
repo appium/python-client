@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ APP_INSTALL_STRATEGY = 'appInstallStrategy'
 
 class AppInstallStrategyOption(SupportsCapabilities):
     @property
-    def app_install_strategy(self) -> str | None:
+    def app_install_strategy(self) -> Optional[str]:
         """
         App install strategy.
         """

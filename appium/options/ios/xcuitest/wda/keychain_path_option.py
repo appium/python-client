@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ KEYCHAIN_PATH = 'keychainPath'
 
 class KeychainPathOption(SupportsCapabilities):
     @property
-    def keychain_path(self) -> str | None:
+    def keychain_path(self) -> Optional[str]:
         """
         Path to a custom keychain.
         """

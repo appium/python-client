@@ -7,51 +7,30 @@ on:
   pull_request:
     branches: [ master ]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
-
-env:
-  UV_LOCKED: 'true'
-
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-    - uses: actions/checkout@v7
-    - name: Set up Python
-      uses: actions/setup-python@v7
-      with:
-        python-version: '3.14'
-    - name: Set up uv
-      uses: astral-sh/setup-uv@v10.1.0
-      with:
-        enable-cache: true
-        python-version: '3.14'
-    - name: Check lint and formatting
-      run: |
-        uv run ruff check .
-        make check-format
-
   test-ubuntu:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
     - uses: actions/checkout@v7
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v7
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Set up uv
-      uses: astral-sh/setup-uv@v10.1.0
+    - name: Cache uv modules
+      uses: actions/cache@v6
       with:
-        enable-cache: true
-        python-version: ${{ matrix.python-version }}
-    - name: Check types
-      run: uv run mypy appium
+        path: |
+          ~/.cache/uv
+          .venv
+        key: ${{ runner.os }}-uv-shared-${{ hashFiles('**/uv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-shared-
+    - name: Install uv
+      run: make install-uv
+    - name: Run Checks
+      run: make check
     - name: Run Unit Tests
       run: make unittest

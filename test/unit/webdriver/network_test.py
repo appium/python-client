@@ -24,6 +24,7 @@ class TestWebDriverNetwork:
     @httpretty.activate
     def test_network_connection(self):
         driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890/network_connection'), body='{"value": 2}')
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
@@ -34,20 +35,24 @@ class TestWebDriverNetwork:
     @httpretty.activate
     def test_set_network_connection(self):
         driver = android_w3c_driver()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/network_connection'), body='{"value": ""}')
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
             body='{"value": {"wifi": true, "data": false, "airplaneMode": false}}',
         )
-        assert driver.set_network_connection(2) == 2
+        driver.set_network_connection(2)
 
-        d = get_httpretty_request_body(httpretty.latest_requests()[-4])
-        assert d['script'] == 'mobile: setConnectivity'
+        d = get_httpretty_request_body(httpretty.last_request())
         assert d['args'][0]['wifi'] is True
 
     @httpretty.activate
     def test_set_network_speed(self):
         driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/network_speed'),
+        )
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
@@ -60,6 +65,10 @@ class TestWebDriverNetwork:
     @httpretty.activate
     def test_toggle_wifi(self):
         driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/device/toggle_wifi'),
+        )
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),

@@ -23,11 +23,14 @@ class TestWebDriverClipboard:
     def test_set_clipboard_with_url(self):
         driver = android_w3c_driver()
         httpretty.register_uri(
+            httpretty.POST, appium_command('/session/1234567890/appium/device/set_clipboard'), body='{"value": ""}'
+        )
+        httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
             body='{"value": ""}',
         )
-        driver.set_clipboard(bytes('http://appium.io/', 'UTF-8'), ClipboardContentType.URL, 'label for android')
+        driver.set_clipboard(bytes(str('http://appium.io/'), 'UTF-8'), ClipboardContentType.URL, 'label for android')
 
         d = get_httpretty_request_body(httpretty.last_request())
         assert d['args'][0]['content'] == 'aHR0cDovL2FwcGl1bS5pby8='
@@ -37,6 +40,9 @@ class TestWebDriverClipboard:
     @httpretty.activate
     def test_set_clipboard_text(self):
         driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST, appium_command('/session/1234567890/appium/device/set_clipboard'), body='{"value": ""}'
+        )
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),

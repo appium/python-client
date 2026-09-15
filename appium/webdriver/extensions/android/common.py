@@ -16,9 +16,10 @@ from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
 
 
-class Common(CanExecuteCommands, CanExecuteScripts):
+class Common(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     def open_notifications(self) -> Self:
         """Open notification shade in Android (API Level 18 and above)
 
@@ -32,3 +33,6 @@ class Common(CanExecuteCommands, CanExecuteScripts):
     def current_package(self) -> str:
         """Retrieves the current package running on the device."""
         return self.execute_script('mobile: getCurrentPackage')
+
+    def _add_commands(self) -> None:
+        pass

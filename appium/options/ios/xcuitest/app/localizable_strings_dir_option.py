@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ LOCALIZABLE_STRINGS_DIR = 'localizableStringsDir'
 
 class LocalizableStringsDirOption(SupportsCapabilities):
     @property
-    def localizable_strings_dir(self) -> str | None:
+    def localizable_strings_dir(self) -> Optional[str]:
         """
         Resource folder name where the main locale strings are stored.
         """

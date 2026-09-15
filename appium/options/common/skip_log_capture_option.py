@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ SKIP_LOG_CAPTURE = 'skipLogCapture'
 
 class SkipLogCaptureOption(SupportsCapabilities):
     @property
-    def skip_log_capture(self) -> bool | None:
+    def skip_log_capture(self) -> Optional[bool]:
         """
         Whether the driver should not record device logs.
         """

@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ ALLOW_TEST_PACKAGES = 'allowTestPackages'
 
 class AllowTestPackagesOption(SupportsCapabilities):
     @property
-    def allow_test_packages(self) -> bool | None:
+    def allow_test_packages(self) -> Optional[bool]:
         """
         Whether it is possible to use packages built with the test flag for
         the automated testing (literally adds -t flag to the adb install command).

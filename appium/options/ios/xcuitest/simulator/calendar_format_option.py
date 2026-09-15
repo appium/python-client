@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ CALENDAR_FORMAT = 'calendarFormat'
 
 class CalendarFormatOption(SupportsCapabilities):
     @property
-    def calendar_format(self) -> str | None:
+    def calendar_format(self) -> Optional[str]:
         """
         Calendar format for the iOS Simulator.
         """

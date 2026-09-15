@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ APP_ACTIVITY = 'appActivity'
 
 class AppActivityOption(SupportsCapabilities):
     @property
-    def app_activity(self) -> str | None:
+    def app_activity(self) -> Optional[str]:
         """
         Name of the main app activity.
         """

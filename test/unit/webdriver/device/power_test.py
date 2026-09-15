@@ -25,12 +25,15 @@ class TestWebDriverPower:
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
+            appium_command('/session/1234567890/appium/device/power_capacity'),
+        )
+        httpretty.register_uri(
+            httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
         )
         assert isinstance(driver.set_power_capacity(50), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['script'] == 'mobile: powerCapacity'
         assert d['args'][0]['percent'] == 50
 
     @httpretty.activate
@@ -38,10 +41,13 @@ class TestWebDriverPower:
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
+            appium_command('/session/1234567890/appium/device/power_ac'),
+        )
+        httpretty.register_uri(
+            httpretty.POST,
             appium_command('/session/1234567890/execute/sync'),
         )
         assert isinstance(driver.set_power_ac(Power.AC_ON), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['script'] == 'mobile: powerAC'
         assert d['args'][0]['state'] == Power.AC_ON

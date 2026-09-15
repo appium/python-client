@@ -13,12 +13,13 @@
 # limitations under the License.
 
 import os
+from typing import Optional
 
 from appium.options.ios import XCUITestOptions
 from test.functional.test_helper import get_wda_port, get_worker_info
 
 
-def make_options(app: str | None = None) -> XCUITestOptions:
+def make_options(app: Optional[str] = None) -> XCUITestOptions:
     """Get XCUITest options configured for iOS testing with parallel execution support."""
     options = XCUITestOptions()
 
@@ -28,6 +29,7 @@ def make_options(app: str | None = None) -> XCUITestOptions:
     options.allow_touch_id_enroll = True
     options.wda_local_port = get_wda_port()
     options.simple_is_visible_check = True
+    options.wda_launch_timeout = 240000
 
     if app is not None:
         options.app = app

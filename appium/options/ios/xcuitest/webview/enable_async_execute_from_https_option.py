@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ ENABLE_ASYNC_EXECUTE_FROM_HTTPS = 'enableAsyncExecuteFromHttps'
 
 class EnableAsyncExecuteFromHttpsOption(SupportsCapabilities):
     @property
-    def enable_async_execute_from_https(self) -> bool | None:
+    def enable_async_execute_from_https(self) -> Optional[bool]:
         """
         Whether to allow simulators to execute async JavaScript on pages using HTTPS.
         """

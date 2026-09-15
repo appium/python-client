@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ ADB_PORT = 'adbPort'
 
 class AdbPortOption(SupportsCapabilities):
     @property
-    def adb_port(self) -> int | None:
+    def adb_port(self) -> Optional[int]:
         """
         Number of the port where ADB is running.
         """

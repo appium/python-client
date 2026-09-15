@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from appium.options.common.supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ SKIP_UNLOCK = 'skipUnlock'
 
 class SkipUnlockOption(SupportsCapabilities):
     @property
-    def skip_unlock(self) -> bool | None:
+    def skip_unlock(self) -> Optional[bool]:
         """
         Whether to skip the check for lock screen presence.
         """

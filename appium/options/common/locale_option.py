@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ LOCALE = 'locale'
 
 class LocaleOption(SupportsCapabilities):
     @property
-    def locale(self) -> str | None:
+    def locale(self) -> Optional[str]:
         """
         Locale abbreviation to use in a test session.
         """

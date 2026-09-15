@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from typing import Optional
 
 from .supports_capabilities import SupportsCapabilities
 
@@ -23,7 +24,7 @@ DEVICE_NAME = 'deviceName'
 
 class DeviceNameOption(SupportsCapabilities):
     @property
-    def device_name(self) -> str | None:
+    def device_name(self) -> Optional[str]:
         """
         The name of the device.
         """

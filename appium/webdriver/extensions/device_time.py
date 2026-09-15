@@ -12,28 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Optional
+
+from selenium.common.exceptions import UnknownMethodException
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 from appium.protocols.webdriver.can_execute_scripts import CanExecuteScripts
+from appium.protocols.webdriver.can_remember_extension_presence import CanRememberExtensionPresence
+
+from ..mobilecommand import MobileCommand as Command
 
 
-class DeviceTime(CanExecuteCommands, CanExecuteScripts):
+class DeviceTime(CanExecuteCommands, CanExecuteScripts, CanRememberExtensionPresence):
     @property
     def device_time(self) -> str:
         """Returns the date and time from the device.
-
-        Requires the Appium driver to support the `mobile: getDeviceTime` execute method.
 
         Return:
             str: The date and time
         """
         ext_name = 'mobile: getDeviceTime'
-        return self.execute_script(ext_name)
+        try:
+            return self.assert_extension_exists(ext_name).execute_script(ext_name)
+        except UnknownMethodException:
+            # TODO: Remove the fallback
+            return self.mark_extension_absence(ext_name).execute(Command.GET_DEVICE_TIME_GET, {})['value']
 
-    def get_device_time(self, format: str | None = None) -> str:
+    def get_device_time(self, format: Optional[str] = None) -> str:
         """Returns the date and time from the device.
-
-        Requires the Appium driver to support the `mobile: getDeviceTime` execute method.
 
         Args:
             format:  The set of format specifiers. Read https://momentjs.com/docs/
@@ -51,4 +57,19 @@ class DeviceTime(CanExecuteCommands, CanExecuteScripts):
         ext_name = 'mobile: getDeviceTime'
         if format is None:
             return self.device_time
-        return self.execute_script(ext_name, {'format': format})
+        try:
+            return self.assert_extension_exists(ext_name).execute_script(ext_name, {'format': format})
+        except UnknownMethodException:
+            return self.mark_extension_absence(ext_name).execute(Command.GET_DEVICE_TIME_POST, {'format': format})['value']
+
+    def _add_commands(self) -> None:
+        self.command_executor.add_command(
+            Command.GET_DEVICE_TIME_GET,
+            'GET',
+            '/session/$sessionId/appium/device/system_time',
+        )
+        self.command_executor.add_command(
+            Command.GET_DEVICE_TIME_POST,
+            'POST',
+            '/session/$sessionId/appium/device/system_time',
+        )

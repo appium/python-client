@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Dict, Union
 
 from typing_extensions import Self
 
@@ -36,11 +37,11 @@ class Location(CanExecuteCommands, CanExecuteScripts):
 
     def set_location(
         self,
-        latitude: float | str,
-        longitude: float | str,
-        altitude: float | str | None = None,
-        speed: float | str | None = None,
-        satellites: float | str | None = None,
+        latitude: Union[float, str],
+        longitude: Union[float, str],
+        altitude: Union[float, str, None] = None,
+        speed: Union[float, str, None] = None,
+        satellites: Union[float, str, None] = None,
     ) -> Self:
         """Set the location of the device
 
@@ -70,7 +71,7 @@ class Location(CanExecuteCommands, CanExecuteScripts):
         return self
 
     @property
-    def location(self) -> dict[str, float]:
+    def location(self) -> Dict[str, float]:
         """Retrieves the current location
 
         Returns:

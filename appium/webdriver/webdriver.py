@@ -457,8 +457,9 @@ class WebDriver(
                 driver.orientation = 'landscape'
         """
         allowed_values = ['LANDSCAPE', 'PORTRAIT']
-        if value.upper() in allowed_values:
-            self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value.upper()})
+        v = value.upper()
+        if v in allowed_values:
+            self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': v})
         else:
             raise WebDriverException("You can only set the orientation to 'LANDSCAPE' and 'PORTRAIT'")
 

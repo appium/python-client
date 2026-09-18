@@ -2,6 +2,42 @@
 
 <!-- version list -->
 
+## v6.0.7 (2026-09-18)
+
+### Bug Fixes
+
+- **webdriver**: Normalize orientation value to uppercase in setter
+  ([#1308](https://github.com/appium/python-client/pull/1308),
+  [`1162bab`](https://github.com/appium/python-client/commit/1162bab613a3418b6f9b4d2cdb5e41dfebd28ede))
+
+### Continuous Integration
+
+- Enhance ci env ([#1303](https://github.com/appium/python-client/pull/1303),
+  [`e7acbb2`](https://github.com/appium/python-client/commit/e7acbb2362cd07ec142c85264ca59a442778acf1))
+
+### Refactoring
+
+- **webdriver**: Simplify direct connect capabilities check and logging
+  ([#1302](https://github.com/appium/python-client/pull/1302),
+  [`e23dc47`](https://github.com/appium/python-client/commit/e23dc47f0cd8e895fd558a0beae72cdcba8ef68e))
+
+### Testing
+
+- Add orientation getter and setter unit tests
+  ([#1307](https://github.com/appium/python-client/pull/1307),
+  [`90c38d1`](https://github.com/appium/python-client/commit/90c38d1640d75f0c0911c9a31ddc98ff1baa9ab1))
+
+- Add unit tests for orientation setter ([#1289](https://github.com/appium/python-client/pull/1289),
+  [`ac77fcf`](https://github.com/appium/python-client/commit/ac77fcffa69d130fa5e4fe1b3969330884b14c6e))
+
+- Fix flutter app asset download url in ci
+  ([#1289](https://github.com/appium/python-client/pull/1289),
+  [`ac77fcf`](https://github.com/appium/python-client/commit/ac77fcffa69d130fa5e4fe1b3969330884b14c6e))
+
+- Fix timeouts in ios safari test ([#1289](https://github.com/appium/python-client/pull/1289),
+  [`ac77fcf`](https://github.com/appium/python-client/commit/ac77fcffa69d130fa5e4fe1b3969330884b14c6e))
+
+
 ## v6.0.6 (2026-09-12)
 
 ### Bug Fixes

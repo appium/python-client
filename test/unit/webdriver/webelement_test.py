@@ -17,6 +17,7 @@ import tempfile
 
 import httpretty
 
+from appium.protocols.webdriver.can_find_elements import CanFindElements
 from appium.webdriver.webelement import WebElement as MobileWebElement
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
@@ -101,3 +102,50 @@ class TestWebElement:
         httpretty.last_request()
 
         assert loc == location_in_view
+
+    @httpretty.activate
+    def test_find_element_default_by(self):
+        driver = android_w3c_driver()
+        element = MobileWebElement(driver, 'element_id')
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/element/element_id/element'),
+            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "child-element-id"}}',
+        )
+
+        el = element.find_element(value='child_id')
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['using'] == 'id'
+        assert d['value'] == 'child_id'
+        assert isinstance(el, MobileWebElement)
+        assert el.id == 'child-element-id'
+
+    @httpretty.activate
+    def test_find_elements_default_by(self):
+        driver = android_w3c_driver()
+        element = MobileWebElement(driver, 'element_id')
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/element/element_id/elements'),
+            body='{"value": [{"element-6066-11e4-a52e-4f735466cecf": "child-1"}, {"element-6066-11e4-a52e-4f735466cecf": "child-2"}]}',
+        )
+
+        els = element.find_elements(value='child_ids')
+
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d['using'] == 'id'
+        assert d['value'] == 'child_ids'
+        assert len(els) == 2
+        assert isinstance(els[0], MobileWebElement)
+        assert els[0].id == 'child-1'
+        assert isinstance(els[1], MobileWebElement)
+        assert els[1].id == 'child-2'
+
+    @httpretty.activate
+    def test_can_find_elements_protocol_conformance(self):
+        driver = android_w3c_driver()
+        element = MobileWebElement(driver, 'element_id')
+
+        assert isinstance(element, CanFindElements)
+        assert isinstance(driver, CanFindElements)

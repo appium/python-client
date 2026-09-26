@@ -83,7 +83,7 @@ jobs:
         python-version: 3.14
 
     - name: Set up uv
-      uses: astral-sh/setup-uv@v10.1.0
+      uses: astral-sh/setup-uv@v10.2.0
       with:
         enable-cache: true
         python-version: '3.14'
@@ -190,7 +190,7 @@ jobs:
         python-version: 3.14
 
     - name: Set up uv
-      uses: astral-sh/setup-uv@v10.1.0
+      uses: astral-sh/setup-uv@v10.2.0
       with:
         enable-cache: true
         python-version: '3.14'
@@ -306,7 +306,7 @@ jobs:
         log_file: appium-${{ matrix.e2e-tests }}.log
 
     - name: Set up uv
-      uses: astral-sh/setup-uv@v10.1.0
+      uses: astral-sh/setup-uv@v10.2.0
       with:
         enable-cache: true
         python-version: '3.14'

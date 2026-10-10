@@ -43,5 +43,5 @@ class TestWebDriverPower:
         assert isinstance(driver.set_power_ac(Power.AC_ON), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['script'] == 'mobile: powerAC'
+        assert d['script'] == 'mobile: powerAc'
         assert d['args'][0]['state'] == Power.AC_ON

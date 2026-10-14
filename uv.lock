@@ -1344,7 +1344,7 @@ wheels = [
 
 [[package]]
 name = "selenium"
-version = "4.48.0"
+version = "4.51.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
@@ -1354,9 +1354,9 @@ dependencies = [
     { name = "urllib3", extra = ["socks"] },
     { name = "websocket-client" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7f/8c/db97bdc1a8b41e7b6bf9d3099722ed8e7ac61328af8637f20004015c642b/selenium-4.48.0.tar.gz", hash = "sha256:045c1ec054c94e3be6c10febc509aa513b4c05e9146d1a9cf3de5375ec6ca2a1", size = 1055269, upload-time = "2026-08-27T20:05:51.235Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c3/d3/c925308af2c9b9a9ccf531cf23ffba4f38c0d750f088a06e560fb2ca0c59/selenium-4.51.0.tar.gz", hash = "sha256:6bec9bd8d9b6599f850b0f6e9fb06d44d2e4245adccd11ae02c9d5cde7596276", size = 1050794, upload-time = "2026-10-09T18:38:24.729Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d3/ee/5d1b0e9cb43965902f0a9f7add527134db71cabf2f26766ae2fdb7774b9a/selenium-4.48.0-py3-none-any.whl", hash = "sha256:b2a1d77019db92513e59aa2376710fe3d42b65a4d493dccd0c799c1a0d574d93", size = 9561411, upload-time = "2026-08-27T20:05:48.778Z" },
+    { url = "https://files.pythonhosted.org/packages/74/6d/2cae01adf4db83e2862e254bc053def829a9603a1c68431b7c9aae0ecba0/selenium-4.51.0-py3-none-any.whl", hash = "sha256:5531e99df3c60a298c4bef38de825aec4aa8ca238438ac21511d650b58dbdd87", size = 11794382, upload-time = "2026-10-09T18:38:21.957Z" },
 ]
 
 [[package]]

@@ -47,7 +47,7 @@ class Power(CanExecuteCommands, CanExecuteScripts):
 
         Android only.
 
-        Requires the Appium driver to support the `mobile: powerAC` execute method.
+        Requires the Appium driver to support the `mobile: powerAc` execute method.
 
         Args:
             ac_state: The power ac state to be set. Use `Power.AC_OFF`, `Power.AC_ON`
@@ -59,7 +59,7 @@ class Power(CanExecuteCommands, CanExecuteScripts):
         Returns:
             Union['WebDriver', 'Power']: Self instance
         """
-        ext_name = 'mobile: powerAC'
+        ext_name = 'mobile: powerAc'
         args = {'state': ac_state}
         self.execute_script(ext_name, args)
         return self

@@ -67,4 +67,5 @@ class TestWebDriveGsm:
         assert isinstance(driver.set_gsm_voice(GsmVoiceState.ROAMING), WebDriver)
 
         d = get_httpretty_request_body(httpretty.last_request())
+        assert d['script'] == 'mobile: gsmVoice'
         assert d['args'][0]['state'] == GsmVoiceState.ROAMING

@@ -104,9 +104,9 @@ For example, some changes in the Selenium binding could break the Appium client.
         - Please check the [Usage](#usage) below as an example.
     - Not a "new" change, but the `desired_capabilities` argument has been removed since v3.
 - Replacement
-    - `start_activity` method: Please use [`mobile: startActivity`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-startactivity)
+    - `start_activity` method: Please use [`mobile: startActivity`](https://appium.github.io/appium-uiautomator2-driver/latest/reference/execute-methods/#mobile-startactivity)
     - `launch_app`, `close_app` and `reset` methods: Please refer to https://github.com/appium/appium/issues/15807
-    - `available_ime_engines`, `is_ime_active`, `activate_ime_engine`, `deactivate_ime_engine` and `active_ime_engine` methods: Please use [`mobile: shell`](https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#mobile-shell)
+    - `available_ime_engines`, `is_ime_active`, `activate_ime_engine`, `deactivate_ime_engine` and `active_ime_engine` methods: Please use [`mobile: shell`](https://appium.github.io/appium-uiautomator2-driver/latest/reference/execute-methods/#mobile-shell)
     - `set_value` and `set_text` methods: Please use `element.send_keys` or `send_keys` by W3C Actions
 - Removal
     - `end_test_coverage` method is no longer available

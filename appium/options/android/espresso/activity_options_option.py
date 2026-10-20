@@ -34,7 +34,7 @@ class ActivityOptionsOption(SupportsCapabilities):
         """
         The mapping of custom options for the main app activity that is going to
         be started. Check
-        https://github.com/appium/appium-espresso-driver#activity-options
+        https://appium.github.io/appium-espresso-driver/latest/reference/capabilities/#activityoptions
         for more details.
         """
         self.set_capability(ACTIVITY_OPTIONS, value)

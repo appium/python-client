@@ -2,6 +2,72 @@
 
 <!-- version list -->
 
+## v6.0.8 (2026-10-20)
+
+### Bug Fixes
+
+- **android**: Send the gsmVoice and powerAc execute method names
+  ([#1320](https://github.com/appium/python-client/pull/1320),
+  [`cd946b7`](https://github.com/appium/python-client/commit/cd946b71b599c47957b57279ef964c31aa873b68))
+
+- **android**: Send the gsmVoice and powerAc execute method names
+  ([#1320](https://github.com/appium/python-client/pull/1320),
+  [`547a712`](https://github.com/appium/python-client/commit/547a712b0e0ecf13f4185b8f950b1a9e6b7ba0d7))
+
+### Chores
+
+- Add support python3.15 ([#1326](https://github.com/appium/python-client/pull/1326),
+  [`3c2b1b0`](https://github.com/appium/python-client/commit/3c2b1b006c1aa96d7ea847eab64ba91714e4c548))
+
+### Continuous Integration
+
+- **deps**: Bump actions/setup-java from 6.0.1 to 6.1.0
+  ([#1325](https://github.com/appium/python-client/pull/1325),
+  [`b6311fe`](https://github.com/appium/python-client/commit/b6311feb681dee679f03543c6add4e481b1a76b0))
+
+- **deps**: Bump astral-sh/setup-uv from 10.1.0 to 10.2.0
+  ([#1312](https://github.com/appium/python-client/pull/1312),
+  [`385e953`](https://github.com/appium/python-client/commit/385e95339ee31ce995a5c37f4503b7e2eeece756))
+
+- **deps**: Bump astral-sh/setup-uv from 10.2.0 to 10.3.0
+  ([#1324](https://github.com/appium/python-client/pull/1324),
+  [`9f36595`](https://github.com/appium/python-client/commit/9f365953ab5d4a5988ff0d5065e833553a66d39e))
+
+- **deps**: Bump futureware-tech/simulator-action from 5 to 6
+  ([#1321](https://github.com/appium/python-client/pull/1321),
+  [`8b1ba0d`](https://github.com/appium/python-client/commit/8b1ba0d9e56764eefd3f879218038d3bec443188))
+
+- **deps**: Bump selenium from 4.48.0 to 4.51.0
+  ([#1323](https://github.com/appium/python-client/pull/1323),
+  [`62513dd`](https://github.com/appium/python-client/commit/62513ddb9db29de9b40dc0dbe500b2f29b8af812))
+
+- **deps**: Bump virtualenv from 20.36.1 to 21.7.13
+  ([#1319](https://github.com/appium/python-client/pull/1319),
+  [`4a4c46b`](https://github.com/appium/python-client/commit/4a4c46b64812e10885d80db3f60fbea9ea9a7b67))
+
+- **deps-dev**: Bump ruff from 0.16.6 to 0.16.7
+  ([#1304](https://github.com/appium/python-client/pull/1304),
+  [`49edf55`](https://github.com/appium/python-client/commit/49edf555409e1ca3a1727f934a5887b1903f04d7))
+
+- **deps-dev**: Bump ruff from 0.16.7 to 0.16.8
+  ([#1310](https://github.com/appium/python-client/pull/1310),
+  [`95f4c05`](https://github.com/appium/python-client/commit/95f4c056a370a1bbeb83123cf9ab7e8d8a6564dd))
+
+- **deps-dev**: Bump ruff from 0.16.8 to 0.17.0
+  ([#1322](https://github.com/appium/python-client/pull/1322),
+  [`705f9d1`](https://github.com/appium/python-client/commit/705f9d1523f3990db9d5b1f4ccc96a0bee2cb580))
+
+### Documentation
+
+- Update driver links to docs sites ([#1328](https://github.com/appium/python-client/pull/1328),
+  [`d43a9f4`](https://github.com/appium/python-client/commit/d43a9f4230a1781bf32827b677f35713565ad772))
+
+### Refactoring
+
+- Use local variable
+  ([`79d0a55`](https://github.com/appium/python-client/commit/79d0a555e9fded546cd301071ee4c48a51d0d7f7))
+
+
 ## v6.0.7 (2026-09-18)
 
 ### Bug Fixes

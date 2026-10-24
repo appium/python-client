@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v6.0.9 (2026-10-24)
+
+### Bug Fixes
+
+- **webelement**: Preserve default locator strategy in webelement type hints
+  ([#1309](https://github.com/appium/python-client/pull/1309),
+  [`efb4085`](https://github.com/appium/python-client/commit/efb4085b03a40c58dd1aa628cab31be50bb4dd5c))
+
+
 ## v6.0.8 (2026-10-20)
 
 ### Bug Fixes

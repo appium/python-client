@@ -19,7 +19,7 @@ from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.mouse_button import MouseButton
 from selenium.webdriver.common.actions.pointer_input import PointerInput
-from typing_extensions import Self
+from typing_extensions import Self, deprecated
 
 from appium.webdriver.webelement import WebElement
 
@@ -29,8 +29,13 @@ if TYPE_CHECKING:
 
 
 class ActionHelpers:
+    @deprecated('Please use W3C actions (ActionChains/ActionBuilder) or mobile: gesture extensions instead.')
     def scroll(self, origin_el: WebElement, destination_el: WebElement, duration: int | None = None) -> Self:
         """Scrolls from one element to another
+
+        .. deprecated::
+            Please use W3C actions (`ActionChains` / `ActionBuilder`) or driver-specific
+            `mobile:` gesture extensions instead.
 
         Args:
             origin_el: the element from which to begin scrolling (center of element)
@@ -63,8 +68,13 @@ class ActionHelpers:
         actions.perform()
         return self
 
+    @deprecated('Please use W3C actions (ActionChains/ActionBuilder) or mobile: gesture extensions instead.')
     def drag_and_drop(self, origin_el: WebElement, destination_el: WebElement, pause: float | None = None) -> Self:
         """Drag the origin element to the destination element
+
+        .. deprecated::
+            Please use W3C actions (`ActionChains` / `ActionBuilder`) or driver-specific
+            `mobile:` gesture extensions instead.
 
         Args:
             origin_el: the element to drag
@@ -84,9 +94,14 @@ class ActionHelpers:
         actions.perform()
         return self
 
+    @deprecated('Please use W3C actions (ActionChains/ActionBuilder) or mobile: gesture extensions instead.')
     def tap(self, positions: list[tuple[int, int]], duration: int | None = None) -> Self:
         """Taps on an particular place with up to five fingers, holding for a
         certain time
+
+        .. deprecated::
+            Please use W3C actions (`ActionChains` / `ActionBuilder`) or driver-specific
+            `mobile:` gesture extensions instead.
 
         Args:
             positions: an array of tuples representing the x/y coordinates of
@@ -132,8 +147,13 @@ class ActionHelpers:
             actions.perform()
         return self
 
+    @deprecated('Please use W3C actions (ActionChains/ActionBuilder) or mobile: gesture extensions instead.')
     def swipe(self, start_x: int, start_y: int, end_x: int, end_y: int, duration: int = 0) -> Self:
         """Swipe from one point to another point, for an optional duration.
+
+        .. deprecated::
+            Please use W3C actions (`ActionChains` / `ActionBuilder`) or driver-specific
+            `mobile:` gesture extensions instead.
 
         Args:
             start_x: x-coordinate at which to start
@@ -161,8 +181,13 @@ class ActionHelpers:
         actions.perform()
         return self
 
+    @deprecated('Please use W3C actions (ActionChains/ActionBuilder) or mobile: gesture extensions instead.')
     def flick(self, start_x: int, start_y: int, end_x: int, end_y: int) -> Self:
         """Flick from one point to another point.
+
+        .. deprecated::
+            Please use W3C actions (`ActionChains` / `ActionBuilder`) or driver-specific
+            `mobile:` gesture extensions instead.
 
         Args:
             start_x: x-coordinate at which to start

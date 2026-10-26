@@ -6,9 +6,7 @@
 Appium python client documentation
 ==================================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+API reference documentation for `Appium-Python-Client <https://github.com/appium/python-client>`_.
 
 
 .. toctree::

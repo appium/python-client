@@ -56,10 +56,13 @@ class AppiumConnection(RemoteConnection):
         This method will be used in sending a request method in this class.
         """
 
+        extra_headers = cls.extra_headers.copy()
         if parsed_url.path.endswith('/session'):
             # https://github.com/appium/appium-base-driver/pull/400
-            cls.extra_headers[HEADER_IDEMOTENCY_KEY] = str(uuid.uuid4())
+            # Keep the per-request idempotency key local: sessions may be created concurrently.
+            extra_headers[HEADER_IDEMOTENCY_KEY] = str(uuid.uuid4())
         else:
-            cls.extra_headers = _get_new_headers(HEADER_IDEMOTENCY_KEY, cls.extra_headers)
+            extra_headers = _get_new_headers(HEADER_IDEMOTENCY_KEY, extra_headers)
+            cls.extra_headers = extra_headers
 
-        return {**super().get_remote_connection_headers(parsed_url, keep_alive=keep_alive), **cls.extra_headers}
+        return {**super().get_remote_connection_headers(parsed_url, keep_alive=keep_alive), **extra_headers}

@@ -47,7 +47,7 @@ dev = [
   "pytest>=9.1,<10.0",
   "pytest-cov>=7.1,<8.0",
   "pytest-xdist~=3.8",
-  "python-dateutil~=2.9",
+  "python-dateutil>=2.9,<4.0",
   "ruff~=0.17",
   "types-python-dateutil~=2.9",
 

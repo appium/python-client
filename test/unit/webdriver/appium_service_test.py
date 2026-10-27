@@ -17,12 +17,30 @@ from unittest.mock import Mock, call
 import pytest
 
 from appium.webdriver import appium_service
-from appium.webdriver.appium_service import AppiumService
+from appium.webdriver.appium_service import AppiumService, AppiumServiceError
 
 
 class TestAppiumService:
     def test_get_instance(self):
         assert AppiumService()
+
+    def test_get_node_found(self, monkeypatch):
+        monkeypatch.setattr(appium_service.shutil, 'which', lambda cmd: f'/usr/bin/{cmd}')
+        assert appium_service.get_node() == '/usr/bin/node'
+
+    def test_get_node_not_found(self, monkeypatch):
+        monkeypatch.setattr(appium_service.shutil, 'which', lambda cmd: None)
+        with pytest.raises(AppiumServiceError, match='NodeJS main executable cannot be found'):
+            appium_service.get_node()
+
+    def test_get_npm_found(self, monkeypatch):
+        monkeypatch.setattr(appium_service.shutil, 'which', lambda cmd: f'/usr/bin/{cmd}')
+        assert appium_service.get_npm() == '/usr/bin/npm'
+
+    def test_get_npm_not_found(self, monkeypatch):
+        monkeypatch.setattr(appium_service.shutil, 'which', lambda cmd: None)
+        with pytest.raises(AppiumServiceError, match='Node Package Manager executable cannot be found'):
+            appium_service.get_npm()
 
     @pytest.mark.parametrize(
         ('status', 'expected_result', 'expected_elapsed', 'expected_requests'),

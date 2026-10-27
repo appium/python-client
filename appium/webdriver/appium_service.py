@@ -14,6 +14,7 @@
 
 import os
 import re
+import shutil
 import subprocess as sp
 import sys
 import time
@@ -224,33 +225,15 @@ def is_service_listening(url: str, timeout: float = 5, custom_validator: Callabl
     return False
 
 
-def find_executable(executable: str) -> str | None:
-    path = os.environ['PATH']
-    paths = path.split(os.pathsep)
-    _, ext = os.path.splitext(executable)
-    if sys.platform == 'win32' and not ext:
-        executable = executable + '.exe'
-
-    if os.path.isfile(executable):
-        return executable
-
-    for p in paths:
-        full_path = os.path.join(p, executable)
-        if os.path.isfile(full_path):
-            return full_path
-
-    return None
-
-
 def get_node() -> str:
-    result = find_executable('node')
+    result = shutil.which('node')
     if result is None:
         raise AppiumServiceError('NodeJS main executable cannot be found. Make sure it is installed and present in PATH')
     return result
 
 
 def get_npm() -> str:
-    result = find_executable('npm.cmd' if sys.platform == 'win32' else 'npm')
+    result = shutil.which('npm')
     if result is None:
         raise AppiumServiceError(
             'Node Package Manager executable cannot be found. Make sure it is installed and present in PATH'
@@ -330,8 +313,6 @@ def _make_server_url(args: list[str]) -> str:
 
 
 if __name__ == '__main__':
-    assert find_executable('node') is not None
-    assert find_executable('npm') is not None
     service = AppiumService()
     service.start(args=['--address', '127.0.0.1', '-p', str(DEFAULT_PORT)])
     # service.start(args=['--address', '127.0.0.1', '-p', '80'], timeout_ms=2000)

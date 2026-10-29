@@ -27,6 +27,7 @@ from selenium.webdriver.remote.remote_connection import urllib3
 DEFAULT_HOST = '127.0.0.1'
 DEFAULT_PORT = 4723
 STARTUP_TIMEOUT_MS = 60000
+STOP_TIMEOUT_SEC = 5.5
 STATE_CHECK_INTERVAL_MS = 500
 MAIN_SCRIPT_PATH = 'appium/build/lib/main.js'
 STATUS_URL = '/status'
@@ -124,15 +125,20 @@ class AppiumService:
             error_msg = startup_failure_msg
         if error_msg is not None:
             if stderr == sp.PIPE and self._process.stderr is not None:
-                # noinspection PyUnresolvedReferences
-                err_output = self._process.stderr.read()
+                # The server might still be running, for example if it does not listen on the expected URL.
+                # Reading its stderr before the process exits would block forever, so terminate it first.
+                self._process.terminate()
+                try:
+                    _, err_output = self._process.communicate(timeout=STOP_TIMEOUT_SEC)
+                except sp.TimeoutExpired:
+                    err_output = None
                 if err_output:
                     error_msg += f'\nOriginal error: {str(err_output)}'
             self.stop()
             raise AppiumServiceError(error_msg)
         return self._process
 
-    def stop(self, timeout: float = 5.5) -> bool:
+    def stop(self, timeout: float = STOP_TIMEOUT_SEC) -> bool:
         """Stops Appium service if it is running.
 
         The call will be ignored if the service is not running

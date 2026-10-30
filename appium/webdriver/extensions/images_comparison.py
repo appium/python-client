@@ -51,7 +51,7 @@ class ImagesComparison(CanExecuteCommands):
         Returns:
             The dictionary containing the following entries:
 
-            visualization (bytes): base64-encoded content of PNG visualization of the current comparison
+            visualization (str): base64-encoded content of PNG visualization of the current comparison
                 operation. This entry is only present if `visualize` option is enabled
             count (int): The count of matched edges on both images.
                 The more matching edges there are no both images the more similar they are.
@@ -59,11 +59,11 @@ class ImagesComparison(CanExecuteCommands):
                 It is equal to `count` if `goodMatchesFactor` does not limit the matches,
                 otherwise it contains the total count of matches before `goodMatchesFactor` is
                 applied.
-            points1 (dict): The array of matching points on the first image. Each point is a dictionary
+            points1 (list): The array of matching points on the first image. Each point is a dictionary
                 with 'x' and 'y' keys
             rect1 (dict): The bounding rect for the `points1` array or a zero rect if not enough matching points
                 were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
-            points2 (dict): The array of matching points on the second image. Each point is a dictionary
+            points2 (list): The array of matching points on the second image. Each point is a dictionary
                 with 'x' and 'y' keys
             rect2 (dict): The bounding rect for the `points2` array or a zero rect if not enough matching points
                 were found. The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
@@ -78,7 +78,7 @@ class ImagesComparison(CanExecuteCommands):
 
     def find_image_occurrence(
         self, base64_full_image: Base64Payload, base64_partial_image: Base64Payload, **opts: Any
-    ) -> dict[str, bytes | dict]:
+    ) -> dict[str, Any] | list[dict[str, Any]]:
         """Performs images matching by template to find possible occurrence of the partial image
         in the full image.
 
@@ -94,13 +94,17 @@ class ImagesComparison(CanExecuteCommands):
         Keyword Args:
             visualize (bool): Set it to True in order to return the visualization of the matching operation.
                 False by default
+            multiple (bool): Set it to True in order to return all matches above the threshold
+                as a list. False by default
 
         Returns:
-            The dictionary containing the following entries:
-                visualization (bytes): base64-encoded content of PNG visualization of the current comparison
-                    operation. This entry is only present if `visualize` option is enabled
+            The dictionary containing the following entries, or a list of such dictionaries
+            (one per match) if `multiple` is enabled:
+                visualization (str): base64-encoded content of PNG visualization of the current comparison
+                    operation. This entry is only filled if `visualize` option is enabled
                 rect (dict): The region of the partial image occurrence on the full image.
                     The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
+                score (float): The similarity score of the match
         """
         options = {
             'mode': 'matchTemplate',
@@ -110,9 +114,7 @@ class ImagesComparison(CanExecuteCommands):
         }
         return self.execute(Command.COMPARE_IMAGES, options)['value']
 
-    def get_images_similarity(
-        self, base64_image1: Base64Payload, base64_image2: Base64Payload, **opts: Any
-    ) -> dict[str, bytes | dict]:
+    def get_images_similarity(self, base64_image1: Base64Payload, base64_image2: Base64Payload, **opts: Any) -> dict[str, Any]:
         """Performs images matching to calculate the similarity score between them.
 
         The flow there is similar to the one used in
@@ -124,12 +126,12 @@ class ImagesComparison(CanExecuteCommands):
             base64_image2: base64-encoded content of the second image
 
         Keyword Args:
-            visualize (boo): Set it to True in order to return the visualization of the matching operation.
+            visualize (bool): Set it to True in order to return the visualization of the matching operation.
                 False by default
 
         Returns:
             The dictionary containing the following entries:
-                visualization (bytes): base64-encoded content of PNG visualization of the current comparison
+                visualization (str): base64-encoded content of PNG visualization of the current comparison
                     operation. This entry is only present if `visualize` option is enabled
                 score (float): The similarity score as a float number in range [0.0, 1.0].
                     1.0 is the highest score (means both images are totally equal).

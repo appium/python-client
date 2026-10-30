@@ -20,7 +20,7 @@ from ..mobilecommand import MobileCommand as Command
 
 
 class ScreenRecord(CanExecuteCommands):
-    def start_recording_screen(self, **options: Any) -> bytes | str:
+    def start_recording_screen(self, **options: Any) -> str | None:
         """Start asynchronous screen recording process.
 
         +--------------+-----+---------+-----+-------+
@@ -50,7 +50,9 @@ class ScreenRecord(CanExecuteCommands):
         +--------------+-----+---------+-----+-------+
         | videoFps     | O   |         |     |       |
         +--------------+-----+---------+-----+-------+
-        | videoFilter  | O   |         | O   | O     |
+        | videoFilters | O   |         |     |       |
+        +--------------+-----+---------+-----+-------+
+        | videoFilter  |     |         | O   | O     |
         +--------------+-----+---------+-----+-------+
         | videoScale   | O   |         |     |       |
         +--------------+-----+---------+-----+-------+
@@ -93,13 +95,14 @@ class ScreenRecord(CanExecuteCommands):
                 Only has an effect if `remotePath` is set.
             timeLimit (int): The actual time limit of the recorded video in seconds.
                 The default value for both iOS and Android is 180 seconds (3 minutes).
-                The default value for macOS is 600 seconds (10 minutes).
-                The maximum value for Android is 3 minutes.
-                The maximum value for iOS is 10 minutes.
-                The maximum value for macOS is 10000 seconds (166 minutes).
-            forcedRestart (bool): Whether to ignore the result of previous capture and start a new recording
+                The default value for Windows and macOS is 600 seconds (10 minutes).
+                The maximum value for Android is 1800 seconds (30 minutes).
+                The maximum value for iOS is 4200 seconds (70 minutes).
+            forceRestart (bool): Whether to ignore the result of previous capture and start a new recording
                 immediately (`True` value). By default  (`False`) the endpoint will try to catch and
                 return the result of the previous capture if it's still available.
+                On Windows and macOS the default is `True`, and `False` makes the call do nothing
+                while a recording is already running.
             fileFieldName (str): [multipart/form-data requests] The name of the form field
                 containing the binary payload. "file" by default. (Since Appium 1.18.0)
             formFields (dict): [multipart/form-data requests] Additional form fields mapping. If any entry has
@@ -113,7 +116,7 @@ class ScreenRecord(CanExecuteCommands):
                 'mjpeg' by default. (Since Appium 1.10.0)
             videoFps (int): [iOS] The Frames Per Second rate of the recorded video. Change this value if the
                 resulting video is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
-            videoFilters (str): [iOS, Win, macOS] The FFMPEG video filters to apply. These filters allow to scale,
+            videoFilters (str): [iOS] The FFMPEG video filters to apply. These filters allow to scale,
                 flip, rotate and do many other useful transformations on the source video stream. The format of the
                 property must comply with https://ffmpeg.org/ffmpeg-filters.html. (Since Appium 1.15)
             videoScale (str): [iOS] The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for
@@ -129,7 +132,7 @@ class ScreenRecord(CanExecuteCommands):
             bitRate (int): [Android] The video bit rate for the video, in bits per second.
                 The default value is 4000000 (4 Mbit/s). You can increase the bit rate to improve video quality,
                 but doing so results in larger movie files.
-            bugReport (str): [Android] Makes the recorder to display an additional information on the video overlay,
+            bugReport (bool): [Android] Makes the recorder to display an additional information on the video overlay,
                 such as a timestamp, that is helpful in videos captured to illustrate bugs.
                 This option is only supported since API level 27 (Android P).
 
@@ -137,8 +140,10 @@ class ScreenRecord(CanExecuteCommands):
                 Increasing fps value also increases the size of the resulting video file and the CPU usage.
             captureCursor (bool): [Win, macOS] Whether to capture the mouse cursor while recording the screen.
                 Disabled by default.
-            captureClick (bool): [Win, macOS] Whether to capture the click gestures while recording the screen.
+            captureClicks (bool): [Win, macOS] Whether to capture the click gestures while recording the screen.
                 Disabled by default.
+            videoFilter (str): [Win, macOS] The FFMPEG video filter to apply. The format is the same as
+                for `videoFilters`.
             deviceId (int): [macOS] Screen device index to use for the recording.
                 The list of available devices could be retrieved using
                 `ffmpeg -f avfoundation -list_devices true -i` command.
@@ -155,16 +160,17 @@ class ScreenRecord(CanExecuteCommands):
             driver.start_recording_screen()
 
         Returns:
-            bytes: Base-64 encoded content of the recorded media
+            str | None: [iOS, Android] Base-64 encoded content of the recorded media
                 if `stop_recording_screen` isn't called after previous `start_recording_screen`.
                 Otherwise returns an empty string.
+                [Win, macOS] Always None.
         """
         if 'password' in options:
             options['pass'] = options['password']
             del options['password']
         return self.execute(Command.START_RECORDING_SCREEN, {'options': options})['value']
 
-    def stop_recording_screen(self, **options: Any) -> bytes:
+    def stop_recording_screen(self, **options: Any) -> str:
         """Gather the output from the previously started screen recording to a media file.
 
         Keyword Args:
@@ -194,7 +200,7 @@ class ScreenRecord(CanExecuteCommands):
                 fd.write(base64.b64decode(payload))
 
         Returns:
-            bytes: Base-64 encoded content of the recorded media file or an empty string
+            str: Base-64 encoded content of the recorded media file or an empty string
                 if the file has been successfully uploaded to a remote location
                 (depends on the actual `remotePath` value).
         """

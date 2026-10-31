@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v6.0.11 (2026-10-31)
+
+### Bug Fixes
+
+- **options**: Return Flutter timeout options as timedelta
+  ([#1343](https://github.com/appium/python-client/pull/1343),
+  [`a4d911f`](https://github.com/appium/python-client/commit/a4d911f317074c6038fd4e499b6fcf108fa4d1e3))
+
+
 ## v6.0.10 (2026-10-31)
 
 ### Bug Fixes

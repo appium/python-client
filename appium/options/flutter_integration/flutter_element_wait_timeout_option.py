@@ -31,7 +31,8 @@ class FlutterElementWaitTimeOutOption(SupportsCapabilities):
         Returns:
             Optional[timedelta]: The timeout value as a `timedelta` object if set, or `None` if the timeout is not defined.
         """
-        return self.get_capability(FLUTTER_ELEMENT_WAIT_TIMEOUT)
+        value = self.get_capability(FLUTTER_ELEMENT_WAIT_TIMEOUT)
+        return None if value is None else timedelta(milliseconds=value)
 
     @flutter_element_wait_timeout.setter
     def flutter_element_wait_timeout(self, value: timedelta | int) -> None:

@@ -32,7 +32,8 @@ class FlutterServerLaunchTimeOutOption(SupportsCapabilities):
             Optional[timedelta]: The timeout value as a `timedelta` object if set, or `None` if the timeout is not defined.
 
         """
-        return self.get_capability(FLUTTER_SERVER_LAUNCH_TIMEOUT)
+        value = self.get_capability(FLUTTER_SERVER_LAUNCH_TIMEOUT)
+        return None if value is None else timedelta(milliseconds=value)
 
     @flutter_server_launch_timeout.setter
     def flutter_server_launch_timeout(self, value: timedelta | int) -> None:

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+from datetime import timedelta
 
 import httpretty
 
@@ -58,3 +59,16 @@ class TestFlutterIntegrationDriver:
         }
         assert request_json.get('desiredCapabilities') is None
         assert driver.session_id == 'session-id'
+
+    def test_timeout_options_are_returned_as_timedelta(self):
+        flutterOptions = FlutterOptions()
+        assert flutterOptions.flutter_element_wait_timeout is None
+        assert flutterOptions.flutter_server_launch_timeout is None
+
+        flutterOptions.flutter_element_wait_timeout = timedelta(seconds=10)
+        flutterOptions.flutter_server_launch_timeout = 120000
+
+        assert flutterOptions.flutter_element_wait_timeout == timedelta(seconds=10)
+        assert flutterOptions.flutter_server_launch_timeout == timedelta(minutes=2)
+        assert flutterOptions.to_capabilities()['appium:flutterElementWaitTimeout'] == 10000
+        assert flutterOptions.to_capabilities()['appium:flutterServerLaunchTimeout'] == 120000

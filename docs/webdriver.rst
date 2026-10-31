@@ -85,14 +85,6 @@ webdriver.locator\_converter module
    :show-inheritance:
    :undoc-members:
 
-webdriver.mobilecommand module
-------------------------------
-
-.. automodule:: webdriver.mobilecommand
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 webdriver.switch\_to module
 ---------------------------
 
@@ -124,3 +116,4 @@ Module contents
    :members:
    :show-inheritance:
    :undoc-members:
+   :no-index:

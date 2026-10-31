@@ -20,8 +20,19 @@ from ..mobilecommand import MobileCommand as Command
 
 
 class ExecuteDriver(CanExecuteCommands):
-    # TODO Inner class case
-    def execute_driver(self, script: str, script_type: str = 'webdriverio', timeout_ms: int | None = None) -> Any:
+    class Result:
+        """The result of ``execute_driver``, containing ``result`` and ``logs``."""
+
+        result: Any
+        logs: dict[str, list[Any]]
+
+        def __init__(self, res: dict[str, Any]) -> None:
+            self.result = res['result']
+            self.logs = res['logs']
+
+    def execute_driver(
+        self, script: str, script_type: str = 'webdriverio', timeout_ms: int | None = None
+    ) -> 'ExecuteDriver.Result':
         """Run a set of script against the current session, allowing execution of many commands in one Appium request.
         Please read http://appium.io/docs/en/commands/session/execute-driver for more details about the acceptable
         scripts and the output format.
@@ -43,18 +54,12 @@ class ExecuteDriver(CanExecuteCommands):
         Raises:
             WebDriverException: If something error happens in the script. The message has the original error message.
         """
-
-        class Result:
-            def __init__(self, res: dict):
-                self.result = res['result']
-                self.logs = res['logs']
-
         option: dict[str, str | int] = {'script': script, 'type': script_type}
         if timeout_ms is not None:
             option['timeout'] = timeout_ms
 
         response = self.execute(Command.EXECUTE_DRIVER, option)['value']
-        return Result(response)
+        return ExecuteDriver.Result(response)
 
     def _add_commands(self) -> None:
         self.command_executor.add_command(Command.EXECUTE_DRIVER, 'POST', '/session/$sessionId/appium/execute_driver')

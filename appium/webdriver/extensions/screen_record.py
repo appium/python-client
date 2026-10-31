@@ -188,10 +188,12 @@ class ScreenRecord(CanExecuteCommands):
             headers (dict): [multipart/form-data requests] Headers mapping (Since Appium 1.18.0)
 
         Usage:
-            payload = driver.stop_recording_screen()
-            with open('media.mp4', "wb") as fd:
-                import base64
-                fd.write(base64.b64decode(payload))
+            .. code-block:: python
+
+                payload = driver.stop_recording_screen()
+                with open('media.mp4', "wb") as fd:
+                    import base64
+                    fd.write(base64.b64decode(payload))
 
         Returns:
             bytes: Base-64 encoded content of the recorded media file or an empty string

@@ -71,3 +71,66 @@ class TestAppiumService:
         assert service.is_listening is expected_result
         assert clock.perf_counter.return_value == expected_elapsed
         assert connection.request.call_args_list == [call('HEAD', 'http://127.0.0.1:4723/status')] * expected_requests
+
+    @pytest.mark.parametrize(
+        ('poll_result', 'is_service_listening', 'expected_message'),
+        [
+            (None, Mock(return_value=False), 'Appium server has started but is not listening'),
+            (1, Mock(side_effect=appium_service.AppiumStartupError), 'Appium server process is unable to start'),
+        ],
+    )
+    def test_start_failure_terminates_process_before_reading_stderr(
+        self, monkeypatch, poll_result, is_service_listening, expected_message
+    ):
+        process = Mock()
+        process.poll.return_value = poll_result
+        process.communicate.return_value = (b'', b'startup error details')
+        monkeypatch.setattr(appium_service.sp, 'Popen', Mock(return_value=process))
+        monkeypatch.setattr(appium_service, 'is_service_listening', is_service_listening)
+
+        with pytest.raises(AppiumServiceError, match=expected_message) as excinfo:
+            AppiumService().start(
+                node='node', npm='npm', main_script='appium.js', timeout_ms=1000, stderr=appium_service.sp.PIPE
+            )
+
+        assert "Original error: b'startup error details'" in str(excinfo.value)
+        # Reading stderr of a process that is still running blocks until the process exits
+        process.stderr.read.assert_not_called()
+        method_names = [name for name, _, _ in process.method_calls]
+        assert method_names.index('terminate') < method_names.index('communicate')
+
+    @pytest.mark.parametrize(
+        ('communicate_results', 'expected_error'),
+        [
+            (
+                [appium_service.sp.TimeoutExpired('appium', 5.5), (b'', b'startup error details')],
+                "b'startup error details'",
+            ),
+            (
+                [
+                    appium_service.sp.TimeoutExpired('appium', 5.5),
+                    appium_service.sp.TimeoutExpired('appium', 5.5, stderr=b'partial error details'),
+                ],
+                "b'partial error details'",
+            ),
+        ],
+    )
+    def test_start_failure_keeps_stderr_if_process_ignores_terminate(self, monkeypatch, communicate_results, expected_error):
+        process = Mock()
+        process.poll.return_value = None
+        process.communicate.side_effect = communicate_results
+
+        def kill():
+            process.poll.return_value = -9
+
+        process.kill.side_effect = kill
+        monkeypatch.setattr(appium_service.sp, 'Popen', Mock(return_value=process))
+        monkeypatch.setattr(appium_service, 'is_service_listening', Mock(return_value=False))
+
+        with pytest.raises(AppiumServiceError, match='Appium server has started but is not listening') as excinfo:
+            AppiumService().start(
+                node='node', npm='npm', main_script='appium.js', timeout_ms=1000, stderr=appium_service.sp.PIPE
+            )
+
+        assert f'Original error: {expected_error}' in str(excinfo.value)
+        process.kill.assert_called_once()

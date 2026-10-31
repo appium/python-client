@@ -156,8 +156,9 @@ class AppiumService:
 
     def _terminate_process(self, timeout: float) -> bytes | str | None:
         """Terminate the process and collect stderr within bounded waits."""
-        assert self._process
         process = self._process
+        if process is None:
+            return None
         try:
             process.terminate()
             try:

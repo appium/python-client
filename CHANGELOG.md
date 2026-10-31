@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v6.1.1 (2026-10-31)
+
+### Bug Fixes
+
+- Keep the server's error output when it ignores terminate
+  ([#1342](https://github.com/appium/python-client/pull/1342),
+  [`4442366`](https://github.com/appium/python-client/commit/4442366d3bd5b82a063d38836054070c3720ccab))
+
+- Prevent AppiumService.start from hanging when the server fails to start
+  ([#1342](https://github.com/appium/python-client/pull/1342),
+  [`4442366`](https://github.com/appium/python-client/commit/4442366d3bd5b82a063d38836054070c3720ccab))
+
+
 ## v6.1.0 (2026-10-31)
 
 ### Features

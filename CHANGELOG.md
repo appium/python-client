@@ -2,6 +2,21 @@
 
 <!-- version list -->
 
+## v6.0.12 (2026-10-31)
+
+### Bug Fixes
+
+- Isolate Appium session idempotency keys
+  ([#1338](https://github.com/appium/python-client/pull/1338),
+  [`07b2360`](https://github.com/appium/python-client/commit/07b23604872c12b45de5630014b1459da6f0388c))
+
+### Documentation
+
+- Clean up Sphinx API doc generation and ExecuteDriver.Result typing
+  ([#1334](https://github.com/appium/python-client/pull/1334),
+  [`50dd05b`](https://github.com/appium/python-client/commit/50dd05befd6538cb46c8cec14d6d2f1b06598e01))
+
+
 ## v6.0.11 (2026-10-31)
 
 ### Bug Fixes

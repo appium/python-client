@@ -2,6 +2,43 @@
 
 <!-- version list -->
 
+## v6.0.10 (2026-10-31)
+
+### Bug Fixes
+
+- **options**: Type wait_for_quiescence setter as bool
+  ([#1344](https://github.com/appium/python-client/pull/1344),
+  [`20b529e`](https://github.com/appium/python-client/commit/20b529ee4c97de9a1147ccd6f9087bac82232d02))
+
+### Continuous Integration
+
+- **deps**: Bump astral-sh/setup-uv from 10.3.0 to 10.3.1
+  ([#1330](https://github.com/appium/python-client/pull/1330),
+  [`ce054d4`](https://github.com/appium/python-client/commit/ce054d4fbd2d87a9fee23e00d3198391c605a94d))
+
+- **deps**: Bump virtualenv from 21.7.13 to 21.14.13
+  ([#1332](https://github.com/appium/python-client/pull/1332),
+  [`2c80c45`](https://github.com/appium/python-client/commit/2c80c4580bfa3bd3d63fbefdac3f07612ea42861))
+
+- **deps-dev**: Bump python-dateutil from 2.9.0.post0 to 3.0.0
+  ([#1337](https://github.com/appium/python-client/pull/1337),
+  [`909d3f7`](https://github.com/appium/python-client/commit/909d3f710e4f29e0e456871921b4a03744729ac8))
+
+- **deps-dev**: Bump ruff from 0.17.1 to 0.17.2
+  ([#1336](https://github.com/appium/python-client/pull/1336),
+  [`8c75ef3`](https://github.com/appium/python-client/commit/8c75ef3f317449dcc5b3257d257b73d86ecac3da))
+
+- **deps-dev**: Bump types-python-dateutil
+  ([#1335](https://github.com/appium/python-client/pull/1335),
+  [`9ee7d05`](https://github.com/appium/python-client/commit/9ee7d0545c5aaa0f61520d2319c0fd355db8d915))
+
+### Refactoring
+
+- Simplify executable lookup using shutil.which
+  ([#1329](https://github.com/appium/python-client/pull/1329),
+  [`3392743`](https://github.com/appium/python-client/commit/339274327e7ae3b4064ad6ac92d28c7c25e9fad5))
+
+
 ## v6.0.9 (2026-10-24)
 
 ### Bug Fixes

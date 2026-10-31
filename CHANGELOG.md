@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v6.1.0 (2026-10-31)
+
+### Features
+
+- Mark ActionHelpers interaction shortcuts as deprecated
+  ([#1333](https://github.com/appium/python-client/pull/1333),
+  [`cd224d9`](https://github.com/appium/python-client/commit/cd224d96597c2134776029b6697f43adce0c49c9))
+
+
 ## v6.0.12 (2026-10-31)
 
 ### Bug Fixes

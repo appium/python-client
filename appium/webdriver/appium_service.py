@@ -131,7 +131,13 @@ class AppiumService:
                 try:
                     _, err_output = self._process.communicate(timeout=STOP_TIMEOUT_SEC)
                 except sp.TimeoutExpired:
-                    err_output = None
+                    # The server ignored the termination request. Kill it, so its error output is not lost.
+                    self._process.kill()
+                    try:
+                        _, err_output = self._process.communicate(timeout=STOP_TIMEOUT_SEC)
+                    except sp.TimeoutExpired as e:
+                        # Another process might still hold stderr open. Keep the output read so far.
+                        err_output = e.stderr or b''
                 if err_output:
                     error_msg += f'\nOriginal error: {str(err_output)}'
             self.stop()

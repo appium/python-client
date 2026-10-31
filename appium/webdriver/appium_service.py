@@ -127,17 +127,7 @@ class AppiumService:
             if stderr == sp.PIPE and self._process.stderr is not None:
                 # The server might still be running, for example if it does not listen on the expected URL.
                 # Reading its stderr before the process exits would block forever, so terminate it first.
-                self._process.terminate()
-                try:
-                    _, err_output = self._process.communicate(timeout=STOP_TIMEOUT_SEC)
-                except sp.TimeoutExpired:
-                    # The server ignored the termination request. Kill it, so its error output is not lost.
-                    self._process.kill()
-                    try:
-                        _, err_output = self._process.communicate(timeout=STOP_TIMEOUT_SEC)
-                    except sp.TimeoutExpired as e:
-                        # Another process might still hold stderr open. Keep the output read so far.
-                        err_output = e.stderr or b''
+                err_output = self._terminate_process(STOP_TIMEOUT_SEC)
                 if err_output:
                     error_msg += f'\nOriginal error: {str(err_output)}'
             self.stop()
@@ -156,21 +146,36 @@ class AppiumService:
         Returns:
             `True` if the service was running before being stopped
         """
-        was_running = False
-        if self.is_running:
-            assert self._process
-            was_running = True
-            self._process.terminate()
+        was_running = self.is_running
+        if was_running:
+            self._terminate_process(timeout)
+        else:
+            self._process = None
+            self._cmd = None
+        return was_running
+
+    def _terminate_process(self, timeout: float) -> bytes | str | None:
+        """Terminate the process and collect stderr within bounded waits."""
+        assert self._process
+        process = self._process
+        try:
+            process.terminate()
             try:
-                self._process.communicate(timeout=timeout)
+                _, stderr = process.communicate(timeout=timeout)
             except sp.SubprocessError:
                 if sys.platform == 'win32':
-                    sp.call(['taskkill', '/f', '/pid', str(self._process.pid)])
+                    sp.call(['taskkill', '/f', '/pid', str(process.pid)])
                 else:
-                    self._process.kill()
-        self._process = None
-        self._cmd = None
-        return was_running
+                    process.kill()
+                try:
+                    _, stderr = process.communicate(timeout=timeout)
+                except sp.TimeoutExpired as e:
+                    # Another process might still hold stderr open. Keep the output read so far.
+                    stderr = e.stderr
+            return stderr
+        finally:
+            self._process = None
+            self._cmd = None
 
     @property
     def is_running(self) -> bool:

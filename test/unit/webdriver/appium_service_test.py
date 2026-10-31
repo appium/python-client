@@ -134,3 +134,34 @@ class TestAppiumService:
 
         assert f'Original error: {expected_error}' in str(excinfo.value)
         process.kill.assert_called_once()
+
+    @pytest.mark.parametrize('platform', ['win32', 'linux'])
+    @pytest.mark.parametrize('timeouts', [0, 1, 2])
+    def test_stop_cleans_up_after_termination(self, monkeypatch, platform, timeouts):
+        process = Mock()
+        process.poll.return_value = None
+        process.communicate.side_effect = [appium_service.sp.TimeoutExpired('appium', 1)] * timeouts + [(b'', b'')]
+        taskkill = Mock()
+        monkeypatch.setattr(appium_service.sys, 'platform', platform)
+        monkeypatch.setattr(appium_service.sp, 'call', taskkill)
+        monkeypatch.setattr(appium_service.sp, 'Popen', Mock(return_value=process))
+        service = AppiumService()
+        service.start(node='node', npm='npm', main_script='appium.js', timeout_ms=0)
+
+        assert service.stop(timeout=1) is True
+
+        process.terminate.assert_called_once()
+        assert process.communicate.call_args_list == [call(timeout=1)] * (1 if timeouts == 0 else 2)
+        if timeouts and platform == 'win32':
+            taskkill.assert_called_once_with(['taskkill', '/f', '/pid', str(process.pid)])
+            process.kill.assert_not_called()
+        elif timeouts:
+            process.kill.assert_called_once()
+            taskkill.assert_not_called()
+        else:
+            process.kill.assert_not_called()
+            taskkill.assert_not_called()
+        assert not service.is_running
+        assert service._cmd is None
+        assert service.stop() is False
+        process.terminate.assert_called_once()

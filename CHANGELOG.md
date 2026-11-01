@@ -2,6 +2,30 @@
 
 <!-- version list -->
 
+## v6.1.2 (2026-11-01)
+
+### Bug Fixes
+
+- Correct return types of image comparison and get_events
+  ([#1347](https://github.com/appium/python-client/pull/1347),
+  [`16fc1f3`](https://github.com/appium/python-client/commit/16fc1f3807e9c05b55549585de6f3d225c72fba6))
+
+- Correct screen recording return types and documented options
+  ([#1346](https://github.com/appium/python-client/pull/1346),
+  [`b92ec44`](https://github.com/appium/python-client/commit/b92ec444ab68f0588edff3608e5bf7d4d4251073))
+
+### Continuous Integration
+
+- **deps**: Bump astral-sh/setup-uv from 10.3.1 to 10.3.3
+  ([#1348](https://github.com/appium/python-client/pull/1348),
+  [`f7143a7`](https://github.com/appium/python-client/commit/f7143a75fa13a6edb544f486c9572459f4b08ace))
+
+### Refactoring
+
+- Consolidate the process end handling ([#1349](https://github.com/appium/python-client/pull/1349),
+  [`6abcf22`](https://github.com/appium/python-client/commit/6abcf22581928377bdc43aab083ddd6667564923))
+
+
 ## v6.1.1 (2026-10-31)
 
 ### Bug Fixes

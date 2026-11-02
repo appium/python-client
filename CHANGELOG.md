@@ -2,6 +2,21 @@
 
 <!-- version list -->
 
+## v6.1.3 (2026-11-02)
+
+### Bug Fixes
+
+- **flutter**: Support horizontal scrolling in scroll_till_visible
+  ([#1351](https://github.com/appium/python-client/pull/1351),
+  [`ae9042d`](https://github.com/appium/python-client/commit/ae9042dcabd6c6b6967f938b8bbb38683f58ded1))
+
+### Documentation
+
+- Fix broken README and docstring examples
+  ([#1350](https://github.com/appium/python-client/pull/1350),
+  [`6e0bf47`](https://github.com/appium/python-client/commit/6e0bf47fc8e0fb3f6737f79bd9d07fb7d53d23fc))
+
+
 ## v6.1.2 (2026-11-01)
 
 ### Bug Fixes

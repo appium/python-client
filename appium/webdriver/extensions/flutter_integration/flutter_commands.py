@@ -133,7 +133,7 @@ class FlutterCommand:
             scroll_direction (ScrollDirection): The direction to scroll. Defaults to `ScrollDirection.DOWN`.
 
         KeywordArgs:
-                scrollView (str): The view of the scroll. Default value is 'Scrollable'
+                scrollView (FlutterFinder | dict): Finder of the scrollable view. Defaults to the first `Scrollable` widget
                 delta (int): delta for the scroll. Default value is 64
                 maxScrolls (int): Max times to scroll. Default value is 15
                 settleBetweenScrollsTimeout (float): settle timeout in milliseconds. Default value is 5000
@@ -144,6 +144,8 @@ class FlutterCommand:
         """
         opts['finder'] = scroll_to.to_dict()
         opts['scrollDirection'] = scroll_direction.value
+        if isinstance(opts.get('scrollView'), FlutterFinder):
+            opts['scrollView'] = opts['scrollView'].to_dict()
         return self.execute_flutter_command('scrollTillVisible', opts)
 
     def inject_mock_image(self, value: str) -> str:

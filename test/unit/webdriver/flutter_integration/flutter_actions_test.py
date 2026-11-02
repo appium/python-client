@@ -147,6 +147,28 @@ class TestFlutterActions:
         assert arguments == expected_arguments
 
     @httpretty.activate
+    def test_scroll_till_visible_with_scroll_view_finder(self):
+        driver = flutter_w3c_driver()
+        flutter = FlutterCommand(driver)
+
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+        )
+
+        finder = FlutterFinder.by_key('message_field')
+        flutter.scroll_till_visible(finder, scrollView=FlutterFinder.by_key('message_list'))
+
+        request_body = get_httpretty_request_body(httpretty.last_request())
+        arguments = request_body['args'][0]
+        assert request_body['script'] == 'flutter: scrollTillVisible'
+        assert arguments == {
+            'finder': {'using': '-flutter key', 'value': 'message_field'},
+            'scrollView': {'using': '-flutter key', 'value': 'message_list'},
+            'scrollDirection': 'down',
+        }
+
+    @httpretty.activate
     def test_inject_mock_image_with_file(self):
         driver = flutter_w3c_driver()
         flutter = FlutterCommand(driver)

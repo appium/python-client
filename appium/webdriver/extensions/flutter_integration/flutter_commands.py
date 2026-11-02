@@ -130,7 +130,7 @@ class FlutterCommand:
 
         Args:
             scroll_to (FlutterFinder): The Flutter element to scroll to.
-            scroll_direction (ScrollDirection): The direction to scroll up or down. Defaults to `ScrollDirection.DOWN`.
+            scroll_direction (ScrollDirection): The direction to scroll. Defaults to `ScrollDirection.DOWN`.
 
         KeywordArgs:
                 scrollView (str): The view of the scroll. Default value is 'Scrollable'

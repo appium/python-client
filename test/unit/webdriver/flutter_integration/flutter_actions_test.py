@@ -15,6 +15,7 @@
 import os
 
 import httpretty
+import pytest
 
 from appium.common.helper import encode_file_to_base64
 from appium.webdriver.extensions.flutter_integration.flutter_commands import FlutterCommand
@@ -85,6 +86,31 @@ class TestFlutterActions:
         }
         assert request_body['script'] == 'flutter: scrollTillVisible'
         assert arguments == expected_arguments
+
+    @pytest.mark.parametrize(
+        ('scroll_direction', 'expected_value'),
+        [(ScrollDirection.LEFT, 'left'), (ScrollDirection.RIGHT, 'right')],
+    )
+    @httpretty.activate
+    def test_scroll_till_visible_horizontally(self, scroll_direction, expected_value):
+        driver = flutter_w3c_driver()
+        flutter = FlutterCommand(driver)
+
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+        )
+
+        finder = FlutterFinder.by_key('message_field')
+        flutter.scroll_till_visible(finder, scroll_direction)
+
+        request_body = get_httpretty_request_body(httpretty.last_request())
+        arguments = request_body['args'][0]
+        assert request_body['script'] == 'flutter: scrollTillVisible'
+        assert arguments == {
+            'finder': {'using': '-flutter key', 'value': 'message_field'},
+            'scrollDirection': expected_value,
+        }
 
     @httpretty.activate
     def test_scroll_till_visible_with_kwargs(self):

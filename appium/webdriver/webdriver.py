@@ -74,7 +74,7 @@ class ExtensionBase:
 
     Example:
         When you want to add `example_command` which calls a get request to
-        `session/$sessionId/path/to/your/custom/url`.
+        `/session/$sessionId/path/to/your/custom/url`.
 
         #. Defines an extension as a subclass of `ExtensionBase`
             .. code-block:: python
@@ -91,7 +91,7 @@ class ExtensionBase:
 
                     # Used to register the command pair as "Appium command" in this driver.
                     def add_command(self):
-                        return ('GET', 'session/$sessionId/path/to/your/custom/url')
+                        return ('GET', '/session/$sessionId/path/to/your/custom/url')
 
         #. Creates a session with the extension.
             .. code-block:: python
@@ -105,7 +105,7 @@ class ExtensionBase:
             .. code-block:: python
 
                 # Then, the driver calls a get request against
-                # `session/$sessionId/path/to/your/custom/url`. `$sessionId` will be
+                # `/session/$sessionId/path/to/your/custom/url`. `$sessionId` will be
                 # replaced properly in the driver. Then, the method returns
                 # the `value` part of the response.
                 driver.custom_method_name()
@@ -127,16 +127,16 @@ class ExtensionBase:
                 def method_name(self):
                     return 'custom_method_name'
 
-                def test_command(self, argument):
+                def custom_method_name(self, argument):
                     return self.execute(argument)['value']
 
                 def add_command(self):
-                    return ('post', 'session/$sessionId/path/to/your/custom/url')
+                    return ('post', '/session/$sessionId/path/to/your/custom/url')
 
             driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options,
                 extensions=[YourCustomCommand])
 
-            # Then, the driver sends a post request to `session/$sessionId/path/to/your/custom/url`
+            # Then, the driver sends a post request to `/session/$sessionId/path/to/your/custom/url`
             # with `{'dummy_arg': 'as a value'}` JSON body.
             driver.custom_method_name({'dummy_arg': 'as a value'})
 
@@ -153,13 +153,13 @@ class ExtensionBase:
                     return self.execute({'id': element_id})['value']
 
                 def add_command(self):
-                    return ('GET', 'session/$sessionId/path/to/your/custom/$id/url')
+                    return ('GET', '/session/$sessionId/path/to/your/custom/$id/url')
 
             driver = webdriver.Remote('http://localhost:4723/wd/hub', options=options,
-                extensions=[YourCustomCommand])
+                extensions=[CustomURLCommand])
             element = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='id')
 
-            # Then, the driver calls a get request to `session/$sessionId/path/to/your/custom/$id/url`
+            # Then, the driver calls a get request to `/session/$sessionId/path/to/your/custom/$id/url`
             # with replacing the `$id` with the given `element.id`
             driver.custom_method_name(element.id)
 

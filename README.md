@@ -204,7 +204,7 @@ def appium_service():
 
 def create_ios_driver(custom_opts=None):
     options = XCUITestOptions()
-    options.platformVersion = '13.4'
+    options.platform_version = '13.4'
     options.udid = '123456789ABC'
     if custom_opts is not None:
         options.load_capabilities(custom_opts)
@@ -214,7 +214,7 @@ def create_ios_driver(custom_opts=None):
 
 def create_android_driver(custom_opts=None):
     options = UiAutomator2Options()
-    options.platformVersion = '10'
+    options.platform_version = '10'
     options.udid = '123456789ABC'
     if custom_opts is not None:
         options.load_capabilities(custom_opts)
@@ -380,15 +380,20 @@ from appium.options.ios import XCUITestOptions
 
 import urllib3
 from appium.webdriver.appium_connection import AppiumConnection
+from appium.webdriver.client_config import AppiumClientConfig
 
 # Retry connection error up to 3 times.
-init_args_for_pool_manage = {'retries': urllib3.util.retry.Retry(total=3, connect=3, read=False)}
-appium_executor = AppiumConnection(
-    remote_server_addr='http://127.0.0.1:4723', init_args_for_pool_manage=init_args_for_pool_manage
+# Selenium passes the arguments under the nested 'init_args_for_pool_manager' key to urllib3.PoolManager.
+init_args_for_pool_manager = {
+    'init_args_for_pool_manager': {'retries': urllib3.util.retry.Retry(total=3, connect=3, read=False)}
+}
+client_config = AppiumClientConfig(
+    remote_server_addr='http://127.0.0.1:4723', init_args_for_pool_manager=init_args_for_pool_manager
 )
+appium_executor = AppiumConnection(client_config=client_config)
 
 options = XCUITestOptions()
-options.platformVersion = '13.4'
+options.platform_version = '13.4'
 options.udid = '123456789ABC'
 options.app = '/full/path/to/app/UICatalog.app.zip'
 driver = webdriver.Remote(appium_executor, options=options)

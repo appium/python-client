@@ -38,7 +38,8 @@ class FlutterCommand:
 
         Args:
             locator (Union[WebElement, FlutterFinder]): The element to wait for; can be a WebElement or a FlutterFinder.
-            timeout (Optional[float]): Maximum wait time in seconds. Defaults to a predefined timeout if not specified.
+            timeout (Optional[float]): Maximum wait time in whole seconds. The Flutter server drops any fractional
+                part, so 0.5 becomes 0. Defaults to a predefined timeout if not specified.
 
         Returns:
             None
@@ -59,7 +60,8 @@ class FlutterCommand:
 
         Args:
             locator (Union[WebElement, FlutterFinder]): The element to wait for; can be a WebElement or a FlutterFinder.
-            timeout (Optional[float]): Maximum wait time in seconds. Defaults to a predefined timeout if not specified.
+            timeout (Optional[float]): Maximum wait time in whole seconds. The Flutter server drops any fractional
+                part, so 0.5 becomes 0. Defaults to a predefined timeout if not specified.
 
         Returns:
             None:

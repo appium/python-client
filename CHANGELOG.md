@@ -2,6 +2,21 @@
 
 <!-- version list -->
 
+## v6.1.4 (2026-11-02)
+
+### Bug Fixes
+
+- **flutter**: Accept a FlutterFinder as scrollView in scroll_till_visible
+  ([#1352](https://github.com/appium/python-client/pull/1352),
+  [`1ac4254`](https://github.com/appium/python-client/commit/1ac4254acd804171ebc091f333c09e54b6715110))
+
+### Testing
+
+- **webdriver**: Add unit tests for HardwareActions.unlock
+  ([#1331](https://github.com/appium/python-client/pull/1331),
+  [`9c723e8`](https://github.com/appium/python-client/commit/9c723e8c1d455216e945d7a709ca7437479bc097))
+
+
 ## v6.1.3 (2026-11-02)
 
 ### Bug Fixes

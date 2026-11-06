@@ -32,10 +32,9 @@ class WebElement(SeleniumWebElement):
 
     if TYPE_CHECKING:
 
-        def find_element(self, by: str = By.ID, value: str | dict | None = None) -> Self:  # type: ignore[override]
-            ...
+        def find_element(self, by: str | By = By.ID, value: str | dict | None = None) -> Self: ...
 
-        def find_elements(self, by: str = By.ID, value: str | dict | None = None) -> list[Self]:  # type: ignore[override]
+        def find_elements(self, by: str | By = By.ID, value: str | dict | None = None) -> list[Self]:  # type: ignore[override]
             ...
 
     def get_attribute(self, name: str) -> str | dict | None:  # type: ignore[override]

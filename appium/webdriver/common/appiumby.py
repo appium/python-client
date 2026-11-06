@@ -16,26 +16,6 @@ from typing import Literal
 
 from selenium.webdriver.common.by import By
 
-
-class AppiumBy(By):
-    IOS_PREDICATE = '-ios predicate string'
-    IOS_CLASS_CHAIN = '-ios class chain'
-    ANDROID_UIAUTOMATOR = '-android uiautomator'
-    ANDROID_VIEWTAG = '-android viewtag'
-    ANDROID_DATA_MATCHER = '-android datamatcher'
-    ANDROID_VIEW_MATCHER = '-android viewmatcher'
-    ACCESSIBILITY_ID = 'accessibility id'
-    IMAGE = '-image'
-    CUSTOM = '-custom'
-
-    # For Flutter integration usage https://github.com/AppiumTestDistribution/appium-flutter-integration-driver/tree/main
-    FLUTTER_INTEGRATION_SEMANTICS_LABEL = '-flutter semantics label'
-    FLUTTER_INTEGRATION_TYPE = '-flutter type'
-    FLUTTER_INTEGRATION_KEY = '-flutter key'
-    FLUTTER_INTEGRATION_TEXT = '-flutter text'
-    FLUTTER_INTEGRATION_TEXT_CONTAINING = '-flutter text containing'
-
-
 ByType = Literal[
     '-ios predicate string',
     '-ios class chain',
@@ -52,3 +32,22 @@ ByType = Literal[
     '-flutter text',
     '-flutter text containing',
 ]
+
+
+class AppiumBy(By):
+    IOS_PREDICATE: ByType = '-ios predicate string'
+    IOS_CLASS_CHAIN: ByType = '-ios class chain'
+    ANDROID_UIAUTOMATOR: ByType = '-android uiautomator'
+    ANDROID_VIEWTAG: ByType = '-android viewtag'
+    ANDROID_DATA_MATCHER: ByType = '-android datamatcher'
+    ANDROID_VIEW_MATCHER: ByType = '-android viewmatcher'
+    ACCESSIBILITY_ID: ByType = 'accessibility id'
+    IMAGE: ByType = '-image'
+    CUSTOM: ByType = '-custom'
+
+    # For Flutter integration usage https://github.com/AppiumTestDistribution/appium-flutter-integration-driver/tree/main
+    FLUTTER_INTEGRATION_SEMANTICS_LABEL: ByType = '-flutter semantics label'
+    FLUTTER_INTEGRATION_TYPE: ByType = '-flutter type'
+    FLUTTER_INTEGRATION_KEY: ByType = '-flutter key'
+    FLUTTER_INTEGRATION_TEXT: ByType = '-flutter text'
+    FLUTTER_INTEGRATION_TEXT_CONTAINING: ByType = '-flutter text containing'

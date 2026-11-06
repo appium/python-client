@@ -13,13 +13,23 @@
 # limitations under the License.
 
 
+from typing import TYPE_CHECKING
+
 from selenium.webdriver.remote.switch_to import SwitchTo
 from typing_extensions import Self
 
 from .mobilecommand import MobileCommand
 
+if TYPE_CHECKING:
+    from .webelement import WebElement as MobileWebElement
+
 
 class MobileSwitchTo(SwitchTo):
+    if TYPE_CHECKING:
+
+        @property
+        def active_element(self) -> MobileWebElement: ...
+
     def context(self, context_name: str | None) -> Self:
         """Sets the context for the current session.
         Passing `None` is equal to switching to native context.

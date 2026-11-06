@@ -66,6 +66,7 @@ from .webelement import WebElement as MobileWebElement
 
 if TYPE_CHECKING:
     from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.relative_locator import RelativeBy
 
 
 class ExtensionBase:
@@ -291,11 +292,11 @@ class WebDriver(
 
     if TYPE_CHECKING:
 
-        def find_element(self, by: str = By.ID, value: str | dict | None = None) -> 'MobileWebElement':  # type: ignore[override]
-            ...
+        def find_element(self, by: str | By | RelativeBy = By.ID, value: str | dict | None = None) -> 'MobileWebElement': ...
 
-        def find_elements(self, by: str = By.ID, value: str | dict | None = None) -> list['MobileWebElement']:  # type: ignore[override]
-            ...
+        def find_elements(  # type: ignore[override]
+            self, by: str | By | RelativeBy = By.ID, value: str | dict | None = None
+        ) -> list['MobileWebElement']: ...
 
     def delete_extensions(self) -> None:
         """Delete extensions added in the class with 'setattr'"""
@@ -336,7 +337,7 @@ class WebDriver(
         client_config = copy.copy(self.command_executor.client_config)
         client_config.remote_server_addr = executor
         client_config.keep_alive = keep_alive
-        if isinstance(self.command_executor, AppiumConnection):  # type: ignore
+        if isinstance(self.command_executor, AppiumConnection):
             self.command_executor = AppiumConnection(client_config=client_config)
         else:
             self.command_executor = RemoteConnection(client_config=client_config)

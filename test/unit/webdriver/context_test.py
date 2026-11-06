@@ -14,6 +14,7 @@
 
 import httpretty
 
+from appium.webdriver.webelement import WebElement as MobileWebElement
 from test.unit.helper.test_helper import android_w3c_driver, appium_command, get_httpretty_request_body
 
 
@@ -50,3 +51,17 @@ class TestWebDriverContext:
         driver.switch_to.context('NATIVE_APP')
 
         assert get_httpretty_request_body(httpretty.last_request()) == {'name': 'NATIVE_APP'}
+
+    @httpretty.activate
+    def test_switch_to_active_element(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/element/active'),
+            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "active-element-id"}}',
+        )
+
+        el = driver.switch_to.active_element
+
+        assert isinstance(el, MobileWebElement)
+        assert el.id == 'active-element-id'

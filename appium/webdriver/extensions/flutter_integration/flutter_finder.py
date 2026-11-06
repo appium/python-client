@@ -15,8 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import cast
-
 from selenium.webdriver.common.by import ByType as SeleniumByType
 
 from appium.webdriver.common.appiumby import AppiumBy
@@ -30,23 +28,23 @@ class FlutterFinder:
 
     @staticmethod
     def by_key(value: str) -> 'FlutterFinder':
-        return FlutterFinder(cast(AppiumByType, AppiumBy.FLUTTER_INTEGRATION_KEY), value)
+        return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_KEY, value)
 
     @staticmethod
     def by_text(value: str) -> 'FlutterFinder':
-        return FlutterFinder(cast(AppiumByType, AppiumBy.FLUTTER_INTEGRATION_TEXT), value)
+        return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_TEXT, value)
 
     @staticmethod
     def by_semantics_label(value: str) -> 'FlutterFinder':
-        return FlutterFinder(cast(AppiumByType, AppiumBy.FLUTTER_INTEGRATION_SEMANTICS_LABEL), value)
+        return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_SEMANTICS_LABEL, value)
 
     @staticmethod
     def by_type(value: str) -> 'FlutterFinder':
-        return FlutterFinder(cast(AppiumByType, AppiumBy.FLUTTER_INTEGRATION_TYPE), value)
+        return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_TYPE, value)
 
     @staticmethod
     def by_text_containing(value: str) -> 'FlutterFinder':
-        return FlutterFinder(cast(AppiumByType, AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING), value)
+        return FlutterFinder(AppiumBy.FLUTTER_INTEGRATION_TEXT_CONTAINING, value)
 
     def to_dict(self) -> dict:
         return {'using': self.using, 'value': self.value}

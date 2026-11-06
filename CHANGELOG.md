@@ -2,6 +2,25 @@
 
 <!-- version list -->
 
+## v6.1.5 (2026-11-06)
+
+### Bug Fixes
+
+- **typing**: Refine WebDriver, WebElement, MobileSwitchTo, and AppiumBy type annotations
+  ([#1357](https://github.com/appium/python-client/pull/1357),
+  [`1474968`](https://github.com/appium/python-client/commit/1474968d085bcebf7435cfc151f61bf1b24028cd))
+
+### Continuous Integration
+
+- **deps**: Bump certifi from 2026.6.17 to 2026.10.18
+  ([#1339](https://github.com/appium/python-client/pull/1339),
+  [`2d83775`](https://github.com/appium/python-client/commit/2d8377505b672ad4312630f1dec6b848ee34a897))
+
+- **deps**: Bump urllib3 from 2.7.0 to 2.8.0
+  ([#1318](https://github.com/appium/python-client/pull/1318),
+  [`e2509a0`](https://github.com/appium/python-client/commit/e2509a0e8f5024312954637fc0d4bd084c5c7a1d))
+
+
 ## v6.1.4 (2026-11-02)
 
 ### Bug Fixes

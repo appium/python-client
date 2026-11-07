@@ -28,7 +28,7 @@ from selenium.webdriver.remote.remote_connection import RemoteConnection
 from selenium.webdriver.remote.webdriver import WebDriver as Remote
 
 from appium.common.logger import logger
-from appium.options.common.base import AppiumOptions
+from appium.options.common.base import APPIUM_PREFIX, AppiumOptions
 
 from .appium_connection import AppiumConnection
 from .client_config import AppiumClientConfig
@@ -213,6 +213,14 @@ def _get_remote_connection_and_client_config(
     return (AppiumConnection(client_config=new_client_config), new_client_config)
 
 
+def _get_direct_connect_value(caps: dict[str, Any], key: str) -> Any:
+    for candidate in (f'{APPIUM_PREFIX}{key}', key):
+        value = caps.get(candidate)
+        if value is not None and value != '':
+            return value
+    return None
+
+
 class WebDriver(
     Remote,
     ActionHelpers,
@@ -273,8 +281,9 @@ class WebDriver(
 
         self.error_handler = MobileErrorHandler()
 
-        if client_config and client_config.direct_connection:
-            self._update_command_executor(keep_alive=client_config.keep_alive)
+        effective_client_config = client_config or getattr(self.command_executor, 'client_config', None)
+        if isinstance(effective_client_config, AppiumClientConfig) and effective_client_config.direct_connection:
+            self._update_command_executor(keep_alive=effective_client_config.keep_alive)
 
         self._absent_extensions: set[str] = set()
 
@@ -316,15 +325,16 @@ class WebDriver(
         if not self.caps:
             raise ValueError('Driver capabilities must be defined')
         keys = (direct_protocol, direct_host, direct_port, direct_path)
-        if not set(keys).issubset(self.caps):
-            details = ' '.join(f"{key}: '{self.caps.get(key, '')}'" for key in keys)
+        values = {key: _get_direct_connect_value(self.caps, key) for key in keys}
+        if any(val is None for val in values.values()):
+            details = ' '.join(f"{key}: '{values[key] if values[key] is not None else ''}'" for key in keys)
             logger.debug(f'Direct connect capabilities from server were:\n{details} ')
             return
 
-        protocol = self.caps[direct_protocol]
-        hostname = self.caps[direct_host]
-        port = self.caps[direct_port]
-        path = self.caps[direct_path]
+        protocol = values[direct_protocol]
+        hostname = values[direct_host]
+        port = values[direct_port]
+        path = values[direct_path]
         executor = f'{protocol}://{hostname}:{port}{path}'
 
         logger.debug('Updated request endpoint to %s', executor)
@@ -338,7 +348,7 @@ class WebDriver(
         client_config.remote_server_addr = executor
         client_config.keep_alive = keep_alive
         if isinstance(self.command_executor, AppiumConnection):
-            self.command_executor = AppiumConnection(client_config=client_config)
+            self.command_executor = type(self.command_executor)(client_config=client_config)
         else:
             self.command_executor = RemoteConnection(client_config=client_config)
         self._add_commands()

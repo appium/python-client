@@ -291,12 +291,12 @@ any | `appium.options.common.base.AppiumOptions`
 
 ## Direct Connect URLs
 
-If your Selenium/Appium server decorates the new session capabilities response with the following keys:
+If your Selenium/Appium server decorates the new session capabilities response with the following keys (with or without the `appium:` prefix):
 
-- `directConnectProtocol`
-- `directConnectHost`
-- `directConnectPort`
-- `directConnectPath`
+- `directConnectProtocol` (`appium:directConnectProtocol`)
+- `directConnectHost` (`appium:directConnectHost`)
+- `directConnectPort` (`appium:directConnectPort`)
+- `directConnectPath` (`appium:directConnectPath`)
 
 Then python client will switch its endpoint to the one specified by the values of those keys.
 

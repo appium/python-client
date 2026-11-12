@@ -235,6 +235,158 @@ class TestWebDriverWebDriver:
         assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
+    def test_create_session_register_uridirect_with_appium_prefix(self):
+        httpretty.register_uri(
+            httpretty.POST,
+            f'{SERVER_URL_BASE}/session',
+            body=json.dumps(
+                {
+                    'sessionId': 'session-id',
+                    'capabilities': {
+                        'deviceName': 'Android Emulator',
+                        'appium:directConnectProtocol': 'https',
+                        'appium:directConnectHost': 'localhost2',
+                        'appium:directConnectPort': 4800,
+                        'appium:directConnectPath': '/special/path/wd/hub',
+                    },
+                }
+            ),
+        )
+
+        httpretty.register_uri(
+            httpretty.GET,
+            'https://localhost2:4800/special/path/wd/hub/session/session-id/contexts',
+            body=json.dumps({'value': ['NATIVE_APP', 'CHROMIUM']}),
+        )
+
+        desired_caps = {
+            'platformName': 'Android',
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+            'automationName': 'UIAutomator2',
+        }
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
+        driver = webdriver.Remote(
+            SERVER_URL_BASE,
+            options=UiAutomator2Options().load_capabilities(desired_caps),
+            client_config=client_config,
+        )
+
+        assert driver.command_executor._client_config.remote_server_addr == 'https://localhost2:4800/special/path/wd/hub'
+        assert driver.contexts == ['NATIVE_APP', 'CHROMIUM']
+        assert isinstance(driver.command_executor, AppiumConnection)
+
+    @httpretty.activate
+    def test_create_session_register_uridirect_prefers_appium_prefix(self):
+        httpretty.register_uri(
+            httpretty.POST,
+            f'{SERVER_URL_BASE}/session',
+            body=json.dumps(
+                {
+                    'sessionId': 'session-id',
+                    'capabilities': {
+                        'deviceName': 'Android Emulator',
+                        'directConnectProtocol': 'http',
+                        'directConnectHost': 'legacy-host',
+                        'directConnectPort': 4723,
+                        'directConnectPath': '/wd/hub',
+                        'appium:directConnectProtocol': 'https',
+                        'appium:directConnectHost': 'w3c-host',
+                        'appium:directConnectPort': 4800,
+                        'appium:directConnectPath': '/w3c/path',
+                    },
+                }
+            ),
+        )
+
+        desired_caps = {
+            'platformName': 'Android',
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+            'automationName': 'UIAutomator2',
+        }
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
+        driver = webdriver.Remote(
+            SERVER_URL_BASE,
+            options=UiAutomator2Options().load_capabilities(desired_caps),
+            client_config=client_config,
+        )
+
+        assert driver.command_executor._client_config.remote_server_addr == 'https://w3c-host:4800/w3c/path'
+
+    @httpretty.activate
+    def test_create_session_register_uridirect_ignores_empty_values(self):
+        httpretty.register_uri(
+            httpretty.POST,
+            f'{SERVER_URL_BASE}/session',
+            body=json.dumps(
+                {
+                    'sessionId': 'session-id',
+                    'capabilities': {
+                        'deviceName': 'Android Emulator',
+                        'appium:directConnectProtocol': 'http',
+                        'appium:directConnectHost': '',
+                        'appium:directConnectPort': 4800,
+                        'appium:directConnectPath': None,
+                    },
+                }
+            ),
+        )
+
+        desired_caps = {
+            'platformName': 'Android',
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+            'automationName': 'UIAutomator2',
+        }
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
+        driver = webdriver.Remote(
+            SERVER_URL_BASE,
+            options=UiAutomator2Options().load_capabilities(desired_caps),
+            client_config=client_config,
+        )
+
+        assert driver.command_executor._client_config.remote_server_addr == SERVER_URL_BASE
+
+    @httpretty.activate
+    def test_create_session_register_uridirect_with_custom_connection(self):
+        httpretty.register_uri(
+            httpretty.POST,
+            f'{SERVER_URL_BASE}/session',
+            body=json.dumps(
+                {
+                    'sessionId': 'session-id',
+                    'capabilities': {
+                        'deviceName': 'Android Emulator',
+                        'appium:directConnectProtocol': 'http',
+                        'appium:directConnectHost': 'localhost2',
+                        'appium:directConnectPort': 4800,
+                        'appium:directConnectPath': '/special/path/wd/hub',
+                    },
+                }
+            ),
+        )
+
+        class CustomAppiumConnection(AppiumConnection):
+            pass
+
+        desired_caps = {
+            'platformName': 'Android',
+            'deviceName': 'Android Emulator',
+            'app': 'path/to/app',
+            'automationName': 'UIAutomator2',
+        }
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
+        custom_connection = CustomAppiumConnection(client_config=client_config)
+        driver = webdriver.Remote(
+            custom_connection,
+            options=UiAutomator2Options().load_capabilities(desired_caps),
+        )
+
+        assert isinstance(driver.command_executor, CustomAppiumConnection)
+        assert driver.command_executor._client_config.remote_server_addr == 'http://localhost2:4800/special/path/wd/hub'
+
+    @httpretty.activate
     def test_create_session_remote_server_addr_treatment_with_appiumclientconfig(self):
         # remote server add in AppiumRemoteCong will be prior than the string of 'command_executor'
         # as same as Selenium behavior.

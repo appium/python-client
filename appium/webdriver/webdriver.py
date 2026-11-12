@@ -216,7 +216,7 @@ def _get_remote_connection_and_client_config(
 def _get_direct_connect_value(caps: dict[str, Any], key: str) -> Any:
     for candidate in (f'{APPIUM_PREFIX}{key}', key):
         value = caps.get(candidate)
-        if value is not None and value != '':
+        if value is not None and (value != '' or key == 'directConnectPath'):
             return value
     return None
 
@@ -281,7 +281,7 @@ class WebDriver(
 
         self.error_handler = MobileErrorHandler()
 
-        effective_client_config = client_config or getattr(self.command_executor, 'client_config', None)
+        effective_client_config = self.command_executor.client_config
         if isinstance(effective_client_config, AppiumClientConfig) and effective_client_config.direct_connection:
             self._update_command_executor(keep_alive=effective_client_config.keep_alive)
 
@@ -339,7 +339,7 @@ class WebDriver(
 
         logger.debug('Updated request endpoint to %s', executor)
 
-        # Override command executor.
+        # Keep the existing executor, including custom constructor arguments and state.
         # The client configuration given by a user, e.g. the read timeout, the proxy or
         # the authentication credentials, must be kept as-is. Only the endpoint the client
         # talks to changes, thus a copy of the current configuration is reused instead of
@@ -347,11 +347,13 @@ class WebDriver(
         client_config = copy.copy(self.command_executor.client_config)
         client_config.remote_server_addr = executor
         client_config.keep_alive = keep_alive
-        if isinstance(self.command_executor, AppiumConnection):
-            self.command_executor = type(self.command_executor)(client_config=client_config)
-        else:
-            self.command_executor = RemoteConnection(client_config=client_config)
-        self._add_commands()
+        if hasattr(self.command_executor, '_conn'):
+            self.command_executor._conn.clear()
+        self.command_executor._client_config = client_config
+        # Proxy selection (including no_proxy) can change with the endpoint.
+        self.command_executor._proxy_url = client_config.get_proxy_url()
+        if keep_alive:
+            self.command_executor._conn = self.command_executor._get_connection_manager()
 
     # https://github.com/SeleniumHQ/selenium/blob/06fdf2966df6bca47c0ae45e8201cd30db9b9a49/py/selenium/webdriver/remote/webdriver.py#L277
     # noinspection PyAttributeOutsideInit

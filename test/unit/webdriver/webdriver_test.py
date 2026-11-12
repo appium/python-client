@@ -348,8 +348,71 @@ class TestWebDriverWebDriver:
 
         assert driver.command_executor._client_config.remote_server_addr == SERVER_URL_BASE
 
+    @pytest.mark.parametrize('prefix', ['', 'appium:'])
+    @pytest.mark.parametrize('path', ['', '/', None])
     @httpretty.activate
-    def test_create_session_register_uridirect_with_custom_connection(self):
+    def test_direct_connect_root_path(self, prefix, path):
+        caps = {
+            f'{prefix}directConnectProtocol': 'http',
+            f'{prefix}directConnectHost': 'localhost2',
+            f'{prefix}directConnectPort': 4800,
+            f'{prefix}directConnectPath': path,
+        }
+        # An explicit empty prefixed path must win over a legacy path.
+        if prefix:
+            caps['directConnectPath'] = '/legacy' if path is not None else None
+        httpretty.register_uri(
+            httpretty.POST,
+            f'{SERVER_URL_BASE}/session',
+            body=json.dumps({'sessionId': 'session-id', 'capabilities': caps}),
+        )
+        endpoint = SERVER_URL_BASE if path is None else f'http://localhost2:4800{path}'
+        httpretty.register_uri(
+            httpretty.GET,
+            f'{endpoint}/session/session-id/contexts',
+            body=json.dumps({'value': ['NATIVE_APP']}),
+        )
+        driver = webdriver.Remote(
+            options=UiAutomator2Options(),
+            client_config=AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True),
+        )
+        assert driver.command_executor.client_config.remote_server_addr == endpoint
+        assert driver.contexts == ['NATIVE_APP']
+
+    @pytest.mark.parametrize('keep_alive', [True, False])
+    def test_direct_connect_rebuilds_proxy_pool(self, monkeypatch, keep_alive):
+        monkeypatch.setenv('http_proxy', 'http://proxy:8080')
+        monkeypatch.setenv('no_proxy', 'grid')
+        config = AppiumClientConfig(remote_server_addr='http://grid:4444', keep_alive=keep_alive)
+        connection = AppiumConnection(client_config=config)
+        assert connection._proxy_url is None
+        driver = WebDriver.__new__(WebDriver)
+        driver.command_executor = connection
+        driver.caps = {
+            'directConnectProtocol': 'http',
+            'directConnectHost': 'node',
+            'directConnectPort': 4723,
+            'directConnectPath': '',
+        }
+        with patch.object(connection, '_get_connection_manager', wraps=connection._get_connection_manager) as manager:
+            if keep_alive:
+                old_pool = connection._conn
+                with patch.object(old_pool, 'clear', wraps=old_pool.clear) as clear:
+                    driver._update_command_executor(keep_alive)
+                clear.assert_called_once()
+                assert connection._conn is not old_pool
+                assert isinstance(connection._conn, urllib3.ProxyManager)
+                manager.assert_called_once()
+            else:
+                driver._update_command_executor(keep_alive)
+                manager.assert_not_called()
+        assert connection._proxy_url == 'http://proxy:8080'
+        assert config.remote_server_addr == 'http://grid:4444'
+        connection.close()
+
+    @pytest.mark.parametrize('keep_alive', [True, False])
+    @httpretty.activate
+    def test_create_session_register_uridirect_with_custom_connection(self, keep_alive):
         httpretty.register_uri(
             httpretty.POST,
             f'{SERVER_URL_BASE}/session',
@@ -368,7 +431,9 @@ class TestWebDriverWebDriver:
         )
 
         class CustomAppiumConnection(AppiumConnection):
-            pass
+            def __init__(self, token, client_config):
+                super().__init__(client_config=client_config)
+                self.token = token
 
         desired_caps = {
             'platformName': 'Android',
@@ -376,14 +441,28 @@ class TestWebDriverWebDriver:
             'app': 'path/to/app',
             'automationName': 'UIAutomator2',
         }
-        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
-        custom_connection = CustomAppiumConnection(client_config=client_config)
+        client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True, keep_alive=keep_alive)
+        custom_connection = CustomAppiumConnection('custom-token', client_config=client_config)
+        state = object()
+        custom_connection.state = state
+        custom_connection._commands = custom_connection._commands.copy()
+        custom_connection.add_command('custom_command', 'GET', '/session/$sessionId/custom')
+        httpretty.register_uri(
+            httpretty.GET,
+            'http://localhost2:4800/special/path/wd/hub/session/session-id/custom',
+            body=json.dumps({'value': 'custom-result'}),
+        )
         driver = webdriver.Remote(
             custom_connection,
             options=UiAutomator2Options().load_capabilities(desired_caps),
         )
 
-        assert isinstance(driver.command_executor, CustomAppiumConnection)
+        assert driver.command_executor is custom_connection
+        assert custom_connection.token == 'custom-token'
+        assert custom_connection.state is state
+        assert client_config.remote_server_addr == SERVER_URL_BASE
+        assert driver.command_executor.client_config.keep_alive is keep_alive
+        assert driver.execute('custom_command')['value'] == 'custom-result'
         assert driver.command_executor._client_config.remote_server_addr == 'http://localhost2:4800/special/path/wd/hub'
 
     @httpretty.activate

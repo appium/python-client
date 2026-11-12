@@ -2,6 +2,21 @@
 
 <!-- version list -->
 
+## v6.1.6 (2026-11-12)
+
+### Bug Fixes
+
+- **webdriver**: Support W3C appium: prefix and custom connection for directConnect
+  ([#1358](https://github.com/appium/python-client/pull/1358),
+  [`5f41623`](https://github.com/appium/python-client/commit/5f41623440c265af781ef152366e798fcffffa58))
+
+### Continuous Integration
+
+- **deps**: Bump selenium from 4.51.0 to 4.52.0
+  ([#1355](https://github.com/appium/python-client/pull/1355),
+  [`adb5e64`](https://github.com/appium/python-client/commit/adb5e645fd240cfb1dea6f0bd74e95052414a42f))
+
+
 ## v6.1.5 (2026-11-06)
 
 ### Bug Fixes

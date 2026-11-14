@@ -74,8 +74,9 @@ class Applications(CanExecuteCommands, CanExecuteScripts):
         Returns:
             Union['WebDriver', 'Applications']: Self instance
         """
+        ext_name = 'mobile: installApp'
         self.execute_script(
-            'mobile: installApp',
+            ext_name,
             {
                 'app': app_path,
                 'appPath': app_path,

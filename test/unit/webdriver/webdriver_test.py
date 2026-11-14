@@ -19,6 +19,7 @@ import httpretty
 import pytest
 import urllib3
 from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.common.by import By
 
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
@@ -445,6 +446,30 @@ class TestWebDriverWebDriver:
         httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890'), body=json.dumps({}))
         events = driver.events
         assert events == {}
+
+    @httpretty.activate
+    @pytest.mark.parametrize('by', [By.ID, By.NAME, By.CLASS_NAME])
+    def test_find_element_keeps_locator_strategy(self, by):
+        # Selenium's default LocatorConverter rewrites these strategies to 'css selector',
+        # which Appium native contexts do not support.
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/element'),
+            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "element-id"}}',
+        )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/element/element-id/element'),
+            body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "child-element-id"}}',
+        )
+        el = driver.find_element(by=by, value='foo')
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d == {'using': by, 'value': 'foo'}
+
+        el.find_element(by=by, value='bar')
+        d = get_httpretty_request_body(httpretty.last_request())
+        assert d == {'using': by, 'value': 'bar'}
 
     @httpretty.activate
     @patch('appium.webdriver.webdriver.logger.warning')

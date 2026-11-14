@@ -2,6 +2,30 @@
 
 <!-- version list -->
 
+## v6.1.7 (2026-11-14)
+
+### Bug Fixes
+
+- **webdriver**: Preserve direct connect root paths and custom executor state
+  ([#1365](https://github.com/appium/python-client/pull/1365),
+  [`ba2ecd6`](https://github.com/appium/python-client/commit/ba2ecd6322c8aa9255484ccfa6676dc32ab48bd1))
+
+### Refactoring
+
+- **applications**: Extract installApp script name into variable
+  ([#1360](https://github.com/appium/python-client/pull/1360),
+  [`17e6e5f`](https://github.com/appium/python-client/commit/17e6e5fc759bd6336f7be174e90923c83f5d9b64))
+
+### Testing
+
+- Add unit tests for setup_logger ([#1362](https://github.com/appium/python-client/pull/1362),
+  [`9d60a60`](https://github.com/appium/python-client/commit/9d60a60e69b6a1bc6af0ffe688890fb5afcd4713))
+
+- Verify driver sends By.ID/NAME/CLASS_NAME locators unconverted
+  ([#1361](https://github.com/appium/python-client/pull/1361),
+  [`05f1523`](https://github.com/appium/python-client/commit/05f15233bd386b53ad8e9cbb9f34b9855ee69ec4))
+
+
 ## v6.1.6 (2026-11-12)
 
 ### Bug Fixes

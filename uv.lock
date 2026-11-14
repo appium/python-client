@@ -27,7 +27,7 @@ wheels = [
 
 [[package]]
 name = "appium-python-client"
-version = "6.1.6"
+version = "6.1.7"
 source = { editable = "." }
 dependencies = [
     { name = "selenium" },

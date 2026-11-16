@@ -63,7 +63,13 @@ class MobileErrorHandler(errorhandler.ErrorHandler):
         self._raise_http_error(http_error_status, raw_msg)
 
     def _delegate_w3c_error(self, error: str, value: dict[str, Any]) -> None:
-        normalized = {**value, 'data': {'text': value['data']}} if isinstance(value.get('data'), str) else value
+        normalized = value
+        if 'data' in value and not isinstance(value['data'], dict):
+            data = value['data']
+            if isinstance(data, str):
+                normalized = {**value, 'data': {'text': data}}
+            else:
+                normalized = {k: v for k, v in value.items() if k != 'data'}
         try:
             super().check_response({'status': error, 'value': normalized})
         except sel_exceptions.WebDriverException as exc:

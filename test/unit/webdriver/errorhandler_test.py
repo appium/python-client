@@ -143,6 +143,17 @@ def test_unexpected_alert_extracts_string_data():
     assert caught.value.alert_text == 'Legacy alert'
 
 
+@pytest.mark.parametrize('data', [None, ['item']])
+def test_unexpected_alert_ignores_non_dict_non_str_data(data):
+    response = {
+        'status': 500,
+        'value': json.dumps({'value': {'error': 'unexpected alert open', 'message': 'Blocked', 'data': data}}),
+    }
+    with pytest.raises(exceptions.UnexpectedAlertPresentException) as caught:
+        MobileErrorHandler().check_response(response)
+    assert caught.value.alert_text is None
+
+
 @httpretty.activate
 def test_driver_raises_on_http_proxy_and_auth_errors():
     driver = android_w3c_driver()

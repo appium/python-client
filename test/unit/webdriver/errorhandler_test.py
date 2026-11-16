@@ -89,7 +89,94 @@ def test_driver_unexpected_alert_text(data):
         {'value': {'error': 'timeout', 'message': 'User script result'}},
         {'status': 7, 'value': {'message': 'Legacy error'}},
         {'status': 500, 'value': '{"status": 7, "value": {"message": "Legacy error"}}'},
+        {'value': {'error': 'timeout', 'message': 'app payload'}},
     ],
 )
 def test_non_w3c_errors_are_not_interpreted(response):
     MobileErrorHandler().check_response(response)
+
+
+@pytest.mark.parametrize(
+    ('response', 'expected_exc', 'expected_msg'),
+    [
+        ({'status': 401, 'value': 'Authorization Required'}, exceptions.WebDriverException, 'Authorization Required'),
+        (
+            {'status': 502, 'value': '<html>502 Bad Gateway</html>'},
+            exceptions.WebDriverException,
+            '<html>502 Bad Gateway</html>',
+        ),
+        ({'status': 405, 'value': 'Method Not Allowed'}, exceptions.UnknownMethodException, 'Method Not Allowed'),
+        ({'status': 500, 'value': ''}, exceptions.WebDriverException, 'HTTP error status: 500'),
+        ({'status': 500, 'value': '["unexpected"]'}, exceptions.WebDriverException, '["unexpected"]'),
+        (
+            {'status': 404, 'value': '{"error": "invalid session id", "message": "Session expired"}'},
+            exceptions.InvalidSessionIdException,
+            'Session expired',
+        ),
+        (
+            {'status': 400, 'value': {'error': 'invalid argument', 'message': 'Invalid timeout value'}},
+            exceptions.InvalidArgumentException,
+            'Invalid timeout value',
+        ),
+        (
+            {'status': 500, 'value': '{"value": "Plain error string"}'},
+            exceptions.WebDriverException,
+            'Plain error string',
+        ),
+        ({'status': 500, 'value': '{}'}, exceptions.WebDriverException, '{}'),
+    ],
+)
+def test_http_and_flat_error_responses_raise(response, expected_exc, expected_msg):
+    with pytest.raises(expected_exc) as caught:
+        MobileErrorHandler().check_response(response)
+    assert caught.value.msg is not None
+    assert caught.value.msg.startswith(expected_msg)
+
+
+def test_unexpected_alert_extracts_string_data():
+    response = {
+        'status': 500,
+        'value': '{"value": {"error": "unexpected alert open", "message": "Blocked", "data": "Legacy alert"}}',
+    }
+    with pytest.raises(exceptions.UnexpectedAlertPresentException) as caught:
+        MobileErrorHandler().check_response(response)
+    assert caught.value.alert_text == 'Legacy alert'
+
+
+@httpretty.activate
+def test_driver_raises_on_http_proxy_and_auth_errors():
+    driver = android_w3c_driver()
+
+    httpretty.register_uri(
+        httpretty.POST,
+        appium_command('/session/1234567890/element'),
+        status=401,
+        body='Unauthorized',
+    )
+    with pytest.raises(exceptions.WebDriverException) as auth_exc:
+        driver.find_element(By.ID, 'btn')
+    assert auth_exc.value.msg == 'Authorization Required'
+
+    httpretty.register_uri(
+        httpretty.GET,
+        appium_command('/session/1234567890/appium/settings'),
+        status=502,
+        body='<html>502 Bad Gateway</html>',
+    )
+    with pytest.raises(exceptions.WebDriverException) as gateway_exc:
+        driver.get_settings()
+    assert gateway_exc.value.msg == '<html>502 Bad Gateway</html>'
+
+
+@httpretty.activate
+def test_driver_allows_http_200_user_dict_with_error_key():
+    driver = android_w3c_driver()
+    httpretty.register_uri(
+        httpretty.POST,
+        appium_command('/session/1234567890/execute/sync'),
+        status=200,
+        content_type='application/json',
+        body='{"value": {"error": "timeout", "message": "app payload"}}',
+    )
+    result = driver.execute_script('return arguments[0]', {'ok': True})
+    assert result == {'error': 'timeout', 'message': 'app payload'}

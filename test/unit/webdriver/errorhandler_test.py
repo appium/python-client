@@ -93,3 +93,48 @@ def test_driver_unexpected_alert_text(data):
 )
 def test_non_w3c_errors_are_not_interpreted(response):
     MobileErrorHandler().check_response(response)
+
+
+@pytest.mark.parametrize(
+    ('response', 'expected_msg'),
+    [
+        ({'status': 401, 'value': 'Authorization Required'}, 'Authorization Required'),
+        ({'status': 502, 'value': '<html>502 Bad Gateway</html>'}, '<html>502 Bad Gateway</html>'),
+        ({'status': 405, 'value': 'Method Not Allowed'}, 'Method Not Allowed'),
+        ({'status': 500, 'value': ''}, 'HTTP error status: 500'),
+        ({'status': 500, 'value': '["unexpected"]'}, '["unexpected"]'),
+        ({'status': 500, 'value': '{"value": "Plain error string"}'}, 'Plain error string'),
+        ({'status': 500, 'value': '{}'}, '{}'),
+    ],
+)
+def test_non_w3c_http_error_responses_raise(response, expected_msg):
+    with pytest.raises(exceptions.WebDriverException) as caught:
+        MobileErrorHandler().check_response(response)
+    assert type(caught.value) is exceptions.WebDriverException
+    assert caught.value.msg is not None
+    assert caught.value.msg.startswith(expected_msg)
+
+
+@httpretty.activate
+def test_driver_raises_on_http_proxy_and_auth_errors():
+    driver = android_w3c_driver()
+
+    httpretty.register_uri(
+        httpretty.POST,
+        appium_command('/session/1234567890/element'),
+        status=401,
+        body='Unauthorized',
+    )
+    with pytest.raises(exceptions.WebDriverException) as auth_exc:
+        driver.find_element(By.ID, 'btn')
+    assert auth_exc.value.msg == 'Authorization Required'
+
+    httpretty.register_uri(
+        httpretty.GET,
+        appium_command('/session/1234567890/appium/settings'),
+        status=502,
+        body='<html>502 Bad Gateway</html>',
+    )
+    with pytest.raises(exceptions.WebDriverException) as gateway_exc:
+        driver.get_settings()
+    assert gateway_exc.value.msg == '<html>502 Bad Gateway</html>'

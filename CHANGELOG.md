@@ -2,6 +2,32 @@
 
 <!-- version list -->
 
+## v6.1.8 (2026-11-19)
+
+### Bug Fixes
+
+- **webdriver**: Handle HTTP error responses and alert text in MobileErrorHandler
+  ([#1366](https://github.com/appium/python-client/pull/1366),
+  [`2d121e2`](https://github.com/appium/python-client/commit/2d121e2deb4dd230486f9b96c01ad88d56551efc))
+
+- **webdriver**: Handle non-dict alert data before delegating to Selenium
+  ([#1366](https://github.com/appium/python-client/pull/1366),
+  [`2d121e2`](https://github.com/appium/python-client/commit/2d121e2deb4dd230486f9b96c01ad88d56551efc))
+
+- **webdriver**: Handle non-W3C HTTP error responses in MobileErrorHandler
+  ([#1366](https://github.com/appium/python-client/pull/1366),
+  [`2d121e2`](https://github.com/appium/python-client/commit/2d121e2deb4dd230486f9b96c01ad88d56551efc))
+
+- **webdriver**: Narrow MobileErrorHandler to non-W3C HTTP errors
+  ([#1366](https://github.com/appium/python-client/pull/1366),
+  [`2d121e2`](https://github.com/appium/python-client/commit/2d121e2deb4dd230486f9b96c01ad88d56551efc))
+
+### Refactoring
+
+- Use selenium code as possible ([#1367](https://github.com/appium/python-client/pull/1367),
+  [`ce92e55`](https://github.com/appium/python-client/commit/ce92e552a02e4af034b0d93251d5247b0e0056c5))
+
+
 ## v6.1.7 (2026-11-14)
 
 ### Bug Fixes

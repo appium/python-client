@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from time import sleep
 from typing import TYPE_CHECKING, Any
 
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -141,3 +142,23 @@ def get_wda_port() -> int:
     """
     worker_info = get_worker_info()
     return 8100 + (worker_info.worker_number or 0)
+
+
+# Errors the XCUITest driver raises after it has already cleaned up a failed WDA startup,
+# so creating a new session afterwards is safe.
+_WDA_STARTUP_ERRORS = ('Unable to launch WebDriverAgent', 'Unable to start WebDriverAgent session')
+
+
+def create_session_with_wda_retry(create: Callable[[], 'WebDriver'], interval_sec: float = 10) -> 'WebDriver':
+    """Create a session, retrying once when WebDriverAgent fails to start.
+
+    The XCUITest driver does not retry WDA startup itself when `usePreinstalledWDA` is set,
+    and the first launch on a freshly booted CI simulator often fails.
+    """
+    try:
+        return create()
+    except WebDriverException as e:
+        if not any(msg in str(e) for msg in _WDA_STARTUP_ERRORS):
+            raise
+    sleep(interval_sec)
+    return create()

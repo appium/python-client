@@ -20,6 +20,7 @@ import pytest
 from appium import webdriver
 from appium.webdriver.client_config import AppiumClientConfig
 from appium.webdriver.extensions.flutter_integration.flutter_commands import FlutterCommand
+from test.functional.test_helper import create_session_with_wda_retry
 from test.helpers.constants import SERVER_URL_BASE
 
 from .helper.options import make_options
@@ -36,7 +37,7 @@ def driver() -> Generator['WebDriver', None, None]:
     client_config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE)
     client_config.timeout = 600
 
-    driver = webdriver.Remote(options=options, client_config=client_config)
+    driver = create_session_with_wda_retry(lambda: webdriver.Remote(options=options, client_config=client_config))
 
     yield driver
 

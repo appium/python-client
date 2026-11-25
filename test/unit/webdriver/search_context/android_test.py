@@ -15,6 +15,7 @@
 import json
 
 import httpretty
+import pytest
 
 from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.webelement import WebElement as MobileWebElement
@@ -22,22 +23,27 @@ from test.unit.helper.test_helper import android_w3c_driver, appium_command, get
 
 
 class TestWebDriverAndroidSearchContext:
+    @pytest.mark.parametrize(
+        ('by', 'strategy', 'selector'),
+        [
+            (AppiumBy.ID, 'id', 'id data'),
+            (AppiumBy.ANDROID_PREDICATE, '-android predicate string', "text == 'Gallery'"),
+            (AppiumBy.ANDROID_CLASS_CHAIN, '-android class chain', '**/android.widget.Button[2]'),
+        ],
+    )
     @httpretty.activate
-    def test_find_element_by_id(self):
+    def test_find_element(self, by, strategy, selector):
         driver = android_w3c_driver()
         httpretty.register_uri(
             httpretty.POST,
             appium_command('/session/1234567890/element'),
             body='{"value": {"element-6066-11e4-a52e-4f735466cecf": "element-id"}}',
         )
-        el = driver.find_element(
-            by=AppiumBy.ID,
-            value='id data',
-        )
+        el = driver.find_element(by=by, value=selector)
 
         d = get_httpretty_request_body(httpretty.last_request())
-        assert d['using'] == 'id'
-        assert d['value'] == 'id data'
+        assert d['using'] == strategy
+        assert d['value'] == selector
         assert isinstance(el, MobileWebElement)
 
     @httpretty.activate

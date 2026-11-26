@@ -32,6 +32,7 @@ class TestWebDriverAndroidSearchContext:
         ('by', 'strategy', 'selector'),
         [
             (AppiumBy.ID, 'id', 'id data'),
+            (AppiumBy.ANDROID_TEXT, 'text', 'Sign in'),
             (AppiumBy.ANDROID_PREDICATE, '-android predicate string', "text == 'Gallery'"),
             (AppiumBy.ANDROID_CLASS_CHAIN, '-android class chain', '**/android.widget.Button[2]'),
         ],

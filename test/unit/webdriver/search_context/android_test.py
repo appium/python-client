@@ -23,6 +23,11 @@ from test.unit.helper.test_helper import android_w3c_driver, appium_command, get
 
 
 class TestWebDriverAndroidSearchContext:
+    @pytest.mark.parametrize('by', [AppiumBy, AppiumBy()])
+    def test_android_uiautomator_deprecation(self, by):
+        with pytest.warns(DeprecationWarning, match='Use ANDROID_PREDICATE or ANDROID_CLASS_CHAIN'):
+            assert by.ANDROID_UIAUTOMATOR == '-android uiautomator'
+
     @pytest.mark.parametrize(
         ('by', 'strategy', 'selector'),
         [

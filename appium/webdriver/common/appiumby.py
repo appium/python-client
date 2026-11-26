@@ -15,6 +15,7 @@
 from typing import Literal
 
 from selenium.webdriver.common.by import By
+from typing_extensions import deprecated
 
 ByType = Literal[
     '-ios predicate string',
@@ -36,6 +37,12 @@ ByType = Literal[
 ]
 
 
+class _AndroidUiAutomator:
+    @deprecated('ANDROID_UIAUTOMATOR is deprecated. Use ANDROID_PREDICATE or ANDROID_CLASS_CHAIN for element lookup.')
+    def __get__(self, instance: object, owner: type) -> ByType:
+        return '-android uiautomator'
+
+
 class AppiumBy(By):
     """Appium locator strategies for use with find_element and find_elements."""
 
@@ -47,7 +54,7 @@ class AppiumBy(By):
     ANDROID_CLASS_CHAIN: ByType = '-android class chain'
     """Match a path in the Android accessibility tree such as ``**/android.widget.Button[2]`` (UiAutomator2 10.1.0+)."""
 
-    ANDROID_UIAUTOMATOR: ByType = '-android uiautomator'
+    ANDROID_UIAUTOMATOR = _AndroidUiAutomator()
     """Deprecated UiSelector strategy. Use ANDROID_PREDICATE or ANDROID_CLASS_CHAIN for element lookup."""
 
     ANDROID_VIEWTAG: ByType = '-android viewtag'

@@ -15,10 +15,13 @@
 from typing import Literal
 
 from selenium.webdriver.common.by import By
+from typing_extensions import deprecated
 
 ByType = Literal[
     '-ios predicate string',
     '-ios class chain',
+    '-android predicate string',
+    '-android class chain',
     '-android uiautomator',
     '-android viewtag',
     '-android datamatcher',
@@ -34,10 +37,26 @@ ByType = Literal[
 ]
 
 
+class _AndroidUiAutomator:
+    @deprecated('ANDROID_UIAUTOMATOR is deprecated. Use ANDROID_PREDICATE or ANDROID_CLASS_CHAIN for element lookup.')
+    def __get__(self, instance: object, owner: type) -> ByType:
+        return '-android uiautomator'
+
+
 class AppiumBy(By):
+    """Appium locator strategies for use with find_element and find_elements."""
+
     IOS_PREDICATE: ByType = '-ios predicate string'
     IOS_CLASS_CHAIN: ByType = '-ios class chain'
-    ANDROID_UIAUTOMATOR: ByType = '-android uiautomator'
+    ANDROID_PREDICATE: ByType = '-android predicate string'
+    """Match Android elements by a predicate such as ``text == 'Gallery'`` (UiAutomator2 10.2.0+)."""
+
+    ANDROID_CLASS_CHAIN: ByType = '-android class chain'
+    """Match a path in the Android accessibility tree such as ``**/android.widget.Button[2]`` (UiAutomator2 10.1.0+)."""
+
+    ANDROID_UIAUTOMATOR = _AndroidUiAutomator()
+    """Deprecated UiSelector strategy. Use ANDROID_PREDICATE or ANDROID_CLASS_CHAIN for element lookup."""
+
     ANDROID_VIEWTAG: ByType = '-android viewtag'
     ANDROID_DATA_MATCHER: ByType = '-android datamatcher'
     ANDROID_VIEW_MATCHER: ByType = '-android viewmatcher'

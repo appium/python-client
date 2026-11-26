@@ -2,6 +2,24 @@
 
 <!-- version list -->
 
+## v6.2.0 (2026-11-26)
+
+### Continuous Integration
+
+- **deps**: Bump actions/setup-java from 6.1.0 to 6.3.0
+  ([#1372](https://github.com/appium/python-client/pull/1372),
+  [`2855b6a`](https://github.com/appium/python-client/commit/2855b6a4d923cff00ff7d453c35a73f0ac2ceea1))
+
+- **deps**: Bump astral-sh/setup-uv from 10.3.3 to 10.4.0
+  ([#1371](https://github.com/appium/python-client/pull/1371),
+  [`a922245`](https://github.com/appium/python-client/commit/a92224599176720f52e6ba36d1be776440e82463))
+
+### Features
+
+- Support new android locators ([#1376](https://github.com/appium/python-client/pull/1376),
+  [`82a3c75`](https://github.com/appium/python-client/commit/82a3c753529984add4f540beefa13ec17ef80f33))
+
+
 ## v6.1.8 (2026-11-19)
 
 ### Bug Fixes

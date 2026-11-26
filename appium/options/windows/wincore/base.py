@@ -12,14 +12,15 @@
 
 from datetime import timedelta
 from os import PathLike, fspath
+from typing import Any, TypeVar
 
 from appium.options.common.app_option import AppOption
 from appium.options.common.automation_name_option import AUTOMATION_NAME
-from appium.options.common.base import PLATFORM_NAME, AppiumOptions
+from appium.options.common.base import APPIUM_PREFIX, PLATFORM_NAME, AppiumOptions
 from appium.options.common.postrun_option import PostrunOption
 from appium.options.common.prerun_option import PrerunOption
 from appium.options.windows.windows.app_arguments_option import AppArgumentsOption
-from appium.options.windows.windows.app_top_level_window_option import AppTopLevelWindowOption
+from appium.options.windows.windows.app_top_level_window_option import APP_TOP_LEVEL_WINDOW, AppTopLevelWindowOption
 from appium.options.windows.windows.app_working_dir_option import AppWorkingDirOption
 from appium.options.windows.windows.wait_for_app_launch_option import WAIT_FOR_APP_LAUNCH, WaitForAppLaunchOption
 
@@ -41,6 +42,13 @@ FFMPEG_EXECUTABLE_PATH = 'ffmpegExecutablePath'
 
 MAX_WAIT_FOR_APP_LAUNCH_SECONDS = 120
 
+T = TypeVar('T', bound='WincoreOptions')
+
+_CAPABILITY_ALIASES: dict[str, str] = {
+    f'{APPIUM_PREFIX}{FORCE_QUIT}': FORCE_QUIT,
+    f'{APPIUM_PREFIX}{WAIT_FOR_APP_LAUNCH}': WAIT_FOR_APP_LAUNCH,
+}
+
 
 class WincoreOptions(
     AppiumOptions,
@@ -52,6 +60,29 @@ class WincoreOptions(
     WaitForAppLaunchOption,
     AppArgumentsOption,
 ):
+    def set_capability(self: T, name: str, value: Any) -> T:  # type: ignore[override]
+        return super().set_capability(_CAPABILITY_ALIASES.get(name, name), value)
+
+    def get_capability(self, name: str) -> Any:
+        return super().get_capability(_CAPABILITY_ALIASES.get(name, name))
+
+    @property
+    def app_top_level_window(self) -> str | None:
+        """
+        Handle of an already open top-level window to attach to, as a
+        hexadecimal (``0x001A0B2C``) or decimal string.
+        """
+        return self.get_capability(APP_TOP_LEVEL_WINDOW)
+
+    @app_top_level_window.setter
+    def app_top_level_window(self, value: str) -> None:
+        """
+        Set the handle of an already open top-level window to attach to, as a
+        hexadecimal (``0x001A0B2C``) or decimal string. Cannot be combined with
+        ``app``; both may be omitted at startup to select a window later.
+        """
+        self.set_capability(APP_TOP_LEVEL_WINDOW, value)
+
     @property
     def wait_for_app_launch(self) -> timedelta | None:
         """
@@ -306,5 +337,5 @@ class WincoreOptions(
     def default_capabilities(self) -> dict:
         return {
             AUTOMATION_NAME: 'Wincore',
-            PLATFORM_NAME: 'Windows',
+            PLATFORM_NAME: 'windows',
         }

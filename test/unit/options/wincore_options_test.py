@@ -14,17 +14,17 @@ def test_wincore_default_capabilities():
     assert WincoreOptions is WincoreOptionsDirect
     options = WincoreOptions()
 
-    assert options.platform_name == 'Windows'
+    assert options.platform_name == 'windows'
     assert options.automation_name == 'Wincore'
     assert options.to_capabilities() == {
         'automationName': 'Wincore',
-        'platformName': 'Windows',
+        'platformName': 'windows',
     }
     assert options.to_w3c() == {
         'capabilities': {
             'firstMatch': [{}],
             'alwaysMatch': {
-                'platformName': 'Windows',
+                'platformName': 'windows',
                 'appium:automationName': 'Wincore',
             },
         }
@@ -104,7 +104,7 @@ def test_wincore_capabilities_roundtrip():
 
     w3c_caps = options.to_w3c()['capabilities']['alwaysMatch']
     assert w3c_caps == {
-        'platformName': 'Windows',
+        'platformName': 'windows',
         'appium:automationName': 'Wincore',
         'appium:app': r'C:\Windows\System32\notepad.exe',
         'appium:appArguments': '/A test.txt',
@@ -241,7 +241,7 @@ def test_wincore_create_session_request_payload():
         'capabilities': {
             'firstMatch': [{}],
             'alwaysMatch': {
-                'platformName': 'Windows',
+                'platformName': 'windows',
                 'appium:automationName': 'Wincore',
                 'appium:app': 'Root',
                 'appium:shouldCloseApp': False,
@@ -252,3 +252,42 @@ def test_wincore_create_session_request_payload():
             },
         }
     }
+
+
+def test_wincore_normalizes_prefixed_vendor_capabilities():
+    options = WincoreOptions().load_capabilities(
+        {
+            'appium:ms:forcequit': True,
+            'appium:ms:waitForAppLaunch': 2500,
+        }
+    )
+    options.app_top_level_window = '1706796'
+
+    assert options.app_top_level_window == '1706796'
+    assert options.force_quit is True
+    assert options.wait_for_app_launch == timedelta(milliseconds=2500)
+    always_match = options.to_w3c()['capabilities']['alwaysMatch']
+    assert always_match['ms:forcequit'] is True
+    assert always_match['ms:waitForAppLaunch'] == 2500
+    assert 'appium:ms:forcequit' not in always_match
+    assert 'appium:ms:waitForAppLaunch' not in always_match
+
+    options.force_quit = False
+    options.wait_for_app_launch = timedelta(seconds=10)
+    assert options.force_quit is False
+    assert options.wait_for_app_launch == timedelta(seconds=10)
+    always_match = options.to_w3c()['capabilities']['alwaysMatch']
+    assert always_match['ms:forcequit'] is False
+    assert always_match['ms:waitForAppLaunch'] == 10.0
+    assert 'appium:ms:forcequit' not in always_match
+    assert 'appium:ms:waitForAppLaunch' not in always_match
+
+    options.set_capability('appium:ms:forcequit', None)
+    options.set_capability('ms:waitForAppLaunch', None)
+    assert options.force_quit is None
+    assert options.wait_for_app_launch is None
+    always_match = options.to_w3c()['capabilities']['alwaysMatch']
+    assert 'ms:forcequit' not in always_match
+    assert 'appium:ms:forcequit' not in always_match
+    assert 'ms:waitForAppLaunch' not in always_match
+    assert 'appium:ms:waitForAppLaunch' not in always_match

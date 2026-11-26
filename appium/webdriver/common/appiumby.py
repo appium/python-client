@@ -27,6 +27,7 @@ ByType = Literal[
     '-android datamatcher',
     '-android viewmatcher',
     'text',
+    '-windows uiautomation',
     'accessibility id',
     '-image',
     '-custom',
@@ -63,6 +64,9 @@ class AppiumBy(By):
     ANDROID_VIEW_MATCHER: ByType = '-android viewmatcher'
     ANDROID_TEXT: ByType = 'text'
     """Match an element by its exact text in the Espresso driver's Espresso and Compose subdrivers."""
+
+    WINDOWS_UI_AUTOMATION: ByType = '-windows uiautomation'
+    """Match Windows elements with a UI Automation condition in the WinCore driver."""
 
     ACCESSIBILITY_ID: ByType = 'accessibility id'
     IMAGE: ByType = '-image'

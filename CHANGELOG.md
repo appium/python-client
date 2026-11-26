@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v6.3.0 (2026-11-26)
+
+### Features
+
+- Add text locator for expresso driver ([#1378](https://github.com/appium/python-client/pull/1378),
+  [`9b2c826`](https://github.com/appium/python-client/commit/9b2c826a9448ea8a28db40fde45b6e900318cf9e))
+
+
 ## v6.2.0 (2026-11-26)
 
 ### Continuous Integration

@@ -26,6 +26,7 @@ ByType = Literal[
     '-android viewtag',
     '-android datamatcher',
     '-android viewmatcher',
+    'text',
     'accessibility id',
     '-image',
     '-custom',
@@ -60,6 +61,9 @@ class AppiumBy(By):
     ANDROID_VIEWTAG: ByType = '-android viewtag'
     ANDROID_DATA_MATCHER: ByType = '-android datamatcher'
     ANDROID_VIEW_MATCHER: ByType = '-android viewmatcher'
+    ANDROID_TEXT: ByType = 'text'
+    """Match an element by its exact text in the Espresso driver's Espresso and Compose subdrivers."""
+
     ACCESSIBILITY_ID: ByType = 'accessibility id'
     IMAGE: ByType = '-image'
     CUSTOM: ByType = '-custom'

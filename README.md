@@ -96,7 +96,7 @@ For example, some changes in the Selenium binding could break the Appium client.
         - [appium/webdriver/extensions/action_helpers.py](appium/webdriver/extensions/action_helpers.py)
         - https://www.selenium.dev/documentation/webdriver/actions_api/
         - https://www.youtube.com/watch?v=oAJ7jwMNFVU
-    - Removed `AppiumBy.WINDOWS_UI_AUTOMATION` in v4. The locator was later restored for the WinCore driver.
+    - Removed `AppiumBy.WINDOWS_UI_AUTOMATION` in v4.
 
 ### Quick migration guide from v2 to v3
 - `options` keyword argument in the `webdriver.Remote` constructor such as `XCUITestOptions` instead of `desired_capabilities`
@@ -268,6 +268,8 @@ def test_android_click(appium_service, android_driver_factory):
         el = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='item')
         el.click()
 ```
+
+With the WinCore driver, use `AppiumBy.WINDOWS_UI_AUTOMATION` to find Windows elements by a UI Automation condition.
 
 ### Available `options`
 

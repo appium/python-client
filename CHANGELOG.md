@@ -2,6 +2,29 @@
 
 <!-- version list -->
 
+## v6.4.0 (2026-11-26)
+
+### Features
+
+- Restore Windows UI Automation locator for WinCore
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+### Testing
+
+- Collect Windows tests as part of the test package
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+- Exercise the WinCore locator on Windows
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+- Resolve the WinCore test app path on the runner
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+
 ## v6.3.0 (2026-11-26)
 
 ### Features

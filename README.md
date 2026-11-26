@@ -96,7 +96,7 @@ For example, some changes in the Selenium binding could break the Appium client.
         - [appium/webdriver/extensions/action_helpers.py](appium/webdriver/extensions/action_helpers.py)
         - https://www.selenium.dev/documentation/webdriver/actions_api/
         - https://www.youtube.com/watch?v=oAJ7jwMNFVU
-    - Deprecated `AppiumBy.WINDOWS_UI_AUTOMATION`, which has no usage right now.
+    - Removed `AppiumBy.WINDOWS_UI_AUTOMATION` in v4. The locator was later restored for the WinCore driver.
 
 ### Quick migration guide from v2 to v3
 - `options` keyword argument in the `webdriver.Remote` constructor such as `XCUITestOptions` instead of `desired_capabilities`

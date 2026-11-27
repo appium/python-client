@@ -13,6 +13,10 @@
 # limitations under the License.
 
 
+from typing import Any
+
+from selenium.common.exceptions import UnknownMethodException
+
 from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
@@ -21,7 +25,7 @@ from ..mobilecommand import MobileCommand as Command
 
 class Session(CanExecuteCommands):
     @property
-    def events(self) -> dict:
+    def events(self) -> dict[str, Any]:
         """Retrieves events information from the current session
 
         Usage:
@@ -31,10 +35,25 @@ class Session(CanExecuteCommands):
             `dict`:  containing events timing information from the current session
         """
         try:
-            return self.execute(Command.GET_SESSION)['value']['events']
+            events = self.execute(Command.GET_EVENTS, {})['value']
+            if not isinstance(events, dict):
+                raise TypeError(f'Unexpected events payload type: {type(events).__name__}')
+            return events
+        except UnknownMethodException:
+            pass
+        except Exception as e:
+            logger.warning('Could not find events information in the session. Error: %s', e)
+            return {}
+
+        try:
+            events = self.execute(Command.GET_SESSION)['value']['events']
+            if not isinstance(events, dict):
+                raise TypeError(f'Unexpected events payload type: {type(events).__name__}')
+            return events
         except Exception as e:
             logger.warning('Could not find events information in the session. Error: %s', e)
             return {}
 
     def _add_commands(self) -> None:
+        self.command_executor.add_command(Command.GET_EVENTS, 'POST', '/session/$sessionId/appium/events')
         self.command_executor.add_command(Command.GET_SESSION, 'GET', '/session/$sessionId')

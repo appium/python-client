@@ -509,22 +509,67 @@ class TestWebDriverWebDriver:
     def test_get_events(self):
         driver = ios_w3c_driver()
         httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/events'),
+            body=json.dumps({'value': {'simStarted': [1234567890]}}),
+        )
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890'),
+            status=404,
+            body=json.dumps({'value': {'error': 'unknown command', 'message': 'getSession removed'}}),
+        )
+        events = driver.events
+        assert events['simStarted'] == [1234567890]
+        assert httpretty.last_request().method == 'POST'
+        assert get_httpretty_request_body(httpretty.last_request()) == {}
+
+    @httpretty.activate
+    def test_get_events_falls_back_to_get_session(self):
+        driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/events'),
+            status=404,
+            body=json.dumps({'value': {'error': 'unknown command', 'message': 'unknown command'}}),
+        )
+        httpretty.register_uri(
             httpretty.GET,
             appium_command('/session/1234567890'),
             body=json.dumps({'value': {'events': {'simStarted': [1234567890]}}}),
         )
         events = driver.events
         assert events['simStarted'] == [1234567890]
+        assert httpretty.last_request().method == 'GET'
 
     @httpretty.activate
     def test_get_events_catches_missing_events(self):
         driver = ios_w3c_driver()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/events'),
+            body=json.dumps({'value': None}),
+        )
+        assert driver.events == {}
+
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/events'),
+            body=json.dumps({}),
+        )
+        assert driver.events == {}
+
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/events'),
+            status=404,
+            body=json.dumps({'value': {'error': 'unknown command', 'message': 'unknown command'}}),
+        )
         httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890'), body=json.dumps({'value': {}}))
-        events = driver.events
-        assert events == {}
+        assert driver.events == {}
+
         httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890'), body=json.dumps({}))
-        events = driver.events
-        assert events == {}
+        assert driver.events == {}
 
     @httpretty.activate
     @pytest.mark.parametrize('by', [By.ID, By.NAME, By.CLASS_NAME])
@@ -557,9 +602,20 @@ class TestWebDriverWebDriver:
             raise Exception()
 
         driver = ios_w3c_driver()
-        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890'), body=exceptionCallback)
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/events'),
+            body=exceptionCallback,
+        )
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890'),
+            body=json.dumps({'value': {'events': {'shouldNotBeUsed': [1]}}}),
+        )
         events = driver.events
         assert events == {}
+        mock_warning.assert_called_once()
+        assert httpretty.last_request().method == 'POST'
 
     @httpretty.activate
     def test_add_command(self):

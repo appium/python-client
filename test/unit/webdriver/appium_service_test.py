@@ -70,7 +70,7 @@ class TestAppiumService:
 
         assert service.is_listening is expected_result
         assert clock.perf_counter.return_value == expected_elapsed
-        assert connection.request.call_args_list == [call('HEAD', 'http://127.0.0.1:4723/status')] * expected_requests
+        assert connection.request.call_args_list == [call('GET', 'http://127.0.0.1:4723/status')] * expected_requests
 
     @pytest.mark.parametrize(
         ('poll_result', 'is_service_listening', 'expected_message'),

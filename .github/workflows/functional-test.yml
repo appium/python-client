@@ -18,6 +18,23 @@ env:
 
 jobs:
   wincore_test:
+    name: WinCore (Appium ${{ matrix.appium.version }})
+    strategy:
+      fail-fast: false
+      matrix:
+        appium: &appium_versions
+          - version: 3
+            wincore: appium-wincore-driver@3
+            xcuitest: xcuitest@12
+            uiautomator2: uiautomator2@8
+            espresso: espresso@9
+            execute_driver: execute-driver@7
+          - version: 4
+            wincore: appium-wincore-driver@4
+            xcuitest: xcuitest@13
+            uiautomator2: uiautomator2@10
+            espresso: espresso@11
+            execute_driver: execute-driver@9
     runs-on: windows-latest
     timeout-minutes: 15
     steps:
@@ -34,8 +51,8 @@ jobs:
     - name: Install Appium and WinCore
       shell: bash
       run: |
-        npm install -g appium@3
-        appium driver install --source=npm appium-wincore-driver@3
+        npm install -g appium@${{ matrix.appium.version }}
+        appium driver install --source=npm ${{ matrix.appium.wincore }}
 
     - name: Run WinCore locator test
       shell: bash
@@ -50,16 +67,18 @@ jobs:
       if: always()
       uses: actions/upload-artifact@master
       with:
-        name: appium-wincore-diagnostics
+        name: appium-${{ matrix.appium.version }}-wincore-diagnostics
         path: |
           appium.log
           junit/
 
   ios_test:
+    name: iOS ${{ matrix.test_targets.name }} (Appium ${{ matrix.appium.version }})
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
+        appium: *appium_versions
         test_targets:
           - target: test/functional/ios/safari_tests.py
             name: func_test_ios1
@@ -89,8 +108,8 @@ jobs:
 
     - name: Install Appium and drivers
       run: |
-        npm install -g appium@3
-        appium driver install xcuitest@12
+        npm install -g appium@${{ matrix.appium.version }}
+        appium driver install ${{ matrix.appium.xcuitest }}
         appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
 
     - name: Start Appium server
@@ -141,7 +160,7 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-ios-${{matrix.test_targets.name}}-diagnostics
+        name: appium-${{ matrix.appium.version }}-ios-${{matrix.test_targets.name}}-diagnostics
         path: |
           appium.log
           junit/
@@ -150,10 +169,12 @@ jobs:
 
 
   android_test:
+    name: Android ${{ matrix.test_targets.name }} (Appium ${{ matrix.appium.version }})
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
+        appium: *appium_versions
         test_targets:
           - target: test/functional/android/appium_service_tests.py test/functional/android/chrome_tests.py test/functional/android/bidi_tests.py
             name: func_test_android1
@@ -184,10 +205,10 @@ jobs:
 
     - name: Install Appium and drivers
       run: |
-        npm install -g appium@3
-        appium driver install uiautomator2@8
-        appium driver install espresso@9
-        appium plugin install execute-driver@7
+        npm install -g appium@${{ matrix.appium.version }}
+        appium driver install ${{ matrix.appium.uiautomator2 }}
+        appium driver install ${{ matrix.appium.espresso }}
+        appium plugin install ${{ matrix.appium.execute_driver }}
 
     - name: Start Appium server
       uses: ./.github/actions/setup-appium-server
@@ -255,7 +276,7 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-android-${{matrix.test_targets.name}}-diagnostics
+        name: appium-${{ matrix.appium.version }}-android-${{matrix.test_targets.name}}-diagnostics
         path: |
           appium.log
           junit/
@@ -263,6 +284,7 @@ jobs:
           htmlcov/
 
   flutter_e2e_test:
+    # appium-flutter-integration-driver@2 requires Appium 3.
     timeout-minutes: 60
     # These flutter integration driver tests are maintained by: MummanaSubramanya
     strategy:

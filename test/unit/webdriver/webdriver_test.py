@@ -18,7 +18,7 @@ from unittest.mock import patch
 import httpretty
 import pytest
 import urllib3
-from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import InvalidArgumentException, WebDriverException
 from selenium.webdriver.common.by import By
 
 from appium import webdriver
@@ -71,6 +71,36 @@ class TestWebDriverWebDriver:
         assert request_json.get('desiredCapabilities') is None
 
         assert driver.session_id == 'session-id'
+
+    @pytest.mark.parametrize('capabilities', [None, {'platformName': 'Android'}])
+    @httpretty.activate
+    def test_attach_to_existing_session(self, capabilities):
+        httpretty.register_uri(
+            httpretty.GET,
+            f'{SERVER_URL_BASE}/session/existing-id/contexts',
+            body=json.dumps({'value': ['NATIVE_APP']}),
+        )
+        driver = webdriver.Remote.attach_to('existing-id', SERVER_URL_BASE, capabilities=capabilities)
+
+        assert not httpretty.latest_requests()
+        assert driver.session_id == 'existing-id'
+        assert driver.capabilities == (capabilities or {})
+        assert driver.contexts == ['NATIVE_APP']
+
+    @httpretty.activate
+    def test_quit_attached_session(self):
+        httpretty.register_uri(httpretty.DELETE, f'{SERVER_URL_BASE}/session/existing-id', body='{"value": null}')
+        config = AppiumClientConfig(remote_server_addr=SERVER_URL_BASE, direct_connection=True)
+        driver = webdriver.Remote.attach_to('existing-id', client_config=config)
+        driver.quit()
+
+        assert httpretty.last_request().method == 'DELETE'
+        assert httpretty.last_request().path.endswith('/session/existing-id')
+
+    @pytest.mark.parametrize('session_id', ['', '   ', None])
+    def test_attach_to_rejects_invalid_session_id(self, session_id):
+        with pytest.raises(InvalidArgumentException, match='session_id'):
+            webdriver.Remote.attach_to(session_id)
 
     @httpretty.activate
     def test_create_session_change_session_id(self):

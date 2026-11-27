@@ -99,12 +99,11 @@ class ImagesComparison(CanExecuteCommands):
 
         Returns:
             The dictionary containing the following entries, or a list of such dictionaries
-            (one per match) if `multiple` is enabled:
-                visualization (str): base64-encoded content of PNG visualization of the current comparison
-                    operation. This entry is only filled if `visualize` option is enabled
-                rect (dict): The region of the partial image occurrence on the full image.
-                    The rect is represented by a dictionary with 'x', 'y', 'width' and 'height' keys
-                score (float): The similarity score of the match
+            (one per match) if ``multiple`` is enabled:
+
+            * ``visualization`` (str): base64-encoded PNG, present when ``visualize`` is enabled.
+            * ``rect`` (dict): region of the match with x, y, width and height keys.
+            * ``score`` (float): similarity score of the match.
         """
         options = {
             'mode': 'matchTemplate',

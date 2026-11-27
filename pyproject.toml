@@ -56,7 +56,7 @@ dev = [
 
   # for documentation
   "sphinx>=4.0,<9.0",
-  "sphinx_rtd_theme~=3.0",
+  "pydata-sphinx-theme>=0.16,<1",
   "sphinxcontrib-apidoc~=0.6",
 ]
 

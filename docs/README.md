@@ -1,14 +1,18 @@
-### How to check generated doc
+### Preview the documentation
+
+From the repository root:
 
 ```bash
-$cd python-client/docs
-$bash generate.sh
-$cd python-client/docs/_build/html
-$python -m http.server 1234
+cd docs
+bash generate.sh
+python -m http.server 1234 --directory _build/html
 ```
 
-Access to http://localhost:1234 on web browser
+Open http://localhost:1234 in a browser. The Quickstart, guides, API index and
+WebDriver module pages are maintained here. Sphinx generates the options pages
+in `generated/` from the API index.
 
+### Publishing
 
-### How to deploy generated doc
-Handled at https://github.com/ki4070ma/python-client-sphinx
+[appium/python-client-sphinx](https://github.com/appium/python-client-sphinx)
+builds these sources and publishes the HTML with GitHub Pages.

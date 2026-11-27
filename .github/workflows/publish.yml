@@ -24,6 +24,7 @@ jobs:
         run: make install-uv
 
       - name: Semantic Release Version
+        id: version
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: uv run semantic-release version
@@ -48,3 +49,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: uv run semantic-release publish
+
+      - name: Build documentation for the published release
+        if: steps.version.outputs.released == 'true' && steps.check_dist.outputs.exists == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.DOCS_DISPATCH_TOKEN }}
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: gh workflow run pythonpackage.yml --repo appium/python-client-sphinx --ref master --field "ref=$RELEASE_TAG"

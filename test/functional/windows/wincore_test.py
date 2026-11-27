@@ -16,16 +16,15 @@ import os
 from pathlib import Path
 
 from appium import webdriver
-from appium.options.common import AppiumOptions
+from appium.options.windows import WincoreOptions
 from appium.webdriver.common.appiumby import AppiumBy
 from test.helpers.constants import SERVER_URL_BASE
 
 
 def test_find_character_map_font_selector():
     charmap = Path(os.environ['SYSTEMROOT']) / 'System32' / 'charmap.exe'
-    options = AppiumOptions().load_capabilities(
-        {'platformName': 'windows', 'appium:automationName': 'Wincore', 'appium:app': str(charmap)}
-    )
+    options = WincoreOptions()
+    options.app = str(charmap)
     with webdriver.Remote(SERVER_URL_BASE, options=options) as driver:
         driver.implicitly_wait(10)
         font_selector = driver.find_element(

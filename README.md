@@ -288,6 +288,7 @@ any | `appium.options.common.base.AppiumOptions`
 `safari` | `appium.options.ios.SafariOptions`
 `mac2` | `appium.options.mac.Mac2Options`
 `windows` | `appium.options.WindowsOptions`
+`wincore` | `appium.options.windows.WincoreOptions`
 `gecko` | `appium.options.GeckoOptions`
 `flutterintegration` | `appium.options.flutter_integration.FlutterOptions`
 

@@ -96,7 +96,7 @@ For example, some changes in the Selenium binding could break the Appium client.
         - [appium/webdriver/extensions/action_helpers.py](appium/webdriver/extensions/action_helpers.py)
         - https://www.selenium.dev/documentation/webdriver/actions_api/
         - https://www.youtube.com/watch?v=oAJ7jwMNFVU
-    - Deprecated `AppiumBy.WINDOWS_UI_AUTOMATION`, which has no usage right now.
+    - Removed `AppiumBy.WINDOWS_UI_AUTOMATION` in v4.
 
 ### Quick migration guide from v2 to v3
 - `options` keyword argument in the `webdriver.Remote` constructor such as `XCUITestOptions` instead of `desired_capabilities`
@@ -269,6 +269,8 @@ def test_android_click(appium_service, android_driver_factory):
         el.click()
 ```
 
+With the WinCore driver, use `AppiumBy.WINDOWS_UI_AUTOMATION` to find Windows elements by a UI Automation condition.
+
 ### Available `options`
 
 Appium Python Client has a common options class named `AppiumOptions` but the available commands are minimal.
@@ -286,6 +288,7 @@ any | `appium.options.common.base.AppiumOptions`
 `safari` | `appium.options.ios.SafariOptions`
 `mac2` | `appium.options.mac.Mac2Options`
 `windows` | `appium.options.WindowsOptions`
+`wincore` | `appium.options.windows.WincoreOptions`
 `gecko` | `appium.options.GeckoOptions`
 `flutterintegration` | `appium.options.flutter_integration.FlutterOptions`
 
@@ -551,3 +554,4 @@ uv run semantic-release publish
 ## License
 
 Apache License v2
+

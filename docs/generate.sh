@@ -1,4 +1,6 @@
 #!/bin/sh
-rm -rf *rst _build
-uv run sphinx-apidoc -F -H 'Appium python client' -o . ../appium/webdriver ../appium/webdriver/mobilecommand.py
+set -eu
+
+# The module reference lives alongside the authored guides. Sphinx generates
+# individual options pages from the autosummary table in api.rst.
 make html

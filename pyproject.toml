@@ -1,7 +1,7 @@
 [project]
 name = "Appium-Python-Client"
 description = "Python client for Appium"
-version = "6.3.0"
+version = "6.5.2"
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
@@ -56,7 +56,7 @@ dev = [
 
   # for documentation
   "sphinx>=4.0,<9.0",
-  "sphinx_rtd_theme~=3.0",
+  "pydata-sphinx-theme>=0.16,<1",
   "sphinxcontrib-apidoc~=0.6",
 ]
 

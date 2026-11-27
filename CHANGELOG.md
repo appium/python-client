@@ -2,6 +2,107 @@
 
 <!-- version list -->
 
+## v6.5.2 (2026-11-27)
+
+### Bug Fixes
+
+- A dummy commit to kick a patch release
+  ([`6b30a0e`](https://github.com/appium/python-client/commit/6b30a0e69537efc11fcdac212a11c42f26b06f21))
+
+### Chores
+
+- To kick a docs hook
+  ([`8dc9509`](https://github.com/appium/python-client/commit/8dc9509a8ab2370f07a16c1d38de16361dc16ab2))
+
+
+## v6.5.1 (2026-11-27)
+
+### Bug Fixes
+
+- Use GET instead of HEAD for AppiumService status checks
+  ([#1381](https://github.com/appium/python-client/pull/1381),
+  [`5e1b622`](https://github.com/appium/python-client/commit/5e1b6226def3b3b0d893868340e28be7950e26c7))
+
+### Continuous Integration
+
+- Pin the WinCore functional test to Appium 3
+  ([#1383](https://github.com/appium/python-client/pull/1383),
+  [`9d7c2f0`](https://github.com/appium/python-client/commit/9d7c2f013f2277c0ed67fe6ba86d736aeb704d98))
+
+- Trigger versioned documentation after publishing a release
+  ([#1387](https://github.com/appium/python-client/pull/1387),
+  [`ed41dfa`](https://github.com/appium/python-client/commit/ed41dfa6390b1950913aade8303d4a983b2ab046))
+
+- Use Appium 3 for all functional tests ([#1383](https://github.com/appium/python-client/pull/1383),
+  [`9d7c2f0`](https://github.com/appium/python-client/commit/9d7c2f013f2277c0ed67fe6ba86d736aeb704d98))
+
+### Documentation
+
+- Add a task-oriented Python client documentation home
+  ([#1386](https://github.com/appium/python-client/pull/1386),
+  [`4583f61`](https://github.com/appium/python-client/commit/4583f61fc28a6a3b466c5aa2a6039bfa5c9d463b))
+
+### Testing
+
+- Run functional tests on Appium 3 and exercise WincoreOptions
+  ([#1383](https://github.com/appium/python-client/pull/1383),
+  [`9d7c2f0`](https://github.com/appium/python-client/commit/9d7c2f013f2277c0ed67fe6ba86d736aeb704d98))
+
+- Use WincoreOptions in the Windows functional test
+  ([#1383](https://github.com/appium/python-client/pull/1383),
+  [`9d7c2f0`](https://github.com/appium/python-client/commit/9d7c2f013f2277c0ed67fe6ba86d736aeb704d98))
+
+
+## v6.5.0 (2026-11-27)
+
+### Bug Fixes
+
+- **options**: Normalize WinCore capability aliases and lowercase platformName
+  ([#1369](https://github.com/appium/python-client/pull/1369),
+  [`fc92cea`](https://github.com/appium/python-client/commit/fc92cea90188a3e019d1c7ab24108e55e854a401))
+
+### Continuous Integration
+
+- **deps-dev**: Bump ruff from 0.17.2 to 0.17.6
+  ([#1374](https://github.com/appium/python-client/pull/1374),
+  [`6e6ff08`](https://github.com/appium/python-client/commit/6e6ff08341738f5ddb7158f1d79c454ac0ebc55d))
+
+### Features
+
+- **options**: Add WincoreOptions for appium-wincore-driver
+  ([#1369](https://github.com/appium/python-client/pull/1369),
+  [`fc92cea`](https://github.com/appium/python-client/commit/fc92cea90188a3e019d1c7ab24108e55e854a401))
+
+### Refactoring
+
+- **options**: Split WinCore capabilities into per-option mixins
+  ([#1369](https://github.com/appium/python-client/pull/1369),
+  [`fc92cea`](https://github.com/appium/python-client/commit/fc92cea90188a3e019d1c7ab24108e55e854a401))
+
+
+## v6.4.0 (2026-11-26)
+
+### Features
+
+- Restore Windows UI Automation locator for WinCore
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+### Testing
+
+- Collect Windows tests as part of the test package
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+- Exercise the WinCore locator on Windows
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+- Resolve the WinCore test app path on the runner
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+
 ## v6.3.0 (2026-11-26)
 
 ### Features

@@ -2,6 +2,55 @@
 
 <!-- version list -->
 
+## v6.4.0 (2026-11-26)
+
+### Features
+
+- Restore Windows UI Automation locator for WinCore
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+### Testing
+
+- Collect Windows tests as part of the test package
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+- Exercise the WinCore locator on Windows
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+- Resolve the WinCore test app path on the runner
+  ([#1380](https://github.com/appium/python-client/pull/1380),
+  [`52da41d`](https://github.com/appium/python-client/commit/52da41df44dc1d82c5fea9c1eb6cc7dd0e30e2a4))
+
+
+## v6.3.0 (2026-11-26)
+
+### Features
+
+- Add text locator for expresso driver ([#1378](https://github.com/appium/python-client/pull/1378),
+  [`9b2c826`](https://github.com/appium/python-client/commit/9b2c826a9448ea8a28db40fde45b6e900318cf9e))
+
+
+## v6.2.0 (2026-11-26)
+
+### Continuous Integration
+
+- **deps**: Bump actions/setup-java from 6.1.0 to 6.3.0
+  ([#1372](https://github.com/appium/python-client/pull/1372),
+  [`2855b6a`](https://github.com/appium/python-client/commit/2855b6a4d923cff00ff7d453c35a73f0ac2ceea1))
+
+- **deps**: Bump astral-sh/setup-uv from 10.3.3 to 10.4.0
+  ([#1371](https://github.com/appium/python-client/pull/1371),
+  [`a922245`](https://github.com/appium/python-client/commit/a92224599176720f52e6ba36d1be776440e82463))
+
+### Features
+
+- Support new android locators ([#1376](https://github.com/appium/python-client/pull/1376),
+  [`82a3c75`](https://github.com/appium/python-client/commit/82a3c753529984add4f540beefa13ec17ef80f33))
+
+
 ## v6.1.8 (2026-11-19)
 
 ### Bug Fixes

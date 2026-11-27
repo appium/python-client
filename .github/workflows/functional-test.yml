@@ -17,6 +17,44 @@ env:
   UV_LOCKED: 'true'
 
 jobs:
+  wincore_test:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v7
+
+    - uses: actions/setup-node@v7
+      with:
+        node-version: 'lts/*'
+
+    - uses: astral-sh/setup-uv@v10.4.0
+      with:
+        python-version: '3.14'
+
+    - name: Install Appium and WinCore
+      shell: bash
+      run: |
+        npm install -g appium
+        appium driver install wincore
+
+    - name: Run WinCore locator test
+      shell: bash
+      run: |
+        appium server --address "$APPIUM_TEST_SERVER_HOST" --port "$APPIUM_TEST_SERVER_PORT" > appium.log 2>&1 &
+        trap 'kill "$!"' EXIT
+        curl --fail --silent --show-error --retry 30 --retry-connrefused --retry-delay 1 \
+          "http://$APPIUM_TEST_SERVER_HOST:$APPIUM_TEST_SERVER_PORT/status"
+        uv run pytest -v test/functional/windows/wincore_test.py --junitxml=junit/test-results.xml
+
+    - name: Save test diagnostics
+      if: always()
+      uses: actions/upload-artifact@master
+      with:
+        name: appium-wincore-diagnostics
+        path: |
+          appium.log
+          junit/
+
   ios_test:
     timeout-minutes: 60
     strategy:
@@ -83,7 +121,7 @@ jobs:
         python-version: 3.14
 
     - name: Set up uv
-      uses: astral-sh/setup-uv@v10.3.3
+      uses: astral-sh/setup-uv@v10.4.0
       with:
         enable-cache: true
         python-version: '3.14'
@@ -129,7 +167,7 @@ jobs:
     steps:
     - uses: actions/checkout@v7
 
-    - uses: actions/setup-java@v6.1.0
+    - uses: actions/setup-java@v6.3.0
       with:
         distribution: 'temurin'
         java-version: '17'
@@ -190,7 +228,7 @@ jobs:
         python-version: 3.14
 
     - name: Set up uv
-      uses: astral-sh/setup-uv@v10.3.3
+      uses: astral-sh/setup-uv@v10.4.0
       with:
         enable-cache: true
         python-version: '3.14'
@@ -253,7 +291,7 @@ jobs:
 
     - uses: actions/checkout@v7
 
-    - uses: actions/setup-java@v6.1.0
+    - uses: actions/setup-java@v6.3.0
       if: matrix.e2e-tests == 'flutter-android'
       with:
         distribution: 'zulu'
@@ -306,7 +344,7 @@ jobs:
         log_file: appium-${{ matrix.e2e-tests }}.log
 
     - name: Set up uv
-      uses: astral-sh/setup-uv@v10.3.3
+      uses: astral-sh/setup-uv@v10.4.0
       with:
         enable-cache: true
         python-version: '3.14'

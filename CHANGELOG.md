@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v6.5.2 (2026-11-27)
+
+### Bug Fixes
+
+- A dummy commit to kick a patch release
+  ([`6b30a0e`](https://github.com/appium/python-client/commit/6b30a0e69537efc11fcdac212a11c42f26b06f21))
+
+### Chores
+
+- To kick a docs hook
+  ([`8dc9509`](https://github.com/appium/python-client/commit/8dc9509a8ab2370f07a16c1d38de16361dc16ab2))
+
+
 ## v6.5.1 (2026-11-27)
 
 ### Bug Fixes

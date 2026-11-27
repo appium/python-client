@@ -234,7 +234,7 @@ def is_service_listening(url: str, timeout: float = 5, custom_validator: Callabl
             custom_validator()
         # noinspection PyUnresolvedReferences
         try:
-            resp = conn.request('HEAD', url)
+            resp = conn.request('GET', url)
             if resp.status < HTTP_STATUS_ERROR:
                 return True
         except urllib3.exceptions.HTTPError:

@@ -2,6 +2,44 @@
 
 <!-- version list -->
 
+## v6.5.1 (2026-11-27)
+
+### Bug Fixes
+
+- Use GET instead of HEAD for AppiumService status checks
+  ([#1381](https://github.com/appium/python-client/pull/1381),
+  [`5e1b622`](https://github.com/appium/python-client/commit/5e1b6226def3b3b0d893868340e28be7950e26c7))
+
+### Continuous Integration
+
+- Pin the WinCore functional test to Appium 3
+  ([#1383](https://github.com/appium/python-client/pull/1383),
+  [`9d7c2f0`](https://github.com/appium/python-client/commit/9d7c2f013f2277c0ed67fe6ba86d736aeb704d98))
+
+- Trigger versioned documentation after publishing a release
+  ([#1387](https://github.com/appium/python-client/pull/1387),
+  [`ed41dfa`](https://github.com/appium/python-client/commit/ed41dfa6390b1950913aade8303d4a983b2ab046))
+
+- Use Appium 3 for all functional tests ([#1383](https://github.com/appium/python-client/pull/1383),
+  [`9d7c2f0`](https://github.com/appium/python-client/commit/9d7c2f013f2277c0ed67fe6ba86d736aeb704d98))
+
+### Documentation
+
+- Add a task-oriented Python client documentation home
+  ([#1386](https://github.com/appium/python-client/pull/1386),
+  [`4583f61`](https://github.com/appium/python-client/commit/4583f61fc28a6a3b466c5aa2a6039bfa5c9d463b))
+
+### Testing
+
+- Run functional tests on Appium 3 and exercise WincoreOptions
+  ([#1383](https://github.com/appium/python-client/pull/1383),
+  [`9d7c2f0`](https://github.com/appium/python-client/commit/9d7c2f013f2277c0ed67fe6ba86d736aeb704d98))
+
+- Use WincoreOptions in the Windows functional test
+  ([#1383](https://github.com/appium/python-client/pull/1383),
+  [`9d7c2f0`](https://github.com/appium/python-client/commit/9d7c2f013f2277c0ed67fe6ba86d736aeb704d98))
+
+
 ## v6.5.0 (2026-11-27)
 
 ### Bug Fixes

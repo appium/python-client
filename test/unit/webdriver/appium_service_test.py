@@ -12,12 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from unittest.mock import Mock, call
 
 import pytest
+from selenium.webdriver.remote.remote_connection import urllib3
 
 from appium.webdriver import appium_service
-from appium.webdriver.appium_service import AppiumService, AppiumServiceError
+from appium.webdriver.appium_service import AppiumService, AppiumServiceError, AppiumStartupError, is_service_listening
 
 
 class TestAppiumService:
@@ -71,6 +74,73 @@ class TestAppiumService:
         assert service.is_listening is expected_result
         assert clock.perf_counter.return_value == expected_elapsed
         assert connection.request.call_args_list == [call('GET', 'http://127.0.0.1:4723/status')] * expected_requests
+
+    def test_is_service_listening_uses_get_when_server_rejects_head(self):
+        received: list[tuple[str, str]] = []
+
+        class StatusHandler(BaseHTTPRequestHandler):
+            def do_HEAD(self) -> None:
+                received.append(('HEAD', self.path))
+                self.send_response(405)
+                self.end_headers()
+
+            def do_GET(self) -> None:
+                received.append(('GET', self.path))
+                body = b'{"value":{"ready":true}}'
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Content-Length', str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+            def log_message(self, format: str, *args: object) -> None:
+                return
+
+        server = ThreadingHTTPServer(('127.0.0.1', 0), StatusHandler)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            url = f'http://127.0.0.1:{server.server_port}/status'
+            assert is_service_listening(url, timeout=1.0) is True
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join(timeout=2.0)
+
+        assert received == [('GET', '/status')]
+
+    def test_is_service_listening_retries_get_until_ready(self, monkeypatch):
+        clock = Mock()
+        clock.perf_counter.return_value = 0.0
+
+        def advance_time(seconds):
+            clock.perf_counter.return_value += seconds
+
+        clock.sleep.side_effect = advance_time
+        monkeypatch.setattr(appium_service, 'time', clock)
+
+        connection = Mock()
+        connection.request.side_effect = [
+            urllib3.exceptions.HTTPError('connection refused'),
+            Mock(status=503),
+            Mock(status=200),
+        ]
+        monkeypatch.setattr(appium_service.urllib3, 'PoolManager', Mock(return_value=connection))
+
+        assert is_service_listening('http://127.0.0.1:4723/status', timeout=5.0) is True
+        assert connection.request.call_args_list == [call('GET', 'http://127.0.0.1:4723/status')] * 3
+
+    def test_is_service_listening_propagates_custom_validator_error(self, monkeypatch):
+        connection = Mock()
+        monkeypatch.setattr(appium_service.urllib3, 'PoolManager', Mock(return_value=connection))
+
+        def fail_validator() -> None:
+            raise AppiumStartupError()
+
+        with pytest.raises(AppiumStartupError):
+            is_service_listening('http://127.0.0.1:4723/status', timeout=5.0, custom_validator=fail_validator)
+
+        connection.request.assert_not_called()
 
     @pytest.mark.parametrize(
         ('poll_result', 'is_service_listening', 'expected_message'),

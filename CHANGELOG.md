@@ -2,6 +2,33 @@
 
 <!-- version list -->
 
+## v6.5.0 (2026-11-27)
+
+### Bug Fixes
+
+- **options**: Normalize WinCore capability aliases and lowercase platformName
+  ([#1369](https://github.com/appium/python-client/pull/1369),
+  [`fc92cea`](https://github.com/appium/python-client/commit/fc92cea90188a3e019d1c7ab24108e55e854a401))
+
+### Continuous Integration
+
+- **deps-dev**: Bump ruff from 0.17.2 to 0.17.6
+  ([#1374](https://github.com/appium/python-client/pull/1374),
+  [`6e6ff08`](https://github.com/appium/python-client/commit/6e6ff08341738f5ddb7158f1d79c454ac0ebc55d))
+
+### Features
+
+- **options**: Add WincoreOptions for appium-wincore-driver
+  ([#1369](https://github.com/appium/python-client/pull/1369),
+  [`fc92cea`](https://github.com/appium/python-client/commit/fc92cea90188a3e019d1c7ab24108e55e854a401))
+
+### Refactoring
+
+- **options**: Split WinCore capabilities into per-option mixins
+  ([#1369](https://github.com/appium/python-client/pull/1369),
+  [`fc92cea`](https://github.com/appium/python-client/commit/fc92cea90188a3e019d1c7ab24108e55e854a401))
+
+
 ## v6.4.0 (2026-11-26)
 
 ### Features

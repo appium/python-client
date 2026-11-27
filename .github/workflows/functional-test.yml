@@ -34,8 +34,8 @@ jobs:
     - name: Install Appium and WinCore
       shell: bash
       run: |
-        npm install -g appium
-        appium driver install wincore
+        npm install -g appium@3
+        appium driver install --source=npm appium-wincore-driver@3
 
     - name: Run WinCore locator test
       shell: bash
@@ -89,8 +89,8 @@ jobs:
 
     - name: Install Appium and drivers
       run: |
-        npm install -g appium
-        appium driver install xcuitest
+        npm install -g appium@3
+        appium driver install xcuitest@12
         appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
 
     - name: Start Appium server
@@ -184,10 +184,10 @@ jobs:
 
     - name: Install Appium and drivers
       run: |
-        npm install -g appium
-        appium driver install uiautomator2
-        appium driver install espresso
-        appium plugin install execute-driver
+        npm install -g appium@3
+        appium driver install uiautomator2@8
+        appium driver install espresso@9
+        appium plugin install execute-driver@7
 
     - name: Start Appium server
       uses: ./.github/actions/setup-appium-server
@@ -323,17 +323,17 @@ jobs:
     - name: Install Appium and drivers
       if: matrix.e2e-tests == 'flutter-android'
       run: |
-        npm install --location=global appium
-        appium driver install uiautomator2
-        appium driver install appium-flutter-integration-driver --source npm
+        npm install -g appium@3
+        appium driver install uiautomator2@8
+        appium driver install --source=npm appium-flutter-integration-driver@2
 
     - name: Install Appium and drivers
       if: matrix.e2e-tests == 'flutter-ios'
       run: |
-        npm install --location=global appium
-        appium driver install xcuitest
+        npm install -g appium@3
+        appium driver install xcuitest@12
         appium driver run xcuitest download-wda-sim  --platform=ios --outdir=$(dirname "$PREBUILT_WDA_PATH")
-        appium driver install appium-flutter-integration-driver --source npm
+        appium driver install --source=npm appium-flutter-integration-driver@2
 
     - name: Start Appium server
       uses: ./.github/actions/setup-appium-server

@@ -61,6 +61,15 @@ For example, some changes in the Selenium binding could break the Appium client.
 > [uv](https://docs.astral.sh/uv/) to keep compatible version combinations.
 
 
+### Session information on Appium Server 3 and 4
+
+Use `driver.capabilities` for the capabilities returned at session creation.
+To query the server again, use `driver.execute(MobileCommand.GET_CAPABILITIES)['value']` on either version.
+
+On Appium 3, `driver.events` reads timings included in the session details when `appium:eventTimings` is enabled.
+On Appium 4, it reads the dedicated events endpoint. On both versions, `driver.get_events()` queries that
+endpoint directly and accepts an optional list of event names.
+
 ### Quick migration guide from v4 to v5
 - This change affects only for users who specify `keep_alive`, `direct_connection` and `strict_ssl` arguments for `webdriver.Remote`:
     - Please use `AppiumClientConfig` as `client_config` argument similar to how it is specified below:

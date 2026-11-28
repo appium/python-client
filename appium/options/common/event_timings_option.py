@@ -25,15 +25,14 @@ class EventTimingsOption(SupportsCapabilities):
     @property
     def event_timings(self) -> bool | None:
         """
-        Whether the driver should to report the timings
-        for various Appium-internal events.
+        Include event timings in legacy session details on Appium 3 and earlier.
+        On Appium 4, use driver.events or driver.get_events() directly.
         """
         return self.get_capability(EVENT_TIMINGS)
 
     @event_timings.setter
     def event_timings(self, value: bool) -> None:
         """
-        Set whether the driver should to report the timings
-        for various Appium-internal events.
+        Include event timings in legacy session details on Appium 3 and earlier.
         """
         self.set_capability(EVENT_TIMINGS, value)

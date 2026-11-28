@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+from selenium.common.exceptions import UnknownMethodException
 from typing_extensions import Self
 
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
@@ -79,7 +80,12 @@ class Location(CanExecuteCommands, CanExecuteScripts):
                 - longitude (float)
                 - altitude (float)
         """
-        return self.execute(Command.GET_LOCATION)['value']
+        try:
+            return self.execute(Command.GET_LOCATION)['value']
+        except UnknownMethodException:
+            # Appium 4 delegates the location endpoint to drivers. Android
+            # drivers expose the getter through this execute method.
+            return self.execute_script('mobile: getGeolocation')
 
     def _add_commands(self) -> None:
         """Add location endpoints. They are not int w3c spec."""

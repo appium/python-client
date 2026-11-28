@@ -2,6 +2,20 @@
 
 <!-- version list -->
 
+## v6.6.0 (2026-11-28)
+
+### Features
+
+- Attach to an existing Appium session ([#1384](https://github.com/appium/python-client/pull/1384),
+  [`39b3064`](https://github.com/appium/python-client/commit/39b306481be8e60c9a8735e936165156c4bbd217))
+
+### Testing
+
+- Verify shared session timeouts after attaching
+  ([#1384](https://github.com/appium/python-client/pull/1384),
+  [`39b3064`](https://github.com/appium/python-client/commit/39b306481be8e60c9a8735e936165156c4bbd217))
+
+
 ## v6.5.2 (2026-11-27)
 
 ### Bug Fixes

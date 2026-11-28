@@ -49,3 +49,12 @@ def test_find_single_element(driver: 'WebDriver') -> None:
 
     # Chrome browser's default page
     assert '<html><head></head><body></body></html>' in driver.page_source
+
+
+def test_attach_to_existing_session(driver: 'WebDriver') -> None:
+    driver.implicitly_wait(1)
+    attached = webdriver.Remote.attach_to(driver.session_id, SERVER_URL_BASE)
+
+    assert attached.timeouts.implicit_wait == 1
+    attached.implicitly_wait(3)
+    assert driver.timeouts.implicit_wait == 3

@@ -26,6 +26,7 @@ from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 # `selenium.webdriver.Remote` could be used instead, but Pyright wouldn't locate the class properly.
 from selenium.webdriver.remote.webdriver import WebDriver as Remote
+from typing_extensions import Self
 
 from appium.common.logger import logger
 from appium.options.common.base import APPIUM_PREFIX, AppiumOptions
@@ -256,6 +257,8 @@ class WebDriver(
         extensions: list[type['ExtensionBase']] | None = None,
         options: AppiumOptions | list[AppiumOptions] | None = None,
         client_config: AppiumClientConfig | None = None,
+        *,
+        _existing_session: tuple[str, dict[str, Any]] | None = None,
     ):
         if isinstance(options, list):
             # Normalize before Selenium separates common and alternative capabilities.
@@ -266,6 +269,7 @@ class WebDriver(
         command_executor, client_config = _get_remote_connection_and_client_config(
             command_executor=command_executor, client_config=client_config
         )
+        self._existing_session = _existing_session
         super().__init__(
             command_executor=command_executor,
             options=options,  # type: ignore[arg-type]
@@ -282,7 +286,11 @@ class WebDriver(
         self.error_handler = MobileErrorHandler()
 
         effective_client_config = self.command_executor.client_config
-        if isinstance(effective_client_config, AppiumClientConfig) and effective_client_config.direct_connection:
+        if (
+            isinstance(effective_client_config, AppiumClientConfig)
+            and effective_client_config.direct_connection
+            and (_existing_session is None or self.caps)
+        ):
             self._update_command_executor(keep_alive=effective_client_config.keep_alive)
 
         self._absent_extensions: set[str] = set()
@@ -298,6 +306,32 @@ class WebDriver(
             setattr(WebDriver, method_name, getattr(instance, method_name))
             method, url_cmd = instance.add_command()
             self.command_executor.add_command(method_name, method.upper(), url_cmd)
+
+    @classmethod
+    def attach_to(
+        cls,
+        session_id: str,
+        command_executor: str | AppiumConnection = 'http://127.0.0.1:4723',
+        *,
+        capabilities: dict[str, Any] | None = None,
+        client_config: AppiumClientConfig | None = None,
+        extensions: list[type['ExtensionBase']] | None = None,
+    ) -> Self:
+        """Attach to a running session at the given Appium endpoint.
+
+        Pass the capabilities returned when the session was created if needed.
+        By default, driver.capabilities is empty. The first command checks whether
+        the session is still active. Calling quit() ends the shared session.
+        """
+        if not isinstance(session_id, str) or not session_id.strip():
+            raise InvalidArgumentException('session_id must be a non-empty string')
+        return cls(
+            command_executor=command_executor,
+            options=AppiumOptions(),
+            client_config=client_config,
+            extensions=extensions,
+            _existing_session=(session_id, copy.deepcopy(capabilities or {})),
+        )
 
     if TYPE_CHECKING:
 
@@ -367,6 +401,11 @@ class WebDriver(
              for more details.
             browser_profile: Browser profile
         """
+        if self._existing_session is not None:
+            self.session_id, self.caps = self._existing_session
+            self._existing_session = None
+            return
+
         if not isinstance(capabilities, (dict, AppiumOptions)):
             raise InvalidArgumentException('Capabilities must be a dictionary or AppiumOptions instance')
 

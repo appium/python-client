@@ -25,6 +25,7 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.appium_connection import AppiumConnection
 from appium.webdriver.client_config import AppiumClientConfig
+from appium.webdriver.mobilecommand import MobileCommand
 from appium.webdriver.webdriver import ExtensionBase, WebDriver, _get_remote_connection_and_client_config
 from test.helpers.constants import SERVER_URL_BASE
 from test.unit.helper.test_helper import (
@@ -34,6 +35,15 @@ from test.unit.helper.test_helper import (
     ios_w3c_driver,
     ios_w3c_driver_with_extensions,
 )
+
+
+def register_removed_session_endpoint():
+    httpretty.register_uri(
+        httpretty.GET,
+        appium_command('/session/1234567890'),
+        status=404,
+        body=json.dumps({'value': {'error': 'unknown command', 'message': 'Unknown endpoint'}}),
+    )
 
 
 class TestWebDriverWebDriver:
@@ -536,25 +546,43 @@ class TestWebDriverWebDriver:
         assert isinstance(driver.command_executor, AppiumConnection)
 
     @httpretty.activate
-    def test_get_events(self):
+    @pytest.mark.parametrize('details', [{'platformName': 'iOS'}, {'platformName': 'iOS', 'events': {'started': [1]}}])
+    def test_legacy_session_details(self, details):
         driver = ios_w3c_driver()
-        httpretty.register_uri(
-            httpretty.GET,
-            appium_command('/session/1234567890'),
-            body=json.dumps({'value': {'events': {'simStarted': [1234567890]}}}),
-        )
-        events = driver.events
-        assert events['simStarted'] == [1234567890]
+        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890'), body=json.dumps({'value': details}))
+        assert driver.execute(MobileCommand.GET_CAPABILITIES)['value'] == details
+        assert driver.events == details.get('events', {})
 
     @httpretty.activate
-    def test_get_events_catches_missing_events(self):
+    def test_get_session_capabilities(self):
         driver = ios_w3c_driver()
-        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890'), body=json.dumps({'value': {}}))
-        events = driver.events
-        assert events == {}
-        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890'), body=json.dumps({}))
-        events = driver.events
-        assert events == {}
+        register_removed_session_endpoint()
+        capabilities = {'platformName': 'iOS'}
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/appium/capabilities'),
+            body=json.dumps({'value': {'capabilities': capabilities}}),
+        )
+        assert driver.execute(MobileCommand.GET_CAPABILITIES)['value'] == capabilities
+
+    @httpretty.activate
+    def test_get_events(self):
+        driver = ios_w3c_driver()
+        register_removed_session_endpoint()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/events'),
+            body=json.dumps({'value': {'simStarted': [1234567890]}}),
+        )
+        assert driver.events == {'simStarted': [1234567890]}
+
+    @httpretty.activate
+    @pytest.mark.parametrize('body', [{'value': {}}, {}])
+    def test_get_events_catches_missing_events(self, body):
+        driver = ios_w3c_driver()
+        register_removed_session_endpoint()
+        httpretty.register_uri(httpretty.POST, appium_command('/session/1234567890/appium/events'), body=json.dumps(body))
+        assert driver.events == {}
 
     @httpretty.activate
     @pytest.mark.parametrize('by', [By.ID, By.NAME, By.CLASS_NAME])
@@ -581,15 +609,16 @@ class TestWebDriverWebDriver:
         assert d == {'using': by, 'value': 'bar'}
 
     @httpretty.activate
-    @patch('appium.webdriver.webdriver.logger.warning')
-    def test_session_catches_error(self, mock_warning):
-        def exceptionCallback(request, uri, headers):
-            raise Exception()
-
+    def test_session_catches_error(self):
         driver = ios_w3c_driver()
-        httpretty.register_uri(httpretty.GET, appium_command('/session/1234567890'), body=exceptionCallback)
-        events = driver.events
-        assert events == {}
+        register_removed_session_endpoint()
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/appium/events'),
+            status=404,
+            body=json.dumps({'value': {'error': 'invalid session id', 'message': 'Session ended'}}),
+        )
+        assert driver.events == {}
 
     @httpretty.activate
     def test_add_command(self):

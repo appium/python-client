@@ -13,6 +13,8 @@
 # limitations under the License.
 
 
+from selenium.common.exceptions import UnknownMethodException
+
 from appium.common.logger import logger
 from appium.protocols.webdriver.can_execute_commands import CanExecuteCommands
 
@@ -31,7 +33,11 @@ class Session(CanExecuteCommands):
             `dict`:  containing events timing information from the current session
         """
         try:
-            return self.execute(Command.GET_SESSION)['value']['events']
+            try:
+                details = self.execute(Command.GET_SESSION)['value']
+            except UnknownMethodException:
+                return self.execute(Command.GET_EVENTS)['value'] or {}
+            return details.get('events', {})
         except Exception as e:
             logger.warning('Could not find events information in the session. Error: %s', e)
             return {}

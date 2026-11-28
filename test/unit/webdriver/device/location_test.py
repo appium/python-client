@@ -92,3 +92,20 @@ class TestWebDriverLocation:
         assert abs(val['latitude'] - 11.1) <= FLT_EPSILON
         assert abs(val['longitude'] - 22.2) <= FLT_EPSILON
         assert abs(val['altitude'] - 33.3) <= FLT_EPSILON
+
+    @httpretty.activate
+    def test_location_when_driver_only_supports_execute_method(self):
+        driver = android_w3c_driver()
+        httpretty.register_uri(
+            httpretty.GET,
+            appium_command('/session/1234567890/location'),
+            status=404,
+            body='{"value": {"error": "unknown command", "message": "Unknown endpoint"}}',
+        )
+        httpretty.register_uri(
+            httpretty.POST,
+            appium_command('/session/1234567890/execute/sync'),
+            body='{"value": {"latitude": 11.1, "longitude": 22.2, "altitude": 0}}',
+        )
+        assert driver.location == {'latitude': 11.1, 'longitude': 22.2, 'altitude': 0}
+        assert get_httpretty_request_body(httpretty.last_request()) == {'script': 'mobile: getGeolocation', 'args': []}

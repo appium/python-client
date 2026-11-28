@@ -16,6 +16,7 @@
 class MobileCommand:
     # Common
     GET_SESSION = 'getSession'
+    GET_APPIUM_SESSION_CAPABILITIES = 'getAppiumSessionCapabilities'
 
     GET_STATUS = 'getStatus'
 

@@ -13,12 +13,13 @@
 # limitations under the License.
 
 import copy
-from collections.abc import Callable
+from collections.abc import Callable, Generator
 from typing import TYPE_CHECKING, Any
 
 from selenium.common.exceptions import (
     InvalidArgumentException,
     SessionNotCreatedException,
+    UnknownMethodException,
     WebDriverException,
 )
 from selenium.webdriver.remote.command import Command as RemoteCommand
@@ -440,6 +441,16 @@ class WebDriver(
         self.session_id = session_id
         self.caps = get_response_value('capabilities') or {}
 
+    def execute(self, driver_command: str | Generator[dict[str, Any], Any, Any], params: dict[str, Any] | None = None) -> Any:
+        if driver_command != Command.GET_CAPABILITIES:
+            return super().execute(driver_command, params)
+        try:
+            return super().execute(driver_command, params)
+        except UnknownMethodException:
+            # Appium 4 removed Get Session and wraps capabilities in an extra object.
+            response = super().execute(Command.GET_APPIUM_SESSION_CAPABILITIES, params)
+            return {**response, 'value': response['value']['capabilities']}
+
     def get_status(self) -> dict:
         """
         Get the Appium server status
@@ -535,9 +546,13 @@ class WebDriver(
             '/session/$sessionId/element/$id/location_in_view',
         )
 
+        self.command_executor.add_command(
+            Command.GET_APPIUM_SESSION_CAPABILITIES, 'GET', '/session/$sessionId/appium/capabilities'
+        )
+        self.command_executor.add_command(Command.GET_CAPABILITIES, 'GET', '/session/$sessionId')
+
         # MJSONWP for Selenium v4
         self.command_executor.add_command(Command.IS_ELEMENT_DISPLAYED, 'GET', '/session/$sessionId/element/$id/displayed')
-        self.command_executor.add_command(Command.GET_CAPABILITIES, 'GET', '/session/$sessionId')
 
         self.command_executor.add_command(Command.GET_SCREEN_ORIENTATION, 'GET', '/session/$sessionId/orientation')
         self.command_executor.add_command(Command.SET_SCREEN_ORIENTATION, 'POST', '/session/$sessionId/orientation')
